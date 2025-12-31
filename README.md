@@ -46,28 +46,21 @@
 
 ## MCP 服务器集成
 
-本项目已集成 10 个最常用的 Model Context Protocol (MCP) 服务器，增强了 AI 辅助学习能力：
+本项目已集成 5 个开箱即用的 Model Context Protocol (MCP) 服务器，增强了 AI 辅助学习能力：
 
-### 已安装的 MCP 服务器
+### 已配置的 MCP 服务器（无需 API 密钥）
 
 1. **📁 Filesystem** - 本地文件操作和管理
-2. **🐙 GitHub** - 仓库管理和版本控制
-3. **🔍 Brave Search** - 网页搜索和资料查询
-4. **🎭 Playwright** - 浏览器自动化和测试
-5. **🐘 PostgreSQL** - 数据库查询和管理
-6. **💬 Slack** - 团队协作和消息管理
-7. **📊 Google Drive** - 云端文档管理
-8. **🔎 Exa Search** - AI 语义搜索
-9. **📄 PDF Reader** - PDF 文档读取和分析
-10. **🔡 TextIn OCR** - 图片和扫描文档文字识别
+2. **🌐 Fetch** - 网页内容获取和抓取
+3. **🧠 Memory** - 知识图谱和记忆管理
+4. **⏰ Time** - 时间工具和日期计算
+5. **📄 PDF Reader** - PDF 文档读取和分析
 
 详细配置和使用指南请查看: [notes/MCP-SERVERS.md](notes/MCP-SERVERS.md)
 
 ### 快速开始
 
-1. 配置 API 密钥（如需要）
-2. 在 Claude Code 中直接使用 MCP 功能
-3. 享受增强的 AI 辅助学习体验
+这些 MCP 服务器已配置完成，可直接在 Claude Code 中使用，无需额外设置 API 密钥。
 
 ## 学习资源
 
@@ -78,5 +71,5 @@
 ---
 
 **开始时间**: 2025-12-30
-**最后更新**: 2025-12-30
-**MCP 服务器数量**: 10
+**最后更新**: 2025-12-31
+**MCP 服务器数量**: 5（已配置可用）

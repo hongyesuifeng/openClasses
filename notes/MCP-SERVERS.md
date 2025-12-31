@@ -1,8 +1,8 @@
 # MCP 服务器使用指南
 
-本项目已配置10个最常用的 Model Context Protocol (MCP) 服务器，增强了 Claude Code 的能力。
+本项目已配置 5 个开箱即用的 Model Context Protocol (MCP) 服务器，无需 API 密钥即可使用。
 
-## 已安装的 MCP 服务器
+## 已配置的 MCP 服务器（无需 API 密钥）
 
 ### 1. 📁 Filesystem MCP Server
 **包名**: `@modelcontextprotocol/server-filesystem`
@@ -21,165 +21,64 @@
 
 ---
 
-### 2. 🐙 GitHub MCP Server
-**包名**: `@modelcontextprotocol/server-github`
+### 2. 🌐 Fetch MCP Server
+**包名**: `@modelcontextprotocol/server-fetch`
 
 **功能**:
-- 管理仓库、分支、PR、Issues
-- 提交代码、查看历史
-- 代码审查
+- 获取网页内容
+- HTTP 请求
+- API 调用
+- 内容抓取
 
 **使用场景**:
-- 自动化版本控制
-- PR 管理
-- CI/CD 集成
-
-**配置**:
-需要设置 GitHub Token:
-```bash
-# 在 mcp-config.json 中设置:
-"GITHUB_TOKEN": "your_github_personal_access_token"
-```
-
-获取 Token: https://github.com/settings/tokens
-
----
-
-### 3. 🔍 Brave Search MCP Server
-**包名**: `@modelcontextprotocol/server-brave-search`
-
-**功能**:
-- 隐私优先的网页搜索
+- 获取在线资源
+- 爬取网页数据
+- 调用公开 API
 - 实时信息获取
-- 内容总结
-
-**使用场景**:
-- 研究和资料收集
-- 查找最新信息
-- 技术文档查询
 
 **配置**: 开箱即用，无需 API 密钥
 
 ---
 
-### 4. 🎭 Playwright MCP Server
-**包名**: `@executeautomation/playwright-mcp-server`
+### 3. 🧠 Memory MCP Server
+**包名**: `@modelcontextprotocol/server-memory`
 
 **功能**:
-- 浏览器自动化
-- 网页截图
-- 执行 JavaScript
-- 表单填写
+- 知识图谱管理
+- 实体关系存储
+- 语义搜索
+- 长期记忆
 
 **使用场景**:
-- 自动化测试
-- 网页抓取
-- UI 验证
-- 浏览器交互
+- 构建知识库
+- 记录重要信息
+- 语义检索
+- 知识关联
 
-**配置**:
-首次使用需要安装浏览器：
-```bash
-npx playwright install
-```
+**配置**: 开箱即用，无需 API 密钥
 
 ---
 
-### 5. 🐘 PostgreSQL MCP Server
-**包名**: `@modelcontextprotocol/server-postgres`
+### 4. ⏰ Time MCP Server
+**包名**: `@modelcontextprotocol/server-time`
 
 **功能**:
-- 执行 SQL 查询
-- 分析数据库模式
-- 数据建模
+- 获取当前时间
+- 时区转换
+- 日期计算
+- 时间格式化
 
 **使用场景**:
-- 数据分析
-- 后端开发
-- 数据库管理
+- 时间戳转换
+- 日程管理
+- 截止日期计算
+- 多时区协作
 
-**配置**:
-需要数据库连接字符串：
-```json
-"postgresql://username:password@localhost:5432/database_name"
-```
+**配置**: 开箱即用，无需 API 密钥
 
 ---
 
-### 6. 💬 Slack MCP Server
-**包名**: `@modelcontextprotocol/server-slack`
-
-**功能**:
-- 发送消息
-- 频道摘要
-- 搜索对话
-- 工作区管理
-
-**使用场景**:
-- 团队协作自动化
-- 通知管理
-- 讨论总结
-
-**配置**:
-需要 Slack Token:
-```bash
-# 在 mcp-config.json 中设置:
-"SLACK_TOKEN": "xoxb-your-token-here"
-```
-
-获取 Token: https://api.slack.com/authentication/token-types
-
----
-
-### 7. 📊 Google Drive MCP Server
-**包名**: `@modelcontextprotocol/server-gdrive`
-
-**功能**:
-- 搜索文件
-- 读取文档
-- 文件分类
-- 协作文档管理
-
-**使用场景**:
-- 云端文档管理
-- 资料整理
-- 团队资源共享
-
-**配置**:
-需要 Google Credentials JSON:
-1. 创建 Google Cloud 项目
-2. 启用 Drive API
-3. 下载服务账号密钥
-4. 在配置中设置 `GOOGLE_CREDENTIALS`
-
----
-
-### 8. 🔎 Exa Search MCP Server
-**包名**: `exa-mcp-server`
-
-**功能**:
-- AI 驱动的语义搜索
-- GitHub 代码搜索
-- 公司研究
-- 深度研究
-
-**使用场景**:
-- 智能代码搜索
-- 技术研究
-- 竞品分析
-
-**配置**:
-需要 Exa API Key:
-```bash
-# 在 mcp-config.json 中设置:
-"EXA_API_KEY": "your_exa_api_key"
-```
-
-获取 API Key: https://docs.exa.ai/reference/exa-mcp
-
----
-
-### 9. 📄 PDF Reader MCP Server
+### 5. 📄 PDF Reader MCP Server
 **包名**: `@sylphx/pdf-reader-mcp`
 
 **功能**:
@@ -198,62 +97,94 @@ npx playwright install
 
 ---
 
-### 10. 🔡 TextIn OCR MCP Server
+## 其他需要 API 密钥的 MCP 服务器
+
+以下是官方推荐的其他 MCP 服务器，需要配置 API 密钥才能使用：
+
+### 🐙 GitHub MCP Server
+**包名**: `@modelcontextprotocol/server-github`
+
+需要 GitHub Token，用于仓库管理、PR、Issues 等操作。
+
+### 💬 Slack MCP Server
+**包名**: `@modelcontextprotocol/server-slack`
+
+需要 Slack Token，用于消息发送、频道管理等。
+
+### 📊 Google Drive MCP Server
+**包名**: `@modelcontextprotocol/server-gdrive`
+
+需要 Google Credentials，用于云端文档管理。
+
+### 🔎 Exa Search MCP Server
+**包名**: `exa-mcp-server`
+
+需要 Exa API Key，提供 AI 驱动的语义搜索。
+
+### 🔡 TextIn OCR MCP Server
 **包名**: `@intsig/server-textin`
 
-**功能**:
-- 图片 OCR 识别
-- PDF 文字识别
-- Word 文档识别
-- 多语言支持
+需要 TextIn API Key，用于图片和扫描文档文字识别。
 
-**使用场景**:
-- 扫描文档数字化
-- 图片文字提取
-- 自动化数据录入
-- 多语言文档处理
+### 🐘 PostgreSQL MCP Server
+**包名**: `@modelcontextprotocol/server-postgres`
 
-**配置**:
-需要 TextIn API Key:
-```bash
-# 在 mcp-config.json 中设置:
-"TEXTIN_API_KEY": "your_textin_api_key"
-```
+需要数据库连接字符串，用于数据库查询和管理。
 
-获取 API Key: 需要在 TextIn 官网注册
+### 🎭 Playwright MCP Server
+**包名**: `@executeautomation/playwright-mcp-server`
+
+需要安装浏览器，用于浏览器自动化和测试。
 
 ---
 
-## 配置步骤
+## 配置说明
 
-### 1. 复制配置文件
+### 当前配置状态
 
-```bash
-# 配置文件位于
-.claude/mcp-config.json
-```
+✅ **已配置并可用**（5个服务器）：
+- Filesystem
+- Fetch
+- Memory
+- Time
+- PDF Reader
 
-### 2. 设置 API 密钥
+⚠️ **未配置**（需要 API 密钥）：
+- GitHub
+- Slack
+- Google Drive
+- Exa
+- TextIn OCR
+- PostgreSQL
+- Playwright
 
-编辑 `mcp-config.json`，替换以下占位符：
-- `YOUR_GITHUB_TOKEN_HERE`
-- `YOUR_SLACK_TOKEN_HERE`
-- `YOUR_GOOGLE_CREDENTIALS_HERE`
-- `YOUR_EXA_API_KEY_HERE`
-- `YOUR_TEXTIN_API_KEY_HERE`
+### 添加需要 API 密钥的服务器
 
-### 3. 配置 PostgreSQL（可选）
+如果你需要使用上述需要 API 密钥的服务器，可以按以下步骤操作：
 
-如果你使用 PostgreSQL，更新连接字符串：
-```json
-"postgresql://username:password@localhost:5432/your_database"
-```
+1. **获取 API 密钥**
+   - 访问相应服务的官网注册账号
+   - 在控制台创建 API 密钥或 Token
 
-### 4. 安装 Playwright 浏览器（可选）
+2. **编辑配置文件**
+   编辑 `.claude/mcp-config.json`，添加相应服务器配置：
 
-```bash
-npx playwright install
-```
+   ```json
+   {
+     "mcpServers": {
+       "github": {
+         "command": "npx",
+         "args": ["-y", "@modelcontextprotocol/server-github"],
+         "env": {
+           "GITHUB_TOKEN": "your_actual_token_here"
+         }
+       }
+     }
+   }
+   ```
+
+3. **重启 Claude Code**
+   重新启动 Claude Code 以加载新配置。
 
 ---
 
@@ -265,29 +196,22 @@ Claude: 读取 README.md 文件
 Claude: 在 notes/ 目录下搜索所有包含 "学习" 的文件
 ```
 
-### GitHub 操作
+### 网页获取
 ```
-Claude: 创建一个新分支 feature/add-mcp-guide
-Claude: 提交当前更改到 GitHub
-Claude: 查看 main 分支的最新 commit
-```
-
-### 网页搜索
-```
-Claude: 使用 Brave 搜索 "MCP server tutorial 2025"
-Claude: 搜索最新的 React 19 新特性
+Claude: 获取 https://example.com 的内容
+Claude: 抓取这个网页的文本内容
 ```
 
-### 浏览器自动化
+### 记忆管理
 ```
-Claude: 使用 Playwright 打开 https://example.com 并截图
-Claude: 在网页上填写表单并提交
+Claude: 记住这个重要的概念
+Claude: 我之前提到过的学习计划是什么？
 ```
 
-### 数据库查询
+### 时间工具
 ```
-Claude: 查询 users 表中的所有记录
-Claude: 统计 orders 表中的订单数量
+Claude: 现在是几点？
+Claude: 计算 7 天后的日期
 ```
 
 ### PDF 处理
@@ -296,57 +220,45 @@ Claude: 读取 documents/report.pdf 并总结内容
 Claude: 从 PDF 中提取所有表格数据
 ```
 
-### OCR 识别
-```
-Claude: 识别 images/screenshot.png 中的文字
-Claude: 从扫描的 PDF 中提取文本
-```
-
 ---
 
 ## 故障排除
 
 ### MCP 服务器未启动
 
-1. 检查配置文件格式是否正确
-2. 确认所有依赖已安装：`npm list -g`
-3. 查看 Claude Code 日志
+1. 检查配置文件格式是否正确（JSON 格式）
+2. 确认 npx 可以正常使用：`npx --version`
+3. 查看 Claude Code 的错误日志
+4. 尝试手动测试服务器：`npx -y @modelcontextprotocol/server-filesystem`
 
-### API 密钥错误
+### 服务器连接失败
 
-1. 确认 API 密钥已正确设置
-2. 检查密钥是否过期
-3. 验证密钥权限
+1. 确认网络连接正常
+2. 检查防火墙设置
+3. 尝试重新启动 Claude Code
 
-### Playwright 浏览器未安装
+### 功能不可用
 
-```bash
-npx playwright install
-```
-
-### 权限问题
-
-确保 Claude Code 有权限访问：
-- 项目目录
-- GitHub 仓库
-- Google Drive 文件
+1. 确认服务器已正确配置
+2. 检查文件路径是否正确（针对 Filesystem）
+3. 查看 Claude Code 的 MCP 工具列表
 
 ---
 
 ## 安全建议
 
-1. **不要提交 API 密钥到 Git**
-   - 将 `mcp-config.json` 添加到 `.gitignore`
-   - 使用环境变量存储敏感信息
+1. **定期更新 MCP 服务器**
+   ```bash
+   npx -y @modelcontextprotocol/server-filesystem --help
+   ```
 
-2. **使用最小权限原则**
-   - GitHub Token: 只授予必要权限
-   - Google Credentials: 使用服务账号
-   - API Keys: 定期轮换
+2. **注意文件访问权限**
+   - Filesystem 服务器只能访问配置的目录
+   - 不要配置包含敏感信息的目录
 
-3. **定期审查权限**
-   - 检查已授权的应用
-   - 撤销不再使用的密钥
+3. **保护你的数据**
+   - 不要让 AI 访问包含密码的文件
+   - 谨慎使用 Memory 服务器存储敏感信息
 
 ---
 
@@ -358,7 +270,7 @@ npx playwright install
 
 ### MCP 服务器列表
 - [Smithery.ai](https://smithery.ai/) - MCP 服务器注册表
-- [GitHub - popular-mcp-servers](https://github.com/pedrojaques99/popular-mcp-servers)
+- [GitHub - official MCP servers](https://github.com/modelcontextprotocol/servers)
 - [MCP Market](https://mcpmarket.com/) - MCP 服务器排行榜
 
 ### 社区资源
@@ -367,8 +279,9 @@ npx playwright install
 
 ---
 
-**最后更新**: 2025-12-30
+**最后更新**: 2025-12-31
 
-**安装的服务器数量**: 10
+**已配置的服务器数量**: 5（开箱即用）
 
-**状态**: ✅ 已配置并可以使用
+**状态**: ✅ 已配置并可以直接使用，无需 API 密钥
+
