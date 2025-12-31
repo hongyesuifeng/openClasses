@@ -1,0 +1,28 @@
+# Claude Code MCP 配置文件（包含 API 密钥）
+.claude/mcp-config.json
+
+# Node modules
+node_modules/
+package-lock.json
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE 配置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 临时文件
+*.tmp
+*.log
+*.cache
+
+# 敏感信息（包含 API 密钥的文件）
+**/credentials.json
+**/api-keys.txt
+**/.env
+**/.env.local
