@@ -7,29 +7,56 @@
 
 ## 📚 文档导航
 
-### 📦 [课程作业](./homework/作业说明.md)
-**完整作业代码和说明（Week 1-8）**
+### 🗂️ 新结构: 按周组织
 
-- Week 1: Prompt Engineering 实践
-- Week 2: AI IDE 初体验
-- Week 3: 构建自定义 MCP Server
-- Week 4: 使用 Claude Code 开发
-- Week 5: Warp Agent 开发
-- Week 6: 编写安全的 AI 代码
-- Week 7: 代码审查实战
-- Week 8: 多栈 Web 应用构建
+课程已重新组织为**每周独立文件夹**,便于系统学习:
+
+#### 📚 Week 1-2: AI 基础
+- **[Week 1: LLM 基础](./week-01/SUMMARY.md)** - 大型语言模型与提示工程入门 ✨
+- **[Week 2: Agent 架构](./week-02/SUMMARY.md)** - 编码代理、MCP 协议与工具调用
+
+#### 🛠️ Week 3-4: AI IDE 与实战
+- **[Week 3: AI IDE](./week-03/SUMMARY.md)** - AI 集成开发环境与 MCP 协议
+- **[Week 4: 自动化 Agent](./week-04/SUMMARY.md)** - Claude Code 实战与多 Agent 协作
+
+#### 🔧 Week 5-8: 现代工具链
+- **[Week 5: Warp 终端](./week-05/SUMMARY.md)** - AI 增强命令行与多代理工作流
+- **[Week 6: 安全扫描](./week-06/SUMMARY.md)** - Semgrep 静态代码分析与 AI 安全
+- **[Week 7: AI 审查](./week-07/SUMMARY.md)** - Graphite 代码审查与智能文档
+- **[Week 8: 多栈构建](./week-08/SUMMARY.md)** - 使用 AI 快速构建 Web 应用
+
+#### 🚀 Week 9-10: 未来展望
+- **[Week 9: 部署后 Agent](./week-09/SUMMARY.md)** - 监控、可观测性与自动化运维
+- **[Week 10: 未来趋势](./week-10/SUMMARY.md)** - AI 软件工程的未来与个人发展 🎓
+
+📋 **查看完整重组进度**: [REORGANIZATION_PROGRESS.md](./REORGANIZATION_PROGRESS.md)
 
 ---
 
-### [00-课程概览](./00-课程概览.md)
-**课程总体介绍和核心知识点总结**
+### 📖 原有文档: 合并版本
 
-- 课程简介与核心理念
-- 十周课程内容概览
-- 嘉宾阵容
-- 实战作业列表
-- 核心知识点总结
-- 学习资源汇总
+保留原有的详细课程文档,内容完整:
+
+- **[00-课程概览](./00-课程概览.md)** - 课程总体介绍和核心知识点
+- **[Week 1-2: LLM基础与Agent架构](./01-Week1-2-LLM基础与Agent架构.md)** - 理论基础
+- **[Week 3-4: AI IDE与Agent管理](./02-Week3-4-AI-IDE与Agent管理.md)** - 工具与实践
+- **[Week 5-8: 现代终端测试与UI](./03-Week5-8-现代终端测试与UI构建.md)** - 开发工具链
+- **[Week 9-10: 部署后Agent与未来](./04-Week9-10-部署后Agent与未来.md)** - 运维与展望
+
+---
+
+### 📦 课程作业
+
+**[作业说明](./homework/作业说明.md)** - 完整作业代码和说明（Week 1-8）
+
+- Week 1: LLM Prompting Playground
+- Week 2: Action Item Extractor
+- Week 3: Build a Custom MCP Server
+- Week 4: Claude Code Automations
+- Week 5: Warp Agent Development
+- Week 6: Scan and Fix Vulnerabilities
+- Week 7: AI Code Review with Graphite
+- Week 8: Multi-Stack Web App Build
 
 ---
 
