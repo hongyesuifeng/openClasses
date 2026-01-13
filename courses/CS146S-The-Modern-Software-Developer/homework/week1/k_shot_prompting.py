@@ -7,7 +7,23 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """You are a word reversal expert. Your task is to reverse the order of letters in words.
+
+Examples:
+cat -> tac
+dog -> god
+hello -> olleh
+world -> dlrow
+http -> ptth
+https -> sptth
+status -> sutats
+testing -> gnitset
+
+Rules:
+- Reverse the entire word from first letter to last letter
+- Only output the reversed word
+- Do not output any explanations, extra text, or punctuation
+"""
 
 USER_PROMPT = """
 Reverse the order of letters in the following word. Only output the reversed word, no other text:
