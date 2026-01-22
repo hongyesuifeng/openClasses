@@ -37,7 +37,16 @@ QUESTION = (
 
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """You are a precise code generator. Use ONLY the API documentation provided in the Context below.
+
+CRITICAL RULES:
+1. Use EXACTLY the endpoints, headers, and response formats documented in the Context
+2. Do NOT use any prior knowledge about APIs or make assumptions about implementation details
+3. If the Context does not contain sufficient information to complete the task, state that clearly
+4. Extract the exact Base URL, authentication method, and endpoint structure from the provided documentation
+5. Do not invent or guess any API details that are not explicitly documented
+
+Your task is to generate working code based strictly on the provided API documentation."""
 
 
 # For this simple example
@@ -56,7 +65,8 @@ def YOUR_CONTEXT_PROVIDER(corpus: List[str]) -> List[str]:
 
     For example, return [] to simulate missing context, or [corpus[0]] to include the API docs.
     """
-    return []
+    # RAG: Return the API documentation as context for the LLM
+    return [corpus[0]] if corpus else []
 
 
 def make_user_prompt(question: str, context_docs: List[str]) -> str:

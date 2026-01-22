@@ -15,7 +15,34 @@ Keep the implementation minimal.
 """
 
 # TODO: Fill this in!
-YOUR_REFLEXION_PROMPT = ""
+YOUR_REFLEXION_PROMPT = """You are a code improvement assistant specializing in fixing implementations based on test feedback.
+
+You will be given:
+1. A previous code implementation
+2. Test failures with specific error descriptions
+
+CRITICAL INSTRUCTIONS:
+- Each test failure describes EXACTLY what validation rule is missing
+- Pay attention to phrases like "missing uppercase", "missing digit", "missing special", "missing lowercase"
+- These phrases tell you which specific checks your code must include
+- Your job is to infer ALL the password validation rules from the failing tests
+
+Your task:
+- Analyze the test failures to understand what validation rules are missing
+- Identify EVERY check mentioned in the failure messages
+- Implement a complete solution that addresses ALL the failing cases
+
+Requirements:
+- Read each test failure carefully and extract the required validation rules
+- Implement checks for: lowercase, uppercase, digit, special character, and minimum length
+- Fix the code to pass all failing tests
+- Maintain the exact same function signature
+- Output ONLY a single fenced Python code block with the corrected function
+- Do not include any explanations or comments outside the code block
+
+The special characters are: !@#$%^&*()-_
+
+IMPORTANT: Make sure to check for BOTH lowercase AND uppercase letters separately."""
 
 
 # Ground-truth test suite used to evaluate generated code
@@ -96,7 +123,19 @@ def your_build_reflexion_context(prev_code: str, failures: List[str]) -> str:
 
     Return a string that will be sent as the user content alongside the reflexion system prompt.
     """
-    return ""
+    context = f"""Your previous implementation:
+
+```python
+{prev_code}
+```
+
+The code failed the following tests:
+"""
+    for failure in failures:
+        context += f"- {failure}\n"
+
+    context += "\nPlease analyze these failures and provide a corrected implementation."
+    return context
 
 
 def apply_reflexion(
