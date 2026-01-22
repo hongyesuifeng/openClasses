@@ -15,7 +15,19 @@
       "Bash(done:*)",
       "Bash(python3:*)",
       "Bash(mkdir:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(pip install:*)",
+      "Bash(ollama list:*)",
+      "Bash(bash:*)",
+      "Bash(export:*)",
+      "Bash(ping:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(sh:*)",
+      "Bash(sudo:*)",
+      "Bash(ollama:*)",
+      "Bash(timeout 60 python3:*)",
+      "Bash(journalctl:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
