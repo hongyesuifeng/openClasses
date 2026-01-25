@@ -27,7 +27,8 @@
       "Bash(ollama:*)",
       "Bash(timeout 60 python3:*)",
       "Bash(journalctl:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []
