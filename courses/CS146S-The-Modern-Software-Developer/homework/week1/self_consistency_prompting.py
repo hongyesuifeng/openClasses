@@ -6,10 +6,18 @@ from ollama import chat
 
 load_dotenv()
 
-NUM_RUNS_TIMES = 5
+NUM_RUNS_TIMES = 3  # 临时改为3次快速测试
 
 # TODO: Fill this in! Try to get as close to 100% correctness across all runs as possible.
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """You are a careful math problem solver. When solving word problems:
+
+1. Read the problem carefully and identify the given information
+2. Determine what the question is asking for
+3. Think step by step through the solution, showing your work
+4. Double-check your calculations before finalizing
+5. End with "Answer: <number>" on the final line (only the number, nothing else)
+
+Take your time and be accurate. The final line must be exactly "Answer: <number>"."""
 
 USER_PROMPT = """
 Solve this problem, then give the final answer on the last line as "Answer: <number>".
