@@ -83,19 +83,32 @@
 **模板**：
 
 ```
-[角色设定]
-你是一位资深的 Python 开发者
+请编写一个 Python 函数，接收整数列表，返回列表中的第二大数字。
+```
 
-[任务描述]
-请编写一个函数，实现以下功能：
-- 输入：整数列表
-- 输出：列表中的第二大数字
-- 处理边界情况
+**更简洁的版本**：
 
-[输出要求]
-- 使用 Python 3.12+
-- 包含类型注解
-- 添加文档字符串
+```
+将以下文本分类为正面、负面或中性：
+"这家餐厅的食物很好吃，但服务太慢了。"
+```
+
+**说明**：
+- 没有任何示例（示例 = 输入-输出对）
+- 没有角色设定
+- 直接给出任务指令
+- 依赖模型已有的知识
+
+**与其他技术对比**：
+```
+❌ 不是 Zero-Shot（包含了其他技术）：
+你是一位资深开发者（角色设定）
+请写一个函数，要求：
+- 使用 Python 3.12+（输出要求）
+- 包含类型注解（输出要求）
+
+✅ 纯粹的 Zero-Shot：
+请用 Python 写一个函数，接收整数列表并返回第二大数字。
 ```
 
 **适用场景**：
@@ -982,26 +995,133 @@ public class SettingsPanel : BasePanel {
 #### 4.2.2 UI 事件绑定代码生成
 
 **模板**：
-```
 
+```
 # 任务
 
 为 {UI 名称} 生成事件绑定代码
 
 # 事件列表
 
-{事件清单}
+- 点击"确认"按钮 → 触发 onConfirm
+- 点击"取消"按钮 → 触发 onCancel
+- 输入框内容变化 → 触发 onInputChanged
+- 下拉框选择变化 → 触发 onSelectionChanged
 
-# 输出
+# 输出要求
 
 1. 事件定义（C# delegate 或 event）
 2. 事件触发代码
 3. 事件监听代码
 4. 参数传递设计
-   
-   ```
-   
-   ```
+```
+
+**示例**：
+
+```
+# 任务
+
+为 EquipmentPanel 面板生成事件绑定代码
+
+# 事件列表
+
+- 点击"装备"按钮 → 装备选中的物品
+- 点击"卸下"按钮 → 卸下当前装备
+- 点击物品槽 → 显示物品详情
+- 拖拽物品 → 交换物品位置
+
+# 输出要求
+
+1. 事件定义（C# event）
+2. 事件触发代码（在 UI 脚本中）
+3. 事件监听代码（在逻辑脚本中）
+4. 参数传递设计（物品数据、槽位信息等）
+```
+
+**生成结果**：
+
+```csharp
+// 事件定义（在 EquipmentPanel.cs 中）
+public class EquipmentPanel : MonoBehaviour
+{
+    // 事件定义
+    public event Action<ItemData> OnEquipButtonClicked;
+    public event Action<int> OnUnequipButtonClicked;
+    public event Action<ItemData, int> OnItemSlotClicked;
+    public event Action<int, int> OnItemDragged;
+
+    // 事件触发代码
+    public void OnEquipButtonClick()
+    {
+        ItemData selectedItem = GetSelectedItem();
+        OnEquipButtonClicked?.Invoke(selectedItem);
+    }
+
+    public void OnUnequipButtonClick(int slotIndex)
+    {
+        OnUnequipButtonClicked?.Invoke(slotIndex);
+    }
+
+    public void OnItemSlotClick(ItemData item, int slotIndex)
+    {
+        OnItemSlotClicked?.Invoke(item, slotIndex);
+    }
+
+    public void OnItemDrag(int fromSlot, int toSlot)
+    {
+        OnItemDragged?.Invoke(fromSlot, toSlot);
+    }
+}
+
+// 事件监听代码（在 EquipmentManager.cs 中）
+public class EquipmentManager : MonoBehaviour
+{
+    private EquipmentPanel equipmentPanel;
+
+    private void OnEnable()
+    {
+        // 注册事件监听
+        equipmentPanel.OnEquipButtonClicked += HandleEquipItem;
+        equipmentPanel.OnUnequipButtonClicked += HandleUnequipItem;
+        equipmentPanel.OnItemSlotClicked += HandleShowItemDetail;
+        equipmentPanel.OnItemDragged += HandleSwapItem;
+    }
+
+    private void OnDisable()
+    {
+        // 取消事件监听（防止内存泄漏）
+        equipmentPanel.OnEquipButtonClicked -= HandleEquipItem;
+        equipmentPanel.OnUnequipButtonClicked -= HandleUnequipItem;
+        equipmentPanel.OnItemSlotClicked -= HandleShowItemDetail;
+        equipmentPanel.OnItemDragged -= HandleSwapItem;
+    }
+
+    // 事件处理方法
+    private void HandleEquipItem(ItemData item)
+    {
+        Debug.Log($"装备物品: {item.itemName}");
+        // 装备逻辑...
+    }
+
+    private void HandleUnequipItem(int slotIndex)
+    {
+        Debug.Log($"卸下槽位 {slotIndex} 的装备");
+        // 卸下逻辑...
+    }
+
+    private void HandleShowItemDetail(ItemData item, int slotIndex)
+    {
+        Debug.Log($"显示槽位 {slotIndex} 的物品详情: {item.itemName}");
+        // 显示详情逻辑...
+    }
+
+    private void HandleSwapItem(int fromSlot, int toSlot)
+    {
+        Debug.Log($"交换物品: 槽位 {fromSlot} → 槽位 {toSlot}");
+        // 交换逻辑...
+    }
+}
+```
 
 ---
 
@@ -1821,17 +1941,227 @@ public class Slot : MonoBehaviour {
 
 # 任务
 
-实现背包系统：{requirements}
+实现背包系统，包含以下功能：
+- 支持物品堆叠（按物品类型）
+- 支持拖拽整理物品
+- 支持按类型、品质、名称排序
+- 支持快捷键使用物品
+- 支持数据持久化保存
 
-输出:
+# 输出要求
 
+- 物品数据结构（ItemData ScriptableObject）
+- 槽位数据结构（SlotData）
+- 背包管理器（BagManager）
+- UI 控制器（BagController）
+- 拖拽处理逻辑
+- 数据持久化代码
+```
+
+**生成结果**：
+
+```csharp
+// ItemData.cs - 物品配置数据
+[CreateAssetMenu(fileName = "NewItem", menuName = "Inventory/Item Data")]
+public class ItemData : ScriptableObject
+{
+    public string itemName;
+    public Sprite icon;
+    public int maxStackSize = 1;
+    public ItemType itemType;
+    public int sellPrice;
+}
+
+// SlotData.cs - 槽位数据
+[System.Serializable]
+public class SlotData
+{
+    public string itemId;
+    public int stackCount;
+    public bool isEmpty => string.IsNullOrEmpty(itemId);
+
+    public SlotData()
+    {
+        itemId = null;
+        stackCount = 0;
+    }
+
+    public SlotData(string id, int count)
+    {
+        itemId = id;
+        stackCount = count;
+    }
+}
+
+// BagManager.cs - 背包管理器
+public class BagManager : MonoBehaviour
+{
+    [SerializeField] private int slotCount = 20;
+    private List<SlotData> slots = new List<SlotData>();
+
+    // 事件系统
+    public event Action<int> OnSlotUpdated;
+    public event Action OnInventoryUpdated;
+
+    private void Awake()
+    {
+        // 初始化槽位
+        for (int i = 0; i < slotCount; i++)
+        {
+            slots.Add(new SlotData());
+        }
+    }
+
+    // 添加物品
+    public bool AddItem(ItemData item, int count)
+    {
+        // 先尝试堆叠到已有槽位
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (!slots[i].isEmpty && slots[i].itemId == item.name)
+            {
+                int space = item.maxStackSize - slots[i].stackCount;
+                int addAmount = Mathf.Min(space, count);
+                slots[i].stackCount += addAmount;
+                count -= addAmount;
+                OnSlotUpdated?.Invoke(i);
+
+                if (count <= 0) return true;
+            }
+        }
+
+        // 找空槽位
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].isEmpty)
+            {
+                slots[i] = new SlotData(item.name, count);
+                OnSlotUpdated?.Invoke(i);
+                OnInventoryUpdated?.Invoke();
+                return true;
+            }
+        }
+
+        return false; // 背包满了
+    }
+
+    // 移除物品
+    public bool RemoveItem(int slotIndex, int count)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count) return false;
+
+        if (!slots[slotIndex].isEmpty)
+        {
+            slots[slotIndex].stackCount -= count;
+            if (slots[slotIndex].stackCount <= 0)
+            {
+                slots[slotIndex] = new SlotData();
+            }
+            OnSlotUpdated?.Invoke(slotIndex);
+            OnInventoryUpdated?.Invoke();
+            return true;
+        }
+        return false;
+    }
+
+    // 交换物品
+    public void SwapItems(int fromIndex, int toIndex)
+    {
+        if (fromIndex < 0 || fromIndex >= slots.Count ||
+            toIndex < 0 || toIndex >= slots.Count) return;
+
+        SlotData temp = slots[fromIndex];
+        slots[fromIndex] = slots[toIndex];
+        slots[toIndex] = temp;
+
+        OnSlotUpdated?.Invoke(fromIndex);
+        OnSlotUpdated?.Invoke(toIndex);
+    }
+
+    // 排序（按类型）
+    public void SortByType()
+    {
+        // 实现排序逻辑...
+        OnInventoryUpdated?.Invoke();
+    }
+
+    // 数据持久化
+    public void SaveInventory()
+    {
+        List<SlotSaveData> saveData = new List<SlotSaveData>();
+        foreach (var slot in slots)
+        {
+            saveData.Add(new SlotSaveData
+            {
+                itemId = slot.itemId,
+                stackCount = slot.stackCount
+            });
+        }
+        PlayerPrefs.SetString("InventoryData", JsonUtility.ToJson(new InventorySaveData { slots = saveData }));
+    }
+
+    public void LoadInventory()
+    {
+        string json = PlayerPrefs.GetString("InventoryData");
+        if (!string.IsNullOrEmpty(json))
+        {
+            var saveData = JsonUtility.FromJson<InventorySaveData>(json);
+            for (int i = 0; i < saveData.slots.Count && i < slots.Count; i++)
+            {
+                slots[i] = new SlotData(saveData.slots[i].itemId, saveData.slots[i].stackCount);
+            }
+            OnInventoryUpdated?.Invoke();
+        }
+    }
+}
+
+// BagController.cs - UI 控制器
+public class BagController : MonoBehaviour
+{
+    [SerializeField] private BagManager bagManager;
+    [SerializeField] private GameObject slotPrefab;
+    [SerializeField] private Transform contentPanel;
+
+    private List<SlotUI> slotUIs = new List<SlotUI>();
+
+    private void Start()
+    {
+        bagManager.OnSlotUpdated += UpdateSlotUI;
+        bagManager.OnInventoryUpdated += RefreshAllSlots();
+
+        // 初始化 UI
+        for (int i = 0; i < bagManager.SlotCount; i++)
+        {
+            GameObject slotObj = Instantiate(slotPrefab, contentPanel);
+            SlotUI slotUI = slotObj.GetComponent<SlotUI>();
+            slotUI.Initialize(i, bagManager);
+            slotUIs.Add(slotUI);
+        }
+    }
+
+    private void UpdateSlotUI(int slotIndex)
+    {
+        if (slotIndex >= 0 && slotIndex < slotUIs.Count)
+        {
+            slotUIs[slotIndex].Refresh();
+        }
+    }
+
+    private void RefreshAllSlots()
+    {
+        foreach (var slotUI in slotUIs)
+        {
+            slotUI.Refresh();
+        }
+    }
+}
+```
+
+**效果**：
 - 符合项目架构的完整代码
-- 自动应用项目规范
+- 自动应用项目规范（ScriptableObject、事件系统）
 - 代码风格一致
-  
-  ```
-  
-  ```
+- 包含所有关键功能
 
 ### 4.4 案例四：代码调试与修复
 

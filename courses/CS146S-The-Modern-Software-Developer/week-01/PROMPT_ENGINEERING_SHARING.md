@@ -1,240 +1,227 @@
-# 提示词工程：核心原理与实战案例
+# 【讨论】三种提问方式，为什么结果差这么多？
 
-> **快速分享文档** - 用于团队分享提示词工程的核心原理和实战应用
-
----
-
-## 核心原理
-
-提示词工程本质是"通过结构化的上下文设计，引导 LLM 的概率分布向预期方向收敛"。
-
-LLM 是概率模型，输出 `P(token | context)` 高度依赖提示词提供的上下文。
-
-### 关键技术原理
-
-| 原理                      | 说明                                          |
-| ----------------------- | ------------------------------------------- |
-| **In-Context Learning** | 模型从示例中学习"如何学习"，注意力机制会优先关注相关性高且位置靠后的示例（近因效应） |
-| **Chain-of-Thought**    | 分步推理将复杂任务分解，`P(正确) = (1-ε')^T`，降低单步错误率      |
-| **RAG（检索增强）**           | 检索相关文档补充上下文，减少模型幻觉                          |
+最近在用 AI 帮忙生成 Cocos Creator 的 UI 代码，同一个任务，三种不同的问法，结果差别巨大。
 
 ---
 
-## 实战案例 - Cocos Creator MVC UI 自动生成
+## 三种提问方式
 
-**项目背景**：真实的 Cocos Creator 3.x 卡牌游戏项目，使用自研 MVC 中台框架
+**任务**：创建一个装备面板 `EquipmentMainView`
 
-**核心特点**：
-- 命名规范：所有类名使用 `$$` 后缀（如 `BaseView$$`、`EquipmentMainView$$`）
-- MVC 架构：`BaseView$$` 和 `BaseViewCtrl$$` 提供生命周期管理
-- 配置注册：需在 **6 个** 配置文件中注册新 UI
+### 方式一：直接问
 
-**任务**：使用 `/add-ui Equipment EquipmentMainView` 命令生成装备面板
+```
+帮我创建一个 EquipmentMainView 面板。
+```
 
----
-
-### 方法对比
-
-| 方法 | 提示词 | 输出效果 | 原理分析 |
-| --- | --- | --- | --- |
-| **Zero-Shot** | "创建一个装备面板" | ⭐⭐ 可能忘记 `$$` 后缀，遗漏配置 | 依赖模型先验，无法知道项目规范 |
-| **Few-Shot** | + 2 个现有面板代码示例 | ⭐⭐⭐ 代码风格符合项目 | 示例引导模型学习 `$$` 命名规范 |
-| **RAG + Few-Shot** | + 框架架构文档 + 代码示例 | ⭐⭐⭐⭐⭐ 完全符合规范，6 步配置完整 | RAG 提供架构（BaseView$$ 方法），Few-Shot 传递风格 |
+**结果**：
+- 可能忘记写 `$$` 后缀（项目规范要求所有类名加 `$$`）
+- 6 个配置文件经常漏掉几个
+- 方法名也不对
 
 ---
 
-### 最佳实践：RAG + Few-Shot
+### 方式二：给示例（Few-Shot）
 
-#### 提示词结构
+```
+帮我创建一个 EquipmentMainView 面板。
 
-```markdown
-# System Prompt
-你是 Cocos Creator UI 代码生成专家，专门为卡牌游戏项目生成符合 MVC 架构的代码。
+参考以下代码：
 
-# 项目架构文档 (RAG)
+// 示例 1: RoleMainView
+export class RoleMainView$$ extends BaseView$$ {
+    @property({ type: Node })
+    protected content$$: Node = null;
+}
+
+// 示例 2: BagMainView
+export class BagMainView$$ extends BaseView$$ {
+    @property(Node)
+    protected itemList$$: Node = null;
+
+    @property(Node)
+    protected closeBtn$$: Node = null;
+}
+```
+
+**结果**：
+- `$$` 后缀记住了
+- 代码风格对味了
+- 但配置文件还是会漏
+- 一些方法名还是不对（比如 `onViewWillShow$$`）
+
+---
+
+### 方式三：给文档 + 给示例（RAG + Few-Shot）
+
+```
+# 项目架构文档
+
 ## MVC 框架规范
-- **View 基类**: `BaseView$$` (位于 `fn` 框架库)
-- **Controller 基类**: `BaseViewCtrl$$`
-- **命名规范**: 所有类名必须使用 `$$` 后缀
-- **属性命名**: 所有属性名使用 `$$` 后缀（如 `leftCard$$`）
+- View 基类: BaseView$$ (位于 fn 框架库)
+- Controller 基类: BaseViewCtrl$$
+- 命名规范: 所有类名必须使用 $$ 后缀
+- 属性命名: 所有属性名使用 $$ 后缀
 
 ## 6 步配置注册
 1. ViewEnum$$ - 添加 View 枚举
 2. ViewCtrlEnum$$ - 添加 Controller 枚举（重要！容易遗漏）
 3. ViewCtrlForms$$ - 注册 Controller 类
 4. ViewForms$$ - 配置 Prefab 路径
-5. MVCForms$$ - 注册 MVC 关系（如果有 Module）
-6. ModuleEnum$$ - 添加模块枚举（如果有 Module）
+5. MVCForms$$ - 注册 MVC 关系
+6. ModuleEnum$$ - 添加模块枚举
 
-# 代码示例 (Few-Shot)
+# 代码示例
 
-## 示例 1: 简单 UI - EquipmentMainView
-```typescript
-// View: EquipmentMainView$$.ts
-export class EquipmentMainView$$ extends BaseView$$ {
+// View: BagMainView$$.ts
+export class BagMainView$$ extends BaseView$$ {
     @property({ type: Node })
     protected content$$: Node = null;
 }
 
-// Controller: EquipmentMainViewCtrl$$.ts
-export class EquipmentMainViewCtrl$$ extends BaseViewCtrl$$ {
-    protected viewClass: any = EquipmentMainView$$;
-}
-```
+// Controller: BagMainViewCtrl$$.ts
+export class BagMainViewCtrl$$ extends BaseViewCtrl$$ {
+    protected viewClass: any = BagMainView$$;
 
-## 示例 2: 复杂 UI - UIChooseOneCardView
-```typescript
-@ccclass('UIChooseOneCardView$$')
-export class UIChooseOneCardView$$ extends BaseView$$ implements SwipeCallback$$ {
-    @property(Node)
-    leftCard$$: Node = null;
-
-    @property(Node)
-    rightCard$$: Node = null;
-
-    @property(Animation)
-    chooseOneCardAnimation$$: Animation = null;
-
-    private _param$$: UIChooseOneCardViewParam$$ = null;
-
-    public init$$(param: UIChooseOneCardViewParam$$): void {
-        this._param$$ = param;
-    }
-}
-```
-
-# 任务
-创建 {ModuleName} 模块的 {ViewName} 面板
-```
-
-#### 生成结果
-
-```typescript
-// View: EquipmentMainView$$.ts
-import { BaseView$$ } from "fn";
-
-export class EquipmentMainView$$ extends BaseView$$ {
-    @property({ type: Node })
-    protected content$$: Node = null;
-}
-
-// Controller: EquipmentMainViewCtrl$$.ts
-import { BaseViewCtrl$$ } from "fn";
-import { EquipmentMainView$$ } from "../View/EquipmentMainView$$";
-
-export class EquipmentMainViewCtrl$$ extends BaseViewCtrl$$ {
-    protected viewClass: any = EquipmentMainView$$;
-
-    protected override onViewWillShow$$(...args: any[]): void {
-        super.onViewWillShow$$(...args);
-        // 初始化逻辑
+    protected override onViewWillShow$$(): void {
+        super.onViewWillShow$$();
     }
 }
 
-// 配置注册（6 步完整）
-// 1. ViewEnum$$
-export enum ViewTypeEnum$$ {
-    EquipmentMainView$$,
-}
-
-// 2. ViewCtrlEnum$$（关键！）
-export enum ViewCtrlEnum$$ {
-    EquipmentMainViewCtrl$$,
-}
-
-// 3. ViewCtrlForms$$
-export const ViewCtrlForms$$ = {
-    [ViewCtrlEnum$$.EquipmentMainViewCtrl$$]: EquipmentMainViewCtrl$$,
-}
-
-// 4. ViewForms$$
-export const ViewForms$$ = {
-    [ViewTypeEnum$$.EquipmentMainView$$]: {
-        prefabPath$$: "PK/Modules/Equipment/Prefabs/EquipmentMainView",
-        layer$$: ViewLayerEnum$$.Popup,
-        isModal$$: true,
-    },
-}
-
-// 5. MVCForms$$
-export const MVCForms$$ = {
-    [ModuleEnum$$.Equipment$$]: {
-        viewEnum$$: ViewTypeEnum$$.EquipmentMainView$$,
-        viewCtrlEnum$$: ViewCtrlEnum$$.EquipmentMainViewCtrl$$,
-        moduleEnum$$: ModuleEnum$$.Equipment$$,
-    },
-}
-
-// 6. ModuleEnum$$
-export enum ModuleEnum$$ {
-    Equipment$$,
-}
+// 任务
+创建 Equipment 模块的 EquipmentMainView 面板
 ```
 
----
-
-### 技术原理说明
-
-**为什么 RAG + Few-Shot 效果最好？**
-
-1. **RAG 提供框架方法签名** → 模型知道 `onViewWillShow$$`、`viewClass` 等方法名
-2. **Few-Shot 传递代码风格** → 模型学习 `$$` 后缀、`@property` 装饰器使用
-3. **近因效应** → 最后的示例权重最大，应放最相关的示例
-
-**实测数据**（基于 50 次 UI 生成测试）：
-
-| 指标 | Zero-Shot | Few-Shot | **RAG + Few-Shot** |
-| --- | --- | --- | --- |
-| 首次成功率 | 45% | 70% | **92%** |
-| 配置遗漏率 | 40% | 15% | **5%** |
-| 平均生成时间 | 0.5s | 0.8s | **1.2s** |
+**结果**：
+- 6 个配置一步不落
+- 方法名全都对（`onViewWillShow$$`、`viewClass` 等）
+- 代码风格也符合项目
 
 ---
 
-## 实用技巧
+## 问题来了
 
-1. **最相关的示例放最后** - 利用近因效应，最后的示例权重最大
+为什么三种方式差别这么大？
 
-2. **示例质量 > 数量** - 3 个高质量示例优于 10 个低质量示例
-
-3. **复杂任务分解** - 先用 CoT 分解，再配合 RAG 提供准确上下文
-
-4. **RAG 的价值** - 对于需要准确性的场景（技术文档、API 规范），RAG 是必需的
+- 给示例起了什么作用？
+- 给文档起了什么作用？
+- 为什么要两者结合？
 
 ---
 
-## 核心洞察
+## 原理分析
 
-`★ Insight ─────────────────────────────────────`
+### 1. LLM 的工作原理
 
-**从 Cocos Creator MVC 案例学到的关键点：**
+LLM 本质上是在做"填空题"：根据前面的内容，预测下一个字。
 
-1. **项目特定规范必须通过 RAG 提供** - 模型无法"猜"出 `$$` 命名规范或 6 步配置流程
+所以：
+- 你给的信息越具体，它预测得越准
+- 你给的参考越多，它越知道"该填什么"
 
-2. **框架方法签名需要 RAG** - `onViewWillShow$$`、`viewClass` 等方法名无法从通用知识中获得
+### 2. 三种方式背后的技术
 
-3. **示例的作用是传递"代码风格"** - `@property` 装饰器、`override` 关键字使用通过示例学习
+#### 方式一：Zero-Shot Prompting（零样本提示）
 
-4. **近因效应的实战应用** - 生成 View 就把 View 示例放最后，生成 Controller 就把 Controller 示例放最后
+**技术定义**：不提供示例，直接给任务指令。
 
-5. **配置完整性比代码风格更重要** - ViewCtrlEnum 遗漏会导致运行时错误，比命名不一致更严重
+**原理**：依赖 LLM 训练时学到的通用知识。
 
-`─────────────────────────────────────────────────`
-
----
-
-## 延伸学习
-
-**📚 详细原理文档**：`PROMPT_ENGINEERING_COMPREHENSIVE_GUIDE.md`
-
-**核心论文**：
-
-- GPT-3 (2020): Few-shot Learning 基础
-- CoT (2022): 思维链推理
-- ReAct (2022): 推理+行动
-- Reflexion (2023): 自我反思迭代
-- RAG (2020): 检索增强生成
+**局限**：
+- 项目的 `$$` 命名规范，通用知识里没有
+- 6 步配置流程，通用知识里也没有
+- AI 只能"猜"，猜错就很正常
 
 ---
 
-**版本**: v1.0 | **更新**: 2026-01-25
+#### 方式二：Few-Shot Prompting（少样本提示）
+
+**技术定义**：提供 K 个示例，引导模型理解任务。
+
+**原理**：示例展示了"代码应该长什么样"，模型通过示例学习规律。
+
+**在我们的例子中**：
+- `RoleMainView$$`、`BagMainView$$` 告诉它"类名要加 `$$`"
+- `@property({ type: Node })` 告诉它"属性怎么声明"
+- `content$$`、`itemList$$` 告诉它"属性名也要加 `$$`"
+
+**为什么还不够？**
+- 示例教的是"代码风格"，但教不了"方法签名"
+- `onViewWillShow$$` 这个方法名，示例里不一定有
+- `viewClass` 这个属性，示例里不一定有
+- 6 步配置流程，示例也体现不出来
+
+---
+
+#### 方式三：RAG + Few-Shot
+
+**两个技术结合**：
+
+**（1）RAG（检索增强生成）**
+
+把项目的框架文档作为参考资料给 AI。
+
+**作用**：告诉 AI "有什么方法可以用"
+
+在我们的例子中：
+- 文档里写了 `BaseViewCtrl$$` 基类，AI 就知道要继承它
+- 文档里写了 `onViewWillShow$$` 方法，AI 就知道有这个生命周期方法
+- 文档里写了 6 步配置，AI 就知道要注册哪些文件
+
+**（2）Few-Shot**
+
+给代码示例。
+
+**作用**：告诉 AI "代码怎么写才对味"
+
+在我们的例子中：
+- `@property({ type: Node })` 展示了装饰器怎么用
+- `override` 关键字展示了怎么重写方法
+- 代码格式展示了缩进、命名等风格
+
+**两者结合**：
+- 文档解决"有什么"（方法名、配置项）
+- 示例解决"怎么写"（代码风格、格式）
+
+---
+
+### 3. 还有个有趣的发现：近因效应
+
+我发现：**最后的示例影响最大**。
+
+比如要生成 View，如果最后放的是 View 示例，结果就更好；要生成 Controller，就把 Controller 示例放最后。
+
+这叫"近因效应"（Recency Effect）—— AI 对最后看的内容印象最深。
+
+---
+
+## 总结对比
+
+| 提问方式 | 使用的技术 | 作用 | 适合场景 |
+|---------|-----------|------|---------|
+| 直接问 | Zero-Shot | 依赖通用知识 | 简单问题、快速原型 |
+| 给示例 | Few-Shot | 教会"风格" | 代码风格、格式统一 |
+| 给文档 + 给示例 | RAG + Few-Shot | 教会"有什么"+"怎么写" | 需要准确性的技术场景 |
+
+**核心思路**：
+- 文档解决"准确性"问题（方法名、配置项）
+- 示例解决"风格性"问题（代码格式、命名习惯）
+- 两者结合，效果最好
+
+---
+
+## 延伸阅读
+
+如果对提示词工程感兴趣，我整理了一份更系统的文档：
+
+📚 **[提示词工程完整指南](./PROMPT_ENGINEERING_COMPREHENSIVE_GUIDE.md)**
+
+包含：
+- 10+ 种提示词技术详解（Zero-Shot、Few-Shot、CoT、RAG...）
+- 游戏开发实战案例
+- 技术原理深度剖析
+- 最佳实践与设计模式
+
+---
+
+**2026-01-25**
