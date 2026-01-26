@@ -13,14 +13,15 @@
 1. [提示词工程概述](#1-提示词工程概述)
 2. [核心提示词技术与模式](#2-核心提示词技术与模式)
 3. [高级提示词技术](#3-高级提示词技术)
-4. [游戏开发专项技术](#4-游戏开发专项技术) 🆕
+4. [游戏开发专项技术](#4-游戏开发专项技术)
 5. [实战案例深度解析](#5-实战案例深度解析)
 6. [技术原理深度剖析](#6-技术原理深度剖析)
 7. [行业工具与生态](#7-行业工具与生态)
-8. [代码生成与审查专项](#8-代码生成与审查专项) 🆕
+8. [代码生成与审查专项](#8-代码生成与审查专项)
 9. [最佳实践与设计模式](#9-最佳实践与设计模式)
 10. [未来趋势与发展方向](#10-未来趋势与发展方向)
-11. [参考资料](#11-参考资料) 🆕
+11. [参考资料](#11-参考资料)
+12. [总结](#12-总结)
 
 ---
 
@@ -70,13 +71,19 @@
 2025年: 自适应提示、多模态提示成为主流
 ```
 
+#### 核心要点
+
+*   **定义与价值**：提示词工程是优化 LLM 输入以获得期望输出的技术，它提升了 LLM 在复杂任务上的准确性和可控性。
+*   **必要性**：鉴于 LLM 的概率性、上下文敏感性、知识边界及指令遵循特性，提示词工程是释放其潜力的关键。
+*   **发展迅速**：从早期的零样本/少样本学习，到后来的思维链、Agent、RAG 等，提示词工程技术持续演进，并向自适应、多模态等方向发展。
+
 ---
 
 ## 2. 核心提示词技术与模式
 
 ### 2.1 基础提示模式
 
-#### 2.1.1 Zero-Shot Prompting（零样本提示）
+#### 2.1.1 零样本提示（Zero-Shot）
 
 **定义**：不提供示例，直接给出任务指令。
 
@@ -123,7 +130,7 @@
 - 可能产生格式不一致的输出
 - 缺少参考标准
 
-#### 2.1.2 Few-Shot Prompting（少样本提示）
+#### 2.1.2 少样本提示（Few-Shot）
 
 **定义**：提供 K 个示例（通常 3-10 个）引导模型理解任务。
 
@@ -167,12 +174,12 @@ def select_examples(query, example_pool, k=5):
     """
     根据查询动态选择最相关的示例
     """
-    # 1. 计算查询与每个示例的相似度
+    # 1. 计算查询与每个示例的相似度 (embed 是一个概念性函数，代表生成文本嵌入向量)
     query_emb = embed(query)
     similarities = []
     for ex in example_pool:
         ex_emb = embed(ex['input'])
-        sim = cosine_similarity(query_emb, ex_emb)
+        sim = cosine_similarity(query_emb, ex_emb) # cosine_similarity 是一个概念性函数，代表计算余弦相似度
         similarities.append((ex, sim))
 
     # 2. 选择相似度最高的 K 个示例
@@ -457,6 +464,13 @@ def select_examples(query, example_pool, k=5):
 5. 不能使用 eval() 或 exec()
 ```
 
+#### 核心要点
+
+*   **基础模式**：零样本（Zero-Shot）直接下达指令；少样本（Few-Shot）通过提供示例增强模型理解；角色设定（Role Playing）赋予模型特定身份；任务分解（Task Decomposition）将复杂任务拆解。
+*   **结构化提示**：CO-STAR 和 CREATE 等框架提供结构化输入，确保提示词的全面性和一致性。
+*   **输出控制**：通过明确的格式要求（如 JSON、代码块、Markdown）、长度限制和具体约束条件，精确控制模型的输出形式和内容。
+*   **灵活性与精确性**：不同的提示词技术旨在平衡模型的自由度与输出的精确度，适用于从快速原型到严格的代码生成等多种场景。
+
 ---
 
 ## 3. 高级提示词技术
@@ -603,12 +617,12 @@ def hyde_retrieval(query, llm, retriever):
     """
     用假设性答案进行检索
     """
-    # 1. 生成假设性答案
+    # 1. 生成假设性答案 (llm.generate 是一个概念性函数，代表 LLM 生成文本)
     hypothetical_doc = llm.generate(
         f"Write a detailed answer to: {query}"
     )
 
-    # 2. 用假设性答案检索（而不是原查询）
+    # 2. 用假设性答案检索（而不是原查询）(retriever.search 是一个概念性函数，代表向量数据库检索)
     docs = retriever.search(hypothetical_doc, top_k=5)
 
     return docs
@@ -621,7 +635,7 @@ def query_expansion(query, llm):
     """
     扩展查询以提高召回率
     """
-    # 生成多个查询变体
+    # 生成多个查询变体 (llm.generate 是一个概念性函数，代表 LLM 生成文本)
     expanded_queries = llm.generate(
         f"Generate 3 different ways to ask: {query}\n"
         f"Format: one per line, no numbering"
@@ -629,13 +643,13 @@ def query_expansion(query, llm):
 
     queries = [query] + expanded_queries.split('\n')
 
-    # 对每个查询检索
+    # 对每个查询检索 (retriever.search 是一个概念性函数，代表向量数据库检索)
     all_docs = []
     for q in queries:
         docs = retriever.search(q, top_k=3)
         all_docs.extend(docs)
 
-    # 去重并重排
+    # 去重并重排 (deduplicate 是一个概念性函数，代表文档去重和重排)
     unique_docs = deduplicate(all_docs)
     return unique_docs[:5]
 ```
@@ -721,22 +735,22 @@ def reflexion_loop(task, max_iterations=3):
     history = []
 
     for iteration in range(max_iterations):
-        # 1. 生成解
+        # 1. 生成解 (generate_solution 是一个概念性函数，代表 LLM 生成解决方案)
         if iteration == 0:
             solution = generate_solution(task)
         else:
-            # 使用历史反思
+            # 使用历史反思 (build_reflection_context 是一个概念性函数，代表构建反思上下文)
             context = build_reflection_context(history)
             solution = generate_solution(task, context)
 
-        # 2. 评估
+        # 2. 评估 (evaluate 是一个概念性函数，代表评估解决方案)
         feedback = evaluate(solution)
 
         # 3. 检查是否完成
         if feedback["success"]:
             return solution
 
-        # 4. 反思
+        # 4. 反思 (generate_reflection 是一个概念性函数，代表 LLM 生成反思内容)
         reflection = generate_reflection(solution, feedback)
         history.append({
             "solution": solution,
@@ -837,13 +851,13 @@ def tree_of_thoughts(problem, max_depth=3, branching_factor=3):
 
         # 生成分支
         for i in range(branching_factor):
-            # 生成下一步推理
+            # 生成下一步推理 (llm.generate 是一个概念性函数，代表 LLM 生成文本)
             new_reasoning = llm.generate(
                 f"Continue reasoning from: {state['reasoning']}\n"
                 f"Generate next step (variant {i+1}):"
             )
 
-            # 评估置信度
+            # 评估置信度 (evaluate_confidence 是一个概念性函数，代表评估推理路径的置信度)
             confidence = evaluate_confidence(new_reasoning)
 
             # 添加到优先队列
@@ -856,6 +870,15 @@ def tree_of_thoughts(problem, max_depth=3, branching_factor=3):
 
     return best_solution["reasoning"]
 ```
+
+#### 核心要点
+
+*   **思维链（CoT）**：通过引导模型逐步思考、分解问题，显著提升在复杂推理任务（如数学、逻辑）上的表现，即使是简单的“一步步思考”也能有效触发。
+*   **自一致性（Self-Consistency）**：结合多次采样和投票机制，从多条推理路径中选出最可靠的答案，进一步提高复杂问题的求解准确性。
+*   **检索增强生成（RAG）**：通过外部知识检索，为 LLM 提供最新、准确的上下文信息，有效解决模型幻觉问题，提升答案的事实性和可信度，是构建知识密集型应用的关键。
+*   **工具调用（Tool Calling）**：赋予 LLM 调用外部工具（如 API、数据库）的能力，扩展其功能边界，使其能执行更复杂、更具体的任务，实现“推理即行动”。ReAct 模式是其经典实现。
+*   **反思（Reflexion）**：通过让 LLM 自我评估生成结果、识别错误并迭代改进，模拟人类的反思过程，从而持续提升任务完成质量，尤其适用于代码生成与调试。
+*   **其他高级技术**：Least-to-Most 引导模型分解问题；Self-Ask 鼓励模型自我提问以收集信息；Tree-of-Thoughts 则探索多条推理路径，并评估其置信度。这些技术共同推动 LLM 解决更复杂、开放式问题的能力。
 
 ---
 
@@ -1408,6 +1431,14 @@ void PlaySkillEffectClientRpc(int skillId, Vector3 targetPos)
 - 具体实施步骤
 - 预期效果
 ```
+
+#### 核心要点
+
+*   **架构先行**：利用提示词生成 MVC/MVVM 或 ECS 等架构模板，确保系统设计的规范性和可扩展性。
+*   **模块化生成**：针对 UI 系统、核心游戏逻辑（如背包、任务、战斗）、资源管理和网络同步等游戏核心模块，可以利用提示词进行快速的代码生成和功能实现。
+*   **性能导向**：提示词应明确融入性能优化考量，例如渲染优化、内存泄漏检测和 DrawCall 优化，引导模型生成高性能的游戏代码和建议。
+*   **引擎适配**：提示词需针对 Unity、Unreal Engine、Cocos Creator 等特定游戏引擎的特性和最佳实践进行定制，以生成符合引擎规范的代码。
+*   **定制化与效率**：通过游戏开发专项提示词，能大幅提升游戏开发效率，减少重复性工作，同时确保生成的代码符合项目特定的技术栈和质量要求。
 
 ---
 
@@ -1998,6 +2029,18 @@ public class BagManager : MonoBehaviour
 {
     [SerializeField] private int slotCount = 20;
     private List<SlotData> slots = new List<SlotData>();
+```
+
+#### 核心要点
+
+*   **项目特定性**：真实项目中的命名规范、框架约定和复杂的配置注册流程（如 Cocos Creator 的 `$$` 后缀和 6 步配置），是提示词工程的巨大挑战。
+*   **K-shot + RAG 的生产力**：通过结合高质量的架构文档（RAG）和精确选择的少样本示例（K-shot），可以使 LLM 生成的代码高度符合项目规范，显著提高生成成功率和代码质量，减少人工修改。
+*   **Reflexion 的迭代优化**：在需要极高质量和自动修正的场景下，Reflexion 循环结合验证机制，能够自动发现并修复代码中的错误，进一步提升生成代码的准确性和完整性。
+*   **多方案对比**：针对不同需求（简单原型、生产代码、高可靠性场景），可以选择不同的提示词策略（简单提示、K-shot + RAG、Reflexion），以平衡生成效率和质量。
+*   **关键成功因素**：RAG 检索内容的质量、K-shot 示例的多样性和代表性、以及对项目特定规则（如配置注册完整性）的明确编码，是确保提示词工程在实战中成功的关键。
+*   **API 和逻辑系统**：RAG 同样能有效应用于基于特定文档生成 API 调用代码，而结合 CoT 和 Few-Shot 则能实现复杂游戏逻辑系统（如背包系统）的精细化生成。
+
+---
 
     // 事件系统
     public event Action<int> OnSlotUpdated;
@@ -2127,7 +2170,7 @@ public class BagController : MonoBehaviour
     private void Start()
     {
         bagManager.OnSlotUpdated += UpdateSlotUI;
-        bagManager.OnInventoryUpdated += RefreshAllSlots();
+        bagManager.OnInventoryUpdated += RefreshAllSlots;
 
         // 初始化 UI
         for (int i = 0; i < bagManager.SlotCount; i++)
@@ -2137,6 +2180,7 @@ public class BagController : MonoBehaviour
             slotUI.Initialize(i, bagManager);
             slotUIs.Add(slotUI);
         }
+        RefreshAllSlots();
     }
 
     private void UpdateSlotUI(int slotIndex)
@@ -2579,6 +2623,14 @@ R = w1 * R_success + w2 * R_correctness + w3 * R_efficiency
 其中 A(q,a) = R(q,a) - b(q) 是优势函数
 ```
 
+#### 核心要点
+
+*   **LLM 基础**：LLM 基于 Transformer 架构和自注意力机制，通过自回归方式生成文本。提示词通过改变生成时的上下文，影响模型对下一个词的概率预测，从而引导输出。
+*   **In-Context Learning (ICL)**：模型在训练中学习到一种“元学习”能力，能从提示词中的示例中推断任务规则。注意力机制的分析表明，模型会自动关注与查询相关的示例，且靠近查询的示例有近因效应。
+*   **CoT 增强推理**：思维链通过将复杂问题分解为可验证的中间步骤，将长链推理转化为一系列短链推理。这降低了每步的错误率，并使错误可定位、可修正，显著提升了模型在逻辑和数学任务上的性能。
+*   **RAG 知识整合**：RAG 通过将外部知识库（向量数据库）与 LLM 结合，解决了模型的知识边界问题。它依赖向量嵌入来衡量语义相似度，并通过混合检索（密集+稀疏）提高召回率和精确度。
+*   **工具调用扩展能力**：通过结构化生成（如受限解码），LLM 可以可靠地输出符合特定模式（如 JSON Schema）的工具调用指令。结合监督微调（SFT）和强化学习（RLHF），模型能够学习何时以及如何正确调用外部工具，极大地扩展了 LLM 的应用边界。
+
 ---
 
 ## 7. 行业工具与生态
@@ -2916,6 +2968,15 @@ results = evaluate_prompt(
 - 工具推荐
 - 行业动态
 
+#### 核心要点
+
+*   **生态繁荣**：提示词工程领域拥有丰富的工具和框架，覆盖提示词管理、开发、优化、评估等全生命周期。
+*   **管理平台**：LangSmith、PromptHub 等平台提供提示词版本控制、A/B 测试、监控调试等功能，是团队协作和生产环境部署的利器。
+*   **开发框架**：LangChain、LlamaIndex 等框架简化了 LLM 应用的开发，尤其在构建复杂的 RAG 和 Agent 系统时表现出色；DSPy 则通过程序化方式优化提示词。
+*   **优化与评估**：PromptWizard 等工具能自动优化提示词，PromptBench 提供基准测试框架，帮助开发者量化和提升提示词性能。
+*   **开源社区**：如 Awesome Prompt Engineering、Prompt Engineering Guide 等开源项目，汇集了最新的研究进展、工具和学习资源，是持续学习的重要阵地。
+*   **LLM 趋势**：各类工具和框架紧跟 LLM 发展趋势，例如对 RAG 和 Agent 的支持，以及对提示词工程自动化和评估的重视。
+
 ---
 
 ## 9. 最佳实践与设计模式
@@ -3200,6 +3261,15 @@ def ab_test_prompts(prompt_a, prompt_b, test_set):
         "significance": p_value < 0.05
     }
 ```
+
+#### 核心要点
+
+*   **清晰原则（CLEAR）**：在设计提示词时应遵循简洁（Concise）、清晰（Lucid）、明确（Explicit）、可执行（Actionable）、相关（Relevant）的原则，确保模型能准确理解意图。
+*   **设计检查清单**：利用检查清单系统性地评估提示词的完整性，涵盖角色设定、任务描述、输入输出格式、示例、约束条件等关键要素。
+*   **软件工程模式**：将模板模式、工厂模式、装饰器模式等软件工程设计模式应用于提示词管理，可以提高提示词的可重用性、可维护性和灵活性。
+*   **提示词库组织**：建立结构化的提示词库，通过目录分类、标准模板、版本历史等方式进行管理，便于团队协作和知识共享。
+*   **测试与验证**：对提示词进行单元测试和 A/B 测试至关重要。通过测试验证提示词的输出格式、功能正确性，并对比不同版本提示词的性能，确保其在各种场景下的表现。
+*   **系统化管理**：将提示词工程视为一个系统化的工程实践，而不是简单的“试错”，有助于构建更可靠、高效的 AI 辅助系统。
 
 ---
 
@@ -4011,6 +4081,29 @@ private Dictionary<int, Item> itemLookup;
   
   ```
 
+#### 核心要点
+
+*   **全生命周期覆盖**：提示词工程不仅能用于代码生成，还能深入到代码审查、调试修复和重构等软件开发的核心环节，形成 AI 辅助开发的闭环。
+*   **代码生成策略多样**：可根据需求（功能需求、API 接口、测试驱动）或场景（代码补全、函数体生成、跨语言转换）选择合适的生成策略，提高代码生成效率和质量。
+*   **AI 辅助审查高效**：通过设计专项提示词，LLM 能进行静态代码分析（Bug、性能、风格）、架构层面检查（设计模式、SOLID 原则、依赖关系），显著提升代码审查的覆盖面和效率。
+*   **智能化调试与修复**：LLM 能够分析堆栈跟踪和日志，辅助进行错误诊断和根因分析，并生成修复建议和回归测试用例，加速 Bug 修复流程。
+*   **重构利器**：提示词工程可以帮助识别代码异味（如长方法、重复代码），生成重构方案（如提取方法/类、引入设计模式、优化数据结构），从而持续提升代码质量和可维护性。
+*   **游戏开发适配**：这些代码生成与审查的模式可高度定制化以适配游戏引擎特性、项目规范和性能要求，是游戏客户端开发者的强大工具。
+
+---
+private Dictionary<int, Item> itemLookup;
+```
+
+### 性能对比
+
+- 查找：O(n) → O(1)
+- 插入：O(1) → O(1)
+- 删除：O(n) → O(1)
+  
+  ```
+  
+  ```
+
 ---
 
 ## 10. 未来趋势与发展方向
@@ -4221,6 +4314,15 @@ def filter_output(output):
 
     return output
 ```
+
+#### 核心要点
+
+*   **动态与智能**：提示词工程正从静态设计走向动态适应，未来的提示词系统将能根据上下文、用户行为、任务复杂度等因素进行自适应调整和优化。
+*   **多模态融合**：随着多模态 LLM 的发展，提示词将不再局限于文本，而是能够融合图像、视频、音频等多种模态信息，实现更丰富、更自然的交互和内容生成。
+*   **自动化与迭代**：自动提示词工程（APE）将使 LLM 能够自主生成、评估和优化提示词，结合 Reflexion 等技术，实现提示词的自我迭代和持续改进，降低人工设计成本。
+*   **小模型爆发潜力**：通过精心设计的“强提示词”，小参数量模型也能在特定任务上达到接近大模型的性能，同时显著降低推理成本和延迟，加速 LLM 的普及和边缘部署。
+*   **安全与对齐**：随着提示词工程的广泛应用，提示词注入（Prompt Injection）和不当内容生成等安全挑战日益突出。未来的发展将更加重视提示词的安全防护、内容过滤和模型与人类价值观的对齐。
+*   **交互式系统**：交互式提示词系统将使 AI 能够通过多轮对话、学习用户偏好等方式，动态优化提示词和生成结果，提供更个性化、更智能的辅助体验。
 
 ---
 
@@ -4438,7 +4540,7 @@ def filter_output(output):
 
 ---
 
-## 10. 总结
+## 12. 总结
 
 提示词工程是连接人类意图与 AI 能力的桥梁。对于游戏开发者而言，掌握这些技术可以显著提升开发效率和代码质量。
 
