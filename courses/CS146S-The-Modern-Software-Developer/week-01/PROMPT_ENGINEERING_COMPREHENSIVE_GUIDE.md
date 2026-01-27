@@ -345,7 +345,6 @@ export class UIChooseOneCardView$$ extends BaseView$$ {
 
 # 任务
 根据用户提供的模块名 {ModuleName} 和界面名称 {ViewName}，生成完整的 View、Controller 和所有配置注册代码。
-```
 
 **结果**: 使用这种方法，生成的代码几乎无需手动修改，可以直接在项目中使用，极大地提升了开发效率。
 
