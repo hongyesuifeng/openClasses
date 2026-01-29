@@ -33,7 +33,16 @@
       "Bash(claude mcp list:*)",
       "Bash(conda activate:*)",
       "Bash(conda:*)",
-      "Bash(wget:*)"
+      "Bash(wget:*)",
+      "Bash(pgrep:*)",
+      "Bash(netstat:*)",
+      "Bash(ss:*)",
+      "Bash(lsof:*)",
+      "Bash(poetry run uvicorn:*)",
+      "Bash(source:*)",
+      "Bash(uvicorn:*)",
+      "Bash(PYTHONPATH=/mnt/c/Users/qq691/Desktop/openClasses python:*)",
+      "Bash(PYTHONPATH=/mnt/c/Users/qq691/Desktop/openClasses/courses/CS146S-The-Modern-Software-Developer/homework python:*)"
     ],
     "deny": [],
     "ask": []

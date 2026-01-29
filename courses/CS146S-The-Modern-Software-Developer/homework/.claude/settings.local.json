@@ -23,7 +23,11 @@
       "Bash(git push:*)",
       "Bash(git rm:*)",
       "Bash(git reset:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(ollama show:*)",
+      "Bash(curl:*)",
+      "Bash(poetry run pytest:*)"
     ]
   }
 }
