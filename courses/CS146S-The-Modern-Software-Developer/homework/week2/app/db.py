@@ -114,3 +114,22 @@ def mark_action_item_done(action_item_id: int, done: bool) -> None:
         connection.commit()
 
 
+def get_action_item(action_item_id: int) -> Optional[sqlite3.Row]:
+    """获取单个行动项
+
+    Args:
+        action_item_id: 行动项 ID
+
+    Returns:
+        行动项数据，如果不存在则返回 None
+    """
+    with get_connection() as connection:
+        cursor = connection.cursor()
+        cursor.execute(
+            "SELECT id, note_id, text, done, created_at FROM action_items WHERE id = ?",
+            (action_item_id,),
+        )
+        row = cursor.fetchone()
+        return row
+
+
