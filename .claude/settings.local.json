@@ -28,7 +28,12 @@
       "Bash(timeout 60 python3:*)",
       "Bash(journalctl:*)",
       "Bash(python:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git pull:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(conda activate:*)",
+      "Bash(conda:*)",
+      "Bash(wget:*)"
     ],
     "deny": [],
     "ask": []
