@@ -1,6 +1,6 @@
 # GitHub MCP Server
 
-一个 Model Context Protocol (MCP) 服务器，用于包装 GitHub API。该服务器允许 MCP 客户端（如 Claude Desktop、Cursor 等）查询 GitHub 仓库信息和 Issues。
+一个 Model Context Protocol (MCP) 服务器，用于包装 GitHub API。该服务器允许 MCP 客户端（如 Claude CLI、Claude Desktop、Cursor 等）查询 GitHub 仓库信息和 Issues。
 
 ## 功能特性
 
@@ -8,6 +8,7 @@
 - 🐛 **列出 Issues** - 查看仓库的 Issues，支持状态过滤
 - 🛡️ **错误处理** - 完善的错误处理和速率限制意识
 - 📝 **结构化输出** - 格式化的、易读的结果展示
+- 🔌 **Claude CLI 集成** - 开箱即用的命令行集成
 
 ## 项目结构
 
@@ -16,6 +17,7 @@ week3/
 ├── server/
 │   ├── __init__.py    # 包初始化
 │   └── main.py        # MCP 服务器主入口
+├── test_server.py     # 测试脚本
 ├── requirements.txt   # Python 依赖
 ├── .env.example      # 环境变量示例
 └── README.md         # 本文件
@@ -25,7 +27,7 @@ week3/
 
 - Python 3.10+
 - pip 或 Poetry
-- (可选) Claude Desktop 或其他 MCP 客户端
+- Claude CLI (推荐) 或其他 MCP 客户端
 
 ## 快速开始
 
@@ -74,7 +76,69 @@ python server/main.py
 
 ---
 
-## 配置 Claude Desktop
+## 配置 Claude CLI（推荐）
+
+Claude CLI 是最简单的方式来使用此 MCP 服务器。
+
+### 1. 添加 MCP 服务器
+
+```bash
+# 添加服务器到 Claude CLI 配置
+claude mcp add --transport stdio github -- python -m server.main
+```
+
+如果使用 conda 环境，指定完整 Python 路径：
+
+```bash
+# 获取 Python 路径
+which python  # 或 conda 环境中的 python
+
+# 添加服务器（替换为你的 Python 路径）
+claude mcp add --transport stdio github -- /home/username/miniconda3/envs/your_env/bin/python -m server.main
+```
+
+### 2. 验证连接
+
+```bash
+claude mcp list
+```
+
+你应该看到：
+
+```
+github: python -m server.main - ✓ Connected
+```
+
+### 3. 测试工具
+
+启动 Claude CLI 并测试：
+
+```bash
+# 方式 1: 直接运行
+claude
+
+# 方式 2: 单次执行
+claude --print "帮我查看 microsoft/vscode 仓库的信息"
+
+# 方式 3: 绕过权限提示（测试时使用）
+claude --print --permission-mode bypassPermissions "列出 python/cpython 仓库最近开放的 3 个 issues"
+```
+
+### 4. 查看服务器详情
+
+```bash
+claude mcp get github
+```
+
+### 5. 移除服务器（如需要）
+
+```bash
+claude mcp remove github
+```
+
+---
+
+## 配置 Claude Desktop（可选）
 
 要将此 MCP 服务器集成到 Claude Desktop：
 
@@ -214,7 +278,43 @@ This is a sample issue description...
 
 ## 示例调用流程
 
-### 在 Claude Desktop 中使用
+### 使用 Claude CLI
+
+**场景 1：查询仓库信息**
+
+```bash
+claude --print "帮我查看 facebook/react 仓库的基本信息，包括星标数和主要语言"
+```
+
+Claude 会调用：
+- 工具：`get_repository_info`
+- 参数：`{"owner": "facebook", "repo": "react"}`
+
+---
+
+**场景 2：查看最近开放的 Issues**
+
+```bash
+claude --print "请列出 vercel/next.js 仓库最近开放的 5 个 issue"
+```
+
+Claude 会调用：
+- 工具：`get_repository_issues`
+- 参数：`{"owner": "vercel", "repo": "next.js", "state": "open", "limit": 5}`
+
+---
+
+**场景 3：比较两个仓库**
+
+```bash
+claude --print "请比较 python/cpython 和 rust-lang/rust 两个仓库的星标数"
+```
+
+Claude 会调用两次 `get_repository_info` 并比较结果。
+
+---
+
+### 使用 Claude Desktop（可选）
 
 **场景 1：查询仓库信息**
 
@@ -259,6 +359,37 @@ Claude 会调用两次 `get_repository_info` 并比较结果。
 ---
 
 ## 开发与调试
+
+### 使用测试脚本
+
+项目包含一个测试脚本，可以直接验证服务器功能：
+
+```bash
+python test_server.py
+```
+
+这会运行 4 个测试用例：
+1. GitHub API 连接测试
+2. `get_repository_info` 工具测试
+3. `get_repository_issues` 工具测试
+4. 错误处理测试
+
+示例输出：
+```
+============================================================
+GitHub MCP 服务器测试套件
+============================================================
+============================================================
+测试 1: GitHub API 客户端连接
+============================================================
+✅ 成功获取仓库: microsoft/vscode
+...
+============================================================
+测试总结
+============================================================
+通过: 4/4
+失败: 0/4
+```
 
 ### 查看日志
 
@@ -312,7 +443,34 @@ GitHub API 的速率限制：
 
 ## 故障排除
 
-### 问题：Claude Desktop 无法连接
+### 问题：Claude CLI 显示 "Failed to connect"
+
+**解决方案**：
+
+1. 检查 Python 路径是否正确：
+```bash
+which python
+claude mcp get github
+```
+
+2. 如果使用 conda 环境，使用完整路径：
+```bash
+claude mcp remove github
+claude mcp add --transport stdio github -- /full/path/to/python -m server.main
+```
+
+3. 验证依赖已安装：
+```bash
+pip install -r requirements.txt
+python -c "import server.main; print('OK')"
+```
+
+4. 使用测试脚本验证服务器功能：
+```bash
+python test_server.py
+```
+
+### 问题：Claude Desktop 无法连接（可选）
 
 **解决方案**：
 
@@ -351,6 +509,7 @@ python -m server.main
 - **HTTP 客户端**: `httpx` >= 0.27.0
 - **环境管理**: `python-dotenv` >= 1.0.0
 - **GitHub API**: REST API v3
+- **测试**: AsyncIO 单元测试
 
 ---
 
