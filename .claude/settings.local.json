@@ -43,7 +43,12 @@
       "Bash(uvicorn:*)",
       "Bash(PYTHONPATH=/mnt/c/Users/qq691/Desktop/openClasses python:*)",
       "Bash(PYTHONPATH=/mnt/c/Users/qq691/Desktop/openClasses/courses/CS146S-The-Modern-Software-Developer/homework python:*)",
-      "Bash(claude:*)"
+      "Bash(claude:*)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(PYTHONPATH=. conda run:*)",
+      "Bash(PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit -m \"$\\(cat <<''EOF''\nfix: rename pre-commit-config.yaml to .pre-commit-config.yaml\n\n修复了 pre-commit hook 找不到配置文件的问题。\n文件名需要以点号开头才能被 pre-commit 正确识别。\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git reset:*)"
     ],
     "deny": [],
     "ask": []
