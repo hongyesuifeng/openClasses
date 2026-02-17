@@ -48,7 +48,16 @@
       "Bash(wc:*)",
       "Bash(PYTHONPATH=. conda run:*)",
       "Bash(PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit -m \"$\\(cat <<''EOF''\nfix: rename pre-commit-config.yaml to .pre-commit-config.yaml\n\n修复了 pre-commit hook 找不到配置文件的问题。\n文件名需要以点号开头才能被 pre-commit 正确识别。\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(powershell -NoProfile -Command \"echo $PROFILE\")",
+      "Bash(powershell -NoProfile -Command \"[Console]::OutputEncoding.EncodingName; $OutputEncoding.EncodingName\")",
+      "Bash(pwsh -NoProfile -Command \"echo $PROFILE\")",
+      "Bash(powershell -NoProfile -Command \"Test-Path ''C:\\\\Users\\\\Administrator\\\\Documents\\\\WindowsPowerShell\\\\Microsoft.PowerShell_profile.ps1''\")",
+      "Bash(~/.bashrc)",
+      "Bash(droid:*)",
+      "Bash(echo:*)",
+      "Bash(unset:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []
