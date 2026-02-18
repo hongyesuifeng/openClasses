@@ -18,39 +18,19 @@
 
 ### 记忆层次结构
 
-```
-┌─────────────────────────────────────────┐
-│         感知记忆 (Sensory Memory)         │
-│         持续时间: < 1 秒                  │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│         工作记忆 (Working Memory)         │
-│         持续时间: 15-30 秒               │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│         短期记忆 (Short-term Memory)      │
-│         持续时间: 几分钟到几小时          │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│         长期记忆 (Long-term Memory)       │
-│         持续时间: 永久                   │
-│    ┌─────────────────────────────────┐  │
-│    │  显性记忆 (Explicit)            │  │
-│    │  - 语义记忆 (知识)              │  │
-│    │  - 情景记忆 (事件)              │  │
-│    └─────────────────────────────────┘  │
-│    ┌─────────────────────────────────┐  │
-│    │  隐性记忆 (Implicit)            │  │
-│    │  - 程序记忆 (技能)              │  │
-│    │  - 启动效应                     │  │
-│    └─────────────────────────────────┘  │
-└─────────────────────────────────────────┘
+```mermaid
+graph TB
+    A["感知记忆 (Sensory Memory)<br/>持续时间: < 1 秒"] --> B["工作记忆 (Working Memory)<br/>持续时间: 15-30 秒"]
+    B --> C["短期记忆 (Short-term Memory)<br/>持续时间: 几分钟到几小时"]
+    C --> D["长期记忆 (Long-term Memory)<br/>持续时间: 永久"]
+    D --> E["显性记忆 (Explicit)<br/>- 语义记忆 (知识)<br/>- 情景记忆 (事件)"]
+    D --> F["隐性记忆 (Implicit)<br/>- 程序记忆 (技能)<br/>- 启动效应"]
+    style A fill:#e1f5fe
+    style B fill:#b3e5fc
+    style C fill:#81d4fa
+    style D fill:#4fc3f7
+    style E fill:#29b6f6
+    style F fill:#03a9f4
 ```
 
 ### 在智能体中的应用
@@ -70,186 +50,140 @@
 
 ### 基础实现
 
-```python
-from typing import List, Dict, Any, Optional
-from datetime import datetime, timedelta
-from dataclasses import dataclass, field
-import json
+```mermaid
+classDiagram
+    class MemoryItem {
+        +str content
+        +datetime timestamp
+        +float importance
+        +str memory_type
+        +vector embedding
+        +dict metadata
+    }
+
+    class ShortTermMemory {
+        +List[MemoryItem] memories
+        +int max_items = 100
+        +int decay_hours = 24
+        +add(content, importance, ...)
+        +get_recent(n)
+        +search(query, top_k)
+        +_cleanup()
+    }
+
+    ShortTermMemory "1" *-- "many" MemoryItem : contains
+```
 
 
-@dataclass
-class MemoryItem:
-    """记忆项"""
-    content: str
-    timestamp: datetime = field(default_factory=datetime.now)
-    importance: float = 0.5  # 0-1
-    memory_type: str = "general"  # 'conversation', 'event', 'knowledge'
-    embedding: Optional[List[float]] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
-
-    def to_dict(self) -> Dict:
-        return {
-            'content': self.content,
-            'timestamp': self.timestamp.isoformat(),
-            'importance': self.importance,
-            'type': self.memory_type,
-            'metadata': self.metadata
-        }
+```mermaid
+flowchart TD
+    A["add(content, importance=0.5, memory_type='general')"] --> B["创建 MemoryItem 对象"]
+    B --> C["添加到 memories 列表"]
+    C --> D["调用 _cleanup() 清理"]
+    D --> E["返回创建的记忆项"]
+    style A fill:#e3f2fd
+    style E fill:#c8e6c9
+```
 
 
-class ShortTermMemory:
-    """
-    短期记忆系统
+```mermaid
+flowchart TD
+    A["search(query, top_k=5)"] --> B["遍历所有记忆"]
+    B --> C{for each memory}
+    C --> D["关键词匹配评分"]
+    C --> E["时间衰减计算"]
+    C --> F["重要性加权"]
+    D --> G["按评分排序"]
+    E --> G
+    F --> G
+    G --> H["返回 top_k 结果"]
+    style A fill:#e3f2fd
+    style H fill:#c8e6c9
+```
 
-    特点：
-    - 容量有限
-    - 时间衰减
-    - LRU 淘汰
-    """
 
-    def __init__(self, max_items: int = 100, decay_hours: int = 24):
-        self.memories: List[MemoryItem] = []
-        self.max_items = max_items
-        self.decay_hours = decay_hours
-
-    def add(self, content: str, importance: float = 0.5,
-            memory_type: str = "general", metadata: Dict = None) -> MemoryItem:
-        """添加记忆"""
-        memory = MemoryItem(
-            content=content,
-            importance=importance,
-            memory_type=memory_type,
-            metadata=metadata or {}
-        )
-
-        self.memories.append(memory)
-
-        # 清理过期和不重要的记忆
-        self._cleanup()
-
-        return memory
-
-    def get_recent(self, n: int = 10) -> List[MemoryItem]:
-        """获取最近的记忆"""
-        return self.memories[-n:]
-
-    def search(self, query: str, top_k: int = 5) -> List[MemoryItem]:
-        """
-        搜索记忆（关键词匹配）
-
-        TODO: 可以改用向量搜索
-        """
-        query_lower = query.lower()
-        scored_memories = []
-
-        for memory in self.memories:
-            # 简单的关键词匹配
-            score = 0
-            if query_lower in memory.content.lower():
-                score += 1.0
-
-            # 时间加权：最近的记忆权重更高
-            time_diff = datetime.now() - memory.timestamp
-            time_weight = max(0, 1 - time_diff.total_seconds() / (3600 * self.decay_hours))
-            score *= time_weight * memory.importance
-
-            if score > 0:
-                scored_memories.append((memory, score))
-
-        # 排序并返回 top_k
-        scored_memories.sort(key=lambda x: x[1], reverse=True)
-        return [m[0] for m in scored_memories[:top_k]]
-
-    def _cleanup(self):
-        """清理记忆"""
-        now = datetime.now()
-
-        # 1. 删除过期的记忆
-        self.memories = [
-            m for m in self.memories
-            if (now - m.timestamp).total_seconds() < (self.decay_hours * 3600)
-        ]
-
-        # 2. 如果仍然超过容量，删除最旧且不重要的
-        if len(self.memories) > self.max_items:
-            # 按重要性和时间排序
-            self.memories.sort(
-                key=lambda m: (m.importance, m.timestamp),
-                reverse=True
-            )
-            self.memories = self.memories[:self.max_items]
-
-    def summarize(self) -> str:
-        """总结记忆内容"""
-        if not self.memories:
-            return "没有记忆"
-
-        summary = f"共有 {len(self.memories)} 条记忆\n"
-        summary += f"时间范围: {self.memories[0].timestamp} 到 {self.memories[-1].timestamp}\n"
-
-        # 按类型统计
-        type_count = {}
-        for memory in self.memories:
-            type_count[memory.memory_type] = type_count.get(memory.memory_type, 0) + 1
-
-        summary += f"类型分布: {json.dumps(type_count, ensure_ascii=False)}"
-
-        return summary
+```mermaid
+flowchart TD
+    A["_cleanup()"] --> B["1. 删除过期记忆"]
+    A --> C["2. 容量控制"]
+    B --> D{"if (当前时间 - 记忆时间)<br/>> decay_hours"}
+    D -->|true| E["删除该记忆"]
+    C --> F{"if 记忆数 > max_items"}
+    F -->|true| G["按重要性和时间排序"]
+    G --> H["保留最重要的 max_items 条"]
+    style A fill:#e3f2fd
 ```
 
 ### 游戏开发应用：NPC 会话记忆
 
+```mermaid
+classDiagram
+    class ShortTermMemory {
+        <<base>>
+        +List[MemoryItem] memories
+        +add(content, importance)
+        +search(query, top_k)
+    }
+
+    class ConversationMemory {
+        +add_conversation(speaker, message, emotion)
+        +get_conversation_with(speaker)
+        +get_emotional_summary(speaker)
+    }
+
+    ShortTermMemory <|-- ConversationMemory : extends
+```
+
+```mermaid
+flowchart TD
+    A["ConversationMemory.add_conversation<br/>(speaker, message, emotion='neutral')"] --> B["格式化内容<br/>'{speaker}: {message}'"]
+    B --> C["计算重要性: 根据情感"]
+    C --> D["调用 add()"]
+    E["get_conversation_with<br/>(speaker)"] --> F["返回与特定角色的所有对话"]
+    G["get_emotional_summary<br/>(speaker)"] --> H["返回情感统计"]
+    style A fill:#e3f2fd
+    style E fill:#fff3e0
+    style G fill:#fff3e0
+```
+
+
+```mermaid
+graph LR
+    A["angry"] -->|"0.9<br/>高重要性"| B["重要性值"]
+    C["sad"] -->|"0.8"| B
+    D["excited"] -->|"0.7"| B
+    E["happy"] -->|"0.6"| B
+    F["neutral"] -->|"0.4<br/>低重要性"| B
+    style B fill:#4caf50
+    style A fill:#ffcdd2
+    style F fill:#e0e0e0
+```
+
+
+使用示例:
+
 ```python
-class ConversationMemory(ShortTermMemory):
-    """
-    对话记忆系统
+npc_memory = ConversationMemory(max_items=50)
 
-    用于 NPC 记住与玩家的对话
-    """
+# 添加对话
+npc_memory.add_conversation(
+    speaker="玩家",
+    message="你好，我想买把剑",
+    emotion="neutral"
+)
 
-    def add_conversation(self, speaker: str, message: str, emotion: str = "neutral"):
-        """添加对话"""
-        content = f"{speaker}: {message}"
+npc_memory.add_conversation(
+    speaker="玩家",
+    message="这太贵了！",
+    emotion="angry"
+)
 
-        return self.add(
-            content=content,
-            importance=self._calculate_importance(emotion),
-            memory_type="conversation",
-            metadata={
-                "speaker": speaker,
-                "emotion": emotion
-            }
-        )
+# 获取与玩家的对话历史
+conversations = npc_memory.get_conversation_with("玩家")
 
-    def get_conversation_with(self, speaker: str) -> List[MemoryItem]:
-        """获取与特定角色的对话"""
-        return [
-            m for m in self.memories
-            if m.memory_type == "conversation" and
-            m.metadata.get("speaker") == speaker
-        ]
-
-    def _calculate_importance(self, emotion: str) -> float:
-        """根据情感计算重要性"""
-        emotion_importance = {
-            "angry": 0.9,
-            "sad": 0.8,
-            "happy": 0.6,
-            "excited": 0.7,
-            "neutral": 0.4
-        }
-        return emotion_importance.get(emotion, 0.5)
-
-    def get_emotional_summary(self, speaker: str) -> Dict[str, int]:
-        """获取情感统计"""
-        conversations = self.get_conversation_with(speaker)
-
-        emotion_count = {}
-        for conv in conversations:
-            emotion = conv.metadata.get("emotion", "neutral")
-            emotion_count[emotion] = emotion_count.get(emotion, 0) + 1
-
-        return emotion_count
+# 分析玩家情感状态
+emotions = npc_memory.get_emotional_summary("玩家")
+# {"angry": 1, "neutral": 1}
 ```
 
 ---
@@ -258,168 +192,76 @@ class ConversationMemory(ShortTermMemory):
 
 ### 向量存储与检索
 
-```python
-import numpy as np
-from typing import List, Optional
-import chromadb  # 或使用其他向量数据库
+```mermaid
+graph TB
+    subgraph 长期记忆系统
+        A["特点:<br/>- 容量几乎无限<br/>- 向量检索 (语义搜索)<br/>- 持久化存储<br/>- 高效查询"]
+    end
+    style A fill:#4caf50,color:#fff
+```
 
 
-class LongTermMemory:
-    """
-    长期记忆系统
+```mermaid
+flowchart TD
+    A["文档输入"] --> B["文本分块 (Chunking)<br/>- 将长文档分成小块<br/>- 每块 200-500 token"]
+    B --> C["向量化 (Embedding)<br/>- 使用 embedding 模型<br/>- 生成 768/1536 维向量"]
+    C --> D["存储到向量数据库<br/>- ChromaDB / Pinecone / Weaviate"]
+    D --> E["数据库表结构:<br/>| ID | 向量 | 文档 | 元数据 |<br/>| 001 | [0.1,...] | '...' | {...} |<br/>| 002 | [0.3,...] | '...' | {...} |"]
+    style A fill:#e3f2fd
+    style E fill:#c8e6c9
+```
 
-    特点：
-    - 容量几乎无限
-    - 向量检索
-    - 持久化存储
-    """
 
-    def __init__(self, collection_name: str = "long_term_memory"):
-        # 初始化向量数据库
-        self.client = chromadb.PersistentClient(path="./memory_db")
-        self.collection = self.client.get_or_create_collection(
-            name=collection_name
-        )
-
-    def add(self, content: str, metadata: Dict[str, Any] = None,
-            embedding: Optional[List[float]] = None) -> str:
-        """
-        添加长期记忆
-
-        Args:
-            content: 记忆内容
-            metadata: 元数据
-            embedding: 向量（如果为 None，需要生成）
-
-        Returns:
-            记忆 ID
-        """
-        memory_id = f"mem_{datetime.now().timestamp()}"
-
-        # 如果没有提供 embedding，需要生成
-        if embedding is None:
-            # 这里应该调用 embedding 模型
-            embedding = self._generate_embedding(content)
-
-        # 存储到向量数据库
-        self.collection.add(
-            ids=[memory_id],
-            embeddings=[embedding],
-            documents=[content],
-            metadatas=[metadata or {}]
-        )
-
-        return memory_id
-
-    def search(self, query: str, top_k: int = 5,
-               filter_metadata: Dict = None) -> List[Dict]:
-        """
-        搜索长期记忆
-
-        Args:
-            query: 查询文本
-            top_k: 返回结果数量
-            filter_metadata: 元数据过滤条件
-
-        Returns:
-            相关记忆列表
-        """
-        # 生成查询向量
-        query_embedding = self._generate_embedding(query)
-
-        # 搜索
-        results = self.collection.query(
-            query_embeddings=[query_embedding],
-            n_results=top_k,
-            where=filter_metadata
-        )
-
-        # 格式化结果
-        memories = []
-        for i, memory_id in enumerate(results['ids'][0]):
-            memories.append({
-                'id': memory_id,
-                'content': results['documents'][0][i],
-                'metadata': results['metadatas'][0][i],
-                'distance': results['distances'][0][i]
-            })
-
-        return memories
-
-    def _generate_embedding(self, text: str) -> List[float]:
-        """
-        生成文本的向量表示
-
-        实际实现中应该使用：
-        - OpenAI Embedding API
-        - Sentence Transformers
-        - 或其他 embedding 模型
-        """
-        # 这里使用简单的随机向量作为示例
-        return np.random.rand(768).tolist()
+```mermaid
+flowchart TD
+    A["用户查询"] --> B["向量化查询文本"]
+    B --> C["计算向量相似度"]
+    C --> D["相似度计算<br/>- 余弦相似度 (Cosine Similarity)<br/>- 欧氏距离 (Euclidean Distance)<br/>- 点积 (Dot Product)"]
+    D --> E["返回 Top-K 最相关文档"]
+    style A fill:#e3f2fd
+    style E fill:#c8e6c9
 ```
 
 ### 完整的记忆系统
 
-```python
-class UnifiedMemorySystem:
-    """
-    统一的记忆系统
+```mermaid
+graph TB
+    subgraph UnifiedMemorySystem["统一记忆系统架构"]
+        STM["短期记忆 (Short-term)<br/>- 工作记忆<br/>- 会话历史<br/>- 最近事件"]
+        LTM["长期记忆 (Long-term)<br/>- 知识库<br/>- 向量存储<br/>- 持久化"]
+        Scheduler["记忆调度器"]
+        Interface["检索接口"]
 
-    整合短期和长期记忆
-    """
+        STM --> Scheduler
+        LTM --> Scheduler
+        Scheduler --> Interface
+    end
+    style STM fill:#81d4fa
+    style LTM fill:#4fc3f7
+    style Scheduler fill:#29b6f6
+    style Interface fill:#03a9f4,color:#fff
+```
 
-    def __init__(self):
-        self.short_term = ShortTermMemory(max_items=100)
-        self.long_term = LongTermMemory()
 
-    def remember(self, content: str, importance: float = 0.5,
-                 memory_type: str = "general", metadata: Dict = None):
-        """
-        记住内容
+```mermaid
+flowchart TD
+    A["remember(content, importance=0.7)"] --> B{"importance > 0.7?"}
+    B -->|是| C["存入长期记忆"]
+    B -->|否| D["存入短期记忆"]
+    style A fill:#e3f2fd
+    style C fill:#c8e6c9
+    style D fill:#fff9c4
+```
 
-        自动决定存储到短期还是长期
-        """
-        # 重要记忆存入长期
-        if importance > 0.7:
-            self.long_term.add(content, metadata)
 
-        # 所有记忆都存入短期
-        self.short_term.add(content, importance, memory_type, metadata)
-
-    def recall(self, query: str, top_k: int = 5) -> List[Dict]:
-        """
-        回忆相关内容
-
-        从短期和长期记忆中检索
-        """
-        # 从短期记忆检索
-        short_results = self.short_term.search(query, top_k)
-
-        # 从长期记忆检索
-        long_results = self.long_term.search(query, top_k)
-
-        # 合并结果
-        all_results = []
-
-        for memory in short_results:
-            all_results.append({
-                'content': memory.content,
-                'source': 'short_term',
-                'timestamp': memory.timestamp,
-                'importance': memory.importance
-            })
-
-        for memory in long_results:
-            all_results.append({
-                'content': memory['content'],
-                'source': 'long_term',
-                'timestamp': memory['metadata'].get('timestamp'),
-                'distance': memory['distance']
-            })
-
-        # 排序（可以根据相关性或其他标准）
-        return all_results[:top_k]
+```mermaid
+flowchart TD
+    A["recall(query, top_k=5)"] --> B["从短期记忆检索"]
+    A --> C["从长期记忆检索"]
+    B --> D["合并结果，返回 top_k"]
+    C --> D
+    style A fill:#e3f2fd
+    style D fill:#c8e6c9
 ```
 
 ---
@@ -434,127 +276,153 @@ RAG = **R**etrieval-**A**ugmented **G**eneration
 
 ### RAG 工作流程
 
+```mermaid
+flowchart TD
+    A["用户问题"] --> B["向量化"]
+    B --> C["检索相关文档<br/>(向量数据库)"]
+    C --> D["Top-K 文档"]
+    A --> E["构建增强提示<br/>(问题 + 检索的文档)"]
+    D --> E
+    E --> F["LLM 生成答案"]
+    style A fill:#e3f2fd
+    style F fill:#c8e6c9
 ```
-用户问题
-    │
-    ├─→ 向量化
-    │       │
-    │       ▼
-    │   检索相关文档 (向量数据库)
-    │       │
-    │       ▼
-    │   Top-K 文档
-    │
-    ├─→ 构建增强提示
-    │   (问题 + 检索的文档)
-    │       │
-    │       ▼
-    └─→ LLM 生成答案
+
+
+```mermaid
+flowchart TB
+    subgraph S1["步骤 1: 文档索引构建"]
+        A1["知识文档 → 分块 → 向量化 → 存储到向量数据库"]
+    end
+
+    subgraph S2["步骤 2: 用户查询"]
+        A2["用户输入问题: '什么是Transformer?'"]
+    end
+
+    subgraph S3["步骤 3: 检索相关文档"]
+        A3["查询向量化 → 计算相似度 → 返回 Top-3 文档<br/><br/>文档 1: 'Transformer是一种深度学习模型...'<br/>文档 2: '自注意力机制是Transformer的核心...'<br/>文档 3: 'Transformer并行训练的优势...'"]
+    end
+
+    subgraph S4["步骤 4: 构建增强提示"]
+        A4["结合文档和问题构建提示:<br/>'基于以下文档回答问题:<br/>[文档1]<br/>[文档2]<br/>[文档3]<br/>问题: 什么是Transformer?'"]
+    end
+
+    subgraph S5["步骤 5: LLM 生成答案"]
+        A5["LLM 基于提供的文档生成答案<br/>'Transformer 是一种基于自注意力机制的深度学习模型...'"]
+    end
+
+    A1 --> A2 --> A3 --> A4 --> A5
+    style S1 fill:#e3f2fd
+    style S2 fill:#fff9c4
+    style S3 fill:#ffe0b2
+    style S4 fill:#ffccbc
+    style S5 fill:#c8e6c9
 ```
 
 ### RAG 实现
 
-```python
-class RAGSystem:
-    """
-    检索增强生成系统
-    """
+```
+RAG 系统结构:
 
-    def __init__(self, llm_client, knowledge_base_path: str):
+class RAGSystem:
+    初始化(llm_client, knowledge_base_path):
         self.llm = llm_client
         self.knowledge_base = LongTermMemory()
-        self._load_knowledge_base(knowledge_base_path)
+        加载知识库
 
-    def _load_knowledge_base(self, path: str):
-        """加载知识库"""
-        # 从文件或数据库加载文档
-        # 这里简化处理
-        pass
+    方法:
 
-    def query(self, question: str, top_k: int = 3) -> str:
+    query(question, top_k=3):
         """
         使用 RAG 回答问题
         """
-        # 1. 检索相关文档
-        relevant_docs = self.knowledge_base.search(question, top_k)
+        // 1. 检索相关文档
+        relevant_docs = knowledge_base.search(question, top_k)
 
-        # 2. 构建增强提示
-        prompt = self._build_rag_prompt(question, relevant_docs)
+        // 2. 构建增强提示
+        prompt = build_rag_prompt(question, relevant_docs)
 
-        # 3. LLM 生成答案
-        answer = self.llm.generate(prompt)
+        // 3. LLM 生成答案
+        answer = llm.generate(prompt)
 
         return answer
 
-    def _build_rag_prompt(self, question: str, docs: List[Dict]) -> str:
-        """构建 RAG 提示"""
-        context = "\n\n".join([
-            f"文档 {i+1}:\n{doc['content']}"
-            for i, doc in enumerate(docs)
-        ])
 
-        prompt = f"""基于以下文档回答问题。
+    build_rag_prompt(question, docs):
+        """
+        构建 RAG 提示
+        """
+        context = 拼接所有文档内容
 
-文档:
-{context}
+        prompt = """
+        基于以下文档回答问题。
 
-问题: {question}
+        文档:
+        {context}
 
-请仅使用文档中的信息回答问题。如果文档中没有相关信息，请说明。
-"""
+        问题: {question}
+
+        请仅使用文档中的信息回答问题。
+        如果文档中没有相关信息，请说明。
+        """
 
         return prompt
 
-    def add_document(self, content: str, metadata: Dict = None):
+
+    add_document(content, metadata):
         """添加文档到知识库"""
-        self.knowledge_base.add(content, metadata)
+        knowledge_base.add(content, metadata)
 ```
 
 ### 游戏开发应用：世界知识库
 
+```mermaid
+classDiagram
+    class RAGSystem {
+        <<base>>
+        +query(question, top_k)
+        +build_rag_prompt(question, docs)
+        +add_document(content, metadata)
+    }
+
+    class GameWorldKnowledge {
+        +answer_about_world(question, character_context)
+    }
+
+    RAGSystem <|-- GameWorldKnowledge : extends
+```
+
+```mermaid
+flowchart TD
+    A["玩家: '这个地方有什么传说吗？'"] --> B["检索知识库 → 找到相关世界背景"]
+    B --> C["NPC 回答: '啊，你问对人了。百年前...'<br/>(基于知识库生成符合角色的回答)"]
+    style A fill:#e3f2fd
+    style C fill:#c8e6c9
+```
+
+
+answer_about_world(question, character_context):
+
 ```python
-class GameWorldKnowledge(RAGSystem):
-    """
-    游戏世界知识库
+# 1. 检索世界知识
+world_knowledge = knowledge_base.search(question, top_k=2)
 
-    用于 NPC 了解世界信息
-    """
-
-    def answer_about_world(self, question: str, character_context: str = "") -> str:
-        """
-        回答关于游戏世界的问题
-
-        Args:
-            question: 问题
-            character_context: 角色上下文（影响回答风格）
-
-        Returns:
-            符合角色性格的回答
-        """
-        # 检索世界知识
-        world_knowledge = self.knowledge_base.search(question, top_k=2)
-
-        # 构建提示
-        prompt = f"""你是一个游戏角色。
+# 2. 构建提示
+prompt = """
+你是一个游戏角色。
 
 角色背景: {character_context}
 
 世界知识:
-{self._format_knowledge(world_knowledge)}
+{format_knowledge(world_knowledge)}
 
 问题: {question}
 
 请基于世界知识，以角色的口吻回答问题。
 """
 
-        return self.llm.generate(prompt)
-
-    def _format_knowledge(self, docs: List[Dict]) -> str:
-        """格式化知识"""
-        return "\n\n".join([
-            f"- {doc['content']}"
-            for doc in docs
-        ])
+# 3. 生成回答
+return llm.generate(prompt)
 ```
 
 ---
@@ -563,80 +431,133 @@ class GameWorldKnowledge(RAGSystem):
 
 ### 1. 记忆重要性评分
 
-```python
-def calculate_importance(memory: MemoryItem) -> float:
-    """
-    计算记忆重要性
+```
+记忆重要性评分算法:
 
-    因素：
-    - 情感强度
-    - 新奇性
-    - 相关性
-    - 最近访问
-    """
-    score = 0.5  # 基础分数
+calculate_importance(memory):
 
-    # 情感加权
-    emotion = memory.metadata.get('emotion', 'neutral')
+    score = 0.5  // 基础分数
+
+    // 情感加权
     emotion_weights = {
-        'surprised': 0.3,
-        'fearful': 0.3,
-        'angry': 0.25,
-        'sad': 0.2,
-        'happy': 0.15
+        'surprised': +0.3,
+        'fearful':   +0.3,
+        'angry':     +0.25,
+        'sad':      +0.2,
+        'happy':    +0.15
     }
-    score += emotion_weights.get(emotion, 0)
+    score += emotion_weights[emotion]
 
-    # 新奇性（重复的内容重要性降低）
-    repetition_count = memory.metadata.get('repetition', 0)
+    // 新奇性惩罚
+    // 重复的内容重要性降低
+    repetition_count = metadata.get('repetition', 0)
     score -= repetition_count * 0.1
 
-    # 最近访问（经常访问的更重要）
-    access_count = memory.metadata.get('access_count', 0)
+    // 最近访问加权
+    // 经常访问的更重要
+    access_count = metadata.get('access_count', 0)
     score += min(access_count * 0.05, 0.3)
 
     return max(0, min(1, score))
+
+
+示例:
+
+记忆 1: "玩家第一次击败巨龙"
+├── 情感: "excited" (+0.7)
+├── 新奇性: 0 (首次)
+├── 访问次数: 1 (+0.05)
+└── 重要性: 0.5 + 0.7 + 0.05 = 0.85
+
+记忆 2: "玩家第10次购买药水"
+├── 情感: "neutral" (0)
+├── 新奇性: 9 (-0.9)
+├── 访问次数: 10 (+0.3)
+└── 重要性: 0.5 + 0 - 0.9 + 0.3 = -0.1 → 0
 ```
 
 ### 2. 记忆衰减
 
-```python
-def apply_decay(memory: MemoryItem, decay_rate: float = 0.1):
-    """
-    应用记忆衰减
+```
+记忆衰减模型:
 
-    根据时间降低记忆的重要性
-    """
-    age_hours = (datetime.now() - memory.timestamp).total_seconds() / 3600
+apply_decay(memory, decay_rate=0.1):
 
-    # 指数衰减
-    decay_factor = math.exp(-decay_rate * age_hours / 24)  # 每天衰减
+    计算记忆年龄:
+        age_hours = (当前时间 - memory.timestamp) / 3600
 
-    memory.importance *= decay_factor
+    指数衰减公式:
+        decay_factor = e^(-decay_rate * age_hours / 24)
+        // 每天衰减
+
+    更新重要性:
+        memory.importance *= decay_factor
+
+
+衰减效果示例:
+
+初始重要性: 1.0
+decay_rate = 0.1
+
+时间      衰减因子      重要性
+─────────────────────────────────
+0天       1.000        1.000
+1天       0.905        0.905
+7天       0.698        0.698
+30天      0.286        0.286
+90天      0.023        0.023
 ```
 
 ### 3. 记忆巩固
 
-```python
-def consolidate_memories(short_term: ShortTermMemory,
-                        long_term: LongTermMemory,
-                        threshold: float = 0.7):
-    """
-    记忆巩固
+记忆巩固机制:
 
-    将重要的短期记忆转移到长期记忆
-    """
-    for memory in short_term.memories:
+```python
+consolidate_memories(short_term, long_term, threshold=0.7):
+
+    for each memory in short_term:
         if memory.importance >= threshold:
             # 转移到长期记忆
             long_term.add(
-                content=memory.content,
-                metadata={
-                    **memory.metadata,
-                    'original_timestamp': memory.timestamp.isoformat(),
-                    'consolidated_at': datetime.now().isoformat()
+                content: memory.content,
+                metadata: {
+                    ...memory.metadata,
+                    original_timestamp: memory.timestamp,
+                    consolidated_at: 当前时间
                 }
             )
+```
+
+
+```mermaid
+flowchart LR
+    subgraph STM["短期记忆"]
+        MA["记忆 A<br/>重要性: 0.8"]
+        MB["记忆 B<br/>重要性: 0.9"]
+        MC["记忆 C<br/>重要性: 0.3"]
+        MD["记忆 D<br/>重要性: 0.75"]
+    end
+
+    MA -->|巩固| LTM
+    MB -->|巩固| LTM
+    MD -->|巩固| LTM
+    MC -.->|丢弃| DISCARD
+
+    subgraph LTM["长期记忆"]
+        LMA["记忆 A<br/>(已巩固)"]
+        LMB["记忆 B<br/>(已巩固)"]
+        LMD["记忆 D<br/>(已巩固)"]
+        LMC["记忆 C<br/>(被丢弃)"]
+    end
+
+    style MA fill:#81c784
+    style MB fill:#81c784
+    style MD fill:#81c784
+    style MC fill:#ef5350
+    style LMA fill:#4caf50
+    style LMB fill:#4caf50
+    style LMD fill:#4caf50
+    style LMC fill:#9e9e9e
 ```
 
 ---

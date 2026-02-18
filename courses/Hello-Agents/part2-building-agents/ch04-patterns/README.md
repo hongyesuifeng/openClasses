@@ -27,107 +27,63 @@ ReAct = **Re**asoning（推理）+ **Act**ing（行动）
 
 ### 工作流程
 
-```
-┌─────────────────────────────────────────┐
-│              用户问题                     │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│         Thought: 分析问题                │
-│         "我需要查找..."                  │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│         Action: 执行工具                 │
-│         "搜索: Python 快速排序"          │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│      Observation: 观察结果               │
-│      "找到 5 篇相关文章..."              │
-└──────────────┬──────────────────────────┘
-               │
-               ▼
-         (继续循环...)
-               │
-               ▼
-┌─────────────────────────────────────────┐
-│         最终答案                         │
-└─────────────────────────────────────────┘
+```mermaid
+graph TB
+    A[用户问题] --> B["Thought: 分析问题<br/>我需要查找..."]
+    B --> C["Action: 执行工具<br/>搜索: Python 快速排序"]
+    C --> D["Observation: 观察结果<br/>找到 5 篇相关文章..."]
+    D --> E{是否完成?}
+    E -->|否| B
+    E -->|是| F[最终答案]
+
+    style A fill:#e1f5ff
+    style F fill:#c8e6c9
+    style E fill:#fff9c4
 ```
 
-### 代码实现
+### 伪代码实现
 
-```python
-import re
-from typing import List, Dict, Any
-from llm_client import LLMClient  # 假设的 LLM 客户端
+```
+ReActAgent 结构:
 
-class ReActAgent:
-    """
-    ReAct 智能体实现
-    """
-    def __init__(self, llm_client: LLMClient, tools: Dict[str, callable]):
-        self.llm = llm_client
-        self.tools = tools
-        self.max_iterations = 10
+初始化:
+    llm_client: LLM客户端
+    tools: 工具字典 {工具名: 工具函数}
+    max_iterations: 最大迭代次数
 
-    def run(self, query: str) -> str:
-        """
-        执行 ReAct 循环
+主执行流程 run(query):
+    prompt = 构建初始提示词(query)
 
-        Args:
-            query: 用户问题
+    for iteration in range(max_iterations):
+        response = llm.generate(prompt)
 
-        Returns:
-            最终答案
-        """
-        # 构建提示词
-        prompt = self.build_initial_prompt(query)
+        // 解析响应
+        thought, action, action_input = 解析响应(response)
 
-        # 执行推理-行动循环
-        for iteration in range(self.max_iterations):
-            # 调用 LLM 生成思考和行动
-            response = self.llm.generate(prompt)
+        if action == "finish":
+            return action_input  // 返回最终答案
 
-            # 解析响应
-            thought, action, action_input = self.parse_response(response)
+        // 执行工具
+        if action in tools:
+            observation = tools[action](action_input)
+        else:
+            observation = "错误: 未知工具"
 
-            print(f"[迭代 {iteration + 1}]")
-            print(f"思考: {thought}")
-            print(f"行动: {action}({action_input})")
+        // 更新提示词
+        prompt = 添加新步骤到提示词(
+            prompt, thought, action, action_input, observation
+        )
 
-            # 检查是否结束
-            if action == "finish":
-                return action_input
+    return "错误: 达到最大迭代次数"
 
-            # 执行行动
-            if action in self.tools:
-                observation = self.tools[action](action_input)
-                print(f"观察: {observation}\n")
-            else:
-                observation = f"错误: 未知工具 '{action}'"
-                print(f"观察: {observation}\n")
 
-            # 更新提示词
-            prompt = self.update_prompt(prompt, thought, action, action_input, observation)
+提示词模板:
 
-        return "错误: 达到最大迭代次数，未能解决问题"
-
-    def build_initial_prompt(self, query: str) -> str:
-        """构建初始提示词"""
-        tools_desc = "\n".join([
-            f"- {name}: {tool.__doc__}"
-            for name, tool in self.tools.items()
-        ])
-
-        prompt = f"""你是 ReAct 智能体。请使用以下工具回答问题：
+"""
+你是 ReAct 智能体。请使用以下工具回答问题：
 
 可用工具：
-{tools_desc}
+{工具列表}
 
 使用以下格式：
 思考: [你的推理过程]
@@ -140,135 +96,45 @@ class ReActAgent:
 问题: {query}
 
 思考:"""
-        return prompt
-
-    def parse_response(self, response: str) -> tuple:
-        """解析 LLM 响应"""
-        # 提取思考
-        thought_match = re.search(r'思考:\s*(.*?)(?=\n行动:|$)', response, re.DOTALL)
-        thought = thought_match.group(1).strip() if thought_match else ""
-
-        # 提取行动
-        action_match = re.search(r'行动:\s*(\w+)', response)
-        action = action_match.group(1) if action_match else ""
-
-        # 提取行动输入
-        action_input_match = re.search(r'行动输入:\s*(.*?)(?=\n思考:|\n观察:|$)', response, re.DOTALL)
-        action_input = action_input_match.group(1).strip() if action_input_match else ""
-
-        return thought, action, action_input
-
-    def update_prompt(self, prompt: str, thought: str, action: str,
-                     action_input: str, observation: str) -> str:
-        """更新提示词，添加新的思考-行动-观察"""
-        new_step = f"\n思考: {thought}\n行动: {action}\n行动输入: {action_input}\n观察: {observation}\n思考:"
-        return prompt + new_step
-
-
-# 使用示例
-def search_tool(query: str) -> str:
-    """搜索工具"""
-    # 模拟搜索
-    return f"找到关于 '{query}' 的信息..."
-
-def calculator_tool(expression: str) -> str:
-    """计算器工具"""
-    try:
-        result = eval(expression)
-        return f"计算结果: {result}"
-    except:
-        return "计算错误"
-
-# 创建智能体
-tools = {
-    "search": search_tool,
-    "calculator": calculator_tool
-}
-
-agent = ReActAgent(llm_client=LLMClient(), tools=tools)
-
-# 运行
-result = agent.run("Python 的快速排序算法是什么？")
-print(result)
 ```
 
 ### 游戏开发应用
 
 **游戏 NPC 行为决策**
 
-```python
-class NPCAgent(ReActAgent):
-    """
-    游戏中的 NPC 智能体
-    """
-    def __init__(self, npc_name: str, llm_client: LLMClient):
-        # NPC 可用的行动
-        tools = {
-            "move_to": self.move_to,
-            "talk_to": self.talk_to,
-            "use_item": self.use_item,
-            "attack": self.attack,
-            "flee": self.flee
-        }
-        super().__init__(llm_client, tools)
-        self.npc_name = npc_name
+```
+NPCAgent 继承自 ReActAgent:
 
-    def decide_action(self, situation: str) -> str:
-        """
-        决定下一步行动
+工具集设计:
+    move_to(location)     → 移动到位置
+    talk_to(target)       → 与目标对话
+    use_item(item)        → 使用物品
+    attack(target)        → 攻击目标
+    flee()                → 逃跑
 
-        Args:
-            situation: 当前情况描述
+决策流程:
+    situation = 获取游戏状态()
 
-        Returns:
-            行动决策
-        """
-        prompt = f"""你是游戏角色 {self.npc_name}。
+    prompt = """
+    你是游戏角色 {npc_name}
 
-当前情况: {situation}
+    当前情况: {situation}
+    你的性格: 勇敢但谨慎
+    你的目标: 保护村庄
 
-你的性格: 勇敢但谨慎
-你的目标: 保护村庄
+    思考你应该如何行动，然后执行。
 
-思考你应该如何行动，然后执行。
+    思考:"""
 
-思考:"""
-
-        return self.run(prompt)
-
-    def move_to(self, location: str) -> str:
-        """移动到指定位置"""
-        return f"{self.npc_name} 移动到了 {location}"
-
-    def talk_to(self, target: str) -> str:
-        """与目标对话"""
-        return f"{self.npc_name} 与 {target} 开始对话"
-
-    def use_item(self, item: str) -> str:
-        """使用物品"""
-        return f"{self.npc_name} 使用了 {item}"
-
-    def attack(self, target: str) -> str:
-        """攻击目标"""
-        return f"{self.npc_name} 攻击了 {target}"
-
-    def flee(self) -> str:
-        """逃跑"""
-        return f"{self.npc_name} 逃跑"
+    action = 执行ReAct循环(prompt)
+    执行行动(action)
 
 
-# 游戏循环示例
-npc = NPCAgent("守卫队长", LLMClient())
-
-while game_running:
-    # 获取当前游戏状态
-    situation = get_game_state()
-
-    # NPC 决策
-    action = npc.decide_action(situation)
-
-    # 执行行动
-    execute_action(action)
+游戏循环:
+    while 游戏运行:
+        situation = get_game_state()
+        action = npc.decide_action(situation)
+        execute_action(action)
 ```
 
 ---
@@ -283,248 +149,156 @@ while game_running:
 
 ### 工作流程
 
-```
-问题: "如何开发一个游戏？"
+```mermaid
+graph TB
+    A["问题: 如何开发一个游戏?"] --> B["Plan: 制定计划<br/>1. 确定游戏类型<br/>2. 设计核心玩法<br/>3. 选择游戏引擎<br/>4. 开发原型<br/>5. 测试和优化"]
+    B --> C["Step 1: 确定游戏类型<br/>→ 完成: RPG 游戏"]
+    C --> D["Step 2: 设计核心玩法<br/>→ 完成: 回合制战斗"]
+    D --> E["Step 3: 选择游戏引擎<br/>→ 继续..."]
+    E --> F["Step 4: 开发原型"]
+    F --> G["Step 5: 测试和优化"]
 
-┌─────────────────────────────────────┐
-│      Plan: 制定计划                  │
-│      1. 确定游戏类型                 │
-│      2. 设计核心玩法                 │
-│      3. 选择游戏引擎                 │
-│      4. 开发原型                     │
-│      5. 测试和优化                   │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      Step 1: 确定游戏类型           │
-│      → 完成: RPG 游戏               │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│      Step 2: 设计核心玩法           │
-│      → 完成: 回合制战斗             │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-         (继续执行...)
+    style A fill:#e1f5ff
+    style B fill:#fff9c4
+    style G fill:#c8e6c9
 ```
 
-### 代码实现
+### 伪代码实现
 
-```python
-class PlanAndSolveAgent:
-    """
-    Plan-and-Solve 智能体
-    """
-    def __init__(self, llm_client: LLMClient, tools: Dict[str, callable]):
-        self.llm = llm_client
-        self.tools = tools
+```
+PlanAndSolveAgent 结构:
 
-    def run(self, query: str) -> str:
-        """
-        执行 Plan-and-Solve 流程
-        """
-        # 第一步：制定计划
-        plan = self.make_plan(query)
-        print(f"📋 计划:\n{plan}\n")
+主执行流程 run(query):
+    // 第一步：制定计划
+    plan = make_plan(query)
+    输出计划(plan)
 
-        # 第二步：执行计划
-        result = self.execute_plan(plan, query)
+    // 第二步：执行计划
+    result = execute_plan(plan, query)
 
-        return result
+    return result
 
-    def make_plan(self, query: str) -> List[str]:
-        """
-        制定执行计划
 
-        Returns:
-            步骤列表
-        """
-        prompt = f"""对于以下问题，制定一个详细的执行计划。
+制定计划 make_plan(query):
+    prompt = """
+    对于以下问题，制定一个详细的执行计划。
 
-问题: {query}
+    问题: {query}
 
-请将问题分解为 3-7 个具体的步骤。
-每个步骤应该是可执行的、具体的。
+    请将问题分解为 3-7 个具体的步骤。
+    每个步骤应该是可执行的、具体的。
 
-格式：
-1. [步骤1]
-2. [步骤2]
-...
+    格式：
+    1. [步骤1]
+    2. [步骤2]
+    ...
 
-计划:"""
+    计划:"""
 
-        response = self.llm.generate(prompt)
+    response = llm.generate(prompt)
+    steps = 解析计划步骤(response)
 
-        # 解析计划
-        steps = self.parse_plan(response)
-        return steps
+    return steps
 
-    def parse_plan(self, response: str) -> List[str]:
-        """解析计划文本"""
-        steps = []
-        for line in response.split('\n'):
-            # 匹配 "1. 步骤内容" 格式
-            match = re.match(r'\d+\.\s*(.+)', line)
-            if match:
-                steps.append(match.group(1).strip())
-        return steps
 
-    def execute_plan(self, plan: List[str], original_query: str) -> str:
-        """
-        执行计划
+执行计划 execute_plan(plan, original_query):
+    context = {
+        'original_query': original_query,
+        'completed_steps': [],
+        'intermediate_results': []
+    }
 
-        Args:
-            plan: 计划步骤列表
-            original_query: 原始问题
+    for i, step in enumerate(plan):
+        输出("步骤 {i}/{len(plan)}: {step}")
 
-        Returns:
-            最终答案
-        """
-        context = {
-            'original_query': original_query,
-            'completed_steps': [],
-            'intermediate_results': []
-        }
+        // 执行当前步骤
+        step_result = execute_step(step, context)
 
-        for i, step in enumerate(plan, 1):
-            print(f"▶ 步骤 {i}/{len(plan)}: {step}")
+        // 保存结果
+        context['completed_steps'].append(step)
+        context['intermediate_results'].append(step_result)
 
-            # 执行当前步骤
-            step_result = self.execute_step(step, context)
+        输出("完成: {step_result}")
 
-            # 保存结果
-            context['completed_steps'].append(step)
-            context['intermediate_results'].append(step_result)
+    // 汇总结果
+    final_answer = synthesize_results(context)
+    return final_answer
 
-            print(f"✅ 完成: {step_result}\n")
 
-        # 汇总所有步骤的结果
-        final_answer = self.synthesize_results(context)
-        return final_answer
+执行单个步骤 execute_step(step, context):
+    prompt = """
+    背景:
+    原始问题: {context['original_query']}
 
-    def execute_step(self, step: str, context: Dict) -> str:
-        """
-        执行单个步骤
-        """
-        prompt = f"""背景:
-原始问题: {context['original_query']}
+    已完成步骤:
+    {格式化已完成的步骤}
 
-已完成步骤:
-{self.format_completed_steps(context['completed_steps'])}
+    当前步骤: {step}
 
-当前步骤: {step}
+    请执行这个步骤，提供具体的结果。
+    如果需要使用工具，请说明。
 
-请执行这个步骤，提供具体的结果。
-如果需要使用工具，请说明。
+    结果:"""
 
-结果:"""
+    response = llm.generate(prompt)
 
-        response = self.llm.generate(prompt)
+    // 检查是否需要调用工具
+    for tool_name in tools.keys():
+        if tool_name in response:
+            tool_input = 提取工具输入(response, tool_name)
+            if tool_input:
+                return tools[tool_name](tool_input)
 
-        # 检查是否需要调用工具
-        for tool_name in self.tools.keys():
-            if tool_name in response.lower():
-                # 提取工具输入
-                tool_input = self.extract_tool_input(response, tool_name)
-                if tool_input:
-                    return self.tools[tool_name](tool_input)
-
-        return response
-
-    def synthesize_results(self, context: Dict) -> str:
-        """
-        综合所有步骤的结果
-        """
-        prompt = f"""基于以下步骤的执行结果，生成最终的完整答案：
-
-原始问题: {context['original_query']}
-
-执行的步骤和结果:
-{self.format_steps_and_results(context)}
-
-请提供完整、连贯的最终答案。
-"""
-
-        return self.llm.generate(prompt)
-
-    def format_completed_steps(self, steps: List[str]) -> str:
-        """格式化已完成的步骤"""
-        return "\n".join([f"- {step}" for step in steps])
-
-    def format_steps_and_results(self, context: Dict) -> str:
-        """格式化步骤和结果"""
-        formatted = []
-        for step, result in zip(context['completed_steps'], context['intermediate_results']):
-            formatted.append(f"步骤: {step}\n结果: {result}\n")
-        return "\n".join(formatted)
-
-    def extract_tool_input(self, response: str, tool_name: str) -> str:
-        """从响应中提取工具输入"""
-        # 简单实现：寻找工具名称后的内容
-        pattern = f"{tool_name}\\s*:?\\s*(.+?)(?:\n|$)"
-        match = re.search(pattern, response, re.IGNORECASE)
-        return match.group(1).strip() if match else None
+    return response
 ```
 
 ### 游戏开发应用
 
 **游戏任务生成**
 
-```python
-class QuestGeneratorAgent(PlanAndSolveAgent):
+```
+QuestGeneratorAgent 结构:
+
+工具集:
+    generate_objective(description)  → 生成任务目标
+    create_dialogue(character)        → 创建对话
+    design_reward(difficulty)         → 设计奖励
+
+
+生成任务流程:
+    query = """
+    为 {player_level} 级玩家生成一个{quest_type}任务。
+
+    任务要求:
+    - 难度适中
+    - 有趣的剧情
+    - 合理的奖励
     """
-    游戏任务生成器
-    """
-    def __init__(self, llm_client: LLMClient):
-        tools = {
-            "generate_objective": self.generate_objective,
-            "create_dialogue": self.create_dialogue,
-            "design_reward": self.design_reward
+
+    // 使用 Plan-and-Solve 生成任务
+    plan = make_plan(query)
+
+    // 执行计划
+    result = execute_plan(plan, query)
+
+    quest = 解析任务信息(result)
+
+    return quest
+
+
+任务结构:
+    {
+        "title": "任务标题",
+        "type": "主线/支线/日常",
+        "level": 玩家等级要求,
+        "objectives": [目标列表],
+        "dialogues": [对话列表],
+        "rewards": {
+            "experience": 经验值,
+            "gold": 金币,
+            "items": [物品列表]
         }
-        super().__init__(llm_client, tools)
-
-    def generate_quest(self, quest_type: str, player_level: int) -> Dict:
-        """
-        生成游戏任务
-
-        Args:
-            quest_type: 任务类型（主线、支线、日常等）
-            player_level: 玩家等级
-
-        Returns:
-            任务详细信息
-        """
-        query = f"""
-        为 {player_level} 级玩家生成一个{quest_type}任务。
-
-        任务要求:
-        - 难度适中
-        - 有趣的剧情
-        - 合理的奖励
-        """
-
-        # 使用 Plan-and-Solve 生成任务
-        plan = self.make_plan(query)
-
-        # 执行计划
-        result = self.execute_plan(plan, query)
-
-        return self.parse_quest(result)
-
-    def generate_objective(self, description: str) -> str:
-        """生成任务目标"""
-        return f"任务目标: {description}"
-
-    def create_dialogue(self, character: str) -> str:
-        """创建对话"""
-        return f"{character}: [生成的对话内容]"
-
-    def design_reward(self, quest_difficulty: str) -> str:
-        """设计奖励"""
-        return f"奖励: 经验值、金币、装备..."
+    }
 ```
 
 ---
@@ -542,244 +316,189 @@ class QuestGeneratorAgent(PlanAndSolveAgent):
 
 ### 工作流程
 
-```
-问题: "写一个快速排序函数"
+```mermaid
+graph TB
+    A["问题: 写一个快速排序函数"] --> B["Draft 1: 初始草稿<br/>(基础实现)"]
+    B --> C["Reflect: 反思<br/>问题:<br/>- 没有处理边界情况<br/>- 缺少注释<br/>- 没有优化"]
+    C --> D["Draft 2: 改进版本<br/>(添加边界处理和注释)"]
+    D --> E{是否满意?}
+    E -->|否| F["Reflect: 继续反思<br/>发现更多改进点"]
+    F --> G["Draft 3: 进一步优化"]
+    G --> E
+    E -->|是| H["最终版本"]
 
-┌─────────────────────────────────────┐
-│   Draft 1: 初始草稿                  │
-│   [基础实现]                         │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│   Reflect: 反思                      │
-│   问题:                              │
-│   - 没有处理边界情况                 │
-│   - 缺少注释                         │
-│   - 没有优化                         │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-┌─────────────────────────────────────┐
-│   Draft 2: 改进版本                  │
-│   [添加边界处理和注释]               │
-└──────────────┬──────────────────────┘
-               │
-               ▼
-         (继续优化...)
+    style A fill:#e1f5ff
+    style H fill:#c8e6c9
+    style E fill:#fff9c4
 ```
 
-### 代码实现
+### 伪代码实现
 
-```python
-class ReflectionAgent:
+```
+ReflectionAgent 结构:
+
+主执行流程 run(query, context=""):
+    current_version = None
+    feedback_history = []
+
+    for iteration in range(max_refinements + 1):
+        if iteration == 0:
+            // 第一次：生成初始版本
+            current_version = generate_draft(query, context)
+        else:
+            // 后续：基于反馈改进
+            current_version = refine(
+                query,
+                current_version,
+                feedback_history[-1],
+                context
+            )
+
+        输出("当前版本: {current_version}")
+
+        // 获取反馈
+        feedback = get_feedback(query, current_version, context)
+        输出("反馈: {feedback}")
+        feedback_history.append(feedback)
+
+        // 检查是否满意
+        if is_satisfactory(feedback):
+            输出("达到满意的质量!")
+            break
+
+    return current_version
+
+
+生成草稿 generate_draft(query, context):
+    prompt = """
+    任务: {query}
+
+    {context}
+
+    请完成这个任务。这是第一版，重点是正确性。
     """
-    Reflection 智能体
-    """
-    def __init__(self, llm_client: LLMClient):
-        self.llm = llm_client
-        self.max_refinements = 3
 
-    def run(self, query: str, context: str = "") -> str:
-        """
-        执行反思循环
-        """
-        current_version = None
-        feedback_history = []
+    return llm.generate(prompt)
 
-        for iteration in range(self.max_refinements + 1):
-            print(f"\n🔄 迭代 {iteration + 1}")
 
-            if iteration == 0:
-                # 第一次：生成初始版本
-                current_version = self.generate_draft(query, context)
-            else:
-                # 后续：基于反馈改进
-                current_version = self.refine(
-                    query,
-                    current_version,
-                    feedback_history[-1],
-                    context
-                )
+获取反馈 get_feedback(query, version, context):
+    prompt = """
+    任务: {query}
 
-            print(f"当前版本:\n{current_version}\n")
+    当前版本:
+    {version}
 
-            # 获取反馈
-            feedback = self.get_feedback(query, current_version, context)
-            print(f"反馈:\n{feedback}\n")
-            feedback_history.append(feedback)
+    请分析这个版本，提供详细的反馈：
 
-            # 检查是否满意
-            if self.is_satisfactory(feedback):
-                print("✅ 达到满意的质量!")
-                break
+    1. 问题分析:
+       - 有哪些错误或不足？
+       - 遗漏了什么？
 
-        return current_version
+    2. 改进建议:
+       - 具体应该如何改进？
+       - 优先级排序
 
-    def generate_draft(self, query: str, context: str) -> str:
-        """
-        生成初始草稿
-        """
-        prompt = f"""任务: {query}
+    3. 质量评估:
+       - 给出 1-10 分的质量评分
+       - 是否达到可用标准？
 
-{context}
+    反馈:"""
 
-请完成这个任务。这是第一版，重点是正确性。
-"""
+    return llm.generate(prompt)
 
-        return self.llm.generate(prompt)
 
-    def get_feedback(self, query: str, version: str, context: str) -> str:
-        """
-        获取对当前版本的反馈
+基于反馈改进 refine(query, current_version, feedback, context):
+    prompt = """
+    任务: {query}
 
-        分析：
-        - 问题和缺陷
-        - 改进建议
-        - 质量评分
-        """
-        prompt = f"""任务: {query}
+    当前版本:
+    {current_version}
 
-当前版本:
-{version}
+    反馈:
+    {feedback}
 
-请分析这个版本，提供详细的反馈：
+    请根据反馈改进当前版本。只修改需要改进的部分，
+    保持其他部分不变。
 
-1. 问题分析:
-   - 有哪些错误或不足？
-   - 遗漏了什么？
+    改进后的版本:"""
 
-2. 改进建议:
-   - 具体应该如何改进？
-   - 优先级排序
+    return llm.generate(prompt)
 
-3. 质量评估:
-   - 给出 1-10 分的质量评分
-   - 是否达到可用标准？
 
-反馈:"""
+判断是否满意 is_satisfactory(feedback):
+    // 检查反馈中的关键词
+    if 包含积极词(feedback):
+        return True
 
-        return self.llm.generate(prompt)
-
-    def refine(self, query: str, current_version: str, feedback: str, context: str) -> str:
-        """
-        基于反馈改进
-        """
-        prompt = f"""任务: {query}
-
-当前版本:
-{current_version}
-
-反馈:
-{feedback}
-
-请根据反馈改进当前版本。只修改需要改进的部分，保持其他部分不变。
-
-改进后的版本:"""
-
-        return self.llm.generate(prompt)
-
-    def is_satisfactory(self, feedback: str) -> bool:
-        """
-        判断反馈是否表示满意
-        """
-        # 检查反馈中的关键词
-        positive_indicators = ['满意', 'excellent', '完美', '可以接受']
-        negative_indicators = ['需要改进', '不够好', '有问题', '应改进']
-
-        feedback_lower = feedback.lower()
-
-        # 如果有积极指标，没有严重问题
-        if any(indicator in feedback_lower for indicator in positive_indicators):
+    if 不包含消极词(feedback):
+        score = 提取评分(feedback)  // 例如 "8/10"
+        if score >= 8:
             return True
 
-        # 如果没有严重问题
-        if not any(indicator in feedback_lower for indicator in negative_indicators):
-            # 检查评分
-            score_match = re.search(r'(\d+)/10', feedback)
-            if score_match:
-                score = int(score_match.group(1))
-                return score >= 8
-
-        return False
+    return False
 ```
 
 ### 游戏开发应用
 
 **NPC 对话优化**
 
-```python
-class DialogueRefiner(ReflectionAgent):
+```
+DialogueRefiner 继承自 ReflectionAgent:
+
+生成对话 generate_dialogue(character, situation, personality):
+    context = """
+    角色: {character}
+    情境: {situation}
+    性格:
+    - 开放性: {personality['openness']}
+    - 外向性: {personality['extraversion']}
+    - 亲和性: {personality['agreeableness']}
+    - 神经质: {personality['neuroticism']}
+
+    要求:
+    1. 对话要符合角色性格
+    2. 自然、流畅
+    3. 推动剧情发展
+    4. 有情感表现
     """
-    游戏对话优化器
-    """
-    def __init__(self, llm_client: LLMClient):
-        super().__init__(llm_client)
 
-    def generate_dialogue(self, character: str, situation: str,
-                         personality: Dict) -> str:
-        """
-        生成并优化 NPC 对话
+    query = "为 {character} 生成一句对话"
 
-        Args:
-            character: 角色名称
-            situation: 情境描述
-            personality: 性格特征
-        """
-        context = f"""
-角色: {character}
-情境: {situation}
-性格:
-- 开放性: {personality['openness']}
-- 外向性: {personality['extraversion']}
-- 亲和性: {personality['agreeableness']}
-- 神经质: {personality['neuroticism']}
+    return run(query, context)
 
-要求:
-1. 对话要符合角色性格
-2. 自然、流畅
-3. 推动剧情发展
-4. 有情感表现
-"""
 
-        query = f"为 {character} 生成一句对话"
+获取对话反馈 get_feedback(query, dialogue, context):
+    prompt = """
+    {context}
 
-        return self.run(query, context)
+    生成的对话:
+    "{dialogue}"
 
-    def get_feedback(self, query: str, dialogue: str, context: str) -> str:
-        """
-        获取对话反馈
-        """
-        prompt = f"""{context}
+    请评估这段对话:
 
-生成的对话:
-"{dialogue}"
+    1. 角色一致性:
+       - 是否符合角色性格？
+       - 语气是否恰当？
 
-请评估这段对话:
+    2. 自然度:
+       - 是否自然流畅？
+       - 是否像真人说话？
 
-1. 角色一致性:
-   - 是否符合角色性格？
-   - 语气是否恰当？
+    3. 剧情推动:
+       - 是否推动故事发展？
+       - 是否有趣？
 
-2. 自然度:
-   - 是否自然流畅？
-   - 是否像真人说话？
+    4. 情感表达:
+       - 情感是否到位？
+       - 是否有感染力？
 
-3. 剧情推动:
-   - 是否推动故事发展？
-   - 是否有趣？
+    5. 具体建议:
+       - 哪些地方需要修改？
+       - 如何改进？
 
-4. 情感表达:
-   - 情感是否到位？
-   - 是否有感染力？
+    反馈:"""
 
-5. 具体建议:
-   - 哪些地方需要修改？
-   - 如何改进？
-
-反馈:"""
-
-        return self.llm.generate(prompt)
+    return llm.generate(prompt)
 ```
 
 ---
