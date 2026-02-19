@@ -57,7 +57,13 @@
       "Bash(droid:*)",
       "Bash(echo:*)",
       "Bash(unset:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(git fetch:*)",
+      "Bash(git --version)",
+      "Bash(break:*)",
+      "Bash(nc:*)",
+      "Bash(ip route show:*)",
+      "Bash(/mnt/c/Windows/System32/curl.exe:*)"
     ],
     "deny": [],
     "ask": []
