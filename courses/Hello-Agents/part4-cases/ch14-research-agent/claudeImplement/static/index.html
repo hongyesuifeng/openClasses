@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究代理系统 - Research Agent</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 页头 -->
+        <header class="header">
+            <h1>🔬 研究代理系统</h1>
+            <p class="subtitle">基于《Hello-Agents》课程核心知识点实现</p>
+            <div class="knowledge-points">
+                <span class="tag">ReAct范式</span>
+                <span class="tag">Plan-and-Solve</span>
+                <span class="tag">Reflection范式</span>
+                <span class="tag">多智能体协作</span>
+                <span class="tag">消息系统</span>
+                <span class="tag">工具系统</span>
+            </div>
+        </header>
+
+        <!-- API配置按钮 -->
+        <button id="api-config-btn" class="api-config-btn" title="配置API">
+            ⚙️ API配置
+        </button>
+
+        <!-- API配置模态框 -->
+        <div id="api-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚙️ API配置</h2>
+                    <button class="close-btn" onclick="closeApiModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="config-group">
+                        <label>
+                            <input type="radio" name="llm-service" value="mock" checked onchange="toggleApiInput(false)">
+                            使用智能模拟（无需API Key）
+                        </label>
+                        <div class="config-desc">快速体验，基于主题生成相关的高质量内容</div>
+                    </div>
+                    <div class="config-group">
+                        <label>
+                            <input type="radio" name="llm-service" value="huggingface" onchange="toggleApiInput(true)">
+                            使用 HuggingFace Inference API
+                        </label>
+                        <div class="config-desc">需要API Token，推荐模型：Qwen/Qwen2.5-7B-Instruct</div>
+                    </div>
+                    <div class="config-group" id="api-input-group" style="display: none;">
+                        <label for="api-token">HuggingFace API Token:</label>
+                        <input type="password" id="api-token" placeholder="hf_xxxxxxxxxxxxx" class="api-input">
+                        <div class="config-hint">
+                            获取方式：
+                            <a href="https://huggingface.co/settings/tokens" target="_blank">https://huggingface.co/settings/tokens</a>
+                            （免费注册并创建新Token）
+                        </div>
+                    </div>
+                    <div class="config-group" id="model-group" style="display: none;">
+                        <label for="model-select">选择模型:</label>
+                        <select id="model-select" class="model-select">
+                            <option value="Qwen/Qwen2.5-7B-Instruct">Qwen2.5-7B-Instruct（推荐）</option>
+                            <option value="meta-llama/Llama-3.2-3B-Instruct">Llama 3.2 3B</option>
+                            <option value="mistralai/Mistral-7B-Instruct-v0.3">Mistral 7B</option>
+                            <option value="HuggingFaceH4/zephyr-7b-beta">Zephyr 7B</option>
+                        </select>
+                        <div class="config-hint">不同模型可能有不同的输出质量和速度</div>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveApiConfig()">保存配置</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容区 -->
+        <main class="main-content">
+            <!-- 研究输入区 -->
+            <section class="input-section">
+                <h2>📝 开始研究</h2>
+                <div class="input-group">
+                    <label for="research-topic">研究主题</label>
+                    <textarea id="research-topic" placeholder="请输入你想要研究的主题，例如：
+• 人工智能在医疗诊断中的应用
+• 量子计算的发展现状与前景
+• 区块链技术在金融领域的应用" rows="4"></textarea>
+                </div>
+
+                <div class="options">
+                    <div class="option-group">
+                        <label>
+                            <input type="checkbox" id="opt-show-steps" checked>
+                            显示详细步骤
+                        </label>
+                        <label>
+                            <input type="checkbox" id="opt-save-report" checked>
+                            保存报告
+                        </label>
+                    </div>
+                    <button id="start-btn" class="btn btn-primary">
+                        <span class="btn-icon">▶</span>
+                        开始研究
+                    </button>
+                </div>
+            </section>
+
+            <!-- 研究进度区 -->
+            <section class="progress-section" id="progress-section" style="display: none;">
+                <h2>⏳ 研究进度</h2>
+
+                <!-- 总体进度 -->
+                <div class="progress-overview">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="overall-progress">
+                            <span class="progress-text" id="progress-percent">0%</span>
+                        </div>
+                    </div>
+                    <div class="current-phase" id="current-phase">
+                        <span class="phase-icon">●</span>
+                        <span class="phase-text">准备中...</span>
+                    </div>
+                </div>
+
+                <!-- 阶段流程 -->
+                <div class="phases-container">
+                    <div class="phase" id="phase-planning" data-phase="planning">
+                        <div class="phase-icon">📋</div>
+                        <div class="phase-info">
+                            <div class="phase-title">规划阶段</div>
+                            <div class="phase-desc">制定研究计划</div>
+                        </div>
+                        <div class="phase-status"></div>
+                    </div>
+                    <div class="phase-arrow">→</div>
+
+                    <div class="phase" id="phase-searching" data-phase="searching">
+                        <div class="phase-icon">🔍</div>
+                        <div class="phase-info">
+                            <div class="phase-title">检索阶段</div>
+                            <div class="phase-desc">信息检索</div>
+                        </div>
+                        <div class="phase-status"></div>
+                    </div>
+                    <div class="phase-arrow">→</div>
+
+                    <div class="phase" id="phase-analyzing" data-phase="analyzing">
+                        <div class="phase-icon">🔬</div>
+                        <div class="phase-info">
+                            <div class="phase-title">分析阶段</div>
+                            <div class="phase-desc">内容分析</div>
+                        </div>
+                        <div class="phase-status"></div>
+                    </div>
+                    <div class="phase-arrow">→</div>
+
+                    <div class="phase" id="phase-synthesizing" data-phase="synthesizing">
+                        <div class="phase-icon">📊</div>
+                        <div class="phase-info">
+                            <div class="phase-title">综合阶段</div>
+                            <div class="phase-desc">报告生成</div>
+                        </div>
+                        <div class="phase-status"></div>
+                    </div>
+                    <div class="phase-arrow">→</div>
+
+                    <div class="phase" id="phase-evaluating" data-phase="evaluating">
+                        <div class="phase-icon">✓</div>
+                        <div class="phase-info">
+                            <div class="phase-title">评估阶段</div>
+                            <div class="phase-desc">质量评估</div>
+                        </div>
+                        <div class="phase-status"></div>
+                    </div>
+                </div>
+
+                <!-- 活动日志 -->
+                <div class="activity-log">
+                    <h3>📜 活动日志</h3>
+                    <div class="log-container" id="log-container">
+                        <!-- 日志条目将动态添加 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 研究结果区 -->
+            <section class="results-section" id="results-section" style="display: none;">
+                <h2>📊 研究结果</h2>
+
+                <!-- 结果卡片 -->
+                <div class="result-cards">
+                    <!-- 摘要卡片 -->
+                    <div class="result-card summary-card">
+                        <div class="card-header">
+                            <h3>📝 研究摘要</h3>
+                            <span class="card-badge" id="result-score">评分: --</span>
+                        </div>
+                        <div class="card-content" id="result-summary">
+                            研究完成后显示摘要...
+                        </div>
+                    </div>
+
+                    <!-- 统计卡片 -->
+                    <div class="result-card stats-card">
+                        <div class="card-header">
+                            <h3>📈 研究统计</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="stat-sources">0</div>
+                                    <div class="stat-label">信息来源</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="stat-analyses">0</div>
+                                    <div class="stat-label">分析数量</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="stat-time">0s</div>
+                                    <div class="stat-label">耗时</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="stat-score">0</div>
+                                    <div class="stat-label">质量评分</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 主要发现卡片 -->
+                    <div class="result-card findings-card">
+                        <div class="card-header">
+                            <h3>💡 主要发现</h3>
+                        </div>
+                        <div class="card-content">
+                            <ul class="findings-list" id="findings-list">
+                                <li>研究完成后显示主要发现...</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 评估结果卡片 -->
+                    <div class="result-card evaluation-card">
+                        <div class="card-header">
+                            <h3>⭐ 质量评估</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="evaluation-dimensions" id="evaluation-dimensions">
+                                <!-- 评估维度将动态添加 -->
+                            </div>
+                            <div class="evaluation-suggestions">
+                                <h4>💡 改进建议</h4>
+                                <ul id="suggestions-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 完整报告 -->
+                <div class="full-report">
+                    <div class="report-header">
+                        <h3>📄 完整研究报告</h3>
+                        <div class="report-actions">
+                            <button class="btn btn-secondary" id="expand-report">展开报告</button>
+                            <button class="btn btn-secondary" id="copy-report">复制报告</button>
+                            <button class="btn btn-secondary" id="download-report">下载报告</button>
+                        </div>
+                    </div>
+                    <div class="report-content" id="report-content" style="display: none;">
+                        <!-- 报告内容将动态添加 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 知识点展示区 -->
+            <section class="knowledge-section">
+                <h2>🎓 核心知识点展示</h2>
+                <div class="knowledge-grid">
+                    <div class="knowledge-item">
+                        <h4>🔄 ReAct范式</h4>
+                        <p><strong>应用</strong>: SearcherAgent使用推理-行动循环进行信息检索</p>
+                        <div class="knowledge-diagram">
+                            <div class="diagram-step">思考 (Thought)</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">行动 (Action)</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">观察 (Observation)</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">循环</div>
+                        </div>
+                    </div>
+
+                    <div class="knowledge-item">
+                        <h4>📋 Plan-and-Solve范式</h4>
+                        <p><strong>应用</strong>: PlannerAgent先规划后执行</p>
+                        <div class="knowledge-diagram">
+                            <div class="diagram-step">Plan (规划)</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">分解任务</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">Solve (执行)</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">逐步完成</div>
+                        </div>
+                    </div>
+
+                    <div class="knowledge-item">
+                        <h4>🤔 Reflection范式</h4>
+                        <p><strong>应用</strong>: EvaluatorAgent反思评估报告质量</p>
+                        <div class="knowledge-diagram">
+                            <div class="diagram-step">生成结果</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">反思评估</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">识别不足</div>
+                            <div class="diagram-arrow">↓</div>
+                            <div class="diagram-step">提出改进</div>
+                        </div>
+                    </div>
+
+                    <div class="knowledge-item">
+                        <h4>💬 消息系统</h4>
+                        <p><strong>应用</strong>: Agent间通过MessageBus通信</p>
+                        <div class="knowledge-diagram">
+                            <div class="diagram-box">Agent A</div>
+                            <div class="diagram-arrow">→ Message →</div>
+                            <div class="diagram-box">Agent B</div>
+                        </div>
+                    </div>
+
+                    <div class="knowledge-item">
+                        <h4>🔧 工具系统</h4>
+                        <p><strong>应用</strong>: ToolRegistry管理搜索、解析等工具</p>
+                        <div class="knowledge-diagram">
+                            <div class="diagram-box">Agent</div>
+                            <div class="diagram-arrow">调用</div>
+                            <div class="diagram-box">ToolRegistry</div>
+                            <div class="diagram-arrow">执行</div>
+                            <div class="diagram-box">工具</div>
+                        </div>
+                    </div>
+
+                    <div class="knowledge-item">
+                        <h4>🧠 记忆系统</h4>
+                        <p><strong>应用</strong>: MemorySystem管理短期、长期、语义记忆</p>
+                        <div class="knowledge-diagram">
+                            <div class="diagram-box">短期记忆</div>
+                            <div class="diagram-box">长期记忆</div>
+                            <div class="diagram-box">语义记忆</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agent协作图 -->
+            <section class="collaboration-section">
+                <h2>🤖 多智能体协作流程</h2>
+                <div class="collaboration-diagram">
+                    <div class="collab-orchestrator">Orchestrator<br/>（编排器）</div>
+                    <div class="collab-arrows">
+                        <div class="collab-agent">PlannerAgent<br/>规划</div>
+                        <div class="collab-agent">SearcherAgent<br/>检索</div>
+                        <div class="collab-agent">AnalyzerAgent<br/>分析</div>
+                        <div class="collab-agent">SynthesizerAgent<br/>综合</div>
+                        <div class="collab-agent">EvaluatorAgent<br/>评估</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>基于《Hello-Agents》课程实现 | 研究代理系统 v1.0</p>
+            <p>核心知识点: ReAct | Plan-and-Solve | Reflection | 多智能体协作 | 消息系统 | 工具系统 | 记忆系统</p>
+        </footer>
+    </div>
+
+    <!-- 加载指示器 -->
+    <div id="loading-indicator" style="position: fixed; top: 20px; right: 20px; background: #3498db; color: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 10000;">
+        System initializing...
+    </div>
+
+    <!-- Import Map for npm packages -->
+    <script type="importmap">
+    {
+        "imports": {
+            "@mlc-ai/web-llm": "./node_modules/@mlc-ai/web-llm/lib/index.js"
+        }
+    }
+    </script>
+
+    <!-- 全局错误处理 -->
+    <script>
+        // 全局错误捕获
+        window.addEventListener('error', function(event) {
+            const indicator = document.getElementById('loading-indicator');
+            if (indicator) {
+                indicator.style.background = '#e74c3c';
+                indicator.innerHTML = '❌ 加载失败: ' + event.message;
+            }
+            console.error('Global error:', event.error);
+        });
+
+        // 未处理的Promise错误
+        window.addEventListener('unhandledrejection', function(event) {
+            const indicator = document.getElementById('loading-indicator');
+            if (indicator) {
+                indicator.style.background = '#e74c3c';
+                indicator.innerHTML = '❌ Promise错误: ' + event.reason;
+            }
+            console.error('Unhandled rejection:', event.reason);
+        });
+
+        // 移除加载指示器
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const indicator = document.getElementById('loading-indicator');
+                if (indicator) {
+                    indicator.style.background = '#2ecc71';
+                    indicator.innerHTML = 'System Ready';
+                    setTimeout(function() {
+                        indicator.style.transition = 'opacity 0.5s';
+                        indicator.style.opacity = '0';
+                        setTimeout(function() { indicator.remove(); }, 500);
+                    }, 2000);
+                }
+            }, 1000);
+        });
+
+        // WebLLM 配置
+        window.WebLLMConfig = {
+            modelId: 'Llama-3.2-1B-Instruct-q4f16_1-MLC',
+            enabled: true
+        };
+        console.log('WebLLM local model mode enabled: Llama-3.2-1B');
+    </script>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

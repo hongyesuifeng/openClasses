@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>模块测试</title>
+</head>
+<body>
+    <h1>ES6模块加载测试</h1>
+    <div id="output"></div>
+
+    <script type="module">
+        async function testModules() {
+            const output = document.getElementById('output');
+            const results = [];
+
+            try {
+                output.innerHTML = '<p style="color: blue;">正在加载模块...</p>';
+
+                // 测试导入ResearchOrchestrator
+                const { ResearchOrchestrator } = await import('../src/orchestrator.js');
+                results.push('✓ ResearchOrchestrator 加载成功');
+
+                // 测试创建实例
+                const orchestrator = new ResearchOrchestrator();
+                results.push('✓ ResearchOrchestrator 实例创建成功');
+
+                // 测试获取状态
+                const status = orchestrator.getStatus();
+                results.push('✓ getStatus() 成功: ' + JSON.stringify(status.agents));
+
+                output.innerHTML = '<h2 style="color: green;">所有测试通过！</h2>' +
+                    '<ul>' + results.map(r => `<li>${r}</li>`).join('') + '</ul>' +
+                    '<p style="color: green; font-weight: bold;">系统已准备就绪，可以开始使用！</p>';
+
+            } catch (error) {
+                output.innerHTML = '<h2 style="color: red;">错误:</h2>' +
+                    '<pre style="color: red;">' + error.stack + '</pre>';
+            }
+        }
+
+        testModules();
+    </script>
+</body>
+</html>
