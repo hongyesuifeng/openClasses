@@ -63,7 +63,9 @@
       "Bash(break:*)",
       "Bash(nc:*)",
       "Bash(ip route show:*)",
-      "Bash(/mnt/c/Windows/System32/curl.exe:*)"
+      "Bash(/mnt/c/Windows/System32/curl.exe:*)",
+      "Bash(dir:*)",
+      "Bash(git restore:*)"
     ],
     "deny": [],
     "ask": []
