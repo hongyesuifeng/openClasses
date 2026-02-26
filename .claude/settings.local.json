@@ -44,6 +44,16 @@
       "Bash(PYTHONPATH=/mnt/c/Users/qq691/Desktop/openClasses python:*)",
       "Bash(PYTHONPATH=/mnt/c/Users/qq691/Desktop/openClasses/courses/CS146S-The-Modern-Software-Developer/homework python:*)",
       "Bash(claude:*)",
+      "Bash(make:*)",
+      "Bash(powershell:*)",
+      "Bash(cmd.exe /c \"dir\")",
+      "Bash(~/miniconda3/bin/conda init:*)",
+      "Bash(~/miniconda3/bin/conda:*)",
+      "Bash(. ~/miniconda3/etc/profile.d/conda.sh)",
+      "Bash(poetry --version:*)",
+      "Bash(poetry install:*)",
+      "Bash(poetry show:*)",
+      "Bash(git stash push:*)",
       "Bash(find:*)",
       "Bash(wc:*)",
       "Bash(PYTHONPATH=. conda run:*)",
@@ -65,7 +75,9 @@
       "Bash(ip route show:*)",
       "Bash(/mnt/c/Windows/System32/curl.exe:*)",
       "Bash(dir:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(git stash pop:*)",
+      "Bash(git stash drop:*)"
     ],
     "deny": [],
     "ask": []
