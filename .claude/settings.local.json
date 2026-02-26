@@ -77,7 +77,11 @@
       "Bash(dir:*)",
       "Bash(git restore:*)",
       "Bash(git stash pop:*)",
-      "Bash(git stash drop:*)"
+      "Bash(git stash drop:*)",
+      "Bash(opencode:*)",
+      "Bash(whereis:*)",
+      "Bash(dpkg:*)",
+      "Bash(npm uninstall:*)"
     ],
     "deny": [],
     "ask": []
