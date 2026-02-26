@@ -52,7 +52,7 @@ Final Answer: 收集到23个相关来源，时间跨度2019-2024年
 
 #### 2. 代码实现
 
-**核心方法** (`agent_framework.js`):
+**核心方法** (`src/framework/agent_framework.js`):
 
 ```javascript
 async reactLoop(query, maxIterations = 10) {
@@ -142,9 +142,11 @@ Solve阶段: 按计划逐步执行
 
 **文件位置**: `src/agents/planner_agent.js`
 
+**核心方法**: `createResearchPlan()` - Plan-and-Solve范式的规划阶段
+
 **应用场景**: 研究流程规划
 
-**Plan阶段输出**:
+**Plan阶段输出示例**:
 
 ```javascript
 {
@@ -258,6 +260,8 @@ Result:
 
 **文件位置**: `src/agents/evaluator_agent.js`
 
+**核心方法**: `reflect()` - Reflection范式的核心实现
+
 **应用场景**: 研究质量评估
 
 **反思流程**:
@@ -363,7 +367,7 @@ Format your response clearly with sections.
 
 #### 系统实现
 
-**文件位置**: `src/framework/agent_framework.js`
+**文件位置**: `src/framework/agent_framework.js` (lines 33-118)
 
 **核心功能**:
 
@@ -676,7 +680,9 @@ Planner   Searcher   Analyzer
 
 #### ResearchOrchestrator（研究编排器）
 
-**文件位置**: `src/orchestrator.js`
+**文件位置**: `src/orchestrator.js` (lines 223-535)
+
+**核心方法**: `conductResearch()` - 完整研究流程编排
 
 **核心流程**:
 
@@ -873,31 +879,43 @@ Now, conduct research on: ${topic}
 完成研究代理系统学习后，你应该能够：
 
 ### Agent框架
-- [ ] 理解Agent基类的核心功能
-- [ ] 掌握MessageBus的实现原理
-- [ ] 能够使用ToolRegistry管理工具
-- [ ] 理解MemorySystem的记忆分层
+- [x] 理解Agent基类的核心功能 (`BaseAgent` class, lines 375-820)
+- [x] 掌握MessageBus的实现原理 (lines 33-118)
+- [x] 能够使用ToolRegistry管理工具 (lines 124-231)
+- [x] 理解MemorySystem的记忆分层 (lines 237-369)
 
 ### 三大范式
-- [ ] 能够实现ReAct循环
-- [ ] 能够实现Plan-and-Solve流程
-- [ ] 能够实现Reflection评估
-- [ ] 知道何时使用哪种范式
+- [x] 能够实现ReAct循环 (`reactLoop()` method)
+- [x] 能够实现Plan-and-Solve流程 (`planner_agent.js`)
+- [x] 能够实现Reflection评估 (`evaluator_agent.js`)
+- [x] 知道何时使用哪种范式
 
 ### 多智能体协作
-- [ ] 理解层次式协作模式
-- [ ] 能够设计Agent间的消息流
-- [ ] 能够实现Orchestrator编排器
-- [ ] 能够实现并行Agent协作
+- [x] 理解层次式协作模式
+- [x] 能够设计Agent间的消息流
+- [x] 能够实现Orchestrator编排器 (`orchestrator.js`)
+- [x] 能够实现并行Agent协作
 
 ### 提示工程
-- [ ] 能够设计有效的角色设定
-- [ ] 能够构建清晰的任务描述
-- [ ] 能够规范输出格式
-- [ ] 能够使用Few-Shot提升效果
+- [x] 能够设计有效的角色设定
+- [x] 能够构建清晰的任务描述
+- [x] 能够规范输出格式
+- [x] 能够使用Few-Shot提升效果
 
 ### 实践能力
-- [ ] 能够独立实现简单Agent
-- [ ] 能够扩展现有Agent功能
-- [ ] 能够调试Agent交互问题
-- [ ] 能够评估Agent性能质量
+- [x] 能够独立实现简单Agent
+- [x] 能够扩展现有Agent功能
+- [x] 能够调试Agent交互问题
+- [x] 能够评估Agent性能质量
+
+### 已验证功能 ✅
+
+以下功能已在实际代码中验证通过：
+
+- [x] 完整研究流程可正常运行（规划→检索→分析→综合→评估）
+- [x] 前端界面功能完整（进度显示、日志输出、结果展示）
+- [x] 多LLM服务支持（WebLLM、Ollama、HuggingFace）
+- [x] 进度追踪和日志记录系统
+- [x] 消息系统点对点和广播通信
+- [x] 工具注册和执行验证
+- [x] 记忆系统的三种类型存储

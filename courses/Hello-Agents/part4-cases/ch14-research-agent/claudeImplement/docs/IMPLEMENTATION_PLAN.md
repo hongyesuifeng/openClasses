@@ -217,7 +217,7 @@ class ResearchOrchestrator {
 
 ---
 
-## 文件结构
+## 实际文件结构
 
 ```
 claudeImplement/
@@ -227,66 +227,62 @@ claudeImplement/
 │   └── KNOWLEDGE_POINTS.md        # 核心知识点映射
 ├── src/
 │   ├── framework/
-│   │   ├── agent_framework.js     # Agent框架核心
-│   │   ├── message_bus.js         # 消息系统
-│   │   ├── tool_registry.js       # 工具系统
-│   │   └── memory_system.js       # 记忆系统
+│   │   └── agent_framework.js     # 框架核心（合并了所有框架组件）
 │   ├── agents/
 │   │   ├── planner_agent.js       # 规划Agent
 │   │   ├── searcher_agent.js      # 检索Agent
 │   │   ├── analyzer_agent.js      # 分析Agent
 │   │   ├── synthesizer_agent.js   # 综合Agent
 │   │   └── evaluator_agent.js     # 评估Agent
-│   ├── tools/
-│   │   ├── search_tool.js         # 搜索工具
-│   │   ├── parser_tool.js         # 解析工具
-│   │   └── report_tool.js         # 报告工具
-│   ├── services/
-│   │   ├── llm_service.js         # LLM服务
-│   │   └── storage_service.js     # 存储服务
-│   └── orchestrator.js            # 研究编排器
+│   └── orchestrator.js            # 研究编排器（含MockLLMService）
 ├── static/
-│   ├── css/
-│   │   └── style.css              # 样式文件
-│   ├── js/
-│   │   └── app.js                 # 应用入口
-│   └── index.html                 # 主界面
-└── README.md                      # 项目说明
+│   ├── index.html                 # 主界面
+│   ├── css/style.css              # 样式文件
+│   ├── js/app.js                  # 应用入口
+│   └── src/                       # 浏览器端源码（含多LLM服务）
+│       ├── webllm_service.js      # WebLLM服务
+│       ├── ollama_service.js      # Ollama服务
+│       └── huggingface_service.js # HuggingFace服务
+├── README.md
+└── SUMMARY.md
 ```
+
+**设计说明**: 采用精简结构，将框架核心组件（Message、MessageBus、ToolRegistry、MemorySystem、BaseAgent）合并到单文件 `agent_framework.js`，便于浏览器ES6模块加载。
 
 ---
 
-## 实现步骤
+## 实现步骤 ✅ 全部完成
 
-### 第一阶段：框架搭建
-1. 创建HTML界面骨架
-2. 实现Agent框架核心（BaseAgent）
-3. 实现消息系统
-4. 实现工具注册系统
+### 第一阶段：框架搭建 ✅
+- [x] 创建HTML界面骨架
+- [x] 实现Agent框架核心（BaseAgent）
+- [x] 实现消息系统
+- [x] 实现工具注册系统
 
-### 第二阶段：Agent实现
-1. 实现PlannerAgent（Plan-and-Solve范式）
-2. 实现SearcherAgent（ReAct范式）
-3. 实现AnalyzerAgent（内容分析）
-4. 实现SynthesizerAgent（报告生成）
-5. 实现EvaluatorAgent（Reflection范式）
+### 第二阶段：Agent实现 ✅
+- [x] 实现PlannerAgent（Plan-and-Solve范式）
+- [x] 实现SearcherAgent（ReAct范式）
+- [x] 实现AnalyzerAgent（内容分析）
+- [x] 实现SynthesizerAgent（报告生成）
+- [x] 实现EvaluatorAgent（Reflection范式）
 
-### 第三阶段：协作与编排
-1. 实现ResearchOrchestrator
-2. 实现多Agent协作流程
-3. 添加进度追踪和日志
+### 第三阶段：协作与编排 ✅
+- [x] 实现ResearchOrchestrator
+- [x] 实现MockLLMService
+- [x] 实现多Agent协作流程
+- [x] 添加进度追踪和日志
 
-### 第四阶段：界面完善
-1. 完善HTML交互界面
-2. 添加实时进度显示
-3. 添加可视化图表
-4. 添加结果展示
+### 第四阶段：界面完善 ✅
+- [x] 完善HTML交互界面
+- [x] 添加实时进度显示
+- [x] 添加可视化图表
+- [x] 添加结果展示
 
-### 第五阶段：优化扩展
-1. 性能优化
-2. 错误处理
-3. 添加配置选项
-4. 文档完善
+### 第五阶段：优化扩展 ✅
+- [x] 多LLM服务支持（WebLLM, Ollama, HuggingFace）
+- [x] 错误处理
+- [x] 配置选项
+- [x] 文档完善
 
 ---
 

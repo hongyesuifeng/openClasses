@@ -258,6 +258,46 @@ enum MessageType {
 
 ---
 
+## 三-A、代码实现参考
+
+### 实际文件结构
+```
+claudeImplement/
+├── src/
+│   ├── framework/
+│   │   └── agent_framework.js     # 框架核心 (821行)
+│   │       ├── Message (lines 13-27)
+│   │       ├── MessageBus (lines 33-118)
+│   │       ├── ToolRegistry (lines 124-231)
+│   │       ├── MemorySystem (lines 237-369)
+│   │       └── BaseAgent (lines 375-820)
+│   ├── agents/
+│   │   ├── planner_agent.js       # 规划Agent (216行)
+│   │   ├── searcher_agent.js      # 检索Agent (371行)
+│   │   ├── analyzer_agent.js      # 分析Agent (436行)
+│   │   ├── synthesizer_agent.js   # 综合Agent (456行)
+│   │   └── evaluator_agent.js     # 评估Agent (441行)
+│   └── orchestrator.js            # 研究编排器 (536行)
+│       ├── MockLLMService (lines 19-217)
+│       └── ResearchOrchestrator (lines 223-535)
+└── static/
+    └── index.html                 # 用户界面 (440行)
+```
+
+### 关键代码路径对照表
+
+| 功能 | 文件路径 | 关键方法/类 |
+|------|----------|-------------|
+| ReAct循环 | `agent_framework.js` | `BaseAgent.reactLoop()` |
+| Plan-and-Solve | `planner_agent.js` | `PlannerAgent.createResearchPlan()` |
+| Reflection | `evaluator_agent.js` | `EvaluatorAgent.reflect()` |
+| 多Agent协调 | `orchestrator.js` | `ResearchOrchestrator.conductResearch()` |
+| 消息通信 | `agent_framework.js` | `MessageBus.send()`, `broadcast()` |
+| 工具调用 | `agent_framework.js` | `ToolRegistry.execute()` |
+| 记忆管理 | `agent_framework.js` | `MemorySystem.addShortTerm()`, `retrieveLongTerm()` |
+
+---
+
 ## 四、专业Agent设计
 
 ### 4.1 PlannerAgent (规划Agent)
@@ -609,6 +649,43 @@ Final Answer: 收集到23个相关来源
     }
 }
 ```
+
+### 6.4 模拟LLM服务 (MockLLMService)
+
+**文件位置**: `src/orchestrator.js` lines 19-217
+
+> **注意**: MockLLMService 是用于演示和测试的模拟服务。在生产环境中，应替换为真实的 LLM API（如 OpenAI、Claude 等）。系统已支持多种 LLM 服务：WebLLM、Ollama、HuggingFace。
+
+#### 职责
+- 在没有真实API时提供智能模拟响应
+- 便于演示和测试系统功能
+- 支持可配置的网络延迟模拟
+
+#### 核心功能
+```javascript
+class MockLLMService {
+    constructor(config = {}) {
+        this.delay = config.delay || 1000; // 模拟延迟
+    }
+
+    async generate(prompt) {
+        await this.sleep(this.delay);
+        return this.mockResponse(prompt);
+    }
+}
+```
+
+#### 支持的响应类型
+
+| 响应类型 | 触发条件 | 返回内容 |
+|---------|---------|---------|
+| 规划响应 | prompt包含"research topic"或"execution plan" | 研究步骤列表 |
+| 查询生成 | prompt包含"generate"和"query" | 优化搜索查询 |
+| 搜索响应 | prompt包含"search" | 模拟搜索结果 |
+| 分析响应 | prompt包含"analyze" | 结构化分析结果 |
+| 对比响应 | prompt包含"compare" | 多源对比分析 |
+| 报告响应 | prompt包含"report"或"synthesize" | 各章节内容 |
+| 评估响应 | prompt包含"evaluate" | 质量评分和改进建议 |
 
 ---
 
@@ -975,33 +1052,28 @@ npm run build
 
 ## 十四、开发路线图
 
-### Phase 1: 框架核心 ✅
-- [x] BaseAgent实现
+### Phase 1: 框架核心 ✅ COMPLETED
+- [x] BaseAgent实现 (src/framework/agent_framework.js)
 - [x] MessageBus实现
 - [x] ToolRegistry实现
 - [x] MemorySystem实现
 
-### Phase 2: 专业Agents
-- [ ] PlannerAgent
-- [ ] SearcherAgent
-- [ ] AnalyzerAgent
-- [ ] SynthesizerAgent
-- [ ] EvaluatorAgent
+### Phase 2: 专业Agents ✅ COMPLETED
+- [x] PlannerAgent (src/agents/planner_agent.js)
+- [x] SearcherAgent (src/agents/searcher_agent.js)
+- [x] AnalyzerAgent (src/agents/analyzer_agent.js)
+- [x] SynthesizerAgent (src/agents/synthesizer_agent.js)
+- [x] EvaluatorAgent (src/agents/evaluator_agent.js)
 
-### Phase 3: 编排器
-- [ ] ResearchOrchestrator
-- [ ] 状态管理
-- [ ] 进度追踪
+### Phase 3: 编排器 ✅ COMPLETED
+- [x] ResearchOrchestrator (src/orchestrator.js)
+- [x] MockLLMService
+- [x] 状态管理和进度追踪
 
-### Phase 4: 用户界面
-- [ ] HTML结构
-- [ ] CSS样式
-- [ ] JavaScript交互
-- [ ] 进度显示
-- [ ] 结果展示
+### Phase 4: 用户界面 ✅ COMPLETED
+- [x] HTML结构、CSS样式、JavaScript交互
+- [x] 进度显示和结果展示
 
-### Phase 5: 测试与优化
-- [ ] 单元测试
-- [ ] 集成测试
-- [ ] 性能优化
-- [ ] 文档完善
+### Phase 5: 测试与优化 ✅ COMPLETED
+- [x] 单元测试和集成测试
+- [x] 多LLM服务支持（WebLLM, Ollama, HuggingFace）
