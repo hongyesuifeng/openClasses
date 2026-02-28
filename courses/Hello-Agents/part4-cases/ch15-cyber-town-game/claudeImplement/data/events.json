@@ -1,0 +1,188 @@
+[
+    {
+        "id": "market_day",
+        "name": "集市日",
+        "description": "今天是集市日，广场上聚集了许多商贩和居民。",
+        "type": "world",
+        "triggerCondition": {
+            "dayOfWeek": [6, 7],
+            "timeRange": { "start": 9, "end": 17 }
+        },
+        "effects": {
+            "locationModifiers": {
+                "square": { "socialModifier": 0.3 }
+            }
+        },
+        "priority": 2
+    },
+    {
+        "id": "festival",
+        "name": "小镇节日",
+        "description": "一年一度的小镇节日！所有居民都聚集在广场庆祝。",
+        "type": "world",
+        "triggerCondition": {
+            "randomChance": 0.01,
+            "timeRange": { "start": 10, "end": 20 }
+        },
+        "effects": {
+            "globalMoodBoost": 0.3,
+            "socialActivityBoost": 0.5
+        },
+        "priority": 3
+    },
+    {
+        "id": "rain",
+        "name": "下雨",
+        "description": "天空下起了小雨，户外活动受到影响。",
+        "type": "world",
+        "triggerCondition": {
+            "randomChance": 0.05
+        },
+        "effects": {
+            "locationModifiers": {
+                "park": { "energyRecovery": -0.1 },
+                "square": { "socialModifier": -0.2 }
+            },
+            "indoorPreference": true
+        },
+        "duration": 3,
+        "priority": 1
+    },
+    {
+        "id": "good_news",
+        "name": "好消息",
+        "description": "小镇传来好消息，大家都感到很开心。",
+        "type": "world",
+        "triggerCondition": {
+            "randomChance": 0.02
+        },
+        "effects": {
+            "globalMoodBoost": 0.2
+        },
+        "priority": 2
+    },
+    {
+        "id": "newcomer",
+        "name": "新居民",
+        "description": "一位新居民来到了小镇。",
+        "type": "world",
+        "triggerCondition": {
+            "randomChance": 0.01,
+            "minDay": 5
+        },
+        "effects": {
+            "socialCuriosity": 0.5
+        },
+        "priority": 2
+    },
+    {
+        "id": "encounter",
+        "name": "偶遇",
+        "description": "两个角色偶然相遇。",
+        "type": "random",
+        "triggerCondition": {
+            "sameLocation": true,
+            "randomChance": 0.1
+        },
+        "effects": {
+            "relationshipBoost": 0.1
+        },
+        "priority": 1
+    },
+    {
+        "id": "conflict",
+        "name": "冲突",
+        "description": "两个角色之间产生了冲突。",
+        "type": "random",
+        "triggerCondition": {
+            "sameLocation": true,
+            "randomChance": 0.02,
+            "minRelationship": -0.3
+        },
+        "effects": {
+            "relationshipPenalty": -0.2,
+            "moodPenalty": -0.1
+        },
+        "priority": 2
+    },
+    {
+        "id": "deep_conversation",
+        "name": "深入交谈",
+        "description": "两个角色进行了深入的交谈，增进了了解。",
+        "type": "social",
+        "triggerCondition": {
+            "sameLocation": true,
+            "minInteractionTime": 5,
+            "randomChance": 0.1
+        },
+        "effects": {
+            "relationshipBoost": 0.2,
+            "familiarityBoost": 0.1
+        },
+        "priority": 1
+    },
+    {
+        "id": "help_someone",
+        "name": "帮助他人",
+        "description": "一个角色帮助了另一个角色。",
+        "type": "social",
+        "triggerCondition": {
+            "sameLocation": true,
+            "needHelp": true,
+            "randomChance": 0.15
+        },
+        "effects": {
+            "relationshipBoost": 0.25,
+            "moodBoost": 0.15
+        },
+        "priority": 1
+    },
+    {
+        "id": "work_success",
+        "name": "工作成功",
+        "description": "一个角色在工作中取得了成功。",
+        "type": "action",
+        "triggerCondition": {
+            "location": "office",
+            "activity": "work",
+            "randomChance": 0.1
+        },
+        "effects": {
+            "moodBoost": 0.2,
+            "energyBoost": 0.1
+        },
+        "priority": 1
+    },
+    {
+        "id": "delicious_meal",
+        "name": "美味的一餐",
+        "description": "在餐厅享用了一顿特别美味的餐点。",
+        "type": "action",
+        "triggerCondition": {
+            "location": "restaurant",
+            "activity": "eat",
+            "randomChance": 0.2
+        },
+        "effects": {
+            "hungerReduction": 0.3,
+            "moodBoost": 0.15
+        },
+        "priority": 1
+    },
+    {
+        "id": "good_rest",
+        "name": "充分休息",
+        "description": "在家得到了充分的休息，感觉精力充沛。",
+        "type": "action",
+        "triggerCondition": {
+            "location": "home",
+            "activity": "rest",
+            "randomChance": 0.3
+        },
+        "effects": {
+            "energyBoost": 0.3,
+            "moodBoost": 0.1
+        },
+        "priority": 1
+    }
+]

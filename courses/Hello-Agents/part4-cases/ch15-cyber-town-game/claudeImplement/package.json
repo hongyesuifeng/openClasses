@@ -1,0 +1,14 @@
+{
+  "name": "cyber-town-game",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "赛博小镇游戏 - NPC Agent 框架实现",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
