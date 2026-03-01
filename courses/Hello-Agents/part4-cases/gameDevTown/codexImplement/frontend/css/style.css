@@ -1,0 +1,112 @@
+:root {
+  --bg: #f3efe5;
+  --panel: #fffaf0;
+  --text: #23221f;
+  --accent: #1f7a6b;
+  --muted: #736f65;
+  --line: #d8cfbe;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 0 0, #fff8e6 0, #f3efe5 45%),
+    radial-gradient(circle at 100% 0, #edf7f4 0, transparent 35%);
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.live {
+  color: #b03030;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  padding: 16px;
+}
+.left-panel, .right-panel > div {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+}
+.characters {
+  display: grid;
+  gap: 10px;
+}
+.character {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.state { color: var(--muted); }
+.controls {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+}
+button {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.board { margin-bottom: 16px; }
+.summary {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.badge {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #e7f3f0;
+  color: #184f45;
+  font-size: 14px;
+}
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.task-list li {
+  padding: 8px;
+  border-bottom: 1px dashed var(--line);
+}
+.chat-box {
+  min-height: 420px;
+}
+.messages {
+  height: 360px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+}
+.msg {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0eada;
+  padding-bottom: 8px;
+}
+.meta { color: var(--muted); font-size: 12px; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .chat-box { min-height: 320px; }
+  .messages { height: 260px; }
+}

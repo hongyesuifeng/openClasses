@@ -48,7 +48,7 @@
 
 团队正在开发一款第一人称RPG游戏：
 
-### 《幻境传说》(Realm of Illusion)
+### 王者之路
 
 | 属性 | 描述 |
 |------|------|
@@ -193,7 +193,7 @@
 ```
 
 **典型发言**：
-> "对于《幻境传说》的美术风格，我建议采用'低多边形+手绘贴图'的混合风格。这样既能保证性能，又能呈现独特的奇幻氛围。我已经做了一些概念图，大家可以看看。"
+> "对于《王者之路》的美术风格，我建议采用'低多边形+手绘贴图'的混合风格。这样既能保证性能，又能呈现独特的奇幻氛围。我已经做了一些概念图，大家可以看看。"
 
 ---
 
@@ -251,7 +251,7 @@
 ├─────────────────────────────────────────────────────────────────────────┤
 │  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────────┐    │
 │  │   LLM API  │  │   Storage  │  │   Config   │  │    Logger      │    │
-│  │  (Claude)  │  │  (JSON)    │  │ (YAML/ENV) │  │  (Winston)     │    │
+│  │  (MiniMax) │  │  (JSON)    │  │ (YAML/ENV) │  │  (Winston)     │    │
 │  └────────────┘  └────────────┘  └────────────┘  └────────────────┘    │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -357,6 +357,296 @@ class TaskSystem {
     }
   }
 }
+```
+
+---
+
+## 前端可视化界面
+
+### 界面整体布局
+
+前端界面采用**沉浸式游戏开发办公室**风格，让用户仿佛置身于真实的游戏开发团队中：
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│  🎮 游戏小镇 - 王者之路开发中                              🔴 Live ● Phase 2  │
+├───────────────────────────────────┬─────────────────────────────────────────────┤
+│                                   │                                             │
+│    ┌─────────────────────────┐    │   📋 项目看板                              │
+│    │                         │    │   ┌─────────┬─────────┬─────────┐          │
+│    │    🏢 办公室场景        │    │   │ 待办    │ 进行中  │ 已完成  │          │
+│    │                         │    │   │  ○ 5    │  ● 3    │  ✓ 12   │          │
+│    │  [Alex]  [Cody]         │    │   └─────────┴─────────┴─────────┘          │
+│    │  [Diana] [Arty]         │    │                                             │
+│    │                         │    │   📊 当前会议: 设计评审                     │
+│    │  💬 点击角色查看详情    │    │   主题: 战斗系统设计                        │
+│    │                         │    │   进度: ████████░░ 80%                      │
+│    └─────────────────────────┘    │                                             │
+│                                   │   🎯 待决策事项                              │
+│                                   │   • 物理引擎 vs 动画驱动方案？              │
+│                                   │   • 元素组合数量上限？                      │
+├───────────────────────────────────┴─────────────────────────────────────────────┤
+│                                                                                 │
+│  💬 团队对话                                                                    │
+│  ┌─────────────────────────────────────────────────────────────────────────┐   │
+│  │ [09:15] 🎬 Alex: 好的，我们开始今天的设计评审。Diana，请介绍一下        │   │
+│  │         你的战斗系统设计方案。                                           │   │
+│  │                                                                         │   │
+│  │ [09:16] 📝 Diana: 谢谢Alex！我设计了一个新的元素共鸣系统——            │   │
+│  │         当玩家连续使用不同元素时，会触发组合效果...                     │   │
+│  │         比如冰+火会产生蒸汽爆炸 🔥+❄️=💨                               │   │
+│  │                                                                         │   │
+│  │ [09:18] 💻 Cody: 从技术角度来看，这个系统的实现需要大约两周...         │   │
+│  │         不过物理计算可能会影响性能，我建议先做个简化版原型。            │   │
+│  │                                                                         │   │
+│  │ [09:20] 🎨 Arty: 视觉表现上，元素组合特效可以做得非常酷炫！            │   │
+│  │         蒸汽爆炸可以用粒子系统实现，我已经有个想法了...                 │   │
+│  │                                                                         │   │
+│  │ █ 正在输入... Diana 正在思考回复                                       │   │
+│  └─────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                 │
+│  [▶ 继续会议]  [⏸ 暂停]  [⏭ 跳过当前话题]  [📝 查看会议纪要]                   │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
+### 核心界面组件
+
+#### 1. 办公室场景（左侧）
+
+展示4个AI角色的虚拟形象，实时反映他们的状态：
+
+| 状态 | 视觉表现 |
+|------|----------|
+| **思考中** | 角色头顶显示 💭 思考气泡，轻微摇晃动画 |
+| **发言中** | 角色高亮，头像旁显示打字动画 "..." |
+| **等待中** | 角色静默状态，偶尔回到工作姿态 |
+| **达成共识** | 角色显示 ✓ 图标，愉悦表情 |
+
+```javascript
+// 角色状态渲染
+const characterStates = {
+  Alex: { status: 'listening', emotion: 'focused', activity: 'taking_notes' },
+  Cody: { status: 'thinking', emotion: 'analytical', activity: 'reviewing_code' },
+  Diana: { status: 'speaking', emotion: 'excited', activity: 'presenting' },
+  Arty: { status: 'listening', emotion: 'inspired', activity: 'sketching' }
+};
+```
+
+#### 2. 实时对话流（底部）
+
+**流式输出效果**：对话内容逐字显示，模拟真实打字效果
+
+```javascript
+// 流式对话渲染组件
+class StreamingChatRenderer {
+  constructor(container) {
+    this.container = container;
+    this.typingSpeed = 30; // 毫秒/字符
+  }
+
+  // 流式显示角色发言
+  async streamMessage(speaker, content, emotion) {
+    const messageEl = this.createMessageBubble(speaker, emotion);
+
+    for (const char of content) {
+      messageEl.textContent += char;
+      await this.delay(this.typingSpeed);
+
+      // 自动滚动到底部
+      this.container.scrollTop = this.container.scrollHeight;
+    }
+
+    // 添加表情反馈
+    this.addEmotionIndicator(messageEl, emotion);
+  }
+
+  // 显示"正在输入"指示器
+  showTypingIndicator(speaker) {
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator';
+    indicator.innerHTML = `
+      <span class="speaker">${speaker}</span>
+      <span class="dots">
+        <span>.</span><span>.</span><span>.</span>
+      </span>
+    `;
+    this.container.appendChild(indicator);
+  }
+}
+```
+
+#### 3. 大模型增强对话机制
+
+通过 MiniMax API 的能力，让每个角色的对话更加**丰富、专业、有个性**：
+
+```javascript
+// 对话增强系统
+class EnhancedDialogueSystem {
+  constructor(llmClient) {
+    this.llm = llmClient;
+    this.characterPrompts = {
+      producer: {
+        system: `你是 Alex，一位经验丰富的游戏制作人。
+                 性格：沉稳、果断、善于协调
+                 说话风格：专业但不失亲和，善于总结和引导话题
+                 关注点：项目进度、资源分配、风险控制`,
+        enrichment: '在回复中加入项目管理专业术语，适时引用行业案例'
+      },
+
+      developer: {
+        system: `你是 Cody，一位资深游戏程序员。
+                 性格：理性、严谨、注重细节
+                 说话风格：技术导向，喜欢用数据说话
+                 关注点：技术可行性、性能优化、代码质量`,
+        enrichment: '在回复中加入技术分析，提供具体的实现方案和工时估算'
+      },
+
+      designer: {
+        system: `你是 Diana，一位创意十足的游戏策划。
+                 性格：热情、创新、追求完美
+                 说话风格：富有感染力，善于用比喻描述想法
+                 关注点：玩家体验、玩法创新、数值平衡`,
+        enrichment: '在回复中加入游戏设计理论，引用成功游戏案例作为参考'
+      },
+
+      artist: {
+        system: `你是 Arty，一位有艺术追求的美术设计师。
+                 性格：敏感、审美独特、追求视觉冲击
+                 说话风格：形象生动，喜欢用视觉语言描述
+                 关注点：视觉风格、用户体验、艺术表现`,
+        enrichment: '在回复中加入美术专业视角，描述视觉呈现效果'
+      }
+    };
+  }
+
+  // 生成增强对话
+  async generateEnhancedResponse(role, context, meetingType) {
+    const prompt = this.characterPrompts[role];
+
+    // 构建上下文：包含会议历史、当前话题、其他角色的发言
+    const enhancedContext = {
+      systemPrompt: prompt.system,
+      enrichmentInstruction: prompt.enrichment,
+      conversationHistory: context.recentMessages,
+      currentTopic: context.topic,
+      projectState: context.projectState,
+      personalityTraits: context.personality
+    };
+
+    // 调用 MiniMax API 生成回复
+    const response = await this.llm.chat({
+      messages: [
+        { role: 'system', content: this.buildSystemPrompt(enhancedContext) },
+        { role: 'user', content: this.buildUserPrompt(context) }
+      ],
+      temperature: 0.7 + (context.creativity || 0), // 根据角色调整创造性
+      max_tokens: 500
+    });
+
+    return {
+      content: response.content,
+      emotion: this.detectEmotion(response.content),
+      actionItems: this.extractActionItems(response.content)
+    };
+  }
+
+  // 情绪检测（用于角色表情和动画）
+  detectEmotion(text) {
+    const emotionPatterns = {
+      excited: /太棒了|完美|厉害|精彩|期待/i,
+      concerned: /担心|问题|风险|困难|挑战/i,
+      confident: /确定|相信|没问题|可以做到/i,
+      thoughtful: /考虑|思考|分析|评估/i
+    };
+
+    for (const [emotion, pattern] of Object.entries(emotionPatterns)) {
+      if (pattern.test(text)) return emotion;
+    }
+    return 'neutral';
+  }
+}
+```
+
+#### 4. 对话丰富化策略
+
+通过以下机制确保对话内容丰富有趣：
+
+| 策略 | 实现方式 | 效果 |
+|------|----------|------|
+| **角色记忆** | 每个角色记住之前的讨论内容 | 对话有连贯性，能引用之前的观点 |
+| **专业深度** | 根据角色专业添加领域知识 | 程序员讲技术细节，策划讲设计理论 |
+| **情绪变化** | 根据讨论内容调整情绪状态 | 争论时激动，达成共识时开心 |
+| **个性化表达** | 每个角色有独特的说话习惯 | Alex喜欢用"各位"，Diana喜欢用感叹号 |
+| **互动反应** | 角色会对其他人的发言做出反应 | "Cody提到的性能问题很重要..."
+
+```javascript
+// 对话丰富化示例
+const dialogueEnhancement = {
+  // 角色记忆系统
+  memoryContext: {
+    previousDecisions: ['已确定使用Unity引擎', '美术风格定为低多边形'],
+    ongoingDiscussion: '战斗系统的技术方案选择',
+    pendingQuestions: ['元素组合上限是多少？', '是否需要PVP模式？']
+  },
+
+  // 专业术语库（根据角色加载）
+  terminology: {
+    developer: ['FPS', 'Draw Call', 'GC', 'LOD', '对象池', 'ECS架构'],
+    designer: ['核心循环', '心流', '留存率', '付费点', '数值模型'],
+    artist: ['法线贴图', 'PBR材质', '骨骼动画', '粒子系统', '后处理']
+  },
+
+  // 情绪驱动对话
+  emotionModifiers: {
+    excited: { exclamationRate: 0.3, emojiRate: 0.2 },
+    concerned: { hedgeWords: ['可能', '或许', '需要考虑'], questionRate: 0.4 },
+    confident: { assertiveWords: ['确定', '必然', '毫无疑问'] }
+  }
+};
+```
+
+### 技术栈
+
+#### 后端技术栈 (Python)
+
+```yaml
+backend:
+  language: Python 3.10+
+  framework: FastAPI
+  features:
+    - RESTful API 接口
+    - WebSocket 实时通信
+    - 异步任务处理
+    - MiniMax LLM 集成
+
+  core_modules:
+    - agents/          # AI Agent 实现
+    - core/            # 核心系统（记忆、决策、任务）
+    - meeting/         # 会议编排系统
+    - api/             # API 路由
+    - services/        # LLM 服务层
+```
+
+#### 前端技术栈 (HTML)
+
+```yaml
+frontend:
+  markup: HTML5
+  styling: CSS3 (原生样式)
+  scripting: JavaScript ES6+ (原生 JS)
+  communication: WebSocket + Fetch API
+
+  key_features:
+    - 流式文本渲染（逐字显示效果）
+    - 角色状态动画（思考、发言、反应）
+    - 情绪表情系统
+    - 会议进度可视化
+    - 响应式布局（支持桌面和平板）
+
+  advantages:
+    - 无需构建工具，直接运行
+    - 部署简单，任何静态服务器均可
+    - 学习成本低，易于理解和修改
 ```
 
 ---
@@ -683,7 +973,7 @@ function calculateDecision(decision) {
 
 - Node.js >= 18.0.0
 - npm >= 9.0.0
-- Anthropic API Key
+- MiniMax API Key (Coding Plan)
 
 ### 安装步骤
 
@@ -697,7 +987,10 @@ npm install
 
 # 3. 配置环境变量
 cp .env.example .env
-# 编辑 .env 文件，填入你的 API Key
+# 编辑 .env 文件，填入你的 MiniMax API Key
+# MiniMax 支持 Anthropic SDK 兼容模式，只需设置以下环境变量：
+# ANTHROPIC_BASE_URL=https://api.minimaxi.com/anthropic
+# ANTHROPIC_API_KEY=你的MiniMax_API_Key
 ```
 
 ### 配置说明
@@ -705,8 +998,9 @@ cp .env.example .env
 ```yaml
 # config/config.yaml
 llm:
-  provider: anthropic
-  model: claude-sonnet-4-6
+  provider: minimax  # 使用 MiniMax API
+  model: MiniMax-Text-01  # MiniMax 文本模型
+  base_url: https://api.minimaxi.com/anthropic  # Anthropic 兼容模式
   temperature: 0.7
   max_tokens: 2000
 
@@ -736,48 +1030,142 @@ meeting:
   max_duration: 15  # 分钟
 ```
 
+### 环境变量配置
+
+创建 `.env` 文件并配置以下内容：
+
+```bash
+# .env 文件内容
+
+# 方式一：使用 MiniMax 原生配置（推荐）
+MINIMAX_API_KEY=你的MiniMax_API_Key
+MINIMAX_BASE_URL=https://api.minimaxi.com/anthropic
+
+# 方式二：使用 Anthropic SDK 兼容模式
+# 只需设置这两个环境变量，现有使用 Anthropic SDK 的代码无需修改
+ANTHROPIC_BASE_URL=https://api.minimaxi.com/anthropic
+ANTHROPIC_API_KEY=你的MiniMax_API_Key
+```
+
+> **💡 提示**：MiniMax Coding Plan Key 可在 [MiniMax 开放平台](https://platform.minimaxi.com) 的 **订阅管理 > Coding Plan** 中创建。Coding Plan 仅支持文本模型，适合本项目的多 Agent 对话场景。
+
 ### 运行项目
 
 ```bash
-# 启动开发服务器
-npm run dev
+# 1. 进入后端目录
+cd backend
 
-# 运行单次会议模拟
-npm run meeting -- --type design-review
+# 2. 安装 Python 依赖
+pip install -r requirements.txt
 
-# 运行完整项目模拟
-npm run simulate -- --days 30
+# 3. 配置环境变量
+cp .env.example .env
+# 编辑 .env 文件，填入你的 MiniMax API Key
+
+# 4. 启动后端服务
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# 5. 打开前端页面
+# 在浏览器中打开 frontend/index.html
+# 或使用任意静态文件服务器托管 frontend 目录
 ```
 
-### API使用示例
+### 开发模式
+
+```bash
+# 运行测试
+cd backend
+pytest tests/
+
+# 运行单次会议模拟（命令行模式）
+python -m app.main --mode meeting --type design-review
+
+# 运行完整项目模拟
+python -m app.main --mode simulate --days 30
+```
+
+### API 使用示例
+
+#### Python 后端调用
+
+```python
+import asyncio
+from app.core.game_dev_town import GameDevTown
+from app.config import settings
+
+async def main():
+    # 初始化（使用 MiniMax API）
+    town = GameDevTown(
+        api_key=settings.MINIMAX_API_KEY,
+        base_url=settings.MINIMAX_BASE_URL
+    )
+
+    # 启动项目
+    await town.start_project(
+        name="王者之路",
+        project_type="first-person-rpg",
+        timeline="6-months"
+    )
+
+    # 触发会议
+    meeting = await town.hold_meeting(
+        meeting_type='design-review',
+        topic='战斗系统设计',
+        proposer='designer'
+    )
+
+    # 获取会议纪要
+    print(meeting.minutes)
+
+    # 获取项目状态
+    status = await town.get_project_status()
+    print(status.tasks)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+#### REST API 接口
+
+```bash
+# 启动项目
+curl -X POST http://localhost:8000/api/project/start \
+  -H "Content-Type: application/json" \
+  -d '{"name": "王者之路", "type": "first-person-rpg", "timeline": "6-months"}'
+
+# 触发会议
+curl -X POST http://localhost:8000/api/meeting/start \
+  -H "Content-Type: application/json" \
+  -d '{"type": "design-review", "topic": "战斗系统设计"}'
+
+# 获取项目状态
+curl http://localhost:8000/api/project/status
+```
+
+#### WebSocket 实时通信
 
 ```javascript
-import { GameDevTown } from './src';
+// 前端 JavaScript 连接 WebSocket
+const ws = new WebSocket('ws://localhost:8000/ws');
 
-// 初始化
-const town = new GameDevTown({
-  apiKey: process.env.ANTHROPIC_API_KEY
-});
+// 接收实时消息
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
 
-// 启动项目
-await town.startProject({
-  name: "幻境传说",
-  type: "first-person-rpg",
-  timeline: "6-months"
-});
+  if (data.type === 'agent_message') {
+    // 显示 Agent 发言
+    displayAgentMessage(data.speaker, data.content);
+  } else if (data.type === 'meeting_update') {
+    // 更新会议状态
+    updateMeetingStatus(data.status);
+  }
+};
 
-// 触发会议
-const meeting = await town.holdMeeting('design-review', {
-  topic: '战斗系统设计',
-  proposer: 'designer'
-});
-
-// 获取会议纪要
-console.log(meeting.minutes);
-
-// 获取项目状态
-const status = await town.getProjectStatus();
-console.log(status.tasks);
+// 发送控制命令
+ws.send(JSON.stringify({
+  action: 'start_meeting',
+  meeting_type: 'design-review'
+}));
 ```
 
 ---
@@ -786,58 +1174,77 @@ console.log(status.tasks);
 
 ```
 game-dev-town/
-├── config/                     # 配置文件
-│   ├── config.yaml            # 主配置
-│   ├── agents.yaml            # 角色配置
-│   └── prompts/               # 提示词模板
-│       ├── producer.yaml
-│       ├── developer.yaml
-│       ├── designer.yaml
-│       └── artist.yaml
+├── backend/                    # Python 后端
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py            # FastAPI 入口
+│   │   ├── config.py          # 配置管理
+│   │   │
+│   │   ├── agents/            # AI Agent 实现
+│   │   │   ├── __init__.py
+│   │   │   ├── base.py       # 基础 Agent 类
+│   │   │   ├── producer.py   # 制作人 Agent
+│   │   │   ├── developer.py  # 程序员 Agent
+│   │   │   ├── designer.py   # 策划 Agent
+│   │   │   └── artist.py     # 美术 Agent
+│   │   │
+│   │   ├── core/              # 核心系统
+│   │   │   ├── __init__.py
+│   │   │   ├── memory.py     # 记忆系统
+│   │   │   ├── decision.py   # 决策系统
+│   │   │   ├── task.py       # 任务系统
+│   │   │   └── conversation.py # 对话管理
+│   │   │
+│   │   ├── meeting/           # 会议系统
+│   │   │   ├── __init__.py
+│   │   │   ├── orchestrator.py # 会议编排
+│   │   │   ├── templates.py    # 对话模板
+│   │   │   └── minutes.py      # 会议纪要
+│   │   │
+│   │   ├── api/               # API 路由
+│   │   │   ├── __init__.py
+│   │   │   ├── routes.py     # REST API
+│   │   │   └── websocket.py  # WebSocket
+│   │   │
+│   │   └── services/          # 服务层
+│   │       ├── __init__.py
+│   │       └── llm.py         # MiniMax LLM 服务
+│   │
+│   ├── data/                  # 数据存储
+│   │   ├── memories/         # 角色记忆
+│   │   ├── decisions/        # 决策记录
+│   │   └── meetings/         # 会议纪要
+│   │
+│   ├── prompts/               # 提示词模板
+│   │   ├── producer.txt
+│   │   ├── developer.txt
+│   │   ├── designer.txt
+│   │   └── artist.txt
+│   │
+│   ├── tests/                 # 测试文件
+│   │   ├── test_agents.py
+│   │   ├── test_meeting.py
+│   │   └── test_decision.py
+│   │
+│   ├── requirements.txt       # Python 依赖
+│   └── .env.example          # 环境变量示例
 │
-├── src/
-│   ├── agents/                # 智能体实现
-│   │   ├── base.js           # 基础Agent类
-│   │   ├── producer.js       # 制作人
-│   │   ├── developer.js      # 程序员
-│   │   ├── designer.js       # 策划
-│   │   └── artist.js         # 美术
-│   │
-│   ├── core/                  # 核心系统
-│   │   ├── memory.js         # 记忆系统
-│   │   ├── decision.js       # 决策系统
-│   │   ├── task.js           # 任务系统
-│   │   └── conversation.js   # 对话管理
-│   │
-│   ├── meeting/               # 会议系统
-│   │   ├── orchestrator.js   # 会议编排
-│   │   ├── templates.js      # 对话模板
-│   │   └── minutes.js        # 会议纪要
-│   │
-│   ├── ui/                    # 用户界面
-│   │   ├── chat.js           # 聊天展示
-│   │   ├── dashboard.js      # 项目看板
-│   │   └── timeline.js       # 时间线视图
-│   │
-│   └── index.js               # 入口文件
-│
-├── data/                      # 数据存储
-│   ├── memories/             # 角色记忆
-│   ├── decisions/            # 决策记录
-│   └── meetings/             # 会议纪要
-│
-├── tests/                     # 测试文件
-│   ├── agents.test.js
-│   ├── meeting.test.js
-│   └── decision.test.js
+├── frontend/                   # HTML 前端
+│   ├── index.html             # 主页面
+│   ├── css/
+│   │   └── style.css         # 样式文件
+│   └── js/
+│       ├── app.js            # 主应用逻辑
+│       ├── api.js            # API 通信
+│       ├── chat.js           # 聊天组件
+│       ├── dashboard.js      # 项目看板
+│       └── characters.js     # 角色状态
 │
 ├── docs/                      # 文档
 │   ├── architecture.md       # 架构设计
-│   ├── api.md               # API文档
+│   ├── api.md               # API 文档
 │   └── examples.md          # 使用示例
 │
-├── .env.example              # 环境变量示例
-├── package.json
 └── README.md
 ```
 
