@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>游戏小镇 - Game Dev Town</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>游戏小镇 - 王者之路开发中</h1>
+      <div class="live">Live Phase 2</div>
+    </header>
+
+    <main class="layout">
+      <section class="left-panel">
+        <h2>办公室角色</h2>
+        <div id="characters" class="characters"></div>
+
+        <div class="controls">
+          <button id="btnStartProject">启动项目</button>
+          <button id="btnMeeting">继续会议</button>
+        </div>
+      </section>
+
+      <section class="right-panel">
+        <div class="board">
+          <h2>项目看板</h2>
+          <div id="summary" class="summary"></div>
+          <ul id="taskList" class="task-list"></ul>
+        </div>
+
+        <div class="chat-box">
+          <h2>团队对话</h2>
+          <div id="chatMessages" class="messages"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>

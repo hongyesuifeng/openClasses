@@ -81,7 +81,15 @@
       "Bash(opencode:*)",
       "Bash(whereis:*)",
       "Bash(dpkg:*)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(pkill:*)",
+      "Bash(pip3:*)",
+      "Bash(.venv/bin/pip:*)",
+      "Bash(~/.local/bin/uvicorn:*)",
+      "Bash(./venv/bin/python:*)",
+      "Bash(./venv/bin/pip:*)",
+      "Bash(xxd:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,0 +1,14 @@
+# Environment variables
+.env
+
+# Log files
+*.log
+nohup.out
+
+# IDE and editor directories
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
