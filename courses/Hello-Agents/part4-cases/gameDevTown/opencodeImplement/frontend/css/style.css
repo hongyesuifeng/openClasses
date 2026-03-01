@@ -1,0 +1,373 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: #00d4ff;
+}
+
+.project-name {
+    font-size: 18px;
+    color: #ffd700;
+    padding: 5px 15px;
+    background: rgba(255,215,0,0.1);
+    border-radius: 20px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.status-indicator.live {
+    color: #00ff88;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.phase-badge {
+    padding: 5px 12px;
+    background: rgba(0,212,255,0.2);
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.office-panel {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.office-scene, .project-info, .meeting-info {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.office-scene h3, .project-info h3, .meeting-info h3 {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.characters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.character {
+    text-align: center;
+    padding: 10px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.character:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.character.speaking {
+    background: rgba(0,212,255,0.15);
+    box-shadow: 0 0 15px rgba(0,212,255,0.3);
+}
+
+.character.thinking {
+    background: rgba(255,215,0,0.1);
+}
+
+.character .avatar {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.character .name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.character .role {
+    font-size: 12px;
+    color: #888;
+}
+
+.status-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 5px;
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+}
+
+.task-board {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-column {
+    text-align: center;
+    flex: 1;
+}
+
+.column-header {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.task-count {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#task-pending { color: #ff6b6b; }
+#task-in-progress { color: #ffd700; }
+#task-completed { color: #00ff88; }
+
+.meeting-type {
+    font-size: 16px;
+    font-weight: bold;
+    color: #00d4ff;
+}
+
+.chat-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.chat-header h3 {
+    font-size: 16px;
+}
+
+.meeting-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 14px;
+}
+
+button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #00d4ff;
+    color: #000;
+}
+
+.btn-primary:hover {
+    background: #00b8e6;
+}
+
+.btn-primary:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    max-width: 80%;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message.system {
+    align-self: center;
+    text-align: center;
+    color: #888;
+}
+
+.message.speaking {
+    align-self: flex-end;
+}
+
+.message .message-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.message .speaker-icon {
+    font-size: 18px;
+}
+
+.message .speaker-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.message .speaker-role {
+    font-size: 12px;
+    color: #888;
+}
+
+.message .timestamp {
+    font-size: 11px;
+    color: #666;
+    margin-left: auto;
+}
+
+.message .message-content {
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+.message.speaking .message-content {
+    background: rgba(0,212,255,0.15);
+    border-bottom-right-radius: 4px;
+}
+
+.message .emotion {
+    font-size: 12px;
+    color: #ffd700;
+    margin-top: 5px;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    color: #888;
+    font-size: 14px;
+}
+
+.typing-dots {
+    display: flex;
+    gap: 3px;
+}
+
+.typing-dots span {
+    width: 6px;
+    height: 6px;
+    background: #888;
+    border-radius: 50%;
+    animation: typing 1.4s infinite;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .office-panel {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .office-scene, .project-info, .meeting-info {
+        flex: 1;
+        min-width: 200px;
+    }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏小镇 - 王者之路开发中</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-left">
+                <h1>🎮 游戏小镇</h1>
+                <span class="project-name">王者之路</span>
+            </div>
+            <div class="header-right">
+                <span class="status-indicator live">● Live</span>
+                <span class="phase-badge">Phase 2 核心开发</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <aside class="office-panel">
+                <div class="office-scene">
+                    <h3>🏢 办公室</h3>
+                    <div class="characters">
+                        <div class="character" data-role="producer">
+                            <div class="avatar">🎬</div>
+                            <div class="name">Alex</div>
+                            <div class="role">制作人</div>
+                            <div class="status-badge" id="status-producer">待机</div>
+                        </div>
+                        <div class="character" data-role="developer">
+                            <div class="avatar">💻</div>
+                            <div class="name">Cody</div>
+                            <div class="role">程序员</div>
+                            <div class="status-badge" id="status-developer">待机</div>
+                        </div>
+                        <div class="character" data-role="designer">
+                            <div class="avatar">📝</div>
+                            <div class="name">Diana</div>
+                            <div class="role">策划</div>
+                            <div class="status-badge" id="status-designer">待机</div>
+                        </div>
+                        <div class="character" data-role="artist">
+                            <div class="avatar">🎨</div>
+                            <div class="name">Arty</div>
+                            <div class="role">美术</div>
+                            <div class="status-badge" id="status-artist">待机</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h3>📊 项目看板</h3>
+                    <div class="task-board">
+                        <div class="task-column">
+                            <div class="column-header">待办</div>
+                            <div class="task-count" id="task-pending">0</div>
+                        </div>
+                        <div class="task-column">
+                            <div class="column-header">进行中</div>
+                            <div class="task-count" id="task-in-progress">0</div>
+                        </div>
+                        <div class="task-column">
+                            <div class="column-header">已完成</div>
+                            <div class="task-count" id="task-completed">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="meeting-info">
+                    <h3>📋 当前会议</h3>
+                    <div id="current-meeting">
+                        <div class="meeting-type">等待开始</div>
+                        <div class="meeting-topic"></div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="chat-panel">
+                <div class="chat-header">
+                    <h3>💬 团队对话</h3>
+                    <div class="meeting-controls">
+                        <select id="meeting-type-select">
+                            <option value="daily_standup">每日站会</option>
+                            <option value="design_review">设计评审</option>
+                            <option value="technical_review">技术评审</option>
+                            <option value="art_review">美术评审</option>
+                            <option value="milestone">里程碑会议</option>
+                        </select>
+                        <button id="start-meeting-btn" class="btn-primary">▶ 开始会议</button>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message system">
+                        <div class="message-content">欢迎来到游戏小镇！点击"开始会议"启动 AI 团队讨论。</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
