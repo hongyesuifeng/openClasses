@@ -308,6 +308,9 @@ class MeetingOrchestrator:
                     priority=TaskPriority.MEDIUM,
                 )
 
+            # 生成会议总结文档
+            summary_document = self._generate_summary_document(meeting, action_items)
+
             summary = {
                 "meeting_id": meeting.id,
                 "title": meeting.title,
@@ -318,6 +321,8 @@ class MeetingOrchestrator:
                 "action_items": action_items,
                 # 添加任务统计数据
                 "task_stats": self.task_system.get_project_progress(),
+                # 添加会议总结文档
+                "summary_document": summary_document,
             }
 
             await self.broadcast_message({
@@ -330,6 +335,97 @@ class MeetingOrchestrator:
 
         self.meeting_active = False
         return {"status": "ended"}
+
+    def _generate_summary_document(self, meeting, action_items: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """生成会议总结文档"""
+        from datetime import datetime
+
+        # 计算会议时长
+        duration = meeting.end_time - meeting.start_time
+        duration_minutes = int(duration.total_seconds() / 60)
+
+        # 提取关键讨论点
+        key_points = self._extract_key_points(meeting)
+
+        # 生成开发排期
+        schedule = self._generate_schedule(action_items)
+
+        # 生成总结文档
+        document = {
+            "title": f"会议总结：{meeting.title}",
+            "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "meeting_info": {
+                "meeting_id": meeting.id,
+                "duration": f"{duration_minutes} 分钟",
+                "participants": [self.agents[p].name for p in meeting.participants if p in self.agents],
+                "message_count": len(meeting.messages),
+            },
+            "summary": key_points.get("summary", "本次讨论围绕主题展开，各方提出了建设性意见。"),
+            "key_points": key_points.get("points", []),
+            "conclusions": meeting.conclusions if meeting.conclusions else ["会议讨论结束，需要后续跟进。"],
+            "action_items": [
+                {
+                    "task": item["task"],
+                    "assignee": self.agents.get(item.get("assignee", "producer"), {}).name if item.get("assignee") in self.agents else item.get("assignee", "待分配"),
+                    "description": item.get("description", ""),
+                }
+                for item in action_items
+            ],
+            "schedule": schedule,
+        }
+
+        return document
+
+    def _extract_key_points(self, meeting) -> Dict[str, Any]:
+        """从会议中提取关键讨论点"""
+        points = []
+
+        # 分析消息，提取关键点
+        for msg in meeting.messages[-10:]:  # 取最后10条消息
+            if hasattr(msg, 'content') and msg.content:
+                # 简单提取：取每条消息的前100字符作为要点
+                content = msg.content.strip()
+                if len(content) > 20:  # 忽略太短的消息
+                    speaker_name = msg.speaker_name if hasattr(msg, 'speaker_name') else "未知"
+                    points.append({
+                        "speaker": speaker_name,
+                        "point": content[:200] + "..." if len(content) > 200 else content,
+                    })
+
+        # 生成总结
+        summary = f"本次会议围绕「{meeting.title}」展开讨论，共 {len(meeting.messages)} 条发言。"
+        if meeting.conclusions:
+            summary += f" 形成 {len(meeting.conclusions)} 项结论。"
+
+        return {
+            "summary": summary,
+            "points": points[-5:] if points else [],  # 最多返回5个关键点
+        }
+
+    def _generate_schedule(self, action_items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """生成开发排期"""
+        from datetime import datetime, timedelta
+
+        schedule = []
+        base_date = datetime.now()
+
+        for i, item in enumerate(action_items):
+            # 简单排期：每个任务间隔2天
+            start_date = base_date + timedelta(days=i * 2)
+            end_date = start_date + timedelta(days=3)  # 每个任务预计3天
+
+            assignee = item.get("assignee", "producer")
+            assignee_name = self.agents.get(assignee, {}).name if assignee in self.agents else assignee
+
+            schedule.append({
+                "task": item["task"][:50] + "..." if len(item["task"]) > 50 else item["task"],
+                "assignee": assignee_name,
+                "start_date": start_date.strftime("%m-%d"),
+                "end_date": end_date.strftime("%m-%d"),
+                "status": "待开始",
+            })
+
+        return schedule
 
     def _extract_action_items(self, meeting) -> List[Dict[str, Any]]:
         """从会议中提取行动项"""

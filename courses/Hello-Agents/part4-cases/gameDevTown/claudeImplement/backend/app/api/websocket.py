@@ -226,14 +226,8 @@ async def handle_end_meeting(websocket: WebSocket, data: Dict[str, Any]):
             pass
         current_scenario_task = None
 
-    # 结束会议
-    result = await orchestrator.end_meeting()
-
-    # 广播会议结束
-    await manager.broadcast({
-        "type": "meeting_ended",
-        "data": result,
-    })
+    # 结束会议（orchestrator.end_meeting 会自动广播 meeting_ended 消息）
+    await orchestrator.end_meeting()
 
 
 async def handle_get_status(websocket: WebSocket, data: Dict[str, Any]):
@@ -295,12 +289,9 @@ async def handle_run_scenario(websocket: WebSocket, data: Dict[str, Any]):
             await orchestrator.run_interactive_discussion(rounds=rounds)
 
             # 自动结束会议并生成总结（如果未被中断）
+            # orchestrator.end_meeting 会自动广播 meeting_ended 消息
             if orchestrator.meeting_active:
-                result = await orchestrator.end_meeting()
-                await manager.broadcast({
-                    "type": "meeting_ended",
-                    "data": result,
-                })
+                await orchestrator.end_meeting()
         except asyncio.CancelledError:
             print("场景任务被取消")
         finally:

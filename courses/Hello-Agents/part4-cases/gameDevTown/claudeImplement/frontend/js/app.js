@@ -247,6 +247,184 @@ function handleMeetingEnded(data) {
     }
 
     dashboardManager.addActivity('会议结束');
+
+    // 显示会议总结弹框
+    if (data.summary_document) {
+        showMeetingSummaryModal(data.summary_document);
+    }
+}
+
+/**
+ * 显示会议总结弹框
+ */
+function showMeetingSummaryModal(document) {
+    // 移除已存在的弹框
+    const existingModal = document.querySelector('.summary-modal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // 创建弹框
+    const modal = document.createElement('div');
+    modal.className = 'summary-modal';
+
+    // 生成关键要点HTML
+    let keyPointsHtml = '';
+    if (document.key_points && document.key_points.length > 0) {
+        document.key_points.forEach(point => {
+            keyPointsHtml += `
+                <li>
+                    <div class="speaker">${point.speaker}</div>
+                    <div class="point">${point.point}</div>
+                </li>
+            `;
+        });
+    } else {
+        keyPointsHtml = '<li><div class="point">暂无关键讨论点</div></li>';
+    }
+
+    // 生成结论HTML
+    let conclusionsHtml = '';
+    if (document.conclusions && document.conclusions.length > 0) {
+        document.conclusions.forEach(conclusion => {
+            conclusionsHtml += `<li>✓ ${conclusion}</li>`;
+        });
+    } else {
+        conclusionsHtml = '<li>暂无明确结论</li>';
+    }
+
+    // 生成行动项HTML
+    let actionItemsHtml = '';
+    if (document.action_items && document.action_items.length > 0) {
+        document.action_items.forEach((item, index) => {
+            actionItemsHtml += `
+                <li>
+                    <span class="action-number">${index + 1}</span>
+                    <div class="action-content">
+                        <div class="action-task">${item.task}</div>
+                        <div class="action-assignee">负责人：${item.assignee}</div>
+                    </div>
+                </li>
+            `;
+        });
+    } else {
+        actionItemsHtml = '<li><div class="action-content"><div class="action-task">暂无行动项</div></div></li>';
+    }
+
+    // 生成排期HTML
+    let scheduleHtml = '';
+    if (document.schedule && document.schedule.length > 0) {
+        document.schedule.forEach(item => {
+            scheduleHtml += `
+                <tr>
+                    <td>${item.task}</td>
+                    <td>${item.assignee}</td>
+                    <td>${item.start_date} ~ ${item.end_date}</td>
+                    <td><span class="schedule-status">${item.status}</span></td>
+                </tr>
+            `;
+        });
+    } else {
+        scheduleHtml = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">暂无排期安排</td></tr>';
+    }
+
+    modal.innerHTML = `
+        <div class="summary-modal-content">
+            <div class="summary-modal-header">
+                <h2>📋 ${document.title}</h2>
+                <button class="summary-modal-close" onclick="closeSummaryModal()">×</button>
+            </div>
+            <div class="summary-modal-body">
+                <!-- 会议基本信息 -->
+                <div class="summary-meta">
+                    <div class="summary-meta-item">
+                        <div class="label">会议时长</div>
+                        <div class="value">${document.meeting_info.duration}</div>
+                    </div>
+                    <div class="summary-meta-item">
+                        <div class="label">参与人数</div>
+                        <div class="value">${document.meeting_info.participants.length} 人</div>
+                    </div>
+                    <div class="summary-meta-item">
+                        <div class="label">发言次数</div>
+                        <div class="value">${document.meeting_info.message_count} 条</div>
+                    </div>
+                </div>
+
+                <!-- 会议概述 -->
+                <div class="summary-section">
+                    <h3>📊 会议概述</h3>
+                    <div class="summary-text">
+                        ${document.summary}
+                    </div>
+                </div>
+
+                <!-- 关键讨论点 -->
+                <div class="summary-section">
+                    <h3>💬 关键讨论点</h3>
+                    <ul class="summary-points-list">
+                        ${keyPointsHtml}
+                    </ul>
+                </div>
+
+                <!-- 会议结论 -->
+                <div class="summary-section">
+                    <h3>✅ 会议结论</h3>
+                    <ul class="summary-conclusions">
+                        ${conclusionsHtml}
+                    </ul>
+                </div>
+
+                <!-- 行动项 -->
+                <div class="summary-section">
+                    <h3>🎯 行动项</h3>
+                    <ul class="action-items-list">
+                        ${actionItemsHtml}
+                    </ul>
+                </div>
+
+                <!-- 开发排期 -->
+                <div class="summary-section">
+                    <h3>📅 开发排期</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>任务</th>
+                                <th>负责人</th>
+                                <th>时间</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${scheduleHtml}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 确认按钮 -->
+                <button class="summary-confirm-btn" onclick="closeSummaryModal()">
+                    我已阅读，关闭总结
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // 阻止点击内容区域关闭
+    modal.querySelector('.summary-modal-content').addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+}
+
+/**
+ * 关闭会议总结弹框
+ */
+function closeSummaryModal() {
+    const modal = document.querySelector('.summary-modal');
+    if (modal) {
+        modal.remove();
+    }
 }
 
 /**

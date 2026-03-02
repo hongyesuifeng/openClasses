@@ -31,7 +31,7 @@ class ServerConfig(BaseModel):
 
 class GameConfig(BaseModel):
     """游戏配置"""
-    name: str = "王者之路"
+    name: str = "九十九亿大战"
     max_memory_items: int = 50
     meeting_turn_delay: float = 2.0
 
@@ -57,7 +57,7 @@ class Settings(BaseModel):
                 debug=os.getenv("DEBUG", "true").lower() == "true",
             ),
             game=GameConfig(
-                name=os.getenv("GAME_NAME", "王者之路"),
+                name=os.getenv("GAME_NAME", "九十九亿"),
                 max_memory_items=int(os.getenv("MAX_MEMORY_ITEMS", "50")),
                 meeting_turn_delay=float(os.getenv("MEETING_TURN_DELAY", "2.0")),
             ),
@@ -71,7 +71,7 @@ settings = Settings.from_env()
 # Agent 角色定义
 AGENT_ROLES = {
     "producer": {
-        "name": "张制作",
+        "name": "David",
         "role": "制作人",
         "description": "负责项目整体规划、进度管理和团队协调",
         "color": "#FF6B6B",
@@ -80,7 +80,7 @@ AGENT_ROLES = {
         "personality": "稳重、有条理、善于协调",
     },
     "developer": {
-        "name": "李程序",
+        "name": "Alex",
         "role": "程序员",
         "description": "负责游戏核心系统开发和技术架构设计",
         "color": "#4ECDC4",
@@ -89,7 +89,7 @@ AGENT_ROLES = {
         "personality": "技术狂、逻辑缜密、追求完美",
     },
     "designer": {
-        "name": "王策划",
+        "name": "Emma",
         "role": "策划",
         "description": "负责游戏玩法设计、数值平衡和系统设计",
         "color": "#FFE66D",
@@ -98,7 +98,7 @@ AGENT_ROLES = {
         "personality": "创意丰富、数据敏感、玩家视角",
     },
     "artist": {
-        "name": "陈美术",
+        "name": "Luna",
         "role": "美术",
         "description": "负责游戏视觉风格、角色设计和UI界面",
         "color": "#C44D58",

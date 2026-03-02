@@ -31,6 +31,7 @@
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ │
 │  │   app.js    │  │   chat.js   │  │ characters.js│  │ dashboard.js│ │
 │  │  主应用逻辑  │  │  聊天组件   │  │  角色组件   │  │  看板组件   │ │
+│  │ (含总结弹框) │  │             │  │             │  │             │ │
 │  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘ │
 │         └────────────────┼────────────────┼────────────────┘        │
 │                          ▼                ▼                          │
@@ -65,7 +66,7 @@
 │  │                   会议系统 (app/meeting/)                  │   │
 │  │  ┌─────────────────────┐    ┌─────────────────────────┐  │   │
 │  │  │   orchestrator.py   │◄───│      templates.py       │  │   │
-│  │  │     会议编排器       │    │    场景/模板管理        │  │   │
+│  │  │  会议编排器+总结生成  │    │    场景/模板管理        │  │   │
 │  │  └──────────┬──────────┘    └─────────────────────────┘  │   │
 │  └─────────────┼────────────────────────────────────────────┘   │
 │                │                                                  │
@@ -80,7 +81,7 @@
 │  │  ▼               ▼           ▼           ▼              │  │   │
 │  │ ┌────────┐ ┌──────────┐ ┌────────┐ ┌────────┐         │  │   │
 │  │ │producer│ │developer │ │designer│ │ artist │         │  │   │
-│  │ │ 制作人  │ │  程序员  │ │  策划  │ │  美术  │         │  │   │
+│  │ │ David  │ │  Alex    │ │ Emma   │ │  Luna  │         │  │   │
 │  │ └────────┘ └──────────┘ └────────┘ └────────┘         │  │   │
 │  └─────────────────────────────────────────────────────────┘   │
 │                                                                  │
@@ -107,10 +108,10 @@
 
 | 模块 | 职责 |
 |------|------|
-| `app.js` | 主应用逻辑，初始化组件，管理全局状态 |
+| `app.js` | 主应用逻辑，初始化组件，管理全局状态，会议总结弹框 |
 | `api.js` | 封装 REST API 和 WebSocket 通信 |
 | `chat.js` | 聊天消息渲染，支持打字动画 |
-| `characters.js` | Agent 角色卡片状态管理 |
+| `characters.js` | Agent 角色卡片状态管理，角色详情弹框 |
 | `dashboard.js` | 项目进度和任务看板 |
 
 #### 2.2.2 API 层
@@ -133,7 +134,7 @@
 
 | 模块 | 职责 |
 |------|------|
-| `orchestrator.py` | 会议编排，控制 Agent 发言顺序，广播消息 |
+| `orchestrator.py` | 会议编排，控制 Agent 发言顺序，广播消息，生成会议总结文档 |
 | `templates.py` | 预定义的会议场景和对话模板 |
 
 #### 2.2.5 Agent 层
@@ -142,10 +143,10 @@
 | 模块 | 职责 |
 |------|------|
 | `base.py` | 基础 Agent 抽象类，定义通用接口 |
-| `producer.py` | 制作人 Agent，项目管理视角 |
-| `developer.py` | 程序员 Agent，技术实现视角 |
-| `designer.py` | 策划 Agent，玩法设计视角 |
-| `artist.py` | 美术 Agent，视觉表现视角 |
+| `producer.py` | 制作人 Agent (David)，项目管理视角 |
+| `developer.py` | 程序员 Agent (Alex)，技术实现视角 |
+| `designer.py` | 策划 Agent (Emma)，玩法设计视角 |
+| `artist.py` | 美术 Agent (Luna)，视觉表现视角 |
 
 #### 2.2.6 核心系统层
 提供 Agent 的底层能力支持。
@@ -189,8 +190,9 @@
    │                          │                              │
    │  10. 结束会议            │                              │
    ├─────────────────────────►│                              │
-   │                          │  11. 生成会议总结             │
-   │                          │  12. 提取行动项               │
+   │                          │  11. 生成会议总结文档         │
+   │                          │  12. 提取行动项和排期         │
+   │  13. 弹框显示总结        │                              │
    │◄─────────────────────────┤                              │
 ```
 
@@ -207,10 +209,50 @@
 | `new_message` | Server → Client | 新消息到达 |
 | `send_message` | Client → Server | 用户发送消息 |
 | `end_meeting` | Client → Server | 请求结束会议（可中断） |
-| `meeting_ended` | Server → Client | 会议结束，返回总结（含 task_stats） |
+| `meeting_ended` | Server → Client | 会议结束，返回总结文档、任务统计 |
 | `status_update` | Server → Client | 项目状态更新 |
 
-### 3.3 后台任务与中断机制
+### 3.3 会议总结文档结构
+
+会议结束时，后端生成包含以下内容的总结文档：
+
+```json
+{
+  "type": "meeting_ended",
+  "data": {
+    "meeting_id": "...",
+    "title": "会议主题",
+    "duration": "5 分钟",
+    "message_count": 12,
+    "conclusions": ["结论1", "结论2"],
+    "action_items": [...],
+    "task_stats": {...},
+    "summary_document": {
+      "title": "会议总结：xxx",
+      "generated_at": "2024-03-02 10:00",
+      "meeting_info": {
+        "duration": "5 分钟",
+        "participants": ["David", "Alex", "Emma", "Luna"],
+        "message_count": 12
+      },
+      "summary": "本次会议围绕xxx展开讨论...",
+      "key_points": [
+        {"speaker": "David", "point": "..."},
+        {"speaker": "Alex", "point": "..."}
+      ],
+      "conclusions": ["决策1", "决策2"],
+      "action_items": [
+        {"task": "任务1", "assignee": "Alex", "description": "..."}
+      ],
+      "schedule": [
+        {"task": "任务1", "assignee": "Alex", "start_date": "03-02", "end_date": "03-05", "status": "待开始"}
+      ]
+    }
+  }
+}
+```
+
+### 3.4 后台任务与中断机制
 
 为支持实时中断会议，场景运行采用后台任务模式：
 
@@ -232,38 +274,8 @@ WebSocket 消息循环                    后台任务
        │                               │── asyncio.CancelledError
        │                               │── 清理资源
        │  ◄── meeting_ended ───────────┤
+       │    (含 summary_document)      │
        │                               │
-```
-
-**关键实现**：
-```python
-# websocket.py
-current_scenario_task = None  # 全局任务引用
-
-async def handle_run_scenario(websocket, data):
-    global current_scenario_task
-
-    async def run_discussion():
-        try:
-            await orchestrator.run_interactive_discussion(rounds=rounds)
-            # 自动结束
-            if orchestrator.meeting_active:
-                result = await orchestrator.end_meeting()
-                await manager.broadcast({"type": "meeting_ended", "data": result})
-        except asyncio.CancelledError:
-            print("场景任务被取消")
-
-    current_scenario_task = asyncio.create_task(run_discussion())
-
-async def handle_end_meeting(websocket, data):
-    global current_scenario_task
-
-    # 取消正在运行的任务
-    if current_scenario_task and not current_scenario_task.done():
-        current_scenario_task.cancel()
-
-    result = await orchestrator.end_meeting()
-    await manager.broadcast({"type": "meeting_ended", "data": result})
 ```
 
 ---
@@ -310,13 +322,13 @@ async def handle_end_meeting(websocket, data):
 ┌─────────────────────────────────────┐
 │           开发机器                   │
 │  ┌───────────────────────────────┐  │
-│  │   uvicorn (localhost:8000)    │  │
+│  │   uvicorn (localhost:5051)    │  │
 │  │   - 热重载                     │  │
 │  │   - 调试模式                   │  │
 │  └───────────────────────────────┘  │
 │  ┌───────────────────────────────┐  │
 │  │   浏览器                       │  │
-│  │   - 访问 localhost:8000       │  │
+│  │   - 访问 localhost:5051       │  │
 │  └───────────────────────────────┘  │
 └─────────────────────────────────────┘
 ```
@@ -404,6 +416,7 @@ async def handle_end_meeting(websocket, data):
 
 ## 9. 版本信息
 
-- **版本**: 1.0.0
+- **版本**: 1.1.0
 - **创建日期**: 2024
+- **最后更新**: 2024-03-02
 - **维护状态**: 活跃开发中

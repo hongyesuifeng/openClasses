@@ -45,8 +45,8 @@ Multi-Agent System (MAS) 是由多个智能代理（Agent）组成的分布式�
         ┌────────────────────┼────────────────────┐
         ▼                    ▼                    ▼
 ┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+│   David       │    │   Alex        │    │   Emma        │
 │   Producer    │    │   Developer   │    │   Designer    │
-│    Agent      │    │     Agent     │    │    Agent      │
 └───────────────┘    └───────────────┘    └───────────────┘
 ```
 
@@ -55,6 +55,7 @@ Multi-Agent System (MAS) 是由多个智能代理（Agent）组成的分布式�
 - 广播消息
 - 汇总决策
 - 管理会议状态
+- 生成会议总结文档
 
 ---
 
@@ -74,7 +75,7 @@ def get_system_prompt(self) -> str:
 你的专业领域：{', '.join(self.expertise)}
 你的性格特点：{self.personality}
 
-你正在参与开发一款名为"王者之路"的MOBA手机游戏。
+你正在参与开发一款名为"九十九亿大战"的游戏。
 在会议中，你需要：
 1. 从{self.role}的角度出发发表意见
 2. 与其他团队成员协作讨论
@@ -98,7 +99,7 @@ MiniMax API 使用 Anthropic 兼容的消息格式：
 ```python
 # 请求格式
 {
-    "model": "abab6.5s-chat",
+    "model": "MiniMax-M2.5",
     "max_tokens": 2048,
     "temperature": 0.7,
     "system": "你是一个游戏制作人...",
@@ -112,7 +113,7 @@ MiniMax API 使用 Anthropic 兼容的消息格式：
     "content": [
         {"type": "text", "text": "作为制作人，我认为..."}
     ],
-    "model": "abab6.5s-chat",
+    "model": "MiniMax-M2.5",
     "usage": {"input_tokens": 100, "output_tokens": 50}
 }
 ```
@@ -415,10 +416,9 @@ async def handle_run_scenario(websocket, data):
     async def run_discussion_background():
         try:
             await orchestrator.run_interactive_discussion(rounds=rounds)
-            # 讨论完成后自动结束会议
+            # 讨论完成后自动结束会议（orchestrator 会广播 meeting_ended）
             if orchestrator.meeting_active:
-                result = await orchestrator.end_meeting()
-                await manager.broadcast({"type": "meeting_ended", "data": result})
+                await orchestrator.end_meeting()
         except asyncio.CancelledError:
             # 任务被取消时的清理
             print("场景任务被用户中断")
@@ -439,9 +439,8 @@ async def handle_end_meeting(websocket, data):
             pass
         current_scenario_task = None
 
-    # 执行正常的会议结束流程
-    result = await orchestrator.end_meeting()
-    await manager.broadcast({"type": "meeting_ended", "data": result})
+    # 执行正常的会议结束流程（orchestrator 会广播 meeting_ended）
+    await orchestrator.end_meeting()
 ```
 
 **流程图**：
@@ -467,14 +466,141 @@ async def handle_end_meeting(websocket, data):
        │                                  │  7. CancelledError 抛出           │
        │                                  │◄─────────────────────────────────┤
        │  8. meeting_ended 消息            │  8. end_meeting()                 │
+       │     (含 summary_document)         │                                  │
        │◄─────────────────────────────────┤◄─────────────────────────────────┤
 ```
 
 ---
 
-## 6. 异步编程原理
+## 6. 会议总结生成原理
 
-### 6.1 Python async/await
+### 6.1 总结文档生成流程
+
+会议结束时，`MeetingOrchestrator` 自动生成总结文档：
+
+```python
+async def end_meeting(self) -> Dict[str, Any]:
+    """结束会议并生成总结文档"""
+    meeting = self.conversation_manager.end_meeting()
+
+    if meeting:
+        # 提取行动项
+        action_items = self._extract_action_items(meeting)
+
+        # 生成会议总结文档
+        summary_document = self._generate_summary_document(meeting, action_items)
+
+        summary = {
+            "meeting_id": meeting.id,
+            "title": meeting.title,
+            "duration": str(meeting.end_time - meeting.start_time),
+            "participants": meeting.participants,
+            "message_count": len(meeting.messages),
+            "conclusions": meeting.conclusions,
+            "action_items": action_items,
+            "task_stats": self.task_system.get_project_progress(),
+            "summary_document": summary_document,  # 新增
+        }
+
+        await self.broadcast_message({
+            "type": "meeting_ended",
+            "data": summary,
+        })
+
+        return summary
+```
+
+### 6.2 关键信息提取
+
+```python
+def _extract_key_points(self, meeting) -> Dict[str, Any]:
+    """从会议中提取关键讨论点"""
+    points = []
+
+    # 分析消息，提取关键点
+    for msg in meeting.messages[-10:]:  # 取最后10条消息
+        if hasattr(msg, 'content') and msg.content:
+            content = msg.content.strip()
+            if len(content) > 20:  # 忽略太短的消息
+                speaker_name = msg.speaker_name if hasattr(msg, 'speaker_name') else "未知"
+                points.append({
+                    "speaker": speaker_name,
+                    "point": content[:200] + "..." if len(content) > 200 else content,
+                })
+
+    return {
+        "summary": f"本次会议围绕「{meeting.title}」展开讨论，共 {len(meeting.messages)} 条发言。",
+        "points": points[-5:] if points else [],
+    }
+```
+
+### 6.3 开发排期生成
+
+```python
+def _generate_schedule(self, action_items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """生成开发排期"""
+    from datetime import datetime, timedelta
+
+    schedule = []
+    base_date = datetime.now()
+
+    for i, item in enumerate(action_items):
+        # 简单排期：每个任务间隔2天
+        start_date = base_date + timedelta(days=i * 2)
+        end_date = start_date + timedelta(days=3)
+
+        schedule.append({
+            "task": item["task"][:50],
+            "assignee": item.get("assignee", "待分配"),
+            "start_date": start_date.strftime("%m-%d"),
+            "end_date": end_date.strftime("%m-%d"),
+            "status": "待开始",
+        })
+
+    return schedule
+```
+
+### 6.4 前端弹框实现
+
+会议结束后，前端自动弹出总结弹框：
+
+```javascript
+function handleMeetingEnded(data) {
+    // ... 更新 UI 状态 ...
+
+    // 显示会议总结弹框
+    if (data.summary_document) {
+        showMeetingSummaryModal(data.summary_document);
+    }
+}
+
+function showMeetingSummaryModal(document) {
+    // 创建模态弹框
+    const modal = document.createElement('div');
+    modal.className = 'summary-modal';
+
+    // 弹框内容包含：会议概述、关键讨论点、结论、行动项、开发排期
+    modal.innerHTML = `...`;
+
+    // 添加到页面
+    document.body.appendChild(modal);
+
+    // 只有点击关闭按钮才能关闭（不会自动关闭）
+}
+
+function closeSummaryModal() {
+    const modal = document.querySelector('.summary-modal');
+    if (modal) {
+        modal.remove();
+    }
+}
+```
+
+---
+
+## 7. 异步编程原理
+
+### 7.1 Python async/await
 
 本项目大量使用 Python 的异步编程特性：
 
@@ -497,7 +623,7 @@ async def run_discussion_round(self, topic: str):
         await asyncio.sleep(2.0)
 ```
 
-### 6.2 异步优势
+### 7.2 异步优势
 
 | 特性 | 同步模式 | 异步模式 |
 |------|----------|----------|
@@ -508,9 +634,9 @@ async def run_discussion_round(self, topic: str):
 
 ---
 
-## 7. 前端架构原理
+## 8. 前端架构原理
 
-### 7.1 模块化设计
+### 8.1 模块化设计
 
 前端采用 ES6 模块化设计，每个模块职责单一：
 
@@ -527,14 +653,15 @@ app.js (主控制器)
    │
    ├── characters.js (角色组件)
    │      ├── 状态显示
-   │      └── 情绪指示
+   │      ├── 情绪指示
+   │      └── 角色详情弹框
    │
    └── dashboard.js (看板组件)
           ├── 进度显示
           └── 活动记录
 ```
 
-### 7.2 状态管理
+### 8.2 状态管理
 
 ```javascript
 // 全局状态
@@ -552,7 +679,7 @@ function updateConnectionStatus(connected) {
 }
 ```
 
-### 7.3 事件驱动
+### 8.3 事件驱动
 
 ```javascript
 // WebSocket 消息驱动 UI 更新
@@ -564,15 +691,18 @@ function handleWebSocketMessage(data) {
         case 'agent_status':
             charactersManager.updateStatus(data.data);
             break;
+        case 'meeting_ended':
+            handleMeetingEnded(data.data);
+            break;
     }
 }
 ```
 
 ---
 
-## 8. 设计模式应用
+## 9. 设计模式应用
 
-### 8.1 工厂模式
+### 9.1 工厂模式
 
 用于创建不同类型的 Agent：
 
@@ -593,7 +723,7 @@ def create_agent(role_id: str, llm_service=None):
     raise ValueError(f"Unknown agent role: {role_id}")
 ```
 
-### 8.2 模板方法模式
+### 9.2 模板方法模式
 
 BaseAgent 定义算法骨架，子类实现具体步骤：
 
@@ -610,7 +740,7 @@ class BaseAgent(ABC):
         pass
 ```
 
-### 8.3 观察者模式
+### 9.3 观察者模式
 
 WebSocket 广播机制实现观察者模式：
 
@@ -625,23 +755,24 @@ class ConnectionManager:
             await observer.send_json(message)
 ```
 
-### 8.4 策略模式
+### 9.4 策略模式
 
 不同场景使用不同的对话策略：
 
 ```python
 SCENARIO_PROMPTS = {
-    "hero_design": {
-        "topic": "新英雄设计",
+    "game_fun_evaluation": {
+        "topic": "游戏是否好玩 - 核心乐趣评估",
+        "context": "我们需要评估当前游戏的核心乐趣...",
         "expected_responses": {
-            "producer": "关注开发周期",
-            "developer": "评估技术难度",
-            "designer": "分析平衡性",
-            "artist": "讨论视觉效果",
+            "producer": "关注整体体验",
+            "developer": "分析技术实现",
+            "designer": "分析核心玩法",
+            "artist": "讨论视觉反馈",
         }
     },
-    "performance_issue": {
-        "topic": "性能问题",
+    "prototype_demo": {
+        "topic": "原型Demo节点 - 核心展示内容讨论",
         # ...
     }
 }
@@ -649,34 +780,40 @@ SCENARIO_PROMPTS = {
 
 ---
 
-## 9. 关键技术要点总结
+## 10. 关键技术要点总结
 
-### 9.1 LLM 角色扮演
+### 10.1 LLM 角色扮演
 - 通过精心设计的 System Prompt 引导 LLM 扮演特定角色
 - 结合专业背景和性格特征，使回复更具个性
 
-### 9.2 多 Agent 协调
+### 10.2 多 Agent 协调
 - 中心化协调模式确保对话有序进行
 - 轮询发言机制保证每个 Agent 参与机会均等
 
-### 9.3 记忆与上下文
+### 10.3 记忆与上下文
 - 双层记忆结构平衡效率和容量
 - 重要性评分机制筛选关键信息
 
-### 9.4 实时通信
+### 10.4 实时通信
 - WebSocket 提供低延迟的双向通信
 - 消息类型分发实现松耦合的请求处理
 
-### 9.5 容错设计
+### 10.5 容错设计
 - LLM 服务降级机制确保系统可用性
 - 模块化设计便于定位和修复问题
 
+### 10.6 会议总结生成
+- 自动提取关键讨论点和结论
+- 生成行动项和开发排期
+- 前端弹框强制用户阅读后关闭
+
 ---
 
-## 10. 参考资料
+## 11. 参考资料
 
 1. **Multi-Agent Systems**: Wooldridge, M. (2009). An Introduction to MultiAgent Systems.
 2. **Prompt Engineering**: OpenAI Prompt Engineering Guide
 3. **FastAPI**: https://fastapi.tiangolo.com/
 4. **WebSocket Protocol**: RFC 6455
 5. **Anthropic API**: https://docs.anthropic.com/
+6. **MiniMax API**: https://www.minimaxi.com/
