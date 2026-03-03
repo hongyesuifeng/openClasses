@@ -1,10 +1,14 @@
 # AI Agent 在游戏开发领域的应用完全指南
 
+> **本指南面向**：游戏策划、开发者、技术美术、项目经理等游戏行业从业者
+>
+> **阅读收益**：理解 AI Agent 核心原理，掌握 Agent 在游戏开发中的应用模式，学会设计 Multi-Agent 协作系统
+
 ## 📚 目录
 
 1.  [Agent 概述](#1-agent-概述)
 2.  [Agent 核心架构](#2-agent-核心架构)
-3.  [游戏开发中的 Agent 模式](#3-游戏开发中的-agent-模式)
+3.  [Agent 实现模式](#3-agent-实现模式)
 4.  [Multi-Agent 协作系统](#4-multi-agent-协作系统)
 5.  [游戏小镇实战案例](#5-游戏小镇实战案例)
 6.  [Agent 在游戏开发中的应用场景](#6-agent-在游戏开发中的应用场景)
@@ -35,9 +39,26 @@
 | **输出** | 文本回复 | 行动 + 反思 + 结果 |
 | **自主性** | 需要人工引导 | 可自主完成任务 |
 
-### 1.2 Agent 在游戏领域的独特价值
+### 1.2 Agent 的三大核心特征
 
-游戏开发是一个高度协作、多学科交叉的领域，AI Agent 能够：
+| 特征 | 英文 | 描述 |
+|:---|:---|:---|
+| **自主性** | Autonomy | 无需人类持续干预，自主做出决策，主动执行行动 |
+| **交互性** | Interactivity | 与环境持续交互，根据反馈调整策略，多轮对话和行动 |
+| **目标导向** | Goal-Oriented | 有明确的目标，规划达成目标的路径，执行具体行动 |
+
+### 1.3 为什么需要 Agent？
+
+**传统 LLM 的局限 vs Agent 的解决方案：**
+
+| 局限 | 说明 | Agent 解决方案 |
+|:---|:---|:---|
+| 无法行动 | 只能生成文本 | 工具调用（Tool Calling） |
+| 无规划能力 | 一次性回答 | 任务分解和规划模块 |
+| 无反馈机制 | 不知道结果对错 | 反思和验证机制 |
+| 上下文受限 | 只看对话历史 | 感知整个环境 |
+
+### 1.4 Agent 在游戏领域的独特价值
 
 | 应用场景 | 传统方式 | Agent 方式 |
 |:---|:---|:---|
@@ -51,337 +72,582 @@
 
 ## 2. Agent 核心架构
 
-### 2.1 四大核心组件
+### 核心要点
+
+| 组件 | 英文 | 作用 |
+|:---|:---|:---|
+| **感知** | Perception | 理解用户需求、环境状态、执行结果 |
+| **规划** | Planning | 分解复杂任务、制定执行步骤 |
+| **行动** | Action | 调用工具、执行代码、生成内容 |
+| **反思** | Reflection | 检查结果、验证正确性、调整策略 |
+| **记忆** | Memory | 短期记忆 + 长期记忆的混合系统 |
+
+### Agent 类型分类
+
+根据智能程度和能力范围，Agent 可分为以下类型：
+
+| 类型 | 英文 | 特点 | 典型应用 |
+|:---|:---|:---|:---|
+| **反射型** | Reactive Agent | 基于当前感知直接响应，无内部状态 | 简单规则触发、即时响应 |
+| **认知型** | Cognitive Agent | 具有世界模型，可进行推理和预测 | 复杂决策、战略规划 |
+| **协作型** | Collaborative Agent | 多 Agent 协作，共享信息和目标 | 团队模拟、分布式任务 |
+| **进化型** | Evolutionary Agent | 通过反馈学习和适应 | 持续优化的系统 |
+| **元认知型** | Meta-Cognitive Agent | 能监控和调节自身认知过程 | 自我改进、策略选择 |
+
+#### 五大类型详解
+
+**1. 反射型 Agent (Reactive Agent)**
+- **核心特点**: 基于当前感知直接响应，不维护内部状态，不考虑历史
+- **实现要点**: 简单的条件-响应规则，适合即时反馈场景
+- **游戏应用**: 简单的敌人AI（发现玩家→攻击）、触发式事件响应
+- **局限性**: 无法处理需要记忆和规划的复杂任务
+
+**2. 认知型 Agent (Cognitive Agent)**
+- **核心特点**: 具有世界模型，能进行推理、预测和规划
+- **实现要点**: 维护内部状态，具备因果推理能力
+- **游戏应用**: 复杂Boss AI、战略游戏中的AI对手、需要预判玩家行为的NPC
+- **典型技术**: 思维链(Chain-of-Thought)、世界模型建模
+
+**3. 协作型 Agent (Collaborative Agent)**
+- **核心特点**: 多Agent协同工作，共享信息和目标
+- **实现要点**: 通信协议、共享记忆、协调机制
+- **游戏应用**: 团队副本BOSS（多个怪物配合）、游戏开发团队模拟
+- **关键设计**: 角色分工、消息传递、冲突解决
+
+**4. 进化型 Agent (Evolutionary Agent)**
+- **核心特点**: 通过强化学习持续优化策略
+- **实现要点**: 奖励函数设计、探索与利用平衡
+- **游戏应用**: 自适应难度系统、持续学习玩家习惯的NPC
+- **典型技术**: PPO、DQN等强化学习算法
+
+**5. 元认知型 Agent (Meta-Cognitive Agent)**
+- **核心特点**: 能监控和调节自身认知过程，自我反思
+- **实现要点**: 元认知监控、策略选择、自我评估
+- **游戏应用**: 高级AI助手、能解释自身决策的NPC
+- **核心能力**: 知道"自己知道什么"、"不知道什么"
+
+### 2.1 架构总览
+
+**核心循环流程：**
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Agent 架构图                               │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   ┌──────────┐         ┌──────────┐         ┌──────────┐       │
-│   │  感知    │ ───────►│  规划    │ ───────►│  行动    │       │
-│   │Perception│         │ Planning │         │  Action  │       │
-│   └──────────┘         └──────────┘         └──────────┘       │
-│        ▲                                          │             │
-│        │              ┌──────────┐               │             │
-│        └──────────────│  反思    │◄──────────────┘             │
-│                       │Reflection│                             │
-│                       └──────────┘                             │
-│                            ▲                                    │
-│                            │                                    │
-│   ┌────────────────────────────────────────────────┐           │
-│   │                 记忆系统                        │           │
-│   │    短期记忆（近期对话） + 长期记忆（重要决策）    │           │
-│   └────────────────────────────────────────────────┘           │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+┌─────────┐      ┌─────────┐      ┌─────────┐
+│  感知   │ ───► │  规划   │ ───► │  行动   │
+│Perception│      │Planning │      │ Action  │
+└─────────┘      └─────────┘      └────┬────┘
+     ▲                                  │
+     │            ┌─────────┐          │
+     └────────────│  反思   │◄─────────┘
+                  │Reflection│
+                  └─────────┘
+                       │
+     ┌─────────────────┴─────────────────┐
+     │            记忆系统                 │
+     │  短期记忆（近期）+ 长期记忆（重要） │
+     └─────────────────────────────────────┘
 ```
 
-### 2.2 组件详解
+### 2.2 组件 1: Perception（感知）
 
-#### Perception（感知）
+**作用**: 理解当前状态和环境信息
 
-```
-// 感知游戏开发环境 - 数据结构定义
-DEFINE game_dev_context:
-    project_state:
-        name = "九十九亿大战"
-        phase = "核心开发阶段"
-        progress = "45%"
-    END project_state
+#### 感知内容
 
-    team_status:
-        programmer = "实现战斗系统"
-        designer = "设计新英雄"
-        artist = "制作角色模型"
-    END team_status
+| 类型 | 说明 | 示例 |
+|:---|:---|:---|
+| **用户需求** | 任务描述和上下文 | "分析用户登录失败问题" |
+| **代码库状态** | 文件结构、依赖、覆盖率 | MVC pattern, 65% coverage |
+| **环境信息** | OS、版本、分支等 | Linux, Python 3.12, main |
+| **执行结果** | 命令输出、错误信息 | AssertionError, Expected 200 |
 
-    pending_issues = [
-        "战斗系统性能优化",
-        "新英雄数值平衡"
-    ]
-END DEFINE
-```
+#### 感知工具
 
-#### Planning（规划）
+| 工具 | 用途 |
+|:---|:---|
+| 文件系统感知 | 读取文件、列出目录 |
+| 代码搜索 | 按模式搜索代码 |
+| 日志分析 | 解析错误日志 |
 
-```
-// 任务分解示例 - 英雄设计规划流程
-FUNCTION plan_hero_design(hero_name):
-    RETURN plan WITH:
-        phase_1:
-            task = "概念设计"
-            steps = ["确定英雄定位", "设计技能框架", "设定背景故事"]
-        END phase_1
+### 2.3 组件 2: Planning（规划）
 
-        phase_2:
-            task = "详细设计"
-            steps = ["技能数值设计", "视觉概念图", "技能特效规划"]
-        END phase_2
+**作用**: 分解任务、制定执行步骤
 
-        phase_3:
-            task = "评审验证"
-            steps = ["团队评审", "数值模拟", "原型验证"]
-        END phase_3
-    END RETURN
-END FUNCTION
-```
+#### 规划层次
 
-#### Action（行动）
+| 层次 | 英文 | 描述 | 示例 |
+|:---|:---|:---|:---|
+| **高层规划** | Strategy | 策略层，确定整体阶段 | 诊断→修复→验证 |
+| **中层规划** | Tactic | 战术层，确定具体步骤 | 读取文件→分析日志→搜索代码 |
+| **低层规划** | Execution | 执行层，确定操作细节 | 读取45-60行→添加None检查→运行测试 |
+
+### 2.4 组件 3: Action（行动）
+
+**作用**: 执行具体操作，调用工具
+
+#### 工具调用流程
 
 ```
-// Agent 可调用的工具定义
-DEFINE tools AS list:
-    tool_1:
-        name = "generate_code"
-        description = "生成游戏代码"
-        parameters:
-            module: string - "模块名称"
-            framework: string - "游戏框架（Unity/Unreal）"
-        END parameters
-    END tool_1
-
-    tool_2:
-        name = "create_design_doc"
-        description = "创建设计文档"
-        parameters:
-            doc_type: string - "文档类型"
-            content: string - "文档内容"
-        END parameters
-    END tool_2
-END DEFINE
+LLM分析请求 → 决定调用工具 → 生成调用参数 → 执行工具调用 → 返回结果给LLM → LLM继续处理
 ```
 
-#### Reflection（反思）
+#### 工具定义示例
+
+| 工具 | 描述 | 必需参数 | 可选参数 |
+|:---|:---|:---|:---|
+| read_file | 读取文件内容 | path | start_line, end_line |
+| write_file | 写入文件 | path, content | - |
+| run_command | 执行shell命令 | command | timeout |
+
+#### 与传统 API 调用的区别
+
+| 特性 | 传统 API 调用 | Agent 工具调用 |
+| :--- | :--- | :--- |
+| **调用逻辑** | 开发者预设 | LLM 自主决定 |
+| **调用时机** | 固定流程 | 根据上下文动态决定 |
+| **参数选择** | 代码中定义 | LLM 生成 |
+| **结果处理** | 预定义逻辑 | LLM 解析并继续 |
+
+### 2.5 组件 4: Reflection（反思）
+
+**作用**: 检查结果、验证正确性、调整策略
+
+#### 反思层次
 
 ```
-// 结果验证和反思机制
-FUNCTION reflect_on_decision(decision, result):
-    // 评估决策结果并调整策略
-    IF result.success THEN
-        RETURN response WITH:
-            status = "success"
-            lesson = "该方案可行，可推广到类似场景"
-        END RETURN
-    ELSE
-        RETURN response WITH:
-            status = "failure"
-            lesson = "需要调整方案，考虑性能和可行性"
-            alternative = "尝试简化版实现"
-        END RETURN
-    END IF
-END FUNCTION
+结果验证
+    ├── 成功 → 完成
+    └── 失败 → 策略调整
+                  ├── 调整策略 → 重新规划
+                  └── 检测循环 → 自我纠错 → 修正方案 → 重新规划
 ```
+
+#### 反思机制伪代码
+
+```
+结果验证:
+  IF 执行状态 == "error" THEN
+    返回: {valid: false, 问题: "执行失败", 建议: "检查参数"}
+  ELSE IF 输出为空 THEN
+    返回: {valid: false, 问题: "无输出", 建议: "检查命令"}
+  ELSE
+    返回: {valid: true}
+
+策略调整:
+  IF 检测到循环 THEN
+    返回: {调整: "改变方法", 原因: "当前策略陷入循环"}
+  ELSE IF 重复失败 THEN
+    返回: {调整: "尝试替代路径", 原因: "文件路径可能不正确"}
+```
+
+### 2.6 组件 5: Memory（记忆系统）
+
+#### 记忆类型概览
+
+| 记忆类型 | 容量 | 持久性 | 检索方式 | 用途 |
+|:---|:---|:---|:---|:---|
+| **短期记忆** | 约15条 | 会话级 | 时间序列 | 当前对话上下文 |
+| **长期记忆** | 无限 | 永久 | 语义检索 | 重要决策、知识 |
+| **工作记忆** | 极小 | 任务级 | 直接访问 | 当前任务状态 |
+
+> 💡 **详细实现**：记忆系统的存储与检索机制详见 [7.1 记忆系统](#71-记忆系统)
 
 ---
 
-## 3. 游戏开发中的 Agent 模式
+## 3. Agent 实现模式
 
-### 3.1 ReAct 模式（推理 + 行动）
+### 核心要点
+
+| 模式 | 核心思想 | 适用场景 |
+|:---|:---|:---|
+| **ReAct** | 交替进行推理和行动 | 复杂推理、探索性问题 |
+| **Plan-and-Execute** | 先规划，再执行 | 结构化任务、明确步骤 |
+| **Reflection** | 迭代改进 | 需要高质量输出 |
+
+### 3.1 ReAct 模式（Reasoning + Acting）
+
+**核心思想**: 交替进行推理（Thought）和行动（Action）
+
+#### 工作流程
 
 ```
-思考 → 行动 → 观察 → 重复
+用户请求
+    ↓
+思考1 → 行动1 → 观察1
+    ↓
+思考2 → 行动2 → 观察2
+    ↓
+  ...
+    ↓
+思考N → 行动N → 任务完成 → 最终答案
 ```
 
-**游戏开发示例**：
+#### 执行流程示例
+
 ```
-Thought: 需要为新英雄设计一个控制技能
-Action: 调用技能设计工具
-Observation: 生成了三个技能方案：冰冻、眩晕、击退
-Thought: 冰冻效果与现有英雄重复，考虑眩晕
-Action: 选择眩晕方案并细化设计
+用户: "分析 auth.py 中的登录问题"
+
+循环1:  思考: 查看错误信息  →  行动: read_file("error.log")  →  观察: "TypeError at auth.py:50"
+
+循环2:  思考: 查看代码      →  行动: read_file(45-60行)     →  观察: "user_id = session['user']['id']"
+
+循环3:  思考: 添加检查      →  行动: write_file(fixed)       →  观察: "文件已更新"
+
+循环4:  思考: 测试修复      →  行动: run_tests()             →  观察: "所有测试通过"
+
+循环5:  思考: 任务完成      →  返回: "Bug已修复"
 ```
+
+#### 优势与劣势
+
+| 优势 | 劣势 |
+| :--- | :--- |
+| ✅ 思考清晰，可解释性强 | ❌ 可能陷入推理循环 |
+| ✅ 易于调试 | ❌ 需要多轮 LLM 调用，成本较高 |
+| ✅ 适合复杂任务 | ❌ 执行时间较长 |
 
 ### 3.2 Plan-and-Execute 模式
 
-```
-规划阶段 → 执行阶段 → 验证阶段
-```
+**核心思想**: 先规划（Plan），再执行（Execute）
 
-**游戏开发示例**：
-```
-// 规划阶段
-SET plan = [
-    "1. 设计英雄基础属性（生命值、攻击力、防御力）",
-    "2. 设计主动技能（3个）",
-    "3. 设计被动技能（1个）",
-    "4. 进行数值平衡测试",
-    "5. 生成技能描述文档"
-]
+#### 两阶段流程
 
-// 执行阶段
-FOR EACH step IN plan DO
-    CALL execute(step)
-    CALL verify(step)
-END FOR
-```
+| 阶段 | 步骤 | 输出 |
+|:---|:---|:---|
+| **规划阶段** | 分析任务 → 分解子任务 → 确定依赖 → 生成计划 | 执行计划 |
+| **执行阶段** | 按依赖顺序执行各步骤 → 整合结果 | 最终输出 |
+
+#### 执行计划示例
+
+| 步骤 | 描述 | 依赖 | 工具 |
+|:---|:---|:---|:---|
+| 步骤1 | 创建 User 模型 | 无 | write_file |
+| 步骤2 | 创建认证表单 | 无 | write_file |
+| 步骤3 | 创建登录视图 | 步骤1,2 | write_file |
+| 步骤4 | 编写测试 | 步骤1,2,3 | write_file |
+
+#### 优势与劣势
+
+| 优势 | 劣势 |
+| :--- | :--- |
+| ✅ 系统性强，不会遗漏步骤 | ❌ 规划可能不完美 |
+| ✅ 易于并行化（独立步骤） | ❌ 难以应对突发情况 |
+| ✅ 可追溯 | ❌ 前期规划成本高 |
 
 ### 3.3 Reflection 模式（反思改进）
 
+**核心思想**: 生成 → 评估 → 反思 → 改进的迭代循环
+
+#### 工作流程
+
 ```
-// 带反思的设计流程
-FUNCTION design_with_reflection(requirement):
-    SET max_iterations = 3
-
-    FOR i = 1 TO max_iterations DO
-        // 生成设计方案
-        design = CALL generate_design(requirement)
-
-        // 评估方案
-        evaluation = CALL evaluate_design(design)
-
-        IF evaluation.score >= 0.8 THEN
-            RETURN design
-        END IF
-
-        // 反思并改进
-        feedback = CALL get_feedback(evaluation)
-        requirement = CALL improve_requirement(requirement, feedback)
-    END FOR
-
-    RETURN design
-END FUNCTION
+任务输入 → 生成方案 → 评估质量
+                        ├── 满足要求? → 完成
+                        └── 不满足? → 反思问题 → 改进方案
+                                                  ↓
+                                            (返回生成)
 ```
+
+#### 迭代改进示例
+
+```
+任务: "优化这段代码的性能"
+
+迭代1: 方案: 列表推导式    → 评估: 0.6分  → 反馈: 使用生成器
+迭代2: 方案: 生成器表达式  → 评估: 0.75分 → 反馈: 分批处理
+迭代3: 方案: 分批+生成器   → 评估: 0.9分  → 完成 ✓
+```
+
+### 3.4 模式对比与选择
+
+#### 决策流程
+
+```
+任务类型分析
+    │
+    ├── 需要探索? ─── 是 ──→ ReAct模式
+    │
+    └── 否
+         │
+         ├── 步骤明确? ─── 是 ──→ Plan-Execute模式
+         │
+         └── 否
+              │
+              ├── 要求高质量? ─── 是 ──→ Reflection模式
+              │
+              └── 否 ──→ ReAct模式
+```
+
+#### 模式对比表
+
+| 模式 | 优势 | 劣势 | 适用场景 |
+| :--- | :--- | :--- | :--- |
+| **ReAct** | 思考清晰、可解释 | 成本高、可能循环 | 复杂推理任务、探索性问题 |
+| **Plan-Execute** | 系统性强、可追溯 | 规划不完美 | 结构化任务、有明确步骤 |
+| **Reflection** | 质量高、持续改进 | 迭代成本 | 需要高质量输出的场景 |
 
 ---
 
 ## 4. Multi-Agent 协作系统
 
+### 核心要点
+
+-   **协作架构**: 多个专业 Agent 分工协作
+-   **角色定义**: 每个 Agent 有明确的职责和专业领域
+-   **通信机制**: Agent 之间的消息传递和协调
+-   **共享记忆**: 团队级别的知识共享
+
 ### 4.1 协作架构
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Multi-Agent 协作系统                               │
-├─────────────────────────────────────────────────────────────────────┤
-│                                                                     │
-│                     ┌─────────────────┐                             │
-│                     │   Orchestrator   │                             │
-│                     │    (协调者)       │                             │
-│                     └────────┬────────┘                             │
-│                              │                                      │
-│         ┌────────────────────┼────────────────────┐                │
-│         ▼                    ▼                    ▼                │
-│   ┌───────────┐        ┌───────────┐        ┌───────────┐         │
-│   │  Agent 1  │        │  Agent 2  │        │  Agent 3  │         │
-│   │ (制作人)  │        │ (程序员)  │        │ (策划)    │         │
-│   │           │        │           │        │           │         │
-│   │ - 项目把控 │        │ - 技术评估 │        │ - 玩法设计 │         │
-│   │ - 资源协调 │        │ - 方案实现 │        │ - 数值平衡 │         │
-│   └───────────┘        └───────────┘        └───────────┘         │
-│                                                                     │
-│                     ┌─────────────────┐                             │
-│                     │   Shared Memory │                             │
-│                     │   (共享记忆)     │                             │
-│                     └─────────────────┘                             │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### 4.2 游戏开发团队 Agent 设计
+#### 架构概览
 
 ```
-// 角色定义配置
-DEFINE GAME_DEV_AGENTS:
-
-    producer:
-        name = "David"
-        role = "制作人"
-        expertise = ["项目管理", "资源调配", "风险评估"]
-        personality = "稳重、有条理、善于协调"
-        decision_weight:
-            design = 0.25
-            technical = 0.25
-            art = 0.25
-            resource = 0.5
-        END decision_weight
-    END producer
-
-    developer:
-        name = "Alex"
-        role = "程序员"
-        expertise = ["系统架构", "性能优化", "网络同步"]
-        personality = "技术狂、逻辑缜密、追求完美"
-        decision_weight:
-            design = 0.2
-            technical = 0.5
-            art = 0.1
-            resource = 0.2
-        END decision_weight
-    END developer
-
-    designer:
-        name = "Emma"
-        role = "策划"
-        expertise = ["玩法设计", "数值平衡", "经济系统"]
-        personality = "创意丰富、数据敏感、玩家视角"
-        decision_weight:
-            design = 0.4
-            technical = 0.15
-            art = 0.2
-            resource = 0.15
-        END decision_weight
-    END designer
-
-    artist:
-        name = "Luna"
-        role = "美术"
-        expertise = ["角色设计", "场景美术", "特效制作"]
-        personality = "审美独特、注重细节、追求美感"
-        decision_weight:
-            design = 0.15
-            technical = 0.1
-            art = 0.45
-            resource = 0.15
-        END decision_weight
-    END artist
-
-END DEFINE
+                    ┌─────────────┐
+                    │   协调者    │
+                    │Orchestrator │
+                    └──────┬──────┘
+                           │
+         ┌─────────────────┼─────────────────┐
+         │                 │                 │
+         ▼                 ▼                 ▼
+    ┌─────────┐       ┌─────────┐       ┌─────────┐
+    │ Agent 1 │       │ Agent 2 │       │ Agent 3 │
+    │ 研究员  │       │ 分析师  │       │ 写作员  │
+    └────┬────┘       └────┬────┘       └────┬────┘
+         │                 │                 │
+         └─────────────────┼─────────────────┘
+                           │
+                    ┌──────▼──────┐
+                    │  共享记忆   │
+                    │Shared Memory│
+                    └─────────────┘
 ```
 
-### 4.3 会议驱动的协作机制
+#### 各 Agent 职责
+
+| Agent | 角色 | 职责 |
+|:---|:---|:---|
+| Agent 1 | 研究员 | 信息收集、资料整理 |
+| Agent 2 | 分析师 | 数据分析、结论提炼 |
+| Agent 3 | 写作员 | 内容生成、报告撰写 |
+
+### 4.2 角色 Agent 设计
+
+#### 团队角色概览
+
+| 角色 | 姓名 | 专业领域 | 性格特点 |
+|:---|:---|:---|:---|
+| **研究员** | Alex | 信息检索、资料整理、数据收集 | 严谨、全面 |
+| **分析师** | Sam | 数据分析、逻辑推理、结论提炼 | 缜密、准确 |
+| **写作员** | Jordan | 内容创作、报告撰写、信息整合 | 清晰、连贯 |
+
+#### 角色定义示例
 
 ```
-// 会议编排器 - 管理多 Agent 协作
-CLASS MeetingOrchestrator:
-    // 初始化
-    FUNCTION init(agents):
-        SET self.agents = agents
-        SET self.conversation_history = empty_list
-    END FUNCTION
+角色: 研究员
+  姓名: Alex
+  专业领域: [信息检索, 资料整理, 数据收集]
+  性格特点: 严谨、全面、善于发现关键信息
+  职责:
+    - 搜索和收集相关信息
+    - 整理和归类资料
+    - 识别关键数据点
+```
 
-    // 运行会议
-    ASYNC FUNCTION run_meeting(topic, meeting_type):
-        // 1. 初始化会议
-        CALL self.start_meeting(topic)
+### 4.3 协作模式
 
-        // 2. 各 Agent 依次发言
-        FOR round = 1 TO self.max_rounds DO
-            FOR EACH (agent_id, agent) IN self.agents DO
-                response = AWAIT agent.respond(
-                    context = self.get_context(),
-                    topic = topic
-                )
-                CALL self.broadcast(response)
+#### 1. 顺序协作模式
 
-                IF self.should_end() THEN
-                    BREAK
-                END IF
-            END FOR
-        END FOR
+```
+任务 → 研究员(收集信息) → 分析师(分析数据) → 写作员(撰写报告) → 输出结果
+```
 
-        // 3. 生成会议总结
-        summary = CALL self.generate_summary()
+**特点**: 简单可控，适合明确依赖关系的任务
 
-        // 4. 提取行动项
-        action_items = CALL self.extract_action_items()
+#### 2. 讨论协作模式
 
-        RETURN result WITH:
-            summary = summary
-            action_items = action_items
-            decisions = self.get_decisions()
-        END RETURN
-    END FUNCTION
-END CLASS
+```
+第1轮: 协调者 → 研究员 → 分析师 → 写作员 → 研究员(补充问题)
+第2轮: 研究员 → 分析师 → 写作员 → 协调者(综合结论)
+结果: 协调者生成总结
+```
+
+**特点**: 决策质量高，适合需要多视角的问题
+
+#### 3. Manager 模式（Agents as Tools）
+
+> 来源：OpenAI Agents SDK 设计模式
+
+**核心思想**: 中央编排器（Manager Agent）负责协调，将子Agent作为工具调用
+
+```
+┌─────────────────────────────────────────┐
+│           Manager Agent                  │
+│   (中央编排器 - 保留对话控制权)           │
+└───────────────┬─────────────────────────┘
+                │
+     ┌──────────┼──────────┐
+     │          │          │
+     ▼          ▼          ▼
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Agent A │ │ Agent B │ │ Agent C │
+│ (工具)  │ │ (工具)  │ │ (工具)  │
+└─────────┘ └─────────┘ └─────────┘
+```
+
+**工作流程**：
+1. Manager 接收用户请求
+2. Manager 决定调用哪个子Agent
+3. 子Agent执行任务并返回结果
+4. Manager 整合结果并决定下一步
+5. Manager 向用户返回最终答案
+
+**适用场景**：
+- 需要中央协调的复杂任务
+- 需要保持对话连贯性
+- 子任务之间有较强依赖关系
+
+**代码示例**：
+```python
+# Manager Agent 配置示例
+manager_agent = Agent(
+    name="GameDevManager",
+    instructions="""你是游戏开发团队的制作人。
+    你可以调用以下专家Agent来完成用户任务：
+    - programmer: 负责代码实现
+    - designer: 负责玩法设计
+    - artist: 负责美术方案
+
+    根据任务类型选择合适的专家，并整合他们的意见。""",
+    tools=[
+        programmer_agent.as_tool(),
+        designer_agent.as_tool(),
+        artist_agent.as_tool()
+    ]
+)
+```
+
+#### 4. Handoffs 模式（控制权移交）
+
+> 来源：OpenAI Agents SDK 设计模式
+
+**核心思想**: Agent之间直接移交控制权，实现分布式协作
+
+```
+┌─────────┐     Handoff     ┌─────────┐     Handoff     ┌─────────┐
+│ Agent A │ ───────────────►│ Agent B │ ───────────────►│ Agent C │
+│(前端问题)│                 │(后端处理)│                 │(数据库)  │
+└─────────┘                 └─────────┘                 └─────────┘
+     ▲                                                    │
+     │                    Handoff                         │
+     └────────────────────────────────────────────────────┘
+```
+
+**工作流程**：
+1. Agent A 接收请求，发现问题属于 Agent B 的领域
+2. Agent A 将上下文和控制权移交给 Agent B
+3. Agent B 处理后，可能继续移交给 Agent C
+4. 最终 Agent 将结果返回给用户
+
+**适用场景**：
+- 任务需要多个专业领域的连续处理
+- 每个Agent专注自己的领域
+- 任务流向相对明确
+
+**代码示例**：
+```python
+# Handoffs 模式配置示例
+frontend_agent = Agent(
+    name="FrontendExpert",
+    instructions="你是前端专家。遇到后端问题时，移交给 backend_agent。",
+    handoffs=[backend_agent]  # 定义可移交的目标Agent
+)
+
+backend_agent = Agent(
+    name="BackendExpert",
+    instructions="你是后端专家。遇到数据库问题时，移交给 db_agent。",
+    handoffs=[db_agent, frontend_agent]  # 可双向移交
+)
+```
+
+#### 5. 模式选择决策
+
+| 场景 | 推荐模式 | 原因 |
+|:---|:---|:---|
+| 需要统一的对话体验 | Manager 模式 | 中央控制保持一致性 |
+| 任务有明确的专业分工 | Handoffs 模式 | 每个领域专注处理 |
+| 需要多方意见综合 | 讨论协作模式 | 充分收集各视角 |
+| 简单流水线任务 | 顺序协作模式 | 流程清晰可控 |
+
+```
+任务分析
+    │
+    ├── 需要统一对话界面? ─── 是 ──→ Manager 模式
+    │
+    └── 否
+         │
+         ├── 任务有明确流转方向? ─── 是 ──→ Handoffs 模式
+         │
+         └── 否
+              │
+              ├── 需要多方讨论? ─── 是 ──→ 讨论协作模式
+              │
+              └── 否 ──→ 顺序协作模式
+```
+
+### 4.4 消息通信机制
+
+#### 消息类型
+
+| 类型 | 用途 |
+|:---|:---|
+| TEXT | 普通文本消息 |
+| ACTION | 行动请求 |
+| RESULT | 执行结果 |
+| ERROR | 错误信息 |
+| CONTROL | 控制指令 |
+| PROGRESS | 进度更新 |
+
+#### 消息结构
+
+```
+消息:
+  source: 发送者ID
+  target: 接收者ID（空=广播）
+  type: 消息类型
+  content: 消息内容
+  timestamp: 时间戳
+```
+
+#### 通信流程
+
+```
+Agent 1 ──发布消息──► MessageBus ──路由消息──► Agent 2
+                          │
+                          └──广播消息──► Agent 3
+```
+
+### 4.5 共享记忆系统
+
+#### 记忆结构
+
+```
+共享记忆:
+├── 团队记忆（所有Agent共享）
+├── Agent1 私有记忆
+├── Agent2 私有记忆
+└── Agent3 私有记忆
+```
+
+#### 存储与检索流程
+
+```
+新信息 → 是否共享?
+          ├── 是 → 团队记忆
+          └── 否 → Agent私有记忆
+
+查询 → 检索 → 返回相关记忆
+         ↑
+    （团队记忆 + 各Agent私有记忆）
 ```
 
 ---
@@ -392,103 +658,157 @@ END CLASS
 
 **游戏小镇** 是一个展示 Multi-Agent 协作的完整案例：
 
-- 4 个 AI Agent 扮演游戏开发团队角色
+- 4 个 AI Agent 扮演游戏开发团队角色（制作人、程序员、策划、美术）
 - 通过会议讨论的方式进行协作
 - 模拟真实的游戏开发流程
 
 ### 5.2 系统架构
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                           前端层 (Frontend)                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ │
-│  │   app.js    │  │   chat.js   │  │ characters.js│  │ dashboard.js│ │
-│  │  主应用逻辑  │  │  聊天组件   │  │  角色组件   │  │  看板组件   │ │
-│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘ │
-└─────────────────────────────────────────────────────────────────────┘
-                                │ WebSocket
-                                ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                          后端层 (Backend)                            │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │                   Meeting Orchestrator                        │   │
-│  │           会议调度 | 话题管理 | 决策流程 | 任务分配            │   │
-│  └─────────────────────────────────────────────────────────────┘   │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │                      Agent Layer                              │   │
-│  │   ProducerAgent | DeveloperAgent | DesignerAgent | ArtistAgent│   │
-│  └─────────────────────────────────────────────────────────────┘   │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │                      Core Layer                               │   │
-│  │    MemorySystem | DecisionSystem | TaskSystem | Conversation │   │
-│  └─────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### 5.3 会议场景实现
+#### 整体架构
 
 ```
-// 会议场景定义
-DEFINE SCENARIO_PROMPTS:
-
-    game_fun_evaluation:
-        topic = "游戏是否好玩 - 核心乐趣评估"
-        context = "
-            当前游戏数据：
-            - 新手留存率（次日）：35%
-            - 7日留存率：12%
-            - 平均游戏时长：18分钟/局
-            - 玩家反馈：画面好、匹配慢、英雄不平衡
-
-            讨论要点：
-            1. 游戏的核心乐趣是什么？
-            2. 哪些地方让玩家觉得无聊？
-            3. 如何提升"再来一局"的冲动？
-        "
-        expected_responses:
-            producer = "关注整体体验和项目优先级"
-            developer = "分析技术实现和性能影响"
-            designer = "分析核心玩法和数值平衡"
-            artist = "讨论视觉反馈和成就感设计"
-        END expected_responses
-    END game_fun_evaluation
-
-END DEFINE
+┌─────────────────────────────────┐
+│           前端层                 │
+│   app.js / chat.js / dashboard  │
+└───────────────┬─────────────────┘
+                │ WebSocket
+┌───────────────▼─────────────────┐
+│           后端层                 │
+├─────────────────────────────────┤
+│  编排层 → Agent层 → 核心层       │
+└─────────────────────────────────┘
 ```
 
-### 5.4 会议总结生成
+#### 前端层组件
+
+| 组件 | 文件 | 功能 |
+|:---|:---|:---|
+| 主应用 | app.js | 应用入口、全局状态管理 |
+| 聊天组件 | chat.js | 消息展示、用户交互 |
+| 角色组件 | characters.js | Agent角色展示、状态可视化 |
+| 看板组件 | dashboard.js | 任务看板、进度追踪 |
+
+#### 后端层组件
+
+**编排层**
+
+| 组件 | 职责 |
+|:---|:---|
+| Meeting Orchestrator | 会议调度、话题管理、决策流程 |
+
+**Agent层**
+
+| Agent | 角色 | 职责 |
+|:---|:---|:---|
+| ProducerAgent | 制作人 | 项目管理、资源协调 |
+| DeveloperAgent | 程序员 | 技术方案、实现细节 |
+| DesignerAgent | 策划 | 玩法设计、数值平衡 |
+| ArtistAgent | 美术 | 视觉方案、美术资源 |
+
+**核心层**
+
+| 系统 | 职责 |
+|:---|:---|
+| MemorySystem | 记忆存储与检索 |
+| DecisionSystem | 决策流程与权重计算 |
+| TaskSystem | 任务管理与分配 |
+| Conversation | 对话历史管理 |
+
+### 5.3 游戏开发团队 Agent 设计
+
+#### 团队角色
+
+| 角色 | 姓名 | 专业领域 | 性格特点 |
+|:---|:---|:---|:---|
+| **制作人** | David | 项目管理、资源调配、风险评估 | 稳重、善于协调 |
+| **程序员** | Alex | 系统架构、性能优化、网络同步 | 技术狂、追求完美 |
+| **策划** | Emma | 玩法设计、数值平衡、经济系统 | 创意丰富、玩家视角 |
+| **美术** | Luna | 角色设计、场景美术、特效制作 | 审美独特、追求美感 |
+
+#### 决策权重示例（策划 Emma）
+
+| 决策类型 | 权重 |
+|:---|:---|
+| 设计决策 | 0.4 |
+| 技术决策 | 0.15 |
+| 美术决策 | 0.2 |
+| 资源决策 | 0.15 |
+| 其他 | 0.1 |
+
+### 5.4 会议场景实现
+
+#### 会议流程
 
 ```
-// 生成会议总结文档
-FUNCTION generate_summary_document(meeting, action_items):
-    RETURN document WITH:
-        title = "会议总结：" + meeting.title
-
-        meeting_info:
-            duration = "5 分钟"
-            participants = ["David", "Alex", "Emma", "Luna"]
-            message_count = size(meeting.messages)
-        END meeting_info
-
-        summary = "本次会议围绕xxx展开讨论..."
-
-        key_points = [
-            { speaker: "David", point: "..." },
-            { speaker: "Alex", point: "..." }
-        ]
-
-        conclusions = ["决策1", "决策2"]
-
-        action_items = [
-            { task: "任务1", assignee: "Alex", description: "..." }
-        ]
-
-        schedule = [
-            { task: "任务1", start_date: "03-02", end_date: "03-05" }
-        ]
-    END RETURN
-END FUNCTION
+用户发起会议主题
+       ↓
+初始化会议
+       ↓
+┌─────────────────────────────┐
+│        每轮讨论              │
+│  制作人发言 → 程序员发言     │
+│  → 策划发言 → 美术发言       │
+└─────────────────────────────┘
+       ↓
+生成会议总结 → 提取行动项 → 返回结果
 ```
+
+#### 会议场景示例
+
+```
+主题: "游戏是否好玩 - 核心乐趣评估"
+
+背景数据:
+  - 新手留存率（次日）: 35%
+  - 7日留存率: 12%
+  - 平均游戏时长: 18分钟/局
+  - 玩家反馈: 画面好、匹配慢、英雄不平衡
+
+讨论要点:
+  1. 游戏的核心乐趣是什么？
+  2. 哪些地方让玩家觉得无聊？
+  3. 如何提升"再来一局"的冲动？
+
+期望发言方向:
+  - 制作人: 关注整体体验和项目优先级
+  - 程序员: 分析技术实现和性能影响
+  - 策划: 分析核心玩法和数值平衡
+  - 美术: 讨论视觉反馈和成就感设计
+```
+
+### 5.5 会议编排器流程
+
+```
+开始会议
+    ↓
+初始化会议状态
+    ↓
+轮次 < 最大轮数?
+    ├── 是 → 遍历所有Agent
+    │         ├── Agent发言
+    │         ├── 广播给其他Agent
+    │         └── 是否结束? → 是 → 生成总结
+    │                    → 否 → 下一个Agent
+    └── 否 → 生成会议总结
+              ↓
+         提取行动项
+              ↓
+         记录决策
+              ↓
+         返回结果
+```
+
+### 5.6 会议总结结构
+
+| 字段 | 内容 |
+|:---|:---|
+| 会议标题 | 主题描述 |
+| 会议信息 | 时长、参与者、消息数 |
+| 内容摘要 | 讨论要点总结 |
+| 关键观点 | 各角色的核心观点 |
+| 决策结论 | 达成的决策 |
+| 行动项 | 后续任务和负责人 |
+| 排期安排 | 任务时间表 |
 
 ---
 
@@ -496,72 +816,107 @@ END FUNCTION
 
 ### 6.1 NPC 智能化
 
-| 维度 | 传统 NPC | Agent NPC |
+AI Agent 正在彻底改变游戏中 NPC（非玩家角色）的实现方式：
+
+#### 传统 NPC vs AI Agent NPC
+
+| 维度 | 传统 NPC | AI Agent NPC |
 |:---|:---|:---|
-| **对话** | 预设对话树 | 动态理解玩家意图 |
-| **行为** | 固定 AI 逻辑 | 可学习和适应 |
-| **个性** | 简单标签 | 完整性格模型 |
-| **记忆** | 无 | 记住玩家行为 |
+| 对话 | 预设对话树 | 实时动态对话 |
+| 行为 | 固定 AI 逻辑 | 可学习和适应 |
+| 个性 | 简单标签 | 完整性格模型 |
+| 记忆 | 无 | 记住玩家行为 |
+
+#### 行业案例
+
+| 公司 | 产品 | 特点 |
+|:---|:---|:---|
+| **网易** | 《逆水寒》 | NPC具有独立记忆、性格演化、情感能力 |
+| **Google** | SIMA | 通用游戏Agent，可自主玩1000+游戏 |
+| **Ubisoft** | NEO NPC | 实时推理AI NPC |
+| **Meta** | NPC Tools | VR环境中可语音交互的NPC |
+
+#### 智能 NPC 架构
+
+```
+玩家输入
+    ↓
+┌─────────────────────────┐
+│       记忆系统           │
+│ ├── 玩家交互记忆        │
+│ ├── 事件记忆            │
+│ └── 世界知识            │
+└───────────┬─────────────┘
+            ↓
+     情感状态更新
+            ↓
+       性格模型处理
+            ↓
+        LLM推理
+            ↓
+       生成响应
+            ↓
+     存储本次交互 → 返回记忆系统
+```
 
 ### 6.2 游戏测试自动化
 
+#### 自动化测试流程
+
 ```
-// Agent 自动化测试流程
-CLASS GameTestAgent:
-    ASYNC FUNCTION run_tests():
-        // 1. 探索游戏功能
-        features = AWAIT self.explore_game()
-
-        // 2. 生成测试用例
-        test_cases = AWAIT self.generate_tests(features)
-
-        // 3. 执行测试
-        results = AWAIT self.execute_tests(test_cases)
-
-        // 4. 分析结果
-        report = AWAIT self.analyze_results(results)
-
-        RETURN report
-    END FUNCTION
-END CLASS
+探索游戏功能 → 生成测试用例 → 执行测试 → 分析结果 → 生成报告
 ```
+
+#### 主要测试应用
+
+| 测试类型 | 描述 | 应用场景 |
+|:---|:---|:---|
+| **功能测试** | 自动执行游戏流程 | UI点击验证、事件触发验证 |
+| **叙事测试** | 生成大量玩家输入 | 检查对话连贯性、发现剧情bug |
+| **平衡测试** | 模拟数千场战斗 | 识别平衡问题、输出参数调整建议 |
+
+#### AI 游戏测试的独特挑战
+
+| 挑战 | 说明 | 解决方案 |
+|:---|:---|:---|
+| **不确定性** | AI NPC可能表现出意外行为 | 边界测试 + 行为监控 |
+| **无限内容** | 程序生成内容难以穷尽测试 | 采样测试 + 质量阈值 |
+| **多模态交互** | 测试沉浸感和自然度是主观的 | 玩家反馈 + A/B测试 |
 
 ### 6.3 内容生成
 
-| 内容类型 | Agent 能力 |
+#### 资产生成流水线
+
+| 阶段 | AI 工具 | 应用 |
+|:---|:---|:---|
+| 概念美术 | Midjourney, Stable Diffusion | 创意探索 |
+| 风格一致性 | LoRA, ControlNet | 保持视觉统一 |
+| 3D 建模 | VAST AI, NVIDIA 工具 | 模型生成 |
+| 动画 | Runway, AnimateDiff | 动作生成 |
+| 视频/过场 | 千帆视频等 | 剧情演绎 |
+
+#### 程序化内容生成（PCG）
+
+| 内容类型 | 生成内容 |
 |:---|:---|
-| **剧情对话** | 根据世界观和角色人设动态生成 |
-| **任务描述** | 基于游戏进程生成个性化任务 |
-| **物品说明** | 统一风格下的多样化描述 |
-| **NPC 对话** | 符合角色性格的动态回应 |
+| **关卡设计** | 地图结构、障碍物布局、敌人配置 |
+| **故事内容** | 主线剧情、支线任务、NPC对话 |
+| **游戏数值** | 敌人技能、装备属性、经济系统 |
+
+#### 行业案例
+
+| 公司 | 应用 | 效果 |
+|:---|:---|:---|
+| **腾讯 VISVISE** | AI驱动的3D角色动画流水线 | 绑定效率提升8倍 |
+| **米哈游** | AI辅助角色动画 | 2周任务缩短至1天 |
+| **《蛋仔派对》** | UGC内容平台 | 超过1亿张玩家创作地图 |
 
 ### 6.4 辅助开发
 
+#### 代码生成 Agent 流程
+
 ```
-// 代码生成 Agent
-CLASS CodeGenAgent:
-    FUNCTION generate_game_code(requirement):
-        // 根据需求生成游戏代码
-
-        // 1. 分析需求
-        spec = self.analyze_requirement(requirement)
-
-        // 2. 设计架构
-        architecture = self.design_architecture(spec)
-
-        // 3. 生成代码
-        code = self.generate_code(architecture)
-
-        // 4. 生成测试
-        tests = self.generate_tests(code)
-
-        RETURN result WITH:
-            code = code
-            tests = tests
-            documentation = self.generate_docs(code)
-        END RETURN
-    END FUNCTION
-END CLASS
+功能需求 → 需求分析 → 架构设计 → 代码生成 → 测试生成 → 文档生成 → 完整交付物
 ```
 
 ---
@@ -570,129 +925,432 @@ END CLASS
 
 ### 7.1 记忆系统
 
+#### 双层记忆结构
+
+| 记忆类型 | 容量 | 持久性 | 检索方式 |
+|:---|:---|:---|:---|
+| 短期记忆 | 10-20条 | 会话级 | 时间序列 |
+| 长期记忆 | 无限 | 永久 | 语义检索 |
+
+#### 记忆存储流程
+
 ```
-// 双层记忆结构实现
-CLASS MemorySystem:
+存储操作:
+  1. 创建记忆条目: (content, timestamp, importance)
+  2. 根据重要性选择存储:
+     IF importance >= 0.7 THEN 存入长期记忆
+     ELSE
+       存入短期记忆
+       IF 短期记忆容量超限 THEN 移除最旧的记忆
 
-    FUNCTION init(max_short_term = 10):
-        SET self.short_term = empty_list    // 近期对话
-        SET self.long_term = empty_list     // 重要决策
-        SET self.max_short_term = max_short_term
-    END FUNCTION
-
-    FUNCTION store(memory, importance = 0.5):
-        // 存储记忆
-        CREATE entry WITH:
-            content = memory
-            timestamp = current_time
-            importance = importance
-        END CREATE
-
-        IF importance >= 0.7 THEN
-            ADD entry TO self.long_term
-        ELSE
-            ADD entry TO self.short_term
-            IF size(self.short_term) > self.max_short_term THEN
-                REMOVE oldest entry FROM self.short_term
-            END IF
-        END IF
-    END FUNCTION
-
-    FUNCTION retrieve(context, top_k = 5):
-        // 检索相关记忆
-        SET scored = empty_list
-
-        // 计算相关性分数
-        FOR EACH memory IN (self.short_term + self.long_term) DO
-            score = self.calculate_relevance(memory, context)
-            ADD (score, memory) TO scored
-        END FOR
-
-        // 返回最相关的记忆
-        SORT scored BY score IN DESCENDING order
-        RETURN first top_k memories
-    END FUNCTION
-
-END CLASS
+检索操作:
+  1. 合并短期和长期记忆
+  2. 计算每条记忆与查询的相关性分数
+  3. 按分数降序排列
+  4. 返回前K条最相关记忆
 ```
 
 ### 7.2 决策系统
 
+#### 基于权重的决策
+
 ```
-// 基于权重的决策系统
-CLASS DecisionSystem:
-
-    DEFINE DECISION_WEIGHTS:
-        design:
-            designer = 0.4
-            producer = 0.25
-            developer = 0.2
-            artist = 0.15
-        END design
-
-        technical:
-            developer = 0.5
-            producer = 0.25
-            designer = 0.15
-            artist = 0.1
-        END technical
-    END DEFINE
-
-    FUNCTION make_decision(proposal, votes):
-        // 根据权重计算决策结果
-        decision_type = proposal.type
-        weights = DECISION_WEIGHTS[decision_type]
-
-        SET scores = empty_map
-
-        FOR EACH option IN proposal.options DO
-            score = 0
-            FOR EACH (role, vote) IN votes DO
-                IF vote.choice == option.id THEN
-                    score = score + (weights[role] * vote.confidence)
-                END IF
-            END FOR
-            scores[option.id] = score
-        END FOR
-
-        RETURN option WITH maximum score
-    END FUNCTION
-
-END CLASS
+提案 → 确定决策类型 → 查询权重配置 → 各方投票 → 加权计算 → 决策结果
 ```
+
+#### 决策权重示例
+
+| 决策类型 | 策划 | 制作人 | 程序员 | 美术 |
+|:---|:---|:---|:---|:---|
+| **设计类** | 40% | 25% | 20% | 15% |
+| **技术类** | 15% | 25% | 50% | 10% |
 
 ### 7.3 工具调用
 
+#### 工具列表
+
+| 工具 | 描述 | 必需参数 |
+|:---|:---|:---|
+| read_file | 读取文件内容 | path |
+| write_file | 写入文件 | path, content |
+| run_command | 执行shell命令 | command |
+
+#### 调用流程
+
 ```
-// Agent 可用工具定义
-DEFINE GAME_DEV_TOOLS AS list:
+LLM分析 → 选择工具 → 生成参数 → 执行调用 → 返回结果
+```
 
-    tool_1:
-        name = "read_code"
-        description = "读取游戏代码文件"
-        parameters:
-            path: string - "文件路径" [REQUIRED]
-        END parameters
-    END tool_1
+### 7.4 代码实现示例
 
-    tool_2:
-        name = "generate_code"
-        description = "生成游戏代码"
-        parameters:
-            module: string [REQUIRED]
-            framework: string - 可选值: ["Unity", "Unreal", "Godot"] [REQUIRED]
-        END parameters
-    END tool_2
+#### 基础 Agent 实现（LangChain）
 
-    tool_3:
-        name = "run_test"
-        description = "运行游戏测试"
-        parameters:
-            test_type: string - 可选值: ["unit", "integration", "playtest"] [REQUIRED]
-        END parameters
-    END tool_3
+```python
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain.tools import Tool
+from langchain_openai import ChatOpenAI
 
-END DEFINE
+# 1. 定义工具
+def search_game_docs(query: str) -> str:
+    """搜索游戏设计文档"""
+    # 实际实现中这里会连接到文档数据库
+    return f"找到与 '{query}' 相关的设计文档..."
+
+def analyze_player_data(metric: str) -> str:
+    """分析玩家数据指标"""
+    return f"分析 {metric} 数据: 留存率45%, DAU 10万"
+
+tools = [
+    Tool(
+        name="search_docs",
+        func=search_game_docs,
+        description="搜索游戏设计文档，输入关键词"
+    ),
+    Tool(
+        name="analyze_data",
+        func=analyze_player_data,
+        description="分析玩家数据，输入指标名称"
+    )
+]
+
+# 2. 创建 Agent
+llm = ChatOpenAI(model="gpt-4", temperature=0)
+
+agent = create_react_agent(
+    llm=llm,
+    tools=tools,
+    prompt="""你是一个游戏开发助手。
+
+    你可以使用以下工具:
+    {tools}
+
+    使用格式:
+    Thought: 思考下一步
+    Action: 工具名称
+    Action Input: 工具输入
+    Observation: 工具返回结果
+    ... (重复直到得出答案)
+    Thought: 我知道答案了
+    Final Answer: 最终答案
+
+    开始!
+
+    问题: {input}
+    思考: {agent_scratchpad}"""
+)
+
+# 3. 执行 Agent
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+result = agent_executor.invoke({"input": "分析玩家留存率并给出改进建议"})
+```
+
+#### ReAct 模式完整示例
+
+```python
+from typing import List, Tuple, Any, Union
+from langchain.schema import AgentAction, AgentFinish
+
+class ReactAgent:
+    """ReAct 模式的简单实现"""
+
+    def __init__(self, llm, tools: List[Tool], max_iterations: int = 10):
+        self.llm = llm
+        self.tools = {tool.name: tool for tool in tools}
+        self.max_iterations = max_iterations
+
+    def think(self, question: str, scratchpad: str = "") -> str:
+        """推理步骤：生成思考"""
+        prompt = f"""问题: {question}
+
+        已有思考过程:
+        {scratchpad}
+
+        请思考下一步应该做什么。如果要使用工具，请格式化为:
+        Thought: [你的思考]
+        Action: [工具名]
+        Action Input: [输入]
+
+        如果已经有答案，请格式化为:
+        Thought: [你的思考]
+        Final Answer: [最终答案]
+        """
+        return self.llm.invoke(prompt).content
+
+    def act(self, action: str, action_input: str) -> str:
+        """行动步骤：执行工具"""
+        if action in self.tools:
+            return self.tools[action].func(action_input)
+        return f"错误: 未知工具 {action}"
+
+    def run(self, question: str) -> str:
+        """运行 ReAct 循环"""
+        scratchpad = ""
+
+        for i in range(self.max_iterations):
+            # 思考
+            response = self.think(question, scratchpad)
+            scratchpad += f"\n{response}"
+
+            # 检查是否有最终答案
+            if "Final Answer:" in response:
+                return response.split("Final Answer:")[-1].strip()
+
+            # 解析行动
+            if "Action:" in response and "Action Input:" in response:
+                action = response.split("Action:")[-1].split("\n")[0].strip()
+                action_input = response.split("Action Input:")[-1].split("\n")[0].strip()
+
+                # 执行并观察
+                observation = self.act(action, action_input)
+                scratchpad += f"\nObservation: {observation}"
+
+        return "达到最大迭代次数，未能完成任务"
+
+# 使用示例
+agent = ReactAgent(llm=ChatOpenAI(model="gpt-4"), tools=tools)
+result = agent.run("为什么新玩家留存率下降？")
+```
+
+#### RAG 增强记忆系统
+
+```python
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from datetime import datetime
+from typing import List, Dict
+import numpy as np
+
+class EnhancedMemorySystem:
+    """RAG 增强的混合记忆系统"""
+
+    def __init__(self, short_term_capacity: int = 20):
+        self.short_term_memory: List[Dict] = []
+        self.short_term_capacity = short_term_capacity
+        self.embeddings = OpenAIEmbeddings()
+        self.vectorstore = Chroma(
+            embedding_function=self.embeddings,
+            persist_directory="./long_term_memory"
+        )
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=500,
+            chunk_overlap=50
+        )
+
+    def store(self, content: str, importance: float = 0.5, metadata: dict = None):
+        """存储记忆"""
+        memory_entry = {
+            "content": content,
+            "timestamp": datetime.now().isoformat(),
+            "importance": importance,
+            "metadata": metadata or {}
+        }
+
+        if importance >= 0.7:
+            # 重要记忆存入长期记忆（向量数据库）
+            chunks = self.text_splitter.split_text(content)
+            self.vectorstore.add_texts(
+                chunks,
+                metadatas=[{**memory_entry, "chunk": i} for i in range(len(chunks))]
+            )
+        else:
+            # 普通记忆存入短期记忆
+            self.short_term_memory.append(memory_entry)
+            if len(self.short_term_memory) > self.short_term_capacity:
+                # 移除最旧的记忆
+                self.short_term_memory.pop(0)
+
+    def retrieve(self, query: str, k: int = 5) -> List[Dict]:
+        """检索相关记忆"""
+        results = []
+
+        # 1. 从短期记忆中检索（时间相关性）
+        recent_memories = self.short_term_memory[-5:]  # 最近5条
+        results.extend(recent_memories)
+
+        # 2. 从长期记忆中检索（语义相关性）
+        long_term_results = self.vectorstore.similarity_search(query, k=k)
+        for doc in long_term_results:
+            results.append({
+                "content": doc.page_content,
+                "metadata": doc.metadata,
+                "source": "long_term"
+            })
+
+        return results
+
+    def get_context_for_agent(self, query: str) -> str:
+        """为 Agent 生成上下文"""
+        memories = self.retrieve(query)
+        context = "相关记忆:\n"
+        for i, mem in enumerate(memories, 1):
+            context += f"{i}. {mem['content']}\n"
+        return context
+
+# 使用示例
+memory = EnhancedMemorySystem()
+
+# 存储重要决策
+memory.store(
+    "团队决定使用 Unity 引擎开发，因为团队有丰富的 Unity 经验",
+    importance=0.8,
+    metadata={"type": "decision", "meeting": "kickoff"}
+)
+
+# 存储日常工作记录
+memory.store(
+    "今日完成角色移动功能的基础实现",
+    importance=0.4,
+    metadata={"type": "daily_log"}
+)
+
+# 检索相关记忆
+context = memory.get_context_for_agent("为什么选择 Unity?")
+print(context)
+```
+
+#### 游戏开发 Agent 完整示例
+
+```python
+from langchain.agents import AgentExecutor, create_structured_chat_agent
+from langchain.tools import StructuredTool
+from pydantic import BaseModel, Field
+
+# 定义工具输入schema
+class DesignReviewInput(BaseModel):
+    """设计评审输入"""
+    feature_name: str = Field(description="功能名称")
+    design_doc: str = Field(description="设计文档内容")
+
+class CodeReviewInput(BaseModel):
+    """代码评审输入"""
+    file_path: str = Field(description="文件路径")
+    code_content: str = Field(description="代码内容")
+
+# 游戏开发专业工具
+def review_game_design(feature_name: str, design_doc: str) -> str:
+    """评审游戏设计文档"""
+    review_points = []
+    review_points.append(f"=== {feature_name} 设计评审 ===")
+    review_points.append(f"文档长度: {len(design_doc)} 字符")
+
+    # 模拟评审逻辑
+    if "玩家" not in design_doc:
+        review_points.append("⚠️ 建议: 缺少玩家视角的描述")
+    if "数值" not in design_doc:
+        review_points.append("⚠️ 建议: 需要补充数值设计")
+    if len(design_doc) < 100:
+        review_points.append("⚠️ 建议: 设计文档过于简短")
+    else:
+        review_points.append("✅ 设计文档基本完整")
+
+    return "\n".join(review_points)
+
+def review_code(file_path: str, code_content: str) -> str:
+    """代码评审"""
+    issues = []
+    issues.append(f"=== {file_path} 代码评审 ===")
+
+    # 基础代码检查
+    if "TODO" in code_content:
+        issues.append("📝 发现 TODO 注释")
+    if "print(" in code_content:
+        issues.append("⚠️ 建议使用日志系统替代 print")
+    if len(code_content.split("\n")) > 100:
+        issues.append("⚠️ 文件较长，建议拆分")
+
+    return "\n".join(issues)
+
+# 创建游戏开发 Agent
+tools = [
+    StructuredTool(
+        name="design_review",
+        func=review_game_design,
+        args_schema=DesignReviewInput,
+        description="评审游戏设计文档，输入功能名称和文档内容"
+    ),
+    StructuredTool(
+        name="code_review",
+        func=review_code,
+        args_schema=CodeReviewInput,
+        description="进行代码评审，输入文件路径和代码内容"
+    )
+]
+
+# Agent 系统提示
+system_prompt = """你是一个专业的游戏开发助手 Agent。
+
+你的职责：
+1. 帮助评审游戏设计文档，确保设计完整性和可行性
+2. 进行代码评审，发现潜在问题
+3. 提供专业的游戏开发建议
+
+你应该：
+- 从玩家体验角度思考设计
+- 关注性能、可维护性等技术问题
+- 给出具体、可操作的建议
+
+开始工作！"""
+
+# 创建并运行 Agent
+llm = ChatOpenAI(model="gpt-4", temperature=0)
+agent = create_structured_chat_agent(llm, tools, system_prompt)
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+# 执行任务
+result = agent_executor.invoke({
+    "input": "请帮我评审这个战斗系统的设计文档：玩家点击攻击按钮，对敌人造成伤害"
+})
+```
+
+### 7.5 工具调用最佳实践
+
+#### 工具设计原则
+
+| 原则 | 说明 | 示例 |
+|:---|:---|:---|
+| **单一职责** | 每个工具只做一件事 | `read_file` 而非 `file_operations` |
+| **清晰描述** | 描述要具体、无歧义 | "读取指定路径的文件内容，返回文本" |
+| **参数验证** | 定义清晰的参数schema | 使用 Pydantic 定义输入类型 |
+| **错误处理** | 返回有意义的错误信息 | "文件不存在: /path/to/file" |
+| **幂等性** | 相同输入产生相同输出 | 查询操作应该是幂等的 |
+
+#### 工具定义模板
+
+```python
+from pydantic import BaseModel, Field
+from langchain.tools import StructuredTool
+
+class ToolInput(BaseModel):
+    """工具输入参数定义"""
+    param1: str = Field(description="参数1的描述")
+    param2: int = Field(default=10, description="参数2的描述，带默认值")
+
+def tool_function(param1: str, param2: int = 10) -> str:
+    """
+    工具功能简述
+
+    Args:
+        param1: 参数1说明
+        param2: 参数2说明
+
+    Returns:
+        执行结果描述
+    """
+    try:
+        # 工具实现逻辑
+        result = f"处理 {param1}，参数 {param2}"
+        return result
+    except Exception as e:
+        return f"执行失败: {str(e)}"
+
+# 创建结构化工具
+tool = StructuredTool(
+    name="tool_name",           # 工具名称（简洁、动词开头）
+    func=tool_function,          # 实现函数
+    args_schema=ToolInput,       # 参数schema
+    description="工具的详细描述，告诉LLM何时使用此工具"
+)
 ```
 
 ---
@@ -701,53 +1359,121 @@ END DEFINE
 
 ### 8.1 角色定义原则
 
-```
-// 好的角色定义配置示例
-DEFINE agent_config:
-    id = "developer"
-    name = "Alex"
-    role = "程序员"
-    description = "负责游戏核心系统开发和技术架构设计"
-    expertise = ["系统架构", "性能优化", "网络同步", "AI系统"]
-    personality = "技术狂、逻辑缜密、追求完美"
-    communication_style = "专业、简洁、数据驱动"
-END DEFINE
-```
+#### 好的角色定义要素
 
-### 8.2 提示词设计模式
+| 要素 | 说明 |
+|:---|:---|
+| 唯一标识 | Agent ID |
+| 角色名称 | 显示名称 |
+| 职责描述 | 主要职责 |
+| 专业领域 | expertise 列表 |
+| 性格特点 | personality 描述 |
+| 沟通风格 | communication_style |
+
+#### 角色定义示例
 
 ```
-// CO-STAR 框架应用于游戏开发
-DEFINE prompt:
-
-    # Context (背景)
-    你正在参与开发一款名为"九十九亿大战"的 MOBA 游戏。
-
-    # Objective (目标)
-    为新英雄"暗影刺客"设计技能组。
-
-    # Style (风格)
-    请以游戏设计文档的格式输出。
-
-    # Tone (语气)
-    专业、创意、玩家视角。
-
-    # Audience (受众)
-    面向有经验的游戏策划和程序员。
-
-    # Response (响应)
-    输出包含：技能名称、技能描述、数值参数、技术实现建议。
-
-END DEFINE
+角色配置:
+  id: analyst
+  name: Alex
+  role: 数据分析师
+  description: 负责数据分析和结论提炼
+  expertise: [数据分析, 统计建模, 可视化]
+  personality: 严谨、数据驱动、追求准确
+  communication_style: 专业、简洁、有数据支撑
 ```
 
-### 8.3 协作模式
+### 8.2 提示词设计模式（CO-STAR 框架）
 
-| 模式 | 适用场景 | 优点 | 缺点 |
-|:---|:---|:---|:---|
-| **顺序协作** | 明确依赖关系的任务 | 简单可控 | 效率较低 |
-| **并行协作** | 独立任务 | 效率高 | 需要同步机制 |
-| **讨论决策** | 需要多视角的问题 | 决策质量高 | 耗时较长 |
+| 要素 | 英文 | 说明 |
+|:---|:---|:---|
+| **C** | Context | 背景信息 |
+| **O** | Objective | 目标描述 |
+| **S** | Style | 输出风格 |
+| **T** | Tone | 语气要求 |
+| **A** | Audience | 目标受众 |
+| **R** | Response | 响应格式 |
+
+#### CO-STAR 示例
+
+```
+# Context (背景)
+你是一个专业的数据分析Agent，正在分析用户行为数据。
+
+# Objective (目标)
+分析用户留存率下降的原因，并提出改进建议。
+
+# Style (风格)
+请以专业分析报告的格式输出。
+
+# Tone (语气)
+客观、数据驱动、有洞察力。
+
+# Audience (受众)
+面向产品经理和数据团队。
+
+# Response (响应)
+输出包含：问题分析、数据洞察、改进建议。
+```
+
+### 8.3 渐进式自动化
+
+| 层次 | 模式 | 特点 | 适用场景 |
+| :--- | :--- | :--- | :--- |
+| **Level 1** | 建议模式 | Agent提供建议，人类决策 | 学习和探索 |
+| **Level 2** | 协作模式 | Agent执行操作，人类监督 | 日常开发 |
+| **Level 3** | 自主模式 | Agent独立完成任务 | 重复性任务 |
+
+### 8.4 安全边界
+
+#### 安全机制
+
+| 机制 | 说明 |
+|:---|:---|
+| 沙箱执行 | 在隔离环境中运行不可信代码 |
+| 权限控制 | 最小权限原则 |
+| 变更预览 | 执行前展示预期变更 |
+| 回滚机制 | 支持快速回滚到之前状态 |
+
+#### 安全流程
+
+```
+Agent行动 → 沙箱执行 → 权限控制 → 变更预览 → 执行
+                                          ├── 成功 → 完成
+                                          └── 失败 → 回滚
+```
+
+### 8.5 Agentic ROI 评估框架
+
+> 来源：[The Real Barrier to LLM Agent Usability is Agentic ROI](https://arxiv.org/pdf/2505.17767)
+
+#### 为什么很多 Agent 看起来酷但实际没人用？
+
+**核心问题**：Agent 的"可用性"不仅仅取决于功能，还需要评估其投入产出比（Agentic ROI）
+
+#### 评估维度
+
+| 维度 | 说明 | 评估问题 |
+|:---|:---|:---|
+| **信息质量** | Agent 输出的准确性和可靠性 | 结果是否比人工更好？ |
+| **时间成本** | 等待 Agent 完成的时间 | 是否比手动操作更快？ |
+| **经济成本** | API 调用、计算资源消耗 | 是否比人工更便宜？ |
+| **认知负担** | 用户需要投入的注意力 | 是否真正减少工作量？ |
+
+#### ROI 计算公式
+
+```
+Agentic ROI = (信息质量收益) / (时间成本 + 经济成本 + 认知负担)
+```
+
+#### 提高 ROI 的策略
+
+| 策略 | 方法 |
+|:---|:---|
+| **减少调用** | 缓存结果、合并请求、批处理 |
+| **提高质量** | 更好的 Prompt、多轮验证、人工审核 |
+| **降低延迟** | 流式输出、异步执行、预加载 |
+| **简化交互** | 清晰的反馈、可预测的行为、简单配置 |
 
 ---
 
@@ -759,10 +1485,196 @@ END DEFINE
 |:---|:---|:---|
 | **LangChain** | 功能全面，生态丰富 | 通用 Agent 开发 |
 | **AutoGen** | 多 Agent 对话框架 | 团队协作模拟 |
-| **CrewAI** | 角色扮演 Agent | 游戏开发团队模拟 |
+| **CrewAI** | 角色扮演 Agent | 专业分工协作 |
 | **AgentScope** | 多 Agent 平台 | 复杂协作系统 |
+| **LangGraph** | 图结构状态机 | 复杂工作流编排 |
 
-### 9.2 游戏开发相关
+### 9.2 微软 Agent 框架详解
+
+#### AutoGen 三层架构
+
+AutoGen 是微软推出的多智能体框架，采用三层架构设计：
+
+```
+┌─────────────────────────────────────────────────┐
+│                 AutoGen Studio                   │
+│        (无代码原型设计，可视化界面)               │
+├─────────────────────────────────────────────────┤
+│                AutoGen AgentChat                 │
+│      (高级API，快速构建多Agent对话系统)          │
+├─────────────────────────────────────────────────┤
+│                  AutoGen Core                    │
+│    (底层框架，事件驱动，细粒度控制)               │
+└─────────────────────────────────────────────────┘
+```
+
+| 层级 | 特点 | 适用人群 |
+|:---|:---|:---|
+| **AutoGen Studio** | 无代码拖拽式界面，快速原型验证 | 产品经理、非技术人员 |
+| **AgentChat** | 高级API，内置对话模式 | 开发者快速构建 |
+| **AutoGen Core** | 事件驱动，完全可控 | 需要定制化的高级用户 |
+
+**AutoGen 核心概念**：
+
+```python
+from autogen import ConversableAgent, GroupChat, GroupChatManager
+
+# 1. 定义 Agent
+programmer = ConversableAgent(
+    name="Programmer",
+    system_message="你是资深游戏程序员，专注于技术实现",
+    llm_config={"model": "gpt-4"}
+)
+
+designer = ConversableAgent(
+    name="Designer",
+    system_message="你是创意策划，专注于玩法设计",
+    llm_config={"model": "gpt-4"}
+)
+
+# 2. 创建群聊
+group_chat = GroupChat(
+    agents=[programmer, designer],
+    messages=[],
+    max_round=10
+)
+
+# 3. 启动对话
+manager = GroupChatManager(groupchat=group_chat)
+manager.initiate_chat(
+    programmer,
+    message="让我们讨论一下新游戏的战斗系统设计"
+)
+```
+
+#### Microsoft Agent Framework
+
+> 这是微软当前主推的生产级 Agent SDK，与 Azure AI Foundry 深度集成
+
+**核心特性**：
+- Azure AI Foundry 一体化集成
+- 支持从 AutoGen 平滑迁移
+- 企业级安全与合规
+- 内置监控和日志
+
+```python
+# Microsoft Agent Framework 示例
+from microsoft.agent import Agent, AgentClient
+
+client = AgentClient(endpoint="https://your-azure-foundry.azure.com")
+
+agent = Agent(
+    name="GameDevAssistant",
+    instructions="你是游戏开发助手...",
+    tools=[...],
+    model="gpt-4"
+)
+
+# 运行 Agent
+response = await agent.run("分析最近的玩家反馈")
+```
+
+#### Semantic Kernel
+
+> 微软开源的企业级 SDK，支持 C#/Python/Java
+
+**核心概念**：
+
+| 概念 | 说明 |
+|:---|:---|
+| **Skills** | 封装的能力模块（类似工具） |
+| **Planner** | 自动规划执行步骤 |
+| **Memory** | 语义记忆存储 |
+| **Connectors** | 连接外部服务 |
+
+```csharp
+// C# 示例
+var kernel = Kernel.Builder()
+    .WithAzureOpenAIChatCompletionService(
+        deploymentName: "gpt-4",
+        endpoint: "https://your-endpoint.openai.azure.com",
+        apiKey: "your-key")
+    .Build();
+
+// 导入技能
+kernel.ImportSkill(new GameDesignSkill(), "design");
+
+// 自动规划执行
+var planner = new SequentialPlanner(kernel);
+var plan = await planner.CreatePlan("设计一个关卡系统");
+await plan.InvokeAsync();
+```
+
+### 9.3 OpenAI Agents SDK
+
+> OpenAI 官方的 Agent SDK，针对 GPT-4/4o 优化
+
+**核心特性**：
+
+| 特性 | 说明 |
+|:---|:---|
+| **原生工具调用** | 深度集成 OpenAI Function Calling |
+| **Handoffs** | Agent 间无缝移交控制权 |
+| **内置追踪** | 调试和监控支持 |
+| **流式输出** | 实时响应 |
+
+**设计模式**：
+
+1. **Manager 模式** - 中央编排器调用子Agent作为工具
+2. **Handoffs 模式** - Agent间直接移交控制权
+
+```python
+from openai import OpenAI
+from agents import Agent, Runner
+
+# 定义 Agent
+triage_agent = Agent(
+    name="Triage Agent",
+    instructions="分析用户问题类型，移交给合适的专家",
+    handoffs=[design_agent, code_agent, test_agent]
+)
+
+design_agent = Agent(
+    name="Design Agent",
+    instructions="处理游戏设计相关问题",
+    handoffs=[triage_agent]  # 可以移回
+)
+
+# 运行
+result = Runner.run_sync(triage_agent, "如何设计一个背包系统？")
+```
+
+### 9.4 框架选型指南
+
+| 需求场景 | 推荐框架 | 原因 |
+|:---|:---|:---|
+| 快速原型验证 | AutoGen Studio | 无代码，立即可用 |
+| 多Agent协作系统 | AutoGen AgentChat | 内置群聊模式 |
+| 企业生产部署 | Microsoft Agent Framework | Azure集成，企业级 |
+| .NET 技术栈 | Semantic Kernel | 原生C#支持 |
+| GPT-4 深度优化 | OpenAI Agents SDK | OpenAI官方 |
+| 灵活定制 | LangChain + LangGraph | 最大自由度 |
+| 角色扮演场景 | CrewAI | 易于定义角色 |
+
+**选型决策流程**：
+
+```
+开始选型
+    │
+    ├── 是否使用 Azure? ─── 是 ──→ Microsoft Agent Framework
+    │
+    └── 否
+         │
+         ├── 是否需要多Agent协作? ─── 是 ──→ AutoGen
+         │
+         └── 否
+              │
+              ├── 是否使用 OpenAI 模型? ─── 是 ──→ OpenAI Agents SDK
+              │
+              └── 否 ──→ LangChain / Semantic Kernel
+```
+
+### 9.5 游戏开发相关工具
 
 | 工具 | 用途 |
 |:---|:---|
@@ -771,28 +1683,163 @@ END DEFINE
 | **Charisma** | 交互式叙事 |
 | **Scenario** | AI 生成游戏美术 |
 
+### 9.6 MCP（Model Context Protocol）
+
+#### 三大核心能力
+
+| 能力 | 类型 | 用途 |
+|:---|:---|:---|
+| **Resources** | 只读 | 访问数据源 |
+| **Tools** | 可执行 | 执行操作 |
+| **Prompts** | 模板 | 标准化提示 |
+
+#### 架构
+
+```
+LLM ←→ Resources/Tools/Prompts → MCP Server → 数据源
+```
+
 ---
 
 ## 10. 参考资料
 
-### 10.1 本项目相关文档
+### 10.0 学习路径建议
 
-- **游戏小镇 Demo**: `courses/Hello-Agents/part4-cases/gameDevTown/`
-- **Agent 架构指南**: `courses/CS146S-The-Modern-Software-Developer/week-02/AGENT_ARCHITECTURE_AND_MCP_COMPREHENSIVE_GUIDE.md`
-- **Claude Code 实战**: `courses/CS146S-The-Modern-Software-Developer/week-04/CLAUDE_CODE_AUTOMATION_AND_AGENT_MANAGEMENT_GUIDE.md`
-- **Hello-Agents 教程**: `courses/Hello-Agents/`
+> 基于 Microsoft AI Agents for Beginners 课程整理
+
+#### 推荐学习路径
+
+| 阶段 | 时间 | 学习内容 | 产出 |
+|:---|:---|:---|:---|
+| **概念建立** | 1-2天 | 入门文章 + Agent定义理解 | 理解Agent核心概念 |
+| **动手实践** | 1-2周 | 微软课程 + 选一个框架实践 | 完成第一个Agent |
+| **理论深化** | 1-2周 | 综述论文 + 框架文档 | 理解架构原理 |
+| **项目实战** | 持续 | 开源项目 + 个人项目 | 解决实际问题 |
+
+#### 阶段一：概念建立（1-2天）
+
+**推荐资源**：
+1. [一文彻底搞懂大模型Agent（智能体）](https://blog.csdn.net/aolan123/article/details/147896240) - 从J.A.R.VIS引入，通俗易懂
+2. [一文读懂AI大模型中的Agent技术](https://juejin.cn/post/7494657593363005478) - 类型分类和代码示例
+
+**学习目标**：
+- 理解 Agent = LLM + 规划 + 记忆 + 工具 的公式
+- 了解 Agent 与传统对话系统的区别
+- 掌握 Agent 的核心特征（自主性、交互性、目标导向）
+
+#### 阶段二：动手实践（1-2周）
+
+**推荐课程**：[AI Agents for Beginners](https://github.com/microsoft/ai-agents-for-beginners)
+
+**课程大纲**（16节）：
+
+| 主题 | 内容 |
+|:---|:---|
+| **基础** | Agent定义、核心概念 |
+| **设计模式** | 工具使用、规划、元认知 |
+| **协作** | 多Agent系统设计 |
+| **记忆** | 短期/长期记忆管理 |
+| **协议** | MCP、A2A、NLWeb |
+| **生产** | 部署、监控、优化 |
+| **上下文工程** | Prompt设计进阶 |
+
+**实践任务**：
+- [ ] 完成课程前5节并跑通示例代码
+- [ ] 选择一个框架（LangChain/AutoGen/Semantic Kernel）
+- [ ] 实现一个简单的工具调用 Agent
+- [ ] 让 Agent 完成一个具体任务（如：读取文件、搜索、总结）
+
+#### 阶段三：理论深化（1-2周）
+
+**推荐论文**：
+1. [A Survey on Large Language Model based Autonomous Agents](https://arxiv.org/abs/2308.11432) - 系统框架
+2. [LLM Agent Methodology Survey](https://arxiv.org/abs/2503.21460) - 300+ 论文综述
+
+**学习重点**：
+- Profile 模块：Agent 的角色定义和个性
+- Memory 模块：记忆的存储与检索机制
+- Planning 模块：任务分解和规划策略
+- Action 模块：工具调用和执行机制
+
+**扩展资源**：
+- [LLM-Agent-Paper-List](https://github.com/WooooDyy/LLM-Agent-Paper-List) - 论文索引
+- [LLM-Agent-Survey](https://github.com/Paitesanshi/LLM-Agent-Survey) - 模块对比表
+
+#### 阶段四：项目实战（持续）
+
+**项目建议**：
+
+| 项目类型 | 示例 | 难度 |
+|:---|:---|:---|
+| **个人助理** | 自动整理日报、知识库问答 | ⭐⭐ |
+| **游戏开发** | NPC对话系统、测试自动化 | ⭐⭐⭐ |
+| **团队协作** | 游戏开发团队模拟、会议助手 | ⭐⭐⭐⭐ |
+| **开源贡献** | 在 [500-AI-Agents-Projects](https://gitcode.com/GitHub_Trending/50/500-AI-Agents-Projects) 找项目 | ⭐⭐⭐ |
+
+**学习资源**：
+- [OpenClaw 实战教程](https://blog.csdn.net/tigerjb/article/details/158383869) - 企业级部署
+- [DeepSeek + Coze 教程](https://www.163.com/dy/article/JS51GVT50519EA27.html) - 低代码搭建
+
+#### 按背景推荐的学习路线
+
+| 背景 | 推荐框架 | 推荐项目 |
+|:---|:---|:---|
+| **前端开发** | LangChain.js | 网页版游戏助手 |
+| **后端开发** | LangChain Python | 后端自动化Agent |
+| **.NET开发** | Semantic Kernel | 企业级集成 |
+| **游戏策划** | AutoGen Studio | 游戏团队模拟 |
+| **学生** | LangChain / CrewAI | 个人学习助手 |
+
+### 10.1 入门课程
+
+| 资源 | 描述 | 链接 |
+|:---|:---|:---|
+| **AI Agents for Beginners** | 微软官方入门课程，16节课覆盖 Agent 全栈，有中文翻译 | [GitHub](https://github.com/microsoft/ai-agents-for-beginners) |
+| **DeepLearning.AI** | Andrew Ng 的 Agent 系列课程 | [课程](https://www.deeplearning.ai/short-courses/) |
+| **一文彻底搞懂大模型 Agent** | 从 J.A.R.VIS 引入，通俗解释四要素 | [CSDN](https://blog.csdn.net/aolan123/article/details/147896240) |
+| **一文读懂 AI 大模型中的 Agent** | Agent 类型分类（反射型、认知型、协作型等） | [掘金](https://juejin.cn/post/7494657593363005478) |
 
 ### 10.2 学术论文
 
-- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
-- [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
-- [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442)
+| 论文 | 核心贡献 | 链接 |
+|:---|:---|:---|
+| **LLM-based Agents Survey** | 系统框架：Profile/Memory/Planning/Action | [arXiv](https://arxiv.org/abs/2308.11432) |
+| **LLM Agent Methodology** | 方法论角度，300+ 论文综述 | [arXiv](https://arxiv.org/abs/2503.21460) |
+| **复旦 NLP 综述** | 86页、600+ 参考文献 | [PDF](https://arxiv.org/pdf/2309.07864.pdf) |
+| **ReAct** | 推理与行动协同 | [arXiv](https://arxiv.org/abs/2210.03629) |
+| **Chain-of-Thought** | 思维链提示 | [arXiv](https://arxiv.org/abs/2201.11903) |
+| **Generative Agents** | 模拟人类行为 | [arXiv](https://arxiv.org/abs/2304.03442) |
+| **Reflexion** | 自我反思机制 | [arXiv](https://arxiv.org/abs/2303.11366) |
+| **Tree of Thoughts** | 多路径推理 | [arXiv](https://arxiv.org/abs/2305.10601) |
+| **Agentic ROI** | Agent 可用性评估框架 | [arXiv](https://arxiv.org/pdf/2505.17767) |
 
 ### 10.3 开源项目
 
-- [AutoGen](https://github.com/microsoft/autogen) - 微软多 Agent 框架
-- [CrewAI](https://github.com/joaomdmoura/crewAI) - 角色扮演 Agent 框架
-- [LangChain](https://github.com/langchain-ai/langchain) - LLM 应用开发框架
+| 项目 | 特点 | 适用场景 | 链接 |
+|:---|:---|:---|:---|
+| **AutoGen** | 微软出品，多 Agent 对话 | 团队协作模拟 | [GitHub](https://github.com/microsoft/autogen) |
+| **Microsoft Agent Framework** | 微软新一代 Agent SDK | Azure 生产部署 | [文档](https://learn.microsoft.com/en-us/agent-framework/) |
+| **Semantic Kernel** | 微软企业级 SDK | .NET/企业集成 | [文档](https://learn.microsoft.com/en-us/semantic-kernel/) |
+| **OpenAI Agents SDK** | OpenAI 官方 SDK | GPT-4 Agent 开发 | [文档](https://openai.github.io/openai-agents-python/agents/) |
+| **CrewAI** | 角色扮演，易于编排 | 专业分工协作 | [GitHub](https://github.com/joaomdmoura/crewAI) |
+| **LangChain** | 生态丰富，功能全面 | 通用 Agent 开发 | [GitHub](https://github.com/langchain-ai/langchain) |
+| **LangGraph** | 图结构状态机 | 复杂工作流编排 | [GitHub](https://github.com/langchain-ai/langgraph) |
+| **AgentScope** | 阿里达摩院，可视化编排 | 复杂协作系统 | [GitHub](https://github.com/modelscope/agentscope) |
+| **OpenClaw** | 本地执行，多 Agent 管理 | 企业级实操 | [教程](https://blog.csdn.net/tigerjb/article/details/158383869) |
+
+### 10.4 论文资源索引
+
+| 资源 | 描述 | 链接 |
+|:---|:---|:---|
+| **LLM-Agent-Paper-List** | 每篇论文一句话概括 | [GitHub](https://github.com/WooooDyy/LLM-Agent-Paper-List) |
+| **LLM-Agent-Survey** | Agent 模块实现对比表 | [GitHub](https://github.com/Paitesanshi/LLM-Agent-Survey) |
+| **500-AI-Agents-Projects** | 500+ 行业案例索引 | [GitCode](https://gitcode.com/GitHub_Trending/50/500-AI-Agents-Projects) |
+
+### 10.5 行业报告
+
+| 报告 | 描述 | 链接 |
+|:---|:---|:---|
+| **State of AI Agents** | LangChain 产业落地调研 | [报告](https://www.langchain.com/stateofaiagents) |
 
 ---
 
@@ -800,16 +1847,17 @@ END DEFINE
 
 ### 核心要点回顾
 
-1. **Agent = LLM + 工具 + 规划 + 反思**：Agent 不仅是对话，更是能行动的智能体
-2. **Multi-Agent 协作**：通过角色分工和协作机制，模拟真实团队工作
-3. **游戏开发场景**：从 NPC 智能化到辅助开发，Agent 应用场景广泛
-4. **记忆与上下文**：双层记忆结构确保 Agent 有连贯的"思考"
-5. **迭代改进**：通过反思机制不断提升 Agent 的决策质量
+| 类别 | 要点 |
+|:---|:---|
+| **架构组成** | 感知、规划、行动、反思、记忆 |
+| **实现模式** | ReAct、Plan-Execute、Reflection |
+| **协作机制** | 角色分工、消息通信、共享记忆 |
+| **应用场景** | NPC智能化、测试自动化、内容生成 |
 
 ### 记住这个公式
 
 ```
-好的游戏开发 Agent 系统 =
+好的 Agent 系统 =
     清晰的角色定义 +
     专业的领域知识 +
     有效的协作机制 +
