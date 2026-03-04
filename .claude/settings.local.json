@@ -89,7 +89,9 @@
       "Bash(./venv/bin/python:*)",
       "Bash(./venv/bin/pip:*)",
       "Bash(xxd:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(/usr/bin/python3:*)",
+      "Bash(kill 3833:*)"
     ],
     "deny": [],
     "ask": []
