@@ -91,7 +91,8 @@
       "Bash(xxd:*)",
       "Bash(xargs:*)",
       "Bash(/usr/bin/python3:*)",
-      "Bash(kill 3833:*)"
+      "Bash(kill 3833:*)",
+      "Bash(pdftotext:*)"
     ],
     "deny": [],
     "ask": []
