@@ -21,6 +21,13 @@ desktop.ini
 *.log
 *.cache
 
+# Python 缓存文件
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Pythonappropriateness/
+
 # 敏感信息（包含 API 密钥的文件）
 **/credentials.json
 **/api-keys.txt
