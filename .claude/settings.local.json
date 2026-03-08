@@ -92,7 +92,11 @@
       "Bash(xargs:*)",
       "Bash(/usr/bin/python3:*)",
       "Bash(kill 3833:*)",
-      "Bash(pdftotext:*)"
+      "Bash(pdftotext:*)",
+      "Bash(npx skills add https://github.com/op7418/Humanizer-zh.git)",
+      "Bash(npx skills add https://github.com/op7418/Humanizer-zh.git --yes --global)",
+      "Read(//home/qq691/.agents/skills/humanizer-zh/**)",
+      "Bash(find /mnt/c/Users/qq691/Desktop/openClasses -name \"*.json\" -exec grep -l \"humanizer\\\\|skill\" {} \\\\; 2>/dev/null | head -10)"
     ],
     "deny": [],
     "ask": []
