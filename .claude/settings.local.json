@@ -96,10 +96,25 @@
       "Bash(npx skills add https://github.com/op7418/Humanizer-zh.git)",
       "Bash(npx skills add https://github.com/op7418/Humanizer-zh.git --yes --global)",
       "Read(//home/qq691/.agents/skills/humanizer-zh/**)",
-      "Bash(find /mnt/c/Users/qq691/Desktop/openClasses -name \"*.json\" -exec grep -l \"humanizer\\\\|skill\" {} \\\\; 2>/dev/null | head -10)"
+      "Bash(find /mnt/c/Users/qq691/Desktop/openClasses -name \"*.json\" -exec grep -l \"humanizer\\\\|skill\" {} \\\\; 2>/dev/null | head -10)",
+      "Bash(tasklist.exe | grep -i openclaw)",
+      "Bash(tasklist.exe | grep -iE \"openclaw|cherry|claw\")"
     ],
     "deny": [],
     "ask": []
   },
-  "outputStyle": "Explanatory"
+  "outputStyle": "Explanatory",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "如果刚才写入的文件是 Markdown 文档（.md 文件），请使用 /humanizer-zh 技能对该文件进行人性化处理，然后覆盖原文件。处理时保持核心信息完整，只优化语言表达，去除 AI 写作痕迹。如果不是 .md 文件，请跳过处理。"
+          }
+        ]
+      }
+    ]
+  }
 }
