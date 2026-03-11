@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pong - NovaEngine</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #0a0a0f;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+    }
+    h1 { margin-bottom: 10px; font-size: 24px; letter-spacing: 4px; }
+    #game { border: 2px solid #333; }
+    .score { font-size: 48px; margin-bottom: 10px; letter-spacing: 20px; }
+    .info { margin-top: 15px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>PONG</h1>
+  <div class="score"><span id="p1">0</span> - <span id="p2">0</span></div>
+  <canvas id="game" width="800" height="500"></canvas>
+  <div class="info">W/S - 玩家1 | ↑/↓ - 玩家2 | SPACE - 开始</div>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

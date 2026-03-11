@@ -1,0 +1,36 @@
+{
+  "name": "@nova/engine",
+  "version": "0.0.1",
+  "description": "NovaEngine - main entry point and game loop",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@nova/core": "workspace:*",
+    "@nova/math": "workspace:*",
+    "@nova/ecs": "workspace:*",
+    "@nova/render": "workspace:*",
+    "@nova/scene": "workspace:*",
+    "@nova/physics2d": "workspace:*",
+    "@nova/input": "workspace:*",
+    "@nova/audio": "workspace:*",
+    "@nova/animation": "workspace:*",
+    "@nova/resource": "workspace:*"
+  },
+  "keywords": ["game-engine", "typescript", "webgl2", "ecs"],
+  "author": "",
+  "license": "MIT"
+}

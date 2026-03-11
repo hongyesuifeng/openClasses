@@ -1,0 +1,29 @@
+{
+  "name": "@nova/scene",
+  "version": "0.0.1",
+  "description": "NovaEngine scene management - scene graph, transforms, nodes",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@nova/core": "workspace:*",
+    "@nova/math": "workspace:*",
+    "@nova/ecs": "workspace:*"
+  },
+  "keywords": ["game-engine", "typescript", "scene", "scene-graph"],
+  "author": "",
+  "license": "MIT"
+}

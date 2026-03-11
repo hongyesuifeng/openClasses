@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asteroids - NovaEngine</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #000;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+    }
+    h1 { margin-bottom: 10px; font-size: 20px; letter-spacing: 4px; color: #4a9eff; }
+    #game { border: 1px solid #333; }
+    .hud { display: flex; gap: 40px; margin-bottom: 10px; font-size: 18px; }
+    .info { margin-top: 15px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>ASTEROIDS</h1>
+  <div class="hud">
+    <span>SCORE: <span id="score">0</span></span>
+    <span>LIVES: <span id="lives">3</span></span>
+  </div>
+  <canvas id="game" width="800" height="600"></canvas>
+  <div class="info">↑ 加速 | ← → 转向 | SPACE 发射</div>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

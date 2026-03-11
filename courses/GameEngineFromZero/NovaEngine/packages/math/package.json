@@ -1,0 +1,24 @@
+{
+  "name": "@nova/math",
+  "version": "0.0.1",
+  "description": "NovaEngine math library - vectors, matrices, quaternions",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["game-engine", "typescript", "math", "vector", "matrix"],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaEngine - ECS Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      color: #eee;
+      font-family: monospace;
+    }
+    h1 { margin-bottom: 10px; font-weight: 300; }
+    canvas { border: 1px solid #333; border-radius: 4px; }
+    .info { margin-top: 20px; font-size: 14px; color: #888; }
+    .stats { margin-top: 10px; color: #4a9eff; }
+  </style>
+</head>
+<body>
+  <h1>ECS Architecture Demo</h1>
+  <canvas id="game" width="800" height="600"></canvas>
+  <div class="info">第5周示例 - Entity Component System</div>
+  <div class="stats" id="stats"></div>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>
