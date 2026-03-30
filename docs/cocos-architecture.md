@@ -16,13 +16,13 @@
 
 ## 1. 引擎概述
 
-Cocos Creator 3.8.8 是一个基于 TypeScript 的跨平台游戏引擎，采用组件化架构，支持 2D 和 3D 游戏开发。引擎采用分层设计，从底层图形抽象到高层游戏逻辑形成清晰的架构栈。
+Cocos Creator 3.8.8 是一个采用 **TypeScript + C++ 双层架构** 的跨平台游戏引擎，使用组件化设计，支持 2D 和 3D 游戏开发。引擎分为两层：TypeScript 层负责游戏逻辑、场景管理和组件系统；C++ 原生层负责高性能渲染、物理和平台适配。两层通过 JSB（JavaScript Binding）桥接。
 
 **核心设计理念**：
 - **组件化（Component-Based）**：Node 作为容器，Component 提供功能
 - **模块化（Modular）**：各功能模块独立，按需加载
-- **跨平台（Cross-Platform）**：通过 PAL 层统一不同平台的差异
-- **类型安全（Type-Safe）**：全 TypeScript 实现，完整类型定义
+- **跨平台（Cross-Platform）**：Web 平台使用 TypeScript 渲染（WebGL/WebGPU），原生平台使用 C++ 渲染（Vulkan/Metal/GLES）
+- **双层架构（Dual-Layer）**：TypeScript 层统一游戏 API，C++ 层提供原生高性能实现
 
 ---
 
@@ -32,10 +32,11 @@ Cocos Creator 3.8.8 是一个基于 TypeScript 的跨平台游戏引擎，采用
 cocos-engine/
 ├── cocos/            # 引擎核心 TypeScript 源代码
 ├── pal/              # 平台抽象层 (Platform Abstraction Layer)
-├── exports/          # 模块导出配置（按功能分文件）
+├── exports/          # 模块导出配置（按功能分文件，控制引擎裁剪）
 ├── external/         # 外部依赖库（压缩、序列化等）
 ├── native/           # C++ 原生实现（iOS/Android/Desktop）
 ├── platforms/        # 平台特定工程文件
+├── editor/           # 编辑器相关代码
 ├── extensions/       # 编辑器扩展
 ├── @types/           # TypeScript 类型定义
 ├── vendor/           # 第三方库源码
@@ -50,31 +51,67 @@ cocos-engine/
 
 ## 3. 核心架构分层
 
-引擎从下到上分为 6 个核心层次：
+引擎从下到上分为 7 个核心层次，TypeScript 层和 C++ 原生层通过 JSB 桥接：
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                    游戏层 (Game)                      │
-│   Game / Director / 场景管理 / 生命周期控制            │
-├─────────────────────────────────────────────────────┤
-│                 功能模块层 (Modules)                   │
-│   Animation / Physics / Audio / Input / Tween / UI   │
-├─────────────────────────────────────────────────────┤
-│                场景框架层 (Scene Framework)            │
-│   2D / 3D / Particle / Spine / DragonBones / Terrain  │
-├─────────────────────────────────────────────────────┤
-│                 场景图层 (Scene Graph)                 │
-│   Node / Component / Scene / Prefab / Layers         │
-├─────────────────────────────────────────────────────┤
-│                  渲染层 (Rendering)                    │
-│   Rendering Pipeline / Render Scene / GFX            │
-├─────────────────────────────────────────────────────┤
-│                 基础设施层 (Core)                      │
-│   Math / Event / MemOp / Scheduler / Serialization   │
-├─────────────────────────────────────────────────────┤
-│              平台抽象层 (PAL / Native)                 │
-│   Web / Native(C++) / Minigame / System Info         │
-└─────────────────────────────────────────────────────┘
+╔═══════════════════════════════════════════════════════════╗
+║              TypeScript 层 (cocos/)                       ║
+╠═══════════════════════════════════════════════════════════╣
+║                                                           ║
+║   ┌───────────────────────────────────────────────────┐   ║
+║   │                游戏层 (Game)                       │   ║
+║   │   Game / Director / 场景管理 / 生命周期控制         │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │              功能模块层 (Modules)                  │   ║
+║   │  Animation / Physics / Audio / Input / Tween / UI  │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │            场景框架层 (Scene Framework)            │   ║
+║   │  2D / 3D / Particle / Spine / DragonBones / Terrain│  ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │              场景图层 (Scene Graph)                │   ║
+║   │   Node / Component / Scene / Prefab / Layers      │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │               渲染层 (Rendering)                   │   ║
+║   │   Rendering Pipeline / Render Scene / GFX          │   ║
+║   │   GFX 后端: WebGL / WebGL2 / WebGPU               │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │              基础设施层 (Core)                     │   ║
+║   │   Math / Event / MemOp / Scheduler / Serialization │   ║
+║   └───────────────────────────────────────────────────┘   ║
+║                          │                                ║
+║              ┌───────────┴───────────┐                    ║
+║              │   PAL 平台抽象层       │                    ║
+║              │  Web / Minigame / ... │                    ║
+║              └───────────┬───────────┘                    ║
+║                          │ JSB 桥接                       ║
+╠═══════════════════════════════════════════════════════════╣
+║              C++ 原生层 (native/)                          ║
+╠═══════════════════════════════════════════════════════════╣
+║                                                           ║
+║   ┌───────────────────────────────────────────────────┐   ║
+║   │             原生渲染器 (Renderer)                  │   ║
+║   │   GFX 后端: Vulkan / Metal / GLES2 / GLES3        │   ║
+║   │   Frame Graph / Pipeline / 场景管理                │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │             原生物理 (Physics)                     │   ║
+║   │   PhysX / Bullet / Canon（通过 C++ 绑定）          │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │             原生音频 / 网络 / 存储                  │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │             JSB 绑定层 (bindings/)                 │   ║
+║   │   jswrapper / dop / 自动绑定代码生成                │   ║
+║   ├───────────────────────────────────────────────────┤   ║
+║   │             平台层 (platform/)                     │   ║
+║   │   iOS / Android / Windows / macOS / Linux          │   ║
+║   └───────────────────────────────────────────────────┘   ║
+║                                                           ║
+╚═══════════════════════════════════════════════════════════╝
+
+Web 平台运行路径：
+  TypeScript → PAL(Web) → GFX(WebGL/WebGPU) → 浏览器 GPU
+
+原生平台运行路径：
+  TypeScript → JSB → C++ 原生层 → GFX(Vulkan/Metal/GLES) → 系统 GPU
 ```
 
 ---
@@ -95,6 +132,9 @@ cocos-engine/
 | curves | `core/curves/` | 动画曲线、贝塞尔曲线 |
 | algorithm | `core/algorithm/` | 通用算法（排序、搜索等） |
 | scheduler | `core/scheduler.ts` | 调度器，管理定时器和帧回调 |
+| platform | `core/platform/` | 平台检测与适配工具 |
+| utils | `core/utils/` | 通用工具函数 |
+| value-types | `core/value-types/` | 值类型基类与辅助 |
 
 ### 4.2 场景图层 — `cocos/scene-graph`
 
@@ -120,13 +160,27 @@ onLoad → start → [onEnable] → update(每帧) → lateUpdate(每帧) → [o
 
 #### 4.3.1 图形抽象层 — `cocos/gfx`
 
-提供硬件无关的图形 API 抽象，支持多种后端：
+提供硬件无关的图形 API 抽象，支持多种后端。GFX 在 TypeScript 层和 C++ 层各有实现：
+
+**TypeScript 层 GFX 后端**（Web 平台使用，位于 `cocos/gfx/`）：
 
 | 后端 | 路径 | 说明 |
 |------|------|------|
 | WebGL | `gfx/webgl/` | WebGL 1.0 后端 |
 | WebGL2 | `gfx/webgl2/` | WebGL 2.0 后端（默认） |
 | WebGPU | `gfx/webgpu/` | WebGPU 后端（实验性） |
+
+**C++ 层 GFX 后端**（原生平台使用，位于 `native/cocos/renderer/`）：
+
+| 后端 | 路径 | 说明 |
+|------|------|------|
+| Vulkan | `renderer/gfx-vulkan/` | Vulkan 后端（Android/Linux/Windows） |
+| Metal | `renderer/gfx-metal/` | Metal 后端（iOS/macOS） |
+| GLES2 | `renderer/gfx-gles2/` | OpenGL ES 2.0 后端 |
+| GLES3 | `renderer/gfx-gles3/` | OpenGL ES 3.0 后端 |
+| WGPU | `renderer/gfx-wgpu/` | WebGPU C 后端 |
+
+> **架构要点**：Web 平台直接使用 TS 层 GFX 调用浏览器 GPU API；原生平台则通过 JSB 将 TS 层 GFX 调用桥接到 C++ 层 GFX，再调用系统级图形 API（Vulkan/Metal/GLES）。
 
 **核心抽象**：
 - **Device** — GPU 设备，创建所有 GPU 资源的工厂
@@ -219,14 +273,14 @@ Shadow Pass → GBuffer Pass → Lighting Pass → Opaque Pass → Transparent P
 
 #### 4.5.2 物理系统 — `cocos/physics`
 
-支持三种物理引擎后端，统一接口：
+支持四种 3D 物理引擎后端，统一接口：
 
 | 后端 | 特点 |
 |------|------|
-| Builtin | 轻量级内置物理，仅碰撞检测 |
-| Cannon.js | 纯 JS 物理引擎，适合 Web |
-| Bullet | C++ 物理引擎，高性能，原生平台 |
-| PhysX | NVIDIA PhysX，最高性能 |
+| Builtin | 轻量级内置物理，仅碰撞检测，无物理模拟 |
+| Cannon.js | 纯 JS 物理引擎，适合 Web 平台 |
+| Bullet | C++ 物理引擎，Web 端通过 WASM 加载，原生端直接使用 C++ |
+| PhysX | NVIDIA PhysX，最高性能，仅原生平台 |
 
 **核心组件**：
 
@@ -462,6 +516,8 @@ PAL 位于 `/pal` 目录，是引擎跨平台的核心机制。
 | system-info | 系统信息抽象 | `pal/system-info/` |
 | screen-adapter | 屏幕适配抽象 | `pal/screen-adapter/` |
 | wasm | WebAssembly 支持 | `pal/wasm/` |
+| minigame | 小游戏平台适配（微信/支付宝/百度/字节/淘宝/小米） | `pal/minigame/` |
+| pacer | 帧率控制与性能节流 | `pal/pacer/` |
 
 ### 7.2 平台实现
 
@@ -479,28 +535,55 @@ PAL 位于 `/pal` 目录，是引擎跨平台的核心机制。
 
 ---
 
-## 8. 原生层 Native
+## 8. 原生层 Native（C++）
 
-位于 `/native` 目录，C++ 实现高性能底层功能。
+位于 `/native` 目录，C++ 实现高性能底层功能。当引擎运行在原生平台（iOS/Android/Windows/macOS/Linux）时，核心渲染、物理、音频等模块由 C++ 层提供实现，TypeScript 层通过 JSB 调用。
 
 ### 8.1 目录结构
 
 ```
 native/cocos/
-├── base/          # 基础工具类
-├── bindings/      # JSB（JavaScript Binding）
-├── core/          # 核心功能
-├── math/          # 数学库（C++ 版）
-├── renderer/      # 原生渲染器
-├── physics/       # 物理引擎绑定
-├── audio/         # 原生音频
-├── scene/         # 原生场景管理
-├── platform/      # 平台特定代码
-├── network/       # 网络模块
-├── gi/            # 全局光照
-├── xr/            # XR 支持
-├── 2d/ / 3d/      # 2D/3D 原生模块
-└── ui/            # 原生 UI
+├── base/              # 基础工具类
+├── bindings/          # JSB（JavaScript Binding）桥接层
+│   ├── jswrapper/     #   JS 引擎封装（V8 / JavaScriptCore / QuickJS）
+│   ├── dop/           #   数据导向编程缓冲区管理
+│   └── event/         #   事件分发绑定
+├── core/              # 核心功能
+├── math/              # 数学库（C++ 版，与 TS 层 math 对应）
+├── renderer/          # 原生渲染器
+│   ├── gfx-vulkan/    #   Vulkan GFX 后端
+│   ├── gfx-metal/     #   Metal GFX 后端
+│   ├── gfx-gles2/     #   OpenGL ES 2.0 后端
+│   ├── gfx-gles3/     #   OpenGL ES 3.0 后端
+│   ├── gfx-gles-common/ # GLES 公共代码
+│   ├── gfx-wgpu/      #   WebGPU C 后端
+│   ├── gfx-base/      #   GFX 基类定义
+│   ├── gfx-empty/     #   空实现（用于测试/无渲染模式）
+│   ├── gfx-agent/     #   多线程代理
+│   ├── gfx-validator/ #   调试验证器
+│   ├── core/          #   渲染器核心
+│   ├── frame-graph/   #   帧图（Frame Graph）渲染架构
+│   └── pipeline/      #   渲染管线
+├── physics/           # 物理引擎
+│   ├── physx/         #   NVIDIA PhysX 集成
+│   ├── sdk/           #   物理引擎 SDK 抽象
+│   └── spec/          #   物理接口规范
+├── audio/             # 原生音频
+├── scene/             # 原生场景管理
+├── platform/          # 平台特定代码（iOS/Android/Windows/macOS/Linux）
+├── network/           # 网络模块
+├── gi/                # 全局光照
+├── xr/                # XR 支持
+├── 2d/ / 3d/          # 2D/3D 原生模块
+├── ui/                # 原生 UI
+├── storage/           # 本地存储
+├── application/       # 应用生命周期管理
+├── engine/            # 引擎核心管理
+├── editor-support/    # 编辑器支持
+├── plugins/           # 原生插件系统
+├── primitive/         # 基础几何体
+├── main/              # 引擎入口与启动逻辑
+└── profiler/          # 性能分析工具
 ```
 
 ### 8.2 技术特性
@@ -508,7 +591,7 @@ native/cocos/
 - **C++17 标准**，使用现代 C++ 特性
 - **JSB 绑定**：通过 `bindings/` 将 C++ 接口暴露给 TypeScript
 - **CMake 构建**：跨平台原生构建系统
-- **GPU 后端**：原生平台使用 Vulkan / Metal / DirectX
+- **GPU 后端**：原生平台使用 Vulkan / Metal / OpenGL ES
 
 ---
 
@@ -521,6 +604,7 @@ native/cocos/
 | notepack | 高效二进制序列化（MessagePack 变体） |
 | zlib / gzip | 数据压缩和解压 |
 | base64 | Base64 编解码 |
+| ZipUtils | 统一压缩接口，封装 GZip 和 Base64 |
 
 ### 9.2 第三方骨骼动画 — vendor/
 
@@ -535,20 +619,39 @@ native/cocos/
 
 ```
 exports/
-├── base.ts              # 基础模块（必选）
-├── 2d.ts / 3d.ts        # 2D / 3D 框架
-├── gfx-webgl.ts         # WebGL 后端
-├── gfx-webgl2.ts        # WebGL2 后端
-├── gfx-webgpu.ts        # WebGPU 后端
-├── physics-builtin.ts   # 内置物理
-├── physics-cannon.ts    # Cannon.js 物理
-├── physics-physx.ts     # PhysX 物理
-├── animation.ts         # 动画系统
-├── audio.ts             # 音频系统
-├── ui.ts                # UI 系统
-├── particle.ts          # 粒子系统
-├── xr.ts                # XR 支持
-└── ...                  # 其他模块
+├── base.ts                     # 基础模块（必选）
+├── 2d.ts / 3d.ts               # 2D / 3D 框架
+│
+├── gfx-webgl.ts                # WebGL 后端
+├── gfx-webgl2.ts               # WebGL2 后端
+├── gfx-webgpu.ts               # WebGPU 后端
+├── gfx-empty.ts                # 空 GFX 后端（测试用）
+│
+├── physics-builtin.ts          # 内置 3D 物理（仅碰撞检测）
+├── physics-cannon.ts           # Cannon.js 3D 物理
+├── physics-physx.ts            # PhysX 3D 物理
+├── physics-ammo.ts             # Bullet 3D 物理（通过 WASM）
+├── physics-framework.ts        # 3D 物理框架核心
+├── physics-2d-builtin.ts       # 内置 2D 物理
+├── physics-2d-box2d.ts         # Box2D（JS）
+├── physics-2d-box2d-jsb.ts     # Box2D（JSB 原生）
+├── physics-2d-box2d-wasm.ts    # Box2D（WASM）
+├── physics-2d-framework.ts     # 2D 物理框架核心
+│
+├── animation.ts                # 动画系统
+├── skeletal-animation.ts       # 骨骼动画
+├── audio.ts                    # 音频系统
+├── ui.ts                       # UI 系统
+├── particle.ts / particle-2d.ts # 粒子系统（3D / 2D）
+├── tween.ts                    # 补间动画
+├── xr.ts                       # XR 支持
+├── terrain.ts                  # 地形系统
+├── spine.ts                    # Spine 骨骼动画
+├── dragon-bones.ts             # DragonBones 骨骼动画
+├── video.ts / webview.ts       # 视频 / WebView
+├── tiled-map.ts                # 瓦片地图
+├── profiler.ts                 # 性能分析
+└── ...                         # 其他模块
 ```
 
 通过 `cc.config.json` 中的配置可以选择性地启用或禁用模块，实现按需裁剪引擎体积。
@@ -575,8 +678,16 @@ exports/
 | UI | `cocos/ui` | Widget, Layout, ScrollView, Button | UI 组件系统 |
 | Tween | `cocos/tween` | Tween | 补间动画 |
 | Particle | `cocos/particle` | ParticleSystem | 粒子特效 |
+| Particle 2D | `cocos/particle-2d` | ParticleSystem2D | 2D 粒子特效 |
 | GI | `cocos/gi` | LightProbe | 全局光照 |
+| Terrain | `cocos/terrain` | Terrain | 地形系统 |
+| TiledMap | `cocos/tiledmap` | TiledMap | 瓦片地图 |
+| Spine | `cocos/spine` | SpineSkeleton | Spine 骨骼动画 |
+| DragonBones | `cocos/dragon-bones` | DragonBones | DragonBones 骨骼动画 |
+| Video | `cocos/video` | VideoPlayer | 视频播放 |
+| WebView | `cocos/web-view` | WebView | WebView 组件 |
+| Profiler | `cocos/profiler` | Profiler | 性能分析工具 |
 | Game | `cocos/game` | Game, Director | 游戏主控制 |
 | Serialization | `cocos/serialization` | deserialize, serialize | 序列化系统 |
 | PAL | `pal/` | 各平台实现 | 平台抽象层 |
-| Native | `native/` | C++ 实现 | 原生高性能层 |
+| Native | `native/` | C++ 原生实现 (Vulkan/Metal/PhysX/JSB) | C++ 原生高性能层（渲染/物理/音频/平台） |
