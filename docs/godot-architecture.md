@@ -36,7 +36,7 @@ Godot 是一款 MIT 开源许可的跨平台 2D/3D 游戏引擎，以 C++ 编写
 - **服务器-场景分离**：渲染、物理、音频等后端逻辑封装在独立的 Server 单例中，场景层的 Node 只持有不透明的 RID 句柄与之交互，前后端彻底解耦
 - **RID 资源管理**：所有 GPU 端和服务器端的资源通过 64 位 Resource ID（定义于 `core/templates/rid.h`）访问，场景节点不直接持有后端资源指针
 - **ClassDB 反射系统**：引擎启动时所有类自注册到 ClassDB，提供运行时类型信息，驱动脚本绑定、编辑器属性检查器和序列化
-- **Variant 类型系统**：用统一的 Variant 容器封装引擎内所有数据类型（30 余种），是脚本与 C++ 交互的核心桥梁
+- **Variant 类型系统**：用统一的 Variant 容器封装引擎内所有数据类型（36 种），是脚本与 C++ 交互的核心桥梁
 - **模块化构建**：`modules/` 目录下包含 55+ 个可选功能模块，通过 SCons 构建系统按需选择编译
 
 ---
@@ -121,9 +121,9 @@ Object (core/object/object.h)
 │   ├── Script (core/object/script_language.h)    ← 脚本对象
 │   └── ...
 ├── Node (scene/main/node.h)                      ← 场景节点基类
-│   ├── CanvasItem (scene/2d/canvas_item.h)       ← 2D 可见基类
-│   │   ├── Node2D                                ← 2D 变换节点
-│   │   └── Control (scene/gui/control.h)        ← GUI 控件基类
+│   ├── CanvasItem (scene/main/canvas_item.h)   ← 2D 可见基类
+│   │   ├── Node2D (scene/2d/node_2d.h)          ← 2D 变换节点
+│   │   └── Control (scene/gui/control.h)       ← GUI 控件基类
 │   ├── Node3D (scene/3d/node_3d.h)              ← 3D 变换节点
 │   └── ...
 ├── MainLoop (core/os/main_loop.h)
@@ -489,7 +489,7 @@ AudioServer (audio_server.h)           ← 中央音频管理器
 
 ```
 Node (scene/main/node.h)
-├── CanvasItem (scene/2d/canvas_item.h)     ← 2D 可见基类
+├── CanvasItem (scene/main/canvas_item.h)   ← 2D 可见基类
 │   ├── Node2D                              ← 2D 空间变换
 │   │   ├── Sprite2D, AnimatedSprite2D      ← 精灵渲染
 │   │   ├── CollisionShape2D, Area2D        ← 物理碰撞
@@ -617,7 +617,7 @@ GDExtension 是 Godot 的稳定 C ABI，允许用 C/C++/Rust/D 等语言编写�
 |---|---|---|
 | `GDExtensionManager` | `gdextension_manager.h` | 加载/管理扩展动态库 |
 | `ObjectGDExtension` | `object.h` | 将扩展类挂接到 Object 类型系统 |
-| `gdextension_interface` | `gdextension_interface.h` | 定义完整的 C API 接口 |
+| `gdextension_interface` | `gdextension_interface.json` | 定义完整的 C API 接口（头文件由 header generator 动态生成） |
 
 扩展库通过 `gdextension_interface.json` 声明 API 绑定，在引擎启动时动态加载。扩展类可以：
 - 继承引擎类（包括 `Node`、`Resource` 等）
