@@ -24,6 +24,8 @@
 - [9. 引擎启动流程](#9-引擎启动流程)
 - [10. 构建系统](#10-构建系统)
 - [11. 关键设计模式总结](#11-关键设计模式总结)
+- [12. 关键源码文件速查表](#12-关键源码文件速查表)
+- [13. 常用调试命令与工具](#13-常用调试命令与工具)
 
 ---
 
@@ -695,3 +697,303 @@ scons target=template_release    # 编译发布模板
 | **COW 容器** | `Vector<T>` | 写入时复制，多份数组共享底层数据直到首次修改 |
 | **模块注册** | `modules/` | 可选功能通过标准化的 `register_types` 接口挂接，支持选择性编译 |
 | **GDExtension** | `core/extension/` | 稳定 C ABI 允许第三方语言绑定，无需修改引擎源码即可扩展 |
+
+---
+
+## 12. 关键源码文件速查表
+
+本章节列出阅读 Godot 源码时最常参考的核心文件，按功能领域分类，并标注阅读难度。
+
+### 12.1 启动与主循环
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **main.cpp** | `main/main.cpp` | ~1000 | ★★☆ | 引擎入口点，解析命令行，初始化各子系统 |
+| **MainLoop** | `core/os/main_loop.h` | ~200 | ★★☆ | 主循环抽象基类 |
+| **SceneTree** | `scene/main/scene_tree.h` | ~2000 | ★★★ | 场景树，游戏主循环实现，管理帧更新 |
+
+### 12.2 对象系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **Object** | `core/object/object.h` | ~2000 | ★★★ | 所有引擎类的基类，定义信号、属性、方法绑定 |
+| **ClassDB** | `core/object/class_db.h` | ~2000 | ★★★ | 运行时类型信息中心，类注册与反射 |
+| **RefCounted** | `core/object/ref_counted.h` | ~200 | ★☆☆ | 引用计数基类，配合 Ref<T> 使用 |
+| **MethodBind** | `core/object/method_bind.h` | ~500 | ★★★ | 方法绑定器，将 C++ 方法包装为可调用对象 |
+| **MessageQueue** | `core/object/message_queue.h` | ~300 | ★★☆ | 延迟调用队列，线程安全消息分发 |
+
+### 12.3 类型系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **Variant** | `core/variant/variant.h` | ~3000 | ★★★ | 动态类型容器，封装 30+ 种引擎类型 |
+| **Callable** | `core/variant/callable.h` | ~500 | ★★☆ | 可调用对象封装，用于信号连接和回调 |
+| **Array** | `core/variant/array.h` | ~400 | ★☆☆ | 动态数组，内部使用 Vector |
+| **Dictionary** | `core/variant/dictionary.h` | ~400 | ★☆☆ | 动态字典，内部使用 HashMap |
+
+### 12.4 容器模板
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **Vector** | `core/templates/vector.h` | ~300 | ★★☆ | 动态数组，COW 实现 |
+| **HashMap** | `core/templates/hash_map.h` | ~400 | ★★☆ | 哈希表，Robin Hood 哈希 |
+| **List** | `core/templates/list.h` | ~300 | ★☆☆ | 双向链表 |
+| **RID** | `core/templates/rid.h` | ~100 | ★☆☆ | 64 位资源句柄 |
+| **SafeRefCount** | `core/templates/safe_refcount.h` | ~200 | ★★☆ | 原子引用计数 |
+
+### 12.5 场景系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **Node** | `scene/main/node.h` | ~4000 | ★★★ | 节点基类，定义生命周期和树结构 |
+| **Viewport** | `scene/main/viewport.h` | ~2000 | ★★★ | 视口，渲染目标和输入路由 |
+| **Window** | `scene/main/window.h` | ~1500 | ★★☆ | 顶级窗口 |
+| **CanvasItem** | `scene/2d/canvas_item.h` | ~1000 | ★★☆ | 2D 可见节点基类 |
+| **Node3D** | `scene/3d/node_3d.h` | ~500 | ★★☆ | 3D 变换节点基类 |
+| **MeshInstance3D** | `scene/3d/mesh_instance_3d.h` | ~500 | ★★☆ | 3D 网格渲染节点 |
+
+### 12.6 资源系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **Resource** | `core/io/resource.h` | ~500 | ★★☆ | 所有可序列化资源的基类 |
+| **ResourceLoader** | `core/io/resource_loader.h` | ~500 | ★★☆ | 资源加载管理器 |
+| **ResourceSaver** | `core/io/resource_saver.h` | ~300 | ★☆☆ | 资源保存管理器 |
+| **PackedScene** | `scene/resources/packed_scene.h` | ~500 | ★★☆ | 场景序列化/反序列化 |
+
+### 12.7 渲染系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **RenderingServer** | `servers/rendering/rendering_server.h` | ~3000 | ★★★★ | 渲染服务器公共 API |
+| **RenderingDevice** | `servers/rendering/rendering_device.h` | ~2000 | ★★★★ | GPU 设备抽象层 |
+| **RendererSceneRender** | `servers/rendering/renderer_rd/` | 多文件 | ★★★★ | RD 渲染器实现 |
+| **ShaderLanguage** | `servers/rendering/shader_language.h` | ~1500 | ★★★ | 着色器语言解析器 |
+
+### 12.8 物理系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **PhysicsServer3D** | `servers/physics_3d/physics_server_3d.h` | ~1000 | ★★★ | 3D 物理服务器接口 |
+| **PhysicsServer2D** | `servers/physics_2d/physics_server_2d.h` | ~800 | ★★★ | 2D 物理服务器接口 |
+| **GodotStep3D** | `modules/godot_physics_3d/godot_step_3d.h` | ~500 | ★★★ | 物理步进求解器 |
+
+### 12.9 脚本系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **ScriptLanguage** | `core/object/script_language.h` | ~500 | ★★☆ | 脚本语言接口 |
+| **GDScript** | `modules/gdscript/gdscript.h` | ~500 | ★★☆ | GDScript 类定义 |
+| **GDScriptParser** | `modules/gdscript/gdscript_parser.h` | ~1000 | ★★★ | 语法解析器 |
+| **GDScriptCompiler** | `modules/gdscript/gdscript_compiler.h` | ~500 | ★★★ | 字节码编译器 |
+| **GDScriptVM** | `modules/gdscript/gdscript_vm.h` | ~500 | ★★★ | 虚拟机执行引擎 |
+
+### 12.10 编辑器系统
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **EditorNode** | `editor/editor_node.h` | ~1000 | ★★★ | 编辑器主节点 |
+| **EditorPlugin** | `editor/plugins/editor_plugin.h` | ~500 | ★★☆ | 编辑器插件基类 |
+| **EditorInspector** | `editor/editor_inspector.h` | ~500 | ★★☆ | 属性检查器 |
+
+### 12.11 平台与驱动
+
+| 文件 | 路径 | 行数 | 难度 | 说明 |
+|------|------|------|------|------|
+| **OS** | `core/os/os.h` | ~1000 | ★★★ | 操作系统抽象层 |
+| **Memory** | `core/os/memory.h` | ~300 | ★★☆ | 内存管理宏 |
+| **Thread** | `core/os/thread.h` | ~200 | ★★☆ | 线程封装 |
+
+---
+
+## 13. 常用调试命令与工具
+
+### 13.1 命令行参数
+
+Godot 编辑器/运行时支持丰富的命令行参数：
+
+```bash
+# 基本运行
+godot4                              # 打开项目管理器
+godot4 --path /path/to/project      # 打开指定项目
+
+# 调试相关
+godot4 -d                           # 调试模式（启用断点）
+godot4 --debug-collisions           # 显示碰撞形状
+godot4 --debug-paths                # 显示节点路径
+godot4 --debug-navigation           # 显示导航网格
+godot4 --debug-stringnames          # 打印 StringName 统计
+
+# 性能分析
+godot4 --profile-gpu                # GPU 性能分析
+godot4 --profiling                  # 启用脚本性能分析
+
+# 详细输出
+godot4 -v                           # 详细输出模式
+godot4 --verbose                    # 同上
+
+# 窗口设置
+godot4 --resolution 1920x1080       # 设置窗口分辨率
+godot4 --windowed                   # 窗口模式
+godot4 --fullscreen                 # 全屏模式
+
+# 渲染相关
+godot4 --rendering-driver vulkan    # 指定渲染驱动
+godot4 --rendering-driver opengl3   # 使用 OpenGL
+
+# 测试与检查
+godot4 --check-only                 # 仅检查脚本语法
+godot4 --script-check              # 检查脚本错误
+
+# 导出
+godot4 --headless                   # 无头模式（无窗口）
+godot4 --quit-after 10              # 运行 N 秒后退出
+```
+
+### 13.2 调试器配置
+
+#### GDB 配置
+
+创建 `.gdbinit` 文件：
+
+```gdb
+# 设置源码路径
+directory /path/to/godot/source
+
+# 美化打印
+set print pretty on
+set print array on
+
+# 常用断点
+break main
+break SceneTree::initialize
+break Node::_ready
+
+# 显示 STL 容器（可选）
+python
+import sys
+sys.path.insert(0, '/usr/share/gcc/python')
+from libstdcxx.v6.printers import register_libstdcxx_printers
+register_libstdcxx_printers(None)
+end
+```
+
+#### LLDB 配置
+
+创建 `.lldbinit` 文件：
+
+```lldb
+# 设置源码路径
+settings set target.source-map /path/to/godot /path/to/godot/source
+
+# 格式化显示
+type summary add --summary-string "${var%s}" "String"
+type summary add --summary-string "${var.x}, ${var.y}" "Vector2"
+```
+
+### 13.3 内存调试
+
+#### 启用内存追踪
+
+编译时添加参数：
+
+```bash
+scons dev_build=yes                 # 开发构建，启用内存追踪
+scons sanitize=address              # AddressSanitizer（内存错误检测）
+scons sanitize=undefined            # UndefinedBehaviorSanitizer
+```
+
+#### 内存泄漏检测
+
+```bash
+# 使用 Valgrind
+valgrind --leak-check=full --show-leak-kinds=all ./bin/godot.linuxbsd.editor.dev.x86_64
+
+# 使用 ASan（编译时启用）
+ASAN_OPTIONS=detect_leaks=1 ./bin/godot.linuxbsd.editor.dev.x86_64
+```
+
+### 13.4 渲染调试
+
+#### RenderDoc 集成
+
+1. 启动 RenderDoc
+2. 设置可执行文件路径为 Godot 编辑器
+3. 捕获帧（F12 快捷键）
+4. 分析绘制调用、着色器、纹理
+
+#### Vulkan 验证层
+
+```bash
+# 启用 Vulkan 验证层
+export VK_INSTANCE_LAYERS=VK_LAYER_KHRONOS_validation
+./bin/godot.linuxbsd.editor.dev.x86_64
+```
+
+#### GPU 性能分析
+
+```bash
+# 启用 GPU 分析
+godot4 --profile-gpu
+
+# 使用 NVIDIA Nsight
+nsight-gui ./bin/godot.linuxbsd.editor.x86_64
+```
+
+### 13.5 性能分析工具
+
+#### 内置分析器
+
+1. **脚本分析器**：调试器 → 监控器 → 性能分析
+2. **Visual Profiler**：调试器 → Visual Profiler（GPU/CPU 时间线）
+
+#### 外部工具
+
+| 工具 | 平台 | 用途 |
+|------|------|------|
+| **Tracy** | 跨平台 | 实时帧分析，需编译 `tracy=yes` |
+| **HotSpot** | Linux | CPU 火焰图分析 |
+| **Very Sleepy** | Windows | 采样分析器 |
+| **Instruments** | macOS | 系统性能分析 |
+
+### 13.6 常见调试场景
+
+#### 场景加载失败
+
+```bash
+# 启用详细日志
+godot4 -v --path /path/to/project
+
+# 检查资源路径
+godot4 --editor --quit-after 5
+```
+
+#### 渲染问题
+
+```bash
+# 显示绘制调用
+godot4 --debug-draw overdraw
+
+# 显示法线
+godot4 --debug-draw normal_buffer
+```
+
+#### 物理调试
+
+```bash
+# 显示碰撞形状
+godot4 --debug-collisions
+
+# 显示导航
+godot4 --debug-navigation
+```
+
+#### 脚本错误追踪
+
+```bash
+# 严格模式检查
+godot4 --script-check --check-only
+
+# 启用脚本调试器
+godot4 -d --remote-debug 127.0.0.1:6007
+```
