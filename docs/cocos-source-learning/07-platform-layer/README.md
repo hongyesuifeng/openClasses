@@ -4,6 +4,7 @@
 
 ## 目录
 
+- **[00-技术原理](./00-technical-principles.md) - 硬件抽象层、JS 引擎与 JSB 绑定、跨平台编译、原生渲染后端（建议首先阅读）**
 - [01-PAL 架构](./01-pal-architecture.md) - 平台抽象层设计与核心模块
 - [02-JSB 原生绑定](./02-jsb-binding.md) - JSB 桥接机制与原生 C++ 层
 

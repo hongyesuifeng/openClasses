@@ -4,6 +4,7 @@ UI 系统提供了游戏界面开发所需的所有组件，包括基础框架�
 
 ## 目录
 
+- **[00-技术原理](./00-technical-principles.md) - 即时模式 vs 保留模式 GUI、UI 坐标系、布局算法、射线检测、渲染优化（建议首先阅读）**
 - [01-UI 基础框架](./01-ui-basics.md) - UITransform、Canvas、UIRenderer
 - [02-UI 组件详解](./02-ui-components.md) - Button、ScrollView、Toggle 等
 - [03-布局系统](./03-layout-system.md) - Widget 对齐与 Layout 自动布局

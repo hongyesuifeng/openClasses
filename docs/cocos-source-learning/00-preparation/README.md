@@ -4,6 +4,7 @@
 
 ## 目录
 
+- **[00-技术原理](./00-technical-principles.md) - 游戏引擎架构、游戏循环、跨平台设计原理（建议首先阅读）**
 - [01-环境配置](./01-environment-setup.md) - 开发环境搭建
 - [02-源码结构](./02-source-structure.md) - 源码目录导览
 - [03-阅读方法](./03-reading-methodology.md) - 源码阅读技巧

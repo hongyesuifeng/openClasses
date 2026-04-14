@@ -4,6 +4,7 @@
 
 ## 目录
 
+- **[00-技术原理](./00-technical-principles.md) - GPU 渲染管线、图形 API 抽象、前向/延迟渲染、着色器编程、2D 批处理原理（建议首先阅读）**
 - [01-GFX 抽象层](./01-gfx-abstraction.md) - 图形 API 抽象
 - [02-渲染管线](./02-render-pipeline.md) - 渲染流程控制
 - [03-着色器与材质](./03-shader-material.md) - Shader 和 Material 系统

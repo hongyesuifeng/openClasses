@@ -4,6 +4,7 @@
 
 ## 目录
 
+- **[00-技术原理](./00-technical-principles.md) - 后处理管线、Bloom/FXAA/DOF 算法、Render Graph、CSM 阴影、地形 LOD（建议首先阅读）**
 - [01-后处理系统](./01-post-processing.md) - Bloom、FXAA、DOF 等后处理效果
 - [02-自定义渲染管线](./02-custom-rendering.md) - Custom Pipeline 架构
 - [03-地形系统](./03-terrain-system.md) - 地形渲染与 LOD

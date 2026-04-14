@@ -4,6 +4,7 @@
 
 ## 目录
 
+- **[00-技术原理](./00-technical-principles.md) - 场景图数据结构、组件模式（ECS）、空间变换、生命周期、脏标记机制（建议首先阅读）**
 - [01-节点系统](./01-node-system.md) - Node 类详解
 - [02-组件系统](./02-component-system.md) - Component 基类
 - [03-场景生命周期](./03-scene-lifecycle.md) - 生命周期与场景管理

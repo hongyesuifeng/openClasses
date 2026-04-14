@@ -4,6 +4,7 @@
 
 ## 目录
 
+- **[00-技术原理](./00-technical-principles.md) - 异步加载与并发控制、引用计数、资源管线模式、依赖图原理（建议首先阅读）**
 - [01-AssetManager 核心](./01-asset-manager.md) - 资源管理器设计与加载接口
 - [02-Bundle 资源包](./02-bundle-system.md) - 资源包系统与多包管理
 - [03-加载流水线](./03-loading-pipeline.md) - 加载流程、工厂模式与释放管理
