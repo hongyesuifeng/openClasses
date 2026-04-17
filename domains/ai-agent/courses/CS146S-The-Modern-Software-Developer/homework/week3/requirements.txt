@@ -1,0 +1,8 @@
+# MCP 服务器依赖
+mcp>=0.9.0
+# HTTP 请求
+httpx>=0.27.0
+# 环境变量管理
+python-dotenv>=1.0.0
+# 类型提示
+typing-extensions>=4.0.0

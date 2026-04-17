@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛博小镇 - Cyber Town</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏘️ 赛博小镇</h1>
+            <div class="header-controls">
+                <button id="configBtn" class="btn btn-secondary">⚙️ 配置</button>
+                <button id="startBtn" class="btn btn-primary">▶ 开始</button>
+                <button id="tickBtn" class="btn btn-secondary">⏭ 步进</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="map-container">
+                    <h2>🏘️ 小镇地图</h2>
+                    <div id="map" class="map">
+                        <div class="location" data-name="酒馆" style="top: 30%; left: 20%;">
+                            <span class="location-icon">🍺</span>
+                            <span class="location-name">酒馆</span>
+                            <div class="visitors"></div>
+                        </div>
+                        <div class="location" data-name="咖啡馆" style="top: 20%; left: 60%;">
+                            <span class="location-icon">☕</span>
+                            <span class="location-name">咖啡馆</span>
+                            <div class="visitors"></div>
+                        </div>
+                        <div class="location" data-name="公园" style="top: 50%; left: 50%;">
+                            <span class="location-icon">🌳</span>
+                            <span class="location-name">公园</span>
+                            <div class="visitors"></div>
+                        </div>
+                        <div class="location" data-name="商店" style="top: 70%; left: 25%;">
+                            <span class="location-icon">🏪</span>
+                            <span class="location-name">商店</span>
+                            <div class="visitors"></div>
+                        </div>
+                        <div class="location" data-name="住宅" style="top: 65%; left: 70%;">
+                            <span class="location-icon">🏠</span>
+                            <span class="location-name">住宅</span>
+                            <div class="visitors"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="time-display">
+                    <span id="timeDisplay">08:00</span>
+                    <span id="timeOfDay">早上好</span>
+                </div>
+            </div>
+
+            <div class="center-panel">
+                <div class="characters-grid" id="charactersGrid">
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="events-panel">
+                    <h3>📜 事件日志</h3>
+                    <div id="eventsLog" class="events-log">
+                    </div>
+                </div>
+
+                <div class="selected-character" id="selectedCharacter">
+                    <h3>👤 角色详情</h3>
+                    <div id="characterDetail" class="character-detail">
+                        <p class="hint">点击角色查看详情</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="configModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>🔧 LLM 配置</h2>
+            <form id="configForm">
+                <div class="form-group">
+                    <label for="provider">模型提供商</label>
+                    <select id="provider" name="provider">
+                        <option value="minimax">MiniMax</option>
+                        <option value="openai">OpenAI</option>
+                        <option value="zhipu">智谱GLM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="apiKey">API Key</label>
+                    <input type="password" id="apiKey" name="apiKey" placeholder="请输入 API Key">
+                </div>
+                <div class="form-group">
+                    <label for="model">模型</label>
+                    <select id="model" name="model">
+                        <option value="MiniMax-M2.5">MiniMax-M2.5</option>
+                        <option value="MiniMax-M2.5-highspeed">MiniMax-M2.5 (极速版)</option>
+                        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                        <option value="gpt-4">GPT-4</option>
+                        <option value="glm-4">GLM-4</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="testConnection" class="btn btn-secondary">测试连接</button>
+                    <button type="submit" class="btn btn-primary">保存配置</button>
+                </div>
+                <div id="testResult" class="test-result"></div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

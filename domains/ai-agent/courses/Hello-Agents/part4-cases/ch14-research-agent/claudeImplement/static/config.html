@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API配置工具</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .config-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .config-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .radio-option:hover {
+            border-color: #667eea;
+        }
+        .radio-option input[type="radio"]:checked + span {
+            color: #667eea;
+        }
+        .radio-option input[type="radio"] {
+            margin-top: 3px;
+        }
+        .radio-title {
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+        }
+        .radio-desc {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: monospace;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .hint {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+        .hint a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .hint a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        .token-display {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .token-display code {
+            display: block;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            font-family: monospace;
+            word-break: break-all;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ HuggingFace API 配置</h1>
+        <p class="subtitle">为研究代理系统配置LLM服务</p>
+
+        <form id="configForm">
+            <div class="config-group">
+                <label>选择LLM服务模式</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="llm-service" value="mock" checked>
+                        <div>
+                            <span class="radio-title">🧠 智能模拟模式（推荐用于测试）</span>
+                            <div class="radio-desc">无需API Token，基于预设知识库生成高质量响应</div>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="llm-service" value="huggingface">
+                        <div>
+                            <span class="radio-title">🤖 HuggingFace Inference API</span>
+                            <div class="radio-desc">使用真实LLM模型，需要API Token</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div id="api-config" style="display: none;">
+                <div class="config-group">
+                    <label for="api-token">HuggingFace API Token</label>
+                    <input type="text" id="api-token" placeholder="hf_xxxxxxxxxxxxx">
+                    <div class="hint">
+                        获取方式: <a href="https://huggingface.co/settings/tokens" target="_blank">https://huggingface.co/settings/tokens</a>
+                    </div>
+                </div>
+
+                <div class="config-group">
+                    <label for="model-select">选择模型</label>
+                    <select id="model-select">
+                        <option value="Qwen/Qwen2.5-7B-Instruct">Qwen2.5-7B-Instruct（推荐，中文支持好）</option>
+                        <option value="meta-llama/Llama-3.2-3B-Instruct">Llama 3.2 3B（轻量级）</option>
+                        <option value="mistralai/Mistral-7B-Instruct-v0.3">Mistral 7B（均衡）</option>
+                        <option value="HuggingFaceH4/zephyr-7b-beta">Zephyr 7B（快速）</option>
+                    </select>
+                    <div class="hint">不同模型有不同的输出质量和速度</div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">💾 保存配置</button>
+        </form>
+
+        <div id="status" class="status"></div>
+
+        <div class="token-display">
+            <strong>📝 你的HuggingFace Token:</strong>
+            <code>YOUR_HUGGINGFACE_TOKEN_HERE</code>
+        </div>
+    </div>
+
+    <script>
+        // 切换API配置显示
+        document.querySelectorAll('input[name="llm-service"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                document.getElementById('api-config').style.display =
+                    e.target.value === 'huggingface' ? 'block' : 'none';
+            });
+        });
+
+        // 加载已保存的配置
+        function loadConfig() {
+            const saved = localStorage.getItem('research-agent-config');
+            if (saved) {
+                try {
+                    const config = JSON.parse(saved);
+                    if (config.useHuggingFace) {
+                        document.querySelector('input[value="huggingface"]').checked = true;
+                        document.getElementById('api-config').style.display = 'block';
+                        document.getElementById('api-token').value = config.apiToken || '';
+                        document.getElementById('model-select').value = config.modelId || 'Qwen/Qwen2.5-7B-Instruct';
+                    }
+                } catch (e) {
+                    console.error('加载配置失败', e);
+                }
+            } else {
+                // 默认填入Token
+                document.getElementById('api-token').value = '';
+            }
+        }
+
+        // 保存配置
+        document.getElementById('configForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const useApi = document.querySelector('input[name="llm-service"]:checked').value === 'huggingface';
+            const config = {
+                useHuggingFace: useApi,
+                apiToken: useApi ? document.getElementById('api-token').value.trim() : '',
+                modelId: useApi ? document.getElementById('model-select').value : ''
+            };
+
+            // 保存到localStorage
+            localStorage.setItem('research-agent-config', JSON.stringify(config));
+
+            // 显示状态
+            const statusEl = document.getElementById('status');
+            statusEl.className = 'status success';
+            statusEl.textContent = useApi
+                ? '✅ 已配置HuggingFace API，返回主页即可开始研究'
+                : '✅ 已切换到智能模拟模式，返回主页即可开始研究';
+
+            // 3秒后隐藏
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 5000);
+        });
+
+        // 页面加载时恢复配置
+        loadConfig();
+    </script>
+</body>
+</html>

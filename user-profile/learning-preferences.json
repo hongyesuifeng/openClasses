@@ -1,0 +1,46 @@
+{
+  "learner_id": "perry",
+  "last_updated": "2026-04-17",
+  "learning_style": {
+    "primary": "practical",
+    "secondary": "visual",
+    "description": "偏好通过实践项目学习，辅以图表和可视化内容"
+  },
+  "time_preferences": {
+    "weekly_availability": 15,
+    "daily_availability": {
+      "weekday": 2,
+      "weekend": 4
+    },
+    "golden_hours": "20:00-23:00",
+    "optimal_session_length": "2-3_hours",
+    "break_interval": "45_minutes_learning_10_minutes_break"
+  },
+  "difficulty_preference": "gradual",
+  "content_preferences": {
+    "format_priority": [
+      "hands_on_projects",
+      "comprehensive_guides",
+      "video_tutorials",
+      "documentation",
+      "research_papers"
+    ],
+    "documentation_style": "structured",
+    "preferred_chapter_format": "11_chapter_standard"
+  },
+  "feedback_preferences": {
+    "progress_updates": "weekly",
+    "milestone_celebration": true,
+    "detailed_analytics": true
+  },
+  "project_preferences": {
+    "preferred_project_size": "medium",
+    "project_duration_weeks": 2,
+    "team_collaboration": "solo_primary"
+  },
+  "domain_interests": {
+    "primary": ["ai_agents", "game_development"],
+    "secondary": ["cli_tools", "developer_tools"],
+    "exploration": ["graphics_programming", "procedural_generation"]
+  }
+}

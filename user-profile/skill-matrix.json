@@ -1,0 +1,360 @@
+{
+  "learner_id": "perry",
+  "last_updated": "2026-04-17",
+  "version": "1.0",
+  "skill_categories": {
+    "ai_ml": {
+      "description": "AI与机器学习相关技能",
+      "skills": {
+        "llm_basics": {
+          "name": "LLM基础",
+          "level": 4,
+          "max_level": 5,
+          "status": "mastered",
+          "evidence": [
+            "completed_cs146s",
+            "completed_hello_agents",
+            "understood_tokenization_attention",
+            "implemented_prompt_techniques",
+            "built_multiple_agents"
+          ],
+          "next_steps": [
+            "advanced_llm_techniques",
+            "fine_tuning_basics",
+            "rag_systems"
+          ],
+          "related_courses": [
+            "CS146S",
+            "Hello-Agents"
+          ]
+        },
+        "prompt_engineering": {
+          "name": "提示工程",
+          "level": 5,
+          "max_level": 5,
+          "status": "expert",
+          "evidence": [
+            "mastered_6_core_techniques",
+            "created_comprehensive_guide",
+            "built_template_library",
+            "practical_applications_in_agents",
+            "completed_prompt_course"
+          ],
+          "next_steps": [
+            "advanced_patterns",
+            "optimization_techniques",
+            "multi_agent_prompting",
+            "prompt_engineering_teaching"
+          ],
+          "related_courses": [
+            "CS146S",
+            "Prompt Design and Optimization"
+          ],
+          "achievements": [
+            "created PROMPT_ENGINEERING_COMPREHENSIVE_GUIDE.md",
+            "developed personal prompt templates",
+            "completed prompt optimization course"
+          ]
+        },
+        "agent_architecture": {
+          "name": "Agent架构",
+          "level": 3,
+          "max_level": 5,
+          "status": "intermediate",
+          "evidence": [
+            "completed_cs146s",
+            "completed_hello_agents",
+            "understood_basics",
+            "completed_mcp_server",
+            "studied_agent_patterns",
+            "built_custom_agents"
+          ],
+          "next_steps": [
+            "multi_agent_systems",
+            "framework_building",
+            "production_deployment",
+            "agent_in_games"
+          ],
+          "related_courses": [
+            "CS146S",
+            "Hello-Agents",
+            "OpenClaw"
+          ]
+        },
+        "mcp_protocol": {
+          "name": "MCP协议",
+          "level": 3,
+          "max_level": 5,
+          "status": "intermediate",
+          "evidence": [
+            "implemented_mcp_server",
+            "created_mcp_resources",
+            "understood_model_context_protocol"
+          ],
+          "next_steps": [
+            "advanced_mcp_patterns",
+            "mcp_security",
+            "custom_mcp_servers"
+          ],
+          "related_courses": [
+            "CS146S-Week2"
+          ]
+        }
+      }
+    },
+    "game_dev": {
+      "description": "游戏开发相关技能",
+      "skills": {
+        "engine_basics": {
+          "name": "游戏引擎基础",
+          "level": 2,
+          "max_level": 5,
+          "status": "learning",
+          "evidence": [
+            "studied_cocos_architecture",
+            "reviewed_godot_basics",
+            "understood_engine_concepts"
+          ],
+          "next_steps": [
+            "source_code_reading",
+            "custom_components",
+            "engine_modification"
+          ],
+          "related_courses": [
+            "cocos-engine",
+            "godot"
+          ]
+        },
+        "ai_in_games": {
+          "name": "游戏AI",
+          "level": 1,
+          "max_level": 5,
+          "status": "beginner",
+          "evidence": [
+            "read_agent_in_game_dev_guide",
+            "understood_npc_concepts",
+            "studied_behavior_trees"
+          ],
+          "next_steps": [
+            "implement_simple_npc",
+            "pathfinding_algorithms",
+            "decision_trees",
+            "utility_ai"
+          ],
+          "related_courses": [
+            "AGENT_IN_GAME_DEVELOPMENT_COMPREHENSIVE_GUIDE"
+          ]
+        },
+        "cocos_engine": {
+          "name": "Cocos引擎",
+          "level": 2,
+          "max_level": 5,
+          "status": "learning",
+          "evidence": [
+            "studied_architecture_document",
+            "understood_component_system"
+          ],
+          "next_steps": [
+            "source_code_deep_dive",
+            "custom_component_dev",
+            "performance_optimization"
+          ]
+        },
+        "godot_engine": {
+          "name": "Godot引擎",
+          "level": 1,
+          "max_level": 5,
+          "status": "beginner",
+          "evidence": [
+            "started_learning_guide",
+            "basic_gdscript_understanding"
+          ],
+          "next_steps": [
+            "complete_basics",
+            "first_mini_game",
+            "node_system_mastery"
+          ]
+        }
+      }
+    },
+    "programming": {
+      "description": "编程相关技能",
+      "skills": {
+        "python": {
+          "name": "Python",
+          "level": 4,
+          "max_level": 5,
+          "status": "advanced",
+          "evidence": [
+            "multiple_projects",
+            "agent_framework_dev",
+            "data_analysis_work",
+            "automation_scripts"
+          ],
+          "next_steps": [
+            "advanced_patterns",
+            "optimization",
+            "type_hints_mastery"
+          ]
+        },
+        "typescript": {
+          "name": "TypeScript",
+          "level": 3,
+          "max_level": 5,
+          "status": "intermediate",
+          "evidence": [
+            "cli_tools_dev",
+            "mcp_servers_dev",
+            "frontend_projects"
+          ],
+          "next_steps": [
+            "complex_systems",
+            "performance_optimization",
+            "advanced_types"
+          ]
+        },
+        "cpp": {
+          "name": "C++",
+          "level": 1,
+          "max_level": 5,
+          "status": "beginner",
+          "evidence": [
+            "basic_syntax_understanding",
+            "engine_source_reading"
+          ],
+          "next_steps": [
+            "modern_cpp_features",
+            "memory_management",
+            "engine_patterns"
+          ]
+        },
+        "gdscript": {
+          "name": "GDScript",
+          "level": 1,
+          "max_level": 5,
+          "status": "beginner",
+          "evidence": [],
+          "next_steps": [
+            "language_basics",
+            "godot_api",
+            "scripting_patterns"
+          ]
+        }
+      }
+    },
+    "tools": {
+      "description": "开发工具相关技能",
+      "skills": {
+        "git": {
+          "name": "Git",
+          "level": 3,
+          "max_level": 5,
+          "status": "intermediate",
+          "evidence": [
+            "daily_version_control",
+            "branch_management",
+            "collision_resolution"
+          ]
+        },
+        "claude_code": {
+          "name": "Claude Code",
+          "level": 4,
+          "max_level": 5,
+          "status": "advanced",
+          "evidence": [
+            "daily_usage",
+            "custom_commands",
+            "agent_automation",
+            "created_comprehensive_guide"
+          ]
+        },
+        "terminal": {
+          "name": "终端/CLI",
+          "level": 3,
+          "max_level": 5,
+          "status": "intermediate",
+          "evidence": [
+            "warp_terminal_usage",
+            "cli_tool_dev",
+            "shell_scripting"
+          ]
+        }
+      }
+    }
+  },
+  "learning_velocity": {
+    "average_hours_per_week": 15,
+    "completion_rate": 0.85,
+    "preferred_session_length": "2-3_hours",
+    "optimal_difficulty_increase": "gradual",
+    "learning_style": "project-based"
+  },
+  "learning_goals": {
+    "short_term": [
+      {
+        "goal": "完成OpenClaw课程",
+        "target_weeks": 4,
+        "priority": "high"
+      },
+      {
+        "goal": "掌握Godot基础",
+        "target_weeks": 4,
+        "priority": "medium"
+      },
+      {
+        "goal": "开始游戏AI项目",
+        "target_weeks": 2,
+        "priority": "high"
+      }
+    ],
+    "medium_term": [
+      {
+        "goal": "构建AI NPC系统原型",
+        "target_months": 2,
+        "priority": "high"
+      },
+      {
+        "goal": "深入理解游戏引擎源码",
+        "target_months": 4,
+        "priority": "medium"
+      },
+      {
+        "goal": "提升C++能力到中级",
+        "target_months": 3,
+        "priority": "medium"
+      }
+    ],
+    "long_term": [
+      {
+        "goal": "发布带有智能NPC的游戏Demo",
+        "target_months": 6,
+        "priority": "high"
+      },
+      {
+        "goal": "成为游戏AI领域专家",
+        "target_months": 12,
+        "priority": "high"
+      }
+    ]
+  },
+  "knowledge_graph": {
+    "strong_connections": [
+      "prompt_engineering <-> agent_architecture",
+      "python <-> agent_development",
+      "typescript <-> cli_tools",
+      "agent_architecture <-> game_ai"
+    ],
+    "learning_opportunities": [
+      "ai_in_games + agent_architecture = intelligent_npcs",
+      "game_engine + cpp = engine_modification",
+      "cli_tools + ai_agents = enhanced_dev_tools",
+      "prompt_engineering + game_dialog = advanced_npc_systems"
+    ],
+    "completed_milestones": [
+      "completed_cs146s",
+      "completed_hello_agents",
+      "completed_prompt_engineering_course",
+      "mastered_prompt_design"
+    ]
+  }
+}

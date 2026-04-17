@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛博小镇 - Cyber Town</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 顶部标题栏 -->
+        <header class="header">
+            <h1>🏘️ 赛博小镇 <span class="subtitle">AI Agent 驱动的虚拟社会</span></h1>
+            <div class="controls">
+                <button id="btn-pause" class="btn btn-primary">⏸️ 暂停</button>
+                <select id="time-speed" class="btn">
+                    <option value="30">0.5x</option>
+                    <option value="60" selected>1x</option>
+                    <option value="120">2x</option>
+                    <option value="300">5x</option>
+                </select>
+                <button id="btn-settings" class="btn">⚙️ 设置</button>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 左侧：地图 -->
+            <section class="map-section">
+                <div class="section-header">
+                    <h2>🗺️ 小镇地图</h2>
+                </div>
+                <div id="map-container" class="map-container">
+                    <canvas id="map-canvas" width="600" height="400"></canvas>
+                </div>
+            </section>
+
+            <!-- 右侧：信息面板 -->
+            <aside class="info-panel">
+                <!-- 时间信息 -->
+                <div class="panel time-panel">
+                    <h3>⏰ 游戏时间</h3>
+                    <div id="game-time" class="time-display">
+                        <span class="day">第 1 天</span>
+                        <span class="time">08:00</span>
+                        <span class="period">早晨</span>
+                    </div>
+                </div>
+
+                <!-- 选中角色信息 -->
+                <div class="panel character-panel">
+                    <h3>👤 角色信息</h3>
+                    <div id="character-info">
+                        <p class="placeholder">点击地图上的角色查看详情</p>
+                    </div>
+                </div>
+
+                <!-- 角色列表 -->
+                <div class="panel characters-list-panel">
+                    <h3>👥 小镇居民</h3>
+                    <div id="characters-list" class="characters-list">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- 底部面板 -->
+        <div class="bottom-panels">
+            <!-- 事件日志 -->
+            <section class="event-log-section">
+                <div class="section-header">
+                    <h2>📜 事件日志</h2>
+                    <button id="btn-clear-log" class="btn btn-small">清空</button>
+                </div>
+                <div id="event-log" class="event-log">
+                    <p class="placeholder">游戏事件将显示在这里...</p>
+                </div>
+            </section>
+
+            <!-- 关系图谱 -->
+            <section class="relationship-section">
+                <div class="section-header">
+                    <h2>🔗 社交网络</h2>
+                </div>
+                <div id="relationship-graph" class="relationship-graph">
+                    <canvas id="graph-canvas" width="350" height="250"></canvas>
+                </div>
+            </section>
+
+            <!-- 知识点展示 -->
+            <section class="knowledge-section">
+                <div class="section-header">
+                    <h2>📚 技术知识点</h2>
+                </div>
+                <div id="knowledge-points" class="knowledge-points">
+                    <div class="knowledge-card" data-topic="react">
+                        <h4>ReAct范式</h4>
+                        <p>Thought → Action → Observation 循环决策</p>
+                        <span class="chapter">第4章</span>
+                    </div>
+                    <div class="knowledge-card" data-topic="memory">
+                        <h4>记忆系统</h4>
+                        <p>记忆存储、检索与衰减机制</p>
+                        <span class="chapter">第8章</span>
+                    </div>
+                    <div class="knowledge-card" data-topic="ocean">
+                        <h4>OCEAN性格</h4>
+                        <p>五因素人格模型影响行为</p>
+                        <span class="chapter">第15章</span>
+                    </div>
+                    <div class="knowledge-card" data-topic="social">
+                        <h4>社交网络</h4>
+                        <p>角色关系图谱与社区发现</p>
+                        <span class="chapter">第15章</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 设置弹窗 -->
+        <div id="settings-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>⚙️ 游戏设置</h3>
+                    <button class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label>MiniMax API Key（用于智能对话）</label>
+                        <input type="password" id="minimax-api-key" placeholder="输入API Key">
+                        <small>可选：启用后将使用MiniMax模型生成更智能的对话</small>
+                    </div>
+                    <div class="setting-group">
+                        <label>初始角色数量</label>
+                        <select id="initial-characters">
+                            <option value="3">3个</option>
+                            <option value="5" selected>5个</option>
+                            <option value="7">7个</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>
+                            <input type="checkbox" id="auto-save" checked>
+                            自动保存游戏进度
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-save-settings" class="btn btn-primary">保存</button>
+                    <button class="btn btn-cancel">取消</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 角色详情弹窗 -->
+        <div id="character-modal" class="modal hidden">
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <h3 id="char-modal-title">角色详情</h3>
+                    <button class="btn-close">&times;</button>
+                </div>
+                <div class="modal-body" id="char-modal-body">
+                    <!-- 动态内容 -->
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-follow" class="btn btn-primary">跟随</button>
+                    <button class="btn btn-cancel">关闭</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 加载提示 -->
+        <div id="loading-overlay" class="loading-overlay">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p>正在初始化赛博小镇...</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
