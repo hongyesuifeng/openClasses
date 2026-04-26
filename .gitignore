@@ -35,6 +35,7 @@ __pycache__/
 *.pyd
 .Pythonappropriateness/
 .pytest_cache/
+.ruff_cache/
 .coverage
 htmlcov/
 *.egg-info/
