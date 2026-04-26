@@ -21,12 +21,33 @@ desktop.ini
 *.log
 *.cache
 
+# Python 虚拟环境
+venv/
+.venv/
+env/
+.env/
+virtualenv/
+
 # Python 缓存文件
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 .Pythonappropriateness/
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# nohup 日志
+nohup.out
 
 # 敏感信息（包含 API 密钥的文件）
 **/credentials.json
