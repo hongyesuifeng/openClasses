@@ -1,10 +1,7 @@
 [submodule "courses/godot"]
 	path = courses/godot
-	url = https://github.com/godotengine/godot.git
+	url = git@github.com:godotengine/godot.git
 [submodule "courses/cocos-engine"]
 	path = courses/cocos-engine
-	url = https://github.com/cocos/cocos-engine
+	url = git@github.com:cocos/cocos-engine.git
 	branch = v3.8.8
-[submodule "papers/GameDevBench/code"]
-	path = papers/GameDevBench/code
-	url = https://github.com/waynchi/gamedevbench.git
