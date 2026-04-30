@@ -85,25 +85,29 @@
 掌握 Prompt 设计与优化技巧。
 
 **关键内容**:
-- 提示工程综合指南
-- Prompt 设计模式和模板
-- 应用场景和最佳实践
+- 提示工程基础指南
+- 高级提示技术（CoT、RAG、工具调用）
+- 游戏开发提示实战
+- 代码生成模板库
 
+**学习路线**: [提示工程学习路线](../learning-routes/topic-index/prompt-engineering.md)
 **快速开始**: [查看领域详情](./prompt-engineering/)
 
 ---
 
-### 5. 软件开发 💻
-**进度**: 持续学习 | **难度**: ⭐⭐⭐
+### 5. 软件工程 💻
+**进度**: 持续学习 🔄 | **难度**: ⭐⭐⭐
 
 现代软件开发工具和实践。
 
 **关键内容**:
-- CLI 工具开发
-- Agent 化工具
-- 测试和部署
+- 设计模式和代码质量
+- AI 辅助开发
+- 测试和 CI/CD
+- 实战项目指南
 
-**快速开始**: [查看领域详情](./software-development/)
+**学习路线**: [软件工程学习路线](../learning-routes/topic-index/software-engineering.md)
+**快速开始**: [查看领域详情](./software-engineering/)
 
 ## 🎯 推荐学习路径
 

@@ -19,6 +19,32 @@
 - [提示工程综合指南](../../docs/general/PROMPT_ENGINEERING_COMPREHENSIVE_GUIDE.md)
 - [提示工程分享](../../docs/general/PROMPT_ENGINEERING_SHARING.md)
 
+### 学习路径
+
+1. **基础阶段** - [提示工程基础](./guides/foundations/prompt-basics.md)
+   - 核心概念和原理
+   - 基础提示模式
+   - 结构化框架
+   - 输出控制技巧
+
+2. **进阶阶段** - [高级提示技术](./guides/advanced/advanced-techniques.md)
+   - 思维链 (CoT)
+   - 检索增强生成 (RAG)
+   - 工具调用设计
+   - 自我反思技术
+
+3. **应用阶段** - [游戏开发提示实战](./guides/specialized/game-development-prompts.md)
+   - 游戏代码生成
+   - 性能优化提示
+   - 系统设计提示
+   - 工具链开发
+
+### 实践模板
+
+- [代码生成模板](./templates/code-generation.md)
+- [游戏开发模板](./templates/game-development-templates.md)
+- [测试生成模板](./templates/testing-templates.md)
+
 ## 🎯 核心技能
 
 ### Prompt 设计原则
