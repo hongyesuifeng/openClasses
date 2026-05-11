@@ -20,6 +20,7 @@ desktop.ini
 *.tmp
 *.log
 *.cache
+.sisyphus/
 
 # Python 虚拟环境
 venv/
