@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://djeb0cuoeaeet"]
+
+[ext_resource type="Script" uid="uid://c5iwgf0ybwfip" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://x74wokim5fsl" path="res://mod.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bfpae87orb2wu" path="res://player.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bjdkryugtxlcq" path="res://hud.tscn" id="4_1bvp3"]
+[ext_resource type="AudioStreamOggVorbis" uid="uid://dwjn2v4dsgslh" path="res://art/House In a Forest Loop.ogg" id="5_8rjv4"]
+[ext_resource type="AudioStreamWAV" uid="uid://c6vcw3hxlcy5j" path="res://art/gameover.wav" id="6_xm5yw"]
+
+[sub_resource type="Curve2D" id="Curve2D_7dm0k"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 479, -9, 0, 0, 0, 0, 479, 711, 0, 0, 0, 0, -1, 711, 0, 0, 0, 0, -1, -1)
+}
+point_count = 5
+
+[node name="Main" type="Node" unique_id=1295524006]
+script = ExtResource("1_ig7tw")
+mob_scene = ExtResource("2_0xm2m")
+
+[node name="player" parent="." unique_id=1309847883 instance=ExtResource("3_h2yge")]
+
+[node name="MobTimer" type="Timer" parent="." unique_id=1931967430]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="." unique_id=1502906704]
+
+[node name="StartTimer" type="Timer" parent="." unique_id=206206444]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="." unique_id=674114532]
+position = Vector2(240, 450)
+
+[node name="MobPath" type="Path2D" parent="." unique_id=393686585]
+position = Vector2(1, 9)
+curve = SubResource("Curve2D_7dm0k")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=417573405]
+position = Vector2(-1, -1)
+rotation = -0.016665123
+
+[node name="HUD" parent="." unique_id=1461991481 instance=ExtResource("4_1bvp3")]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1745623845]
+stream = ExtResource("5_8rjv4")
+volume_db = -10.0
+autoplay = false
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1825673856]
+stream = ExtResource("6_xm5yw")
+volume_db = 0.0
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="hit" from="player" to="." method="game_over"]
