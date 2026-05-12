@@ -1,6 +1,6 @@
 # Godot 引擎完整学习、原理、源码与 Demo 实战总路线
 
-> 面向学习者 `perry` 的正式版 Godot 总文档。目标不是零散地“学会一些 Godot 功能”，而是系统完成：**引擎使用 → 核心原理 → 核心模块技术原理 → 源码架构阅读 → 类《杀戮尖塔》Demo 制作 → Demo 发布上线**。
+> 面向学习者 `perry` 的正式版 Godot 总文档。目标不是零散地“学会一些 Godot 功能”，而是系统完成：**引擎使用 → 核心原理 → 核心模块技术原理 → AI 辅助搭建 Demo → 类《杀戮尖塔》Demo 制作 → Demo 发布上线 → 源码架构阅读**。
 
 ---
 
@@ -11,7 +11,7 @@
 它解决四个问题：
 
 1. **学什么**：Godot 4.x 应该按什么顺序学；
-2. **为什么这样学**：先用、再懂、再读源码、再做项目；
+2. **为什么这样学**：先用、再懂、先用 AI 搭起来，再做项目，最后再读源码；
 3. **怎么验证学会了**：每个阶段都有作业、产出和检查点；
 4. **怎么收束成成果**：最终做出一个可玩的卡牌 Roguelike Demo，并具备发布能力。
 
@@ -39,8 +39,9 @@
 1. **先建立手感**：用 Godot 做小原型；
 2. **再理解结构**：搞懂 Scene / Node / Resource / Signal；
 3. **再看引擎分层**：Scene / Server / Driver / Platform；
-4. **再读源码**：从 `main/`、`core/`、`scene/` 开始；
-5. **最后做系统型项目**：把知识收束到卡牌 Demo。
+4. **先借助 AI 搭骨架**：用 AI 辅助搭建类《杀戮尖塔》Demo 的最小可玩结构；
+5. **在做 Demo 的过程中补理解**：把产品理解、引擎理解和实现细节串起来；
+6. **最后再回到源码**：用 Demo 反推 `main/`、`core/`、`scene/` 的真实调用链。
 
 ---
 
@@ -54,10 +55,10 @@
 | Phase 1 | Godot 使用指南 | 4-6 周 | 15h | 节点/场景/信号/资源/调试 |
 | Phase 2 | Godot 主要原理 | 4 周 | 15h | 分层架构、主循环、Server 模式 |
 | Phase 3 | 核心模块技术原理 | 4 周 | 15h | core / scene / server / editor 认知 |
-| Phase 4 | 源代码架构解析 | 4 周 | 12-15h | 阅读路径、断点、调用链 |
+| Phase 4 | AI + Godot 结合 | 2-4 周 | 10-15h | 用 AI 辅助搭建 Demo 骨架 |
 | Phase 5 | 类杀戮尖塔 Demo 开发 | 8 周 | 15-20h | 可玩 Demo |
 | Phase 6 | 打磨与上线 | 2-3 周 | 12-15h | 导出、测试、发布 |
-| 扩展 | AI + Godot 结合 | 6-10 周 | 10-15h | AI 工具、内容生成、测试 Agent |
+| Phase 7 | 源代码架构解析 | 4 周 | 12-15h | 阅读路径、断点、调用链 |
 
 **建议总计：28~33 周。**
 
@@ -77,9 +78,9 @@
 1. **会用 Godot**；
 2. **能做几个小原型**；
 3. **理解 Godot 的分层和模块职责**；
-4. **能把编辑器行为映射到源码目录**；
-5. **能做出系统拆分合理的卡牌 Demo**；
-6. **能导出、测试、发布**。
+4. **先用 AI 辅助搭起 Demo 骨架**；
+5. **在 Demo 中反推产品结构和引擎原理**；
+6. **最后再回到源码验证理解**。
 
 ---
 
@@ -544,100 +545,48 @@ _enter_tree() → _ready() → _process()/_physics_process() → _exit_tree()
 
 ---
 
-## 8. 第四部分：源代码架构解析与阅读路径
+## 8. 第四部分：AI 与 Godot 结合
 
-### 8.1 源码获取与调试构建
+> 目标：在已经掌握基础使用和技术原理之后，开始借助 AI 搭建类《杀戮尖塔》Demo，并在搭建过程中反过来深化对产品、引擎和实现细节的理解。
 
-```bash
-git clone https://github.com/godotengine/godot.git
-cd godot
-git checkout 4.2-stable
+### 8.1 AI 在这个阶段的定位
 
-# Linux/macOS
-scons platform=linuxbsd dev_build=yes -j$(nproc)
+AI 在这里不是“附加扩展”，而是进入 Demo 阶段前的加速器。你可以把它理解成：
 
-# Windows
-scons platform=windows dev_build=yes -j%NUMBER_OF_PROCESSORS%
-```
+1. 帮你更快把最小可玩结构搭出来；
+2. 帮你更早暴露项目拆分、状态管理、UI 表达的问题；
+3. 帮你把“学习 Godot”从看资料，切换成“带着具体问题做东西”。
 
-### 8.2 IDE 配置重点
+### 8.2 适合 AI 先介入的环节
 
-- C/C++ 语言服务器可用
-- 能跳转宏定义
-- 能跟踪继承层次
-- 能快速查找 `GDCLASS(`、`ClassDB::bind_method`
+- Demo 范围收敛：先让 AI 帮你列出最小闭环，而不是直接生成整套方案；
+- 目录与脚手架：让 AI 辅助生成项目结构、基础场景和数据模板；
+- 数据样板：让 AI 辅助批量生成卡牌文案、敌人配置、事件草案；
+- 测试辅助：让 AI 帮你补测试清单、边界条件和回归检查点。
 
-### 8.3 推荐阅读顺序
+### 8.3 使用原则
 
-**第一轮：建立地图感**
+1. AI 负责“加速搭建”，不负责替你完成架构判断；
+2. 每一次 AI 产出，都要落回到可运行的 Godot 项目里验证；
+3. 如果 AI 让你更快做出可玩的东西，就用它；如果它让你更快暴露理解缺口，也要用它；
+4. AI 不是替代源码阅读，而是把源码阅读推到更有问题意识的阶段。
 
-1. 顶层目录结构
-2. `main/main.cpp`
-3. `core/object/`
-4. `scene/main/`
-5. `scene/resources/`
+### 8.4 典型工作流
 
-**第二轮：把编辑器操作映射到源码**
+1. 先用 AI 帮你搭最小战斗原型；
+2. 在原型里补卡牌、敌人、回合和 UI；
+3. 在这个过程中识别产品结构上的关键问题；
+4. 再把这些问题映射回 Godot 的节点、资源、场景和调试机制；
+5. 之后进入源码阅读时，关注点会更明确。
 
-1. Node 生命周期
-2. SceneTree 组织与通知
-3. PackedScene 加载与实例化
-4. ResourceLoader / ResourceSaver
-5. Control 的输入与布局
+### 8.5 适合后续扩展的 AI 方向
 
-**建议你在第二轮额外追 3 条具体调用链**
+当 Demo 主循环跑起来以后，可以把 AI 继续接到这些更具体的方向上：
 
-1. **引擎启动链**：`main()` → `Main::setup()` → `Main::setup2()` → `Main::start()`
-2. **场景实例化链**：从加载 `PackedScene` 到节点树恢复、`_enter_tree()` / `_ready()` 触发
-3. **输入分发链**：输入进入窗口/视图后，怎样一路传到 `SceneTree` 和具体 `Control` / `Node`
-
-这三条链路比盲看目录更能建立真实理解。
-
-**第三轮：理解后端系统**
-
-1. `servers/rendering/`
-2. `servers/physics_*`
-3. `servers/audio/`
-4. Display / Window 路径
-
-**第四轮：脚本与扩展**
-
-1. `modules/gdscript/`
-2. `modules/mono/`
-3. `editor/`
-4. `core/extension/`
-
-### 8.4 重点文件索引
-
-| 目录 | 文件/区域 | 你要理解什么 |
-|---|---|---|
-| `main/` | `main.cpp` | 启动与主循环 |
-| `core/object/` | `object.h` | 对象模型、通知、反射 |
-| `core/variant/` | `variant.h` | 通用数据容器 |
-| `scene/main/` | `node.h`, `scene_tree.h` | 节点树与生命周期 |
-| `scene/resources/` | `packed_scene.*` | 场景序列化与实例化 |
-| `scene/gui/` | `control.*` | UI 控件体系 |
-| `servers/` | rendering / physics / audio | 后端抽象 |
-| `editor/` | `editor_node.*` | 编辑器骨架 |
-| `modules/gdscript/` | parser/runtime 相关 | 脚本语言实现 |
-
-### 8.5 调试建议
-
-```bash
-# 内存检查
-valgrind --leak-check=full ./bin/godot.linuxbsd.editor.dev.x86_64
-
-# AddressSanitizer
-scons sanitize=address
-```
-
-源码阅读原则：
-
-1. 先看调用链，不先死抠实现细节
-2. 先回答“谁调谁”，再回答“怎么做”
-3. 每周只解决 1~2 个大问题
-4. 用断点验证理解，而不是只做静态阅读
-5. 先从与你当前 Demo 直接相关的路径入手，不要把源码学习和“阅读所有模块”混为一谈
+- 智能 NPC / 对话系统：LLM 驱动对话、角色记忆与状态驱动响应、非关键玩法区域中的智能事件文本；
+- 程序化内容生成：卡牌描述草案生成、事件文案与敌人设定生成、平衡测试用批量内容样本生成；
+- AI 对手 / 辅助测试 Agent：自动跑局测试、自动检测软锁局与坏体验、自动记录胜率、平均回合数、构筑倾向；
+- AI 辅助工具链：卡牌数据生成器、敌人行为配置检查器、存档分析器、自动回归测试 Agent。
 
 ---
 
@@ -915,6 +864,19 @@ slay_demo/
 └── tests/
 ```
 
+### 9.7 可复用模块的沉淀（放到后面再做）
+
+这一版 Demo 的重点是先把“能玩起来”做出来；等它完成后，再把过程里反复出现的能力抽成可复用模块，留给下一个 Demo 直接用。
+
+优先考虑沉淀的方向包括：
+
+- 事件系统：把战斗、地图、奖励、UI 交互统一成事件流；
+- UI 管理系统：统一界面切换、弹窗、层级与输入拦截；
+- 状态机：统一角色、敌人、回合和流程状态切换；
+- 资源管理模块：统一加载、缓存、释放和配置读取。
+
+先不要把这些模块做成当前 Demo 的前置条件；它们更适合作为**下一个 Demo 的复用基础**，这样你会在真实项目里自然知道哪些能力值得抽象。
+
 ---
 
 ## 10. 第六部分：Demo 测试、打磨与上线
@@ -972,36 +934,100 @@ Steam Demo 可以作为下一阶段目标，但不适合作为第一次 Godot �
 
 ---
 
-## 11. 扩展部分：AI 与 Godot 结合
+## 11. 第七部分：源代码架构解析与阅读路径
 
-### 11.1 智能 NPC / 对话系统
+### 11.1 源码获取与调试构建
 
-适合后续探索：
+```bash
+git clone https://github.com/godotengine/godot.git
+cd godot
+git checkout 4.2-stable
 
-- LLM 驱动对话
-- 角色记忆与状态驱动响应
-- 非关键玩法区域中的智能事件文本
+# Linux/macOS
+scons platform=linuxbsd dev_build=yes -j$(nproc)
 
-### 11.2 程序化内容生成
+# Windows
+scons platform=windows dev_build=yes -j%NUMBER_OF_PROCESSORS%
+```
 
-- 卡牌描述草案生成
-- 事件文案与敌人设定生成
-- 平衡测试用批量内容样本生成
+### 11.2 IDE 配置重点
 
-### 11.3 AI 对手 / 辅助测试 Agent
+- C/C++ 语言服务器可用
+- 能跳转宏定义
+- 能跟踪继承层次
+- 能快速查找 `GDCLASS(`、`ClassDB::bind_method`
 
-- 自动跑局测试
-- 自动检测软锁局与坏体验
-- 自动记录胜率、平均回合数、构筑倾向
+### 11.3 推荐阅读顺序
 
-### 11.4 AI 辅助工具链
+**第一轮：建立地图感**
 
-你已有 Agent 背景，这部分很适合你后续做成个人特色：
+1. 顶层目录结构
+2. `main/main.cpp`
+3. `core/object/`
+4. `scene/main/`
+5. `scene/resources/`
 
-- 卡牌数据生成器
-- 敌人行为配置检查器
-- 存档分析器
-- 自动回归测试 Agent
+**第二轮：把编辑器操作映射到源码**
+
+1. Node 生命周期
+2. SceneTree 组织与通知
+3. PackedScene 加载与实例化
+4. ResourceLoader / ResourceSaver
+5. Control 的输入与布局
+
+**建议你在第二轮额外追 3 条具体调用链**
+
+1. **引擎启动链**：`main()` → `Main::setup()` → `Main::setup2()` → `Main::start()`
+2. **场景实例化链**：从加载 `PackedScene` 到节点树恢复、`_enter_tree()` / `_ready()` 触发
+3. **输入分发链**：输入进入窗口/视图后，怎样一路传到 `SceneTree` 和具体 `Control` / `Node`
+
+这三条链路比盲看目录更能建立真实理解。
+
+**第三轮：理解后端系统**
+
+1. `servers/rendering/`
+2. `servers/physics_*`
+3. `servers/audio/`
+4. Display / Window 路径
+
+**第四轮：脚本与扩展**
+
+1. `modules/gdscript/`
+2. `modules/mono/`
+3. `editor/`
+4. `core/extension/`
+
+### 11.4 重点文件索引
+
+| 目录 | 文件/区域 | 你要理解什么 |
+|---|---|---|
+| `main/` | `main.cpp` | 启动与主循环 |
+| `core/object/` | `object.h` | 对象模型、通知、反射 |
+| `core/variant/` | `variant.h` | 通用数据容器 |
+| `scene/main/` | `node.h`, `scene_tree.h` | 节点树与生命周期 |
+| `scene/resources/` | `packed_scene.*` | 场景序列化与实例化 |
+| `scene/gui/` | `control.*` | UI 控件体系 |
+| `servers/` | rendering / physics / audio | 后端抽象 |
+| `editor/` | `editor_node.*` | 编辑器骨架 |
+| `modules/gdscript/` | parser/runtime 相关 | 脚本语言实现 |
+
+### 11.5 调试建议
+
+```bash
+# 内存检查
+valgrind --leak-check=full ./bin/godot.linuxbsd.editor.dev.x86_64
+
+# AddressSanitizer
+scons sanitize=address
+```
+
+源码阅读原则：
+
+1. 先看调用链，不先死抠实现细节
+2. 先回答“谁调谁”，再回答“怎么做”
+3. 每周只解决 1~2 个大问题
+4. 用断点验证理解，而不是只做静态阅读
+5. 先从与你当前 Demo 直接相关的路径入手，不要把源码学习和“阅读所有模块”混为一谈
 
 ---
 
