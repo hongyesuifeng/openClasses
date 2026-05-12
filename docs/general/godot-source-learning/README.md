@@ -103,6 +103,7 @@
 | **脚本系统** | `06-scripting-system/` | GDScript 编译器、VM、脚本接口、GDExtension | 3-5 天 |
 | **编辑器与扩展** | `07-editor-extension/` | 编辑器架构、插件系统、Inspector | 2-3 天 |
 | **平台与驱动** | `08-platform-driver/` | OS 抽象、DisplayServer、GPU/音频驱动 | 3-5 天 |
+| **执行落地** | `09-demo-execution/` | 把前面知识落实到类《杀戮尖塔》Demo 的可执行步骤 | 2-4 周 |
 
 ---
 
@@ -138,6 +139,7 @@ gdb ./bin/godot.linuxbsd.editor.dev.x86_64
 | 渲染工程师 | 核心基础 → 渲染系统 → 平台与驱动 |
 | 引擎贡献者 | 全部章节，按顺序学习 |
 | 工具开发者 | 核心基础 → 编辑器与扩展 → 脚本系统 |
+| Demo 实战者 | 先读执行落地 → 再回看场景/功能模块/资源管理 |
 
 ---
 
@@ -171,6 +173,7 @@ gdb ./bin/godot.linuxbsd.editor.dev.x86_64
 - [脚本系统](./06-scripting-system/README.md)
 - [编辑器与扩展](./07-editor-extension/README.md)
 - [平台与驱动](./08-platform-driver/README.md)
+- [执行落地](./09-demo-execution/README.md)
 
 ---
 
