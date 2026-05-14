@@ -1,0 +1,1634 @@
+{
+  "timestamp": "2026-05-14 22:50:19",
+  "total_discussions": 465,
+  "sections": {
+    "一般讨论": 150,
+    "交易": 150,
+    "活动": 15,
+    "公告": 150
+  },
+  "sentiment": {
+    "neutral": 403,
+    "negative": 62,
+    "positive": 0
+  },
+  "categories": {
+    "gamemode": 31,
+    "general": 248,
+    "technical": 124,
+    "character": 31,
+    "feature": 31
+  },
+  "top_keywords": {
+    "online": 31,
+    "public": 31,
+    "beta": 31,
+    "forum": 31,
+    "wiki": 31,
+    "starting": 31,
+    "tips": 31,
+    "faqs": 31,
+    "savedata": 31,
+    "recovery": 31,
+    "buy": 31,
+    "simondo": 31,
+    "bugged": 31,
+    "stupidly": 31,
+    "rare": 31,
+    "once": 31,
+    "unlocked": 31,
+    "everything": 62,
+    "done": 31,
+    "expect": 31,
+    "controller": 31,
+    "support": 62,
+    "work": 31,
+    "mac": 31,
+    "view": 31,
+    "gold": 31,
+    "past": 31,
+    "finding": 31,
+    "pugnala": 31,
+    "ultrawide": 31,
+    "remote": 31,
+    "play": 31,
+    "working": 31,
+    "game": 62,
+    "critical": 31,
+    "hits": 31,
+    "exceed": 31,
+    "crash": 31,
+    "party": 31,
+    "mode": 31,
+    "cpu": 31,
+    "need": 31,
+    "improvements": 31,
+    "emailed": 31,
+    "development": 31,
+    "team": 31,
+    "damage": 31,
+    "calculation": 31,
+    "shanoa": 31,
+    "comfortere": 31
+  },
+  "user_demands": {
+    "功能需求": [],
+    "内容需求": [],
+    "优化需求": [
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements",
+      "Party mode cpu need some improvements"
+    ],
+    "平台支持": [
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support",
+      "When can we expect controller support to work on Mac OS?",
+      "Ultrawide support"
+    ]
+  },
+  "pain_points": {
+    "技术问题": [
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      },
+      {
+        "title": "Simondo bugged, or stupidly rare?",
+        "replies": 0
+      },
+      {
+        "title": "Remote play not working",
+        "replies": 2
+      },
+      {
+        "title": "When the game's critical hits exceed 10,000, the game will crash.   ﻿",
+        "replies": 1
+      }
+    ],
+    "游戏平衡": [],
+    "内容缺失": [
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      },
+      {
+        "title": "Party mode cpu need some improvements",
+        "replies": 0
+      }
+    ],
+    "体验问题": []
+  },
+  "feature_requests": [],
+  "top_discussions": [
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Should I buy this?",
+      "replies": 14,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/800093528412851354/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "what do i do once i've unlocked everything and done everything :(",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754292655/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "When can we expect controller support to work on Mac OS?",
+      "replies": 3,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/3765608282428488855/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Finding Pugnala",
+      "replies": 4,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/841753627754288723/",
+      "sentiment": "neutral"
+    },
+    {
+      "title": "Ultrawide support",
+      "replies": 10,
+      "url": "https://steamcommunity.com/app/1794680/discussions/0/4512128114436423345/",
+      "sentiment": "neutral"
+    }
+  ],
+  "insights": [
+    {
+      "type": "情感倾向",
+      "content": "用户负面情绪较多（100.0%），需要关注用户反馈中的问题"
+    },
+    {
+      "type": "关注焦点",
+      "content": "用户最关注的话题：everything, support, game, online, public"
+    },
+    {
+      "type": "主要痛点",
+      "content": "用户最头疼的问题是\"技术问题\"，相关讨论 93 条"
+    },
+    {
+      "type": "核心需求",
+      "content": "用户最迫切的需求是\"平台支持\"，相关讨论 62 条"
+    },
+    {
+      "type": "热点话题",
+      "content": "最受关注的讨论：Should I buy this?... (14 回复)"
+    }
+  ]
+}
