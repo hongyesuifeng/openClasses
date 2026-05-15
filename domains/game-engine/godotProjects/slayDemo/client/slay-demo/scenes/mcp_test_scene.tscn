@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://coucs7u5od1sn"]
+
+[node name="Node2D" type="Node2D" unique_id=1790876269]
+
+[node name="MCP_Test_Label" type="Label" parent="." unique_id=1205809192]
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 80.0
+offset_bottom = 80.0
+text = "Godot MCP test node created by opencode"
+
+[node name="MCP_OpenCode_Node_Add_Test" type="Node2D" parent="." unique_id=1296834942]
+position = Vector2(200, 160)
+
+[node name="1234" type="Node2D" parent="." unique_id=787566554]
+position = Vector2(240, 200)
