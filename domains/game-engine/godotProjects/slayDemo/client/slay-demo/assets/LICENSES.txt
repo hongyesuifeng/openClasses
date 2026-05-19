@@ -1,0 +1,109 @@
+SlayDemo Asset License Records
+==============================
+
+This file records third-party assets collected for the Godot project.
+Normalized project copies live under res://assets/. Original downloaded
+packages are preserved under res://assets/third_party/.
+
+Kenney UI Pack
+--------------
+Source: https://kenney.nl/assets/ui-pack
+Author: Kenney
+License: Creative Commons CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Original package: assets/third_party/downloads/kenney_ui_pack.zip
+Original files: assets/third_party/kenney_ui_pack/
+Project uses:
+- assets/ui/buttons/ui_btn_normal.png
+- assets/ui/buttons/ui_btn_hover.png
+- assets/ui/buttons/ui_btn_pressed.png
+- assets/ui/buttons/ui_btn_disabled.png
+- assets/ui/panels/ui_panel_dark.png
+- assets/ui/panels/ui_panel_light.png
+- assets/fonts/KenneyFuture.ttf
+- assets/fonts/KenneyFutureNarrow.ttf
+
+Kenney Boardgame Pack
+---------------------
+Source: https://kenney.nl/assets/boardgame-pack
+Author: Kenney
+License: Creative Commons CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Original package: assets/third_party/downloads/kenney_boardgame_pack.zip
+Original files: assets/third_party/kenney_boardgame_pack/
+Project uses:
+- assets/card/templates/card_back.png
+- assets/audio/sfx/card_place_1.ogg
+- assets/audio/sfx/card_slide_1.ogg
+
+Kenney Particle Pack
+--------------------
+Source: https://kenney.nl/assets/particle-pack
+Author: Kenney
+License: Creative Commons CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Original package: assets/third_party/downloads/kenney_particle_pack.zip
+Original files: assets/third_party/kenney_particle_pack/
+Project uses:
+- assets/vfx/particles/particle_spark.png
+- assets/vfx/particles/particle_fire.png
+- assets/vfx/particles/particle_poison.png
+- assets/vfx/particles/particle_shield.png
+- assets/vfx/effects/hit_slash.png
+- assets/vfx/effects/magic_burst.png
+
+Kenney Game Icons
+-----------------
+Source: https://kenney.nl/assets/game-icons
+Author: Kenney
+License: Creative Commons CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Original package: assets/third_party/downloads/kenney_game_icons.zip
+Original files: assets/third_party/kenney_game_icons/
+Project uses:
+- assets/card/icons/*.png
+- assets/ui/icons/*.png
+- assets/ui/intents/*.png
+
+Google Fonts - Chakra Petch
+---------------------------
+Source: https://github.com/google/fonts/tree/main/ofl/chakrapetch
+Author: Cadson Demak
+License: SIL Open Font License 1.1
+License URL: https://openfontlicense.org/
+Project uses:
+- assets/fonts/ChakraPetch-Regular.ttf
+- assets/fonts/ChakraPetch-Bold.ttf
+
+Google Fonts - Noto Sans SC
+---------------------------
+Source: https://github.com/google/fonts/tree/main/ofl/notosanssc
+Author: Google
+License: SIL Open Font License 1.1
+License URL: https://openfontlicense.org/
+Project uses:
+- assets/fonts/NotoSansSC-VariableFont_wght.ttf
+
+Google Fonts - Roboto
+---------------------
+Source: https://github.com/google/fonts/tree/main/ofl/roboto
+Author: Google
+License: SIL Open Font License 1.1
+License URL: https://openfontlicense.org/
+Project uses:
+- assets/fonts/Roboto-VariableFont_wdth,wght.ttf
+
+Project-Generated Placeholder Assets
+------------------------------------
+Source: Generated locally for SlayDemo from the art direction documents.
+Author: Project contributors
+License: Project-owned placeholder art
+Project uses:
+- assets/card/templates/card_template_*.png
+- assets/card/templates/cost_crystal.png
+- assets/ui/bars/*.png
+- assets/ui/icons/ui_energy_*.png
+- assets/enemies/*/enemy_*_idle.png
+- assets/player/sprites/player_warrior_idle.png
+- assets/player/portrait/player_portrait.png
+- assets/backgrounds/bg_*.png
