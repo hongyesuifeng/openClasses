@@ -1,10 +1,18 @@
-# SlayDemo Asset Manifest
+# SlayDemo Curated Asset Manifest
 
 ## Directory Policy
 
-- Art, UI, fonts, audio, and downloaded third-party files live in `res://assets/`.
+- Art, UI, fonts, and audio live in `res://assets/`.
 - Godot data resources such as `.tres`, global themes, and color tokens should stay in `res://resources/`.
-- Original third-party packages are preserved in `res://assets/third_party/`; game code should reference the normalized copies outside `third_party`.
+- This folder contains only normalized, project-ready assets. Raw downloaded packs were removed after extracting the small subset needed for the MVP.
+- Game code should reference only the paths listed below.
+
+## Selection Rationale
+
+- Keep assets that support the current MVP loop: main menu, map, battle, rewards, one warrior, 6-8 enemies, card UI, intent icons, health/energy UI, and basic VFX/audio feedback.
+- Prefer static sprites plus Godot Tween/particles over large animation sheets.
+- Keep `ChakraPetch` for stylized Latin/card numbers and `NotoSansSC` for Chinese UI text.
+- Remove raw third-party packs, unused boardgame pieces, bulk icon variants, unused particle sheets, unused UI skin variants, and redundant fonts.
 
 ## Ready-To-Use Paths
 
@@ -84,7 +92,6 @@
 - `res://assets/fonts/ChakraPetch-Regular.ttf`
 - `res://assets/fonts/ChakraPetch-Bold.ttf`
 - `res://assets/fonts/NotoSansSC-VariableFont_wght.ttf`
-- `res://assets/fonts/Roboto-VariableFont_wdth,wght.ttf`
 - `res://assets/audio/sfx/card_place_1.ogg`
 - `res://assets/audio/sfx/card_slide_1.ogg`
 
@@ -93,3 +100,4 @@
 - Enemy/player/background/card-template PNGs are functional placeholders, not final art.
 - The normalized files are enough for MVP UI binding and combat-scene placeholders.
 - When replacing placeholders with final art, preserve the same filenames to avoid code churn.
+- License/provenance records are kept in `res://assets/LICENSES.txt`.

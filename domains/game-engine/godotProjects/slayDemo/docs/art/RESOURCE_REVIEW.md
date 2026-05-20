@@ -12,10 +12,11 @@
 ## Implemented Resolution
 
 - Created `client/slay-demo/assets/` and populated it with normalized project-ready resources.
-- Preserved original third-party downloads under `client/slay-demo/assets/third_party/`.
+- Removed original third-party downloads after extracting the small MVP subset needed by the project.
 - Added `client/slay-demo/assets/LICENSES.txt` with source, author, license, and usage records.
 - Added `client/slay-demo/assets/ASSET_MANIFEST.md` with ready-to-use `res://assets/...` paths.
 - Left `client/slay-demo/resources/` available for Godot data resources only.
+- Added `docs/art/09-curated-asset-organization.md` to document the final asset categories and pruning rationale.
 
 ## Recommended Follow-Up
 
