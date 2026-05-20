@@ -1,0 +1,77 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "godot-mcp": {
+      "type": "local",
+      "command": ["npx", "-y", "@anthropic-ai/godot-mcp-server"],
+      "enabled": true,
+      "timeout": 30000
+    }
+  },
+  "context": {
+    "projectName": "godotProjects",
+    "description": "Godot 游戏开发学习项目，配备多角色 Agent 系统",
+    "rolesPath": "../.agents/roles",
+    "sharedPath": "../.agents/shared",
+    "learningPath": "../slayDemo/docs/learning"
+  },
+  "roles": {
+    "producer": {
+      "name": "游戏制作人",
+      "definition": "../.agents/roles/producer/ROLE.md",
+      "focus": ["里程碑管理", "范围控制", "跨角色协调", "风险管理"]
+    },
+    "developer": {
+      "name": "游戏开发者",
+      "definition": "../.agents/roles/developer/ROLE.md",
+      "focus": ["技术架构", "代码实现", "性能优化", "MCP集成"]
+    },
+    "artist": {
+      "name": "游戏美术",
+      "definition": "../.agents/roles/artist/ROLE.md",
+      "focus": ["视觉风格", "资源管理", "UI设计", "资源预算"]
+    },
+    "designer": {
+      "name": "游戏策划",
+      "definition": "../.agents/roles/designer/ROLE.md",
+      "focus": ["玩法机制", "数值平衡", "内容创作", "体验优化"]
+    }
+  },
+  "tools": {
+    "role-switch": {
+      "description": "切换到指定角色视角分析问题",
+      "parameters": {
+        "role": {
+          "type": "string",
+          "enum": ["producer", "developer", "artist", "designer"]
+        },
+        "question": {
+          "type": "string"
+        }
+      }
+    },
+    "task-assign": {
+      "description": "为指定角色分配任务",
+      "parameters": {
+        "role": {
+          "type": "string",
+          "enum": ["producer", "developer", "artist", "designer"]
+        },
+        "task": {
+          "type": "string"
+        }
+      }
+    },
+    "learning-log": {
+      "description": "记录学习日志",
+      "parameters": {
+        "role": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
