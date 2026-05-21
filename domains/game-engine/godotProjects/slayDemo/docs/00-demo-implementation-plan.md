@@ -69,6 +69,7 @@
 | 08 | [docs/tech/08-scene-and-flow.md](tech/08-scene-and-flow.md) | 场景树、SceneRouter、CanvasLayer 分层 | 场景架构参考 |
 | 09 | [docs/tech/09-ui-system.md](tech/09-ui-system.md) | CardView、HandLayout、UI 主题 | UI 实现参考 |
 | 10 | [docs/tech/10-save-and-testing.md](tech/10-save-and-testing.md) | 存档系统、SaveData 结构、单元测试 | 存档与测试参考 |
+| 11 | [docs/tech/11-current-implementation-architecture.md](tech/11-current-implementation-architecture.md) | 基于最新 requirements 的实施架构、基础框架与 M1-M4 落地顺序 | **当前实施基准** |
 
 ### 2.3 美术文档 (docs/art/)
 
