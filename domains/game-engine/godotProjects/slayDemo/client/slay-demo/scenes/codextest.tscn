@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://eq6dw4kjh64v"]
+
+[node name="Node2D" type="Node2D" unique_id=1460943979]
+
+[node name="CodexTestLabel" type="Label" parent="." unique_id=1826073973]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
+text = "codextest created through Godot MCP"

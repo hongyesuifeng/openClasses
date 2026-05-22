@@ -39,6 +39,8 @@ func _process(_delta: float) -> void:
 	if socket.get_ready_state() == WebSocketPeer.STATE_CLOSED:
 		if _is_connected:
 			_handle_disconnect()
+		elif _should_reconnect and _reconnect_timer and _reconnect_timer.is_stopped():
+			_schedule_reconnect()
 		return
 
 	socket.poll()
