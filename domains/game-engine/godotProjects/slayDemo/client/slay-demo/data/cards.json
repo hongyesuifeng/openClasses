@@ -1,0 +1,104 @@
+{
+  "cards": [
+    {
+      "id": "strike",
+      "name": "打击",
+      "description": "造成 6 点伤害。",
+      "type": "attack",
+      "rarity": "starter",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["starter", "damage"],
+      "art_key": "card_strike",
+      "effects": [
+        { "type": "damage", "value": 6, "target": "selected_enemy" }
+      ],
+      "upgrade": {
+        "name": "打击+",
+        "description": "造成 9 点伤害。",
+        "cost": 1,
+        "effects": [
+          { "type": "damage", "value": 9, "target": "selected_enemy" }
+        ]
+      }
+    },
+    {
+      "id": "defend",
+      "name": "防御",
+      "description": "获得 5 点格挡。",
+      "type": "skill",
+      "rarity": "starter",
+      "cost": 1,
+      "target": "self",
+      "tags": ["starter", "block"],
+      "art_key": "card_defend",
+      "effects": [
+        { "type": "block", "value": 5, "target": "self" }
+      ],
+      "upgrade": {
+        "name": "防御+",
+        "description": "获得 8 点格挡。",
+        "cost": 1,
+        "effects": [
+          { "type": "block", "value": 8, "target": "self" }
+        ]
+      }
+    },
+    {
+      "id": "heavy_strike",
+      "name": "重击",
+      "description": "造成 12 点伤害。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 2,
+      "target": "single_enemy",
+      "tags": ["damage", "burst"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "damage", "value": 12, "target": "selected_enemy" }
+      ]
+    },
+    {
+      "id": "quick_guard",
+      "name": "快速格挡",
+      "description": "获得 3 点格挡。",
+      "type": "skill",
+      "rarity": "common",
+      "cost": 0,
+      "target": "self",
+      "tags": ["block", "low_cost"],
+      "art_key": "card_defend",
+      "effects": [
+        { "type": "block", "value": 3, "target": "self" }
+      ]
+    },
+    {
+      "id": "battle_focus",
+      "name": "战斗专注",
+      "description": "抽 2 张牌。",
+      "type": "skill",
+      "rarity": "common",
+      "cost": 1,
+      "target": "self",
+      "tags": ["draw", "filter"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "draw", "value": 2, "target": "self" }
+      ]
+    },
+    {
+      "id": "inflame",
+      "name": "燃起斗志",
+      "description": "获得 2 点力量。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "self",
+      "tags": ["strength", "scaling"],
+      "art_key": "card_buff",
+      "effects": [
+        { "type": "gain_strength", "value": 2, "target": "self" }
+      ]
+    }
+  ]
+}

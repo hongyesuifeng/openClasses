@@ -1,0 +1,31 @@
+{
+  "encounters": [
+    {
+      "id": "v1_normal_01",
+      "encounter_type": "normal",
+      "enemy_ids": ["slime_small_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["startup_pressure"]
+    },
+    {
+      "id": "v1_normal_02",
+      "encounter_type": "normal",
+      "enemy_ids": ["cultist_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["scaling_pressure"]
+    },
+    {
+      "id": "v1_normal_03",
+      "encounter_type": "normal",
+      "enemy_ids": ["slime_small_v1", "shield_guard_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["combined_pressure"]
+    },
+    {
+      "id": "v1_boss_01",
+      "encounter_type": "boss",
+      "enemy_ids": ["boss_knight_v1"],
+      "tags": ["boss"]
+    }
+  ]
+}

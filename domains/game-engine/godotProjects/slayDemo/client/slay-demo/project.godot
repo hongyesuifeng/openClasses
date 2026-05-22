@@ -11,11 +11,16 @@ config_version=5
 [application]
 
 config/name="slayDemo"
+run/main_scene="res://scenes/app/app_root.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
+DataLoader="*res://scripts/autoload/data_loader.gd"
+GameState="*res://scripts/autoload/game_state.gd"
+SceneRouter="*res://scripts/autoload/scene_router.gd"
+RunController="*res://scripts/autoload/run_controller.gd"
 MCPRuntime="*uid://c5jmf6leggsyb"
 
 [editor_plugins]

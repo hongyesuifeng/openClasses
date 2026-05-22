@@ -1,0 +1,28 @@
+{
+  "reward_profiles": [
+    {
+      "id": "normal_card_reward",
+      "card_choices": 3,
+      "allow_skip": true,
+      "rarity_weights": {
+        "common": 80,
+        "uncommon": 20,
+        "rare": 0
+      },
+      "tag_weight_modifiers": {
+        "startup_pressure": {
+          "block": 10,
+          "low_cost": 10
+        },
+        "scaling_pressure": {
+          "damage": 10,
+          "burst": 10
+        },
+        "combined_pressure": {
+          "draw": 10,
+          "strength": 10
+        }
+      }
+    }
+  ]
+}

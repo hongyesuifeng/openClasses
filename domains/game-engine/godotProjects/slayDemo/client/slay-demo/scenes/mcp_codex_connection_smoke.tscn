@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://db5h4rtt7mucg"]
+
+[node name="Node2D" type="Node2D" unique_id=400147232]
+
+[node name="CodexMcpSmokeLabel" type="Label" parent="." unique_id=1539246594]
+offset_left = 32.0
+offset_top = 48.0
+offset_right = 32.0
+offset_bottom = 48.0
+text = "Godot MCP connected via Codex smoke test"

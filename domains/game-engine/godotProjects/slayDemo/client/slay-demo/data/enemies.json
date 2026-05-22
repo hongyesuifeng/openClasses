@@ -1,0 +1,134 @@
+{
+  "enemies": [
+    {
+      "id": "slime_small_v1",
+      "name": "小史莱姆",
+      "enemy_type": "normal",
+      "max_hp": 18,
+      "art_key": "enemy_slime",
+      "tags": ["startup_pressure"],
+      "actions": [
+        {
+          "id": "tackle",
+          "name": "撞击",
+          "intent_type": "attack",
+          "intent_value": 5,
+          "effects": [
+            { "type": "damage", "value": 5, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "cultist_v1",
+      "name": "暗影信徒",
+      "enemy_type": "normal",
+      "max_hp": 28,
+      "art_key": "enemy_shadow_mage",
+      "tags": ["scaling_pressure"],
+      "actions": [
+        {
+          "id": "chant",
+          "name": "咏唱",
+          "intent_type": "buff",
+          "intent_value": 0,
+          "effects": [
+            { "type": "gain_strength", "value": 2, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "dark_strike",
+          "name": "暗影打击",
+          "intent_type": "attack",
+          "intent_value": 8,
+          "effects": [
+            { "type": "damage", "value": 8, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "shield_guard_v1",
+      "name": "盾卫",
+      "enemy_type": "normal",
+      "max_hp": 34,
+      "art_key": "enemy_skeleton",
+      "tags": ["block", "combined_pressure"],
+      "actions": [
+        {
+          "id": "guard",
+          "name": "举盾",
+          "intent_type": "defend",
+          "intent_value": 6,
+          "effects": [
+            { "type": "block", "value": 6, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "shield_bash",
+          "name": "盾击",
+          "intent_type": "attack",
+          "intent_value": 7,
+          "effects": [
+            { "type": "damage", "value": 7, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "boss_knight_v1",
+      "name": "腐化骑士",
+      "enemy_type": "boss",
+      "max_hp": 90,
+      "art_key": "enemy_corrupted_knight",
+      "tags": ["boss", "burst", "scaling_pressure"],
+      "actions": [
+        {
+          "id": "ready_blade",
+          "name": "蓄势",
+          "intent_type": "buff",
+          "intent_value": 0,
+          "effects": [
+            { "type": "gain_strength", "value": 2, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "cleave",
+          "name": "斩击",
+          "intent_type": "attack",
+          "intent_value": 12,
+          "effects": [
+            { "type": "damage", "value": 12, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "fortify",
+          "name": "防御姿态",
+          "intent_type": "defend",
+          "intent_value": 10,
+          "effects": [
+            { "type": "block", "value": 10, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "heavy_cleave",
+          "name": "重斩",
+          "intent_type": "attack",
+          "intent_value": 18,
+          "effects": [
+            { "type": "damage", "value": 18, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    }
+  ]
+}

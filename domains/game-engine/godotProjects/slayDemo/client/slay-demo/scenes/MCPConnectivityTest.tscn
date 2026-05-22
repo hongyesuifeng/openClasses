@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://75vxbq8q86di"]
+
+[node name="Node2D" type="Node2D" unique_id=1072322422]
+
+[node name="MCPConnectedLabel" type="Label" parent="." unique_id=1071182598]
+offset_left = 120.0
+offset_top = 80.0
+offset_right = 120.0
+offset_bottom = 80.0
+text = "MCP connected: scene + node created by Sisyphus"
