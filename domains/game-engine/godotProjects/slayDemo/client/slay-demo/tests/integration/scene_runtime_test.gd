@@ -1,6 +1,7 @@
 extends Node
 
-const TIMEOUT_FRAMES := 180
+const TIMEOUT_FRAMES := 240
+const FLOW_TIMEOUT_FRAMES := 3000
 
 
 func _ready() -> void:
@@ -25,27 +26,44 @@ func _ready() -> void:
 		return
 	start_button.pressed.emit()
 
-	var battle_scene: Node = await _wait_for_scene("BattleScene")
-	if battle_scene == null:
-		_fail("BattleScene did not load after pressing start.")
-		return
+	var safety := 0
+	var battle_count := 0
+	var reward_count := 0
+	while safety < FLOW_TIMEOUT_FRAMES:
+		safety += 1
+		await get_tree().process_frame
 
-	if not await _win_visible_battle(battle_scene):
-		_fail("Could not win first battle through BattleScene automation.")
-		return
+		var result_scene := _find_node_by_name(get_tree().root, "ResultScene")
+		if result_scene != null:
+			var game_state: Variant = _autoload("GameState")
+			var summary: Dictionary = game_state.get_result_summary()
+			if not bool(summary.get("won", false)):
+				_fail("ResultScene loaded, but run was not won: %s" % str(summary))
+				return
+			if int(summary.get("battle_wins", 0)) != 4:
+				_fail("Expected 4 battle wins, got summary: %s" % str(summary))
+				return
+			print("Scene runtime test passed. battles=%d rewards=%d summary=%s" % [battle_count, reward_count, str(summary)])
+			get_tree().quit(0)
+			return
 
-	var reward_scene: Node = await _wait_for_scene("RewardScene")
-	if reward_scene == null:
-		_fail("RewardScene did not load after first battle victory.")
-		return
+		var battle_scene := _find_node_by_name(get_tree().root, "BattleScene")
+		if battle_scene != null:
+			battle_count += 1
+			if not await _win_visible_battle(battle_scene):
+				_fail("Could not win battle %d through BattleScene automation." % battle_count)
+				return
+			continue
 
-	var skip_button: Button = _find_button_by_text(reward_scene, "跳过")
-	if skip_button == null:
-		_fail("RewardScene did not generate skip button.")
-		return
+		var reward_scene := _find_node_by_name(get_tree().root, "RewardScene")
+		if reward_scene != null:
+			reward_count += 1
+			if not _choose_reward(reward_scene):
+				_fail("RewardScene did not generate selectable choices or skip button.")
+				return
+			await get_tree().process_frame
 
-	print("Scene runtime test passed.")
-	get_tree().quit(0)
+	_fail("Full scene flow did not reach ResultScene within timeout.")
 
 
 func _win_visible_battle(battle_scene: Node) -> bool:
@@ -83,15 +101,39 @@ func _play_best_visible_card(battle_scene: Node, battle: Variant) -> bool:
 			if not _card_matches_priority(card, priority):
 				continue
 
+			var target_index: int = _pick_enemy_target(battle) if str(card.get("target", "")) == "single_enemy" else -1
+			if not battle.can_play_card(hand_index, target_index):
+				continue
+
 			battle_scene.call("_on_card_pressed", hand_index)
 			if str(card.get("target", "")) == "single_enemy":
-				var target_index: int = _pick_enemy_target(battle)
-				if target_index < 0:
-					return false
 				battle_scene.call("_on_enemy_pressed", target_index)
 			return true
 
 	return false
+
+
+func _choose_reward(reward_scene: Node) -> bool:
+	var choices: Array = reward_scene.get("_choices")
+	if not choices.is_empty():
+		var best_index := _best_reward_index(choices)
+		reward_scene.call("_on_choice_pressed", best_index)
+		return true
+
+	var skip_button: Button = _find_button_by_text(reward_scene, "跳过")
+	if skip_button == null:
+		return false
+	skip_button.pressed.emit()
+	return true
+
+
+func _best_reward_index(choices: Array) -> int:
+	for priority in ["gain_strength", "damage", "draw", "block"]:
+		for index in range(choices.size()):
+			var card := choices[index] as Dictionary
+			if _card_matches_priority(card, priority):
+				return index
+	return 0
 
 
 func _card_matches_priority(card: Dictionary, priority: String) -> bool:
@@ -111,15 +153,6 @@ func _pick_enemy_target(battle: Variant) -> int:
 			best_hp = hp
 			best_index = index
 	return best_index
-
-
-func _wait_for_scene(scene_name: String) -> Node:
-	for _frame in range(TIMEOUT_FRAMES):
-		await get_tree().process_frame
-		var found: Node = _find_node_by_name(get_tree().root, scene_name)
-		if found != null:
-			return found
-	return null
 
 
 func _find_node_by_name(root: Node, node_name: String) -> Node:
