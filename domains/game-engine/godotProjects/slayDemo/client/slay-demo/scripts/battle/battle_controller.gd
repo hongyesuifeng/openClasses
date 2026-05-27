@@ -4,6 +4,7 @@ class_name BattleController
 const DeckRuntimeScript := preload("res://scripts/battle/deck_runtime.gd")
 const EffectRunnerScript := preload("res://scripts/battle/effect_runner.gd")
 const EnemyAIScript := preload("res://scripts/battle/enemy_ai.gd")
+const StatusManagerScript := preload("res://scripts/battle/status_manager.gd")
 
 signal state_changed(snapshot: Dictionary)
 signal message_logged(message: String)
@@ -14,7 +15,6 @@ var encounter_id := ""
 var player_max_hp := 60
 var player_hp := 60
 var player_block := 0
-var player_strength := 0
 var energy := 0
 var energy_per_turn := 3
 var draw_per_turn := 5
@@ -22,6 +22,7 @@ var turn_number := 0
 var phase := "setup"
 var enemies: Array = []
 var deck := DeckRuntimeScript.new()
+var player_status: StatusManager  # 玩家状态管理器
 
 
 func setup(p_encounter_id: String, master_deck: Array, player_state: Dictionary) -> void:
@@ -31,16 +32,21 @@ func setup(p_encounter_id: String, master_deck: Array, player_state: Dictionary)
 	energy_per_turn = int(player_state.get("energy_per_turn", 3))
 	draw_per_turn = int(player_state.get("draw_per_turn", 5))
 	player_block = 0
-	player_strength = 0
 	turn_number = 0
 	phase = "setup"
 	enemies.clear()
 	deck.setup(master_deck)
 
+	# 初始化玩家状态管理器
+	player_status = StatusManagerScript.new()
+
 	var data_loader: Variant = _autoload("DataLoader")
 	var encounter: Dictionary = data_loader.get_encounter(encounter_id)
 	for enemy_id in encounter.get("enemy_ids", []):
-		enemies.append(EnemyAIScript.initialize_enemy(data_loader.get_enemy(str(enemy_id))))
+		var enemy := EnemyAIScript.initialize_enemy(data_loader.get_enemy(str(enemy_id)))
+		# 为每个敌人添加状态管理器
+		enemy["status_manager"] = StatusManagerScript.new()
+		enemies.append(enemy)
 
 
 func start_combat() -> void:
@@ -56,6 +62,21 @@ func start_player_turn() -> void:
 	phase = "player"
 	energy = energy_per_turn
 	player_block = 0
+
+	# 回合开始触发：中毒伤害、生命回复
+	var tick_result := player_status.tick_turn_start()
+	if tick_result.poison_damage > 0:
+		player_hp = maxi(0, player_hp - tick_result.poison_damage)
+		_log("中毒造成 %d 点伤害" % tick_result.poison_damage)
+		if player_hp <= 0:
+			phase = "lost"
+			_emit_state()
+			combat_lost.emit()
+			return
+	if tick_result.regeneration_heal > 0:
+		player_hp = mini(player_max_hp, player_hp + tick_result.regeneration_heal)
+		_log("生命回复恢复 %d 点生命" % tick_result.regeneration_heal)
+
 	draw_cards(draw_per_turn)
 	_log("第 %d 回合: 玩家回合" % turn_number)
 	_emit_state()
@@ -112,6 +133,9 @@ func end_player_turn() -> void:
 	if phase != "player":
 		return
 
+	# 回合结束触发：易伤、虚弱、无力层数递减
+	player_status.tick_turn_end()
+
 	deck.discard_hand()
 	phase = "enemy"
 	_log("敌人回合")
@@ -123,16 +147,49 @@ func end_player_turn() -> void:
 		if int(enemies[index].get("hp", 0)) <= 0:
 			continue
 
-		var action: Dictionary = EnemyAIScript.current_action(enemies[index])
-		_log("%s 使用 %s" % [str(enemies[index].get("name", "")), str(action.get("name", ""))])
+		var enemy: Dictionary = enemies[index]
+
+		# 敌人回合开始触发：中毒伤害、生命回复
+		if enemy.has("status_manager"):
+			var enemy_status: StatusManager = enemy["status_manager"]
+			var tick_result := enemy_status.tick_turn_start()
+			if tick_result.poison_damage > 0:
+				enemy["hp"] = maxi(0, int(enemy.get("hp", 0)) - tick_result.poison_damage)
+				_log("%s 中毒受到 %d 点伤害" % [str(enemy.get("name", "")), tick_result.poison_damage])
+			if tick_result.regeneration_heal > 0:
+				enemy["hp"] = mini(int(enemy.get("max_hp", 999)), int(enemy.get("hp", 0)) + tick_result.regeneration_heal)
+				_log("%s 生命回复恢复 %d 点生命" % [str(enemy.get("name", "")), tick_result.regeneration_heal])
+
+		# 检查敌人是否死亡
+		if int(enemy.get("hp", 0)) <= 0:
+			_log("%s 被击败" % str(enemy.get("name", "")))
+			continue
+
+		var action: Dictionary = EnemyAIScript.current_action(enemy)
+		_log("%s 使用 %s" % [str(enemy.get("name", "")), str(action.get("name", ""))])
 		EffectRunnerScript.apply_effects(action.get("effects", []), self, "enemy", -1, index)
-		EnemyAIScript.advance_intent(enemies[index])
+		EnemyAIScript.advance_intent(enemy)
+
+		# 敌人回合结束触发
+		if enemy.has("status_manager"):
+			var enemy_status: StatusManager = enemy["status_manager"]
+			enemy_status.tick_turn_end()
+
+	# 移除死亡敌人
+	_remove_dead_enemies()
 
 	if player_hp <= 0:
 		player_hp = 0
 		phase = "lost"
 		_emit_state()
 		combat_lost.emit()
+		return
+
+	# 检查是否所有敌人都已死亡
+	if enemies.is_empty():
+		phase = "won"
+		_emit_state()
+		combat_won.emit(player_hp)
 		return
 
 	start_player_turn()
@@ -149,6 +206,15 @@ func damage_enemy(target_index: int, amount: int) -> Dictionary:
 	enemy["block"] = block - blocked
 	enemy["hp"] = maxi(0, int(enemy.get("hp", 0)) - hp_damage)
 	_log("%s 受到 %d 点伤害" % [str(enemy.get("name", "")), hp_damage])
+
+	# 荆棘反弹伤害
+	if enemy.has("status_manager"):
+		var enemy_status: StatusManager = enemy["status_manager"]
+		var thorns_damage := enemy_status.on_hit()
+		if thorns_damage > 0:
+			player_hp = maxi(0, player_hp - thorns_damage)
+			_log("荆棘反弹 %d 点伤害" % thorns_damage)
+
 	return { "type": "damage_enemy", "enemy_index": target_index, "value": hp_damage, "blocked": blocked }
 
 
@@ -171,7 +237,12 @@ func get_snapshot() -> Dictionary:
 
 	var enemy_snapshot: Array = []
 	for enemy in enemies:
-		enemy_snapshot.append((enemy as Dictionary).duplicate(true))
+		var enemy_data := (enemy as Dictionary).duplicate(true)
+		# 添加敌人状态信息
+		if enemy.has("status_manager"):
+			var enemy_status: StatusManager = enemy["status_manager"]
+			enemy_data["statuses"] = enemy_status.get_snapshot()
+		enemy_snapshot.append(enemy_data)
 
 	return {
 		"phase": phase,
@@ -179,7 +250,8 @@ func get_snapshot() -> Dictionary:
 		"player_hp": player_hp,
 		"player_max_hp": player_max_hp,
 		"player_block": player_block,
-		"player_strength": player_strength,
+		"player_strength": player_status.get_stacks("strength"),
+		"player_statuses": player_status.get_snapshot(),
 		"energy": energy,
 		"energy_per_turn": energy_per_turn,
 		"hand": hand_snapshot,

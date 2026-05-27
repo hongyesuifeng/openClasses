@@ -99,6 +99,65 @@
       "effects": [
         { "type": "gain_strength", "value": 2, "target": "self" }
       ]
+    },
+    {
+      "id": "bash",
+      "name": "痛击",
+      "description": "造成 8 点伤害，施加 2 层易伤。",
+      "type": "attack",
+      "rarity": "starter",
+      "cost": 2,
+      "target": "single_enemy",
+      "tags": ["damage", "debuff"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "damage", "value": 8, "target": "selected_enemy" },
+        { "type": "apply_status", "status_id": "vulnerable", "value": 2, "target": "selected_enemy" }
+      ]
+    },
+    {
+      "id": "iron_wave",
+      "name": "铁波",
+      "description": "造成 5 点伤害，获得 5 点格挡。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["damage", "block"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "damage", "value": 5, "target": "selected_enemy" },
+        { "type": "block", "value": 5, "target": "self" }
+      ]
+    },
+    {
+      "id": "shrug_it_off",
+      "name": "耸肩无视",
+      "description": "获得 8 点格挡，抽 1 张牌。",
+      "type": "skill",
+      "rarity": "common",
+      "cost": 1,
+      "target": "self",
+      "tags": ["block", "draw"],
+      "art_key": "card_defend",
+      "effects": [
+        { "type": "block", "value": 8, "target": "self" },
+        { "type": "draw", "value": 1, "target": "self" }
+      ]
+    },
+    {
+      "id": "poison_dart",
+      "name": "毒镖",
+      "description": "施加 4 层中毒。",
+      "type": "skill",
+      "rarity": "common",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["debuff", "poison"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "apply_status", "status_id": "poison", "value": 4, "target": "selected_enemy" }
+      ]
     }
   ]
 }
