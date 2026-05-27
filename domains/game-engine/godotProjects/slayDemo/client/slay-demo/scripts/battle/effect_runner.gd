@@ -35,6 +35,17 @@ static func _apply_one(effect: Dictionary, battle: Variant, source: String, targ
 			return _apply_strength(effect, battle, source, target_index, acting_enemy_index)
 		"apply_status":
 			return _apply_status(effect, battle, source, target_index, acting_enemy_index)
+		# 新增效果类型
+		"heal":
+			return _apply_heal(effect, battle, source, target_index, acting_enemy_index)
+		"multi_damage":
+			return _apply_multi_damage(effect, battle, source, target_index, acting_enemy_index)
+		"aoe_damage":
+			return _apply_aoe_damage(effect, battle, source, acting_enemy_index)
+		"gain_energy":
+			return _apply_gain_energy(effect, battle, source)
+		"exhaust":
+			return _apply_exhaust(effect, battle, source, target_index)
 		_:
 			return {}
 
@@ -44,11 +55,9 @@ static func _apply_damage(effect: Dictionary, battle: Variant, source: String, t
 	var final_amount := base_amount
 
 	if source == "player":
-		# 玩家攻击：计算玩家力量和敌人易伤
 		var player_status: StatusManager = battle.player_status
 		final_amount = player_status.calculate_damage(base_amount, true)
 
-		# 应用敌人易伤（如果敌人有易伤状态）
 		if target_index >= 0 and target_index < battle.enemies.size():
 			var enemy: Dictionary = battle.enemies[target_index]
 			if enemy.has("status_manager"):
@@ -57,7 +66,6 @@ static func _apply_damage(effect: Dictionary, battle: Variant, source: String, t
 
 		return battle.damage_enemy(target_index, final_amount)
 	else:
-		# 敌人攻击：计算敌人力量和玩家易伤
 		var enemy_index := acting_enemy_index
 		if enemy_index >= 0 and enemy_index < battle.enemies.size():
 			var enemy: Dictionary = battle.enemies[enemy_index]
@@ -65,7 +73,6 @@ static func _apply_damage(effect: Dictionary, battle: Variant, source: String, t
 				var enemy_status: StatusManager = enemy["status_manager"]
 				final_amount = enemy_status.calculate_damage(base_amount, true)
 
-		# 应用玩家易伤（如果玩家有易伤状态）
 		var player_status: StatusManager = battle.player_status
 		final_amount = player_status.calculate_damage(final_amount, false)
 
@@ -77,14 +84,12 @@ static func _apply_block(effect: Dictionary, battle: Variant, source: String, _t
 	var final_amount := base_amount
 
 	if source == "player" or (str(effect.get("target", "")) == "self" and acting_enemy_index < 0):
-		# 玩家获得格挡：计算敏捷和虚弱
 		var player_status: StatusManager = battle.player_status
 		final_amount = player_status.calculate_block(base_amount)
 		battle.player_block += final_amount
 		return { "type": "player_block", "value": final_amount, "base": base_amount }
 
 	if acting_enemy_index >= 0:
-		# 敌人获得格挡：计算敏捷和虚弱
 		var enemy: Dictionary = battle.enemies[acting_enemy_index]
 		if enemy.has("status_manager"):
 			var enemy_status: StatusManager = enemy["status_manager"]
@@ -98,12 +103,10 @@ static func _apply_block(effect: Dictionary, battle: Variant, source: String, _t
 static func _apply_strength(effect: Dictionary, battle: Variant, source: String, _target_index: int, acting_enemy_index: int) -> Dictionary:
 	var amount := int(effect.get("value", 0))
 	if source == "player" or acting_enemy_index < 0:
-		# 玩家获得力量
 		var player_status: StatusManager = battle.player_status
 		player_status.apply_status("strength", player_status.get_stacks("strength") + amount)
 		return { "type": "player_strength", "value": amount }
 
-	# 敌人获得力量
 	var enemy: Dictionary = battle.enemies[acting_enemy_index]
 	if enemy.has("status_manager"):
 		var enemy_status: StatusManager = enemy["status_manager"]
@@ -115,13 +118,10 @@ static func _apply_status(effect: Dictionary, battle: Variant, source: String, t
 	var status_id := str(effect.get("status_id", ""))
 	var stacks := int(effect.get("value", 1))
 
-	# 兼容旧的 strength 写法
 	if status_id == "strength":
 		return _apply_strength(effect, battle, source, target_index, acting_enemy_index)
 
-	# 通用状态应用
 	if source == "player":
-		# 玩家施加状态给敌人
 		if target_index >= 0 and target_index < battle.enemies.size():
 			var enemy: Dictionary = battle.enemies[target_index]
 			if enemy.has("status_manager"):
@@ -129,10 +129,83 @@ static func _apply_status(effect: Dictionary, battle: Variant, source: String, t
 				enemy_status.apply_status(status_id, stacks)
 				return { "type": "apply_status", "target": "enemy", "target_index": target_index, "status_id": status_id, "stacks": stacks }
 	else:
-		# 敌人施加状态给玩家
 		if str(effect.get("target", "")) == "player":
 			var player_status: StatusManager = battle.player_status
 			player_status.apply_status(status_id, stacks)
 			return { "type": "apply_status", "target": "player", "status_id": status_id, "stacks": stacks }
 
 	return {}
+
+
+## 治疗：恢复生命值
+static func _apply_heal(effect: Dictionary, battle: Variant, source: String, _target_index: int, acting_enemy_index: int) -> Dictionary:
+	var amount := int(effect.get("value", 0))
+
+	if source == "player":
+		var old_hp := battle.player_hp
+		battle.player_hp = mini(battle.player_max_hp, battle.player_hp + amount)
+		var actual_heal := battle.player_hp - old_hp
+		if actual_heal > 0:
+			battle._log("玩家恢复 %d 点生命" % actual_heal)
+		return { "type": "heal", "target": "player", "value": actual_heal }
+	else:
+		if acting_enemy_index >= 0 and acting_enemy_index < battle.enemies.size():
+			var enemy: Dictionary = battle.enemies[acting_enemy_index]
+			var old_hp := int(enemy.get("hp", 0))
+			var max_hp := int(enemy.get("max_hp", 999))
+			enemy["hp"] = mini(max_hp, old_hp + amount)
+			var actual_heal := int(enemy["hp"]) - old_hp
+			if actual_heal > 0:
+				battle._log("%s 恢复 %d 点生命" % [str(enemy.get("name", "")), actual_heal])
+			return { "type": "heal", "target": "enemy", "enemy_index": acting_enemy_index, "value": actual_heal }
+
+	return {}
+
+
+## 多段伤害：对同一目标造成多次伤害
+static func _apply_multi_damage(effect: Dictionary, battle: Variant, source: String, target_index: int, acting_enemy_index: int) -> Dictionary:
+	var base_damage := int(effect.get("value", 0))
+	var hits := int(effect.get("hits", 2))
+	var total_damage := 0
+
+	for i in range(hits):
+		var result := _apply_damage({"type": "damage", "value": base_damage}, battle, source, target_index, acting_enemy_index)
+		total_damage += int(result.get("value", 0))
+
+	return { "type": "multi_damage", "hits": hits, "total_damage": total_damage }
+
+
+## AOE伤害：对所有敌人造成伤害
+static func _apply_aoe_damage(effect: Dictionary, battle: Variant, source: String, acting_enemy_index: int) -> Dictionary:
+	var base_damage := int(effect.get("value", 0))
+	var results: Array = []
+
+	# 对每个敌人造成伤害
+	for i in range(battle.enemies.size()):
+		if int(battle.enemies[i].get("hp", 0)) > 0:
+			var result := _apply_damage({"type": "damage", "value": base_damage}, battle, source, i, acting_enemy_index)
+			results.append(result)
+
+	# 移除死亡敌人
+	battle._remove_dead_enemies()
+
+	return { "type": "aoe_damage", "base_damage": base_damage, "hits": results.size() }
+
+
+## 获得能量：玩家/敌人获得额外能量
+static func _apply_gain_energy(effect: Dictionary, battle: Variant, source: String) -> Dictionary:
+	var amount := int(effect.get("value", 0))
+
+	if source == "player":
+		battle.energy += amount
+		battle._log("获得 %d 点能量" % amount)
+		return { "type": "gain_energy", "value": amount }
+
+	return {}
+
+
+## 消耗：消耗当前打出的卡牌（移入消耗堆而非弃牌堆）
+static func _apply_exhaust(_effect: Dictionary, battle: Variant, source: String, _target_index: int) -> Dictionary:
+	# 标记当前卡牌需要消耗
+	# 这个效果通常与其他效果组合使用
+	return { "type": "exhaust", "source": source }

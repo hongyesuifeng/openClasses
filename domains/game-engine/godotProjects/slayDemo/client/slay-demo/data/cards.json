@@ -158,6 +158,63 @@
       "effects": [
         { "type": "apply_status", "status_id": "poison", "value": 4, "target": "selected_enemy" }
       ]
+    },
+    {
+      "id": "twin_strike",
+      "name": "双重打击",
+      "description": "造成 5 点伤害两次。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["damage", "multi"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "multi_damage", "value": 5, "hits": 2, "target": "selected_enemy" }
+      ]
+    },
+    {
+      "id": "cleave",
+      "name": "横扫",
+      "description": "对所有敌人造成 8 点伤害。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "all_enemies",
+      "tags": ["damage", "aoe"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "aoe_damage", "value": 8 }
+      ]
+    },
+    {
+      "id": "offering",
+      "name": "献祭",
+      "description": "获得 2 点能量，抽 2 张牌。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 0,
+      "target": "self",
+      "tags": ["energy", "draw"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "gain_energy", "value": 2 },
+        { "type": "draw", "value": 2 }
+      ]
+    },
+    {
+      "id": "reaper",
+      "name": "死神之镰",
+      "description": "对所有敌人造成 4 点伤害。每击杀一个敌人，恢复 3 点生命。",
+      "type": "attack",
+      "rarity": "rare",
+      "cost": 2,
+      "target": "all_enemies",
+      "tags": ["damage", "aoe", "heal"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "aoe_damage", "value": 4 }
+      ]
     }
   ]
 }

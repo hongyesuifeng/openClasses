@@ -2,6 +2,7 @@ extends Control
 
 const BattleControllerScript := preload("res://scripts/battle/battle_controller.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
+const StatusViewFactoryScript := preload("res://scripts/ui/status_view_factory.gd")
 
 const SFX_CARD_PLACE := "res://assets/audio/sfx/card_place_1.ogg"
 const PLAYER_ART := "res://assets/player/sprites/player_warrior_idle.png"
@@ -41,6 +42,7 @@ var _hand_buttons: Array[Button] = []
 var _messages: Array[String] = []
 var _last_player_hp := -1
 var _last_player_block := -1
+var _player_status_row: HBoxContainer  # 玩家状态栏
 
 
 func _ready() -> void:
@@ -137,6 +139,11 @@ func _build() -> void:
 	_status_label.add_theme_color_override("font_color", Color(0.94, 0.88, 0.78))
 	root.add_child(_status_label)
 
+	# 玩家状态栏
+	_player_status_row = HBoxContainer.new()
+	_player_status_row.add_theme_constant_override("separation", 8)
+	root.add_child(_player_status_row)
+
 	_enemy_row = HBoxContainer.new()
 	_enemy_row.custom_minimum_size = Vector2(0, 260)
 	_enemy_row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -213,6 +220,7 @@ func _on_state_changed(snapshot: Dictionary) -> void:
 
 	_render_enemies(snapshot.get("enemies", []))
 	_render_hand(snapshot.get("hand", []), phase)
+	_render_player_statuses(snapshot.get("player_statuses", []))
 
 	var piles: Dictionary = snapshot.get("piles", {})
 	_pile_label.text = "抽牌堆 %d | 手牌 %d | 弃牌堆 %d | 消耗 %d" % [
@@ -284,8 +292,34 @@ func _render_enemies(enemies: Array) -> void:
 		intent_text.anchor_bottom = 0.94
 		button.add_child(intent_text)
 
+		# 敌人状态显示
+		var enemy_statuses: Array = enemy.get("statuses", [])
+		if not enemy_statuses.is_empty():
+			var status_row := StatusViewFactoryScript.create_status_row(enemy_statuses, true)
+			status_row.anchor_left = 0.05
+			status_row.anchor_top = 0.94
+			status_row.anchor_right = 0.95
+			status_row.anchor_bottom = 1.0
+			status_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			button.add_child(status_row)
+
 		_enemy_row.add_child(button)
 		_enemy_buttons.append(button)
+
+
+func _render_player_statuses(statuses: Array) -> void:
+	_clear_children(_player_status_row)
+	if statuses.is_empty():
+		return
+
+	for status in statuses:
+		var status_id := str(status.get("id", ""))
+		var stacks := int(status.get("stacks", 0))
+		if stacks <= 0:
+			continue
+
+		var label := StatusViewFactoryScript.create_status_label(status_id, stacks, false)
+		_player_status_row.add_child(label)
 
 
 func _render_hand(hand: Array, phase: String) -> void:
