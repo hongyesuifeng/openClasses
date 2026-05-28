@@ -11,9 +11,13 @@ const BACKGROUND_BOSS := "res://assets/backgrounds/bg_battle_boss.png"
 
 const ENEMY_ART_BY_KEY := {
 	"enemy_slime": "res://assets/enemies/slime/enemy_slime_idle.png",
+	"enemy_bat": "res://assets/enemies/bat/enemy_bat_idle.png",
+	"enemy_mushroom": "res://assets/enemies/mushroom/enemy_mushroom_idle.png",
+	"enemy_gargoyle": "res://assets/enemies/gargoyle/enemy_gargoyle_idle.png",
 	"enemy_shadow_mage": "res://assets/enemies/shadow_mage/enemy_shadow_mage_idle.png",
 	"enemy_skeleton": "res://assets/enemies/skeleton/enemy_skeleton_idle.png",
-	"enemy_corrupted_knight": "res://assets/enemies/corrupted_knight/enemy_corrupted_knight_idle.png"
+	"enemy_corrupted_knight": "res://assets/enemies/corrupted_knight/enemy_corrupted_knight_idle.png",
+	"enemy_ancient_dragon": "res://assets/enemies/ancient_dragon/enemy_ancient_dragon_idle.png"
 }
 
 const INTENT_ICON_BY_TYPE := {
@@ -38,6 +42,7 @@ var _block_bar: TextureProgressBar
 var _energy_label: Label
 var _sfx_player: AudioStreamPlayer
 var _enemy_buttons: Array[Button] = []
+var _enemy_art_paths: Array[String] = []
 var _hand_buttons: Array[Button] = []
 var _messages: Array[String] = []
 var _last_player_hp := -1
@@ -49,6 +54,7 @@ func _ready() -> void:
 	_build()
 	_battle.state_changed.connect(_on_state_changed)
 	_battle.message_logged.connect(_on_message_logged)
+	_battle.combat_event.connect(_on_combat_event)
 	_battle.combat_won.connect(_on_combat_won)
 	_battle.combat_lost.connect(_on_combat_lost)
 
@@ -234,9 +240,11 @@ func _on_state_changed(snapshot: Dictionary) -> void:
 func _render_enemies(enemies: Array) -> void:
 	_clear_children(_enemy_row)
 	_enemy_buttons.clear()
+	_enemy_art_paths.clear()
 	for index in range(enemies.size()):
 		var enemy := enemies[index] as Dictionary
 		var intent: Dictionary = enemy.get("intent", {})
+		var art_path := str(ENEMY_ART_BY_KEY.get(str(enemy.get("art_key", "")), ENEMY_ART_BY_KEY["enemy_slime"]))
 		var button := Button.new()
 		button.custom_minimum_size = Vector2(218, 232)
 		button.text = ""
@@ -248,7 +256,7 @@ func _render_enemies(enemies: Array) -> void:
 		button.pivot_offset = Vector2(109, 116)
 
 		var sprite := TextureRect.new()
-		sprite.texture = load(str(ENEMY_ART_BY_KEY.get(str(enemy.get("art_key", "")), ENEMY_ART_BY_KEY["enemy_slime"])))
+		sprite.texture = load(art_path)
 		sprite.anchor_left = 0.08
 		sprite.anchor_top = 0.03
 		sprite.anchor_right = 0.92
@@ -305,6 +313,7 @@ func _render_enemies(enemies: Array) -> void:
 
 		_enemy_row.add_child(button)
 		_enemy_buttons.append(button)
+		_enemy_art_paths.append(art_path)
 
 
 func _render_player_statuses(statuses: Array) -> void:
@@ -367,7 +376,6 @@ func _on_enemy_pressed(index: int) -> void:
 	var played := _battle.play_card(hand_index, index)
 	if played:
 		_play_card_feedback()
-		_hit_enemy_feedback(index)
 
 
 func _on_end_turn_pressed() -> void:
@@ -380,6 +388,17 @@ func _on_message_logged(message: String) -> void:
 	if _messages.size() > 10:
 		_messages.pop_front()
 	_log_label.text = "\n".join(_messages)
+
+
+func _on_combat_event(event: Dictionary) -> void:
+	match str(event.get("type", "")):
+		"enemy_damage":
+			var enemy_index := int(event.get("enemy_index", -1))
+			_hit_enemy_feedback(enemy_index)
+			_spawn_enemy_damage_text(enemy_index, int(event.get("value", 0)), int(event.get("blocked", 0)))
+		"player_damage":
+			_flash_player_panel()
+			_spawn_player_damage_text(int(event.get("value", 0)), int(event.get("blocked", 0)))
 
 
 func _on_combat_won(remaining_hp: int) -> void:
@@ -423,13 +442,71 @@ func _hit_enemy_feedback(enemy_index: int) -> void:
 	var target := _enemy_buttons[enemy_index]
 	if not is_instance_valid(target):
 		return
-	var original := target.position
+
+	var overlay := TextureRect.new()
+	overlay.texture = load(_enemy_art_paths[enemy_index] if enemy_index < _enemy_art_paths.size() else ENEMY_ART_BY_KEY["enemy_slime"])
+	overlay.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	overlay.global_position = target.global_position
+	overlay.size = target.size
+	overlay.z_index = 30
+	overlay.modulate = Color(1.0, 0.55, 0.45, 0.9)
+	add_child(overlay)
+
+	var original := overlay.global_position
 	var tween := create_tween()
-	tween.tween_property(target, "modulate", Color(1.0, 0.55, 0.45, 1.0), 0.04)
-	tween.tween_property(target, "position:x", original.x + 8.0, 0.04)
-	tween.tween_property(target, "position:x", original.x - 8.0, 0.04)
-	tween.tween_property(target, "position:x", original.x, 0.04)
-	tween.tween_property(target, "modulate", Color.WHITE, 0.08)
+	tween.tween_property(overlay, "global_position:x", original.x + 10.0, 0.04)
+	tween.tween_property(overlay, "global_position:x", original.x - 6.0, 0.05)
+	tween.tween_property(overlay, "global_position:x", original.x, 0.06)
+	tween.parallel().tween_property(overlay, "modulate:a", 0.0, 0.15)
+	tween.finished.connect(overlay.queue_free)
+
+
+func _spawn_enemy_damage_text(enemy_index: int, damage: int, blocked: int) -> void:
+	if enemy_index < 0 or enemy_index >= _enemy_buttons.size():
+		return
+	var target := _enemy_buttons[enemy_index]
+	if not is_instance_valid(target):
+		return
+	_spawn_damage_text(_damage_text(damage, blocked), target.global_position + Vector2(target.size.x * 0.5 - 26.0, 28.0), false)
+
+
+func _spawn_player_damage_text(damage: int, blocked: int) -> void:
+	if _player_panel == null or not is_instance_valid(_player_panel):
+		return
+	_spawn_damage_text(_damage_text(damage, blocked), _player_panel.global_position + Vector2(_player_panel.size.x * 0.5 - 26.0, 22.0), true)
+
+
+func _damage_text(damage: int, blocked: int) -> String:
+	if damage > 0:
+		return "-%d" % damage
+	if blocked > 0:
+		return "格挡"
+	return "0"
+
+
+func _spawn_damage_text(text: String, start_position: Vector2, is_player: bool) -> void:
+	var label := Label.new()
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.custom_minimum_size = Vector2(72, 30)
+	label.size = Vector2(72, 30)
+	label.add_theme_font_size_override("font_size", 24)
+	label.add_theme_color_override("font_color", Color(1.0, 0.35, 0.24) if not is_player else Color(1.0, 0.82, 0.36))
+	label.add_theme_color_override("font_shadow_color", Color(0.05, 0.02, 0.01, 0.95))
+	label.add_theme_constant_override("shadow_offset_x", 2)
+	label.add_theme_constant_override("shadow_offset_y", 2)
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.global_position = start_position
+	label.z_index = 40
+	add_child(label)
+
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(label, "global_position:y", start_position.y - 42.0, 0.42).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(label, "modulate:a", 0.0, 0.42).set_delay(0.08)
+	tween.finished.connect(label.queue_free)
 
 
 func _flash_player_panel() -> void:

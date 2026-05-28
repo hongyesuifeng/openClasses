@@ -8,6 +8,7 @@ static func initialize_enemy(enemy_data: Dictionary) -> Dictionary:
 		"id": str(enemy_data.get("id", "")),
 		"name": str(enemy_data.get("name", "")),
 		"enemy_type": str(enemy_data.get("enemy_type", "normal")),
+		"art_key": str(enemy_data.get("art_key", "enemy_slime")),
 		"max_hp": int(enemy_data.get("max_hp", 1)),
 		"hp": int(enemy_data.get("max_hp", 1)),
 		"block": 0,

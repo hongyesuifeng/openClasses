@@ -12,6 +12,7 @@ const STATUS_DEFS := {
 	"poison": {"is_debuff": true, "is_permanent": false, "trigger": "turn_start", "affects": "hp"},
 	"thorns": {"is_debuff": false, "is_permanent": false, "trigger": "on_hit", "affects": "reflect"},
 	"regeneration": {"is_debuff": false, "is_permanent": false, "trigger": "turn_start", "affects": "hp"},
+	"barricade": {"is_debuff": false, "is_permanent": true, "trigger": "none", "affects": "block_retention"},
 }
 
 var statuses: Dictionary = {}  # {status_id: stacks}

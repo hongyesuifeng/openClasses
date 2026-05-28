@@ -32,6 +32,8 @@ static func _apply_one(effect: Dictionary, battle: Variant, source: String, targ
 			return _apply_strength(effect, battle, source, target_index, acting_enemy_index)
 		"apply_status":
 			return _apply_status(effect, battle, source, target_index, acting_enemy_index)
+		"gain_barricade":
+			return _apply_barricade(battle, source)
 		# 新增效果类型
 		"heal":
 			return _apply_heal(effect, battle, source, target_index, acting_enemy_index)
@@ -132,6 +134,16 @@ static func _apply_status(effect: Dictionary, battle: Variant, source: String, t
 			return { "type": "apply_status", "target": "player", "status_id": status_id, "stacks": stacks }
 
 	return {}
+
+
+static func _apply_barricade(battle: Variant, source: String) -> Dictionary:
+	if source != "player":
+		return {}
+
+	var player_status: RefCounted = battle.player_status
+	player_status.call("apply_status", "barricade", 1)
+	battle._log("堡垒生效：格挡将在回合间保留")
+	return { "type": "gain_barricade", "value": 1 }
 
 
 ## 治疗：恢复生命值

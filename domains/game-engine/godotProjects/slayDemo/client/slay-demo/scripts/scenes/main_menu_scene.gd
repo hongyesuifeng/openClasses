@@ -46,12 +46,6 @@ func _build() -> void:
 	v2_button.pressed.connect(_on_v2_start_pressed)
 	panel.add_child(v2_button)
 
-	var validate_button := Button.new()
-	validate_button.text = "校验数据"
-	validate_button.custom_minimum_size = Vector2(260, 44)
-	validate_button.pressed.connect(_on_validate_pressed)
-	panel.add_child(validate_button)
-
 
 func _on_start_pressed() -> void:
 	var run_controller: Variant = _autoload("RunController")
@@ -61,16 +55,6 @@ func _on_start_pressed() -> void:
 func _on_v2_start_pressed() -> void:
 	var run_controller: Variant = _autoload("RunController")
 	run_controller.start_new_run("v2_extended_run")
-
-
-func _on_validate_pressed() -> void:
-	var data_loader: Variant = _autoload("DataLoader")
-	var errors: PackedStringArray = data_loader.validate_all()
-	if errors.is_empty():
-		print("SlayDemo V1 data validation passed.")
-	else:
-		for error in errors:
-			push_error(error)
 
 
 func _autoload(name: String) -> Variant:

@@ -25,7 +25,7 @@
       "name": "尖刺史莱姆",
       "enemy_type": "normal",
       "max_hp": 22,
-      "art_key": "enemy_slime",
+      "art_key": "enemy_mushroom",
       "tags": ["thorns"],
       "actions": [
         {
@@ -75,7 +75,7 @@
       "name": "毒素蝙蝠",
       "enemy_type": "normal",
       "max_hp": 24,
-      "art_key": "enemy_shadow_mage",
+      "art_key": "enemy_bat",
       "tags": ["poison"],
       "actions": [
         {
@@ -126,7 +126,7 @@
       "name": "狂战士",
       "enemy_type": "normal",
       "max_hp": 42,
-      "art_key": "enemy_skeleton",
+      "art_key": "enemy_gargoyle",
       "tags": ["aggressive"],
       "actions": [
         {
@@ -196,7 +196,7 @@
       "name": "石像守卫",
       "enemy_type": "normal",
       "max_hp": 50,
-      "art_key": "enemy_skeleton",
+      "art_key": "enemy_gargoyle",
       "tags": ["tank"],
       "actions": [
         {
@@ -226,7 +226,7 @@
       "name": "史莱姆王",
       "enemy_type": "elite",
       "max_hp": 65,
-      "art_key": "enemy_slime",
+      "art_key": "enemy_mushroom",
       "tags": ["elite", "multi_phase"],
       "actions": [
         {
@@ -266,7 +266,7 @@
       "name": "狂暴兽人",
       "enemy_type": "elite",
       "max_hp": 75,
-      "art_key": "enemy_skeleton",
+      "art_key": "enemy_gargoyle",
       "tags": ["elite", "scaling"],
       "actions": [
         {
@@ -366,7 +366,7 @@
       "name": "火焰领主",
       "enemy_type": "boss",
       "max_hp": 120,
-      "art_key": "enemy_corrupted_knight",
+      "art_key": "enemy_ancient_dragon",
       "tags": ["boss", "fire", "multi_phase"],
       "actions": [
         {

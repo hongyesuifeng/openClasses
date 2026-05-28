@@ -8,6 +8,7 @@ const StatusManagerScript := preload("res://scripts/battle/status_manager.gd")
 
 signal state_changed(snapshot: Dictionary)
 signal message_logged(message: String)
+signal combat_event(event: Dictionary)
 signal combat_won(remaining_hp: int)
 signal combat_lost
 
@@ -61,7 +62,8 @@ func start_player_turn() -> void:
 	turn_number += 1
 	phase = "player"
 	energy = energy_per_turn
-	player_block = 0
+	if not bool(player_status.call("has_status", "barricade")):
+		player_block = 0
 
 	# 回合开始触发：中毒伤害、生命回复
 	var tick_result: Dictionary = player_status.call("tick_turn_start")
@@ -209,6 +211,7 @@ func damage_enemy(target_index: int, amount: int) -> Dictionary:
 	enemy["block"] = block - blocked
 	enemy["hp"] = maxi(0, int(enemy.get("hp", 0)) - hp_damage)
 	_log("%s 受到 %d 点伤害" % [str(enemy.get("name", "")), hp_damage])
+	combat_event.emit({ "type": "enemy_damage", "enemy_index": target_index, "value": hp_damage, "blocked": blocked })
 
 	# 荆棘反弹伤害
 	if enemy.has("status_manager"):
@@ -217,6 +220,7 @@ func damage_enemy(target_index: int, amount: int) -> Dictionary:
 		if thorns_damage > 0:
 			player_hp = maxi(0, player_hp - thorns_damage)
 			_log("荆棘反弹 %d 点伤害" % thorns_damage)
+			combat_event.emit({ "type": "player_damage", "value": thorns_damage, "blocked": 0 })
 
 	return { "type": "damage_enemy", "enemy_index": target_index, "value": hp_damage, "blocked": blocked }
 
@@ -227,6 +231,7 @@ func damage_player(amount: int) -> Dictionary:
 	player_block -= blocked
 	player_hp = maxi(0, player_hp - hp_damage)
 	_log("玩家受到 %d 点伤害" % hp_damage)
+	combat_event.emit({ "type": "player_damage", "value": hp_damage, "blocked": blocked })
 	return { "type": "damage_player", "value": hp_damage, "blocked": blocked }
 
 

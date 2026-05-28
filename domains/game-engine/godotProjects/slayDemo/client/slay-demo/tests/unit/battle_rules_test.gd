@@ -10,6 +10,8 @@ func name() -> String:
 func run(ctx: Variant) -> void:
 	_test_damage_and_energy(ctx)
 	_test_block_absorbs_damage(ctx)
+	_test_enemy_art_key_is_preserved(ctx)
+	_test_barricade_retains_block(ctx)
 	_test_exhaust_non_attack_hand(ctx)
 
 
@@ -45,6 +47,31 @@ func _test_block_absorbs_damage(ctx: Variant) -> void:
 	battle.damage_player(8)
 	ctx.assert_eq(battle.player_hp, 57, "block absorbs incoming damage first")
 	ctx.assert_eq(battle.player_block, 0, "block is consumed by damage")
+
+
+func _test_enemy_art_key_is_preserved(ctx: Variant) -> void:
+	var battle: Variant = BattleControllerScript.new()
+	battle.setup("v1_normal_04", [], _player_state())
+	ctx.assert_true(not battle.enemies.is_empty(), "encounter creates enemies")
+	ctx.assert_eq(str((battle.enemies[0] as Dictionary).get("art_key", "")), "enemy_bat", "runtime enemy keeps configured art key")
+
+
+func _test_barricade_retains_block(ctx: Variant) -> void:
+	var data_loader: Variant = ctx.autoload("DataLoader")
+	var battle: Variant = BattleControllerScript.new()
+	battle.setup("v1_normal_01", [
+		data_loader.create_card_instance("barricade"),
+		data_loader.create_card_instance("defend")
+	], _player_state())
+	battle.start_combat()
+	battle.energy = 4
+
+	var barricade_index: int = _find_card_index(battle.get_snapshot().get("hand", []), "barricade")
+	ctx.assert_true(barricade_index >= 0, "test hand contains barricade")
+	ctx.assert_true(battle.play_card(barricade_index), "barricade can be played")
+	battle.player_block = 12
+	battle.start_player_turn()
+	ctx.assert_eq(battle.player_block, 12, "barricade retains block at player turn start")
 
 
 func _test_exhaust_non_attack_hand(ctx: Variant) -> void:

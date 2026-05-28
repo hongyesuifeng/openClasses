@@ -550,7 +550,9 @@
       "target": "self",
       "tags": ["block", "persistent"],
       "art_key": "card_power",
-      "effects": []
+      "effects": [
+        { "type": "gain_barricade", "value": 1, "target": "self" }
+      ]
     }
   ]
 }

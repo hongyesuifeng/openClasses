@@ -51,6 +51,12 @@ const STATUS_CONFIG := {
 		"icon": "💚",
 		"description": "回合开始回复 {stacks}"
 	},
+	"barricade": {
+		"name": "堡垒",
+		"color": Color(0.75, 0.9, 1.0),
+		"icon": "▣",
+		"description": "格挡不会在回合开始清除"
+	},
 }
 
 
