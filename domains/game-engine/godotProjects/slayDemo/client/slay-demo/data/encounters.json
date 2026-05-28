@@ -22,10 +22,81 @@
       "tags": ["combined_pressure"]
     },
     {
+      "id": "v1_normal_04",
+      "encounter_type": "normal",
+      "enemy_ids": ["poison_bat_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["poison"]
+    },
+    {
+      "id": "v1_normal_05",
+      "encounter_type": "normal",
+      "enemy_ids": ["slime_spiky_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["thorns"]
+    },
+    {
+      "id": "v1_normal_06",
+      "encounter_type": "normal",
+      "enemy_ids": ["berserker_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["aggressive"]
+    },
+    {
+      "id": "v1_normal_07",
+      "encounter_type": "normal",
+      "enemy_ids": ["necromancer_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["debuff"]
+    },
+    {
+      "id": "v1_normal_08",
+      "encounter_type": "normal",
+      "enemy_ids": ["stone_guardian_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["tank"]
+    },
+    {
+      "id": "v1_normal_09",
+      "encounter_type": "normal",
+      "enemy_ids": ["slime_small_v1", "slime_spiky_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["startup_pressure", "thorns"]
+    },
+    {
+      "id": "v1_normal_10",
+      "encounter_type": "normal",
+      "enemy_ids": ["cultist_v1", "poison_bat_v1"],
+      "reward_profile_id": "normal_card_reward",
+      "tags": ["scaling_pressure", "poison"]
+    },
+    {
+      "id": "v1_elite_01",
+      "encounter_type": "elite",
+      "enemy_ids": ["elite_slime_king_v1"],
+      "reward_profile_id": "elite_card_reward",
+      "tags": ["elite", "multi_phase"]
+    },
+    {
+      "id": "v1_elite_02",
+      "encounter_type": "elite",
+      "enemy_ids": ["elite_orc_berserker_v1"],
+      "reward_profile_id": "elite_card_reward",
+      "tags": ["elite", "scaling"]
+    },
+    {
       "id": "v1_boss_01",
       "encounter_type": "boss",
       "enemy_ids": ["boss_knight_v1"],
-      "tags": ["boss"]
+      "reward_profile_id": "boss_card_reward",
+      "tags": ["boss", "burst", "scaling_pressure"]
+    },
+    {
+      "id": "v1_boss_02",
+      "encounter_type": "boss",
+      "enemy_ids": ["boss_fire_lord_v1"],
+      "reward_profile_id": "boss_card_reward",
+      "tags": ["boss", "fire", "multi_phase"]
     }
   ]
 }

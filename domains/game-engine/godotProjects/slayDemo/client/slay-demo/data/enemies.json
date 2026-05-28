@@ -21,6 +21,26 @@
       ]
     },
     {
+      "id": "slime_spiky_v1",
+      "name": "尖刺史莱姆",
+      "enemy_type": "normal",
+      "max_hp": 22,
+      "art_key": "enemy_slime",
+      "tags": ["thorns"],
+      "actions": [
+        {
+          "id": "spike_tackle",
+          "name": "尖刺撞击",
+          "intent_type": "attack",
+          "intent_value": 6,
+          "effects": [
+            { "type": "damage", "value": 6, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
       "id": "cultist_v1",
       "name": "暗影信徒",
       "enemy_type": "normal",
@@ -51,6 +71,27 @@
       ]
     },
     {
+      "id": "poison_bat_v1",
+      "name": "毒素蝙蝠",
+      "enemy_type": "normal",
+      "max_hp": 24,
+      "art_key": "enemy_shadow_mage",
+      "tags": ["poison"],
+      "actions": [
+        {
+          "id": "venom_bite",
+          "name": "毒咬",
+          "intent_type": "attack",
+          "intent_value": 4,
+          "effects": [
+            { "type": "damage", "value": 4, "target": "player" },
+            { "type": "apply_status", "status_id": "poison", "value": 2, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
       "id": "shield_guard_v1",
       "name": "盾卫",
       "enemy_type": "normal",
@@ -75,6 +116,196 @@
           "intent_value": 7,
           "effects": [
             { "type": "damage", "value": 7, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "berserker_v1",
+      "name": "狂战士",
+      "enemy_type": "normal",
+      "max_hp": 42,
+      "art_key": "enemy_skeleton",
+      "tags": ["aggressive"],
+      "actions": [
+        {
+          "id": "rage",
+          "name": "狂怒",
+          "intent_type": "buff",
+          "intent_value": 0,
+          "effects": [
+            { "type": "gain_strength", "value": 1, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "crush",
+          "name": "粉碎",
+          "intent_type": "attack",
+          "intent_value": 10,
+          "effects": [
+            { "type": "damage", "value": 10, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "double_strike",
+          "name": "双击",
+          "intent_type": "attack",
+          "intent_value": 6,
+          "effects": [
+            { "type": "damage", "value": 6, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "necromancer_v1",
+      "name": "亡灵法师",
+      "enemy_type": "normal",
+      "max_hp": 38,
+      "art_key": "enemy_shadow_mage",
+      "tags": ["debuff"],
+      "actions": [
+        {
+          "id": "hex",
+          "name": "诅咒",
+          "intent_type": "debuff",
+          "intent_value": 0,
+          "effects": [
+            { "type": "apply_status", "status_id": "weak", "value": 1, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "soul_drain",
+          "name": "灵魂汲取",
+          "intent_type": "attack",
+          "intent_value": 7,
+          "effects": [
+            { "type": "damage", "value": 7, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "stone_guardian_v1",
+      "name": "石像守卫",
+      "enemy_type": "normal",
+      "max_hp": 50,
+      "art_key": "enemy_skeleton",
+      "tags": ["tank"],
+      "actions": [
+        {
+          "id": "stone_wall",
+          "name": "石墙",
+          "intent_type": "defend",
+          "intent_value": 12,
+          "effects": [
+            { "type": "block", "value": 12, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "heavy_slam",
+          "name": "重击",
+          "intent_type": "attack",
+          "intent_value": 9,
+          "effects": [
+            { "type": "damage", "value": 9, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "elite_slime_king_v1",
+      "name": "史莱姆王",
+      "enemy_type": "elite",
+      "max_hp": 65,
+      "art_key": "enemy_slime",
+      "tags": ["elite", "multi_phase"],
+      "actions": [
+        {
+          "id": "slam",
+          "name": "猛击",
+          "intent_type": "attack",
+          "intent_value": 12,
+          "effects": [
+            { "type": "damage", "value": 12, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "split_prep",
+          "name": "蓄力分裂",
+          "intent_type": "buff",
+          "intent_value": 0,
+          "effects": [
+            { "type": "gain_strength", "value": 1, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "goop_spray",
+          "name": "粘液喷射",
+          "intent_type": "attack",
+          "intent_value": 8,
+          "effects": [
+            { "type": "damage", "value": 8, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "elite_orc_berserker_v1",
+      "name": "狂暴兽人",
+      "enemy_type": "elite",
+      "max_hp": 75,
+      "art_key": "enemy_skeleton",
+      "tags": ["elite", "scaling"],
+      "actions": [
+        {
+          "id": "war_cry",
+          "name": "战吼",
+          "intent_type": "buff",
+          "intent_value": 0,
+          "effects": [
+            { "type": "gain_strength", "value": 3, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "cleave",
+          "name": "横扫",
+          "intent_type": "attack",
+          "intent_value": 10,
+          "effects": [
+            { "type": "damage", "value": 10, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "frenzied_attack",
+          "name": "狂乱攻击",
+          "intent_type": "attack",
+          "intent_value": 15,
+          "effects": [
+            { "type": "damage", "value": 15, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "defensive_stance",
+          "name": "防御姿态",
+          "intent_type": "defend",
+          "intent_value": 8,
+          "effects": [
+            { "type": "block", "value": 8, "target": "self" }
           ],
           "next_action_rule": "loop"
         }
@@ -125,6 +356,66 @@
           "intent_value": 18,
           "effects": [
             { "type": "damage", "value": 18, "target": "player" }
+          ],
+          "next_action_rule": "loop"
+        }
+      ]
+    },
+    {
+      "id": "boss_fire_lord_v1",
+      "name": "火焰领主",
+      "enemy_type": "boss",
+      "max_hp": 120,
+      "art_key": "enemy_corrupted_knight",
+      "tags": ["boss", "fire", "multi_phase"],
+      "actions": [
+        {
+          "id": "inferno",
+          "name": "地狱火",
+          "intent_type": "attack",
+          "intent_value": 15,
+          "effects": [
+            { "type": "damage", "value": 15, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "fire_shield",
+          "name": "火焰护盾",
+          "intent_type": "defend",
+          "intent_value": 12,
+          "effects": [
+            { "type": "block", "value": 12, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "burning_rage",
+          "name": "燃烧之怒",
+          "intent_type": "buff",
+          "intent_value": 0,
+          "effects": [
+            { "type": "gain_strength", "value": 2, "target": "self" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "meteor_strike",
+          "name": "陨石打击",
+          "intent_type": "attack",
+          "intent_value": 20,
+          "effects": [
+            { "type": "damage", "value": 20, "target": "player" }
+          ],
+          "next_action_rule": "next"
+        },
+        {
+          "id": "scorched_earth",
+          "name": "焦土",
+          "intent_type": "attack",
+          "intent_value": 10,
+          "effects": [
+            { "type": "damage", "value": 10, "target": "player" }
           ],
           "next_action_rule": "loop"
         }
