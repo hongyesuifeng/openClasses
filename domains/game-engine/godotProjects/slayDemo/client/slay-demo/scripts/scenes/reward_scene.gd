@@ -141,23 +141,21 @@ func _on_upgrade_pressed(index: int) -> void:
 
 	if UpgradeServiceScript.upgrade_card_instance(card_instance, data_loader):
 		_status_label.text = "%s 已升级！" % old_name
-		# 重新检查可升级卡牌
-		_check_upgrade_availability()
-		if _upgradeable_cards.is_empty():
-			# 没有更多可升级卡牌，返回卡牌奖励模式
-			_upgrade_mode = false
-		_render_choices()
+		var run_controller: Variant = _autoload("RunController")
+		run_controller.call_deferred("complete_reward")
 	else:
 		_status_label.text = "升级失败"
 
 
 func _on_upgrade_mode_pressed() -> void:
 	_upgrade_mode = true
+	_clear_children(self)
 	_build()
 
 
 func _on_card_mode_pressed() -> void:
 	_upgrade_mode = false
+	_clear_children(self)
 	_build()
 
 

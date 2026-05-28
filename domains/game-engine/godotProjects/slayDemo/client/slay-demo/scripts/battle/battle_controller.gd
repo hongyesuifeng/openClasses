@@ -22,7 +22,7 @@ var turn_number := 0
 var phase := "setup"
 var enemies: Array = []
 var deck := DeckRuntimeScript.new()
-var player_status: StatusManager  # 玩家状态管理器
+var player_status: RefCounted  # 玩家状态管理器（使用 RefCounted 避免类型加载问题）
 
 
 func setup(p_encounter_id: String, master_deck: Array, player_state: Dictionary) -> void:
@@ -64,8 +64,8 @@ func start_player_turn() -> void:
 	player_block = 0
 
 	# 回合开始触发：中毒伤害、生命回复
-	var tick_result := player_status.tick_turn_start()
-	if tick_result.poison_damage > 0:
+	var tick_result: Dictionary = player_status.call("tick_turn_start")
+	if tick_result.get("poison_damage", 0) > 0:
 		player_hp = maxi(0, player_hp - tick_result.poison_damage)
 		_log("中毒造成 %d 点伤害" % tick_result.poison_damage)
 		if player_hp <= 0:
@@ -73,7 +73,7 @@ func start_player_turn() -> void:
 			_emit_state()
 			combat_lost.emit()
 			return
-	if tick_result.regeneration_heal > 0:
+	if tick_result.get("regeneration_heal", 0) > 0:
 		player_hp = mini(player_max_hp, player_hp + tick_result.regeneration_heal)
 		_log("生命回复恢复 %d 点生命" % tick_result.regeneration_heal)
 
@@ -115,8 +115,11 @@ func play_card(hand_index: int, target_index: int = -1) -> bool:
 	var card: Dictionary = data_loader.resolve_card_instance(card_instance)
 	energy -= int(card.get("cost", 0))
 	_log("打出 %s" % str(card.get("name", card.get("id", ""))))
-	EffectRunnerScript.apply_effects(card.get("effects", []), self, "player", target_index)
-	deck.discard(card_instance)
+	var effect_results: Array = EffectRunnerScript.apply_effects(card.get("effects", []), self, "player", target_index)
+	if _should_exhaust_current_card(effect_results):
+		deck.exhaust(card_instance)
+	else:
+		deck.discard(card_instance)
 	_remove_dead_enemies()
 
 	if enemies.is_empty():
@@ -134,7 +137,7 @@ func end_player_turn() -> void:
 		return
 
 	# 回合结束触发：易伤、虚弱、无力层数递减
-	player_status.tick_turn_end()
+	player_status.call("tick_turn_end")
 
 	deck.discard_hand()
 	phase = "enemy"
@@ -151,12 +154,12 @@ func end_player_turn() -> void:
 
 		# 敌人回合开始触发：中毒伤害、生命回复
 		if enemy.has("status_manager"):
-			var enemy_status: StatusManager = enemy["status_manager"]
-			var tick_result := enemy_status.tick_turn_start()
-			if tick_result.poison_damage > 0:
+			var enemy_status: RefCounted = enemy["status_manager"]
+			var tick_result: Dictionary = enemy_status.call("tick_turn_start")
+			if tick_result.get("poison_damage", 0) > 0:
 				enemy["hp"] = maxi(0, int(enemy.get("hp", 0)) - tick_result.poison_damage)
 				_log("%s 中毒受到 %d 点伤害" % [str(enemy.get("name", "")), tick_result.poison_damage])
-			if tick_result.regeneration_heal > 0:
+			if tick_result.get("regeneration_heal", 0) > 0:
 				enemy["hp"] = mini(int(enemy.get("max_hp", 999)), int(enemy.get("hp", 0)) + tick_result.regeneration_heal)
 				_log("%s 生命回复恢复 %d 点生命" % [str(enemy.get("name", "")), tick_result.regeneration_heal])
 
@@ -172,8 +175,8 @@ func end_player_turn() -> void:
 
 		# 敌人回合结束触发
 		if enemy.has("status_manager"):
-			var enemy_status: StatusManager = enemy["status_manager"]
-			enemy_status.tick_turn_end()
+			var enemy_status: RefCounted = enemy["status_manager"]
+			enemy_status.call("tick_turn_end")
 
 	# 移除死亡敌人
 	_remove_dead_enemies()
@@ -209,8 +212,8 @@ func damage_enemy(target_index: int, amount: int) -> Dictionary:
 
 	# 荆棘反弹伤害
 	if enemy.has("status_manager"):
-		var enemy_status: StatusManager = enemy["status_manager"]
-		var thorns_damage := enemy_status.on_hit()
+		var enemy_status: RefCounted = enemy["status_manager"]
+		var thorns_damage: int = enemy_status.call("on_hit")
 		if thorns_damage > 0:
 			player_hp = maxi(0, player_hp - thorns_damage)
 			_log("荆棘反弹 %d 点伤害" % thorns_damage)
@@ -240,8 +243,8 @@ func get_snapshot() -> Dictionary:
 		var enemy_data := (enemy as Dictionary).duplicate(true)
 		# 添加敌人状态信息
 		if enemy.has("status_manager"):
-			var enemy_status: StatusManager = enemy["status_manager"]
-			enemy_data["statuses"] = enemy_status.get_snapshot()
+			var enemy_status: RefCounted = enemy["status_manager"]
+			enemy_data["statuses"] = enemy_status.call("get_snapshot")
 		enemy_snapshot.append(enemy_data)
 
 	return {
@@ -250,8 +253,8 @@ func get_snapshot() -> Dictionary:
 		"player_hp": player_hp,
 		"player_max_hp": player_max_hp,
 		"player_block": player_block,
-		"player_strength": player_status.get_stacks("strength"),
-		"player_statuses": player_status.get_snapshot(),
+		"player_strength": player_status.call("get_stacks", "strength"),
+		"player_statuses": player_status.call("get_snapshot"),
 		"energy": energy,
 		"energy_per_turn": energy_per_turn,
 		"hand": hand_snapshot,
@@ -265,6 +268,16 @@ func _remove_dead_enemies() -> void:
 		if int(enemies[index].get("hp", 0)) <= 0:
 			_log("%s 被击败" % str(enemies[index].get("name", "")))
 			enemies.remove_at(index)
+
+
+func _should_exhaust_current_card(effect_results: Array) -> bool:
+	for result in effect_results:
+		if not (result is Dictionary):
+			continue
+		var result_dict := result as Dictionary
+		if str(result_dict.get("type", "")) == "exhaust" and str(result_dict.get("target", "current_card")) == "current_card":
+			return true
+	return false
 
 
 func _is_valid_enemy_target(target_index: int) -> bool:

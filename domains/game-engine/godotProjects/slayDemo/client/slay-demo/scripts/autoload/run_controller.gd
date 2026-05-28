@@ -3,7 +3,10 @@ extends Node
 var active_run_id := "v1_fixed_run"
 
 
-func start_new_run() -> void:
+func start_new_run(run_id: String = "") -> void:
+	if not run_id.is_empty():
+		active_run_id = run_id
+
 	var data_loader: Variant = _autoload("DataLoader")
 	var game_state: Variant = _autoload("GameState")
 	data_loader.load_all()
@@ -31,6 +34,10 @@ func enter_current_node() -> void:
 			scene_router.go_to("battle")
 		"reward":
 			scene_router.go_to("reward")
+		"rest":
+			game_state.heal_player_percent(float(node.get("heal_percent", 0.3)))
+			game_state.advance_node()
+			enter_current_node()
 		"result":
 			game_state.finish_run(true)
 			scene_router.go_to("result")

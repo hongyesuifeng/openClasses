@@ -417,6 +417,7 @@
       "tags": ["damage", "exhaust"],
       "art_key": "card_attack",
       "effects": [
+        { "type": "exhaust", "target": "non_attack_hand" },
         { "type": "damage", "value": 16, "target": "selected_enemy" }
       ],
       "upgrade": {
@@ -424,6 +425,7 @@
         "description": "消耗手牌中所有非攻击牌，造成 22 点伤害。",
         "cost": 2,
         "effects": [
+          { "type": "exhaust", "target": "non_attack_hand" },
           { "type": "damage", "value": 22, "target": "selected_enemy" }
         ]
       }

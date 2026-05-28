@@ -59,6 +59,14 @@ func apply_post_battle_hp(hp: int) -> void:
 	player_hp = clampi(hp, 0, player_max_hp)
 
 
+func heal_player(amount: int) -> void:
+	player_hp = clampi(player_hp + amount, 0, player_max_hp)
+
+
+func heal_player_percent(percent: float) -> void:
+	heal_player(int(ceil(player_max_hp * percent)))
+
+
 func finish_run(won: bool) -> void:
 	is_run_won = won
 	is_run_finished = true

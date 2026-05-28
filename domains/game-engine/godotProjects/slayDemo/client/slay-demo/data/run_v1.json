@@ -56,6 +56,115 @@
           "type": "result"
         }
       ]
+    },
+    {
+      "id": "v2_extended_run",
+      "start_deck": [
+        "strike",
+        "strike",
+        "defend",
+        "defend",
+        "bash",
+        "cleave",
+        "heavy_strike",
+        "shrug_it_off",
+        "inflame",
+        "offering",
+        "impervious",
+        "bludgeon"
+      ],
+      "player": {
+        "max_hp": 90,
+        "gold": 0,
+        "energy_per_turn": 3,
+        "draw_per_turn": 5
+      },
+      "nodes": [
+        {
+          "id": "v2_node_01",
+          "type": "battle",
+          "encounter_id": "v1_normal_04"
+        },
+        {
+          "id": "v2_node_02",
+          "type": "reward",
+          "reward_profile_id": "normal_card_reward"
+        },
+        {
+          "id": "v2_node_03",
+          "type": "battle",
+          "encounter_id": "v1_normal_05"
+        },
+        {
+          "id": "v2_node_04",
+          "type": "reward",
+          "reward_profile_id": "normal_card_reward"
+        },
+        {
+          "id": "v2_node_05",
+          "type": "battle",
+          "encounter_id": "v1_normal_06"
+        },
+        {
+          "id": "v2_node_06",
+          "type": "reward",
+          "reward_profile_id": "normal_card_reward"
+        },
+        {
+          "id": "v2_node_07",
+          "type": "battle",
+          "encounter_id": "v1_normal_07"
+        },
+        {
+          "id": "v2_node_08",
+          "type": "reward",
+          "reward_profile_id": "normal_card_reward"
+        },
+        {
+          "id": "v2_node_09",
+          "type": "battle",
+          "encounter_id": "v1_normal_08"
+        },
+        {
+          "id": "v2_node_10",
+          "type": "reward",
+          "reward_profile_id": "normal_card_reward"
+        },
+        {
+          "id": "v2_node_11",
+          "type": "battle",
+          "encounter_id": "v1_elite_01"
+        },
+        {
+          "id": "v2_node_12",
+          "type": "reward",
+          "reward_profile_id": "elite_card_reward"
+        },
+        {
+          "id": "v2_node_13",
+          "type": "battle",
+          "encounter_id": "v1_elite_02"
+        },
+        {
+          "id": "v2_node_14",
+          "type": "reward",
+          "reward_profile_id": "elite_card_reward"
+        },
+        {
+          "id": "v2_node_15",
+          "type": "rest",
+          "heal_percent": 0.3
+        },
+        {
+          "id": "v2_node_16",
+          "type": "battle",
+          "encounter_id": "v1_boss_02"
+        },
+        {
+          "id": "v2_node_17",
+          "type": "result"
+        }
+      ]
     }
   ]
 }

@@ -1,9 +1,6 @@
 extends RefCounted
 class_name EffectRunner
 
-const StatusManagerScript := preload("res://scripts/battle/status_manager.gd")
-
-
 static func apply_effects(effects: Array, battle: Variant, source: String, target_index: int = -1, acting_enemy_index: int = -1) -> Array:
 	var results: Array = []
 
@@ -55,14 +52,14 @@ static func _apply_damage(effect: Dictionary, battle: Variant, source: String, t
 	var final_amount := base_amount
 
 	if source == "player":
-		var player_status: StatusManager = battle.player_status
-		final_amount = player_status.calculate_damage(base_amount, true)
+		var player_status: RefCounted = battle.player_status
+		final_amount = player_status.call("calculate_damage", base_amount, true)
 
 		if target_index >= 0 and target_index < battle.enemies.size():
 			var enemy: Dictionary = battle.enemies[target_index]
 			if enemy.has("status_manager"):
-				var enemy_status: StatusManager = enemy["status_manager"]
-				final_amount = enemy_status.calculate_damage(final_amount, false)
+				var enemy_status: RefCounted = enemy["status_manager"]
+				final_amount = enemy_status.call("calculate_damage", final_amount, false)
 
 		return battle.damage_enemy(target_index, final_amount)
 	else:
@@ -70,11 +67,11 @@ static func _apply_damage(effect: Dictionary, battle: Variant, source: String, t
 		if enemy_index >= 0 and enemy_index < battle.enemies.size():
 			var enemy: Dictionary = battle.enemies[enemy_index]
 			if enemy.has("status_manager"):
-				var enemy_status: StatusManager = enemy["status_manager"]
-				final_amount = enemy_status.calculate_damage(base_amount, true)
+				var enemy_status: RefCounted = enemy["status_manager"]
+				final_amount = enemy_status.call("calculate_damage", base_amount, true)
 
-		var player_status: StatusManager = battle.player_status
-		final_amount = player_status.calculate_damage(final_amount, false)
+		var player_status: RefCounted = battle.player_status
+		final_amount = player_status.call("calculate_damage", final_amount, false)
 
 		return battle.damage_player(final_amount)
 
@@ -84,16 +81,16 @@ static func _apply_block(effect: Dictionary, battle: Variant, source: String, _t
 	var final_amount := base_amount
 
 	if source == "player" or (str(effect.get("target", "")) == "self" and acting_enemy_index < 0):
-		var player_status: StatusManager = battle.player_status
-		final_amount = player_status.calculate_block(base_amount)
+		var player_status: RefCounted = battle.player_status
+		final_amount = player_status.call("calculate_block", base_amount)
 		battle.player_block += final_amount
 		return { "type": "player_block", "value": final_amount, "base": base_amount }
 
 	if acting_enemy_index >= 0:
 		var enemy: Dictionary = battle.enemies[acting_enemy_index]
 		if enemy.has("status_manager"):
-			var enemy_status: StatusManager = enemy["status_manager"]
-			final_amount = enemy_status.calculate_block(base_amount)
+			var enemy_status: RefCounted = enemy["status_manager"]
+			final_amount = enemy_status.call("calculate_block", base_amount)
 		enemy["block"] = int(enemy.get("block", 0)) + final_amount
 		return { "type": "enemy_block", "enemy_index": acting_enemy_index, "value": final_amount, "base": base_amount }
 
@@ -103,14 +100,14 @@ static func _apply_block(effect: Dictionary, battle: Variant, source: String, _t
 static func _apply_strength(effect: Dictionary, battle: Variant, source: String, _target_index: int, acting_enemy_index: int) -> Dictionary:
 	var amount := int(effect.get("value", 0))
 	if source == "player" or acting_enemy_index < 0:
-		var player_status: StatusManager = battle.player_status
-		player_status.apply_status("strength", player_status.get_stacks("strength") + amount)
+		var player_status: RefCounted = battle.player_status
+		player_status.call("apply_status", "strength", player_status.call("get_stacks", "strength") + amount)
 		return { "type": "player_strength", "value": amount }
 
 	var enemy: Dictionary = battle.enemies[acting_enemy_index]
 	if enemy.has("status_manager"):
-		var enemy_status: StatusManager = enemy["status_manager"]
-		enemy_status.apply_status("strength", enemy_status.get_stacks("strength") + amount)
+		var enemy_status: RefCounted = enemy["status_manager"]
+		enemy_status.call("apply_status", "strength", enemy_status.call("get_stacks", "strength") + amount)
 	return { "type": "enemy_strength", "enemy_index": acting_enemy_index, "value": amount }
 
 
@@ -125,13 +122,13 @@ static func _apply_status(effect: Dictionary, battle: Variant, source: String, t
 		if target_index >= 0 and target_index < battle.enemies.size():
 			var enemy: Dictionary = battle.enemies[target_index]
 			if enemy.has("status_manager"):
-				var enemy_status: StatusManager = enemy["status_manager"]
-				enemy_status.apply_status(status_id, stacks)
+				var enemy_status: RefCounted = enemy["status_manager"]
+				enemy_status.call("apply_status", status_id, stacks)
 				return { "type": "apply_status", "target": "enemy", "target_index": target_index, "status_id": status_id, "stacks": stacks }
 	else:
 		if str(effect.get("target", "")) == "player":
-			var player_status: StatusManager = battle.player_status
-			player_status.apply_status(status_id, stacks)
+			var player_status: RefCounted = battle.player_status
+			player_status.call("apply_status", status_id, stacks)
 			return { "type": "apply_status", "target": "player", "status_id": status_id, "stacks": stacks }
 
 	return {}
@@ -205,7 +202,36 @@ static func _apply_gain_energy(effect: Dictionary, battle: Variant, source: Stri
 
 
 ## 消耗：消耗当前打出的卡牌（移入消耗堆而非弃牌堆）
-static func _apply_exhaust(_effect: Dictionary, battle: Variant, source: String, _target_index: int) -> Dictionary:
-	# 标记当前卡牌需要消耗
-	# 这个效果通常与其他效果组合使用
-	return { "type": "exhaust", "source": source }
+static func _apply_exhaust(effect: Dictionary, battle: Variant, source: String, _target_index: int) -> Dictionary:
+	if source != "player":
+		return {}
+
+	var target := str(effect.get("target", "current_card"))
+	if target == "non_attack_hand":
+		var exhausted := 0
+		var data_loader: Variant = battle._autoload("DataLoader")
+		for index in range(battle.deck.hand.size() - 1, -1, -1):
+			var card_instance: Dictionary = battle.deck.hand[index]
+			var card: Dictionary = data_loader.resolve_card_instance(card_instance) if data_loader != null else {}
+			if str(card.get("type", "")) == "attack":
+				continue
+
+			var removed: Dictionary = battle.deck.take_from_hand(index)
+			battle.deck.exhaust(removed)
+			exhausted += 1
+
+		if exhausted > 0:
+			battle._log("消耗 %d 张非攻击牌" % exhausted)
+		return { "type": "exhaust", "target": "non_attack_hand", "value": exhausted }
+
+	if target == "all_hand":
+		var exhausted := 0
+		while not battle.deck.hand.is_empty():
+			var removed: Dictionary = battle.deck.take_from_hand(0)
+			battle.deck.exhaust(removed)
+			exhausted += 1
+		if exhausted > 0:
+			battle._log("消耗 %d 张手牌" % exhausted)
+		return { "type": "exhaust", "target": "all_hand", "value": exhausted }
+
+	return { "type": "exhaust", "target": "current_card", "source": source }

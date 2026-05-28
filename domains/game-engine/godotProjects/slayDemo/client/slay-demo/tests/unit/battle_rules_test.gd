@@ -10,6 +10,7 @@ func name() -> String:
 func run(ctx: Variant) -> void:
 	_test_damage_and_energy(ctx)
 	_test_block_absorbs_damage(ctx)
+	_test_exhaust_non_attack_hand(ctx)
 
 
 func _test_damage_and_energy(ctx: Variant) -> void:
@@ -44,6 +45,30 @@ func _test_block_absorbs_damage(ctx: Variant) -> void:
 	battle.damage_player(8)
 	ctx.assert_eq(battle.player_hp, 57, "block absorbs incoming damage first")
 	ctx.assert_eq(battle.player_block, 0, "block is consumed by damage")
+
+
+func _test_exhaust_non_attack_hand(ctx: Variant) -> void:
+	var data_loader: Variant = ctx.autoload("DataLoader")
+	var battle: Variant = BattleControllerScript.new()
+	battle.setup("v1_normal_01", [], _player_state())
+	battle.start_combat()
+	battle.energy = 3
+	battle.deck.hand = [
+		data_loader.create_card_instance("sever_soul"),
+		data_loader.create_card_instance("defend"),
+		data_loader.create_card_instance("strike")
+	]
+
+	var enemy_hp_before: int = int(battle.enemies[0].get("hp", 0))
+	var played: bool = battle.play_card(0, 0)
+	ctx.assert_true(played, "sever soul can be played")
+	ctx.assert_eq(battle.deck.exhaust_pile.size(), 1, "non-attack hand cards are exhausted")
+	ctx.assert_eq(str((battle.deck.exhaust_pile[0] as Dictionary).get("card_id", "")), "defend", "defend is exhausted")
+	ctx.assert_eq(battle.deck.discard_pile.size(), 1, "played sever soul is discarded")
+	ctx.assert_eq(str((battle.deck.discard_pile[0] as Dictionary).get("card_id", "")), "sever_soul", "sever soul itself is not exhausted")
+	ctx.assert_eq(battle.deck.hand.size(), 1, "attack cards remain in hand")
+	ctx.assert_eq(str((battle.deck.hand[0] as Dictionary).get("card_id", "")), "strike", "strike remains in hand")
+	ctx.assert_eq(int(battle.enemies[0].get("hp", 0)), enemy_hp_before - 16, "sever soul deals damage")
 
 
 func _player_state() -> Dictionary:

@@ -13,11 +13,11 @@ func _build() -> void:
 
 	var panel := VBoxContainer.new()
 	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(420, 260)
+	panel.custom_minimum_size = Vector2(420, 320)
 	panel.offset_left = -210
-	panel.offset_top = -130
+	panel.offset_top = -160
 	panel.offset_right = 210
-	panel.offset_bottom = 130
+	panel.offset_bottom = 160
 	panel.alignment = BoxContainer.ALIGNMENT_CENTER
 	panel.add_theme_constant_override("separation", 18)
 	add_child(panel)
@@ -29,7 +29,7 @@ func _build() -> void:
 	panel.add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "固定垂直切片: 3 场普通战斗 + 奖励 + Boss"
+	subtitle.text = "V1 固定切片与 V2 扩展遭遇流程"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.add_theme_font_size_override("font_size", 18)
 	panel.add_child(subtitle)
@@ -40,6 +40,12 @@ func _build() -> void:
 	start_button.pressed.connect(_on_start_pressed)
 	panel.add_child(start_button)
 
+	var v2_button := Button.new()
+	v2_button.text = "开始 V2 扩展局"
+	v2_button.custom_minimum_size = Vector2(260, 48)
+	v2_button.pressed.connect(_on_v2_start_pressed)
+	panel.add_child(v2_button)
+
 	var validate_button := Button.new()
 	validate_button.text = "校验数据"
 	validate_button.custom_minimum_size = Vector2(260, 44)
@@ -49,7 +55,12 @@ func _build() -> void:
 
 func _on_start_pressed() -> void:
 	var run_controller: Variant = _autoload("RunController")
-	run_controller.start_new_run()
+	run_controller.start_new_run("v1_fixed_run")
+
+
+func _on_v2_start_pressed() -> void:
+	var run_controller: Variant = _autoload("RunController")
+	run_controller.start_new_run("v2_extended_run")
 
 
 func _on_validate_pressed() -> void:
