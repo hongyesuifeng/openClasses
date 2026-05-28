@@ -68,7 +68,8 @@ func _win_battle_or_fail(ctx: Variant, encounter_id: String, seed: int) -> void:
 		"hp": game_state.player_hp,
 		"max_hp": game_state.player_max_hp,
 		"energy_per_turn": game_state.energy_per_turn,
-		"draw_per_turn": game_state.draw_per_turn
+		"draw_per_turn": game_state.draw_per_turn,
+		"relic_ids": game_state.owned_relic_ids
 	})
 	battle.start_combat()
 

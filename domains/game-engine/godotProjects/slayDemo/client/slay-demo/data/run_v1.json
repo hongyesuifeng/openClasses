@@ -215,7 +215,8 @@
         {
           "id": "map_03a",
           "floor": 3,
-          "type": "shop",
+          "type": "chest",
+          "gold": 45,
           "next_nodes": ["map_04a"]
         },
         {

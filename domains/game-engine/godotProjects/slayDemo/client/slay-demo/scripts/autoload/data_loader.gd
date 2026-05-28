@@ -4,19 +4,23 @@ const CARDS_PATH := "res://data/cards.json"
 const ENEMIES_PATH := "res://data/enemies.json"
 const ENCOUNTERS_PATH := "res://data/encounters.json"
 const REWARDS_PATH := "res://data/rewards.json"
+const RELICS_PATH := "res://data/relics.json"
 const RUNS_PATH := "res://data/run_v1.json"
 
 const CARD_TYPES := ["attack", "skill", "power", "status"]
 const CARD_RARITIES := ["starter", "common", "uncommon", "rare", "special"]
 const CARD_TARGETS := ["self", "single_enemy", "all_enemies", "none"]
 const ENCOUNTER_TYPES := ["normal", "elite", "boss"]
-const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "result"]
+const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "chest", "result"]
 const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength", "gain_barricade", "heal", "multi_damage", "aoe_damage", "gain_energy", "exhaust"]
+const RELIC_RARITIES := ["common", "uncommon", "rare"]
+const RELIC_EFFECT_TYPES := ["battle_start_block", "first_turn_energy", "max_hp", "card_gain_heal", "battle_win_gold"]
 
 var _cards: Dictionary = {}
 var _enemies: Dictionary = {}
 var _encounters: Dictionary = {}
 var _reward_profiles: Dictionary = {}
+var _relics: Dictionary = {}
 var _runs: Dictionary = {}
 var _loaded := false
 var _next_card_instance_id := 1
@@ -27,6 +31,7 @@ func load_all() -> void:
 	_enemies = _load_collection(ENEMIES_PATH, "enemies")
 	_encounters = _load_collection(ENCOUNTERS_PATH, "encounters")
 	_reward_profiles = _load_collection(REWARDS_PATH, "reward_profiles")
+	_relics = _load_collection(RELICS_PATH, "relics")
 	_runs = _load_collection(RUNS_PATH, "runs")
 	_loaded = true
 
@@ -36,6 +41,7 @@ func clear_cache() -> void:
 	_enemies.clear()
 	_encounters.clear()
 	_reward_profiles.clear()
+	_relics.clear()
 	_runs.clear()
 	_loaded = false
 	_next_card_instance_id = 1
@@ -50,6 +56,7 @@ func validate_all() -> PackedStringArray:
 	_validate_enemies(errors)
 	_validate_encounters(errors)
 	_validate_rewards(errors)
+	_validate_relics(errors)
 	_validate_runs(errors)
 	return errors
 
@@ -74,6 +81,11 @@ func get_reward_profile(id: String) -> Dictionary:
 	return _duplicate_entry(_reward_profiles.get(id, {}))
 
 
+func get_relic(id: String) -> Dictionary:
+	_ensure_loaded()
+	return _duplicate_entry(_relics.get(id, {}))
+
+
 func get_run_config(id: String) -> Dictionary:
 	_ensure_loaded()
 	return _duplicate_entry(_runs.get(id, {}))
@@ -84,6 +96,14 @@ func get_all_cards() -> Array:
 	var result: Array = []
 	for card in _cards.values():
 		result.append((card as Dictionary).duplicate(true))
+	return result
+
+
+func get_all_relics() -> Array:
+	_ensure_loaded()
+	var result: Array = []
+	for relic in _relics.values():
+		result.append((relic as Dictionary).duplicate(true))
 	return result
 
 
@@ -242,6 +262,27 @@ func _validate_rewards(errors: PackedStringArray) -> void:
 		_require_int(reward, "card_choices", "reward_profile", id, errors)
 
 
+func _validate_relics(errors: PackedStringArray) -> void:
+	for id in _relics:
+		var relic: Dictionary = _relics[id]
+		_require_string(relic, "id", "relic", id, errors)
+		_require_string(relic, "name", "relic", id, errors)
+		_require_string(relic, "description", "relic", id, errors)
+		_require_string(relic, "rarity", "relic", id, errors)
+		_require_array(relic, "effects", "relic", id, errors)
+		_enum_value(relic, "rarity", RELIC_RARITIES, "relic", id, errors)
+
+		for effect_index in range((relic.get("effects", []) as Array).size()):
+			var effect: Variant = (relic.get("effects", []) as Array)[effect_index]
+			if not (effect is Dictionary):
+				errors.append("relic:%s effect[%d] must be an object" % [id, effect_index])
+				continue
+			var effect_dict := effect as Dictionary
+			_require_string(effect_dict, "type", "relic_effect", "%s[%d]" % [id, effect_index], errors)
+			_require_int(effect_dict, "value", "relic_effect", "%s[%d]" % [id, effect_index], errors)
+			_enum_value(effect_dict, "type", RELIC_EFFECT_TYPES, "relic_effect", "%s[%d]" % [id, effect_index], errors)
+
+
 func _validate_runs(errors: PackedStringArray) -> void:
 	for id in _runs:
 		var run: Dictionary = _runs[id]
@@ -257,6 +298,10 @@ func _validate_runs(errors: PackedStringArray) -> void:
 		for card_id in run.get("start_deck", []):
 			if not _cards.has(str(card_id)):
 				errors.append("run:%s start_deck references missing card '%s'" % [id, str(card_id)])
+
+		for relic_id in run.get("start_relics", []):
+			if not _relics.has(str(relic_id)):
+				errors.append("run:%s start_relics references missing relic '%s'" % [id, str(relic_id)])
 
 		var nodes: Array = run.get("nodes", [])
 		_validate_run_nodes(id, nodes, "node", errors)

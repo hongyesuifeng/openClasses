@@ -32,6 +32,7 @@ func _ready() -> void:
 	var map_count := 0
 	var shop_count := 0
 	var rest_count := 0
+	var chest_count := 0
 	while safety < FLOW_TIMEOUT_FRAMES:
 		safety += 1
 		await get_tree().process_frame
@@ -46,7 +47,7 @@ func _ready() -> void:
 			if int(summary.get("completed_map_nodes", 0)) <= 0:
 				_fail("Expected completed map nodes, got summary: %s" % str(summary))
 				return
-			print("Map scene runtime test passed. maps=%d battles=%d rewards=%d shops=%d rests=%d summary=%s" % [map_count, battle_count, reward_count, shop_count, rest_count, str(summary)])
+			print("Map scene runtime test passed. maps=%d battles=%d rewards=%d shops=%d rests=%d chests=%d summary=%s" % [map_count, battle_count, reward_count, shop_count, rest_count, chest_count, str(summary)])
 			get_tree().quit(0)
 			return
 
@@ -87,6 +88,13 @@ func _ready() -> void:
 		if rest_scene != null:
 			rest_count += 1
 			rest_scene.call("_on_heal_pressed")
+			await get_tree().process_frame
+			continue
+
+		var chest_scene := _find_node_by_name(get_tree().root, "ChestScene")
+		if chest_scene != null:
+			chest_count += 1
+			chest_scene.call("_on_open_pressed")
 			await get_tree().process_frame
 			continue
 

@@ -1,5 +1,7 @@
 extends Node
 
+const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
+
 var active_run_id := "v1_fixed_run"
 
 
@@ -50,6 +52,8 @@ func enter_current_node() -> void:
 			scene_router.go_to("rest")
 		"shop":
 			scene_router.go_to("shop")
+		"chest":
+			scene_router.go_to("chest")
 		"result":
 			game_state.finish_run(true)
 			scene_router.go_to("result")
@@ -77,6 +81,8 @@ func on_battle_won(remaining_hp: int) -> void:
 	var game_state: Variant = _autoload("GameState")
 	game_state.apply_post_battle_hp(remaining_hp)
 	game_state.record_battle_win()
+	_apply_battle_win_relics()
+	_grant_elite_relic_if_needed()
 	if game_state.has_map():
 		if game_state.current_map_node_is_final():
 			game_state.complete_current_map_node()
@@ -143,6 +149,41 @@ func complete_shop() -> void:
 
 	game_state.advance_node()
 	enter_current_node()
+
+
+func complete_chest() -> void:
+	var game_state: Variant = _autoload("GameState")
+	if game_state.has_map():
+		game_state.complete_current_map_node()
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("map")
+		return
+
+	game_state.advance_node()
+	enter_current_node()
+
+
+func _apply_battle_win_relics() -> void:
+	var data_loader: Variant = _autoload("DataLoader")
+	var game_state: Variant = _autoload("GameState")
+	var bonus_gold := RelicServiceScript.get_effect_total(game_state.owned_relic_ids, data_loader, "battle_win_gold")
+	if bonus_gold > 0:
+		game_state.add_gold(bonus_gold)
+
+
+func _grant_elite_relic_if_needed() -> void:
+	var data_loader: Variant = _autoload("DataLoader")
+	var game_state: Variant = _autoload("GameState")
+	var encounter_id := get_current_encounter_id()
+	var encounter: Dictionary = data_loader.get_encounter(encounter_id)
+	if str(encounter.get("encounter_type", "")) != "elite":
+		return
+
+	var relic: Dictionary = RelicServiceScript.choose_relic_reward(game_state.owned_relic_ids, data_loader)
+	if relic.is_empty():
+		return
+	if game_state.add_relic(str(relic.get("id", ""))):
+		print("获得遗物: %s" % str(relic.get("name", "")))
 
 
 func _autoload(name: String) -> Variant:

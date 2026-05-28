@@ -1,5 +1,7 @@
 extends Node
 
+const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
+
 var current_phase := "boot"
 var current_node_index := 0
 var player_max_hp := 60
@@ -8,6 +10,7 @@ var player_gold := 0
 var energy_per_turn := 3
 var draw_per_turn := 5
 var master_deck: Array = []
+var owned_relic_ids: Array[String] = []
 var run_nodes: Array = []
 var map_nodes: Array = []
 var completed_map_node_ids: Array[String] = []
@@ -38,10 +41,13 @@ func start_new_run(run_config: Dictionary) -> void:
 	current_map_node_id = ""
 	pending_map_reward.clear()
 	master_deck.clear()
+	owned_relic_ids.clear()
 
 	var data_loader: Variant = _autoload("DataLoader")
 	for card_id in run_config.get("start_deck", []):
 		master_deck.append(data_loader.create_card_instance(str(card_id)))
+	for relic_id in run_config.get("start_relics", []):
+		add_relic(str(relic_id))
 
 	if has_map():
 		_unlock_starting_map_nodes()
@@ -147,6 +153,36 @@ func add_card_to_deck(card_id: String) -> void:
 	var instance: Dictionary = data_loader.create_card_instance(card_id)
 	if not instance.is_empty():
 		master_deck.append(instance)
+		var heal_amount := RelicServiceScript.get_effect_total(owned_relic_ids, data_loader, "card_gain_heal")
+		if heal_amount > 0:
+			heal_player(heal_amount)
+
+
+func add_relic(relic_id: String) -> bool:
+	if relic_id.is_empty() or owned_relic_ids.has(relic_id):
+		return false
+
+	var data_loader: Variant = _autoload("DataLoader")
+	var relic: Dictionary = data_loader.get_relic(relic_id)
+	if relic.is_empty():
+		return false
+
+	owned_relic_ids.append(relic_id)
+	var max_hp_bonus := RelicServiceScript.get_effect_total([relic_id], data_loader, "max_hp")
+	if max_hp_bonus > 0:
+		player_max_hp += max_hp_bonus
+		player_hp = mini(player_max_hp, player_hp + max_hp_bonus)
+	return true
+
+
+func get_owned_relics() -> Array:
+	var data_loader: Variant = _autoload("DataLoader")
+	var result: Array = []
+	for relic_id in owned_relic_ids:
+		var relic: Dictionary = data_loader.get_relic(relic_id)
+		if not relic.is_empty():
+			result.append(relic)
+	return result
 
 
 func remove_card_by_instance_id(instance_id: int) -> bool:
@@ -199,6 +235,7 @@ func get_result_summary() -> Dictionary:
 		"gold": player_gold,
 		"player_hp": player_hp,
 		"player_max_hp": player_max_hp,
+		"relic_count": owned_relic_ids.size(),
 		"completed_map_nodes": completed_map_node_ids.size()
 	}
 

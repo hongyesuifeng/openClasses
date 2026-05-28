@@ -1,0 +1,49 @@
+{
+  "relics": [
+    {
+      "id": "anchor",
+      "name": "船锚",
+      "description": "每场战斗开始获得 10 点格挡。",
+      "rarity": "common",
+      "effects": [
+        { "type": "battle_start_block", "value": 10 }
+      ]
+    },
+    {
+      "id": "lantern",
+      "name": "灯笼",
+      "description": "每场战斗第一回合获得 1 点额外能量。",
+      "rarity": "common",
+      "effects": [
+        { "type": "first_turn_energy", "value": 1 }
+      ]
+    },
+    {
+      "id": "strawberry",
+      "name": "草莓",
+      "description": "获得时最大生命值提高 10。",
+      "rarity": "common",
+      "effects": [
+        { "type": "max_hp", "value": 10 }
+      ]
+    },
+    {
+      "id": "meal_ticket",
+      "name": "餐券",
+      "description": "每次获得卡牌时回复 2 点生命。",
+      "rarity": "uncommon",
+      "effects": [
+        { "type": "card_gain_heal", "value": 2 }
+      ]
+    },
+    {
+      "id": "golden_idol",
+      "name": "黄金神像",
+      "description": "战斗胜利后额外获得 15 金币。",
+      "rarity": "rare",
+      "effects": [
+        { "type": "battle_win_gold", "value": 15 }
+      ]
+    }
+  ]
+}

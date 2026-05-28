@@ -64,7 +64,8 @@ func _ready() -> void:
 		"hp": game_state.player_hp,
 		"max_hp": game_state.player_max_hp,
 		"energy_per_turn": game_state.energy_per_turn,
-		"draw_per_turn": game_state.draw_per_turn
+		"draw_per_turn": game_state.draw_per_turn,
+		"relic_ids": game_state.owned_relic_ids
 	}
 	_battle.setup(run_controller.get_current_encounter_id(), game_state.master_deck, player_state)
 	_battle.start_combat()

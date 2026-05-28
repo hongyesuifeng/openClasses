@@ -12,6 +12,7 @@ func run(ctx: Variant) -> void:
 	_test_block_absorbs_damage(ctx)
 	_test_enemy_art_key_is_preserved(ctx)
 	_test_barricade_retains_block(ctx)
+	_test_relics_affect_battle_start(ctx)
 	_test_exhaust_non_attack_hand(ctx)
 
 
@@ -72,6 +73,16 @@ func _test_barricade_retains_block(ctx: Variant) -> void:
 	battle.player_block = 12
 	battle.start_player_turn()
 	ctx.assert_eq(battle.player_block, 12, "barricade retains block at player turn start")
+
+
+func _test_relics_affect_battle_start(ctx: Variant) -> void:
+	var battle: Variant = BattleControllerScript.new()
+	var player_state := _player_state()
+	player_state["relic_ids"] = ["anchor", "lantern"]
+	battle.setup("v1_normal_01", [], player_state)
+	battle.start_combat()
+	ctx.assert_eq(battle.player_block, 10, "anchor grants battle start block")
+	ctx.assert_eq(battle.energy, 4, "lantern grants first-turn energy")
 
 
 func _test_exhaust_non_attack_hand(ctx: Variant) -> void:

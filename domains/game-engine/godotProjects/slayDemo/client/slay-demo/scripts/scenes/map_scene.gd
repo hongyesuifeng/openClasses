@@ -3,6 +3,7 @@ extends Control
 const NODE_LABELS := {
 	"battle": "战斗",
 	"shop": "商店",
+	"chest": "宝箱",
 	"rest": "休息",
 	"result": "终点"
 }
@@ -10,6 +11,7 @@ const NODE_LABELS := {
 const NODE_COLORS := {
 	"battle": Color(0.48, 0.16, 0.12, 0.92),
 	"shop": Color(0.42, 0.32, 0.12, 0.92),
+	"chest": Color(0.50, 0.36, 0.08, 0.92),
 	"rest": Color(0.12, 0.34, 0.28, 0.92),
 	"result": Color(0.28, 0.22, 0.48, 0.92)
 }
@@ -163,11 +165,16 @@ func _node_text(node: Dictionary, selectable: bool, done: bool) -> String:
 
 func _status_text() -> String:
 	var game_state: Variant = _autoload("GameState")
-	return "HP %d/%d  金币 %d  已胜利 %d 场" % [
+	var relic_names: Array[String] = []
+	for relic in game_state.get_owned_relics():
+		relic_names.append(str((relic as Dictionary).get("name", "")))
+	var relic_text := "无" if relic_names.is_empty() else "、".join(relic_names)
+	return "HP %d/%d  金币 %d  已胜利 %d 场  遗物: %s" % [
 		int(game_state.player_hp),
 		int(game_state.player_max_hp),
 		int(game_state.player_gold),
-		int(game_state.battle_wins)
+		int(game_state.battle_wins),
+		relic_text
 	]
 
 

@@ -7,6 +7,7 @@ const SCENES := {
 	"reward": "res://scenes/reward/reward_scene.tscn",
 	"rest": "res://scenes/rest/rest_scene.tscn",
 	"shop": "res://scenes/shop/shop_scene.tscn",
+	"chest": "res://scenes/chest/chest_scene.tscn",
 	"result": "res://scenes/result/result_scene.tscn"
 }
 

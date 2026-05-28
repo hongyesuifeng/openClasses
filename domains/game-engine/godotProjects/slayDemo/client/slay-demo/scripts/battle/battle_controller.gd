@@ -4,6 +4,7 @@ class_name BattleController
 const DeckRuntimeScript := preload("res://scripts/battle/deck_runtime.gd")
 const EffectRunnerScript := preload("res://scripts/battle/effect_runner.gd")
 const EnemyAIScript := preload("res://scripts/battle/enemy_ai.gd")
+const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
 const StatusManagerScript := preload("res://scripts/battle/status_manager.gd")
 
 signal state_changed(snapshot: Dictionary)
@@ -22,6 +23,7 @@ var draw_per_turn := 5
 var turn_number := 0
 var phase := "setup"
 var enemies: Array = []
+var relic_ids: Array = []
 var deck := DeckRuntimeScript.new()
 var player_status: RefCounted  # 玩家状态管理器（使用 RefCounted 避免类型加载问题）
 
@@ -32,6 +34,7 @@ func setup(p_encounter_id: String, master_deck: Array, player_state: Dictionary)
 	player_hp = int(player_state.get("hp", player_max_hp))
 	energy_per_turn = int(player_state.get("energy_per_turn", 3))
 	draw_per_turn = int(player_state.get("draw_per_turn", 5))
+	relic_ids = (player_state.get("relic_ids", []) as Array).duplicate(true)
 	player_block = 0
 	turn_number = 0
 	phase = "setup"
@@ -62,8 +65,16 @@ func start_player_turn() -> void:
 	turn_number += 1
 	phase = "player"
 	energy = energy_per_turn
+	var data_loader: Variant = _autoload("DataLoader")
+	if turn_number == 1:
+		energy += RelicServiceScript.get_effect_total(relic_ids, data_loader, "first_turn_energy")
 	if not bool(player_status.call("has_status", "barricade")):
 		player_block = 0
+	if turn_number == 1:
+		var start_block := RelicServiceScript.get_effect_total(relic_ids, data_loader, "battle_start_block")
+		if start_block > 0:
+			player_block += start_block
+			_log("遗物提供 %d 点开局格挡" % start_block)
 
 	# 回合开始触发：中毒伤害、生命回复
 	var tick_result: Dictionary = player_status.call("tick_turn_start")
