@@ -51,6 +51,26 @@ func add_card_to_deck(card_id: String) -> void:
 		master_deck.append(instance)
 
 
+func remove_card_by_instance_id(instance_id: int) -> bool:
+	for index in range(master_deck.size()):
+		var card_instance := master_deck[index] as Dictionary
+		if int(card_instance.get("instance_id", 0)) == instance_id:
+			master_deck.remove_at(index)
+			return true
+	return false
+
+
+func add_gold(amount: int) -> void:
+	player_gold = maxi(0, player_gold + amount)
+
+
+func spend_gold(amount: int) -> bool:
+	if amount < 0 or player_gold < amount:
+		return false
+	player_gold -= amount
+	return true
+
+
 func record_battle_win() -> void:
 	battle_wins += 1
 
@@ -78,6 +98,7 @@ func get_result_summary() -> Dictionary:
 		"won": is_run_won,
 		"battle_wins": battle_wins,
 		"deck_size": master_deck.size(),
+		"gold": player_gold,
 		"player_hp": player_hp,
 		"player_max_hp": player_max_hp
 	}

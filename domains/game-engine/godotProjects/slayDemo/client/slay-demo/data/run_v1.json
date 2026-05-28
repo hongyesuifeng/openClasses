@@ -74,8 +74,8 @@
         "bludgeon"
       ],
       "player": {
-        "max_hp": 90,
-        "gold": 0,
+        "max_hp": 110,
+        "gold": 300,
         "energy_per_turn": 3,
         "draw_per_turn": 5
       },
@@ -102,66 +102,74 @@
         },
         {
           "id": "v2_node_05",
+          "type": "shop"
+        },
+        {
+          "id": "v2_node_06",
           "type": "battle",
           "encounter_id": "v1_normal_06"
         },
         {
-          "id": "v2_node_06",
+          "id": "v2_node_07",
           "type": "reward",
           "reward_profile_id": "normal_card_reward"
         },
         {
-          "id": "v2_node_07",
+          "id": "v2_node_08",
           "type": "battle",
           "encounter_id": "v1_normal_07"
         },
         {
-          "id": "v2_node_08",
+          "id": "v2_node_09",
           "type": "reward",
           "reward_profile_id": "normal_card_reward"
         },
         {
-          "id": "v2_node_09",
+          "id": "v2_node_10",
           "type": "battle",
           "encounter_id": "v1_normal_08"
         },
         {
-          "id": "v2_node_10",
+          "id": "v2_node_11",
           "type": "reward",
           "reward_profile_id": "normal_card_reward"
         },
         {
-          "id": "v2_node_11",
+          "id": "v2_node_12",
           "type": "battle",
           "encounter_id": "v1_elite_01"
         },
         {
-          "id": "v2_node_12",
+          "id": "v2_node_13",
           "type": "reward",
           "reward_profile_id": "elite_card_reward"
         },
         {
-          "id": "v2_node_13",
+          "id": "v2_node_14",
+          "type": "shop"
+        },
+        {
+          "id": "v2_node_15",
           "type": "battle",
           "encounter_id": "v1_elite_02"
         },
         {
-          "id": "v2_node_14",
+          "id": "v2_node_16",
           "type": "reward",
           "reward_profile_id": "elite_card_reward"
         },
         {
-          "id": "v2_node_15",
+          "id": "v2_node_17",
           "type": "rest",
           "heal_percent": 0.3
         },
         {
-          "id": "v2_node_16",
+          "id": "v2_node_18",
           "type": "battle",
           "encounter_id": "v1_boss_02"
         },
         {
-          "id": "v2_node_17",
+          "id": "v2_node_19",
           "type": "result"
         }
       ]

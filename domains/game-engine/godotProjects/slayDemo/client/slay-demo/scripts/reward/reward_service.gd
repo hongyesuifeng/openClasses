@@ -14,9 +14,12 @@ static func generate_card_choices(profile_id: String, owned_deck: Array) -> Arra
 			continue
 		candidates.append(card_dict)
 
-	candidates.shuffle()
 	candidates.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
-		return _score_card(a, owned_deck) > _score_card(b, owned_deck)
+		var score_a := _score_card(a, owned_deck)
+		var score_b := _score_card(b, owned_deck)
+		if score_a == score_b:
+			return str(a.get("id", "")) < str(b.get("id", ""))
+		return score_a > score_b
 	)
 
 	var choices: Array = []

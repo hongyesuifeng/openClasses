@@ -10,7 +10,7 @@ const CARD_TYPES := ["attack", "skill", "power", "status"]
 const CARD_RARITIES := ["starter", "common", "uncommon", "rare", "special"]
 const CARD_TARGETS := ["self", "single_enemy", "all_enemies", "none"]
 const ENCOUNTER_TYPES := ["normal", "elite", "boss"]
-const RUN_NODE_TYPES := ["battle", "reward", "rest", "result"]
+const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "result"]
 const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength", "heal", "multi_damage", "aoe_damage", "gain_energy", "exhaust"]
 
 var _cards: Dictionary = {}

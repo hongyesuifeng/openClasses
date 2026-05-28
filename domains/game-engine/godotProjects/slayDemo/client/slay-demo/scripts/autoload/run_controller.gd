@@ -35,9 +35,9 @@ func enter_current_node() -> void:
 		"reward":
 			scene_router.go_to("reward")
 		"rest":
-			game_state.heal_player_percent(float(node.get("heal_percent", 0.3)))
-			game_state.advance_node()
-			enter_current_node()
+			scene_router.go_to("rest")
+		"shop":
+			scene_router.go_to("shop")
 		"result":
 			game_state.finish_run(true)
 			scene_router.go_to("result")
@@ -80,6 +80,24 @@ func complete_reward(card_id: String = "") -> void:
 	var game_state: Variant = _autoload("GameState")
 	if not card_id.is_empty():
 		game_state.add_card_to_deck(card_id)
+	game_state.advance_node()
+	enter_current_node()
+
+
+func get_current_rest_heal_percent() -> float:
+	var game_state: Variant = _autoload("GameState")
+	var node: Dictionary = game_state.get_current_node()
+	return float(node.get("heal_percent", 0.3))
+
+
+func complete_rest() -> void:
+	var game_state: Variant = _autoload("GameState")
+	game_state.advance_node()
+	enter_current_node()
+
+
+func complete_shop() -> void:
+	var game_state: Variant = _autoload("GameState")
 	game_state.advance_node()
 	enter_current_node()
 

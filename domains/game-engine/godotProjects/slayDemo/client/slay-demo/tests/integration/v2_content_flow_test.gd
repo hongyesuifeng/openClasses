@@ -2,6 +2,7 @@ extends RefCounted
 
 const BattleControllerScript := preload("res://scripts/battle/battle_controller.gd")
 const RewardServiceScript := preload("res://scripts/reward/reward_service.gd")
+const ShopServiceScript := preload("res://scripts/shop/shop_service.gd")
 
 
 func name() -> String:
@@ -12,13 +13,14 @@ func run(ctx: Variant) -> void:
 	var data_loader: Variant = ctx.autoload("DataLoader")
 	var game_state: Variant = ctx.autoload("GameState")
 	var run_config: Dictionary = data_loader.get_run_config("v2_extended_run")
-	ctx.assert_eq((run_config.get("nodes", []) as Array).size(), 17, "V2 run has fixed 17 nodes")
+	ctx.assert_eq((run_config.get("nodes", []) as Array).size(), 19, "V2 run has fixed 19 nodes")
 
 	game_state.start_new_run(run_config)
 
 	var battles := 0
 	var rewards := 0
 	var rests := 0
+	var shops := 0
 	while true:
 		var node: Dictionary = game_state.get_current_node()
 		if node.is_empty():
@@ -37,6 +39,10 @@ func run(ctx: Variant) -> void:
 				rests += 1
 				game_state.heal_player_percent(float(node.get("heal_percent", 0.3)))
 				game_state.advance_node()
+			"shop":
+				shops += 1
+				_visit_shop(ctx)
+				game_state.advance_node()
 			"result":
 				game_state.finish_run(true)
 				break
@@ -49,6 +55,7 @@ func run(ctx: Variant) -> void:
 	ctx.assert_eq(battles, 8, "V2 run covers 8 battles")
 	ctx.assert_eq(rewards, 7, "V2 run covers 7 rewards")
 	ctx.assert_eq(rests, 1, "V2 run covers boss prep rest")
+	ctx.assert_eq(shops, 2, "V2 run covers 2 shops")
 	ctx.assert_eq(int(summary.get("battle_wins", 0)), 8, "V2 run records 8 battle wins")
 	ctx.assert_gt(int(summary.get("deck_size", 0)), 12, "V2 rewards grow the deck")
 
@@ -81,6 +88,22 @@ func _choose_reward(ctx: Variant, profile_id: String) -> void:
 
 	var card := choices[_best_reward_index(choices)] as Dictionary
 	game_state.add_card_to_deck(str(card.get("id", "")))
+
+
+func _visit_shop(ctx: Variant) -> void:
+	var data_loader: Variant = ctx.autoload("DataLoader")
+	var game_state: Variant = ctx.autoload("GameState")
+	var offers: Array = ShopServiceScript.generate_card_offers(game_state.master_deck, data_loader)
+	ctx.assert_eq(offers.size(), 3, "shop generates 3 offers in V2 run")
+	if offers.is_empty():
+		return
+
+	var offer := offers[0] as Dictionary
+	var card := offer.get("card", {}) as Dictionary
+	var price := int(offer.get("price", 0))
+	if int(game_state.player_gold) >= price:
+		var bought: bool = ShopServiceScript.buy_card(game_state, str(card.get("id", "")), price)
+		ctx.assert_true(bought, "V2 shop can buy first affordable offer")
 
 
 func _finish_battle(battle: Variant) -> bool:
