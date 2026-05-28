@@ -173,6 +173,122 @@
           "type": "result"
         }
       ]
+    },
+    {
+      "id": "act1_map_run",
+      "start_deck": [
+        "strike",
+        "strike",
+        "strike",
+        "defend",
+        "defend",
+        "bash"
+      ],
+      "player": {
+        "max_hp": 80,
+        "gold": 120,
+        "energy_per_turn": 3,
+        "draw_per_turn": 5
+      },
+      "map_nodes": [
+        {
+          "id": "map_01",
+          "floor": 1,
+          "type": "battle",
+          "encounter_id": "v1_normal_01",
+          "next_nodes": ["map_02a", "map_02b"]
+        },
+        {
+          "id": "map_02a",
+          "floor": 2,
+          "type": "battle",
+          "encounter_id": "v1_normal_02",
+          "next_nodes": ["map_03a", "map_03b"]
+        },
+        {
+          "id": "map_02b",
+          "floor": 2,
+          "type": "battle",
+          "encounter_id": "v1_normal_04",
+          "next_nodes": ["map_03b"]
+        },
+        {
+          "id": "map_03a",
+          "floor": 3,
+          "type": "shop",
+          "next_nodes": ["map_04a"]
+        },
+        {
+          "id": "map_03b",
+          "floor": 3,
+          "type": "battle",
+          "encounter_id": "v1_normal_05",
+          "next_nodes": ["map_04a", "map_04b"]
+        },
+        {
+          "id": "map_04a",
+          "floor": 4,
+          "type": "battle",
+          "encounter_id": "v1_normal_06",
+          "next_nodes": ["map_05a", "map_05b"]
+        },
+        {
+          "id": "map_04b",
+          "floor": 4,
+          "type": "battle",
+          "encounter_id": "v1_elite_01",
+          "next_nodes": ["map_05b"]
+        },
+        {
+          "id": "map_05a",
+          "floor": 5,
+          "type": "rest",
+          "heal_percent": 0.3,
+          "next_nodes": ["map_06a"]
+        },
+        {
+          "id": "map_05b",
+          "floor": 5,
+          "type": "shop",
+          "next_nodes": ["map_06a"]
+        },
+        {
+          "id": "map_06a",
+          "floor": 6,
+          "type": "battle",
+          "encounter_id": "v1_normal_08",
+          "next_nodes": ["map_07a", "map_07b"]
+        },
+        {
+          "id": "map_07a",
+          "floor": 7,
+          "type": "battle",
+          "encounter_id": "v1_elite_02",
+          "next_nodes": ["map_08a"]
+        },
+        {
+          "id": "map_07b",
+          "floor": 7,
+          "type": "battle",
+          "encounter_id": "v1_normal_10",
+          "next_nodes": ["map_08a"]
+        },
+        {
+          "id": "map_08a",
+          "floor": 8,
+          "type": "rest",
+          "heal_percent": 0.3,
+          "next_nodes": ["map_09a"]
+        },
+        {
+          "id": "map_09a",
+          "floor": 9,
+          "type": "battle",
+          "encounter_id": "v1_boss_02",
+          "is_final": true,
+          "next_nodes": []
+        }
+      ]
     }
   ]
 }

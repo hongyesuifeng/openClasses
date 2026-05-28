@@ -23,19 +23,19 @@ func _build() -> void:
 	add_child(panel)
 
 	var title := Label.new()
-	title.text = "SlayDemo V1"
+	title.text = "SlayDemo"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 42)
 	panel.add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "V1 固定切片与 V2 扩展遭遇流程"
+	subtitle.text = "Act 1 地图路线原型"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.add_theme_font_size_override("font_size", 18)
 	panel.add_child(subtitle)
 
 	var start_button := Button.new()
-	start_button.text = "开始新局"
+	start_button.text = "开始游戏"
 	start_button.custom_minimum_size = Vector2(260, 54)
 	start_button.pressed.connect(_on_start_pressed)
 	panel.add_child(start_button)
@@ -49,7 +49,7 @@ func _build() -> void:
 
 func _on_start_pressed() -> void:
 	var run_controller: Variant = _autoload("RunController")
-	run_controller.start_new_run("v1_fixed_run")
+	run_controller.start_new_run("act1_map_run")
 
 
 func _on_v2_start_pressed() -> void:

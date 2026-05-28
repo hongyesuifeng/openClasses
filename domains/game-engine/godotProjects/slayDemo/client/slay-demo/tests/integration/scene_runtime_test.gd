@@ -20,7 +20,7 @@ func _ready() -> void:
 	await get_tree().process_frame
 	get_tree().current_scene = main_menu
 
-	var start_button: Button = _find_button_by_text(main_menu, "开始新局")
+	var start_button: Button = _find_button_by_text(main_menu, "开始游戏")
 	if start_button == null:
 		_fail("Start button was not generated in MainMenuScene.")
 		return
@@ -29,6 +29,9 @@ func _ready() -> void:
 	var safety := 0
 	var battle_count := 0
 	var reward_count := 0
+	var map_count := 0
+	var shop_count := 0
+	var rest_count := 0
 	while safety < FLOW_TIMEOUT_FRAMES:
 		safety += 1
 		await get_tree().process_frame
@@ -40,12 +43,21 @@ func _ready() -> void:
 			if not bool(summary.get("won", false)):
 				_fail("ResultScene loaded, but run was not won: %s" % str(summary))
 				return
-			if int(summary.get("battle_wins", 0)) != 4:
-				_fail("Expected 4 battle wins, got summary: %s" % str(summary))
+			if int(summary.get("completed_map_nodes", 0)) <= 0:
+				_fail("Expected completed map nodes, got summary: %s" % str(summary))
 				return
-			print("Scene runtime test passed. battles=%d rewards=%d summary=%s" % [battle_count, reward_count, str(summary)])
+			print("Map scene runtime test passed. maps=%d battles=%d rewards=%d shops=%d rests=%d summary=%s" % [map_count, battle_count, reward_count, shop_count, rest_count, str(summary)])
 			get_tree().quit(0)
 			return
+
+		var map_scene := _find_node_by_name(get_tree().root, "MapScene")
+		if map_scene != null:
+			map_count += 1
+			if not _choose_map_node(map_scene):
+				_fail("MapScene did not expose a selectable node.")
+				return
+			await get_tree().process_frame
+			continue
 
 		var battle_scene := _find_node_by_name(get_tree().root, "BattleScene")
 		if battle_scene != null:
@@ -62,6 +74,21 @@ func _ready() -> void:
 				_fail("RewardScene did not generate selectable choices or skip button.")
 				return
 			await get_tree().process_frame
+			continue
+
+		var shop_scene := _find_node_by_name(get_tree().root, "ShopScene")
+		if shop_scene != null:
+			shop_count += 1
+			shop_scene.call("_on_leave_pressed")
+			await get_tree().process_frame
+			continue
+
+		var rest_scene := _find_node_by_name(get_tree().root, "RestScene")
+		if rest_scene != null:
+			rest_count += 1
+			rest_scene.call("_on_heal_pressed")
+			await get_tree().process_frame
+			continue
 
 	_fail("Full scene flow did not reach ResultScene within timeout.")
 
@@ -124,6 +151,18 @@ func _choose_reward(reward_scene: Node) -> bool:
 	if skip_button == null:
 		return false
 	skip_button.pressed.emit()
+	return true
+
+
+func _choose_map_node(_map_scene: Node) -> bool:
+	var game_state: Variant = _autoload("GameState")
+	var available: Array = game_state.get_available_map_nodes()
+	if available.is_empty():
+		return false
+
+	var chosen := available[0] as Dictionary
+	var run_controller: Variant = _autoload("RunController")
+	run_controller.select_map_node(str(chosen.get("id", "")))
 	return true
 
 

@@ -247,28 +247,62 @@ func _validate_runs(errors: PackedStringArray) -> void:
 		var run: Dictionary = _runs[id]
 		_require_string(run, "id", "run", id, errors)
 		_require_array(run, "start_deck", "run", id, errors)
-		_require_array(run, "nodes", "run", id, errors)
+		if not run.has("nodes") and not run.has("map_nodes"):
+			errors.append("run:%s must define nodes or map_nodes" % id)
+		if run.has("nodes"):
+			_require_array(run, "nodes", "run", id, errors)
+		if run.has("map_nodes"):
+			_require_array(run, "map_nodes", "run", id, errors)
 
 		for card_id in run.get("start_deck", []):
 			if not _cards.has(str(card_id)):
 				errors.append("run:%s start_deck references missing card '%s'" % [id, str(card_id)])
 
 		var nodes: Array = run.get("nodes", [])
-		for node_index in range(nodes.size()):
-			var node: Variant = nodes[node_index]
-			if not (node is Dictionary):
-				errors.append("run:%s node[%d] must be an object" % [id, node_index])
-				continue
+		_validate_run_nodes(id, nodes, "node", errors)
+		_validate_map_nodes(id, run.get("map_nodes", []), errors)
 
-			var node_dict := node as Dictionary
-			_require_string(node_dict, "type", "run_node", "%s[%d]" % [id, node_index], errors)
-			_enum_value(node_dict, "type", RUN_NODE_TYPES, "run_node", "%s[%d]" % [id, node_index], errors)
 
-			var node_type := str(node_dict.get("type", ""))
-			if node_type == "battle" and not _encounters.has(str(node_dict.get("encounter_id", ""))):
-				errors.append("run:%s node[%d] references missing encounter '%s'" % [id, node_index, str(node_dict.get("encounter_id", ""))])
-			if node_type == "reward" and not _reward_profiles.has(str(node_dict.get("reward_profile_id", ""))):
-				errors.append("run:%s node[%d] references missing reward profile '%s'" % [id, node_index, str(node_dict.get("reward_profile_id", ""))])
+func _validate_run_nodes(run_id: String, nodes: Array, label: String, errors: PackedStringArray) -> void:
+	for node_index in range(nodes.size()):
+		var node: Variant = nodes[node_index]
+		if not (node is Dictionary):
+			errors.append("run:%s %s[%d] must be an object" % [run_id, label, node_index])
+			continue
+
+		var node_dict := node as Dictionary
+		_require_string(node_dict, "type", "run_node", "%s[%d]" % [run_id, node_index], errors)
+		_enum_value(node_dict, "type", RUN_NODE_TYPES, "run_node", "%s[%d]" % [run_id, node_index], errors)
+
+		var node_type := str(node_dict.get("type", ""))
+		if node_type == "battle" and not _encounters.has(str(node_dict.get("encounter_id", ""))):
+			errors.append("run:%s %s[%d] references missing encounter '%s'" % [run_id, label, node_index, str(node_dict.get("encounter_id", ""))])
+		if node_type == "reward" and not _reward_profiles.has(str(node_dict.get("reward_profile_id", ""))):
+			errors.append("run:%s %s[%d] references missing reward profile '%s'" % [run_id, label, node_index, str(node_dict.get("reward_profile_id", ""))])
+
+
+func _validate_map_nodes(run_id: String, nodes: Array, errors: PackedStringArray) -> void:
+	var node_ids := {}
+	for node_index in range(nodes.size()):
+		var node: Variant = nodes[node_index]
+		if not (node is Dictionary):
+			errors.append("run:%s map_node[%d] must be an object" % [run_id, node_index])
+			continue
+
+		var node_dict := node as Dictionary
+		var node_id := str(node_dict.get("id", ""))
+		_require_string(node_dict, "id", "map_node", "%s[%d]" % [run_id, node_index], errors)
+		_require_int(node_dict, "floor", "map_node", "%s[%d]" % [run_id, node_index], errors)
+		_require_array(node_dict, "next_nodes", "map_node", "%s[%d]" % [run_id, node_index], errors)
+		node_ids[node_id] = true
+
+	_validate_run_nodes(run_id, nodes, "map_node", errors)
+
+	for node_index in range(nodes.size()):
+		var node := nodes[node_index] as Dictionary
+		for next_id in node.get("next_nodes", []):
+			if not node_ids.has(str(next_id)):
+				errors.append("run:%s map_node[%d] references missing next node '%s'" % [run_id, node_index, str(next_id)])
 
 
 func _validate_effects(effects: Variant, owner: String, errors: PackedStringArray) -> void:

@@ -9,6 +9,11 @@ var energy_per_turn := 3
 var draw_per_turn := 5
 var master_deck: Array = []
 var run_nodes: Array = []
+var map_nodes: Array = []
+var completed_map_node_ids: Array[String] = []
+var available_map_node_ids: Array[String] = []
+var current_map_node_id := ""
+var pending_map_reward: Dictionary = {}
 var battle_wins := 0
 var is_run_won := false
 var is_run_finished := false
@@ -27,14 +32,29 @@ func start_new_run(run_config: Dictionary) -> void:
 	is_run_finished = false
 	current_phase = "run"
 	run_nodes = (run_config.get("nodes", []) as Array).duplicate(true)
+	map_nodes = (run_config.get("map_nodes", []) as Array).duplicate(true)
+	completed_map_node_ids.clear()
+	available_map_node_ids.clear()
+	current_map_node_id = ""
+	pending_map_reward.clear()
 	master_deck.clear()
 
 	var data_loader: Variant = _autoload("DataLoader")
 	for card_id in run_config.get("start_deck", []):
 		master_deck.append(data_loader.create_card_instance(str(card_id)))
 
+	if has_map():
+		_unlock_starting_map_nodes()
+
 
 func get_current_node() -> Dictionary:
+	if has_map():
+		if not pending_map_reward.is_empty():
+			return pending_map_reward.duplicate(true)
+		if current_map_node_id.is_empty():
+			return {}
+		return get_map_node(current_map_node_id)
+
 	if current_node_index < 0 or current_node_index >= run_nodes.size():
 		return {}
 	return (run_nodes[current_node_index] as Dictionary).duplicate(true)
@@ -42,6 +62,84 @@ func get_current_node() -> Dictionary:
 
 func advance_node() -> void:
 	current_node_index += 1
+
+
+func has_map() -> bool:
+	return not map_nodes.is_empty()
+
+
+func get_map_node(node_id: String) -> Dictionary:
+	for node in map_nodes:
+		var node_dict := node as Dictionary
+		if str(node_dict.get("id", "")) == node_id:
+			return node_dict.duplicate(true)
+	return {}
+
+
+func get_available_map_nodes() -> Array:
+	var result: Array = []
+	for node_id in available_map_node_ids:
+		var node := get_map_node(node_id)
+		if not node.is_empty():
+			result.append(node)
+	return result
+
+
+func get_all_map_nodes() -> Array:
+	return map_nodes.duplicate(true)
+
+
+func can_select_map_node(node_id: String) -> bool:
+	return available_map_node_ids.has(node_id) and not completed_map_node_ids.has(node_id)
+
+
+func select_map_node(node_id: String) -> bool:
+	if not can_select_map_node(node_id):
+		return false
+	var selected_node := get_map_node(node_id)
+	var selected_floor := int(selected_node.get("floor", -1))
+	for available_id in available_map_node_ids.duplicate():
+		var available_node := get_map_node(str(available_id))
+		if int(available_node.get("floor", -2)) == selected_floor:
+			available_map_node_ids.erase(str(available_id))
+	current_map_node_id = node_id
+	return true
+
+
+func prepare_map_reward(reward_profile_id: String) -> void:
+	if reward_profile_id.is_empty():
+		return
+	pending_map_reward = {
+		"id": "%s_reward" % current_map_node_id,
+		"type": "reward",
+		"reward_profile_id": reward_profile_id
+	}
+
+
+func has_pending_map_reward() -> bool:
+	return not pending_map_reward.is_empty()
+
+
+func complete_current_map_node() -> void:
+	pending_map_reward.clear()
+	if current_map_node_id.is_empty():
+		return
+
+	if not completed_map_node_ids.has(current_map_node_id):
+		completed_map_node_ids.append(current_map_node_id)
+
+	var node := get_map_node(current_map_node_id)
+	for next_id in node.get("next_nodes", []):
+		var next_node_id := str(next_id)
+		if not available_map_node_ids.has(next_node_id) and not completed_map_node_ids.has(next_node_id):
+			available_map_node_ids.append(next_node_id)
+
+	current_map_node_id = ""
+
+
+func current_map_node_is_final() -> bool:
+	var node := get_map_node(current_map_node_id)
+	return bool(node.get("is_final", false)) or (node.has("next_nodes") and (node.get("next_nodes", []) as Array).is_empty())
 
 
 func add_card_to_deck(card_id: String) -> void:
@@ -100,8 +198,21 @@ func get_result_summary() -> Dictionary:
 		"deck_size": master_deck.size(),
 		"gold": player_gold,
 		"player_hp": player_hp,
-		"player_max_hp": player_max_hp
+		"player_max_hp": player_max_hp,
+		"completed_map_nodes": completed_map_node_ids.size()
 	}
+
+
+func _unlock_starting_map_nodes() -> void:
+	var lowest_floor := 999999
+	for node in map_nodes:
+		var node_dict := node as Dictionary
+		lowest_floor = mini(lowest_floor, int(node_dict.get("floor", 0)))
+
+	for node in map_nodes:
+		var node_dict := node as Dictionary
+		if int(node_dict.get("floor", 0)) == lowest_floor:
+			available_map_node_ids.append(str(node_dict.get("id", "")))
 
 
 func _autoload(name: String) -> Variant:

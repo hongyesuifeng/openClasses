@@ -17,6 +17,18 @@ func start_new_run(run_id: String = "") -> void:
 		return
 
 	game_state.start_new_run(data_loader.get_run_config(active_run_id))
+	if game_state.has_map():
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("map")
+	else:
+		enter_current_node()
+
+
+func select_map_node(node_id: String) -> void:
+	var game_state: Variant = _autoload("GameState")
+	if not game_state.select_map_node(node_id):
+		push_error("RunController: map node '%s' is not selectable" % node_id)
+		return
 	enter_current_node()
 
 
@@ -65,6 +77,19 @@ func on_battle_won(remaining_hp: int) -> void:
 	var game_state: Variant = _autoload("GameState")
 	game_state.apply_post_battle_hp(remaining_hp)
 	game_state.record_battle_win()
+	if game_state.has_map():
+		if game_state.current_map_node_is_final():
+			game_state.complete_current_map_node()
+			game_state.finish_run(true)
+			var scene_router: Variant = _autoload("SceneRouter")
+			scene_router.go_to("result")
+			return
+
+		var reward_profile_id := get_current_reward_profile_id()
+		game_state.prepare_map_reward(reward_profile_id)
+		enter_current_node()
+		return
+
 	game_state.advance_node()
 	enter_current_node()
 
@@ -80,6 +105,12 @@ func complete_reward(card_id: String = "") -> void:
 	var game_state: Variant = _autoload("GameState")
 	if not card_id.is_empty():
 		game_state.add_card_to_deck(card_id)
+	if game_state.has_map() and game_state.has_pending_map_reward():
+		game_state.complete_current_map_node()
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("map")
+		return
+
 	game_state.advance_node()
 	enter_current_node()
 
@@ -92,12 +123,24 @@ func get_current_rest_heal_percent() -> float:
 
 func complete_rest() -> void:
 	var game_state: Variant = _autoload("GameState")
+	if game_state.has_map():
+		game_state.complete_current_map_node()
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("map")
+		return
+
 	game_state.advance_node()
 	enter_current_node()
 
 
 func complete_shop() -> void:
 	var game_state: Variant = _autoload("GameState")
+	if game_state.has_map():
+		game_state.complete_current_map_node()
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("map")
+		return
+
 	game_state.advance_node()
 	enter_current_node()
 
