@@ -108,7 +108,7 @@ func _render_choices() -> void:
 		for index in range(_upgradeable_cards.size()):
 			var card_instance := _upgradeable_cards[index] as Dictionary
 			var data_loader: Variant = _autoload("DataLoader")
-			var card_data := data_loader.resolve_card_instance(card_instance)
+			var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
 			var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(190, 246))
 			button.pressed.connect(_on_upgrade_pressed.bind(index))
 			_choice_row.add_child(button)
@@ -136,7 +136,7 @@ func _on_upgrade_pressed(index: int) -> void:
 
 	var card_instance := _upgradeable_cards[index] as Dictionary
 	var data_loader: Variant = _autoload("DataLoader")
-	var card_data := data_loader.resolve_card_instance(card_instance)
+	var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
 	var old_name := str(card_data.get("name", ""))
 
 	if UpgradeServiceScript.upgrade_card_instance(card_instance, data_loader):

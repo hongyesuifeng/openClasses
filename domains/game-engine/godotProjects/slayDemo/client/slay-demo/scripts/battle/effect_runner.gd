@@ -142,9 +142,9 @@ static func _apply_heal(effect: Dictionary, battle: Variant, source: String, _ta
 	var amount := int(effect.get("value", 0))
 
 	if source == "player":
-		var old_hp := battle.player_hp
+		var old_hp: int = int(battle.player_hp)
 		battle.player_hp = mini(battle.player_max_hp, battle.player_hp + amount)
-		var actual_heal := battle.player_hp - old_hp
+		var actual_heal: int = int(battle.player_hp) - old_hp
 		if actual_heal > 0:
 			battle._log("玩家恢复 %d 点生命" % actual_heal)
 		return { "type": "heal", "target": "player", "value": actual_heal }
