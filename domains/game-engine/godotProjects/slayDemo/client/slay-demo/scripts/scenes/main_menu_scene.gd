@@ -40,21 +40,10 @@ func _build() -> void:
 	start_button.pressed.connect(_on_start_pressed)
 	panel.add_child(start_button)
 
-	var v2_button := Button.new()
-	v2_button.text = "开始 V2 扩展局"
-	v2_button.custom_minimum_size = Vector2(260, 48)
-	v2_button.pressed.connect(_on_v2_start_pressed)
-	panel.add_child(v2_button)
-
 
 func _on_start_pressed() -> void:
 	var run_controller: Variant = _autoload("RunController")
 	run_controller.start_new_run("act1_map_run")
-
-
-func _on_v2_start_pressed() -> void:
-	var run_controller: Variant = _autoload("RunController")
-	run_controller.start_new_run("v2_extended_run")
 
 
 func _autoload(name: String) -> Variant:

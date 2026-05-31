@@ -12,7 +12,8 @@ const TEST_SCRIPTS := [
 	preload("res://tests/integration/v1_flow_test.gd"),
 	preload("res://tests/integration/v2_content_flow_test.gd"),
 	preload("res://tests/integration/map_route_test.gd"),
-	preload("res://tests/integration/rest_node_test.gd")
+	preload("res://tests/integration/rest_node_test.gd"),
+	preload("res://tests/integration/relic_ui_test.gd")
 ]
 
 
@@ -22,7 +23,10 @@ func _ready() -> void:
 	for test_script in TEST_SCRIPTS:
 		var test: Variant = test_script.new()
 		context.begin_test(test.name())
-		test.run(context)
+		if test.has_method("run_async"):
+			await test.run_async(context)
+		else:
+			test.run(context)
 
 	print("")
 	print("Assertions: %d" % int(context.assertion_count))

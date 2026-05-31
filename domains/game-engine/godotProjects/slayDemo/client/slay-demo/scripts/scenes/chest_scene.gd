@@ -4,6 +4,7 @@ const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
 
 var _opened := false
 var _status_label: Label
+var _open_button: Button
 
 
 func _ready() -> void:
@@ -46,17 +47,19 @@ func _build() -> void:
 	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
 	root.add_child(_status_label)
 
-	var open_button := Button.new()
-	open_button.text = "打开"
-	open_button.custom_minimum_size = Vector2(220, 56)
-	open_button.pressed.connect(_on_open_pressed)
-	root.add_child(open_button)
+	_open_button = Button.new()
+	_open_button.text = "打开"
+	_open_button.custom_minimum_size = Vector2(220, 56)
+	_open_button.pressed.connect(_on_open_pressed)
+	root.add_child(_open_button)
 
 
 func _on_open_pressed() -> void:
 	if _opened:
 		return
 	_opened = true
+	if _open_button != null:
+		_open_button.disabled = true
 
 	var data_loader: Variant = _autoload("DataLoader")
 	var game_state: Variant = _autoload("GameState")
@@ -66,16 +69,19 @@ func _on_open_pressed() -> void:
 
 	var relic: Dictionary = RelicServiceScript.choose_relic_reward(game_state.owned_relic_ids, data_loader)
 	var relic_name := ""
+	var relic_description := ""
 	if not relic.is_empty() and game_state.add_relic(str(relic.get("id", ""))):
 		relic_name = str(relic.get("name", ""))
+		relic_description = str(relic.get("description", ""))
 
 	if relic_name.is_empty():
-		_status_label.text = "获得 %d 金币。" % gold
+		_status_label.text = "获得 %d 金币。\n没有新的遗物。" % gold
 	else:
-		_status_label.text = "获得 %d 金币和遗物：%s。" % [gold, relic_name]
+		_status_label.text = "获得 %d 金币。\n获得遗物：%s\n效果：%s" % [gold, relic_name, relic_description]
 
 	var run_controller: Variant = _autoload("RunController")
-	run_controller.call_deferred("complete_chest")
+	if run_controller != null:
+		get_tree().create_timer(1.5).timeout.connect(Callable(run_controller, "complete_chest"))
 
 
 func _autoload(name: String) -> Variant:

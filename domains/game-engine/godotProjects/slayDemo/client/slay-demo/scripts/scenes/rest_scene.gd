@@ -4,6 +4,7 @@ const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
 
 var _status_label: Label
+var _choice_scroll: ScrollContainer
 var _choice_row: HBoxContainer
 var _upgradeable_cards: Array = []
 var _upgrade_mode := false
@@ -50,14 +51,30 @@ func _build() -> void:
 	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
 	root.add_child(_status_label)
 
-	_choice_row = HBoxContainer.new()
-	_choice_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	_choice_row.add_theme_constant_override("separation", 18)
-	root.add_child(_choice_row)
-
 	if _upgrade_mode:
+		_choice_scroll = ScrollContainer.new()
+		_choice_scroll.name = "UpgradeChoiceScroll"
+		_choice_scroll.custom_minimum_size = Vector2(0, 286)
+		_choice_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_choice_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_ALWAYS
+		_choice_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		_choice_scroll.follow_focus = true
+		root.add_child(_choice_scroll)
+
+		_choice_row = HBoxContainer.new()
+		_choice_row.name = "UpgradeChoiceRow"
+		_choice_row.add_theme_constant_override("separation", 18)
+		_choice_scroll.add_child(_choice_row)
+
 		_render_upgrade_choices()
+		_render_upgrade_back_button(root)
 	else:
+		_choice_scroll = null
+		_choice_row = HBoxContainer.new()
+		_choice_row.alignment = BoxContainer.ALIGNMENT_CENTER
+		_choice_row.add_theme_constant_override("separation", 18)
+		root.add_child(_choice_row)
+
 		_render_rest_choices()
 
 
@@ -85,11 +102,12 @@ func _render_upgrade_choices() -> void:
 		button.pressed.connect(_on_upgrade_pressed.bind(index))
 		_choice_row.add_child(button)
 
+func _render_upgrade_back_button(root: VBoxContainer) -> void:
 	var back_button := Button.new()
 	back_button.text = "返回"
 	back_button.custom_minimum_size = Vector2(140, 44)
 	back_button.pressed.connect(_on_back_pressed)
-	_choice_row.add_child(back_button)
+	root.add_child(back_button)
 
 
 func _on_heal_pressed() -> void:

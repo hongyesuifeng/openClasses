@@ -1,5 +1,7 @@
 extends Control
 
+const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
+
 const NODE_LABELS := {
 	"battle": "战斗",
 	"shop": "商店",
@@ -17,6 +19,7 @@ const NODE_COLORS := {
 }
 
 var _status_label: Label
+var _relic_row: HBoxContainer
 var _node_root: Control
 var _node_positions: Dictionary = {}
 
@@ -59,6 +62,13 @@ func _build() -> void:
 	_status_label.add_theme_font_size_override("font_size", 16)
 	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
 	root.add_child(_status_label)
+
+	_relic_row = HBoxContainer.new()
+	_relic_row.name = "MapRelicRow"
+	_relic_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_relic_row.add_theme_constant_override("separation", 6)
+	root.add_child(_relic_row)
+	_render_relics()
 
 	_node_root = Control.new()
 	_node_root.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -165,17 +175,29 @@ func _node_text(node: Dictionary, selectable: bool, done: bool) -> String:
 
 func _status_text() -> String:
 	var game_state: Variant = _autoload("GameState")
-	var relic_names: Array[String] = []
-	for relic in game_state.get_owned_relics():
-		relic_names.append(str((relic as Dictionary).get("name", "")))
-	var relic_text := "无" if relic_names.is_empty() else "、".join(relic_names)
-	return "HP %d/%d  金币 %d  已胜利 %d 场  遗物: %s" % [
+	return "HP %d/%d  金币 %d  已胜利 %d 场" % [
 		int(game_state.player_hp),
 		int(game_state.player_max_hp),
 		int(game_state.player_gold),
-		int(game_state.battle_wins),
-		relic_text
+		int(game_state.battle_wins)
 	]
+
+
+func _render_relics() -> void:
+	if _relic_row == null:
+		return
+	_clear_children(_relic_row)
+	var game_state: Variant = _autoload("GameState")
+	var relics: Array = game_state.get_owned_relics() if game_state != null else []
+	var row := RelicViewFactoryScript.create_relic_row(relics, Callable(self, "_on_relic_pressed"))
+	for child in row.get_children():
+		row.remove_child(child)
+		_relic_row.add_child(child)
+	row.queue_free()
+
+
+func _on_relic_pressed(relic: Dictionary) -> void:
+	_status_label.text = "%s  |  %s" % [_status_text(), RelicViewFactoryScript.detail_text(relic)]
 
 
 func _node_style(node_type: String, done: bool, selectable: bool) -> StyleBoxFlat:
@@ -203,3 +225,8 @@ func _on_node_pressed(node_id: String) -> void:
 
 func _autoload(name: String) -> Variant:
 	return get_node_or_null("/root/%s" % name)
+
+
+func _clear_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()

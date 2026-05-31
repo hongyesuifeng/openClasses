@@ -3,6 +3,7 @@ extends Control
 const BattleControllerScript := preload("res://scripts/battle/battle_controller.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const StatusViewFactoryScript := preload("res://scripts/ui/status_view_factory.gd")
+const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
 
 const SFX_CARD_PLACE := "res://assets/audio/sfx/card_place_1.ogg"
 const PLAYER_ART := "res://assets/player/sprites/player_warrior_idle.png"
@@ -48,6 +49,7 @@ var _messages: Array[String] = []
 var _last_player_hp := -1
 var _last_player_block := -1
 var _player_status_row: HBoxContainer  # 玩家状态栏
+var _relic_row: HBoxContainer
 
 
 func _ready() -> void:
@@ -140,6 +142,12 @@ func _build() -> void:
 	_energy_label.add_theme_font_size_override("font_size", 24)
 	_energy_label.add_theme_color_override("font_color", Color(0.72, 0.94, 1.0))
 	energy_box.add_child(_energy_label)
+
+	_relic_row = HBoxContainer.new()
+	_relic_row.name = "BattleRelicRow"
+	_relic_row.add_theme_constant_override("separation", 6)
+	player_stats.add_child(_relic_row)
+	_render_relics()
 
 	_status_label = Label.new()
 	_status_label.add_theme_font_size_override("font_size", 16)
@@ -330,6 +338,23 @@ func _render_player_statuses(statuses: Array) -> void:
 
 		var label := StatusViewFactoryScript.create_status_label(status_id, stacks, false)
 		_player_status_row.add_child(label)
+
+
+func _render_relics() -> void:
+	if _relic_row == null:
+		return
+	_clear_children(_relic_row)
+	var game_state: Variant = _autoload("GameState")
+	var relics: Array = game_state.get_owned_relics() if game_state != null else []
+	var row := RelicViewFactoryScript.create_relic_row(relics, Callable(self, "_on_relic_pressed"))
+	for child in row.get_children():
+		row.remove_child(child)
+		_relic_row.add_child(child)
+	row.queue_free()
+
+
+func _on_relic_pressed(relic: Dictionary) -> void:
+	_status_label.text = RelicViewFactoryScript.detail_text(relic)
 
 
 func _render_hand(hand: Array, phase: String) -> void:
