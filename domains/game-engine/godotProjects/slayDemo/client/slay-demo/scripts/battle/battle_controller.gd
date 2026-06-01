@@ -283,6 +283,7 @@ func _remove_dead_enemies() -> void:
 	for index in range(enemies.size() - 1, -1, -1):
 		if int(enemies[index].get("hp", 0)) <= 0:
 			_log("%s 被击败" % str(enemies[index].get("name", "")))
+			combat_event.emit({ "type": "enemy_died", "enemy_index": index, "name": str(enemies[index].get("name", "")) })
 			enemies.remove_at(index)
 
 

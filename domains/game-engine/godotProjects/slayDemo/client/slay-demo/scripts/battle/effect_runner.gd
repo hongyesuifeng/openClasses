@@ -93,6 +93,7 @@ static func _apply_block(effect: Dictionary, battle: Variant, source: String, _t
 		var player_status: RefCounted = battle.player_status
 		final_amount = player_status.call("calculate_block", base_amount)
 		battle.player_block += final_amount
+		battle.combat_event.emit({ "type": "block_gained", "target": "player", "value": final_amount })
 		return { "type": "player_block", "value": final_amount, "base": base_amount }
 
 	if acting_enemy_index >= 0:
@@ -101,6 +102,7 @@ static func _apply_block(effect: Dictionary, battle: Variant, source: String, _t
 			var enemy_status: RefCounted = enemy["status_manager"]
 			final_amount = enemy_status.call("calculate_block", base_amount)
 		enemy["block"] = int(enemy.get("block", 0)) + final_amount
+		battle.combat_event.emit({ "type": "block_gained", "target": "enemy", "enemy_index": acting_enemy_index, "value": final_amount })
 		return { "type": "enemy_block", "enemy_index": acting_enemy_index, "value": final_amount, "base": base_amount }
 
 	return {}
@@ -133,11 +135,13 @@ static func _apply_status(effect: Dictionary, battle: Variant, source: String, t
 			if enemy.has("status_manager"):
 				var enemy_status: RefCounted = enemy["status_manager"]
 				enemy_status.call("apply_status", status_id, stacks)
+				battle.combat_event.emit({ "type": "status_applied", "status_id": status_id, "target": "enemy", "target_index": target_index, "stacks": stacks })
 				return { "type": "apply_status", "target": "enemy", "target_index": target_index, "status_id": status_id, "stacks": stacks }
 	else:
 		if str(effect.get("target", "")) == "player":
 			var player_status: RefCounted = battle.player_status
 			player_status.call("apply_status", status_id, stacks)
+			battle.combat_event.emit({ "type": "status_applied", "status_id": status_id, "target": "player", "stacks": stacks })
 			return { "type": "apply_status", "target": "player", "status_id": status_id, "stacks": stacks }
 
 	return {}
@@ -163,6 +167,7 @@ static func _apply_heal(effect: Dictionary, battle: Variant, source: String, _ta
 		var actual_heal: int = int(battle.player_hp) - old_hp
 		if actual_heal > 0:
 			battle._log("玩家恢复 %d 点生命" % actual_heal)
+			battle.combat_event.emit({ "type": "heal", "target": "player", "value": actual_heal })
 		return { "type": "heal", "target": "player", "value": actual_heal }
 	else:
 		if acting_enemy_index >= 0 and acting_enemy_index < battle.enemies.size():
@@ -173,6 +178,7 @@ static func _apply_heal(effect: Dictionary, battle: Variant, source: String, _ta
 			var actual_heal := int(enemy["hp"]) - old_hp
 			if actual_heal > 0:
 				battle._log("%s 恢复 %d 点生命" % [str(enemy.get("name", "")), actual_heal])
+				battle.combat_event.emit({ "type": "heal", "target": "enemy", "enemy_index": acting_enemy_index, "value": actual_heal })
 			return { "type": "heal", "target": "enemy", "enemy_index": acting_enemy_index, "value": actual_heal }
 
 	return {}

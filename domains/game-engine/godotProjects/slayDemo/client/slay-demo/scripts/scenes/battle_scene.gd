@@ -48,6 +48,7 @@ var _hand_buttons: Array[Button] = []
 var _messages: Array[String] = []
 var _last_player_hp := -1
 var _last_player_block := -1
+var _last_phase := ""
 var _player_status_row: HBoxContainer  # 玩家状态栏
 var _relic_row: HBoxContainer
 
@@ -233,6 +234,14 @@ func _on_state_changed(snapshot: Dictionary) -> void:
 	else:
 		_status_label.text = "选择攻击牌后点击目标。当前阶段: %s" % phase
 
+	## 检测回合切换并播放提示
+	if _last_phase != phase and not _last_phase.is_empty():
+		if phase == "player":
+			_spawn_turn_banner("玩家回合", Color(0.4, 0.85, 1.0))
+		elif phase == "enemy":
+			_spawn_turn_banner("敌人回合", Color(1.0, 0.55, 0.4))
+	_last_phase = phase
+
 	_render_enemies(snapshot.get("enemies", []))
 	_render_hand(snapshot.get("hand", []), phase)
 	_render_player_statuses(snapshot.get("player_statuses", []))
@@ -364,8 +373,31 @@ func _render_hand(hand: Array, phase: String) -> void:
 		var card := hand[index] as Dictionary
 		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(150, 200), index == _selected_card_index, phase != "player")
 		button.pressed.connect(_on_card_pressed.bind(index))
+		## 添加悬浮放大效果
+		button.mouse_entered.connect(_on_card_hover.bind(button))
+		button.mouse_exited.connect(_on_card_unhover.bind(button))
 		_hand_row.add_child(button)
 		_hand_buttons.append(button)
+
+
+## 卡牌悬浮放大
+func _on_card_hover(button: Button) -> void:
+	if not is_instance_valid(button) or button.disabled:
+		return
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(button, "scale", Vector2(1.12, 1.12), 0.12)
+	tween.tween_property(button, "position:y", button.position.y - 8.0, 0.12)
+
+
+## 卡牌取消悬浮
+func _on_card_unhover(button: Button) -> void:
+	if not is_instance_valid(button):
+		return
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(button, "scale", Vector2.ONE, 0.12)
+	tween.tween_property(button, "position:y", 0.0, 0.12)
 
 
 func _on_card_pressed(index: int) -> void:
@@ -417,14 +449,72 @@ func _on_message_logged(message: String) -> void:
 
 
 func _on_combat_event(event: Dictionary) -> void:
+	var vfx_manager: Variant = _autoload("VFXManager")
+	if vfx_manager != null:
+		vfx_manager.set_current_scene(self)
+
 	match str(event.get("type", "")):
 		"enemy_damage":
 			var enemy_index := int(event.get("enemy_index", -1))
+			var damage := int(event.get("value", 0))
+			var blocked := int(event.get("blocked", 0))
 			_hit_enemy_feedback(enemy_index)
-			_spawn_enemy_damage_text(enemy_index, int(event.get("value", 0)), int(event.get("blocked", 0)))
+			_spawn_enemy_damage_text(enemy_index, damage, blocked)
+			if vfx_manager != null and damage > 0:
+				vfx_manager.play_attack_effect("slash", _get_enemy_center(enemy_index))
 		"player_damage":
 			_flash_player_panel()
-			_spawn_player_damage_text(int(event.get("value", 0)), int(event.get("blocked", 0)))
+			var damage := int(event.get("value", 0))
+			_spawn_player_damage_text(damage, int(event.get("blocked", 0)))
+			if vfx_manager != null and damage > 0:
+				vfx_manager.play_attack_effect("slash", _get_player_center())
+		"block_gained":
+			if vfx_manager != null:
+				var pos: Vector2
+				if str(event.get("target", "")) == "player":
+					pos = _get_player_center()
+				else:
+					pos = _get_enemy_center(int(event.get("enemy_index", -1)))
+				vfx_manager.play_block_effect(pos, int(event.get("value", 0)))
+		"status_applied":
+			if vfx_manager != null:
+				var pos: Vector2
+				if str(event.get("target", "")) == "player":
+					pos = _get_player_center()
+				else:
+					pos = _get_enemy_center(int(event.get("target_index", -1)))
+				vfx_manager.play_status_effect(str(event.get("status_id", "")), pos)
+		"heal":
+			if vfx_manager != null:
+				var pos: Vector2
+				if str(event.get("target", "")) == "player":
+					pos = _get_player_center()
+				else:
+					pos = _get_enemy_center(int(event.get("enemy_index", -1)))
+				vfx_manager.play_heal_effect(pos)
+		"enemy_died":
+			if vfx_manager != null:
+				var enemy_index := int(event.get("enemy_index", -1))
+				var pos := _get_enemy_center(enemy_index)
+				if pos != Vector2.ZERO:
+					vfx_manager.play_death_effect(pos)
+
+
+## 获取敌人中心位置
+func _get_enemy_center(enemy_index: int) -> Vector2:
+	if enemy_index < 0 or enemy_index >= _enemy_buttons.size():
+		return Vector2.ZERO
+	var btn := _enemy_buttons[enemy_index]
+	if not is_instance_valid(btn):
+		return Vector2.ZERO
+	return btn.global_position + btn.size * 0.5
+
+
+## 获取玩家面板中心位置
+func _get_player_center() -> Vector2:
+	if _player_panel == null or not is_instance_valid(_player_panel):
+		return Vector2.ZERO
+	return _player_panel.global_position + _player_panel.size * 0.5
 
 
 func _on_combat_won(remaining_hp: int) -> void:
@@ -588,3 +678,32 @@ func _clear_children(node: Node) -> void:
 
 func _autoload(name: String) -> Variant:
 	return get_node_or_null("/root/%s" % name)
+
+
+## 回合切换横幅提示
+func _spawn_turn_banner(text: String, color: Color) -> void:
+	var label := Label.new()
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 48)
+	label.add_theme_color_override("font_color", color)
+	label.add_theme_color_override("font_shadow_color", Color(0.05, 0.02, 0.0, 0.95))
+	label.add_theme_constant_override("shadow_offset_x", 3)
+	label.add_theme_constant_override("shadow_offset_y", 3)
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	## 居中显示
+	label.set_anchors_preset(Control.PRESET_CENTER)
+	label.size = Vector2(400, 80)
+	label.position = -label.size * 0.5
+	label.z_index = 80
+	label.modulate = Color(color.r, color.g, color.b, 0.0)
+	add_child(label)
+
+	## 淡入 -> 停留 -> 淡出
+	var tween := create_tween()
+	tween.tween_property(label, "modulate:a", 1.0, 0.2)
+	tween.tween_interval(0.6)
+	tween.tween_property(label, "modulate:a", 0.0, 0.3)
+	tween.finished.connect(label.queue_free)
