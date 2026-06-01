@@ -12,7 +12,7 @@ const CARD_RARITIES := ["starter", "common", "uncommon", "rare", "special"]
 const CARD_TARGETS := ["self", "single_enemy", "all_enemies", "none"]
 const ENCOUNTER_TYPES := ["normal", "elite", "boss"]
 const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "chest", "event", "result"]
-const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength", "gain_barricade", "heal", "multi_damage", "aoe_damage", "gain_energy", "exhaust"]
+const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength", "gain_barricade", "heal", "multi_damage", "aoe_damage", "gain_energy", "exhaust", "summon", "lose_hp"]
 const RELIC_RARITIES := ["common", "uncommon", "rare"]
 const RELIC_EFFECT_TYPES := ["battle_start_block", "first_turn_energy", "max_hp", "card_gain_heal", "battle_win_gold"]
 const EVENT_EFFECT_TYPES := ["lose_hp", "gain_gold", "remove_card", "gain_card", "upgrade_card", "transform_card"]
@@ -221,22 +221,49 @@ func _validate_enemies(errors: PackedStringArray) -> void:
 		_require_string(enemy, "id", "enemy", id, errors)
 		_require_string(enemy, "name", "enemy", id, errors)
 		_require_int(enemy, "max_hp", "enemy", id, errors)
-		_require_array(enemy, "actions", "enemy", id, errors)
 
-		var actions: Array = enemy.get("actions", [])
-		if actions.is_empty():
-			errors.append("enemy:%s must define at least one action" % id)
+		## 敌人必须有 actions 或 phases
+		var has_actions := enemy.has("actions") and not (enemy.get("actions", []) as Array).is_empty()
+		var has_phases := enemy.has("phases") and not (enemy.get("phases", []) as Array).is_empty()
 
-		for action_index in range(actions.size()):
-			var action: Variant = actions[action_index]
-			if not (action is Dictionary):
-				errors.append("enemy:%s action[%d] must be an object" % [id, action_index])
-				continue
+		if not has_actions and not has_phases:
+			errors.append("enemy:%s must define actions or phases" % id)
 
-			var action_dict := action as Dictionary
-			_require_string(action_dict, "id", "enemy_action", "%s[%d]" % [id, action_index], errors)
-			_require_array(action_dict, "effects", "enemy_action", "%s[%d]" % [id, action_index], errors)
-			_validate_effects(action_dict.get("effects", []), "enemy:%s action:%d" % [id, action_index], errors)
+		if has_actions:
+			_validate_enemy_actions(id, enemy.get("actions", []), errors)
+
+		if has_phases:
+			_validate_enemy_phases(id, enemy.get("phases", []), errors)
+
+
+func _validate_enemy_actions(enemy_id: String, actions: Array, errors: PackedStringArray) -> void:
+	for action_index in range(actions.size()):
+		var action: Variant = actions[action_index]
+		if not (action is Dictionary):
+			errors.append("enemy:%s action[%d] must be an object" % [enemy_id, action_index])
+			continue
+
+		var action_dict := action as Dictionary
+		_require_string(action_dict, "id", "enemy_action", "%s[%d]" % [enemy_id, action_index], errors)
+		_require_array(action_dict, "effects", "enemy_action", "%s[%d]" % [enemy_id, action_index], errors)
+		_validate_effects(action_dict.get("effects", []), "enemy:%s action:%d" % [enemy_id, action_index], errors)
+
+
+func _validate_enemy_phases(enemy_id: String, phases: Array, errors: PackedStringArray) -> void:
+	for phase_index in range(phases.size()):
+		var phase: Variant = phases[phase_index]
+		if not (phase is Dictionary):
+			errors.append("enemy:%s phase[%d] must be an object" % [enemy_id, phase_index])
+			continue
+
+		var phase_dict := phase as Dictionary
+		_require_array(phase_dict, "actions", "enemy_phase", "%s[%d]" % [enemy_id, phase_index], errors)
+
+		var phase_actions: Array = phase_dict.get("actions", [])
+		if phase_actions.is_empty():
+			errors.append("enemy:%s phase[%d] must define at least one action" % [enemy_id, phase_index])
+
+		_validate_enemy_actions("%s phase[%d]" % [enemy_id, phase_index], phase_actions, errors)
 
 
 func _validate_encounters(errors: PackedStringArray) -> void:
