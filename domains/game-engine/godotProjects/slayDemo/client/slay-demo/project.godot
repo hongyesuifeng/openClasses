@@ -23,6 +23,8 @@ SceneRouter="*res://scripts/autoload/scene_router.gd"
 RunController="*res://scripts/autoload/run_controller.gd"
 VFXManager="*res://scripts/vfx/vfx_manager.gd"
 MCPRuntime="*uid://c5jmf6leggsyb"
+ULogger="*res://addons/universal_logger/logger.gd"
+LogConfig="*res://addons/universal_logger/log_config.gd"
 
 [display]
 
@@ -33,7 +35,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/auto_reload/plugin.cfg", "res://addons/godot_mcp_editor/plugin.cfg", "res://addons/godot_mcp_runtime/plugin.cfg")
+enabled=PackedStringArray("res://addons/auto_reload/plugin.cfg", "res://addons/godot_mcp_editor/plugin.cfg", "res://addons/godot_mcp_runtime/plugin.cfg", "res://addons/universal_logger/plugin.cfg")
 
 [physics]
 

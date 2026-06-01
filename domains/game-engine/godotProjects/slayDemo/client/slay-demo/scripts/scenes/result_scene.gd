@@ -63,5 +63,5 @@ func _on_menu_pressed() -> void:
 	scene_router.go_to("main_menu")
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)

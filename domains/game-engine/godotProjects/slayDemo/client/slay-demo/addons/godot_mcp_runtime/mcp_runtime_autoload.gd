@@ -357,22 +357,22 @@ func _cmd_inject_key(params: Dictionary) -> Dictionary:
 
 
 func _cmd_inject_mouse_click(params: Dictionary) -> Dictionary:
-	var position = params.get("position", Vector2.ZERO)
+	var click_position = params.get("position", Vector2.ZERO)
 	var button = int(params.get("button", MOUSE_BUTTON_LEFT))
 	var pressed = bool(params.get("pressed", true))
 	
-	if position is Array:
-		if position.size() < 2:
+	if click_position is Array:
+		if click_position.size() < 2:
 			return {"type": "error", "message": "position array must contain [x, y]"}
-		position = Vector2(float(position[0]), float(position[1]))
-	elif position is Vector2:
-		position = position
+		click_position = Vector2(float(click_position[0]), float(click_position[1]))
+	elif click_position is Vector2:
+		click_position = click_position
 	else:
 		return {"type": "error", "message": "position must be Vector2 or [x, y]"}
 	
 	var event = InputEventMouseButton.new()
-	event.position = position
-	event.global_position = position
+	event.position = click_position
+	event.global_position = click_position
 	event.button_index = button
 	event.pressed = pressed
 	Input.parse_input_event(event)
@@ -380,22 +380,22 @@ func _cmd_inject_mouse_click(params: Dictionary) -> Dictionary:
 	return {
 		"type": "input_injected",
 		"input_type": "mouse_click",
-		"position": [position.x, position.y],
+		"position": [click_position.x, click_position.y],
 		"button": button,
 		"pressed": pressed
 	}
 
 
 func _cmd_inject_mouse_motion(params: Dictionary) -> Dictionary:
-	var position = params.get("position", Vector2.ZERO)
+	var motion_position = params.get("position", Vector2.ZERO)
 	var relative = params.get("relative", Vector2.ZERO)
 	
-	if position is Array:
-		if position.size() < 2:
+	if motion_position is Array:
+		if motion_position.size() < 2:
 			return {"type": "error", "message": "position array must contain [x, y]"}
-		position = Vector2(float(position[0]), float(position[1]))
-	elif position is Vector2:
-		position = position
+		motion_position = Vector2(float(motion_position[0]), float(motion_position[1]))
+	elif motion_position is Vector2:
+		motion_position = motion_position
 	else:
 		return {"type": "error", "message": "position must be Vector2 or [x, y]"}
 	
@@ -409,15 +409,15 @@ func _cmd_inject_mouse_motion(params: Dictionary) -> Dictionary:
 		return {"type": "error", "message": "relative must be Vector2 or [x, y]"}
 	
 	var event = InputEventMouseMotion.new()
-	event.position = position
-	event.global_position = position
+	event.position = motion_position
+	event.global_position = motion_position
 	event.relative = relative
 	Input.parse_input_event(event)
 	
 	return {
 		"type": "input_injected",
 		"input_type": "mouse_motion",
-		"position": [position.x, position.y],
+		"position": [motion_position.x, motion_position.y],
 		"relative": [relative.x, relative.y]
 	}
 
@@ -515,9 +515,9 @@ func _serialize_node(node: Node, include_properties: bool) -> Dictionary:
 		result["properties"] = {}
 		for prop in node.get_property_list():
 			if prop["usage"] & PROPERTY_USAGE_STORAGE:
-				var name = prop["name"]
-				if not name.begins_with("_"):
-					result["properties"][name] = _serialize_value(node.get(name))
+				var property_name = prop["name"]
+				if not property_name.begins_with("_"):
+					result["properties"][property_name] = _serialize_value(node.get(property_name))
 	
 	return result
 

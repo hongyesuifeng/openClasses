@@ -123,10 +123,11 @@ func calculate_block(base_block: int) -> int:
 
 ## 被攻击时触发：荆棘反弹伤害
 func on_hit() -> int:
-	var thorns_damage := 0
+	var reflected_damage := 0
 	if has_status("thorns"):
-		thorns_damage = get_stacks("thorns")
-	return thorns_damage
+		reflected_damage = get_stacks("thorns")
+		thorns_damage.emit(reflected_damage)
+	return reflected_damage
 
 
 ## 获取状态快照（用于 UI 显示）

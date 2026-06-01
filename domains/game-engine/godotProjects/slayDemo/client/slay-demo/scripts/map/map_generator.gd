@@ -11,9 +11,9 @@ const MAX_NODES_PER_FLOOR := 4
 
 
 ## 生成完整的地图配置
-static func generate_map(seed: int = 0, floors: int = 10) -> Dictionary:
-	if seed != 0:
-		seed(seed)
+static func generate_map(rng_seed: int = 0, floors: int = 10) -> Dictionary:
+	if rng_seed != 0:
+		seed(rng_seed)
 
 	var map_data := _create_empty_map(floors)
 	_populate_nodes(map_data)
@@ -44,31 +44,31 @@ static func _populate_nodes(map_data: Dictionary) -> void:
 	var nodes: Array = map_data["nodes"]
 	var floor_nodes: Dictionary = map_data["floor_nodes"]
 
-	for floor in range(floors):
-		var num_nodes := _get_nodes_count_for_floor(floor, floors)
+	for floor_index in range(floors):
+		var num_nodes := _get_nodes_count_for_floor(floor_index, floors)
 
 		for i in range(num_nodes):
-			var node_id := "map_%s_%s" % [floor + 1, char(97 + i)]  ## map_1_a, map_1_b, ...
+			var node_id := "map_%s_%s" % [floor_index + 1, char(97 + i)]  ## map_1_a, map_1_b, ...
 			var node := {
 				"id": node_id,
-				"floor": floor + 1,
+				"floor": floor_index + 1,
 				"type": "battle",  ## 默认类型，后续会调整
 				"next_nodes": []
 			}
 
 			var node_index := nodes.size()
 			nodes.append(node)
-			floor_nodes[floor].append(node_index)
+			floor_nodes[floor_index].append(node_index)
 
 
 ## 获取每层的节点数量
-static func _get_nodes_count_for_floor(floor: int, total_floors: int) -> int:
+static func _get_nodes_count_for_floor(floor_index: int, total_floors: int) -> int:
 	## 第一层和最后一层固定 1 个节点
-	if floor == 0 or floor == total_floors - 1:
+	if floor_index == 0 or floor_index == total_floors - 1:
 		return 1
 
 	## 倒数第二层固定 1 个节点（Boss 前的休息点）
-	if floor == total_floors - 2:
+	if floor_index == total_floors - 2:
 		return 1
 
 	## 其他层随机 2-4 个节点
@@ -81,9 +81,9 @@ static func _connect_nodes(map_data: Dictionary) -> void:
 	var floor_nodes: Dictionary = map_data["floor_nodes"]
 	var floors: int = map_data["floors"]
 
-	for floor in range(floors - 1):
-		var current_floor_nodes: Array = floor_nodes[floor]
-		var next_floor_nodes: Array = floor_nodes[floor + 1]
+	for floor_index in range(floors - 1):
+		var current_floor_nodes: Array = floor_nodes[floor_index]
+		var next_floor_nodes: Array = floor_nodes[floor_index + 1]
 
 		if current_floor_nodes.is_empty() or next_floor_nodes.is_empty():
 			continue
@@ -114,7 +114,7 @@ static func _connect_nodes(map_data: Dictionary) -> void:
 
 
 ## 选择下一层的连接节点
-static func _select_next_nodes(next_floor_nodes: Array, nodes: Array) -> Array:
+static func _select_next_nodes(next_floor_nodes: Array, _nodes: Array) -> Array:
 	var result: Array = []
 	var num_connections := randi_range(1, mini(2, next_floor_nodes.size()))
 
@@ -133,12 +133,20 @@ static func _assign_room_types(map_data: Dictionary) -> void:
 	var floors: int = map_data["floors"]
 	var floor_nodes: Dictionary = map_data["floor_nodes"]
 
+	## 第一层固定为带遭遇的普通战斗，避免开局战斗没有敌人。
+	var first_floor_nodes: Array = floor_nodes[0]
+	if not first_floor_nodes.is_empty():
+		var first_node: Dictionary = nodes[first_floor_nodes[0]]
+		first_node["type"] = "battle"
+		first_node["encounter_id"] = "v1_normal_01"
+
 	## 最后一个节点是 Boss
 	var last_floor_nodes: Array = floor_nodes[floors - 1]
 	if not last_floor_nodes.is_empty():
 		var boss_node: Dictionary = nodes[last_floor_nodes[0]]
-		boss_node["type"] = "boss"
+		boss_node["type"] = "battle"
 		boss_node["is_final"] = true
+		boss_node["encounter_id"] = "v1_boss_02"
 
 	## 倒数第二层是休息点
 	if floors >= 2:
@@ -154,33 +162,33 @@ static func _assign_room_types(map_data: Dictionary) -> void:
 	var event_count := 0
 	var chest_count := 0
 
-	for floor in range(1, floors - 2):
-		var floor_node_indices: Array = floor_nodes[floor]
+	for floor_index in range(1, floors - 2):
+		var floor_node_indices: Array = floor_nodes[floor_index]
 
 		for node_idx in floor_node_indices:
 			var node: Dictionary = nodes[node_idx]
 
 			## 根据楼层和概率分配类型
 			var roll := randf()
-			var floor_progress := float(floor) / float(floors - 2)
 
-			if not shop_placed and floor >= 3 and roll < 0.15:
+			if not shop_placed and floor_index >= 3 and roll < 0.15:
 				node["type"] = "shop"
 				shop_placed = true
-			elif floor >= 5 and elite_count < 2 and roll < 0.2:
-				node["type"] = "elite"
+			elif floor_index >= 5 and elite_count < 2 and roll < 0.2:
+				node["type"] = "battle"
+				node["encounter_id"] = _random_elite_encounter()
 				elite_count += 1
 			elif event_count < 3 and roll < 0.25:
 				node["type"] = "event"
 				_assign_random_event(node)
 				event_count += 1
-			elif chest_count < 2 and floor >= 2 and roll < 0.15:
+			elif chest_count < 2 and floor_index >= 2 and roll < 0.15:
 				node["type"] = "chest"
 				node["gold"] = randi_range(30, 60)
 				chest_count += 1
 			else:
 				node["type"] = "battle"
-				_assign_random_encounter(node, floor)
+				_assign_random_encounter(node, floor_index)
 
 
 ## 分配随机事件
@@ -305,18 +313,23 @@ static func _assign_random_event(node: Dictionary) -> void:
 
 
 ## 分配随机遭遇
-static func _assign_random_encounter(node: Dictionary, floor: int) -> void:
+static func _assign_random_encounter(node: Dictionary, floor_index: int) -> void:
 	## 根据楼层选择遭遇难度
 	var encounter_pool := []
 
-	if floor <= 3:
+	if floor_index <= 3:
 		encounter_pool = ["v1_normal_01", "v1_normal_02", "v1_normal_04"]
-	elif floor <= 6:
+	elif floor_index <= 6:
 		encounter_pool = ["v1_normal_03", "v1_normal_05", "v1_normal_06", "v1_normal_08"]
 	else:
 		encounter_pool = ["v1_normal_07", "v1_normal_09", "v1_normal_10"]
 
 	node["encounter_id"] = encounter_pool[randi() % encounter_pool.size()]
+
+
+static func _random_elite_encounter() -> String:
+	var encounter_pool := ["v1_elite_01", "v1_elite_02"]
+	return encounter_pool[randi() % encounter_pool.size()]
 
 
 ## 验证路径可达性
@@ -353,12 +366,6 @@ static func _validate_paths(map_data: Dictionary) -> bool:
 ## 转换为地图配置格式
 static func _to_map_config(map_data: Dictionary) -> Dictionary:
 	var nodes: Array = map_data["nodes"]
-
-	## 为 Boss 节点分配遭遇
-	for node in nodes:
-		var node_dict: Dictionary = node
-		if node_dict.get("type") == "boss":
-			node_dict["encounter_id"] = "v1_boss_02"
 
 	return {
 		"id": "generated_map_run",

@@ -91,14 +91,14 @@ func _render_nodes() -> void:
 	var max_floor := 1
 	for node in nodes:
 		var node_dict := node as Dictionary
-		var floor := int(node_dict.get("floor", 1))
-		max_floor = maxi(max_floor, floor)
-		if not floors.has(floor):
-			floors[floor] = []
-		(floors[floor] as Array).append(node_dict)
+		var floor_index := int(node_dict.get("floor", 1))
+		max_floor = maxi(max_floor, floor_index)
+		if not floors.has(floor_index):
+			floors[floor_index] = []
+		(floors[floor_index] as Array).append(node_dict)
 
-	for floor in floors.keys():
-		var floor_nodes := floors[floor] as Array
+	for floor_key in floors.keys():
+		var floor_nodes := floors[floor_key] as Array
 		floor_nodes.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 			return str(a.get("id", "")) < str(b.get("id", ""))
 		)
@@ -106,28 +106,28 @@ func _render_nodes() -> void:
 	for node in nodes:
 		var node_dict := node as Dictionary
 		var node_id := str(node_dict.get("id", ""))
-		var floor := int(node_dict.get("floor", 1))
-		var floor_nodes := floors[floor] as Array
+		var floor_index := int(node_dict.get("floor", 1))
+		var floor_nodes := floors[floor_index] as Array
 		var index := floor_nodes.find(node_dict)
-		var position := _node_position(floor, index, floor_nodes.size(), max_floor)
-		_node_positions[node_id] = position + Vector2(66.0, 29.0)
+		var node_pos := _node_position(floor_index, index, floor_nodes.size(), max_floor)
+		_node_positions[node_id] = node_pos + Vector2(66.0, 29.0)
 
 	_render_paths(nodes, completed)
 
 	for node in nodes:
 		var node_dict := node as Dictionary
 		var node_id := str(node_dict.get("id", ""))
-		var floor := int(node_dict.get("floor", 1))
-		var floor_nodes := floors[floor] as Array
+		var floor_index := int(node_dict.get("floor", 1))
+		var floor_nodes := floors[floor_index] as Array
 		var index := floor_nodes.find(node_dict)
-		var position := _node_position(floor, index, floor_nodes.size(), max_floor)
+		var node_pos := _node_position(floor_index, index, floor_nodes.size(), max_floor)
 		var selectable := available.has(node_id)
 		var done := completed.has(node_id)
 
 		var button := Button.new()
 		button.text = _node_text(node_dict, selectable, done)
 		button.custom_minimum_size = Vector2(132, 58)
-		button.position = position
+		button.position = node_pos
 		button.disabled = not selectable
 		button.add_theme_stylebox_override("normal", _node_style(str(node_dict.get("type", "")), done, selectable))
 		button.add_theme_stylebox_override("hover", _node_style(str(node_dict.get("type", "")), done, true))
@@ -155,7 +155,7 @@ func _render_paths(nodes: Array, completed: Array) -> void:
 			_node_root.add_child(line)
 
 
-func _node_position(floor: int, index: int, count: int, max_floor: int) -> Vector2:
+func _node_position(floor_index: int, index: int, count: int, max_floor: int) -> Vector2:
 	var viewport_size := get_viewport_rect().size
 	var width := maxf(1.0, viewport_size.x - 56.0)
 	var height := maxf(1.0, viewport_size.y - 130.0)
@@ -163,7 +163,7 @@ func _node_position(floor: int, index: int, count: int, max_floor: int) -> Vecto
 	var center_y := height * 0.5
 	var y_gap := 92.0
 	var y := center_y + (float(index) - float(count - 1) * 0.5) * y_gap
-	return Vector2(x_step * floor - 66.0, y - 29.0)
+	return Vector2(x_step * floor_index - 66.0, y - 29.0)
 
 
 func _node_text(node: Dictionary, selectable: bool, done: bool) -> String:
@@ -225,8 +225,8 @@ func _on_node_pressed(node_id: String) -> void:
 	run_controller.select_map_node(node_id)
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)
 
 
 func _clear_children(node: Node) -> void:

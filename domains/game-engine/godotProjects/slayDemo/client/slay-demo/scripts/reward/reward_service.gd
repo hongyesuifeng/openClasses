@@ -52,8 +52,8 @@ static func _score_card(card: Dictionary, owned_deck: Array) -> int:
 	return score - owned_count
 
 
-static func _autoload(name: String) -> Variant:
+static func _autoload(autoload_name: String) -> Variant:
 	var tree := Engine.get_main_loop() as SceneTree
 	if tree == null:
 		return null
-	return tree.root.get_node_or_null(name)
+	return tree.root.get_node_or_null(autoload_name)

@@ -400,49 +400,49 @@ func _validate_map_nodes(run_id: String, nodes: Array, errors: PackedStringArray
 				errors.append("run:%s map_node[%d] references missing next node '%s'" % [run_id, node_index, str(next_id)])
 
 
-func _validate_effects(effects: Variant, owner: String, errors: PackedStringArray) -> void:
+func _validate_effects(effects: Variant, owner_label: String, errors: PackedStringArray) -> void:
 	if not (effects is Array):
-		errors.append("%s effects must be an array" % owner)
+		errors.append("%s effects must be an array" % owner_label)
 		return
 
 	var effect_list := effects as Array
 	for index in range(effect_list.size()):
 		var effect: Variant = effect_list[index]
 		if not (effect is Dictionary):
-			errors.append("%s effect[%d] must be an object" % [owner, index])
+			errors.append("%s effect[%d] must be an object" % [owner_label, index])
 			continue
 
 		var effect_dict := effect as Dictionary
-		_require_string(effect_dict, "type", "effect", "%s[%d]" % [owner, index], errors)
-		_enum_value(effect_dict, "type", EFFECT_TYPES, "effect", "%s[%d]" % [owner, index], errors)
+		_require_string(effect_dict, "type", "effect", "%s[%d]" % [owner_label, index], errors)
+		_enum_value(effect_dict, "type", EFFECT_TYPES, "effect", "%s[%d]" % [owner_label, index], errors)
 
 
-func _validate_event_effects(effects: Variant, owner: String, errors: PackedStringArray) -> void:
+func _validate_event_effects(effects: Variant, owner_label: String, errors: PackedStringArray) -> void:
 	if not (effects is Array):
-		errors.append("%s effects must be an array" % owner)
+		errors.append("%s effects must be an array" % owner_label)
 		return
 
 	var effect_list := effects as Array
 	for index in range(effect_list.size()):
 		var effect: Variant = effect_list[index]
 		if not (effect is Dictionary):
-			errors.append("%s effect[%d] must be an object" % [owner, index])
+			errors.append("%s effect[%d] must be an object" % [owner_label, index])
 			continue
 
 		var effect_dict := effect as Dictionary
 		var effect_type := str(effect_dict.get("type", ""))
-		_require_string(effect_dict, "type", "event_effect", "%s[%d]" % [owner, index], errors)
-		_enum_value(effect_dict, "type", EVENT_EFFECT_TYPES, "event_effect", "%s[%d]" % [owner, index], errors)
+		_require_string(effect_dict, "type", "event_effect", "%s[%d]" % [owner_label, index], errors)
+		_enum_value(effect_dict, "type", EVENT_EFFECT_TYPES, "event_effect", "%s[%d]" % [owner_label, index], errors)
 		if ["lose_hp", "gain_gold"].has(effect_type):
-			_require_int(effect_dict, "value", "event_effect", "%s[%d]" % [owner, index], errors)
+			_require_int(effect_dict, "value", "event_effect", "%s[%d]" % [owner_label, index], errors)
 		if ["remove_card", "upgrade_card"].has(effect_type) and bool(effect_dict.get("requires_selection", false)):
 			continue
 		if ["remove_card", "gain_card", "upgrade_card"].has(effect_type):
 			var card_id := str(effect_dict.get("card_id", ""))
 			if card_id.is_empty():
-				errors.append("event_effect:%s[%d] missing string field 'card_id'" % [owner, index])
+				errors.append("event_effect:%s[%d] missing string field 'card_id'" % [owner_label, index])
 			elif not _cards.has(card_id):
-				errors.append("event_effect:%s[%d] references missing card '%s'" % [owner, index, card_id])
+				errors.append("event_effect:%s[%d] references missing card '%s'" % [owner_label, index, card_id])
 		if effect_type == "transform_card":
 			var to_card_id := str(effect_dict.get("to_card_id", ""))
 			if to_card_id.is_empty():

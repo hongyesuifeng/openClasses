@@ -1,0 +1,505 @@
+我建议你做一套 **“Godot 运行日志 → 本地 Agent 读取 → 自动修复 → 再运行验证”** 的长期工作流。
+
+核心原则是：
+
+```text
+不要让 Agent 依赖 Godot 编辑器 UI。
+让 Godot 把运行日志稳定输出到项目目录。
+让 Codex / Claude Code 只读固定日志文件并按固定流程修复。
+```
+
+---
+
+# 一、长期推荐架构
+
+建议你在项目里固定这几个文件：
+
+```text
+你的Godot项目/
+  .godot/
+    agent_godot.log              # Godot 原生运行日志
+    agent_business.log           # 业务调试日志，可选
+    agent_fix_report.md          # Agent 修复记录，可选
+
+  tools/
+    run_godot_debug.ps1          # 启动 Godot 并输出日志
+    tail_godot_log.ps1           # 持续查看日志
+    clean_godot_log.ps1          # 清理旧日志
+
+  scripts/
+    debug/
+      DebugLog.gd                # 项目内业务日志工具
+```
+
+整体链路是：
+
+```text
+Godot 运行
+  ↓
+.godot/agent_godot.log
+  ↓
+Codex / Claude Code 读取日志
+  ↓
+分析 Error / Warning / Stack Trace
+  ↓
+修改代码
+  ↓
+重新运行 Godot
+  ↓
+再次读取日志验证
+```
+
+---
+
+# 二、主日志：Godot 原生日志输出到项目目录
+
+## 1. 创建启动脚本
+
+在项目根目录新建：
+
+```text
+tools/run_godot_debug.ps1
+```
+
+内容：
+
+```powershell
+$Godot = "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe"
+$Project = Split-Path -Parent $PSScriptRoot
+$LogDir = Join-Path $Project ".godot"
+$Log = Join-Path $LogDir "agent_godot.log"
+
+if (!(Test-Path $LogDir)) {
+    New-Item -ItemType Directory -Path $LogDir | Out-Null
+}
+
+if (Test-Path $Log) {
+    Remove-Item $Log
+}
+
+Write-Host "Starting Godot..."
+Write-Host "Project: $Project"
+Write-Host "Log: $Log"
+
+Start-Process -FilePath $Godot -ArgumentList @(
+    "--path", $Project,
+    "--log-file", $Log
+)
+
+Start-Sleep -Seconds 2
+
+Write-Host ""
+Write-Host "Tailing Godot log..."
+Write-Host "Press Ctrl+C to stop tailing. Godot will keep running."
+Write-Host ""
+
+Get-Content $Log -Wait -Tail 200
+```
+
+你只需要改这一行：
+
+```powershell
+$Godot = "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe"
+```
+
+改成你本机 Godot exe 的实际路径。
+
+---
+
+## 2. 使用方式
+
+以后让 Codex / Claude Code 执行：
+
+```powershell
+.\tools\run_godot_debug.ps1
+```
+
+它会自动：
+
+```text
+1. 清理旧日志
+2. 启动 Godot 项目
+3. 把 Godot 输出写入 .godot/agent_godot.log
+4. 持续 tail 最新日志
+```
+
+Agent 后续就读这个文件：
+
+```text
+.godot/agent_godot.log
+```
+
+---
+
+# 三、辅助日志：业务 DebugLog.gd
+
+Godot 原生日志能看到脚本错误、warning、print、push_error 等。
+但长期调试战斗、技能、怪物、UI、状态机时，你还需要**业务日志**。
+
+新建：
+
+```text
+scripts/debug/DebugLog.gd
+```
+
+内容：
+
+```gdscript
+extends Node
+
+const BUSINESS_LOG_PATH := "res://.godot/agent_business.log"
+
+var enable_battle := true
+var enable_skill := true
+var enable_ai := true
+var enable_ui := true
+var enable_lifecycle := true
+
+func _ready() -> void:
+    _clear_business_log()
+    info("DebugLog started")
+    info("Business log path: " + ProjectSettings.globalize_path(BUSINESS_LOG_PATH))
+
+
+func info(msg: String) -> void:
+    _write("INFO", "General", msg)
+
+
+func warn(msg: String) -> void:
+    push_warning(msg)
+    _write("WARN", "General", msg)
+
+
+func error(msg: String) -> void:
+    push_error(msg)
+    _write("ERROR", "General", msg)
+
+
+func battle(msg: String) -> void:
+    if enable_battle:
+        _write("INFO", "Battle", msg)
+
+
+func skill(msg: String) -> void:
+    if enable_skill:
+        _write("INFO", "Skill", msg)
+
+
+func ai(msg: String) -> void:
+    if enable_ai:
+        _write("INFO", "AI", msg)
+
+
+func ui(msg: String) -> void:
+    if enable_ui:
+        _write("INFO", "UI", msg)
+
+
+func lifecycle(msg: String) -> void:
+    if enable_lifecycle:
+        _write("INFO", "Lifecycle", msg)
+
+
+func _write(level: String, module: String, msg: String) -> void:
+    var time := Time.get_datetime_string_from_system()
+    var line := "[%s][%s][%s] %s\n" % [time, level, module, msg]
+
+    print(line.strip_edges())
+
+    var file := FileAccess.open(BUSINESS_LOG_PATH, FileAccess.READ_WRITE)
+
+    if file == null:
+        file = FileAccess.open(BUSINESS_LOG_PATH, FileAccess.WRITE)
+    else:
+        file.seek_end()
+
+    if file != null:
+        file.store_string(line)
+        file.close()
+
+
+func _clear_business_log() -> void:
+    var file := FileAccess.open(BUSINESS_LOG_PATH, FileAccess.WRITE)
+    if file != null:
+        file.store_string("")
+        file.close()
+```
+
+然后添加到 Autoload：
+
+```text
+项目
+  → 项目设置
+    → Autoload
+      → 添加 scripts/debug/DebugLog.gd
+      → 名字 DebugLog
+```
+
+之后你可以在业务代码里这样打点：
+
+```gdscript
+DebugLog.battle("battle scene started")
+DebugLog.skill("cast skill_id=%s actor=%s" % [skill_id, actor.name])
+DebugLog.lifecycle("spawn enemy: " + enemy.name)
+DebugLog.warn("target is null when casting skill")
+DebugLog.error("skill config not found: " + str(skill_id))
+```
+
+这样 Agent 可以同时看两个文件：
+
+```text
+.godot/agent_godot.log       # Godot 原生报错、warning、print
+.godot/agent_business.log    # 你自己关心的业务状态
+```
+
+---
+
+# 四、给 Codex / Claude Code 的固定工作指令
+
+你可以在项目根目录加一个文档：
+
+```text
+AGENT_DEBUG_WORKFLOW.md
+```
+
+内容可以这样写：
+
+````markdown
+# Godot Agent Debug Workflow
+
+你是本项目的本地 coding agent。调试 Godot 运行问题时，必须按以下流程执行：
+
+## 1. 运行项目
+
+优先执行：
+
+```powershell
+.\tools\run_godot_debug.ps1
+````
+
+Godot 运行日志会输出到：
+
+```text
+.godot/agent_godot.log
+.godot/agent_business.log
+```
+
+## 2. 读取日志
+
+优先分析最新 200 行：
+
+```powershell
+Get-Content ".godot\agent_godot.log" -Tail 200
+Get-Content ".godot\agent_business.log" -Tail 200
+```
+
+重点查找：
+
+```text
+ERROR
+SCRIPT ERROR
+GDScript
+Invalid get index
+Invalid call
+Cannot call method
+Attempt to call function
+Node not found
+Object was freed
+Parser Error
+push_error
+WARNING
+```
+
+## 3. 修复原则
+
+修复时必须：
+
+1. 先根据日志定位最可能的出错脚本和行号。
+2. 不要盲目大改架构。
+3. 优先修复最小问题。
+4. 修改后重新运行 Godot。
+5. 再次读取日志确认错误是否消失。
+6. 如果引入新错误，继续迭代。
+7. 每次修复后把原因和改动写入 `.godot/agent_fix_report.md`。
+
+## 4. 禁止事项
+
+不要只根据猜测修改代码。
+不要忽略 Godot 运行日志。
+不要一次性重构大量无关代码。
+不要删除业务逻辑来消除报错。
+不要把 warning 全部简单关闭。
+
+## 5. 完成标准
+
+只有满足下面条件，才算修复完成：
+
+1. Godot 可以正常启动。
+2. `.godot/agent_godot.log` 没有新的严重 ERROR。
+3. 相关业务流程可以运行。
+4. 修改点有简短说明。
+
+````
+
+之后你给 Agent 的提示词就可以固定为：
+
+```text
+按照 AGENT_DEBUG_WORKFLOW.md 执行。
+运行 Godot，读取 .godot/agent_godot.log 和 .godot/agent_business.log，
+根据最新错误进行最小修复，修完后重新运行验证。
+````
+
+---
+
+# 五、再加一个只看日志的脚本
+
+有时候你不想重新启动 Godot，只想让 Agent 看当前日志。
+
+新建：
+
+```text
+tools/tail_godot_log.ps1
+```
+
+内容：
+
+```powershell
+$Project = Split-Path -Parent $PSScriptRoot
+$GodotLog = Join-Path $Project ".godot\agent_godot.log"
+$BusinessLog = Join-Path $Project ".godot\agent_business.log"
+
+Write-Host "Godot log:"
+Write-Host $GodotLog
+Write-Host ""
+
+if (Test-Path $GodotLog) {
+    Get-Content $GodotLog -Tail 200
+} else {
+    Write-Host "Godot log not found."
+}
+
+Write-Host ""
+Write-Host "Business log:"
+Write-Host $BusinessLog
+Write-Host ""
+
+if (Test-Path $BusinessLog) {
+    Get-Content $BusinessLog -Tail 200
+} else {
+    Write-Host "Business log not found."
+}
+```
+
+Agent 可以执行：
+
+```powershell
+.\tools\tail_godot_log.ps1
+```
+
+---
+
+# 六、长期使用时，建议你按模块打业务日志
+
+比如你做战斗系统，可以这样打：
+
+## 技能释放
+
+```gdscript
+DebugLog.skill("request cast skill_id=%s caster=%s target=%s" % [
+    skill_id,
+    caster.name if caster else "null",
+    target.name if target else "null"
+])
+```
+
+## 生成特效
+
+```gdscript
+DebugLog.lifecycle("spawn effect path=%s parent=%s pos=%s" % [
+    effect_path,
+    parent.name if parent else "null",
+    str(global_position)
+])
+```
+
+## 伤害结算
+
+```gdscript
+DebugLog.battle("apply damage source=%s target=%s value=%s" % [
+    source.name if source else "null",
+    target.name if target else "null",
+    damage
+])
+```
+
+## 状态切换
+
+```gdscript
+DebugLog.battle("state change %s -> %s" % [
+    old_state,
+    new_state
+])
+```
+
+## UI 刷新
+
+```gdscript
+DebugLog.ui("refresh hp hp=%s max_hp=%s" % [hp, max_hp])
+```
+
+这类日志对 Agent 特别有价值，因为它能知道：
+
+```text
+函数有没有被调用
+参数是不是 null
+状态有没有切换
+节点有没有生成
+流程卡在哪一步
+```
+
+---
+
+# 七、你的长期工作流可以固定成这样
+
+以后每次遇到 Godot 问题，你就对 Codex / Claude Code 说：
+
+```text
+执行 Godot Agent Debug Workflow：
+1. 运行 tools/run_godot_debug.ps1
+2. 读取 .godot/agent_godot.log 和 .godot/agent_business.log 最新 200 行
+3. 分析最新 error/warning
+4. 做最小修复
+5. 重新运行验证
+6. 把修复记录写入 .godot/agent_fix_report.md
+```
+
+这样就形成闭环：
+
+```text
+运行 → 出错 → 记录日志 → Agent 读取 → 修复 → 再运行 → 验证
+```
+
+---
+
+# 八、我对你的最终建议
+
+你长期用的话，不要只做一个日志文件。
+我建议固定成这套：
+
+```text
+必须做：
+  tools/run_godot_debug.ps1
+  .godot/agent_godot.log
+
+强烈建议做：
+  scripts/debug/DebugLog.gd
+  .godot/agent_business.log
+
+建议做：
+  AGENT_DEBUG_WORKFLOW.md
+  .godot/agent_fix_report.md
+```
+
+最核心的一句话：
+
+**让 Godot 把事实写成文件，让 Agent 根据文件修复，而不是让 Agent 猜 UI 里发生了什么。**

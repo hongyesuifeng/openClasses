@@ -252,5 +252,5 @@ func _unlock_starting_map_nodes() -> void:
 			available_map_node_ids.append(str(node_dict.get("id", "")))
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)

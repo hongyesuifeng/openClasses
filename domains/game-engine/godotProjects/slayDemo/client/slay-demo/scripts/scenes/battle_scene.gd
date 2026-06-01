@@ -91,11 +91,11 @@ func _build() -> void:
 
 	var root := VBoxContainer.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	root.offset_left = 24
-	root.offset_top = 16
-	root.offset_right = -24
-	root.offset_bottom = -18
-	root.add_theme_constant_override("separation", 12)
+	root.offset_left = 18
+	root.offset_top = 12
+	root.offset_right = -18
+	root.offset_bottom = -12
+	root.add_theme_constant_override("separation", 8)
 	add_child(root)
 
 	_player_panel = PanelContainer.new()
@@ -108,7 +108,7 @@ func _build() -> void:
 
 	var portrait := TextureRect.new()
 	portrait.texture = load(PLAYER_ART)
-	portrait.custom_minimum_size = Vector2(90, 86)
+	portrait.custom_minimum_size = Vector2(72, 68)
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	top_row.add_child(portrait)
 
@@ -130,12 +130,12 @@ func _build() -> void:
 
 	var energy_box := HBoxContainer.new()
 	energy_box.alignment = BoxContainer.ALIGNMENT_END
-	energy_box.custom_minimum_size = Vector2(156, 84)
+	energy_box.custom_minimum_size = Vector2(132, 64)
 	top_row.add_child(energy_box)
 
 	var energy_icon := TextureRect.new()
 	energy_icon.texture = load("res://assets/ui/icons/ui_energy_crystal.png")
-	energy_icon.custom_minimum_size = Vector2(42, 42)
+	energy_icon.custom_minimum_size = Vector2(36, 36)
 	energy_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	energy_box.add_child(energy_icon)
 
@@ -161,18 +161,19 @@ func _build() -> void:
 	root.add_child(_player_status_row)
 
 	_enemy_row = HBoxContainer.new()
-	_enemy_row.custom_minimum_size = Vector2(0, 260)
+	_enemy_row.custom_minimum_size = Vector2(0, 270)
 	_enemy_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	_enemy_row.add_theme_constant_override("separation", 28)
+	_enemy_row.add_theme_constant_override("separation", 20)
 	root.add_child(_enemy_row)
 
 	var lower := HBoxContainer.new()
 	lower.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	lower.add_theme_constant_override("separation", 16)
+	lower.custom_minimum_size = Vector2(0, 178)
+	lower.add_theme_constant_override("separation", 12)
 	root.add_child(lower)
 
 	_log_label = RichTextLabel.new()
-	_log_label.custom_minimum_size = Vector2(300, 0)
+	_log_label.custom_minimum_size = Vector2(260, 0)
 	_log_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_log_label.fit_content = true
 	_log_label.add_theme_color_override("default_color", Color(0.92, 0.86, 0.76))
@@ -180,23 +181,38 @@ func _build() -> void:
 
 	var hand_panel := VBoxContainer.new()
 	hand_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hand_panel.add_theme_constant_override("separation", 8)
+	hand_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hand_panel.add_theme_constant_override("separation", 6)
 	lower.add_child(hand_panel)
 
 	_pile_label = Label.new()
 	_pile_label.add_theme_color_override("font_color", Color(0.94, 0.88, 0.78))
 	hand_panel.add_child(_pile_label)
 
+	var hand_controls := HBoxContainer.new()
+	hand_controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hand_controls.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hand_controls.add_theme_constant_override("separation", 10)
+	hand_panel.add_child(hand_controls)
+
+	var hand_scroll := ScrollContainer.new()
+	hand_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hand_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hand_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	hand_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	hand_controls.add_child(hand_scroll)
+
 	_hand_row = HBoxContainer.new()
 	_hand_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_hand_row.add_theme_constant_override("separation", 8)
-	hand_panel.add_child(_hand_row)
+	_hand_row.add_theme_constant_override("separation", 7)
+	hand_scroll.add_child(_hand_row)
 
 	var end_turn_button := Button.new()
 	end_turn_button.text = "结束回合"
-	end_turn_button.custom_minimum_size = Vector2(160, 44)
+	end_turn_button.custom_minimum_size = Vector2(136, 52)
+	end_turn_button.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
-	hand_panel.add_child(end_turn_button)
+	hand_controls.add_child(end_turn_button)
 
 	_sfx_player = AudioStreamPlayer.new()
 	_sfx_player.stream = load(SFX_CARD_PLACE)
@@ -264,31 +280,33 @@ func _render_enemies(enemies: Array) -> void:
 		var intent: Dictionary = enemy.get("intent", {})
 		var art_path := str(ENEMY_ART_BY_KEY.get(str(enemy.get("art_key", "")), ENEMY_ART_BY_KEY["enemy_slime"]))
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(218, 232)
+		button.custom_minimum_size = Vector2(260, 252)
 		button.text = ""
 		button.clip_contents = true
 		button.add_theme_stylebox_override("normal", _panel_style(Color(0.08, 0.065, 0.055, 0.82)))
 		button.add_theme_stylebox_override("hover", _panel_style(Color(0.12, 0.09, 0.07, 0.92)))
 		button.add_theme_stylebox_override("pressed", _panel_style(Color(0.16, 0.11, 0.08, 0.96)))
 		button.pressed.connect(_on_enemy_pressed.bind(index))
-		button.pivot_offset = Vector2(109, 116)
+		button.pivot_offset = Vector2(130, 126)
 
 		var sprite := TextureRect.new()
-		sprite.texture = load(art_path)
-		sprite.anchor_left = 0.08
-		sprite.anchor_top = 0.03
-		sprite.anchor_right = 0.92
-		sprite.anchor_bottom = 0.55
+		sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		sprite.position = Vector2(22, 8)
+		sprite.size = Vector2(216, 152)
+		sprite.custom_minimum_size = Vector2.ZERO
 		sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		sprite.z_index = 2
+		sprite.texture = load(art_path)
+		sprite.set_deferred("size", Vector2(216, 152))
 		button.add_child(sprite)
 
-		var name := _make_label(str(enemy.get("name", "")), 18, HORIZONTAL_ALIGNMENT_CENTER)
-		name.anchor_left = 0.08
-		name.anchor_top = 0.54
-		name.anchor_right = 0.92
-		name.anchor_bottom = 0.65
-		button.add_child(name)
+		var name_label := _make_label(str(enemy.get("name", "")), 18, HORIZONTAL_ALIGNMENT_CENTER)
+		name_label.anchor_left = 0.08
+		name_label.anchor_top = 0.67
+		name_label.anchor_right = 0.92
+		name_label.anchor_bottom = 0.76
+		button.add_child(name_label)
 
 		var hp := _make_label("HP %d/%d  格挡 %d" % [
 			int(enemy.get("hp", 0)),
@@ -296,26 +314,26 @@ func _render_enemies(enemies: Array) -> void:
 			int(enemy.get("block", 0))
 		], 14, HORIZONTAL_ALIGNMENT_CENTER)
 		hp.anchor_left = 0.05
-		hp.anchor_top = 0.66
+		hp.anchor_top = 0.77
 		hp.anchor_right = 0.95
-		hp.anchor_bottom = 0.76
+		hp.anchor_bottom = 0.85
 		button.add_child(hp)
 
 		var intent_icon := TextureRect.new()
 		intent_icon.texture = load(str(INTENT_ICON_BY_TYPE.get(str(intent.get("type", "")), "res://assets/ui/intents/intent_question.png")))
 		intent_icon.anchor_left = 0.18
-		intent_icon.anchor_top = 0.78
+		intent_icon.anchor_top = 0.86
 		intent_icon.anchor_right = 0.34
-		intent_icon.anchor_bottom = 0.94
+		intent_icon.anchor_bottom = 0.98
 		intent_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		intent_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(intent_icon)
 
 		var intent_text := _make_label("%s %d" % [str(intent.get("name", "")), int(intent.get("value", 0))], 14, HORIZONTAL_ALIGNMENT_LEFT)
 		intent_text.anchor_left = 0.36
-		intent_text.anchor_top = 0.79
+		intent_text.anchor_top = 0.87
 		intent_text.anchor_right = 0.92
-		intent_text.anchor_bottom = 0.94
+		intent_text.anchor_bottom = 0.98
 		button.add_child(intent_text)
 
 		# 敌人状态显示
@@ -371,7 +389,7 @@ func _render_hand(hand: Array, phase: String) -> void:
 	_hand_buttons.clear()
 	for index in range(hand.size()):
 		var card := hand[index] as Dictionary
-		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(150, 200), index == _selected_card_index, phase != "player")
+		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(128, 170), index == _selected_card_index, phase != "player")
 		button.pressed.connect(_on_card_pressed.bind(index))
 		## 添加悬浮放大效果
 		button.mouse_entered.connect(_on_card_hover.bind(button))
@@ -635,7 +653,7 @@ func _flash_player_panel() -> void:
 
 func _make_bar(under_path: String, progress_path: String) -> TextureProgressBar:
 	var bar := TextureProgressBar.new()
-	bar.custom_minimum_size = Vector2(360, 18)
+	bar.custom_minimum_size = Vector2(300, 16)
 	bar.texture_under = load(under_path)
 	bar.texture_progress = load(progress_path)
 	bar.nine_patch_stretch = true
@@ -644,12 +662,12 @@ func _make_bar(under_path: String, progress_path: String) -> TextureProgressBar:
 	return bar
 
 
-func _make_label(text: String, size: int, align: HorizontalAlignment) -> Label:
+func _make_label(text: String, font_size: int, align: HorizontalAlignment) -> Label:
 	var label := Label.new()
 	label.text = text
 	label.horizontal_alignment = align
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_font_size_override("font_size", font_size)
 	label.add_theme_color_override("font_color", Color(0.96, 0.9, 0.78))
 	label.add_theme_color_override("font_shadow_color", Color(0.06, 0.04, 0.025, 0.9))
 	label.add_theme_constant_override("shadow_offset_x", 1)
@@ -676,8 +694,8 @@ func _clear_children(node: Node) -> void:
 		child.queue_free()
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)
 
 
 ## 回合切换横幅提示

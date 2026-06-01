@@ -20,6 +20,7 @@ func run_async(ctx: Variant) -> void:
 
 	await _test_chest_reward_feedback(ctx, game_state, data_loader)
 	await _test_battle_relic_row(ctx, game_state, data_loader)
+	await _test_battle_enemy_sprite_visible(ctx, game_state, data_loader)
 	await _test_map_relic_row(ctx, game_state, data_loader)
 
 
@@ -66,6 +67,26 @@ func _test_battle_relic_row(ctx: Variant, game_state: Variant, data_loader: Vari
 	battle.queue_free()
 
 
+func _test_battle_enemy_sprite_visible(ctx: Variant, game_state: Variant, data_loader: Variant) -> void:
+	game_state.start_new_run(data_loader.get_run_config("act1_map_run"))
+	game_state.current_map_node_id = "map_01"
+
+	var battle: Control = BattleScene.instantiate()
+	_tree_root().add_child.call_deferred(battle)
+	await _tree().process_frame
+	await _tree().process_frame
+
+	var enemy_row: HBoxContainer = battle.get("_enemy_row")
+	ctx.assert_true(enemy_row != null, "battle scene has an enemy row")
+	ctx.assert_gt(enemy_row.get_child_count(), 0, "first battle renders at least one enemy control")
+
+	var sprite := _find_enemy_sprite(enemy_row)
+	ctx.assert_true(sprite != null, "first battle renders an enemy texture")
+	if sprite != null:
+		ctx.assert_eq(sprite.size, Vector2(252, 206), "enemy sprite uses a stable visible render area")
+	battle.queue_free()
+
+
 func _test_map_relic_row(ctx: Variant, game_state: Variant, data_loader: Variant) -> void:
 	game_state.start_new_run(data_loader.get_run_config("act1_map_run"))
 	game_state.add_relic("strawberry")
@@ -91,6 +112,18 @@ func _find_button_by_text(root: Node, text: String) -> Button:
 		return root as Button
 	for child in root.get_children():
 		var found := _find_button_by_text(child, text)
+		if found != null:
+			return found
+	return null
+
+
+func _find_enemy_sprite(root: Node) -> TextureRect:
+	if root is TextureRect:
+		var texture := (root as TextureRect).texture
+		if texture != null and str(texture.resource_path).contains("assets/enemies"):
+			return root as TextureRect
+	for child in root.get_children():
+		var found := _find_enemy_sprite(child)
 		if found != null:
 			return found
 	return null

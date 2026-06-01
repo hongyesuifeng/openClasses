@@ -212,8 +212,8 @@ func _find_button_by_text(root: Node, text: String) -> Button:
 	return null
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)
 
 
 func _fail(message: String) -> void:

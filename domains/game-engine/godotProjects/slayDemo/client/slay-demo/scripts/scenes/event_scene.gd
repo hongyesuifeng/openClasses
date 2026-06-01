@@ -261,5 +261,5 @@ func _current_event_node() -> Dictionary:
 	return game_state.get_current_node()
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)

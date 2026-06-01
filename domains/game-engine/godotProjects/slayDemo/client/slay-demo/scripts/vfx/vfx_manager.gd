@@ -27,61 +27,61 @@ func set_current_scene(scene: Node) -> void:
 
 
 ## 播放攻击特效
-func play_attack_effect(effect_type: String, position: Vector2) -> void:
+func play_attack_effect(effect_type: String, target_position: Vector2) -> void:
 	match effect_type:
 		"slash", "attack":
-			_spawn_slash_effect(position)
+			_spawn_slash_effect(target_position)
 		"fire":
-			_spawn_fire_effect(position)
+			_spawn_fire_effect(target_position)
 		"poison":
-			_spawn_poison_effect(position)
+			_spawn_poison_effect(target_position)
 		"magic":
-			_spawn_magic_effect(position)
+			_spawn_magic_effect(target_position)
 		_:
-			_spawn_slash_effect(position)
+			_spawn_slash_effect(target_position)
 
 
 ## 播放格挡特效
-func play_block_effect(position: Vector2, _amount: int = 0) -> void:
-	_spawn_shield_particles(position)
+func play_block_effect(target_position: Vector2, _amount: int = 0) -> void:
+	_spawn_shield_particles(target_position)
 
 
 ## 播放治疗特效
-func play_heal_effect(position: Vector2) -> void:
-	_spawn_floating_text("+", position, COLOR_HEAL)
-	_spawn_spark_particles(position, Color(0.35, 0.9, 0.45))
+func play_heal_effect(target_position: Vector2) -> void:
+	_spawn_floating_text("+", target_position, COLOR_HEAL)
+	_spawn_spark_particles(target_position, Color(0.35, 0.9, 0.45))
 
 
 ## 播放力量变化特效
-func play_strength_effect(position: Vector2, value: int) -> void:
+func play_strength_effect(target_position: Vector2, value: int) -> void:
 	var text := "+%d" % value if value > 0 else "%d" % value
-	_spawn_floating_text(text, position, COLOR_STRENGTH)
+	_spawn_floating_text(text, target_position, COLOR_STRENGTH)
 
 
 ## 播放状态施加特效
-func play_status_effect(status_id: String, position: Vector2) -> void:
+func play_status_effect(status_id: String, target_position: Vector2) -> void:
 	match status_id:
 		"poison":
-			_spawn_poison_particles(position)
+			_spawn_poison_particles(target_position)
 		"vulnerable":
-			_spawn_floating_text("易伤", position, Color(1.0, 0.5, 0.3))
+			_spawn_floating_text("易伤", target_position, Color(1.0, 0.5, 0.3))
 		"weak":
-			_spawn_floating_text("虚弱", position, Color(0.6, 0.6, 0.7))
+			_spawn_floating_text("虚弱", target_position, Color(0.6, 0.6, 0.7))
 		"strength":
-			_spawn_spark_particles(position, COLOR_STRENGTH)
+			_spawn_spark_particles(target_position, COLOR_STRENGTH)
 		_:
-			_spawn_magic_effect(position)
+			_spawn_magic_effect(target_position)
 
 
 ## 播放敌人死亡特效
-func play_death_effect(position: Vector2) -> void:
-	_spawn_death_dissolve(position)
+func play_death_effect(target_position: Vector2) -> void:
+	_spawn_death_dissolve(target_position)
 
 
 ## 播放数字弹出
-func spawn_floating_number(value: int, position: Vector2, color: Color = COLOR_DAMAGE) -> void:
+func spawn_floating_number(value: int, target_position: Vector2, color: Color = COLOR_DAMAGE) -> void:
 	var text := "-%d" % value if value < 0 else "+%d" % value
-	_spawn_floating_text(text, position, color)
+	_spawn_floating_text(text, target_position, color)
 
 
 ## ========== 内部实现 ==========

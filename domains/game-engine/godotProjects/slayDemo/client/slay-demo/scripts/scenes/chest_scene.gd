@@ -84,5 +84,5 @@ func _on_open_pressed() -> void:
 		get_tree().create_timer(1.5).timeout.connect(Callable(run_controller, "complete_chest"))
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)

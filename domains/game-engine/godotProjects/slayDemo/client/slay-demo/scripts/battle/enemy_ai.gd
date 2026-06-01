@@ -36,17 +36,17 @@ static func initialize_enemy(enemy_data: Dictionary) -> Dictionary:
 
 
 ## 推进意图
-static func advance_intent(enemy: Dictionary, battle_state: Dictionary = {}) -> void:
+static func advance_intent(enemy: Dictionary, _battle_state: Dictionary = {}) -> void:
 	enemy["turn_count"] = int(enemy.get("turn_count", 0)) + 1
 
 	## 检查阶段切换
 	var phases: Array = enemy.get("phases", [])
 	if not phases.is_empty():
-		_check_phase_transition(enemy, battle_state)
+		_check_phase_transition(enemy, _battle_state)
 
 	## 选择下一个动作
 	if not phases.is_empty():
-		_select_action_from_phase(enemy, battle_state)
+		_select_action_from_phase(enemy, _battle_state)
 	elif not enemy.get("actions", []).is_empty():
 		_select_action_from_actions(enemy)
 
@@ -62,8 +62,8 @@ static func _select_action_from_actions(enemy: Dictionary) -> void:
 		return
 
 	var current_index := int(enemy.get("action_index", 0))
-	var current_action: Dictionary = actions[current_index]
-	var rule := str(current_action.get("next_action_rule", "loop"))
+	var selected_action: Dictionary = actions[current_index]
+	var rule := str(selected_action.get("next_action_rule", "loop"))
 
 	match rule:
 		"next":
@@ -268,7 +268,7 @@ static func _check_phase_transition(enemy: Dictionary, battle_state: Dictionary)
 
 
 ## 检查阶段触发条件
-static func _check_phase_trigger(phase: Dictionary, enemy: Dictionary, battle_state: Dictionary) -> bool:
+static func _check_phase_trigger(phase: Dictionary, enemy: Dictionary, _battle_state: Dictionary) -> bool:
 	var trigger := str(phase.get("trigger", ""))
 
 	if trigger.is_empty():

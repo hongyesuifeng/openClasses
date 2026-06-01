@@ -21,8 +21,8 @@ func setup(master_deck: Array) -> void:
 	_shuffle_draw_pile()
 
 
-func set_seed(seed: int) -> void:
-	_fixed_seed = seed
+func set_seed(rng_seed: int) -> void:
+	_fixed_seed = rng_seed
 
 
 func draw(count: int) -> Array:

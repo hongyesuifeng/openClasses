@@ -8,12 +8,12 @@ const RARITY_COLORS := {
 
 
 static func create_relic_button(relic: Dictionary, detail_callback: Callable = Callable()) -> Button:
-	var name := str(relic.get("name", str(relic.get("id", "遗物"))))
+	var relic_name := str(relic.get("name", str(relic.get("id", "遗物"))))
 	var description := str(relic.get("description", ""))
 	var button := Button.new()
-	button.name = "Relic_%s" % str(relic.get("id", name))
-	button.text = _short_name(name)
-	button.tooltip_text = "%s\n%s" % [name, description]
+	button.name = "Relic_%s" % str(relic.get("id", relic_name))
+	button.text = _short_name(relic_name)
+	button.tooltip_text = "%s\n%s" % [relic_name, description]
 	button.custom_minimum_size = Vector2(72, 30)
 	button.focus_mode = Control.FOCUS_NONE
 	button.add_theme_font_size_override("font_size", 14)
@@ -54,10 +54,10 @@ static func detail_text(relic: Dictionary) -> String:
 	return "%s：%s" % [str(relic.get("name", "")), str(relic.get("description", ""))]
 
 
-static func _short_name(name: String) -> String:
-	if name.length() <= 4:
-		return name
-	return name.left(4)
+static func _short_name(relic_name: String) -> String:
+	if relic_name.length() <= 4:
+		return relic_name
+	return relic_name.left(4)
 
 
 static func _style_for(rarity: String, multiplier: float) -> StyleBoxFlat:

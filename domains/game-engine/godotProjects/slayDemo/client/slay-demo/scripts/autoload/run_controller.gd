@@ -215,8 +215,8 @@ func _grant_battle_gold_reward() -> void:
 	var floor_bonus := 0
 	if game_state.has_map():
 		var node: Dictionary = game_state.get_current_node()
-		var floor := int(node.get("floor", 1))
-		floor_bonus = int(floor * 1.5)
+		var floor_index := int(node.get("floor", 1))
+		floor_bonus = int(floor_index * 1.5)
 
 	## 随机金币
 	var base_gold := randi_range(min_gold, max_gold)
@@ -241,5 +241,5 @@ func _grant_elite_relic_if_needed() -> void:
 		print("获得遗物: %s" % str(relic.get("name", "")))
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)

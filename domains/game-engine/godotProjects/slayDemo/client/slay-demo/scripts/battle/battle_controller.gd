@@ -227,11 +227,11 @@ func damage_enemy(target_index: int, amount: int) -> Dictionary:
 	# 荆棘反弹伤害
 	if enemy.has("status_manager"):
 		var enemy_status: RefCounted = enemy["status_manager"]
-		var thorns_damage: int = enemy_status.call("on_hit")
-		if thorns_damage > 0:
-			player_hp = maxi(0, player_hp - thorns_damage)
-			_log("荆棘反弹 %d 点伤害" % thorns_damage)
-			combat_event.emit({ "type": "player_damage", "value": thorns_damage, "blocked": 0 })
+		var reflected_damage: int = enemy_status.call("on_hit")
+		if reflected_damage > 0:
+			player_hp = maxi(0, player_hp - reflected_damage)
+			_log("荆棘反弹 %d 点伤害" % reflected_damage)
+			combat_event.emit({ "type": "player_damage", "value": reflected_damage, "blocked": 0 })
 
 	return { "type": "damage_enemy", "enemy_index": target_index, "value": hp_damage, "blocked": blocked }
 
@@ -306,11 +306,18 @@ func _emit_state() -> void:
 
 
 func _log(message: String) -> void:
+	# 发射信号以保持向后兼容（UI 订阅）
 	message_logged.emit(message)
 
+	# 同时使用新的 Logger 系统
+	var logger: Variant = _autoload("ULogger")
+	if logger != null and logger.has_method("battle"):
+		# 记录结构化日志
+		logger.battle(message)
 
-func _autoload(name: String) -> Variant:
+
+func _autoload(autoload_name: String) -> Variant:
 	var tree := Engine.get_main_loop() as SceneTree
 	if tree == null:
 		return null
-	return tree.root.get_node_or_null(name)
+	return tree.root.get_node_or_null(autoload_name)

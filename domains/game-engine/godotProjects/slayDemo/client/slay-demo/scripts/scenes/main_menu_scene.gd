@@ -46,5 +46,5 @@ func _on_start_pressed() -> void:
 	run_controller.start_new_run("act1_map_run")
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)

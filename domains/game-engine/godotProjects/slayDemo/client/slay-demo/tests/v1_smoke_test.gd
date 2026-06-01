@@ -81,10 +81,10 @@ func _ready() -> void:
 	get_tree().quit(0)
 
 
-func _create_battle(encounter_id: String, seed: int) -> Variant:
+func _create_battle(encounter_id: String, rng_seed: int) -> Variant:
 	var game_state: Variant = _autoload("GameState")
 	var battle: Variant = BattleControllerScript.new()
-	battle.deck.set_seed(seed)
+	battle.deck.set_seed(rng_seed)
 	var player_state: Dictionary = {
 		"hp": game_state.player_hp,
 		"max_hp": game_state.player_max_hp,
@@ -157,5 +157,5 @@ func _add_test_reward(card_id: String) -> void:
 	game_state.add_card_to_deck(card_id)
 
 
-func _autoload(name: String) -> Variant:
-	return get_node_or_null("/root/%s" % name)
+func _autoload(autoload_name: String) -> Variant:
+	return get_node_or_null("/root/%s" % autoload_name)

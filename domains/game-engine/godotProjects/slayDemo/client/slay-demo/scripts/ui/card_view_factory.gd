@@ -26,9 +26,9 @@ const ICON_BY_ART_KEY := {
 }
 
 
-static func create_card_button(card: Dictionary, size := Vector2(160, 214), selected := false, disabled := false) -> Button:
+static func create_card_button(card: Dictionary, card_size := Vector2(160, 214), selected := false, disabled := false) -> Button:
 	var button := Button.new()
-	button.custom_minimum_size = size
+	button.custom_minimum_size = card_size
 	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	button.disabled = disabled
@@ -46,7 +46,7 @@ static func create_card_button(card: Dictionary, size := Vector2(160, 214), sele
 	button.add_theme_stylebox_override("hover", style)
 	button.add_theme_stylebox_override("pressed", style)
 	button.add_theme_stylebox_override("disabled", style)
-	button.pivot_offset = size * 0.5
+	button.pivot_offset = card_size * 0.5
 	button.scale = Vector2(1.05, 1.05) if selected else Vector2.ONE
 	button.modulate = Color(1.15, 1.12, 1.02, 1.0) if selected else Color.WHITE
 
@@ -74,13 +74,13 @@ static func create_card_button(card: Dictionary, size := Vector2(160, 214), sele
 	cost.anchor_bottom = 0.18
 	button.add_child(cost)
 
-	var name := _label(str(card.get("name", "")), 17, HORIZONTAL_ALIGNMENT_CENTER)
-	name.anchor_left = 0.18
-	name.anchor_top = 0.06
-	name.anchor_right = 0.92
-	name.anchor_bottom = 0.19
-	name.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	button.add_child(name)
+	var name_label := _label(str(card.get("name", "")), 17, HORIZONTAL_ALIGNMENT_CENTER)
+	name_label.anchor_left = 0.18
+	name_label.anchor_top = 0.06
+	name_label.anchor_right = 0.92
+	name_label.anchor_bottom = 0.19
+	name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	button.add_child(name_label)
 
 	var type_label := _label(_type_text(str(card.get("type", ""))), 13, HORIZONTAL_ALIGNMENT_CENTER)
 	type_label.anchor_left = 0.18
@@ -107,12 +107,12 @@ static func create_card_button(card: Dictionary, size := Vector2(160, 214), sele
 	return button
 
 
-static func _label(text: String, size: int, align: HorizontalAlignment) -> Label:
+static func _label(text: String, font_size: int, align: HorizontalAlignment) -> Label:
 	var label := Label.new()
 	label.text = text
 	label.horizontal_alignment = align
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", size)
+	label.add_theme_font_size_override("font_size", font_size)
 	label.add_theme_color_override("font_color", Color(0.96, 0.91, 0.82))
 	label.add_theme_color_override("font_shadow_color", Color(0.08, 0.055, 0.04, 0.9))
 	label.add_theme_constant_override("shadow_offset_x", 1)
