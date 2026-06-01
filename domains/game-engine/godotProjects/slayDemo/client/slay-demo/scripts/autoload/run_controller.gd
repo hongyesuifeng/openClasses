@@ -1,8 +1,10 @@
 extends Node
 
 const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
+const MapGeneratorScript := preload("res://scripts/map/map_generator.gd")
 
 var active_run_id := "v1_fixed_run"
+var use_generated_map := true  ## 是否使用随机生成的地图
 
 
 func start_new_run(run_id: String = "") -> void:
@@ -18,7 +20,14 @@ func start_new_run(run_id: String = "") -> void:
 			push_error(error)
 		return
 
-	game_state.start_new_run(data_loader.get_run_config(active_run_id))
+	## 使用随机生成的地图或预设地图
+	var run_config: Dictionary
+	if use_generated_map:
+		run_config = MapGeneratorScript.generate_map(randi(), 9)
+	else:
+		run_config = data_loader.get_run_config(active_run_id)
+
+	game_state.start_new_run(run_config)
 	if game_state.has_map():
 		var scene_router: Variant = _autoload("SceneRouter")
 		scene_router.go_to("map")
@@ -83,6 +92,7 @@ func on_battle_won(remaining_hp: int) -> void:
 	var game_state: Variant = _autoload("GameState")
 	game_state.apply_post_battle_hp(remaining_hp)
 	game_state.record_battle_win()
+	_grant_battle_gold_reward()
 	_apply_battle_win_relics()
 	_grant_elite_relic_if_needed()
 	if game_state.has_map():
@@ -183,6 +193,37 @@ func _apply_battle_win_relics() -> void:
 	var bonus_gold := RelicServiceScript.get_effect_total(game_state.owned_relic_ids, data_loader, "battle_win_gold")
 	if bonus_gold > 0:
 		game_state.add_gold(bonus_gold)
+
+
+func _grant_battle_gold_reward() -> void:
+	var data_loader: Variant = _autoload("DataLoader")
+	var game_state: Variant = _autoload("GameState")
+	var encounter_id := get_current_encounter_id()
+	var encounter: Dictionary = data_loader.get_encounter(encounter_id)
+	var gold_reward: Dictionary = encounter.get("gold_reward", {})
+
+	if gold_reward.is_empty():
+		return
+
+	var min_gold := int(gold_reward.get("min", 0))
+	var max_gold := int(gold_reward.get("max", 0))
+
+	if max_gold <= 0:
+		return
+
+	## 基于楼层增加金币 (后期战斗奖励更多)
+	var floor_bonus := 0
+	if game_state.has_map():
+		var node: Dictionary = game_state.get_current_node()
+		var floor := int(node.get("floor", 1))
+		floor_bonus = int(floor * 1.5)
+
+	## 随机金币
+	var base_gold := randi_range(min_gold, max_gold)
+	var total_gold := base_gold + floor_bonus
+
+	game_state.add_gold(total_gold)
+	print("战斗胜利获得 %d 金币 (基础: %d, 楼层加成: %d)" % [total_gold, base_gold, floor_bonus])
 
 
 func _grant_elite_relic_if_needed() -> void:

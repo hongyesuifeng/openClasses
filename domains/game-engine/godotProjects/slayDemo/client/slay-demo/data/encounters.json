@@ -5,6 +5,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["slime_small_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 8, "max": 12 },
       "tags": ["startup_pressure"]
     },
     {
@@ -12,6 +13,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["cultist_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 10, "max": 15 },
       "tags": ["scaling_pressure"]
     },
     {
@@ -19,6 +21,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["slime_small_v1", "shield_guard_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 12, "max": 18 },
       "tags": ["combined_pressure"]
     },
     {
@@ -26,6 +29,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["poison_bat_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 10, "max": 14 },
       "tags": ["poison"]
     },
     {
@@ -33,6 +37,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["slime_spiky_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 11, "max": 16 },
       "tags": ["thorns"]
     },
     {
@@ -40,6 +45,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["berserker_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 13, "max": 20 },
       "tags": ["aggressive"]
     },
     {
@@ -47,6 +53,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["necromancer_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 12, "max": 17 },
       "tags": ["debuff"]
     },
     {
@@ -54,6 +61,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["stone_guardian_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 14, "max": 22 },
       "tags": ["tank"]
     },
     {
@@ -61,6 +69,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["slime_small_v1", "slime_spiky_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 15, "max": 20 },
       "tags": ["startup_pressure", "thorns"]
     },
     {
@@ -68,6 +77,7 @@
       "encounter_type": "normal",
       "enemy_ids": ["cultist_v1", "poison_bat_v1"],
       "reward_profile_id": "normal_card_reward",
+      "gold_reward": { "min": 16, "max": 24 },
       "tags": ["scaling_pressure", "poison"]
     },
     {
@@ -75,6 +85,7 @@
       "encounter_type": "elite",
       "enemy_ids": ["elite_slime_king_v1"],
       "reward_profile_id": "elite_card_reward",
+      "gold_reward": { "min": 25, "max": 35 },
       "tags": ["elite", "multi_phase"]
     },
     {
@@ -82,6 +93,7 @@
       "encounter_type": "elite",
       "enemy_ids": ["elite_orc_berserker_v1"],
       "reward_profile_id": "elite_card_reward",
+      "gold_reward": { "min": 28, "max": 40 },
       "tags": ["elite", "scaling"]
     },
     {
@@ -89,6 +101,7 @@
       "encounter_type": "boss",
       "enemy_ids": ["boss_knight_v1"],
       "reward_profile_id": "boss_card_reward",
+      "gold_reward": { "min": 55, "max": 80 },
       "tags": ["boss", "burst", "scaling_pressure"]
     },
     {
@@ -96,6 +109,7 @@
       "encounter_type": "boss",
       "enemy_ids": ["boss_fire_lord_v1"],
       "reward_profile_id": "boss_card_reward",
+      "gold_reward": { "min": 60, "max": 85 },
       "tags": ["boss", "fire", "multi_phase"]
     }
   ]

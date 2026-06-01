@@ -19,6 +19,7 @@ func run_async(ctx: Variant) -> void:
 
 	_test_event_node_config(ctx, game_state, data_loader)
 	_test_event_effects(ctx, game_state, data_loader)
+	_test_card_selection_flow(ctx, game_state, data_loader)
 	await _test_event_scene_choice(ctx, game_state, data_loader)
 
 
@@ -37,19 +38,52 @@ func _test_event_effects(ctx: Variant, game_state: Variant, data_loader: Variant
 	var event_node: Dictionary = game_state.get_map_node("map_03b")
 	var choice := ((event_node.get("choices", []) as Array)[0]) as Dictionary
 
-	var messages: Array[String] = EventServiceScript.apply_choice(choice, game_state, data_loader)
+	## 测试新的 resolve_choice 方法
+	var result: Variant = EventServiceScript.resolve_choice(choice, game_state, data_loader)
 	ctx.assert_eq(game_state.player_hp, start_hp - 6, "event can reduce player HP")
 	ctx.assert_eq(game_state.player_gold, start_gold + 75, "event can grant gold")
-	ctx.assert_true("\n".join(messages).contains("获得 75 金币"), "event service returns readable result messages")
+	ctx.assert_true("\n".join(result.messages).contains("获得 75 金币"), "event service returns readable result messages")
 
+	## 测试移除卡牌（非选牌模式）
 	var remove_choice := ((event_node.get("choices", []) as Array)[1]) as Dictionary
 	var before_deck_size: int = game_state.master_deck.size()
-	EventServiceScript.apply_choice(remove_choice, game_state, data_loader)
+	EventServiceScript.resolve_choice(remove_choice, game_state, data_loader)
 	ctx.assert_eq(game_state.master_deck.size(), before_deck_size - 1, "event can remove a configured card")
 
+	## 测试获得卡牌
 	var gain_choice := ((event_node.get("choices", []) as Array)[2]) as Dictionary
-	EventServiceScript.apply_choice(gain_choice, game_state, data_loader)
+	EventServiceScript.resolve_choice(gain_choice, game_state, data_loader)
 	ctx.assert_true(_deck_has_card(game_state.master_deck, "cleave"), "event can grant a configured card")
+
+
+func _test_card_selection_flow(ctx: Variant, game_state: Variant, data_loader: Variant) -> void:
+	game_state.start_new_run(data_loader.get_run_config("act1_map_run"))
+
+	## 测试需要选牌的效果
+	var selection_choice := {
+		"label": "测试选牌",
+		"description": "选择一张牌移除",
+		"effects": [
+			{ "type": "remove_card", "requires_selection": true }
+		]
+	}
+
+	var result: Variant = EventServiceScript.resolve_choice(selection_choice, game_state, data_loader)
+	ctx.assert_true(result.needs_card_selection, "event can request card selection")
+	ctx.assert_eq(result.selection_type, "remove", "selection type is correct")
+
+	## 获取可选卡牌列表
+	var selectable: Array = EventServiceScript.get_selectable_cards(game_state, data_loader, "remove", "")
+	ctx.assert_gt(selectable.size(), 0, "get_selectable_cards returns available cards")
+
+	## 模拟选择第一张牌
+	if selectable.size() > 0:
+		var first_card := selectable[0] as Dictionary
+		var instance_id: int = first_card.get("instance_id", 0)
+		var message: String = EventServiceScript.apply_card_selection(
+			"remove", instance_id, game_state, data_loader, selection_choice.effects, ""
+		)
+		ctx.assert_true(message.contains("移除"), "card selection applies removal")
 
 
 func _test_event_scene_choice(ctx: Variant, game_state: Variant, data_loader: Variant) -> void:
@@ -66,6 +100,8 @@ func _test_event_scene_choice(ctx: Variant, game_state: Variant, data_loader: Va
 	ctx.assert_eq(choice_row.get_child_count(), 3, "event scene renders configured choices")
 	var first_button := choice_row.get_child(0) as Button
 	first_button.pressed.emit()
+
+	await _tree().process_frame
 
 	var status_label: Label = event_scene.get("_status_label")
 	ctx.assert_true(status_label.text.contains("失去 6 点生命"), "event scene reports applied HP cost")

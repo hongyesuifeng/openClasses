@@ -15,7 +15,7 @@ const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "chest", "event", "
 const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength", "gain_barricade", "heal", "multi_damage", "aoe_damage", "gain_energy", "exhaust"]
 const RELIC_RARITIES := ["common", "uncommon", "rare"]
 const RELIC_EFFECT_TYPES := ["battle_start_block", "first_turn_energy", "max_hp", "card_gain_heal", "battle_win_gold"]
-const EVENT_EFFECT_TYPES := ["lose_hp", "gain_gold", "remove_card", "gain_card", "upgrade_card"]
+const EVENT_EFFECT_TYPES := ["lose_hp", "gain_gold", "remove_card", "gain_card", "upgrade_card", "transform_card"]
 
 var _cards: Dictionary = {}
 var _enemies: Dictionary = {}

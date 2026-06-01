@@ -208,8 +208,32 @@
         {
           "id": "map_02b",
           "floor": 2,
-          "type": "battle",
-          "encounter_id": "v1_normal_04",
+          "type": "event",
+          "title": "流浪商人",
+          "description": "一个神秘的商人在路边摆摊。他看起来很急切地想要成交。",
+          "choices": [
+            {
+              "label": "购买神秘卡牌",
+              "description": "花费 50 金币，获得一张随机稀有卡牌。",
+              "effects": [
+                { "type": "gain_gold", "value": -50 },
+                { "type": "gain_card", "card_id": "cleave" }
+              ]
+            },
+            {
+              "label": "出售生命精华",
+              "description": "失去 8 点生命，获得 100 金币。",
+              "effects": [
+                { "type": "lose_hp", "value": 8 },
+                { "type": "gain_gold", "value": 100 }
+              ]
+            },
+            {
+              "label": "离开",
+              "description": "不进行交易，继续前进。",
+              "effects": []
+            }
+          ],
           "next_nodes": ["map_03b"]
         },
         {
@@ -235,18 +259,18 @@
               ]
             },
             {
-              "label": "净化打击",
-              "description": "失去 4 点生命，移除一张打击。",
+              "label": "净化牌组",
+              "description": "失去 5 点生命，选择一张卡牌移除。",
               "effects": [
-                { "type": "lose_hp", "value": 4 },
-                { "type": "remove_card", "card_id": "strike" }
+                { "type": "lose_hp", "value": 5 },
+                { "type": "remove_card", "requires_selection": true }
               ]
             },
             {
-              "label": "拾取顺劈斩",
-              "description": "获得一张顺劈斩。",
+              "label": "祭坛祝福",
+              "description": "选择一张卡牌进行升级。",
               "effects": [
-                { "type": "gain_card", "card_id": "cleave" }
+                { "type": "upgrade_card", "requires_selection": true }
               ]
             }
           ],
@@ -269,8 +293,34 @@
         {
           "id": "map_05a",
           "floor": 5,
-          "type": "rest",
-          "heal_percent": 0.3,
+          "type": "event",
+          "title": "远古图书馆",
+          "description": "你在废墟中发现了一座保存完好的图书馆。书架上摆满了古老的典籍。",
+          "choices": [
+            {
+              "label": "研读武技",
+              "description": "选择一张卡牌进行升级。",
+              "effects": [
+                { "type": "upgrade_card", "requires_selection": true }
+              ]
+            },
+            {
+              "label": "寻找财宝",
+              "description": "获得 50 金币，但失去 3 点生命（书架倒塌）。",
+              "effects": [
+                { "type": "gain_gold", "value": 50 },
+                { "type": "lose_hp", "value": 3 }
+              ]
+            },
+            {
+              "label": "撕毁典籍",
+              "description": "移除一张卡牌，获得 30 金币。",
+              "effects": [
+                { "type": "remove_card", "requires_selection": true },
+                { "type": "gain_gold", "value": 30 }
+              ]
+            }
+          ],
           "next_nodes": ["map_06a"]
         },
         {
@@ -289,8 +339,32 @@
         {
           "id": "map_07a",
           "floor": 7,
-          "type": "battle",
-          "encounter_id": "v1_elite_02",
+          "type": "event",
+          "title": "神秘泉水",
+          "description": "一眼散发着奇异光芒的泉水。喝下它可能会带来意想不到的效果。",
+          "choices": [
+            {
+              "label": "饮用泉水",
+              "description": "恢复 15 点生命。",
+              "effects": [
+                { "type": "lose_hp", "value": -15 }
+              ]
+            },
+            {
+              "label": "装瓶带走",
+              "description": "获得 50 金币。",
+              "effects": [
+                { "type": "gain_gold", "value": 50 }
+              ]
+            },
+            {
+              "label": "洗炼卡牌",
+              "description": "选择一张卡牌移除，获得一张随机卡牌。",
+              "effects": [
+                { "type": "transform_card", "requires_selection": true, "to_card_id": "cleave" }
+              ]
+            }
+          ],
           "next_nodes": ["map_08a"]
         },
         {
