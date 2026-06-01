@@ -34,10 +34,11 @@ func run(ctx: Variant) -> void:
 	ctx.assert_gt(int(summary.get("deck_size", 0)), 5, "rewards grow the deck")
 
 
-func _win_battle_or_fail(ctx: Variant, encounter_id: String, seed: int) -> void:
+func _win_battle_or_fail(ctx: Variant, encounter_id: String, rng_seed: int) -> void:
 	var game_state: Variant = ctx.autoload("GameState")
 	var battle: Variant = BattleControllerScript.new()
-	battle.deck.set_seed(seed)
+	seed(rng_seed)
+	battle.deck.set_seed(rng_seed)
 	battle.setup(encounter_id, game_state.master_deck, {
 		"hp": game_state.player_hp,
 		"max_hp": game_state.player_max_hp,
@@ -66,7 +67,10 @@ func _finish_battle(battle: Variant) -> bool:
 		var played := false
 		var current_snapshot: Dictionary = battle.get_snapshot()
 		var hand: Array = current_snapshot.get("hand", [])
-		for priority in ["gain_strength", "damage", "draw", "block"]:
+		var priorities := ["gain_strength", "damage", "draw", "block"]
+		if _incoming_attack(current_snapshot) > int(current_snapshot.get("player_block", 0)):
+			priorities = ["gain_strength", "block", "damage", "draw"]
+		for priority in priorities:
 			for hand_index in range(hand.size()):
 				var card := hand[hand_index] as Dictionary
 				if not _card_matches_priority(card, priority):
@@ -90,6 +94,15 @@ func _card_matches_priority(card: Dictionary, priority: String) -> bool:
 		if str((effect as Dictionary).get("type", "")) == priority:
 			return true
 	return false
+
+
+func _incoming_attack(snapshot: Dictionary) -> int:
+	var total := 0
+	for enemy in snapshot.get("enemies", []):
+		var intent: Dictionary = (enemy as Dictionary).get("intent", {})
+		if str(intent.get("type", "")) == "attack":
+			total += int(intent.get("value", 0))
+	return total
 
 
 func _pick_enemy_target(battle: Variant) -> int:

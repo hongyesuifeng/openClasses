@@ -262,46 +262,45 @@ static func _apply_exhaust(effect: Dictionary, battle: Variant, source: String, 
 	return { "type": "exhaust", "target": "current_card", "source": source }
 
 
-	## 召唤：在战斗中添加新的敌人
-	static func _apply_summon(effect: Dictionary, battle: Variant, acting_enemy_index: int) -> Dictionary:
-		var enemy_id := str(effect.get("enemy_id", ""))
-		var count := int(effect.get("count", 1))
+## 召唤：在战斗中添加新的敌人
+static func _apply_summon(effect: Dictionary, battle: Variant, _acting_enemy_index: int) -> Dictionary:
+	var enemy_id := str(effect.get("enemy_id", ""))
+	var count := int(effect.get("count", 1))
 
-		if enemy_id.is_empty():
-			return {}
-
-		var data_loader: Variant = battle._autoload("DataLoader")
-		var enemy_data: Dictionary = data_loader.get_enemy(enemy_id)
-
-		if enemy_data.is_empty():
-			return {}
-
-		var summoned: Array = []
-		for i in range(count):
-			var new_enemy := EnemyAIScript.initialize_enemy(enemy_data)
-			new_enemy["status_manager"] = StatusManagerScript.new()
-			new_enemy["summoned_this_turn"] = true
-			battle.enemies.append(new_enemy)
-			summoned.append(new_enemy.get("name", enemy_id))
-			battle._log("召唤 %s" % str(new_enemy.get("name", enemy_id)))
-
-		return { "type": "summon", "enemy_id": enemy_id, "count": count, "summoned": summoned }
-
-
-	## 失去生命：直接扣除生命值（不触发格挡等）
-	static func _apply_lose_hp(effect: Dictionary, battle: Variant, source: String, acting_enemy_index: int) -> Dictionary:
-		var amount := int(effect.get("value", 0))
-
-		if source == "player":
-			battle.player_hp = maxi(0, battle.player_hp - amount)
-			battle._log("失去 %d 点生命" % amount)
-			return { "type": "lose_hp", "target": "player", "value": amount }
-		else:
-			if acting_enemy_index >= 0 and acting_enemy_index < battle.enemies.size():
-				var enemy: Dictionary = battle.enemies[acting_enemy_index]
-				enemy["hp"] = maxi(0, int(enemy.get("hp", 0)) - amount)
-				battle._log("%s 失去 %d 点生命" % [str(enemy.get("name", "")), amount])
-				return { "type": "lose_hp", "target": "enemy", "enemy_index": acting_enemy_index, "value": amount }
-
+	if enemy_id.is_empty():
 		return {}
 
+	var data_loader: Variant = battle._autoload("DataLoader")
+	var enemy_data: Dictionary = data_loader.get_enemy(enemy_id)
+
+	if enemy_data.is_empty():
+		return {}
+
+	var summoned: Array = []
+	for i in range(count):
+		var new_enemy := EnemyAIScript.initialize_enemy(enemy_data)
+		new_enemy["status_manager"] = StatusManagerScript.new()
+		new_enemy["summoned_this_turn"] = true
+		battle.enemies.append(new_enemy)
+		summoned.append(new_enemy.get("name", enemy_id))
+		battle._log("召唤 %s" % str(new_enemy.get("name", enemy_id)))
+
+	return { "type": "summon", "enemy_id": enemy_id, "count": count, "summoned": summoned }
+
+
+## 失去生命：直接扣除生命值（不触发格挡等）
+static func _apply_lose_hp(effect: Dictionary, battle: Variant, source: String, acting_enemy_index: int) -> Dictionary:
+	var amount := int(effect.get("value", 0))
+
+	if source == "player":
+		battle.player_hp = maxi(0, battle.player_hp - amount)
+		battle._log("失去 %d 点生命" % amount)
+		return { "type": "lose_hp", "target": "player", "value": amount }
+	else:
+		if acting_enemy_index >= 0 and acting_enemy_index < battle.enemies.size():
+			var enemy: Dictionary = battle.enemies[acting_enemy_index]
+			enemy["hp"] = maxi(0, int(enemy.get("hp", 0)) - amount)
+			battle._log("%s 失去 %d 点生命" % [str(enemy.get("name", "")), amount])
+			return { "type": "lose_hp", "target": "enemy", "enemy_index": acting_enemy_index, "value": amount }
+
+	return {}

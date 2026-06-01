@@ -1,5 +1,4 @@
 extends Node
-class_name VFXManager
 
 ## 战斗特效管理器 - 统一管理所有战斗视觉特效
 

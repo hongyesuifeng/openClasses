@@ -108,7 +108,7 @@ static func _connect_nodes(map_data: Dictionary) -> void:
 
 			if not has_incoming and current_floor_nodes.size() > 0:
 				## 强制连接一个随机上游节点
-				var random_upstream := current_floor_nodes[randi() % current_floor_nodes.size()]
+				var random_upstream: int = int(current_floor_nodes[randi() % current_floor_nodes.size()])
 				var upstream_node: Dictionary = nodes[random_upstream]
 				upstream_node["next_nodes"].append(next_node["id"])
 

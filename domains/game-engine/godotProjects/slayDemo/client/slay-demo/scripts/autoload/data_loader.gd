@@ -435,12 +435,20 @@ func _validate_event_effects(effects: Variant, owner: String, errors: PackedStri
 		_enum_value(effect_dict, "type", EVENT_EFFECT_TYPES, "event_effect", "%s[%d]" % [owner, index], errors)
 		if ["lose_hp", "gain_gold"].has(effect_type):
 			_require_int(effect_dict, "value", "event_effect", "%s[%d]" % [owner, index], errors)
+		if ["remove_card", "upgrade_card"].has(effect_type) and bool(effect_dict.get("requires_selection", false)):
+			continue
 		if ["remove_card", "gain_card", "upgrade_card"].has(effect_type):
 			var card_id := str(effect_dict.get("card_id", ""))
 			if card_id.is_empty():
 				errors.append("event_effect:%s[%d] missing string field 'card_id'" % [owner, index])
 			elif not _cards.has(card_id):
 				errors.append("event_effect:%s[%d] references missing card '%s'" % [owner, index, card_id])
+		if effect_type == "transform_card":
+			var to_card_id := str(effect_dict.get("to_card_id", ""))
+			if to_card_id.is_empty():
+				errors.append("event_effect:%s[%d] missing string field 'to_card_id'" % [owner, index])
+			elif not _cards.has(to_card_id):
+				errors.append("event_effect:%s[%d] references missing card '%s'" % [owner, index, to_card_id])
 
 
 func _require_string(data: Dictionary, key: String, kind: String, id: String, errors: PackedStringArray) -> void:

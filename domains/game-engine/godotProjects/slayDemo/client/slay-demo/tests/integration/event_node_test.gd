@@ -46,14 +46,15 @@ func _test_event_effects(ctx: Variant, game_state: Variant, data_loader: Variant
 
 	## 测试移除卡牌（非选牌模式）
 	var remove_choice := ((event_node.get("choices", []) as Array)[1]) as Dictionary
-	var before_deck_size: int = game_state.master_deck.size()
-	EventServiceScript.resolve_choice(remove_choice, game_state, data_loader)
-	ctx.assert_eq(game_state.master_deck.size(), before_deck_size - 1, "event can remove a configured card")
+	var remove_result: Variant = EventServiceScript.resolve_choice(remove_choice, game_state, data_loader)
+	ctx.assert_true(remove_result.needs_card_selection, "event can request removal selection from configured choice")
+	ctx.assert_eq(remove_result.selection_type, "remove", "configured removal choice uses remove selection")
 
-	## 测试获得卡牌
-	var gain_choice := ((event_node.get("choices", []) as Array)[2]) as Dictionary
-	EventServiceScript.resolve_choice(gain_choice, game_state, data_loader)
-	ctx.assert_true(_deck_has_card(game_state.master_deck, "cleave"), "event can grant a configured card")
+	## 测试升级卡牌
+	var upgrade_choice := ((event_node.get("choices", []) as Array)[2]) as Dictionary
+	var upgrade_result: Variant = EventServiceScript.resolve_choice(upgrade_choice, game_state, data_loader)
+	ctx.assert_true(upgrade_result.needs_card_selection, "event can request upgrade selection from configured choice")
+	ctx.assert_eq(upgrade_result.selection_type, "upgrade", "configured upgrade choice uses upgrade selection")
 
 
 func _test_card_selection_flow(ctx: Variant, game_state: Variant, data_loader: Variant) -> void:

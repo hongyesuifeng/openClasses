@@ -20,7 +20,7 @@ func run(ctx: Variant) -> void:
 
 	var boss: Dictionary = data_loader.get_enemy("boss_knight_v1")
 	ctx.assert_eq(str(boss.get("enemy_type", "")), "boss", "boss enemy is loaded")
-	ctx.assert_gt((boss.get("actions", []) as Array).size(), 0, "boss has actions")
+	ctx.assert_gt((boss.get("phases", []) as Array).size(), 0, "boss has phases")
 
 	var run_config: Dictionary = data_loader.get_run_config("v1_fixed_run")
 	ctx.assert_eq((run_config.get("nodes", []) as Array).size(), 8, "V1 run has fixed 8 nodes")

@@ -60,10 +60,11 @@ func run(ctx: Variant) -> void:
 	ctx.assert_gt(int(summary.get("deck_size", 0)), 12, "V2 rewards grow the deck")
 
 
-func _win_battle_or_fail(ctx: Variant, encounter_id: String, seed: int) -> void:
+func _win_battle_or_fail(ctx: Variant, encounter_id: String, rng_seed: int) -> void:
 	var game_state: Variant = ctx.autoload("GameState")
 	var battle: Variant = BattleControllerScript.new()
-	battle.deck.set_seed(seed)
+	seed(rng_seed)
+	battle.deck.set_seed(rng_seed)
 	battle.setup(encounter_id, game_state.master_deck, {
 		"hp": game_state.player_hp,
 		"max_hp": game_state.player_max_hp,
