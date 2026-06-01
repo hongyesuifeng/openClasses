@@ -11,10 +11,11 @@ const CARD_TYPES := ["attack", "skill", "power", "status"]
 const CARD_RARITIES := ["starter", "common", "uncommon", "rare", "special"]
 const CARD_TARGETS := ["self", "single_enemy", "all_enemies", "none"]
 const ENCOUNTER_TYPES := ["normal", "elite", "boss"]
-const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "chest", "result"]
+const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "chest", "event", "result"]
 const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength", "gain_barricade", "heal", "multi_damage", "aoe_damage", "gain_energy", "exhaust"]
 const RELIC_RARITIES := ["common", "uncommon", "rare"]
 const RELIC_EFFECT_TYPES := ["battle_start_block", "first_turn_energy", "max_hp", "card_gain_heal", "battle_win_gold"]
+const EVENT_EFFECT_TYPES := ["lose_hp", "gain_gold", "remove_card", "gain_card", "upgrade_card"]
 
 var _cards: Dictionary = {}
 var _enemies: Dictionary = {}
@@ -324,6 +325,28 @@ func _validate_run_nodes(run_id: String, nodes: Array, label: String, errors: Pa
 			errors.append("run:%s %s[%d] references missing encounter '%s'" % [run_id, label, node_index, str(node_dict.get("encounter_id", ""))])
 		if node_type == "reward" and not _reward_profiles.has(str(node_dict.get("reward_profile_id", ""))):
 			errors.append("run:%s %s[%d] references missing reward profile '%s'" % [run_id, label, node_index, str(node_dict.get("reward_profile_id", ""))])
+		if node_type == "event":
+			_validate_event_node(run_id, label, node_index, node_dict, errors)
+
+
+func _validate_event_node(run_id: String, label: String, node_index: int, node: Dictionary, errors: PackedStringArray) -> void:
+	_require_string(node, "title", "event_node", "%s[%d]" % [run_id, node_index], errors)
+	_require_string(node, "description", "event_node", "%s[%d]" % [run_id, node_index], errors)
+	_require_array(node, "choices", "event_node", "%s[%d]" % [run_id, node_index], errors)
+	var choices: Array = node.get("choices", [])
+	if choices.is_empty():
+		errors.append("run:%s %s[%d] event must define at least one choice" % [run_id, label, node_index])
+
+	for choice_index in range(choices.size()):
+		var choice: Variant = choices[choice_index]
+		if not (choice is Dictionary):
+			errors.append("run:%s %s[%d] event choice[%d] must be an object" % [run_id, label, node_index, choice_index])
+			continue
+		var choice_dict := choice as Dictionary
+		_require_string(choice_dict, "label", "event_choice", "%s[%d].choice[%d]" % [run_id, node_index, choice_index], errors)
+		_require_string(choice_dict, "description", "event_choice", "%s[%d].choice[%d]" % [run_id, node_index, choice_index], errors)
+		_require_array(choice_dict, "effects", "event_choice", "%s[%d].choice[%d]" % [run_id, node_index, choice_index], errors)
+		_validate_event_effects(choice_dict.get("effects", []), "run:%s %s[%d] event choice[%d]" % [run_id, label, node_index, choice_index], errors)
 
 
 func _validate_map_nodes(run_id: String, nodes: Array, errors: PackedStringArray) -> void:
@@ -365,6 +388,32 @@ func _validate_effects(effects: Variant, owner: String, errors: PackedStringArra
 		var effect_dict := effect as Dictionary
 		_require_string(effect_dict, "type", "effect", "%s[%d]" % [owner, index], errors)
 		_enum_value(effect_dict, "type", EFFECT_TYPES, "effect", "%s[%d]" % [owner, index], errors)
+
+
+func _validate_event_effects(effects: Variant, owner: String, errors: PackedStringArray) -> void:
+	if not (effects is Array):
+		errors.append("%s effects must be an array" % owner)
+		return
+
+	var effect_list := effects as Array
+	for index in range(effect_list.size()):
+		var effect: Variant = effect_list[index]
+		if not (effect is Dictionary):
+			errors.append("%s effect[%d] must be an object" % [owner, index])
+			continue
+
+		var effect_dict := effect as Dictionary
+		var effect_type := str(effect_dict.get("type", ""))
+		_require_string(effect_dict, "type", "event_effect", "%s[%d]" % [owner, index], errors)
+		_enum_value(effect_dict, "type", EVENT_EFFECT_TYPES, "event_effect", "%s[%d]" % [owner, index], errors)
+		if ["lose_hp", "gain_gold"].has(effect_type):
+			_require_int(effect_dict, "value", "event_effect", "%s[%d]" % [owner, index], errors)
+		if ["remove_card", "gain_card", "upgrade_card"].has(effect_type):
+			var card_id := str(effect_dict.get("card_id", ""))
+			if card_id.is_empty():
+				errors.append("event_effect:%s[%d] missing string field 'card_id'" % [owner, index])
+			elif not _cards.has(card_id):
+				errors.append("event_effect:%s[%d] references missing card '%s'" % [owner, index, card_id])
 
 
 func _require_string(data: Dictionary, key: String, kind: String, id: String, errors: PackedStringArray) -> void:

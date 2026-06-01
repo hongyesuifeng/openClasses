@@ -222,8 +222,34 @@
         {
           "id": "map_03b",
           "floor": 3,
-          "type": "battle",
-          "encounter_id": "v1_normal_05",
+          "type": "event",
+          "title": "破损祭坛",
+          "description": "一座古老祭坛仍在发光。你可以付出一点代价，换取继续前进的优势。",
+          "choices": [
+            {
+              "label": "献血换金币",
+              "description": "失去 6 点生命，获得 75 金币。",
+              "effects": [
+                { "type": "lose_hp", "value": 6 },
+                { "type": "gain_gold", "value": 75 }
+              ]
+            },
+            {
+              "label": "净化打击",
+              "description": "失去 4 点生命，移除一张打击。",
+              "effects": [
+                { "type": "lose_hp", "value": 4 },
+                { "type": "remove_card", "card_id": "strike" }
+              ]
+            },
+            {
+              "label": "拾取顺劈斩",
+              "description": "获得一张顺劈斩。",
+              "effects": [
+                { "type": "gain_card", "card_id": "cleave" }
+              ]
+            }
+          ],
           "next_nodes": ["map_04a", "map_04b"]
         },
         {

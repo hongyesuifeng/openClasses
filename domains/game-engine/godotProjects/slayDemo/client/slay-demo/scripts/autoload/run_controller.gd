@@ -54,6 +54,8 @@ func enter_current_node() -> void:
 			scene_router.go_to("shop")
 		"chest":
 			scene_router.go_to("chest")
+		"event":
+			scene_router.go_to("event")
 		"result":
 			game_state.finish_run(true)
 			scene_router.go_to("result")
@@ -152,6 +154,18 @@ func complete_shop() -> void:
 
 
 func complete_chest() -> void:
+	var game_state: Variant = _autoload("GameState")
+	if game_state.has_map():
+		game_state.complete_current_map_node()
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("map")
+		return
+
+	game_state.advance_node()
+	enter_current_node()
+
+
+func complete_event() -> void:
 	var game_state: Variant = _autoload("GameState")
 	if game_state.has_map():
 		game_state.complete_current_map_node()

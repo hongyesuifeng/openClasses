@@ -6,6 +6,7 @@ const NODE_LABELS := {
 	"battle": "战斗",
 	"shop": "商店",
 	"chest": "宝箱",
+	"event": "事件",
 	"rest": "休息",
 	"result": "终点"
 }
@@ -14,6 +15,7 @@ const NODE_COLORS := {
 	"battle": Color(0.48, 0.16, 0.12, 0.92),
 	"shop": Color(0.42, 0.32, 0.12, 0.92),
 	"chest": Color(0.50, 0.36, 0.08, 0.92),
+	"event": Color(0.30, 0.24, 0.46, 0.92),
 	"rest": Color(0.12, 0.34, 0.28, 0.92),
 	"result": Color(0.28, 0.22, 0.48, 0.92)
 }

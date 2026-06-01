@@ -23,6 +23,7 @@ func run(ctx: Variant) -> void:
 	var first_node: Dictionary = game_state.get_available_map_nodes()[0]
 	ctx.assert_eq(str(first_node.get("id", "")), "map_01", "first floor starts at map_01")
 	ctx.assert_eq(str(game_state.get_map_node("map_03a").get("type", "")), "chest", "map contains a chest branch")
+	ctx.assert_eq(str(game_state.get_map_node("map_03b").get("type", "")), "event", "map contains an event branch")
 	ctx.assert_true(game_state.select_map_node("map_01"), "available map node can be selected")
 	ctx.assert_eq(str(game_state.get_current_node().get("encounter_id", "")), "v1_normal_01", "selected map node becomes current battle")
 

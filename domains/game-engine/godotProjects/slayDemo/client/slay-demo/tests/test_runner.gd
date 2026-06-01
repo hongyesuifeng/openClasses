@@ -13,7 +13,8 @@ const TEST_SCRIPTS := [
 	preload("res://tests/integration/v2_content_flow_test.gd"),
 	preload("res://tests/integration/map_route_test.gd"),
 	preload("res://tests/integration/rest_node_test.gd"),
-	preload("res://tests/integration/relic_ui_test.gd")
+	preload("res://tests/integration/relic_ui_test.gd"),
+	preload("res://tests/integration/event_node_test.gd")
 ]
 
 
