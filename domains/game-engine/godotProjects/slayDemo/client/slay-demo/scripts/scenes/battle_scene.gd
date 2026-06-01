@@ -291,14 +291,14 @@ func _render_enemies(enemies: Array) -> void:
 
 		var sprite := TextureRect.new()
 		sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		sprite.position = Vector2(22, 8)
-		sprite.size = Vector2(216, 152)
+		sprite.position = Vector2(4, 8)
+		sprite.size = Vector2(252, 206)
 		sprite.custom_minimum_size = Vector2.ZERO
 		sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		sprite.z_index = 2
 		sprite.texture = load(art_path)
-		sprite.set_deferred("size", Vector2(216, 152))
+		sprite.set_deferred("size", Vector2(252, 206))
 		button.add_child(sprite)
 
 		var name_label := _make_label(str(enemy.get("name", "")), 18, HORIZONTAL_ALIGNMENT_CENTER)
