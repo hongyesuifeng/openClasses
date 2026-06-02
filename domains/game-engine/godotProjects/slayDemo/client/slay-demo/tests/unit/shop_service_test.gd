@@ -27,7 +27,7 @@ func run(ctx: Variant) -> void:
 	ctx.assert_eq(game_state.master_deck.size(), deck_size_before + 1, "buying grows deck")
 	ctx.assert_eq(int(game_state.player_gold), gold_before - price, "buying spends gold")
 
-	var remove_price: int = ShopServiceScript.remove_card_price()
+	var remove_price: int = ShopServiceScript.remove_card_price(int(game_state.card_removal_count))
 	var remove_instance_id := int((game_state.master_deck[0] as Dictionary).get("instance_id", 0))
 	deck_size_before = game_state.master_deck.size()
 	gold_before = int(game_state.player_gold)
@@ -39,6 +39,33 @@ func run(ctx: Variant) -> void:
 	game_state.player_gold = 0
 	var failed_buy: bool = ShopServiceScript.buy_card(game_state, "heavy_strike", 55)
 	ctx.assert_false(failed_buy, "shop rejects unaffordable card")
+
+	## 楼层价格加成测试
+	var common_card := {"rarity": "common", "id": "strike"}
+	var price_floor0: int = ShopServiceScript.price_for_card(common_card, 0)
+	var price_floor8: int = ShopServiceScript.price_for_card(common_card, 8)
+	ctx.assert_true(price_floor8 > price_floor0, "floor 8 card price is higher than floor 0")
+	ctx.assert_eq(price_floor8, price_floor0 + 24, "floor bonus is 3 gold per floor")
+
+	## 删牌递增测试
+	game_state.start_new_run(data_loader.get_run_config("v1_fixed_run"))
+	game_state.player_gold = 999
+	ctx.assert_eq(int(game_state.card_removal_count), 0, "removal count starts at 0 each run")
+
+	var price_1st: int = ShopServiceScript.remove_card_price(int(game_state.card_removal_count))
+	ctx.assert_eq(price_1st, 75, "first removal costs 75")
+
+	var inst1 := int((game_state.master_deck[0] as Dictionary).get("instance_id", 0))
+	ShopServiceScript.remove_card(game_state, inst1, price_1st)
+	ctx.assert_eq(int(game_state.card_removal_count), 1, "removal count increments after remove")
+
+	var price_2nd: int = ShopServiceScript.remove_card_price(int(game_state.card_removal_count))
+	ctx.assert_eq(price_2nd, 100, "second removal costs 100")
+
+	var inst2 := int((game_state.master_deck[0] as Dictionary).get("instance_id", 0))
+	ShopServiceScript.remove_card(game_state, inst2, price_2nd)
+	var price_3rd: int = ShopServiceScript.remove_card_price(int(game_state.card_removal_count))
+	ctx.assert_eq(price_3rd, 125, "third removal costs 125")
 
 	ctx.assert_true(ShopSceneScript != null, "ShopScene script compiles")
 	ctx.assert_true(load("res://scenes/shop/shop_scene.tscn") != null, "ShopScene resource loads")

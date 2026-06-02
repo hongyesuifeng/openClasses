@@ -108,6 +108,14 @@ func get_all_relics() -> Array:
 	return result
 
 
+func get_next_instance_id() -> int:
+	return _next_card_instance_id
+
+
+func restore_instance_id_counter(next_id: int) -> void:
+	_next_card_instance_id = maxi(next_id, 1)
+
+
 func create_card_instance(card_id: String) -> Dictionary:
 	_ensure_loaded()
 	if not _cards.has(card_id):

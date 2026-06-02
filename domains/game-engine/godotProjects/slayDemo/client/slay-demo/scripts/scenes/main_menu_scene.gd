@@ -1,5 +1,7 @@
 extends Control
 
+const SaveServiceScript := preload("res://scripts/autoload/save_service.gd")
+
 
 func _ready() -> void:
 	_build()
@@ -34,11 +36,23 @@ func _build() -> void:
 	subtitle.add_theme_font_size_override("font_size", 18)
 	panel.add_child(subtitle)
 
+	if SaveServiceScript.has_save():
+		var continue_button := Button.new()
+		continue_button.text = "继续游戏"
+		continue_button.custom_minimum_size = Vector2(260, 54)
+		continue_button.pressed.connect(_on_continue_pressed)
+		panel.add_child(continue_button)
+
 	var start_button := Button.new()
 	start_button.text = "开始游戏"
 	start_button.custom_minimum_size = Vector2(260, 54)
 	start_button.pressed.connect(_on_start_pressed)
 	panel.add_child(start_button)
+
+
+func _on_continue_pressed() -> void:
+	var run_controller: Variant = _autoload("RunController")
+	run_controller.resume_run()
 
 
 func _on_start_pressed() -> void:

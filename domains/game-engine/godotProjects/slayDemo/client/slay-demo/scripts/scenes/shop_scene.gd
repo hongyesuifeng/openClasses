@@ -8,7 +8,6 @@ var _gold_label: Label
 var _content_row: HBoxContainer
 var _offers: Array = []
 var _remove_mode := false
-var _removal_count := 0
 
 
 func _ready() -> void:
@@ -153,7 +152,6 @@ func _on_back_pressed() -> void:
 func _on_remove_card_pressed(instance_id: int) -> void:
 	var game_state: Variant = _autoload("GameState")
 	if ShopServiceScript.remove_card(game_state, instance_id, _remove_price()):
-		_removal_count += 1
 		_status_label.text = "已移除卡牌。"
 		_remove_mode = false
 		_rebuild()
@@ -169,11 +167,19 @@ func _on_leave_pressed() -> void:
 func _refresh_offers() -> void:
 	var data_loader: Variant = _autoload("DataLoader")
 	var game_state: Variant = _autoload("GameState")
-	_offers = ShopServiceScript.generate_card_offers(game_state.master_deck, data_loader)
+	var floor_index := 0
+	if game_state != null:
+		var node: Dictionary = game_state.get_current_node()
+		floor_index = int(node.get("floor", 0))
+	_offers = ShopServiceScript.generate_card_offers(game_state.master_deck, data_loader, ShopServiceScript.CARD_SLOTS, floor_index)
 
 
 func _remove_price() -> int:
-	return ShopServiceScript.remove_card_price(_removal_count)
+	var game_state: Variant = _autoload("GameState")
+	var removal_count := 0
+	if game_state != null:
+		removal_count = int(game_state.card_removal_count)
+	return ShopServiceScript.remove_card_price(removal_count)
 
 
 func _can_afford(price: int) -> bool:

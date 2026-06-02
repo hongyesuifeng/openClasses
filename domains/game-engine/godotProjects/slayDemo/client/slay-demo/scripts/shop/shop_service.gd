@@ -5,7 +5,7 @@ const REMOVE_CARD_BASE_PRICE := 75
 const CARD_SLOTS := 3
 
 
-static func generate_card_offers(owned_deck: Array, data_loader: Variant, slots := CARD_SLOTS) -> Array:
+static func generate_card_offers(owned_deck: Array, data_loader: Variant, slots := CARD_SLOTS, floor_index: int = 0) -> Array:
 	var candidates: Array = []
 	for card in data_loader.get_all_cards():
 		var card_dict := card as Dictionary
@@ -31,7 +31,7 @@ static func generate_card_offers(owned_deck: Array, data_loader: Variant, slots 
 		seen[card_id] = true
 		offers.append({
 			"card": card_dict.duplicate(true),
-			"price": price_for_card(card_dict)
+			"price": price_for_card(card_dict, floor_index)
 		})
 		if offers.size() >= slots:
 			break
@@ -39,14 +39,16 @@ static func generate_card_offers(owned_deck: Array, data_loader: Variant, slots 
 	return offers
 
 
-static func price_for_card(card: Dictionary) -> int:
+static func price_for_card(card: Dictionary, floor_index: int = 0) -> int:
+	var base: int
 	match str(card.get("rarity", "common")):
 		"uncommon":
-			return 85
+			base = 85
 		"rare":
-			return 140
+			base = 140
 		_:
-			return 55
+			base = 55
+	return base + floor_index * 3
 
 
 static func remove_card_price(removal_count: int = 0) -> int:
@@ -64,6 +66,7 @@ static func remove_card(game_state: Variant, instance_id: int, price: int) -> bo
 	if instance_id <= 0 or not game_state.spend_gold(price):
 		return false
 	if game_state.remove_card_by_instance_id(instance_id):
+		game_state.increment_removal_count()
 		return true
 	game_state.add_gold(price)
 	return false

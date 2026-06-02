@@ -21,10 +21,11 @@ DataLoader="*res://scripts/autoload/data_loader.gd"
 GameState="*res://scripts/autoload/game_state.gd"
 SceneRouter="*res://scripts/autoload/scene_router.gd"
 RunController="*res://scripts/autoload/run_controller.gd"
+SaveService="*res://scripts/autoload/save_service.gd"
 VFXManager="*res://scripts/vfx/vfx_manager.gd"
 MCPRuntime="*uid://c5jmf6leggsyb"
-ULogger="*res://addons/universal_logger/logger.gd"
-LogConfig="*res://addons/universal_logger/log_config.gd"
+ULogger="*uid://bxetcjes628so"
+LogConfig="*uid://dok2dhx86n5br"
 
 [display]
 

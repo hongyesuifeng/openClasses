@@ -9,6 +9,7 @@ var player_hp := 60
 var player_gold := 0
 var energy_per_turn := 3
 var draw_per_turn := 5
+var card_removal_count := 0
 var master_deck: Array = []
 var owned_relic_ids: Array[String] = []
 var run_nodes: Array = []
@@ -34,6 +35,7 @@ func start_new_run(run_config: Dictionary) -> void:
 	is_run_won = false
 	is_run_finished = false
 	current_phase = "run"
+	card_removal_count = 0
 	run_nodes = (run_config.get("nodes", []) as Array).duplicate(true)
 	map_nodes = (run_config.get("map_nodes", []) as Array).duplicate(true)
 	completed_map_node_ids.clear()
@@ -219,6 +221,10 @@ func heal_player(amount: int) -> void:
 
 func heal_player_percent(percent: float) -> void:
 	heal_player(int(ceil(player_max_hp * percent)))
+
+
+func increment_removal_count() -> void:
+	card_removal_count += 1
 
 
 func finish_run(won: bool) -> void:

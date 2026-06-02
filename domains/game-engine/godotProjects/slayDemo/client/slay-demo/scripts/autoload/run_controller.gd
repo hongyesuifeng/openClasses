@@ -2,6 +2,7 @@ extends Node
 
 const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
 const MapGeneratorScript := preload("res://scripts/map/map_generator.gd")
+const SaveServiceScript := preload("res://scripts/autoload/save_service.gd")
 
 var active_run_id := "v1_fixed_run"
 var use_generated_map := true  ## 是否使用随机生成的地图
@@ -20,6 +21,9 @@ func start_new_run(run_id: String = "") -> void:
 			push_error(error)
 		return
 
+	## 清除上一局的存档
+	SaveServiceScript.delete_save()
+
 	## 使用随机生成的地图或预设地图
 	var run_config: Dictionary
 	if use_generated_map:
@@ -33,6 +37,21 @@ func start_new_run(run_id: String = "") -> void:
 		scene_router.go_to("map")
 	else:
 		enter_current_node()
+
+
+func resume_run() -> void:
+	var save_data: Dictionary = SaveServiceScript.load_save()
+	if save_data.is_empty():
+		push_error("RunController: no save data found, starting new run")
+		start_new_run()
+		return
+
+	var data_loader: Variant = _autoload("DataLoader")
+	var game_state: Variant = _autoload("GameState")
+	SaveServiceScript.restore(save_data, game_state, self, data_loader)
+
+	var scene_router: Variant = _autoload("SceneRouter")
+	scene_router.go_to("map")
 
 
 func select_map_node(node_id: String) -> void:
@@ -99,16 +118,19 @@ func on_battle_won(remaining_hp: int) -> void:
 		if game_state.current_map_node_is_final():
 			game_state.complete_current_map_node()
 			game_state.finish_run(true)
+			SaveServiceScript.delete_save()
 			var scene_router: Variant = _autoload("SceneRouter")
 			scene_router.go_to("result")
 			return
 
 		var reward_profile_id := get_current_reward_profile_id()
 		game_state.prepare_map_reward(reward_profile_id)
+		_autosave()
 		enter_current_node()
 		return
 
 	game_state.advance_node()
+	_autosave()
 	enter_current_node()
 
 
@@ -116,6 +138,7 @@ func on_battle_lost() -> void:
 	var game_state: Variant = _autoload("GameState")
 	var scene_router: Variant = _autoload("SceneRouter")
 	game_state.finish_run(false)
+	SaveServiceScript.delete_save()
 	scene_router.go_to("result")
 
 
@@ -125,11 +148,13 @@ func complete_reward(card_id: String = "") -> void:
 		game_state.add_card_to_deck(card_id)
 	if game_state.has_map() and game_state.has_pending_map_reward():
 		game_state.complete_current_map_node()
+		_autosave()
 		var scene_router: Variant = _autoload("SceneRouter")
 		scene_router.go_to("map")
 		return
 
 	game_state.advance_node()
+	_autosave()
 	enter_current_node()
 
 
@@ -143,11 +168,13 @@ func complete_rest() -> void:
 	var game_state: Variant = _autoload("GameState")
 	if game_state.has_map():
 		game_state.complete_current_map_node()
+		_autosave()
 		var scene_router: Variant = _autoload("SceneRouter")
 		scene_router.go_to("map")
 		return
 
 	game_state.advance_node()
+	_autosave()
 	enter_current_node()
 
 
@@ -155,11 +182,13 @@ func complete_shop() -> void:
 	var game_state: Variant = _autoload("GameState")
 	if game_state.has_map():
 		game_state.complete_current_map_node()
+		_autosave()
 		var scene_router: Variant = _autoload("SceneRouter")
 		scene_router.go_to("map")
 		return
 
 	game_state.advance_node()
+	_autosave()
 	enter_current_node()
 
 
@@ -167,11 +196,13 @@ func complete_chest() -> void:
 	var game_state: Variant = _autoload("GameState")
 	if game_state.has_map():
 		game_state.complete_current_map_node()
+		_autosave()
 		var scene_router: Variant = _autoload("SceneRouter")
 		scene_router.go_to("map")
 		return
 
 	game_state.advance_node()
+	_autosave()
 	enter_current_node()
 
 
@@ -179,11 +210,13 @@ func complete_event() -> void:
 	var game_state: Variant = _autoload("GameState")
 	if game_state.has_map():
 		game_state.complete_current_map_node()
+		_autosave()
 		var scene_router: Variant = _autoload("SceneRouter")
 		scene_router.go_to("map")
 		return
 
 	game_state.advance_node()
+	_autosave()
 	enter_current_node()
 
 
@@ -243,3 +276,10 @@ func _grant_elite_relic_if_needed() -> void:
 
 func _autoload(autoload_name: String) -> Variant:
 	return get_node_or_null("/root/%s" % autoload_name)
+
+
+func _autosave() -> void:
+	var game_state: Variant = _autoload("GameState")
+	var data_loader: Variant = _autoload("DataLoader")
+	if game_state != null and data_loader != null:
+		SaveServiceScript.save(game_state, self, data_loader)
