@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://be8kxu3cqaisl"]
 
-[ext_resource type="Script" path="res://scripts/scenes/reward_scene.gd" id="1"]
+[ext_resource type="Script" uid="uid://7pf8f7jt8ngd" path="res://scripts/scenes/reward_scene.gd" id="1"]
 
-[node name="RewardScene" type="Control"]
+[node name="RewardScene" type="Control" unique_id=551937012]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
