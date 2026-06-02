@@ -17,6 +17,7 @@ static func save(game_state: Variant, run_controller: Variant, data_loader: Vari
 		"energy_per_turn": int(game_state.energy_per_turn),
 		"draw_per_turn": int(game_state.draw_per_turn),
 		"card_removal_count": int(game_state.card_removal_count),
+		"map_nodes": (game_state.map_nodes as Array).duplicate(true),
 		"master_deck": _serialize_deck(game_state.master_deck),
 		"owned_relic_ids": (game_state.owned_relic_ids as Array).duplicate(),
 		"completed_map_node_ids": (game_state.completed_map_node_ids as Array).duplicate(),
@@ -70,7 +71,11 @@ static func restore(save_data: Dictionary, game_state: Variant, run_controller: 
 	data_loader.restore_instance_id_counter(next_id)
 
 	var run_config: Dictionary = data_loader.get_run_config(run_id)
-	game_state.map_nodes = (run_config.get("map_nodes", []) as Array).duplicate(true)
+	var saved_map_nodes: Variant = save_data.get("map_nodes", null)
+	if saved_map_nodes is Array and not (saved_map_nodes as Array).is_empty():
+		game_state.map_nodes = (saved_map_nodes as Array).duplicate(true)
+	else:
+		game_state.map_nodes = (run_config.get("map_nodes", []) as Array).duplicate(true)
 	game_state.run_nodes = (run_config.get("nodes", []) as Array).duplicate(true)
 
 	game_state.player_hp = int(save_data.get("player_hp", 60))

@@ -71,5 +71,24 @@ func run(ctx: Variant) -> void:
 		max_id = maxi(max_id, int(inst.get("instance_id", 0)))
 	ctx.assert_gt(data_loader.get_next_instance_id(), max_id, "DataLoader instance counter is ahead of restored deck max id")
 
+	## 8. restore 后 map_nodes 与存档一致（随机地图节点不被静态配置覆盖）
+	game_state.start_new_run(run_config)
+	## 模拟随机地图：手动注入一个与静态配置不同的节点集
+	game_state.map_nodes = [
+		{"id": "rnd_1_a", "floor": 1, "type": "battle", "next_nodes": ["rnd_2_a"]},
+		{"id": "rnd_2_a", "floor": 2, "type": "rest",   "next_nodes": []}
+	]
+	game_state.available_map_node_ids = ["rnd_1_a"]
+	SaveServiceScript.save(game_state, run_controller, data_loader)
+
+	## 修改 game_state 模拟新局（会清掉 map_nodes）
+	game_state.start_new_run(run_config)
+	ctx.assert_true(game_state.map_nodes.size() != 2, "sanity: new run replaces map_nodes")
+
+	var save_data2: Dictionary = SaveServiceScript.load_save()
+	SaveServiceScript.restore(save_data2, game_state, run_controller, data_loader)
+	ctx.assert_eq(game_state.map_nodes.size(), 2, "restore preserves saved map_nodes count")
+	ctx.assert_eq(str((game_state.map_nodes[0] as Dictionary).get("id", "")), "rnd_1_a", "restore preserves first map node id")
+
 	## 清理
 	SaveServiceScript.delete_save()
