@@ -8,6 +8,8 @@ var _choice_scroll: ScrollContainer
 var _choice_row: HBoxContainer
 var _upgradeable_cards: Array = []
 var _upgrade_mode := false
+var _selected_upgrade_index := -1
+var _confirm_upgrade_button: Button
 
 
 func _ready() -> void:
@@ -19,11 +21,11 @@ func _build() -> void:
 	var background := TextureRect.new()
 	background.texture = load("res://assets/backgrounds/bg_map.png")
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
-	background.stretch_mode = TextureRect.STRETCH_SCALE
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.04, 0.045, 0.05, 0.58)
+	tint.color = Color(0.025, 0.028, 0.032, 0.70)
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -63,6 +65,8 @@ func _build() -> void:
 
 		_choice_row = HBoxContainer.new()
 		_choice_row.name = "UpgradeChoiceRow"
+		_choice_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_choice_row.alignment = BoxContainer.ALIGNMENT_CENTER
 		_choice_row.add_theme_constant_override("separation", 18)
 		_choice_scroll.add_child(_choice_row)
 
@@ -94,20 +98,33 @@ func _render_rest_choices() -> void:
 
 
 func _render_upgrade_choices() -> void:
+	_clear_children(_choice_row)
 	for index in range(_upgradeable_cards.size()):
 		var card_instance := _upgradeable_cards[index] as Dictionary
 		var data_loader: Variant = _autoload("DataLoader")
 		var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
-		var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(180, 250))
+		var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(180, 250), index == _selected_upgrade_index)
 		button.pressed.connect(_on_upgrade_pressed.bind(index))
 		_choice_row.add_child(button)
 
 func _render_upgrade_back_button(root: VBoxContainer) -> void:
+	var button_row := HBoxContainer.new()
+	button_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	button_row.add_theme_constant_override("separation", 16)
+	root.add_child(button_row)
+
+	_confirm_upgrade_button = Button.new()
+	_confirm_upgrade_button.text = "确认升级"
+	_confirm_upgrade_button.custom_minimum_size = Vector2(140, 44)
+	_confirm_upgrade_button.disabled = true
+	_confirm_upgrade_button.pressed.connect(_on_confirm_upgrade_pressed)
+	button_row.add_child(_confirm_upgrade_button)
+
 	var back_button := Button.new()
 	back_button.text = "返回"
 	back_button.custom_minimum_size = Vector2(140, 44)
 	back_button.pressed.connect(_on_back_pressed)
-	root.add_child(back_button)
+	button_row.add_child(back_button)
 
 
 func _on_heal_pressed() -> void:
@@ -118,19 +135,34 @@ func _on_heal_pressed() -> void:
 
 func _on_upgrade_mode_pressed() -> void:
 	_upgrade_mode = true
+	_selected_upgrade_index = -1
 	_rebuild()
 
 
 func _on_back_pressed() -> void:
 	_upgrade_mode = false
+	_selected_upgrade_index = -1
 	_rebuild()
 
 
 func _on_upgrade_pressed(index: int) -> void:
 	if index < 0 or index >= _upgradeable_cards.size():
 		return
-
+	_selected_upgrade_index = index
 	var card_instance := _upgradeable_cards[index] as Dictionary
+	var data_loader: Variant = _autoload("DataLoader")
+	var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
+	_status_label.text = "已选择 %s，点击确认升级。" % str(card_data.get("name", ""))
+	if _confirm_upgrade_button != null:
+		_confirm_upgrade_button.disabled = false
+	_render_upgrade_choices()
+
+
+func _on_confirm_upgrade_pressed() -> void:
+	if _selected_upgrade_index < 0 or _selected_upgrade_index >= _upgradeable_cards.size():
+		return
+
+	var card_instance := _upgradeable_cards[_selected_upgrade_index] as Dictionary
 	var data_loader: Variant = _autoload("DataLoader")
 	if UpgradeServiceScript.upgrade_card_instance(card_instance, data_loader):
 		_complete_rest()
@@ -167,6 +199,11 @@ func _rebuild() -> void:
 	for child in get_children():
 		child.queue_free()
 	_build()
+
+
+func _clear_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()
 
 
 func _autoload(autoload_name: String) -> Variant:

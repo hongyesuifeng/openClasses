@@ -81,7 +81,7 @@ func _build() -> void:
 	var background := TextureRect.new()
 	background.texture = load(BACKGROUND_BOSS if encounter_id == "v1_boss_01" else BACKGROUND_NORMAL)
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
-	background.stretch_mode = TextureRect.STRETCH_SCALE
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
 
 	var tint := ColorRect.new()
@@ -168,12 +168,12 @@ func _build() -> void:
 
 	var lower := HBoxContainer.new()
 	lower.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	lower.custom_minimum_size = Vector2(0, 178)
-	lower.add_theme_constant_override("separation", 12)
+	lower.custom_minimum_size = Vector2(0, 210)
+	lower.add_theme_constant_override("separation", 16)
 	root.add_child(lower)
 
 	_log_label = RichTextLabel.new()
-	_log_label.custom_minimum_size = Vector2(260, 0)
+	_log_label.custom_minimum_size = Vector2(240, 0)
 	_log_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_log_label.fit_content = true
 	_log_label.add_theme_color_override("default_color", Color(0.92, 0.86, 0.76))
@@ -192,25 +192,28 @@ func _build() -> void:
 	var hand_controls := HBoxContainer.new()
 	hand_controls.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hand_controls.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hand_controls.alignment = BoxContainer.ALIGNMENT_CENTER
 	hand_controls.add_theme_constant_override("separation", 10)
 	hand_panel.add_child(hand_controls)
 
 	var hand_scroll := ScrollContainer.new()
 	hand_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hand_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	hand_scroll.custom_minimum_size = Vector2(0, 196)
 	hand_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 	hand_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	hand_controls.add_child(hand_scroll)
 
 	_hand_row = HBoxContainer.new()
 	_hand_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_hand_row.add_theme_constant_override("separation", 7)
+	_hand_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_hand_row.add_theme_constant_override("separation", 8)
 	hand_scroll.add_child(_hand_row)
 
 	var end_turn_button := Button.new()
 	end_turn_button.text = "结束回合"
-	end_turn_button.custom_minimum_size = Vector2(136, 52)
-	end_turn_button.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	end_turn_button.custom_minimum_size = Vector2(128, 50)
+	end_turn_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
 	hand_controls.add_child(end_turn_button)
 
@@ -389,7 +392,7 @@ func _render_hand(hand: Array, phase: String) -> void:
 	_hand_buttons.clear()
 	for index in range(hand.size()):
 		var card := hand[index] as Dictionary
-		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(144, 200), index == _selected_card_index, phase != "player")
+		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(132, 183), index == _selected_card_index, phase != "player")
 		button.pressed.connect(_on_card_pressed.bind(index))
 		## 添加悬浮放大效果
 		button.mouse_entered.connect(_on_card_hover.bind(button))

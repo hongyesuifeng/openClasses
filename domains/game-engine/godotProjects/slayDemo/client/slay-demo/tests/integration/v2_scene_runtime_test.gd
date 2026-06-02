@@ -148,6 +148,7 @@ func _choose_reward(reward_scene: Node) -> bool:
 	var choices: Array = reward_scene.get("_choices")
 	if not choices.is_empty():
 		reward_scene.call("_on_choice_pressed", _best_reward_index(choices))
+		reward_scene.call("_on_confirm_choice_pressed")
 		return true
 
 	var skip_button: Button = _find_button_by_text(reward_scene, "跳过")

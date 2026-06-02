@@ -5,12 +5,16 @@ const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
 
 var _choices: Array = []
+var _choice_scroll: ScrollContainer
 var _choice_row: HBoxContainer
 var _status_label: Label
 var _upgrade_mode := false
 var _upgradeable_cards: Array = []
 var _relic_mode := false
 var _pending_relic: Dictionary = {}
+var _selected_choice_index := -1
+var _selected_upgrade_index := -1
+var _confirm_button: Button
 
 
 func _ready() -> void:
@@ -37,11 +41,11 @@ func _build() -> void:
 	var background := TextureRect.new()
 	background.texture = load("res://assets/backgrounds/bg_map.png")
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
-	background.stretch_mode = TextureRect.STRETCH_SCALE
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.055, 0.042, 0.032, 0.52)
+	tint.color = Color(0.025, 0.024, 0.025, 0.72)
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -131,10 +135,19 @@ func _build_card_reward(root: VBoxContainer) -> void:
 	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
 	root.add_child(_status_label)
 
+	_choice_scroll = ScrollContainer.new()
+	_choice_scroll.custom_minimum_size = Vector2(0, 280)
+	_choice_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_choice_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_ALWAYS
+	_choice_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_choice_scroll.follow_focus = true
+	root.add_child(_choice_scroll)
+
 	_choice_row = HBoxContainer.new()
+	_choice_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_choice_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_choice_row.add_theme_constant_override("separation", 18)
-	root.add_child(_choice_row)
+	_choice_scroll.add_child(_choice_row)
 
 	_render_choices()
 
@@ -157,6 +170,16 @@ func _build_card_reward(root: VBoxContainer) -> void:
 		card_button.pressed.connect(_on_card_mode_pressed)
 		button_row.add_child(card_button)
 
+	_confirm_button = Button.new()
+	_confirm_button.text = "确认升级" if _upgrade_mode else "确认选择"
+	_confirm_button.custom_minimum_size = Vector2(160, 44)
+	_confirm_button.disabled = true
+	if _upgrade_mode:
+		_confirm_button.pressed.connect(_on_confirm_upgrade_pressed)
+	else:
+		_confirm_button.pressed.connect(_on_confirm_choice_pressed)
+	button_row.add_child(_confirm_button)
+
 	var skip_button := Button.new()
 	skip_button.text = "跳过"
 	skip_button.custom_minimum_size = Vector2(160, 44)
@@ -172,13 +195,13 @@ func _render_choices() -> void:
 			var card_instance := _upgradeable_cards[index] as Dictionary
 			var data_loader: Variant = _autoload("DataLoader")
 			var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
-			var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(180, 250))
+			var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(180, 250), index == _selected_upgrade_index)
 			button.pressed.connect(_on_upgrade_pressed.bind(index))
 			_choice_row.add_child(button)
 	else:
 		for index in range(_choices.size()):
 			var card := _choices[index] as Dictionary
-			var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(180, 250))
+			var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(180, 250), index == _selected_choice_index)
 			button.pressed.connect(_on_choice_pressed.bind(index))
 			_choice_row.add_child(button)
 
@@ -196,9 +219,11 @@ func _on_choice_pressed(index: int) -> void:
 	if index < 0 or index >= _choices.size():
 		return
 	var card := _choices[index] as Dictionary
-	_status_label.text = "获得 %s" % str(card.get("name", ""))
-	var run_controller: Variant = _autoload("RunController")
-	run_controller.complete_reward(str(card.get("id", "")))
+	_selected_choice_index = index
+	_status_label.text = "已选择 %s，点击确认加入牌组。" % str(card.get("name", ""))
+	if _confirm_button != null:
+		_confirm_button.disabled = false
+	_render_choices()
 
 
 func _on_upgrade_pressed(index: int) -> void:
@@ -210,6 +235,29 @@ func _on_upgrade_pressed(index: int) -> void:
 	var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
 	var old_name := str(card_data.get("name", ""))
 
+	_selected_upgrade_index = index
+	_status_label.text = "已选择 %s，点击确认升级。" % old_name
+	if _confirm_button != null:
+		_confirm_button.disabled = false
+	_render_choices()
+
+
+func _on_confirm_choice_pressed() -> void:
+	if _selected_choice_index < 0 or _selected_choice_index >= _choices.size():
+		return
+	var card := _choices[_selected_choice_index] as Dictionary
+	var run_controller: Variant = _autoload("RunController")
+	run_controller.complete_reward(str(card.get("id", "")))
+
+
+func _on_confirm_upgrade_pressed() -> void:
+	if _selected_upgrade_index < 0 or _selected_upgrade_index >= _upgradeable_cards.size():
+		return
+
+	var card_instance := _upgradeable_cards[_selected_upgrade_index] as Dictionary
+	var data_loader: Variant = _autoload("DataLoader")
+	var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
+	var old_name := str(card_data.get("name", ""))
 	if UpgradeServiceScript.upgrade_card_instance(card_instance, data_loader):
 		_status_label.text = "%s 已升级！" % old_name
 		var run_controller: Variant = _autoload("RunController")
@@ -220,12 +268,16 @@ func _on_upgrade_pressed(index: int) -> void:
 
 func _on_upgrade_mode_pressed() -> void:
 	_upgrade_mode = true
+	_selected_choice_index = -1
+	_selected_upgrade_index = -1
 	_clear_children(self)
 	_build()
 
 
 func _on_card_mode_pressed() -> void:
 	_upgrade_mode = false
+	_selected_choice_index = -1
+	_selected_upgrade_index = -1
 	_clear_children(self)
 	_build()
 

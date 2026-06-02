@@ -43,11 +43,11 @@ func _build() -> void:
 	var background := TextureRect.new()
 	background.texture = load("res://assets/backgrounds/bg_map.png")
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
-	background.stretch_mode = TextureRect.STRETCH_SCALE
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.035, 0.04, 0.045, 0.55)
+	tint.color = Color(0.025, 0.028, 0.032, 0.70)
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -86,6 +86,13 @@ func _build() -> void:
 	_node_root.custom_minimum_size = Vector2(0, 560)
 	root.add_child(_node_root)
 
+	var map_surface := ColorRect.new()
+	map_surface.color = Color(0.025, 0.026, 0.026, 0.46)
+	map_surface.set_anchors_preset(Control.PRESET_FULL_RECT)
+	map_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	map_surface.z_index = -10
+	_node_root.add_child(map_surface)
+
 	_render_nodes()
 
 
@@ -121,7 +128,7 @@ func _render_nodes() -> void:
 		var node_pos := _node_position(floor_index, index, floor_nodes.size(), max_floor)
 		_node_positions[node_id] = node_pos + Vector2(72.0, 32.0)
 
-	_render_paths(nodes, completed)
+	_render_paths(nodes, completed, available)
 
 	for node in nodes:
 		var node_dict := node as Dictionary
@@ -145,7 +152,7 @@ func _render_nodes() -> void:
 		_node_root.add_child(button)
 
 
-func _render_paths(nodes: Array, completed: Array) -> void:
+func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
 	for node in nodes:
 		var node_dict := node as Dictionary
 		var from_id := str(node_dict.get("id", ""))
@@ -157,11 +164,19 @@ func _render_paths(nodes: Array, completed: Array) -> void:
 			if not _node_positions.has(next_id):
 				continue
 
+			var is_route_open := completed.has(from_id) or available.has(from_id)
+			var shadow := Line2D.new()
+			shadow.width = 8.0 if is_route_open else 6.0
+			shadow.default_color = Color(0.02, 0.018, 0.012, 0.86)
+			shadow.points = PackedVector2Array([_node_positions[from_id], _node_positions[next_id]])
+			shadow.z_index = -3
+			_node_root.add_child(shadow)
+
 			var line := Line2D.new()
-			line.width = 3.0
-			line.default_color = Color(0.88, 0.72, 0.38, 0.85) if completed.has(from_id) else Color(0.32, 0.29, 0.24, 0.8)
+			line.width = 4.0 if is_route_open else 3.0
+			line.default_color = Color(1.0, 0.78, 0.30, 0.95) if is_route_open else Color(0.62, 0.52, 0.34, 0.62)
 			line.points = PackedVector2Array([_node_positions[from_id], _node_positions[next_id]])
-			line.z_index = -1
+			line.z_index = -2
 			_node_root.add_child(line)
 
 
@@ -217,6 +232,23 @@ func _add_node_content(button: Button, node: Dictionary, selectable: bool, done:
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(label)
 
+	if done:
+		var check := Label.new()
+		check.text = "✓"
+		check.anchor_left = 0.74
+		check.anchor_top = -0.04
+		check.anchor_right = 0.98
+		check.anchor_bottom = 0.36
+		check.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		check.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+		check.add_theme_font_size_override("font_size", 24)
+		check.add_theme_color_override("font_color", Color(0.55, 1.0, 0.58))
+		check.add_theme_color_override("font_shadow_color", Color(0.02, 0.05, 0.02, 0.95))
+		check.add_theme_constant_override("shadow_offset_x", 2)
+		check.add_theme_constant_override("shadow_offset_y", 2)
+		check.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.add_child(check)
+
 
 func _status_text() -> String:
 	var game_state: Variant = _autoload("GameState")
@@ -249,12 +281,12 @@ func _node_style(node_type: String, done: bool, selectable: bool) -> StyleBoxFla
 	var style := StyleBoxFlat.new()
 	var color: Color = NODE_COLORS.get(node_type, Color(0.2, 0.22, 0.24, 0.9))
 	if done:
-		color = Color(0.12, 0.14, 0.14, 0.72)
+		color = Color(0.12, 0.18, 0.13, 0.82)
 	elif not selectable:
 		color = Color(color.r * 0.45, color.g * 0.45, color.b * 0.45, 0.62)
 	style.bg_color = color
-	style.border_color = Color(0.95, 0.82, 0.48, 0.9) if selectable else Color(0.25, 0.23, 0.2, 0.8)
-	style.set_border_width_all(2 if selectable else 1)
+	style.border_color = Color(0.95, 0.82, 0.48, 0.95) if selectable else (Color(0.50, 0.95, 0.48, 0.9) if done else Color(0.32, 0.29, 0.22, 0.82))
+	style.set_border_width_all(3 if selectable else (2 if done else 1))
 	style.set_corner_radius_all(8)
 	style.content_margin_left = 8
 	style.content_margin_top = 6
