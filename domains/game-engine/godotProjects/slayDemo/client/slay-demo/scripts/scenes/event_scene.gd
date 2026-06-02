@@ -133,7 +133,7 @@ func _render_card_selection() -> void:
 	for card_instance in _selectable_cards:
 		var instance := card_instance as Dictionary
 		var card_data: Dictionary = data_loader.resolve_card_instance(instance)
-		var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(190, 246))
+		var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(180, 250))
 		button.pressed.connect(_on_card_selected.bind(int(instance.get("instance_id", 0))))
 		_card_selection_row.add_child(button)
 

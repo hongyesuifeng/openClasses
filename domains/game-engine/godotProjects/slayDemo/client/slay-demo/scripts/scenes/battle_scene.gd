@@ -291,21 +291,21 @@ func _render_enemies(enemies: Array) -> void:
 
 		var sprite := TextureRect.new()
 		sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		sprite.position = Vector2(4, 8)
-		sprite.size = Vector2(252, 206)
+		sprite.position = Vector2(29, 0)
+		sprite.size = Vector2(202, 165)
 		sprite.custom_minimum_size = Vector2.ZERO
 		sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		sprite.z_index = 2
 		sprite.texture = load(art_path)
-		sprite.set_deferred("size", Vector2(252, 206))
+		sprite.set_deferred("size", Vector2(202, 165))
 		button.add_child(sprite)
 
 		var name_label := _make_label(str(enemy.get("name", "")), 18, HORIZONTAL_ALIGNMENT_CENTER)
 		name_label.anchor_left = 0.08
-		name_label.anchor_top = 0.67
+		name_label.anchor_top = 0.70
 		name_label.anchor_right = 0.92
-		name_label.anchor_bottom = 0.76
+		name_label.anchor_bottom = 0.79
 		button.add_child(name_label)
 
 		var hp := _make_label("HP %d/%d  格挡 %d" % [
@@ -314,26 +314,26 @@ func _render_enemies(enemies: Array) -> void:
 			int(enemy.get("block", 0))
 		], 14, HORIZONTAL_ALIGNMENT_CENTER)
 		hp.anchor_left = 0.05
-		hp.anchor_top = 0.77
+		hp.anchor_top = 0.80
 		hp.anchor_right = 0.95
-		hp.anchor_bottom = 0.85
+		hp.anchor_bottom = 0.88
 		button.add_child(hp)
 
 		var intent_icon := TextureRect.new()
 		intent_icon.texture = load(str(INTENT_ICON_BY_TYPE.get(str(intent.get("type", "")), "res://assets/ui/intents/intent_question.png")))
 		intent_icon.anchor_left = 0.18
-		intent_icon.anchor_top = 0.86
+		intent_icon.anchor_top = 0.89
 		intent_icon.anchor_right = 0.34
-		intent_icon.anchor_bottom = 0.98
+		intent_icon.anchor_bottom = 1.0
 		intent_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		intent_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(intent_icon)
 
 		var intent_text := _make_label("%s %d" % [str(intent.get("name", "")), int(intent.get("value", 0))], 14, HORIZONTAL_ALIGNMENT_LEFT)
 		intent_text.anchor_left = 0.36
-		intent_text.anchor_top = 0.87
+		intent_text.anchor_top = 0.90
 		intent_text.anchor_right = 0.92
-		intent_text.anchor_bottom = 0.98
+		intent_text.anchor_bottom = 1.0
 		button.add_child(intent_text)
 
 		# 敌人状态显示
@@ -389,7 +389,7 @@ func _render_hand(hand: Array, phase: String) -> void:
 	_hand_buttons.clear()
 	for index in range(hand.size()):
 		var card := hand[index] as Dictionary
-		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(128, 170), index == _selected_card_index, phase != "player")
+		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(144, 200), index == _selected_card_index, phase != "player")
 		button.pressed.connect(_on_card_pressed.bind(index))
 		## 添加悬浮放大效果
 		button.mouse_entered.connect(_on_card_hover.bind(button))
@@ -577,23 +577,16 @@ func _hit_enemy_feedback(enemy_index: int) -> void:
 	if not is_instance_valid(target):
 		return
 
-	var overlay := TextureRect.new()
-	overlay.texture = load(_enemy_art_paths[enemy_index] if enemy_index < _enemy_art_paths.size() else ENEMY_ART_BY_KEY["enemy_slime"])
-	overlay.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	overlay.global_position = target.global_position
-	overlay.size = target.size
-	overlay.z_index = 30
-	overlay.modulate = Color(1.0, 0.55, 0.45, 0.9)
-	add_child(overlay)
+	var original_x := target.position.x
+	var shake_tween := create_tween()
+	shake_tween.tween_property(target, "position:x", original_x + 10.0, 0.035)
+	shake_tween.tween_property(target, "position:x", original_x - 8.0, 0.04)
+	shake_tween.tween_property(target, "position:x", original_x + 5.0, 0.035)
+	shake_tween.tween_property(target, "position:x", original_x, 0.04)
 
-	var original := overlay.global_position
-	var tween := create_tween()
-	tween.tween_property(overlay, "global_position:x", original.x + 10.0, 0.04)
-	tween.tween_property(overlay, "global_position:x", original.x - 6.0, 0.05)
-	tween.tween_property(overlay, "global_position:x", original.x, 0.06)
-	tween.parallel().tween_property(overlay, "modulate:a", 0.0, 0.15)
-	tween.finished.connect(overlay.queue_free)
+	var color_tween := create_tween()
+	color_tween.tween_property(target, "modulate", Color(1.35, 0.58, 0.48, 1.0), 0.05)
+	color_tween.tween_property(target, "modulate", Color.WHITE, 0.12)
 
 
 func _spawn_enemy_damage_text(enemy_index: int, damage: int, blocked: int) -> void:
@@ -653,10 +646,14 @@ func _flash_player_panel() -> void:
 
 func _make_bar(under_path: String, progress_path: String) -> TextureProgressBar:
 	var bar := TextureProgressBar.new()
-	bar.custom_minimum_size = Vector2(300, 16)
+	bar.custom_minimum_size = Vector2(300, 24)
 	bar.texture_under = load(under_path)
 	bar.texture_progress = load(progress_path)
 	bar.nine_patch_stretch = true
+	bar.stretch_margin_left = 12
+	bar.stretch_margin_right = 12
+	bar.stretch_margin_top = 6
+	bar.stretch_margin_bottom = 6
 	bar.max_value = 1
 	bar.value = 1
 	return bar

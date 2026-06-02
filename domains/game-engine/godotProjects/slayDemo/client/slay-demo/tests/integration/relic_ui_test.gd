@@ -83,7 +83,8 @@ func _test_battle_enemy_sprite_visible(ctx: Variant, game_state: Variant, data_l
 	var sprite := _find_enemy_sprite(enemy_row)
 	ctx.assert_true(sprite != null, "first battle renders an enemy texture")
 	if sprite != null:
-		ctx.assert_eq(sprite.size, Vector2(252, 206), "enemy sprite uses a stable visible render area")
+		ctx.assert_eq(sprite.size, Vector2(202, 165), "enemy sprite uses a scaled visible render area")
+		ctx.assert_eq(sprite.position, Vector2(29, 0), "enemy sprite leaves room for labels below")
 	battle.queue_free()
 
 

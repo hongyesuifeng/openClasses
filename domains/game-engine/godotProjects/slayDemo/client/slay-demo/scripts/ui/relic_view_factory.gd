@@ -35,9 +35,9 @@ static func create_relic_button(relic: Dictionary, detail_callback: Callable = C
 		texture = ResourceLoader.load(icon_path, "Texture2D") as Texture2D
 
 	if texture != null:
-		# 图标按钮：48×48 正方形，显示图片
+		# 图标按钮：56×56 正方形，显示图片
 		button.text = ""
-		button.custom_minimum_size = Vector2(48, 48)
+		button.custom_minimum_size = Vector2(56, 56)
 
 		var tex := TextureRect.new()
 		tex.texture = texture

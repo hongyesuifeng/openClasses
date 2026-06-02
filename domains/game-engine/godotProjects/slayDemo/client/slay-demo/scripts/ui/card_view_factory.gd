@@ -26,7 +26,7 @@ const ICON_BY_ART_KEY := {
 }
 
 
-static func create_card_button(card: Dictionary, card_size := Vector2(160, 214), selected := false, disabled := false) -> Button:
+static func create_card_button(card: Dictionary, card_size := Vector2(144, 200), selected := false, disabled := false) -> Button:
 	var button := Button.new()
 	button.custom_minimum_size = card_size
 	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER

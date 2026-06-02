@@ -97,7 +97,7 @@ func _render_shop_choices() -> void:
 		box.add_theme_constant_override("separation", 8)
 		_content_row.add_child(box)
 
-		var card_button: Button = CardViewFactoryScript.create_card_button(card, Vector2(180, 238), false, not _can_afford(price))
+		var card_button: Button = CardViewFactoryScript.create_card_button(card, Vector2(180, 250), false, not _can_afford(price))
 		card_button.pressed.connect(_on_buy_pressed.bind(index))
 		box.add_child(card_button)
 
@@ -119,7 +119,7 @@ func _render_remove_choices() -> void:
 	for index in range(game_state.master_deck.size()):
 		var card_instance := game_state.master_deck[index] as Dictionary
 		var card: Dictionary = data_loader.resolve_card_instance(card_instance)
-		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(150, 200), false, not _can_afford(_remove_price()))
+		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(144, 200), false, not _can_afford(_remove_price()))
 		button.pressed.connect(_on_remove_card_pressed.bind(int(card_instance.get("instance_id", 0))))
 		_content_row.add_child(button)
 

@@ -50,8 +50,20 @@ func resume_run() -> void:
 	var game_state: Variant = _autoload("GameState")
 	SaveServiceScript.restore(save_data, game_state, self, data_loader)
 
-	var scene_router: Variant = _autoload("SceneRouter")
-	scene_router.go_to("map")
+	if not game_state.has_map():
+		enter_current_node()
+		return
+
+	if _is_waiting_for_map_selection(game_state):
+		## 当前没有正在处理的地图节点，读档后回到地图等待玩家选择。
+		_verify_and_repair_map_selection_state(game_state)
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("map")
+		return
+
+	## 战斗胜利后会在奖励结算前自动存档。此时地图节点已被选中、
+	## 可用节点已清空，但下一层尚未解锁；继续游戏必须回到当前结算节点。
+	enter_current_node()
 
 
 func select_map_node(node_id: String) -> void:
@@ -282,3 +294,72 @@ func _autosave() -> void:
 	var data_loader: Variant = _autoload("DataLoader")
 	if game_state != null and data_loader != null:
 		SaveServiceScript.save(game_state, self, data_loader)
+
+
+func _is_waiting_for_map_selection(game_state: Variant) -> bool:
+	return game_state.has_map() and game_state.current_map_node_id.is_empty()
+
+
+func _verify_and_repair_map_selection_state(game_state: Variant) -> void:
+	## 继续游戏回到地图时不应自动替玩家选择节点；只在存档缺失可用节点时修复。
+	var available: Array = game_state.available_map_node_ids
+	if not available.is_empty():
+		return
+
+	_recalculate_available_nodes(game_state)
+	if game_state.available_map_node_ids.is_empty():
+		_check_and_finish_game_if_complete(game_state)
+
+
+func _recalculate_available_nodes(game_state: Variant) -> void:
+	## 基于已完成节点重新计算可用节点
+	var all_nodes: Array = game_state.get_all_map_nodes()
+	game_state.available_map_node_ids.clear()
+
+	## 如果没有已完成节点，解锁起始节点
+	if game_state.completed_map_node_ids.is_empty():
+		_unlock_starting_map_nodes_internal(game_state, all_nodes)
+		return
+
+	## 地图数据以 next_nodes 表示出边；随机地图不会保存 prev_nodes。
+	for completed_id: String in game_state.completed_map_node_ids:
+		var node: Dictionary = game_state.get_map_node(str(completed_id))
+		if node.is_empty():
+			continue
+		for next_id in node.get("next_nodes", []):
+			var next_node_id := str(next_id)
+			if not game_state.completed_map_node_ids.has(next_node_id) and not game_state.available_map_node_ids.has(next_node_id):
+				game_state.available_map_node_ids.append(next_node_id)
+
+
+func _unlock_starting_map_nodes_internal(game_state: Variant, all_nodes: Array) -> void:
+	var lowest_floor := 999999
+	for node_dict: Dictionary in all_nodes:
+		lowest_floor = mini(lowest_floor, int(node_dict.get("floor", 0)))
+
+	for node_dict: Dictionary in all_nodes:
+		if int(node_dict.get("floor", 0)) == lowest_floor:
+			game_state.available_map_node_ids.append(str(node_dict.get("id", "")))
+
+
+func _check_and_finish_game_if_complete(game_state: Variant) -> void:
+	## 检查是否所有节点都已完成
+	var all_nodes: Array = game_state.get_all_map_nodes()
+	var all_completed := true
+	for node_dict: Dictionary in all_nodes:
+		var node_id := str(node_dict.get("id", ""))
+		if not game_state.completed_map_node_ids.has(node_id):
+			## 排除奖励节点（临时节点）
+			if not str(node_dict.get("id", "")).contains("_reward"):
+				all_completed = false
+				break
+
+	if all_completed:
+		game_state.finish_run(true)
+		SaveServiceScript.delete_save()
+		var scene_router: Variant = _autoload("SceneRouter")
+		scene_router.go_to("result")
+	else:
+		## 异常状态：既没有可用节点也没有完成，强制重置到起始
+		push_error("[RunController] 异常状态：强制重置到起始节点")
+		_recalculate_available_nodes(game_state)

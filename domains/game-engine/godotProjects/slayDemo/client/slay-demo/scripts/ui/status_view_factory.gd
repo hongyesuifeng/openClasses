@@ -107,23 +107,35 @@ static func create_status_row(statuses: Array, compact: bool = true) -> HBoxCont
 	return row
 
 
-static func _create_icon_widget(texture: Texture2D, stacks: int, color: Color, compact: bool) -> HBoxContainer:
-	var container := HBoxContainer.new()
-	container.add_theme_constant_override("separation", 2)
+static func _create_icon_widget(texture: Texture2D, stacks: int, _color: Color, compact: bool) -> Control:
+	var container := Control.new()
+	var container_size := 32 if compact else 36
+	var icon_size := 28 if compact else 32
+	container.custom_minimum_size = Vector2(container_size, container_size)
 
-	var icon_size := 20 if compact else 24
 	var tex := TextureRect.new()
 	tex.texture = texture
 	tex.custom_minimum_size = Vector2(icon_size, icon_size)
+	tex.size = Vector2(icon_size, icon_size)
+	tex.position = Vector2(
+		float(container_size - icon_size) * 0.5,
+		float(container_size - icon_size) * 0.5
+	)
+	tex.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	tex.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	tex.modulate = color
 	tex.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	container.add_child(tex)
 
 	var count_label := Label.new()
 	count_label.text = str(stacks)
+	count_label.anchor_left = 0.50
+	count_label.anchor_top = 0.50
+	count_label.anchor_right = 1.0
+	count_label.anchor_bottom = 1.0
+	count_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	count_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	count_label.add_theme_font_size_override("font_size", 13 if compact else 15)
-	count_label.add_theme_color_override("font_color", color)
+	count_label.add_theme_color_override("font_color", Color(1.0, 0.96, 0.82))
 	count_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
 	count_label.add_theme_constant_override("shadow_offset_x", 1)
 	count_label.add_theme_constant_override("shadow_offset_y", 1)

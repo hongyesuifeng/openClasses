@@ -78,7 +78,8 @@ func run(ctx: Variant) -> void:
 		{"id": "rnd_1_a", "floor": 1, "type": "battle", "next_nodes": ["rnd_2_a"]},
 		{"id": "rnd_2_a", "floor": 2, "type": "rest",   "next_nodes": []}
 	]
-	game_state.available_map_node_ids = ["rnd_1_a"]
+	game_state.available_map_node_ids.clear()
+	game_state.available_map_node_ids.append("rnd_1_a")
 	SaveServiceScript.save(game_state, run_controller, data_loader)
 
 	## 修改 game_state 模拟新局（会清掉 map_nodes）
@@ -89,6 +90,51 @@ func run(ctx: Variant) -> void:
 	SaveServiceScript.restore(save_data2, game_state, run_controller, data_loader)
 	ctx.assert_eq(game_state.map_nodes.size(), 2, "restore preserves saved map_nodes count")
 	ctx.assert_eq(str((game_state.map_nodes[0] as Dictionary).get("id", "")), "rnd_1_a", "restore preserves first map node id")
+
+	## 9. 继续游戏回到地图时不应自动选择下一个节点
+	game_state.start_new_run(run_config)
+	ctx.assert_true(game_state.select_map_node("map_01"), "sanity: first node can be selected before resume repair")
+	game_state.prepare_map_reward("normal_card_reward")
+	game_state.complete_current_map_node()
+
+	var available_after_complete: Array = game_state.available_map_node_ids.duplicate()
+	run_controller._verify_and_repair_map_selection_state(game_state)
+	ctx.assert_eq(str(game_state.current_map_node_id), "", "resume repair keeps map waiting for player selection")
+	ctx.assert_eq(game_state.available_map_node_ids.size(), available_after_complete.size(), "resume repair preserves selectable nodes")
+	ctx.assert_true(game_state.available_map_node_ids.has("map_02a"), "resume repair keeps map_02a selectable")
+	ctx.assert_true(game_state.available_map_node_ids.has("map_02b"), "resume repair keeps map_02b selectable")
+
+	## 10. 存档可用节点缺失时，只重新计算，不自动进入节点
+	game_state.available_map_node_ids.clear()
+	run_controller._verify_and_repair_map_selection_state(game_state)
+	ctx.assert_eq(str(game_state.current_map_node_id), "", "resume repair does not auto-select after recalculation")
+	ctx.assert_true(game_state.available_map_node_ids.has("map_02a"), "resume repair recalculates map_02a")
+	ctx.assert_true(game_state.available_map_node_ids.has("map_02b"), "resume repair recalculates map_02b")
+
+	## 11. 战斗胜利后奖励未结算的存档不应被当作地图选点等待态
+	game_state.start_new_run(run_config)
+	ctx.assert_true(game_state.select_map_node("map_01"), "sanity: selected first node before pending reward")
+	game_state.prepare_map_reward("normal_card_reward")
+	game_state.available_map_node_ids.clear()
+	ctx.assert_false(run_controller._is_waiting_for_map_selection(game_state), "pending reward save should resume current node, not map")
+	ctx.assert_eq(str(game_state.get_current_node().get("type", "")), "reward", "pending reward remains current node after battle win save")
+
+	## 12. 随机地图没有 prev_nodes，修复时必须从已完成节点的 next_nodes 恢复可选节点
+	game_state.start_new_run(run_config)
+	game_state.map_nodes = [
+		{"id": "rnd_1_a", "floor": 1, "type": "battle", "next_nodes": ["rnd_2_a"]},
+		{"id": "rnd_2_a", "floor": 2, "type": "battle", "next_nodes": ["rnd_3_a"]},
+		{"id": "rnd_2_b", "floor": 2, "type": "event", "next_nodes": ["rnd_3_a"]},
+		{"id": "rnd_3_a", "floor": 3, "type": "rest", "next_nodes": []}
+	]
+	game_state.completed_map_node_ids.clear()
+	game_state.completed_map_node_ids.append("rnd_1_a")
+	game_state.current_map_node_id = ""
+	game_state.available_map_node_ids.clear()
+	run_controller._verify_and_repair_map_selection_state(game_state)
+	ctx.assert_eq(game_state.available_map_node_ids.size(), 1, "random map repair restores direct next node only")
+	ctx.assert_true(game_state.available_map_node_ids.has("rnd_2_a"), "random map repair uses next_nodes")
+	ctx.assert_false(game_state.available_map_node_ids.has("rnd_2_b"), "random map repair does not unlock unconnected same-floor node")
 
 	## 清理
 	SaveServiceScript.delete_save()

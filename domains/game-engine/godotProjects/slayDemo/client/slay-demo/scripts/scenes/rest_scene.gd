@@ -98,7 +98,7 @@ func _render_upgrade_choices() -> void:
 		var card_instance := _upgradeable_cards[index] as Dictionary
 		var data_loader: Variant = _autoload("DataLoader")
 		var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
-		var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(190, 246))
+		var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(180, 250))
 		button.pressed.connect(_on_upgrade_pressed.bind(index))
 		_choice_row.add_child(button)
 

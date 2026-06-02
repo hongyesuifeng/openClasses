@@ -20,6 +20,15 @@ const NODE_COLORS := {
 	"result": Color(0.28, 0.22, 0.48, 0.92)
 }
 
+const NODE_ICON_PATHS := {
+	"battle": "res://assets/ui/icons/icon_battle.png",
+	"shop": "res://assets/ui/icons/icon_shop.png",
+	"chest": "res://assets/ui/icons/icon_chest.png",
+	"event": "res://assets/ui/icons/icon_question.png",
+	"rest": "res://assets/ui/icons/icon_rest.png",
+	"result": "res://assets/ui/icons/icon_boss.png"
+}
+
 var _status_label: Label
 var _relic_row: HBoxContainer
 var _node_root: Control
@@ -110,7 +119,7 @@ func _render_nodes() -> void:
 		var floor_nodes := floors[floor_index] as Array
 		var index := floor_nodes.find(node_dict)
 		var node_pos := _node_position(floor_index, index, floor_nodes.size(), max_floor)
-		_node_positions[node_id] = node_pos + Vector2(66.0, 29.0)
+		_node_positions[node_id] = node_pos + Vector2(72.0, 32.0)
 
 	_render_paths(nodes, completed)
 
@@ -125,13 +134,14 @@ func _render_nodes() -> void:
 		var done := completed.has(node_id)
 
 		var button := Button.new()
-		button.text = _node_text(node_dict, selectable, done)
-		button.custom_minimum_size = Vector2(132, 58)
+		button.text = ""
+		button.custom_minimum_size = Vector2(144, 64)
 		button.position = node_pos
 		button.disabled = not selectable
 		button.add_theme_stylebox_override("normal", _node_style(str(node_dict.get("type", "")), done, selectable))
 		button.add_theme_stylebox_override("hover", _node_style(str(node_dict.get("type", "")), done, true))
 		button.pressed.connect(_on_node_pressed.bind(node_id))
+		_add_node_content(button, node_dict, selectable, done)
 		_node_root.add_child(button)
 
 
@@ -163,16 +173,49 @@ func _node_position(floor_index: int, index: int, count: int, max_floor: int) ->
 	var center_y := height * 0.5
 	var y_gap := 92.0
 	var y := center_y + (float(index) - float(count - 1) * 0.5) * y_gap
-	return Vector2(x_step * floor_index - 66.0, y - 29.0)
+	return Vector2(x_step * floor_index - 72.0, y - 32.0)
 
 
 func _node_text(node: Dictionary, selectable: bool, done: bool) -> String:
 	var node_type := str(node.get("type", ""))
 	var prefix := "✓ " if done else ""
-	var suffix := "\n可选择" if selectable else ""
+	var suffix := " 可选" if selectable else ""
 	if bool(node.get("is_final", false)):
 		return "%sBoss%s" % [prefix, suffix]
 	return "%s%s\n%d 层%s" % [prefix, NODE_LABELS.get(node_type, node_type), int(node.get("floor", 0)), suffix]
+
+
+func _add_node_content(button: Button, node: Dictionary, selectable: bool, done: bool) -> void:
+	var node_type := str(node.get("type", ""))
+	var icon_path := str(NODE_ICON_PATHS.get(node_type, NODE_ICON_PATHS["event"]))
+	if bool(node.get("is_final", false)):
+		icon_path = str(NODE_ICON_PATHS["result"])
+
+	var icon := TextureRect.new()
+	icon.texture = load(icon_path)
+	icon.position = Vector2(9, 14)
+	icon.size = Vector2(34, 34)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.modulate = Color(1, 1, 1, 1) if selectable or done else Color(0.62, 0.62, 0.62, 0.82)
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(icon)
+
+	var label := Label.new()
+	label.text = _node_text(node, selectable, done)
+	label.anchor_left = 0.34
+	label.anchor_top = 0.08
+	label.anchor_right = 0.96
+	label.anchor_bottom = 0.92
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.add_theme_font_size_override("font_size", 14)
+	label.add_theme_color_override("font_color", Color(0.98, 0.91, 0.74) if selectable or done else Color(0.72, 0.68, 0.58))
+	label.add_theme_color_override("font_shadow_color", Color(0.06, 0.045, 0.035, 0.9))
+	label.add_theme_constant_override("shadow_offset_x", 1)
+	label.add_theme_constant_override("shadow_offset_y", 1)
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_child(label)
 
 
 func _status_text() -> String:
