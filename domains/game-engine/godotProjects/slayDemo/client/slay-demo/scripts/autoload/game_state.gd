@@ -18,6 +18,7 @@ var completed_map_node_ids: Array[String] = []
 var available_map_node_ids: Array[String] = []
 var current_map_node_id := ""
 var pending_map_reward: Dictionary = {}
+var pending_relic_reward: Dictionary = {}
 var battle_wins := 0
 var is_run_won := false
 var is_run_finished := false
@@ -42,6 +43,7 @@ func start_new_run(run_config: Dictionary) -> void:
 	available_map_node_ids.clear()
 	current_map_node_id = ""
 	pending_map_reward.clear()
+	pending_relic_reward.clear()
 	master_deck.clear()
 	owned_relic_ids.clear()
 
@@ -175,6 +177,20 @@ func add_relic(relic_id: String) -> bool:
 		player_max_hp += max_hp_bonus
 		player_hp = mini(player_max_hp, player_hp + max_hp_bonus)
 	return true
+
+
+func set_pending_relic_reward(relic: Dictionary) -> void:
+	pending_relic_reward = relic.duplicate(true)
+
+
+func consume_pending_relic_reward() -> Dictionary:
+	var relic := pending_relic_reward.duplicate(true)
+	pending_relic_reward.clear()
+	return relic
+
+
+func has_pending_relic_reward() -> bool:
+	return not pending_relic_reward.is_empty()
 
 
 func get_owned_relics() -> Array:

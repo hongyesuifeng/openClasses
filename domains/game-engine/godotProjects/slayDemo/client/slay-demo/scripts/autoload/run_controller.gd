@@ -270,8 +270,7 @@ func _grant_elite_relic_if_needed() -> void:
 	var relic: Dictionary = RelicServiceScript.choose_relic_reward(game_state.owned_relic_ids, data_loader)
 	if relic.is_empty():
 		return
-	if game_state.add_relic(str(relic.get("id", ""))):
-		print("获得遗物: %s" % str(relic.get("name", "")))
+	game_state.set_pending_relic_reward(relic)
 
 
 func _autoload(autoload_name: String) -> Variant:

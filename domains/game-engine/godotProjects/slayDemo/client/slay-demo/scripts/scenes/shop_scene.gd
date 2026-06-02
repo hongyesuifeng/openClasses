@@ -7,6 +7,7 @@ var _status_label: Label
 var _gold_label: Label
 var _content_row: HBoxContainer
 var _offers: Array = []
+var _relic_offer: Dictionary = {}
 var _remove_mode := false
 
 
@@ -107,6 +108,10 @@ func _render_shop_choices() -> void:
 		price_label.add_theme_color_override("font_color", Color(0.94, 0.84, 0.54))
 		box.add_child(price_label)
 
+	# 遗物商品
+	if not _relic_offer.is_empty() and not bool(_relic_offer.get("sold", false)):
+		_render_relic_offer()
+
 
 func _render_remove_choices() -> void:
 	var data_loader: Variant = _autoload("DataLoader")
@@ -123,6 +128,67 @@ func _render_remove_choices() -> void:
 	back_button.custom_minimum_size = Vector2(140, 44)
 	back_button.pressed.connect(_on_back_pressed)
 	_content_row.add_child(back_button)
+
+
+func _render_relic_offer() -> void:
+	var relic := _relic_offer.get("relic", {}) as Dictionary
+	var price := int(_relic_offer.get("price", 0))
+
+	var box := VBoxContainer.new()
+	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	box.add_theme_constant_override("separation", 8)
+	_content_row.add_child(box)
+
+	var panel := PanelContainer.new()
+	panel.custom_minimum_size = Vector2(180, 180)
+	box.add_child(panel)
+
+	var inner := VBoxContainer.new()
+	inner.alignment = BoxContainer.ALIGNMENT_CENTER
+	inner.add_theme_constant_override("separation", 6)
+	panel.add_child(inner)
+
+	var tag := Label.new()
+	tag.text = "遗物"
+	tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tag.add_theme_font_size_override("font_size", 12)
+	tag.add_theme_color_override("font_color", Color(0.94, 0.84, 0.54))
+	inner.add_child(tag)
+
+	var name_label := Label.new()
+	name_label.text = str(relic.get("name", ""))
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_label.add_theme_font_size_override("font_size", 18)
+	name_label.add_theme_color_override("font_color", Color(0.98, 0.9, 0.5))
+	inner.add_child(name_label)
+
+	var desc_label := Label.new()
+	desc_label.text = str(relic.get("description", ""))
+	desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	desc_label.add_theme_font_size_override("font_size", 13)
+	desc_label.add_theme_color_override("font_color", Color(0.88, 0.80, 0.68))
+	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	desc_label.custom_minimum_size = Vector2(160, 0)
+	inner.add_child(desc_label)
+
+	var buy_btn := Button.new()
+	buy_btn.text = "%d 金" % price
+	buy_btn.custom_minimum_size = Vector2(160, 38)
+	buy_btn.disabled = not _can_afford(price)
+	buy_btn.pressed.connect(_on_buy_relic_pressed)
+	box.add_child(buy_btn)
+
+
+func _on_buy_relic_pressed() -> void:
+	var relic := _relic_offer.get("relic", {}) as Dictionary
+	var price := int(_relic_offer.get("price", 0))
+	var game_state: Variant = _autoload("GameState")
+	if ShopServiceScript.buy_relic(game_state, str(relic.get("id", "")), price):
+		_status_label.text = "获得遗物：%s" % str(relic.get("name", ""))
+		_relic_offer["sold"] = true
+		_rebuild()
+	else:
+		_status_label.text = "金币不足。"
 
 
 func _on_buy_pressed(index: int) -> void:
@@ -172,6 +238,7 @@ func _refresh_offers() -> void:
 		var node: Dictionary = game_state.get_current_node()
 		floor_index = int(node.get("floor", 0))
 	_offers = ShopServiceScript.generate_card_offers(game_state.master_deck, data_loader, ShopServiceScript.CARD_SLOTS, floor_index)
+	_relic_offer = ShopServiceScript.generate_relic_offer(game_state.owned_relic_ids, data_loader, floor_index)
 
 
 func _remove_price() -> int:

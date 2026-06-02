@@ -9,9 +9,15 @@ var _choice_row: HBoxContainer
 var _status_label: Label
 var _upgrade_mode := false
 var _upgradeable_cards: Array = []
+var _relic_mode := false
+var _pending_relic: Dictionary = {}
 
 
 func _ready() -> void:
+	var game_state: Variant = _autoload("GameState")
+	if game_state != null and game_state.has_pending_relic_reward():
+		_pending_relic = game_state.consume_pending_relic_reward()
+		_relic_mode = true
 	_check_upgrade_availability()
 	_build()
 
@@ -49,6 +55,68 @@ func _build() -> void:
 	root.add_theme_constant_override("separation", 20)
 	add_child(root)
 
+	if _relic_mode:
+		_build_relic_reward(root)
+	else:
+		_build_card_reward(root)
+
+
+func _build_relic_reward(root: VBoxContainer) -> void:
+	var title := Label.new()
+	title.text = "精英战斗奖励"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 30)
+	title.add_theme_color_override("font_color", Color(0.98, 0.84, 0.4))
+	root.add_child(title)
+
+	_status_label = Label.new()
+	_status_label.text = "获得遗物"
+	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_status_label.add_theme_font_size_override("font_size", 16)
+	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	root.add_child(_status_label)
+
+	# 遗物展示面板
+	var panel := PanelContainer.new()
+	panel.custom_minimum_size = Vector2(320, 0)
+	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	root.add_child(panel)
+
+	var panel_vbox := VBoxContainer.new()
+	panel_vbox.add_theme_constant_override("separation", 10)
+	panel.add_child(panel_vbox)
+
+	var relic_name_label := Label.new()
+	relic_name_label.text = str(_pending_relic.get("name", "未知遗物"))
+	relic_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	relic_name_label.add_theme_font_size_override("font_size", 24)
+	relic_name_label.add_theme_color_override("font_color", Color(0.98, 0.9, 0.5))
+	panel_vbox.add_child(relic_name_label)
+
+	var rarity_str := _rarity_label(str(_pending_relic.get("rarity", "common")))
+	var rarity_label := Label.new()
+	rarity_label.text = rarity_str
+	rarity_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	rarity_label.add_theme_font_size_override("font_size", 14)
+	rarity_label.add_theme_color_override("font_color", _rarity_color(str(_pending_relic.get("rarity", "common"))))
+	panel_vbox.add_child(rarity_label)
+
+	var desc_label := Label.new()
+	desc_label.text = str(_pending_relic.get("description", ""))
+	desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	desc_label.add_theme_font_size_override("font_size", 16)
+	desc_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	panel_vbox.add_child(desc_label)
+
+	var confirm_button := Button.new()
+	confirm_button.text = "获得遗物，继续"
+	confirm_button.custom_minimum_size = Vector2(200, 48)
+	confirm_button.pressed.connect(_on_relic_confirmed)
+	root.add_child(confirm_button)
+
+
+func _build_card_reward(root: VBoxContainer) -> void:
 	var title := Label.new()
 	title.text = "选择一张卡牌奖励" if not _upgrade_mode else "选择一张卡牌升级"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -70,13 +138,11 @@ func _build() -> void:
 
 	_render_choices()
 
-	# 按钮区域
 	var button_row := HBoxContainer.new()
 	button_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	button_row.add_theme_constant_override("separation", 16)
 	root.add_child(button_row)
 
-	# 升级按钮（如果有可升级卡牌）
 	if not _upgradeable_cards.is_empty() and not _upgrade_mode:
 		var upgrade_button := Button.new()
 		upgrade_button.text = "升级卡牌 (%d张可选)" % _upgradeable_cards.size()
@@ -84,7 +150,6 @@ func _build() -> void:
 		upgrade_button.pressed.connect(_on_upgrade_mode_pressed)
 		button_row.add_child(upgrade_button)
 
-	# 切换回卡牌奖励按钮
 	if _upgrade_mode:
 		var card_button := Button.new()
 		card_button.text = "选择卡牌奖励"
@@ -92,7 +157,6 @@ func _build() -> void:
 		card_button.pressed.connect(_on_card_mode_pressed)
 		button_row.add_child(card_button)
 
-	# 跳过按钮
 	var skip_button := Button.new()
 	skip_button.text = "跳过"
 	skip_button.custom_minimum_size = Vector2(160, 44)
@@ -104,7 +168,6 @@ func _render_choices() -> void:
 	_clear_children(_choice_row)
 
 	if _upgrade_mode:
-		# 显示可升级卡牌
 		for index in range(_upgradeable_cards.size()):
 			var card_instance := _upgradeable_cards[index] as Dictionary
 			var data_loader: Variant = _autoload("DataLoader")
@@ -113,12 +176,20 @@ func _render_choices() -> void:
 			button.pressed.connect(_on_upgrade_pressed.bind(index))
 			_choice_row.add_child(button)
 	else:
-		# 显示卡牌奖励
 		for index in range(_choices.size()):
 			var card := _choices[index] as Dictionary
 			var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(190, 246))
 			button.pressed.connect(_on_choice_pressed.bind(index))
 			_choice_row.add_child(button)
+
+
+func _on_relic_confirmed() -> void:
+	var game_state: Variant = _autoload("GameState")
+	game_state.add_relic(str(_pending_relic.get("id", "")))
+	_relic_mode = false
+	_pending_relic = {}
+	_clear_children(self)
+	_build()
 
 
 func _on_choice_pressed(index: int) -> void:
@@ -162,6 +233,20 @@ func _on_card_mode_pressed() -> void:
 func _on_skip_pressed() -> void:
 	var run_controller: Variant = _autoload("RunController")
 	run_controller.complete_reward()
+
+
+func _rarity_label(rarity: String) -> String:
+	match rarity:
+		"uncommon": return "★★ 非常见"
+		"rare":     return "★★★ 稀有"
+		_:          return "★ 普通"
+
+
+func _rarity_color(rarity: String) -> Color:
+	match rarity:
+		"uncommon": return Color(0.4, 0.8, 1.0)
+		"rare":     return Color(1.0, 0.6, 0.2)
+		_:          return Color(0.85, 0.85, 0.85)
 
 
 func _clear_children(node: Node) -> void:

@@ -24,6 +24,7 @@ static func save(game_state: Variant, run_controller: Variant, data_loader: Vari
 		"available_map_node_ids": (game_state.available_map_node_ids as Array).duplicate(),
 		"current_map_node_id": str(game_state.current_map_node_id),
 		"pending_map_reward": (game_state.pending_map_reward as Dictionary).duplicate(true),
+		"pending_relic_reward": (game_state.pending_relic_reward as Dictionary).duplicate(true),
 		"battle_wins": int(game_state.battle_wins),
 		"current_phase": str(game_state.current_phase),
 	}
@@ -111,6 +112,12 @@ static func restore(save_data: Dictionary, game_state: Variant, run_controller: 
 		game_state.pending_map_reward = (pending as Dictionary).duplicate(true)
 	else:
 		game_state.pending_map_reward = {}
+
+	var pending_relic: Variant = save_data.get("pending_relic_reward", {})
+	if pending_relic is Dictionary:
+		game_state.pending_relic_reward = (pending_relic as Dictionary).duplicate(true)
+	else:
+		game_state.pending_relic_reward = {}
 
 	## 遗物的 max_hp 加成不重新触发（存档时已包含在 player_max_hp 里）
 

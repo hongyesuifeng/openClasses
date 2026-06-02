@@ -3,6 +3,7 @@ class_name ShopService
 
 const REMOVE_CARD_BASE_PRICE := 75
 const CARD_SLOTS := 3
+const RELIC_BASE_PRICE := 150
 
 
 static func generate_card_offers(owned_deck: Array, data_loader: Variant, slots := CARD_SLOTS, floor_index: int = 0) -> Array:
@@ -70,6 +71,33 @@ static func remove_card(game_state: Variant, instance_id: int, price: int) -> bo
 		return true
 	game_state.add_gold(price)
 	return false
+
+
+static func generate_relic_offer(owned_relic_ids: Array, data_loader: Variant, floor_index: int = 0) -> Dictionary:
+	const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
+	var relic: Dictionary = RelicServiceScript.choose_relic_reward(owned_relic_ids, data_loader)
+	if relic.is_empty():
+		return {}
+	return {
+		"relic": relic.duplicate(true),
+		"price": price_for_relic(relic, floor_index),
+		"sold": false
+	}
+
+
+static func price_for_relic(relic: Dictionary, floor_index: int = 0) -> int:
+	var base: int
+	match str(relic.get("rarity", "common")):
+		"uncommon": base = 200
+		"rare":     base = 300
+		_:          base = RELIC_BASE_PRICE
+	return base + floor_index * 5
+
+
+static func buy_relic(game_state: Variant, relic_id: String, price: int) -> bool:
+	if relic_id.is_empty() or not game_state.spend_gold(price):
+		return false
+	return game_state.add_relic(relic_id)
 
 
 static func _score_card(card: Dictionary, owned_deck: Array) -> int:
