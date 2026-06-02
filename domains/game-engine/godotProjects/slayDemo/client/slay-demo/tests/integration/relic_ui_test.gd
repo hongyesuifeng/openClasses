@@ -56,7 +56,7 @@ func _test_battle_relic_row(ctx: Variant, game_state: Variant, data_loader: Vari
 	await _tree().process_frame
 
 	var relic_row: HBoxContainer = battle.get("_relic_row")
-	var relic_button := _find_button_by_text(relic_row, "灯笼")
+	var relic_button := _find_relic_button(relic_row, "lantern", "灯笼")
 	ctx.assert_true(relic_button != null, "battle scene renders owned relic button")
 	ctx.assert_true(relic_button.tooltip_text.contains("每场战斗第一回合获得 1 点额外能量。"), "battle relic tooltip includes description")
 	relic_button.pressed.emit()
@@ -96,7 +96,7 @@ func _test_map_relic_row(ctx: Variant, game_state: Variant, data_loader: Variant
 	await _tree().process_frame
 
 	var relic_row: HBoxContainer = map.get("_relic_row")
-	var relic_button := _find_button_by_text(relic_row, "草莓")
+	var relic_button := _find_relic_button(relic_row, "strawberry", "草莓")
 	ctx.assert_true(relic_button != null, "map scene renders owned relic button")
 	ctx.assert_true(relic_button.tooltip_text.contains("获得时最大生命值提高 10。"), "map relic tooltip includes description")
 	relic_button.pressed.emit()
@@ -105,6 +105,15 @@ func _test_map_relic_row(ctx: Variant, game_state: Variant, data_loader: Variant
 	ctx.assert_true(status_label.text.contains("草莓"), "map relic click writes name to status text")
 	ctx.assert_true(status_label.text.contains("最大生命值"), "map relic click writes effect to status text")
 	map.queue_free()
+
+
+func _find_relic_button(root: Node, relic_id: String, relic_name: String) -> Button:
+	# 图标按钮模式：name = "Relic_<id>"
+	var by_name := root.find_child("Relic_%s" % relic_id, true, false)
+	if by_name is Button:
+		return by_name as Button
+	# fallback：文字按钮模式
+	return _find_button_by_text(root, relic_name)
 
 
 func _find_button_by_text(root: Node, text: String) -> Button:

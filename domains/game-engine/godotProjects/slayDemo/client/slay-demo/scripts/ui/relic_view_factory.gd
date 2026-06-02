@@ -6,21 +6,56 @@ const RARITY_COLORS := {
 	"rare": Color(0.34, 0.24, 0.50, 0.95)
 }
 
+const RELIC_ICON_PATHS := {
+	"anchor":      "res://assets/ui/relics/relic_anchor.png",
+	"lantern":     "res://assets/ui/relics/relic_lantern.png",
+	"strawberry":  "res://assets/ui/relics/relic_strawberry.png",
+	"meal_ticket": "res://assets/ui/relics/relic_meal_ticket.png",
+	"golden_idol": "res://assets/ui/relics/relic_golden_idol.png",
+}
+
 
 static func create_relic_button(relic: Dictionary, detail_callback: Callable = Callable()) -> Button:
+	var relic_id   := str(relic.get("id", ""))
 	var relic_name := str(relic.get("name", str(relic.get("id", "遗物"))))
 	var description := str(relic.get("description", ""))
+	var rarity     := str(relic.get("rarity", "common"))
+
 	var button := Button.new()
-	button.name = "Relic_%s" % str(relic.get("id", relic_name))
-	button.text = _short_name(relic_name)
+	button.name = "Relic_%s" % relic_id
 	button.tooltip_text = "%s\n%s" % [relic_name, description]
-	button.custom_minimum_size = Vector2(72, 30)
 	button.focus_mode = Control.FOCUS_NONE
-	button.add_theme_font_size_override("font_size", 14)
-	button.add_theme_color_override("font_color", Color(0.96, 0.90, 0.78))
-	button.add_theme_stylebox_override("normal", _style_for(str(relic.get("rarity", "common")), 0.95))
-	button.add_theme_stylebox_override("hover", _style_for(str(relic.get("rarity", "common")), 1.08))
-	button.add_theme_stylebox_override("pressed", _style_for(str(relic.get("rarity", "common")), 1.18))
+	button.add_theme_stylebox_override("normal",  _style_for(rarity, 0.95))
+	button.add_theme_stylebox_override("hover",   _style_for(rarity, 1.08))
+	button.add_theme_stylebox_override("pressed", _style_for(rarity, 1.18))
+
+	var icon_path: String = RELIC_ICON_PATHS.get(relic_id, "")
+	var texture: Texture2D = null
+	if icon_path != "" and ResourceLoader.exists(icon_path, "Texture2D"):
+		texture = ResourceLoader.load(icon_path, "Texture2D") as Texture2D
+
+	if texture != null:
+		# 图标按钮：48×48 正方形，显示图片
+		button.text = ""
+		button.custom_minimum_size = Vector2(48, 48)
+
+		var tex := TextureRect.new()
+		tex.texture = texture
+		tex.set_anchors_preset(Control.PRESET_FULL_RECT)
+		tex.offset_left   = 4
+		tex.offset_top    = 4
+		tex.offset_right  = -4
+		tex.offset_bottom = -4
+		tex.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		tex.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.add_child(tex)
+	else:
+		# fallback：无图片时用文字按钮
+		button.text = _short_name(relic_name)
+		button.custom_minimum_size = Vector2(72, 30)
+		button.add_theme_font_size_override("font_size", 14)
+		button.add_theme_color_override("font_color", Color(0.96, 0.90, 0.78))
+
 	if detail_callback.is_valid():
 		button.pressed.connect(detail_callback.bind(relic.duplicate(true)))
 	return button

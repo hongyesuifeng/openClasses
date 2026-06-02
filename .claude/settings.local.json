@@ -98,12 +98,14 @@
       "Read(//home/qq691/.agents/skills/humanizer-zh/**)",
       "Bash(find /mnt/c/Users/qq691/Desktop/openClasses -name \"*.json\" -exec grep -l \"humanizer\\\\|skill\" {} \\\\; 2>/dev/null | head -10)",
       "Bash(tasklist.exe | grep -i openclaw)",
-      "Bash(tasklist.exe | grep -iE \"openclaw|cherry|claw\")"
+      "Bash(tasklist.exe | grep -iE \"openclaw|cherry|claw\")",
+      "Bash(unzip -l slaydemo_assets_unified.zip)",
+      "Bash(unzip -o slaydemo_assets_unified.zip)",
+      "Bash(cmd.exe /c \"C:\\\\Users\\\\Lenovo\\\\Downloads\\\\Godot_v4.6.2-stable_win64.exe\\\\Godot_v4.6.2-stable_win64_console.exe --headless --path D:\\\\openClass\\\\openClasses\\\\domains\\\\game-engine\\\\godotProjects\\\\slayDemo\\\\client\\\\slay-demo res://tests/test_runner.tscn\")"
     ],
     "deny": [],
     "ask": []
   },
-  "outputStyle": "Explanatory",
   "hooks": {
     "PostToolUse": [
       {
@@ -116,5 +118,6 @@
         ]
       }
     ]
-  }
+  },
+  "outputStyle": "Explanatory"
 }
