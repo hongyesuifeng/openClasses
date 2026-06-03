@@ -45,6 +45,12 @@ func setup(p_encounter_id: String, master_deck: Array, player_state: Dictionary)
 	player_status = StatusManagerScript.new()
 
 	var data_loader: Variant = _autoload("DataLoader")
+
+	## 遗物被动加成：每回合抽牌数
+	var draw_bonus := RelicServiceScript.get_effect_total(relic_ids, data_loader, "draw_per_turn")
+	if draw_bonus > 0:
+		draw_per_turn += draw_bonus
+
 	var encounter: Dictionary = data_loader.get_encounter(encounter_id)
 	for enemy_id in encounter.get("enemy_ids", []):
 		var enemy := EnemyAIScript.initialize_enemy(data_loader.get_enemy(str(enemy_id)))

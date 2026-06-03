@@ -152,12 +152,24 @@ for error in null_errors:
 
 ### 规则 1: 测试驱动交付（强制）
 
-**每次完成功能或模块开发后，必须运行单元测试，所有测试通过后才算交付完成。**
+**每次完成功能或模块开发后，必须同步编写对应的单元测试，运行全量测试通过后才算交付完成。**
+
+#### 核心要求
+
+> 新功能 / 新内容 必须有对应新测试，缺测试视为交付不完整。
+
+| 开发内容 | 必须补充的测试 |
+|---------|--------------|
+| 新服务类（`*_service.gd`） | `tests/unit/*_service_test.gd`，覆盖核心逻辑、边界条件、失败路径 |
+| 新 JSON 数据（cards / relics / potions） | `content_expansion_test.gd` 或对应测试，验证 validate_all 通过、关键字段可查询 |
+| 新 UI 工厂（`*_view_factory.gd`） | `tests/unit/*_view_factory_test.gd`，验证返回类型、tooltip、callback 绑定 |
+| 新场景流程（`*_scene.gd`） | `tests/integration/`，验证场景实例化、关键 UI 状态、流程跳转 |
+| 修改现有系统 | 更新对应测试，确保改动不破坏已有断言 |
 
 #### 工作流
 
 ```
-开发新功能 → 编写/更新测试 → 运行测试 → 全部通过 → 提交代码
+开发新功能 → 编写对应测试 → 运行测试 → 全部通过 → 提交代码
                                 ↓
                             有失败 → 修复 → 重新运行
 ```
@@ -171,7 +183,7 @@ C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe --headless --path client
 
 ```bash
 # WSL/Linux (通过 cmd.exe)
-cmd.exe /c "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe --headless --path D:\openClass\openClasses\domains\game-engine\godotProjects\slayDemo\client\slay-demo res://tests/test_runner.tscn"
+cmd.exe /c "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2-stable_win64_console.exe --headless --path D:\openClass\openClasses\domains\game-engine\godotProjects\slayDemo\client\slay-demo res://tests/test_runner.tscn"
 ```
 
 #### 测试通过的判定标准

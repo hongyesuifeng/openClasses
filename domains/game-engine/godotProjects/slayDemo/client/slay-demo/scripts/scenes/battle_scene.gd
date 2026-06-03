@@ -353,7 +353,8 @@ func _render_enemies(enemies: Array) -> void:
 		# 敌人状态显示
 		var enemy_statuses: Array = enemy.get("statuses", [])
 		if not enemy_statuses.is_empty():
-			var status_row := StatusViewFactoryScript.create_status_row(enemy_statuses, true)
+			var status_row := StatusViewFactoryScript.create_status_row(
+				enemy_statuses, true, Callable(self, "_on_status_pressed"))
 			status_row.anchor_left = 0.05
 			status_row.anchor_top = 0.94
 			status_row.anchor_right = 0.95
@@ -376,8 +377,8 @@ func _render_player_statuses(statuses: Array) -> void:
 		var stacks := int(status.get("stacks", 0))
 		if stacks <= 0:
 			continue
-
-		var label := StatusViewFactoryScript.create_status_label(status_id, stacks, false)
+		var label := StatusViewFactoryScript.create_status_label(
+			status_id, stacks, false, Callable(self, "_on_status_pressed"))
 		_player_status_row.add_child(label)
 
 
@@ -396,6 +397,10 @@ func _render_relics() -> void:
 
 func _on_relic_pressed(relic: Dictionary) -> void:
 	_status_label.text = RelicViewFactoryScript.detail_text(relic)
+
+
+func _on_status_pressed(status_id: String, stacks: int) -> void:
+	_status_label.text = StatusViewFactoryScript.get_status_description(status_id, stacks)
 
 
 func _render_potions() -> void:

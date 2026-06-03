@@ -8,17 +8,28 @@
       "rarity": "starter",
       "cost": 1,
       "target": "single_enemy",
-      "tags": ["starter", "damage"],
+      "tags": [
+        "starter",
+        "damage"
+      ],
       "art_key": "card_strike",
       "effects": [
-        { "type": "damage", "value": 6, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 6,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "打击+",
         "description": "造成 9 点伤害。",
         "cost": 1,
         "effects": [
-          { "type": "damage", "value": 9, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 9,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -30,17 +41,28 @@
       "rarity": "starter",
       "cost": 1,
       "target": "self",
-      "tags": ["starter", "block"],
+      "tags": [
+        "starter",
+        "block"
+      ],
       "art_key": "card_defend",
       "effects": [
-        { "type": "block", "value": 5, "target": "self" }
+        {
+          "type": "block",
+          "value": 5,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "防御+",
         "description": "获得 8 点格挡。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 8, "target": "self" }
+          {
+            "type": "block",
+            "value": 8,
+            "target": "self"
+          }
         ]
       }
     },
@@ -52,19 +74,40 @@
       "rarity": "starter",
       "cost": 2,
       "target": "single_enemy",
-      "tags": ["damage", "debuff"],
+      "tags": [
+        "damage",
+        "debuff"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 8, "target": "selected_enemy" },
-        { "type": "apply_status", "status_id": "vulnerable", "value": 2, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 8,
+          "target": "selected_enemy"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "vulnerable",
+          "value": 2,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "痛击+",
         "description": "造成 10 点伤害，施加 3 层易伤。",
         "cost": 2,
         "effects": [
-          { "type": "damage", "value": 10, "target": "selected_enemy" },
-          { "type": "apply_status", "status_id": "vulnerable", "value": 3, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 10,
+            "target": "selected_enemy"
+          },
+          {
+            "type": "apply_status",
+            "status_id": "vulnerable",
+            "value": 3,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -76,17 +119,26 @@
       "rarity": "common",
       "cost": 1,
       "target": "all_enemies",
-      "tags": ["damage", "aoe"],
+      "tags": [
+        "damage",
+        "aoe"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "aoe_damage", "value": 8 }
+        {
+          "type": "aoe_damage",
+          "value": 8
+        }
       ],
       "upgrade": {
         "name": "横扫+",
         "description": "对所有敌人造成 11 点伤害。",
         "cost": 1,
         "effects": [
-          { "type": "aoe_damage", "value": 11 }
+          {
+            "type": "aoe_damage",
+            "value": 11
+          }
         ]
       }
     },
@@ -98,19 +150,38 @@
       "rarity": "common",
       "cost": 1,
       "target": "single_enemy",
-      "tags": ["damage", "block"],
+      "tags": [
+        "damage",
+        "block"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 5, "target": "selected_enemy" },
-        { "type": "block", "value": 5, "target": "self" }
+        {
+          "type": "damage",
+          "value": 5,
+          "target": "selected_enemy"
+        },
+        {
+          "type": "block",
+          "value": 5,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "铁波+",
         "description": "造成 7 点伤害，获得 7 点格挡。",
         "cost": 1,
         "effects": [
-          { "type": "damage", "value": 7, "target": "selected_enemy" },
-          { "type": "block", "value": 7, "target": "self" }
+          {
+            "type": "damage",
+            "value": 7,
+            "target": "selected_enemy"
+          },
+          {
+            "type": "block",
+            "value": 7,
+            "target": "self"
+          }
         ]
       }
     },
@@ -122,17 +193,30 @@
       "rarity": "common",
       "cost": 1,
       "target": "single_enemy",
-      "tags": ["damage", "multi"],
+      "tags": [
+        "damage",
+        "multi"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "multi_damage", "value": 5, "hits": 2, "target": "selected_enemy" }
+        {
+          "type": "multi_damage",
+          "value": 5,
+          "hits": 2,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "双重打击+",
         "description": "造成 7 点伤害两次。",
         "cost": 1,
         "effects": [
-          { "type": "multi_damage", "value": 7, "hits": 2, "target": "selected_enemy" }
+          {
+            "type": "multi_damage",
+            "value": 7,
+            "hits": 2,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -144,17 +228,28 @@
       "rarity": "common",
       "cost": 2,
       "target": "single_enemy",
-      "tags": ["damage", "burst"],
+      "tags": [
+        "damage",
+        "burst"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 12, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 12,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "重击+",
         "description": "造成 16 点伤害。",
         "cost": 2,
         "effects": [
-          { "type": "damage", "value": 16, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 16,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -166,19 +261,36 @@
       "rarity": "common",
       "cost": 1,
       "target": "single_enemy",
-      "tags": ["damage", "draw"],
+      "tags": [
+        "damage",
+        "draw"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 9, "target": "selected_enemy" },
-        { "type": "draw", "value": 1 }
+        {
+          "type": "damage",
+          "value": 9,
+          "target": "selected_enemy"
+        },
+        {
+          "type": "draw",
+          "value": 1
+        }
       ],
       "upgrade": {
         "name": "柄击+",
         "description": "造成 10 点伤害，抽 2 张牌。",
         "cost": 1,
         "effects": [
-          { "type": "damage", "value": 10, "target": "selected_enemy" },
-          { "type": "draw", "value": 2 }
+          {
+            "type": "damage",
+            "value": 10,
+            "target": "selected_enemy"
+          },
+          {
+            "type": "draw",
+            "value": 2
+          }
         ]
       }
     },
@@ -190,17 +302,28 @@
       "rarity": "common",
       "cost": 0,
       "target": "single_enemy",
-      "tags": ["damage", "conditional"],
+      "tags": [
+        "damage",
+        "conditional"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 14, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 14,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "冲突+",
         "description": "造成 18 点伤害。",
         "cost": 0,
         "effects": [
-          { "type": "damage", "value": 18, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 18,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -212,17 +335,28 @@
       "rarity": "common",
       "cost": 0,
       "target": "self",
-      "tags": ["block", "low_cost"],
+      "tags": [
+        "block",
+        "low_cost"
+      ],
       "art_key": "card_defend",
       "effects": [
-        { "type": "block", "value": 3, "target": "self" }
+        {
+          "type": "block",
+          "value": 3,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "快速格挡+",
         "description": "获得 4 点格挡。",
         "cost": 0,
         "effects": [
-          { "type": "block", "value": 4, "target": "self" }
+          {
+            "type": "block",
+            "value": 4,
+            "target": "self"
+          }
         ]
       }
     },
@@ -234,19 +368,38 @@
       "rarity": "common",
       "cost": 1,
       "target": "self",
-      "tags": ["block", "draw"],
+      "tags": [
+        "block",
+        "draw"
+      ],
       "art_key": "card_defend",
       "effects": [
-        { "type": "block", "value": 8, "target": "self" },
-        { "type": "draw", "value": 1, "target": "self" }
+        {
+          "type": "block",
+          "value": 8,
+          "target": "self"
+        },
+        {
+          "type": "draw",
+          "value": 1,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "耸肩无视+",
         "description": "获得 11 点格挡，抽 1 张牌。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 11, "target": "self" },
-          { "type": "draw", "value": 1, "target": "self" }
+          {
+            "type": "block",
+            "value": 11,
+            "target": "self"
+          },
+          {
+            "type": "draw",
+            "value": 1,
+            "target": "self"
+          }
         ]
       }
     },
@@ -258,17 +411,27 @@
       "rarity": "common",
       "cost": 1,
       "target": "self",
-      "tags": ["draw"],
+      "tags": [
+        "draw"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "draw", "value": 2, "target": "self" }
+        {
+          "type": "draw",
+          "value": 2,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "战斗专注+",
         "description": "抽 3 张牌。",
         "cost": 1,
         "effects": [
-          { "type": "draw", "value": 3, "target": "self" }
+          {
+            "type": "draw",
+            "value": 3,
+            "target": "self"
+          }
         ]
       }
     },
@@ -280,17 +443,30 @@
       "rarity": "common",
       "cost": 1,
       "target": "single_enemy",
-      "tags": ["debuff", "poison"],
+      "tags": [
+        "debuff",
+        "poison"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "apply_status", "status_id": "poison", "value": 4, "target": "selected_enemy" }
+        {
+          "type": "apply_status",
+          "status_id": "poison",
+          "value": 4,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "毒镖+",
         "description": "施加 6 层中毒。",
         "cost": 1,
         "effects": [
-          { "type": "apply_status", "status_id": "poison", "value": 6, "target": "selected_enemy" }
+          {
+            "type": "apply_status",
+            "status_id": "poison",
+            "value": 6,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -302,17 +478,28 @@
       "rarity": "common",
       "cost": 1,
       "target": "self",
-      "tags": ["block", "upgrade"],
+      "tags": [
+        "block",
+        "upgrade"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "block", "value": 5, "target": "self" }
+        {
+          "type": "block",
+          "value": 5,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "武装+",
         "description": "获得 5 点格挡。将所有手牌升级。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 5, "target": "self" }
+          {
+            "type": "block",
+            "value": 5,
+            "target": "self"
+          }
         ]
       }
     },
@@ -324,17 +511,28 @@
       "rarity": "common",
       "cost": 0,
       "target": "self",
-      "tags": ["strength", "temporary"],
+      "tags": [
+        "strength",
+        "temporary"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "gain_strength", "value": 2, "target": "self" }
+        {
+          "type": "gain_strength",
+          "value": 2,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "爆发+",
         "description": "获得 4 点力量。回合结束时失去 4 点力量。",
         "cost": 0,
         "effects": [
-          { "type": "gain_strength", "value": 4, "target": "self" }
+          {
+            "type": "gain_strength",
+            "value": 4,
+            "target": "self"
+          }
         ]
       }
     },
@@ -346,17 +544,28 @@
       "rarity": "uncommon",
       "cost": 1,
       "target": "self",
-      "tags": ["strength", "scaling"],
+      "tags": [
+        "strength",
+        "scaling"
+      ],
       "art_key": "card_buff",
       "effects": [
-        { "type": "gain_strength", "value": 2, "target": "self" }
+        {
+          "type": "gain_strength",
+          "value": 2,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "燃起斗志+",
         "description": "获得 3 点力量。",
         "cost": 1,
         "effects": [
-          { "type": "gain_strength", "value": 3, "target": "self" }
+          {
+            "type": "gain_strength",
+            "value": 3,
+            "target": "self"
+          }
         ]
       }
     },
@@ -368,19 +577,34 @@
       "rarity": "uncommon",
       "cost": 0,
       "target": "self",
-      "tags": ["energy", "draw"],
+      "tags": [
+        "energy",
+        "draw"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "gain_energy", "value": 2 },
-        { "type": "draw", "value": 2 }
+        {
+          "type": "gain_energy",
+          "value": 2
+        },
+        {
+          "type": "draw",
+          "value": 2
+        }
       ],
       "upgrade": {
         "name": "献祭+",
         "description": "获得 2 点能量，抽 3 张牌。",
         "cost": 0,
         "effects": [
-          { "type": "gain_energy", "value": 2 },
-          { "type": "draw", "value": 3 }
+          {
+            "type": "gain_energy",
+            "value": 2
+          },
+          {
+            "type": "draw",
+            "value": 3
+          }
         ]
       }
     },
@@ -392,17 +616,28 @@
       "rarity": "uncommon",
       "cost": 1,
       "target": "self",
-      "tags": ["block", "reactive"],
+      "tags": [
+        "block",
+        "reactive"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "block", "value": 3, "target": "self" }
+        {
+          "type": "block",
+          "value": 3,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "愤怒+",
         "description": "每打出一张攻击牌，获得 5 点格挡。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 5, "target": "self" }
+          {
+            "type": "block",
+            "value": 5,
+            "target": "self"
+          }
         ]
       }
     },
@@ -414,19 +649,36 @@
       "rarity": "uncommon",
       "cost": 2,
       "target": "single_enemy",
-      "tags": ["damage", "exhaust"],
+      "tags": [
+        "damage",
+        "exhaust"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "exhaust", "target": "non_attack_hand" },
-        { "type": "damage", "value": 16, "target": "selected_enemy" }
+        {
+          "type": "exhaust",
+          "target": "non_attack_hand"
+        },
+        {
+          "type": "damage",
+          "value": 16,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "断魂斩+",
         "description": "消耗手牌中所有非攻击牌，造成 22 点伤害。",
         "cost": 2,
         "effects": [
-          { "type": "exhaust", "target": "non_attack_hand" },
-          { "type": "damage", "value": 22, "target": "selected_enemy" }
+          {
+            "type": "exhaust",
+            "target": "non_attack_hand"
+          },
+          {
+            "type": "damage",
+            "value": 22,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -438,17 +690,26 @@
       "rarity": "uncommon",
       "cost": 0,
       "target": "self",
-      "tags": ["energy", "costly"],
+      "tags": [
+        "energy",
+        "costly"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "gain_energy", "value": 2 }
+        {
+          "type": "gain_energy",
+          "value": 2
+        }
       ],
       "upgrade": {
         "name": "放血+",
         "description": "失去 3 点生命，获得 3 点能量。",
         "cost": 0,
         "effects": [
-          { "type": "gain_energy", "value": 3 }
+          {
+            "type": "gain_energy",
+            "value": 3
+          }
         ]
       }
     },
@@ -460,17 +721,28 @@
       "rarity": "rare",
       "cost": 2,
       "target": "single_enemy",
-      "tags": ["damage", "heavy"],
+      "tags": [
+        "damage",
+        "heavy"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 20, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 20,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "大屠杀+",
         "description": "造成 28 点伤害。",
         "cost": 2,
         "effects": [
-          { "type": "damage", "value": 28, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 28,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -482,17 +754,26 @@
       "rarity": "rare",
       "cost": 2,
       "target": "all_enemies",
-      "tags": ["damage", "aoe"],
+      "tags": [
+        "damage",
+        "aoe"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "aoe_damage", "value": 4 }
+        {
+          "type": "aoe_damage",
+          "value": 4
+        }
       ],
       "upgrade": {
         "name": "死神之镰+",
         "description": "对所有敌人造成 5 点伤害。",
         "cost": 2,
         "effects": [
-          { "type": "aoe_damage", "value": 5 }
+          {
+            "type": "aoe_damage",
+            "value": 5
+          }
         ]
       }
     },
@@ -504,17 +785,28 @@
       "rarity": "rare",
       "cost": 3,
       "target": "single_enemy",
-      "tags": ["damage", "heavy"],
+      "tags": [
+        "damage",
+        "heavy"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 32, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 32,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "重锤+",
         "description": "造成 42 点伤害。",
         "cost": 3,
         "effects": [
-          { "type": "damage", "value": 42, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 42,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -526,17 +818,28 @@
       "rarity": "rare",
       "cost": 2,
       "target": "self",
-      "tags": ["block", "heavy"],
+      "tags": [
+        "block",
+        "heavy"
+      ],
       "art_key": "card_defend",
       "effects": [
-        { "type": "block", "value": 30, "target": "self" }
+        {
+          "type": "block",
+          "value": 30,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "无敌+",
         "description": "获得 40 点格挡。",
         "cost": 2,
         "effects": [
-          { "type": "block", "value": 40, "target": "self" }
+          {
+            "type": "block",
+            "value": 40,
+            "target": "self"
+          }
         ]
       }
     },
@@ -548,11 +851,521 @@
       "rarity": "rare",
       "cost": 3,
       "target": "self",
-      "tags": ["block", "persistent"],
+      "tags": [
+        "block",
+        "persistent"
+      ],
       "art_key": "card_power",
       "effects": [
-        { "type": "gain_barricade", "value": 1, "target": "self" }
+        {
+          "type": "gain_barricade",
+          "value": 1,
+          "target": "self"
+        }
       ]
+    },
+    {
+      "id": "whirlwind",
+      "name": "旋风斩",
+      "description": "对所有敌人造成 5 点伤害。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "all_enemies",
+      "tags": [
+        "damage",
+        "aoe"
+      ],
+      "art_key": "card_attack",
+      "effects": [
+        {
+          "type": "aoe_damage",
+          "value": 5,
+          "target": "all_enemies"
+        }
+      ],
+      "upgrade": {
+        "name": "旋风斩+",
+        "description": "对所有敌人造成 8 点伤害。",
+        "cost": 1,
+        "effects": [
+          {
+            "type": "aoe_damage",
+            "value": 8,
+            "target": "all_enemies"
+          }
+        ]
+      }
+    },
+    {
+      "id": "reckless_charge",
+      "name": "莽撞冲锋",
+      "description": "造成 14 点伤害，获得 1 点伤害反噬。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": [
+        "damage"
+      ],
+      "art_key": "card_attack",
+      "effects": [
+        {
+          "type": "damage",
+          "value": 14,
+          "target": "selected_enemy"
+        },
+        {
+          "type": "lose_hp",
+          "value": 1,
+          "target": "self"
+        }
+      ],
+      "upgrade": {
+        "name": "莽撞冲锋+",
+        "description": "造成 20 点伤害，获得 1 点伤害反噬。",
+        "cost": 1,
+        "effects": [
+          {
+            "type": "damage",
+            "value": 20,
+            "target": "selected_enemy"
+          },
+          {
+            "type": "lose_hp",
+            "value": 1,
+            "target": "self"
+          }
+        ]
+      }
+    },
+    {
+      "id": "venomous_stab",
+      "name": "毒刺",
+      "description": "造成 5 点伤害，施加 3 层中毒。",
+      "type": "attack",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": [
+        "damage",
+        "debuff"
+      ],
+      "art_key": "card_attack",
+      "effects": [
+        {
+          "type": "damage",
+          "value": 5,
+          "target": "selected_enemy"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "poison",
+          "value": 3,
+          "target": "selected_enemy"
+        }
+      ],
+      "upgrade": {
+        "name": "毒刺+",
+        "description": "造成 7 点伤害，施加 5 层中毒。",
+        "cost": 1,
+        "effects": [
+          {
+            "type": "damage",
+            "value": 7,
+            "target": "selected_enemy"
+          },
+          {
+            "type": "apply_status",
+            "status_id": "poison",
+            "value": 5,
+            "target": "selected_enemy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "skull_crusher",
+      "name": "碎颅击",
+      "description": "造成 10 点伤害，施加 2 层无力。",
+      "type": "attack",
+      "rarity": "uncommon",
+      "cost": 2,
+      "target": "single_enemy",
+      "tags": [
+        "damage",
+        "debuff"
+      ],
+      "art_key": "card_attack",
+      "effects": [
+        {
+          "type": "damage",
+          "value": 10,
+          "target": "selected_enemy"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "weak",
+          "value": 2,
+          "target": "selected_enemy"
+        }
+      ],
+      "upgrade": {
+        "name": "碎颅击+",
+        "description": "造成 14 点伤害，施加 3 层无力。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "damage",
+            "value": 14,
+            "target": "selected_enemy"
+          },
+          {
+            "type": "apply_status",
+            "status_id": "weak",
+            "value": 3,
+            "target": "selected_enemy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "thunderclap",
+      "name": "雷霆掌",
+      "description": "对所有敌人造成 4 点伤害并施加 1 层易伤。",
+      "type": "attack",
+      "rarity": "rare",
+      "cost": 2,
+      "target": "all_enemies",
+      "tags": [
+        "damage",
+        "aoe",
+        "debuff"
+      ],
+      "art_key": "card_attack",
+      "effects": [
+        {
+          "type": "aoe_damage",
+          "value": 4,
+          "target": "all_enemies"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "vulnerable",
+          "value": 1,
+          "target": "all_enemies"
+        }
+      ],
+      "upgrade": {
+        "name": "雷霆掌+",
+        "description": "对所有敌人造成 6 点伤害并施加 2 层易伤。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "aoe_damage",
+            "value": 6,
+            "target": "all_enemies"
+          },
+          {
+            "type": "apply_status",
+            "status_id": "vulnerable",
+            "value": 2,
+            "target": "all_enemies"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fortify",
+      "name": "强化",
+      "description": "获得 9 点格挡，抽 1 张牌。",
+      "type": "skill",
+      "rarity": "common",
+      "cost": 2,
+      "target": "self",
+      "tags": [
+        "block",
+        "draw"
+      ],
+      "art_key": "card_defend",
+      "effects": [
+        {
+          "type": "block",
+          "value": 9,
+          "target": "self"
+        },
+        {
+          "type": "draw",
+          "value": 1
+        }
+      ],
+      "upgrade": {
+        "name": "强化+",
+        "description": "获得 12 点格挡，抽 1 张牌。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "block",
+            "value": 12,
+            "target": "self"
+          },
+          {
+            "type": "draw",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "battle_hymn",
+      "name": "战歌",
+      "description": "获得 2 点力量，抽 1 张牌。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 2,
+      "target": "self",
+      "tags": [
+        "buff",
+        "draw"
+      ],
+      "art_key": "card_skill",
+      "effects": [
+        {
+          "type": "gain_strength",
+          "value": 2,
+          "target": "self"
+        },
+        {
+          "type": "draw",
+          "value": 1
+        }
+      ],
+      "upgrade": {
+        "name": "战歌+",
+        "description": "获得 3 点力量，抽 1 张牌。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "gain_strength",
+            "value": 3,
+            "target": "self"
+          },
+          {
+            "type": "draw",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "second_wind",
+      "name": "喘息",
+      "description": "回复 8 点生命，抽 1 张牌。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 2,
+      "target": "self",
+      "tags": [
+        "heal",
+        "draw"
+      ],
+      "art_key": "card_skill",
+      "effects": [
+        {
+          "type": "heal",
+          "value": 8,
+          "target": "self"
+        },
+        {
+          "type": "draw",
+          "value": 1
+        }
+      ],
+      "upgrade": {
+        "name": "喘息+",
+        "description": "回复 12 点生命，抽 1 张牌。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "heal",
+            "value": 12,
+            "target": "self"
+          },
+          {
+            "type": "draw",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "adrenaline",
+      "name": "肾上腺素",
+      "description": "获得 1 点能量，抽 2 张牌，消耗。",
+      "type": "skill",
+      "rarity": "rare",
+      "cost": 0,
+      "target": "none",
+      "tags": [
+        "energy",
+        "draw",
+        "exhaust"
+      ],
+      "art_key": "card_skill",
+      "effects": [
+        {
+          "type": "gain_energy",
+          "value": 1
+        },
+        {
+          "type": "draw",
+          "value": 2
+        },
+        {
+          "type": "exhaust",
+          "value": 1,
+          "target": "self"
+        }
+      ],
+      "upgrade": {
+        "name": "肾上腺素+",
+        "description": "获得 2 点能量，抽 2 张牌，消耗。",
+        "cost": 0,
+        "effects": [
+          {
+            "type": "gain_energy",
+            "value": 2
+          },
+          {
+            "type": "draw",
+            "value": 2
+          },
+          {
+            "type": "exhaust",
+            "value": 1,
+            "target": "self"
+          }
+        ]
+      }
+    },
+    {
+      "id": "warcry",
+      "name": "战吼",
+      "description": "抽 2 张牌，获得 1 点力量，消耗。",
+      "type": "skill",
+      "rarity": "common",
+      "cost": 1,
+      "target": "self",
+      "tags": [
+        "draw",
+        "buff",
+        "exhaust"
+      ],
+      "art_key": "card_skill",
+      "effects": [
+        {
+          "type": "draw",
+          "value": 2
+        },
+        {
+          "type": "gain_strength",
+          "value": 1,
+          "target": "self"
+        },
+        {
+          "type": "exhaust",
+          "value": 1,
+          "target": "self"
+        }
+      ],
+      "upgrade": {
+        "name": "战吼+",
+        "description": "抽 3 张牌，获得 1 点力量，消耗。",
+        "cost": 1,
+        "effects": [
+          {
+            "type": "draw",
+            "value": 3
+          },
+          {
+            "type": "gain_strength",
+            "value": 1,
+            "target": "self"
+          },
+          {
+            "type": "exhaust",
+            "value": 1,
+            "target": "self"
+          }
+        ]
+      }
+    },
+    {
+      "id": "brutality",
+      "name": "野蛮",
+      "description": "每次失去生命时抽 1 张牌。（被动，永久生效）",
+      "type": "power",
+      "rarity": "rare",
+      "cost": 0,
+      "target": "self",
+      "tags": [
+        "power",
+        "draw"
+      ],
+      "art_key": "card_power",
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "thorns",
+          "value": 1,
+          "target": "self"
+        }
+      ],
+      "upgrade": {
+        "name": "野蛮+",
+        "description": "每次失去生命时抽 1 张牌，且不消耗能量。",
+        "cost": 0,
+        "effects": [
+          {
+            "type": "apply_status",
+            "status_id": "thorns",
+            "value": 2,
+            "target": "self"
+          }
+        ]
+      }
+    },
+    {
+      "id": "corruption",
+      "name": "腐化",
+      "description": "技能牌费用变为 0，但打出后消耗。",
+      "type": "power",
+      "rarity": "rare",
+      "cost": 3,
+      "target": "self",
+      "tags": [
+        "power"
+      ],
+      "art_key": "card_power",
+      "effects": [
+        {
+          "type": "gain_strength",
+          "value": 3,
+          "target": "self"
+        }
+      ],
+      "upgrade": {
+        "name": "腐化+",
+        "description": "技能牌费用变为 0，但打出后消耗。费用降至 2。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "gain_strength",
+            "value": 3,
+            "target": "self"
+          }
+        ]
+      }
     }
   ]
 }

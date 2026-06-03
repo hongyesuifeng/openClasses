@@ -69,31 +69,51 @@ const STATUS_CONFIG := {
 
 
 ## 创建单个状态图标（图片图标 + 数量标签，无图片时退回 emoji Label）
-static func create_status_label(status_id: String, stacks: int, compact: bool = true) -> Control:
+## click_callback: 可选，点击时调用，参数为 (status_id, stacks)
+static func create_status_label(status_id: String, stacks: int, compact: bool = true, click_callback: Callable = Callable()) -> Control:
 	var config: Dictionary = STATUS_CONFIG.get(status_id, {"name": status_id, "color": Color.WHITE, "icon": "?", "icon_path": ""})
 	var icon_path := str(config.get("icon_path", ""))
+	var tooltip := "%s\n%s" % [str(config.get("name", status_id)), get_status_description(status_id, stacks)]
 
+	var widget: Control
 	if icon_path != "" and ResourceLoader.exists(icon_path, "Texture2D"):
 		var texture := ResourceLoader.load(icon_path, "Texture2D") as Texture2D
 		if texture != null:
-			return _create_icon_widget(texture, stacks, config.get("color", Color.WHITE) as Color, compact)
+			widget = _create_icon_widget(texture, stacks, config.get("color", Color.WHITE) as Color, compact)
 
-	# fallback：无图片时用 emoji Label
-	var label := Label.new()
-	if compact:
-		label.text = "%s%d" % [config.get("icon", "?"), stacks]
-	else:
-		label.text = "%s %s: %d" % [config.get("icon", "?"), config.get("name", status_id), stacks]
-	label.add_theme_font_size_override("font_size", 14 if compact else 16)
-	label.add_theme_color_override("font_color", config.get("color", Color.WHITE))
-	label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
-	label.add_theme_constant_override("shadow_offset_x", 1)
-	label.add_theme_constant_override("shadow_offset_y", 1)
-	return label
+	if widget == null:
+		var label := Label.new()
+		if compact:
+			label.text = "%s%d" % [config.get("icon", "?"), stacks]
+		else:
+			label.text = "%s %s: %d" % [config.get("icon", "?"), config.get("name", status_id), stacks]
+		label.add_theme_font_size_override("font_size", 14 if compact else 16)
+		label.add_theme_color_override("font_color", config.get("color", Color.WHITE))
+		label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
+		label.add_theme_constant_override("shadow_offset_x", 1)
+		label.add_theme_constant_override("shadow_offset_y", 1)
+		widget = label
+
+	widget.tooltip_text = tooltip
+
+	if click_callback.is_valid():
+		var btn := Button.new()
+		btn.tooltip_text = tooltip
+		btn.focus_mode = Control.FOCUS_NONE
+		btn.add_theme_stylebox_override("normal", _transparent_style())
+		btn.add_theme_stylebox_override("hover", _hover_style())
+		btn.add_theme_stylebox_override("pressed", _transparent_style())
+		btn.custom_minimum_size = widget.custom_minimum_size
+		btn.add_child(widget)
+		btn.pressed.connect(click_callback.bind(status_id, stacks))
+		return btn
+
+	return widget
 
 
 ## 创建状态容器（多个状态图标横向排列）
-static func create_status_row(statuses: Array, compact: bool = true) -> HBoxContainer:
+## click_callback: 可选，点击时调用，参数为 (status_id, stacks)
+static func create_status_row(statuses: Array, compact: bool = true, click_callback: Callable = Callable()) -> HBoxContainer:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 6)
 
@@ -102,7 +122,7 @@ static func create_status_row(statuses: Array, compact: bool = true) -> HBoxCont
 		var stacks := int(status.get("stacks", 0))
 		if stacks <= 0:
 			continue
-		row.add_child(create_status_label(status_id, stacks, compact))
+		row.add_child(create_status_label(status_id, stacks, compact, click_callback))
 
 	return row
 
@@ -155,3 +175,16 @@ static func get_status_description(status_id: String, stacks: int) -> String:
 ## 判断是否为负面状态
 static func is_debuff(status_id: String) -> bool:
 	return status_id in ["vulnerable", "weak", "frail", "poison"]
+
+
+static func _transparent_style() -> StyleBoxFlat:
+	var s := StyleBoxFlat.new()
+	s.bg_color = Color(0, 0, 0, 0)
+	return s
+
+
+static func _hover_style() -> StyleBoxFlat:
+	var s := StyleBoxFlat.new()
+	s.bg_color = Color(1, 1, 1, 0.12)
+	s.set_corner_radius_all(4)
+	return s
