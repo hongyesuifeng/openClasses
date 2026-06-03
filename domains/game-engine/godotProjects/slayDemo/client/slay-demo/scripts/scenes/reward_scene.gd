@@ -217,6 +217,9 @@ func _render_choices() -> void:
 func _on_relic_confirmed() -> void:
 	var game_state: Variant = _autoload("GameState")
 	game_state.add_relic(str(_pending_relic.get("id", "")))
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("relic")
 	_relic_mode = false
 	_pending_relic = {}
 	## 遗物确认后，检查是否还有待处理药水

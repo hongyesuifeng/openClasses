@@ -7,7 +7,6 @@ const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd"
 const PotionViewFactoryScript := preload("res://scripts/ui/potion_view_factory.gd")
 const PotionServiceScript := preload("res://scripts/potion/potion_service.gd")
 
-const SFX_CARD_PLACE := "res://assets/audio/sfx/card_place_1.ogg"
 const PLAYER_ART := "res://assets/player/sprites/player_warrior_idle.png"
 const BACKGROUND_NORMAL := "res://assets/backgrounds/bg_battle_dungeon.png"
 const BACKGROUND_BOSS := "res://assets/backgrounds/bg_battle_boss.png"
@@ -43,7 +42,6 @@ var _player_panel: PanelContainer
 var _hp_bar: TextureProgressBar
 var _block_bar: TextureProgressBar
 var _energy_label: Label
-var _sfx_player: AudioStreamPlayer
 var _enemy_buttons: Array[Button] = []
 var _enemy_art_paths: Array[String] = []
 var _hand_buttons: Array[Button] = []
@@ -77,6 +75,18 @@ func _ready() -> void:
 	}
 	_battle.setup(run_controller.get_current_encounter_id(), game_state.master_deck, player_state)
 	_battle.start_combat()
+
+	## 精英/Boss 战覆盖 BGM（scene_router 已切换到 "battle"，这里细化）
+	var data_loader: Variant = _autoload("DataLoader")
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null and data_loader != null:
+		var encounter_id: String = str(run_controller.get_current_encounter_id())
+		var encounter: Dictionary = data_loader.get_encounter(str(encounter_id))
+		var encounter_type := str(encounter.get("encounter_type", "normal"))
+		if encounter_type == "elite":
+			audio_manager.play_bgm("battle_elite")
+		elif encounter_type == "boss":
+			audio_manager.play_bgm("battle_boss")
 
 
 func _build() -> void:
@@ -227,10 +237,6 @@ func _build() -> void:
 	end_turn_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
 	hand_controls.add_child(end_turn_button)
-
-	_sfx_player = AudioStreamPlayer.new()
-	_sfx_player.stream = load(SFX_CARD_PLACE)
-	add_child(_sfx_player)
 
 
 func _on_state_changed(snapshot: Dictionary) -> void:
@@ -433,6 +439,9 @@ func _on_potion_pressed(slot: int) -> void:
 	if game_state == null or _battle == null:
 		return
 	if PotionServiceScript.use_potion(slot, game_state, _battle, data_loader):
+		var audio_manager: Variant = _autoload("AudioManager")
+		if audio_manager != null:
+			audio_manager.play_sfx("potion")
 		_render_potions()
 
 
@@ -508,6 +517,9 @@ func _on_enemy_pressed(index: int) -> void:
 
 func _on_end_turn_pressed() -> void:
 	_selected_card_index = -1
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("button")
 	_battle.end_player_turn()
 
 
@@ -520,6 +532,7 @@ func _on_message_logged(message: String) -> void:
 
 func _on_combat_event(event: Dictionary) -> void:
 	var vfx_manager: Variant = _autoload("VFXManager")
+	var audio_manager: Variant = _autoload("AudioManager")
 	if vfx_manager != null:
 		vfx_manager.set_current_scene(self)
 
@@ -532,12 +545,16 @@ func _on_combat_event(event: Dictionary) -> void:
 			_spawn_enemy_damage_text(enemy_index, damage, blocked)
 			if vfx_manager != null and damage > 0:
 				vfx_manager.play_attack_effect("slash", _get_enemy_center(enemy_index))
+			if audio_manager != null:
+				audio_manager.play_sfx("hit" if blocked == 0 else "block")
 		"player_damage":
 			_flash_player_panel()
 			var damage := int(event.get("value", 0))
 			_spawn_player_damage_text(damage, int(event.get("blocked", 0)))
 			if vfx_manager != null and damage > 0:
 				vfx_manager.play_attack_effect("slash", _get_player_center())
+			if audio_manager != null:
+				audio_manager.play_sfx("player_hurt")
 		"block_gained":
 			if vfx_manager != null:
 				var pos: Vector2
@@ -546,6 +563,8 @@ func _on_combat_event(event: Dictionary) -> void:
 				else:
 					pos = _get_enemy_center(int(event.get("enemy_index", -1)))
 				vfx_manager.play_block_effect(pos, int(event.get("value", 0)))
+			if audio_manager != null and str(event.get("target", "")) == "player":
+				audio_manager.play_sfx("block")
 		"status_applied":
 			if vfx_manager != null:
 				var pos: Vector2
@@ -554,6 +573,10 @@ func _on_combat_event(event: Dictionary) -> void:
 				else:
 					pos = _get_enemy_center(int(event.get("target_index", -1)))
 				vfx_manager.play_status_effect(str(event.get("status_id", "")), pos)
+			if audio_manager != null:
+				const StatusViewFactoryScript2 := preload("res://scripts/ui/status_view_factory.gd")
+				var sfx_key := "status_debuff" if StatusViewFactoryScript2.is_debuff(str(event.get("status_id", ""))) else "status_buff"
+				audio_manager.play_sfx(sfx_key)
 		"heal":
 			if vfx_manager != null:
 				var pos: Vector2
@@ -562,12 +585,16 @@ func _on_combat_event(event: Dictionary) -> void:
 				else:
 					pos = _get_enemy_center(int(event.get("enemy_index", -1)))
 				vfx_manager.play_heal_effect(pos)
+			if audio_manager != null and str(event.get("target", "")) == "player":
+				audio_manager.play_sfx("heal")
 		"enemy_died":
 			if vfx_manager != null:
 				var enemy_index := int(event.get("enemy_index", -1))
 				var pos := _get_enemy_center(enemy_index)
 				if pos != Vector2.ZERO:
 					vfx_manager.play_death_effect(pos)
+			if audio_manager != null:
+				audio_manager.play_sfx("enemy_die")
 
 
 ## 获取敌人中心位置
@@ -589,19 +616,26 @@ func _get_player_center() -> Vector2:
 
 func _on_combat_won(remaining_hp: int) -> void:
 	_status_label.text = "战斗胜利"
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("victory")
 	var run_controller: Variant = _autoload("RunController")
 	run_controller.call_deferred("on_battle_won", remaining_hp)
 
 
 func _on_combat_lost() -> void:
 	_status_label.text = "战斗失败"
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("defeat")
 	var run_controller: Variant = _autoload("RunController")
 	run_controller.call_deferred("on_battle_lost")
 
 
 func _play_card_feedback() -> void:
-	if _sfx_player != null:
-		_sfx_player.play()
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("card_place")
 
 
 func _spawn_card_echo(card: Dictionary, hand_index: int) -> void:

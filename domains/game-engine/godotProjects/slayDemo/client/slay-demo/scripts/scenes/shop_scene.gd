@@ -269,6 +269,9 @@ func _on_buy_pressed(index: int) -> void:
 	var game_state: Variant = _autoload("GameState")
 	if ShopServiceScript.buy_card(game_state, str(card.get("id", "")), int(offer.get("price", 0))):
 		_status_label.text = "购买 %s" % str(card.get("name", ""))
+		var audio_manager: Variant = _autoload("AudioManager")
+		if audio_manager != null:
+			audio_manager.play_sfx("buy")
 		_offers.remove_at(index)
 		_rebuild()
 	else:
@@ -289,6 +292,9 @@ func _on_remove_card_pressed(instance_id: int) -> void:
 	var game_state: Variant = _autoload("GameState")
 	if ShopServiceScript.remove_card(game_state, instance_id, _remove_price()):
 		_status_label.text = "已移除卡牌。"
+		var audio_manager: Variant = _autoload("AudioManager")
+		if audio_manager != null:
+			audio_manager.play_sfx("buy")
 		_remove_mode = false
 		_rebuild()
 	else:

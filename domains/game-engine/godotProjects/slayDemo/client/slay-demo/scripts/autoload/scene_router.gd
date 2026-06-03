@@ -23,6 +23,12 @@ func go_to(scene_key: String) -> void:
 		return
 
 	is_switching = true
+
+	## BGM 切换：scene key 直接对应 bgm key，battle 场景由 BattleScene._ready 覆盖精英/Boss 版本
+	var audio_manager: Variant = get_node_or_null("/root/AudioManager")
+	if audio_manager != null:
+		audio_manager.play_bgm(scene_key)
+
 	var error := get_tree().change_scene_to_file(SCENES[scene_key])
 	if error != OK:
 		is_switching = false

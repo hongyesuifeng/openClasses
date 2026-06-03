@@ -4,6 +4,7 @@ const TestContextScript := preload("res://tests/framework/test_context.gd")
 
 const TEST_SCRIPTS := [
 	preload("res://tests/unit/compile_check_test.gd"),
+	preload("res://tests/unit/audio_manager_test.gd"),
 	preload("res://tests/unit/data_loader_test.gd"),
 	preload("res://tests/unit/deck_runtime_test.gd"),
 	preload("res://tests/unit/status_manager_test.gd"),

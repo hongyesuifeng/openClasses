@@ -296,6 +296,9 @@ func _node_style(node_type: String, done: bool, selectable: bool) -> StyleBoxFla
 
 
 func _on_node_pressed(node_id: String) -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("button")
 	var run_controller: Variant = _autoload("RunController")
 	run_controller.select_map_node(node_id)
 

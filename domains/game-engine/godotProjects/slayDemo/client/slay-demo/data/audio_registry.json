@@ -1,0 +1,30 @@
+{
+  "sfx": {
+    "card_place":    { "path": "res://assets/audio/sfx/card_place_1.ogg",  "volume_db": 0 },
+    "card_slide":    { "path": "res://assets/audio/sfx/card_slide_1.ogg",  "volume_db": 0 },
+    "hit":           { "path": "res://assets/audio/sfx/hit.ogg",           "volume_db": 0 },
+    "block":         { "path": "res://assets/audio/sfx/block.ogg",         "volume_db": -3 },
+    "player_hurt":   { "path": "res://assets/audio/sfx/player_hurt.ogg",   "volume_db": 0 },
+    "heal":          { "path": "res://assets/audio/sfx/heal.ogg",          "volume_db": -3 },
+    "status_buff":   { "path": "res://assets/audio/sfx/buff.ogg",          "volume_db": -3 },
+    "status_debuff": { "path": "res://assets/audio/sfx/debuff.ogg",        "volume_db": -3 },
+    "enemy_die":     { "path": "res://assets/audio/sfx/enemy_die.ogg",     "volume_db": 0 },
+    "victory":       { "path": "res://assets/audio/sfx/victory.ogg",       "volume_db": 0 },
+    "defeat":        { "path": "res://assets/audio/sfx/defeat.ogg",        "volume_db": 0 },
+    "buy":           { "path": "res://assets/audio/sfx/buy.ogg",           "volume_db": -3 },
+    "button":        { "path": "res://assets/audio/sfx/button.ogg",        "volume_db": -6 },
+    "potion":        { "path": "res://assets/audio/sfx/potion.ogg",        "volume_db": 0 },
+    "relic":         { "path": "res://assets/audio/sfx/relic.ogg",         "volume_db": 0 }
+  },
+  "bgm": {
+    "main_menu":    { "path": "res://assets/audio/bgm/bgm_main_menu.ogg",   "volume_db": -6 },
+    "map":          { "path": "res://assets/audio/bgm/bgm_map.ogg",         "volume_db": -6 },
+    "battle":       { "path": "res://assets/audio/bgm/bgm_battle.ogg",      "volume_db": -4 },
+    "battle_elite": { "path": "res://assets/audio/bgm/bgm_battle_elite.ogg","volume_db": -4 },
+    "battle_boss":  { "path": "res://assets/audio/bgm/bgm_battle_boss.ogg", "volume_db": -2 },
+    "shop":         { "path": "res://assets/audio/bgm/bgm_shop.ogg",        "volume_db": -8 },
+    "rest":         { "path": "res://assets/audio/bgm/bgm_rest.ogg",        "volume_db": -8 },
+    "victory":      { "path": "res://assets/audio/bgm/bgm_victory.ogg",     "volume_db": -4 },
+    "defeat":       { "path": "res://assets/audio/bgm/bgm_defeat.ogg",      "volume_db": -4 }
+  }
+}
