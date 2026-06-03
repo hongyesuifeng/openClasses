@@ -273,7 +273,10 @@ func get_result_summary() -> Dictionary:
 		"player_hp": player_hp,
 		"player_max_hp": player_max_hp,
 		"relic_count": owned_relic_ids.size(),
-		"completed_map_nodes": completed_map_node_ids.size()
+		"relic_ids": owned_relic_ids.duplicate(),
+		"completed_map_nodes": completed_map_node_ids.size(),
+		"master_deck": master_deck.duplicate(true),
+		"potions_held": owned_potions.size(),
 	}
 
 
