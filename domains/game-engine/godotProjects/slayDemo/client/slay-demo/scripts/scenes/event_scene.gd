@@ -157,6 +157,10 @@ func _on_choice_pressed(index: int) -> void:
 	if index < 0 or index >= choices.size():
 		return
 
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("button")
+
 	## 禁用所有按钮
 	for child in _choice_row.get_children():
 		if child is Button:

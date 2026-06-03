@@ -17,7 +17,7 @@ const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength
 const RELIC_RARITIES := ["common", "uncommon", "rare", "boss", "starter"]
 const RELIC_EFFECT_TYPES := ["battle_start_block", "first_turn_energy", "max_hp", "card_gain_heal", "battle_win_gold", "draw_per_turn"]
 const POTION_RARITIES := ["common", "uncommon", "rare"]
-const POTION_EFFECT_TYPES := ["heal", "block", "apply_status"]
+const POTION_EFFECT_TYPES := ["heal", "block", "apply_status", "draw", "gain_energy", "gain_strength", "damage", "aoe_damage"]
 const EVENT_EFFECT_TYPES := ["lose_hp", "gain_gold", "remove_card", "upgrade_card", "gain_card", "transform_card"]
 
 var _cards: Dictionary = {}

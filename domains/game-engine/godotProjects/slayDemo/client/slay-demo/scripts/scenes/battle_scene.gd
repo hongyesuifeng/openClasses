@@ -546,7 +546,8 @@ func _on_combat_event(event: Dictionary) -> void:
 			_hit_enemy_feedback(enemy_index)
 			_spawn_enemy_damage_text(enemy_index, damage, blocked)
 			if vfx_manager != null and damage > 0:
-				vfx_manager.play_attack_effect("slash", _get_enemy_center(enemy_index))
+				var vfx_type := str(event.get("vfx_type", "slash"))
+				vfx_manager.play_attack_effect(vfx_type, _get_enemy_center(enemy_index))
 			if audio_manager != null:
 				audio_manager.play_sfx("hit" if blocked == 0 else "block")
 		"player_damage":
@@ -558,15 +559,18 @@ func _on_combat_event(event: Dictionary) -> void:
 			if audio_manager != null:
 				audio_manager.play_sfx("player_hurt")
 		"block_gained":
-			if vfx_manager != null:
-				var pos: Vector2
-				if str(event.get("target", "")) == "player":
-					pos = _get_player_center()
-				else:
-					pos = _get_enemy_center(int(event.get("enemy_index", -1)))
-				vfx_manager.play_block_effect(pos, int(event.get("value", 0)))
-			if audio_manager != null and str(event.get("target", "")) == "player":
-				audio_manager.play_sfx("block")
+			var block_val := int(event.get("value", 0))
+			if str(event.get("target", "")) == "player":
+				if vfx_manager != null:
+					vfx_manager.play_block_effect(_get_player_center(), block_val)
+				if block_val > 0:
+					_spawn_colored_text("+%d 格挡" % block_val, _player_panel.global_position + Vector2(_player_panel.size.x * 0.5 - 36.0, 48.0), Color(0.52, 0.82, 1.0))
+				if audio_manager != null:
+					audio_manager.play_sfx("block")
+			else:
+				var ei := int(event.get("enemy_index", -1))
+				if vfx_manager != null:
+					vfx_manager.play_block_effect(_get_enemy_center(ei), block_val)
 		"status_applied":
 			if vfx_manager != null:
 				var pos: Vector2
@@ -580,15 +584,17 @@ func _on_combat_event(event: Dictionary) -> void:
 				var sfx_key := "status_debuff" if StatusViewFactoryScript2.is_debuff(str(event.get("status_id", ""))) else "status_buff"
 				audio_manager.play_sfx(sfx_key)
 		"heal":
-			if vfx_manager != null:
-				var pos: Vector2
-				if str(event.get("target", "")) == "player":
-					pos = _get_player_center()
-				else:
-					pos = _get_enemy_center(int(event.get("enemy_index", -1)))
-				vfx_manager.play_heal_effect(pos)
-			if audio_manager != null and str(event.get("target", "")) == "player":
-				audio_manager.play_sfx("heal")
+			var heal_val := int(event.get("value", 0))
+			if str(event.get("target", "")) == "player":
+				if vfx_manager != null:
+					vfx_manager.play_heal_effect(_get_player_center())
+				if heal_val > 0:
+					_spawn_colored_text("+%d" % heal_val, _player_panel.global_position + Vector2(_player_panel.size.x * 0.5 - 26.0, 48.0), Color(0.42, 0.96, 0.52))
+				if audio_manager != null:
+					audio_manager.play_sfx("heal")
+			else:
+				if vfx_manager != null:
+					vfx_manager.play_heal_effect(_get_enemy_center(int(event.get("enemy_index", -1))))
 		"enemy_died":
 			if vfx_manager != null:
 				var enemy_index := int(event.get("enemy_index", -1))
@@ -698,6 +704,29 @@ func _damage_text(damage: int, blocked: int) -> String:
 	if blocked > 0:
 		return "格挡"
 	return "0"
+
+
+func _spawn_colored_text(text: String, start_position: Vector2, color: Color) -> void:
+	var label := Label.new()
+	label.text = text
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.custom_minimum_size = Vector2(72, 30)
+	label.size = Vector2(72, 30)
+	label.add_theme_font_size_override("font_size", 22)
+	label.add_theme_color_override("font_color", color)
+	label.add_theme_color_override("font_shadow_color", Color(0.05, 0.02, 0.01, 0.95))
+	label.add_theme_constant_override("shadow_offset_x", 2)
+	label.add_theme_constant_override("shadow_offset_y", 2)
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.global_position = start_position
+	label.z_index = 40
+	add_child(label)
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(label, "global_position:y", start_position.y - 42.0, 0.42).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(label, "modulate:a", 0.0, 0.42).set_delay(0.08)
+	tween.finished.connect(label.queue_free)
 
 
 func _spawn_damage_text(text: String, start_position: Vector2, is_player: bool) -> void:

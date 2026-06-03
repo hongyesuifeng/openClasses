@@ -55,7 +55,7 @@ func run(ctx: Variant) -> void:
 	ctx.assert_false(str(heal_potion.get("name", "")).is_empty(), "potion has name")
 
 	var all_potions: Array = data_loader.get_all_potions()
-	ctx.assert_eq(all_potions.size(), 3, "get_all_potions returns 3 entries")
+	ctx.assert_eq(all_potions.size(), 8, "get_all_potions returns 8 entries")
 
 	## 9. validate_all 不报错（potions.json 格式正确）
 	var errors: PackedStringArray = data_loader.validate_all()

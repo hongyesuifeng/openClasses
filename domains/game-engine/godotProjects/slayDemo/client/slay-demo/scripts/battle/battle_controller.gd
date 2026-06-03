@@ -26,6 +26,7 @@ var enemies: Array = []
 var relic_ids: Array = []
 var deck := DeckRuntimeScript.new()
 var player_status: RefCounted  # 玩家状态管理器（使用 RefCounted 避免类型加载问题）
+var _current_card_vfx_type := "slash"  # 当前出牌的特效类型，damage_enemy 使用
 
 
 func setup(p_encounter_id: String, master_deck: Array, player_state: Dictionary) -> void:
@@ -134,7 +135,23 @@ func play_card(hand_index: int, target_index: int = -1) -> bool:
 	var card: Dictionary = data_loader.resolve_card_instance(card_instance)
 	energy -= int(card.get("cost", 0))
 	_log("打出 %s" % str(card.get("name", card.get("id", ""))))
+
+	## 根据卡牌 tag 决定攻击特效类型
+	var tags: Array = card.get("tags", [])
+	_current_card_vfx_type = "slash"
+	for tag in tags:
+		if str(tag) == "poison":
+			_current_card_vfx_type = "poison"
+			break
+		elif str(tag) == "fire":
+			_current_card_vfx_type = "fire"
+			break
+		elif str(tag) == "magic":
+			_current_card_vfx_type = "magic"
+			break
+
 	var effect_results: Array = EffectRunnerScript.apply_effects(card.get("effects", []), self, "player", target_index)
+	_current_card_vfx_type = "slash"  # 重置，避免影响敌方回合
 	if _should_exhaust_current_card(effect_results):
 		deck.exhaust(card_instance)
 	else:
@@ -155,8 +172,13 @@ func end_player_turn() -> void:
 	if phase != "player":
 		return
 
-	# 回合结束触发：易伤、虚弱、无力层数递减
-	player_status.call("tick_turn_end")
+	# 回合结束触发：状态层数递减，仪式/金属化触发
+	var end_result: Dictionary = player_status.call("tick_turn_end")
+	var metallicize_block := int(end_result.get("block_gain", 0))
+	if metallicize_block > 0:
+		player_block += metallicize_block
+		combat_event.emit({ "type": "block_gained", "target": "player", "value": metallicize_block })
+		_log("金属化获得 %d 点格挡" % metallicize_block)
 
 	deck.discard_hand()
 	phase = "enemy"
@@ -195,7 +217,7 @@ func end_player_turn() -> void:
 		# 敌人回合结束触发
 		if enemy.has("status_manager"):
 			var enemy_status: RefCounted = enemy["status_manager"]
-			enemy_status.call("tick_turn_end")
+			var _ignored: Dictionary = enemy_status.call("tick_turn_end")
 
 	# 移除死亡敌人
 	_remove_dead_enemies()
@@ -228,7 +250,7 @@ func damage_enemy(target_index: int, amount: int) -> Dictionary:
 	enemy["block"] = block - blocked
 	enemy["hp"] = maxi(0, int(enemy.get("hp", 0)) - hp_damage)
 	_log("%s 受到 %d 点伤害" % [str(enemy.get("name", "")), hp_damage])
-	combat_event.emit({ "type": "enemy_damage", "enemy_index": target_index, "value": hp_damage, "blocked": blocked })
+	combat_event.emit({ "type": "enemy_damage", "enemy_index": target_index, "value": hp_damage, "blocked": blocked, "vfx_type": _current_card_vfx_type })
 
 	# 荆棘反弹伤害
 	if enemy.has("status_manager"):

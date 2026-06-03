@@ -133,6 +133,9 @@ func _render_upgrade_back_button(root: VBoxContainer) -> void:
 func _on_heal_pressed() -> void:
 	var game_state: Variant = _autoload("GameState")
 	game_state.heal_player_percent(_heal_percent())
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_sfx("heal")
 	_complete_rest()
 
 
@@ -168,6 +171,9 @@ func _on_confirm_upgrade_pressed() -> void:
 	var card_instance := _upgradeable_cards[_selected_upgrade_index] as Dictionary
 	var data_loader: Variant = _autoload("DataLoader")
 	if UpgradeServiceScript.upgrade_card_instance(card_instance, data_loader):
+		var audio_manager: Variant = _autoload("AudioManager")
+		if audio_manager != null:
+			audio_manager.play_sfx("status_buff")
 		_complete_rest()
 	else:
 		_status_label.text = "这张牌无法升级。"

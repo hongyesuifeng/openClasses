@@ -13,6 +13,8 @@ const STATUS_DEFS := {
 	"thorns": {"is_debuff": false, "is_permanent": false, "trigger": "on_hit", "affects": "reflect"},
 	"regeneration": {"is_debuff": false, "is_permanent": false, "trigger": "turn_start", "affects": "hp"},
 	"barricade": {"is_debuff": false, "is_permanent": true, "trigger": "none", "affects": "block_retention"},
+	"ritual": {"is_debuff": false, "is_permanent": true, "trigger": "turn_end", "affects": "strength_gain"},
+	"metallicize": {"is_debuff": false, "is_permanent": true, "trigger": "turn_end", "affects": "block_gain"},
 }
 
 var statuses: Dictionary = {}  # {status_id: stacks}
@@ -77,12 +79,28 @@ func tick_turn_start() -> Dictionary:
 	return result
 
 
-## 回合结束触发：易伤、虚弱、无力等层数递减
-func tick_turn_end() -> void:
+## 回合结束触发：易伤、虚弱、无力等层数递减；仪式/金属化触发
+## 返回：{strength_gain: int, block_gain: int}
+func tick_turn_end() -> Dictionary:
+	var result := {"strength_gain": 0, "block_gain": 0}
+
 	var tick_down := ["vulnerable", "weak", "frail"]
 	for status_id in tick_down:
 		if has_status(status_id):
 			_decrement_status(status_id)
+
+	# 仪式：每回合结束增加力量
+	if has_status("ritual"):
+		var gain := get_stacks("ritual")
+		result.strength_gain = gain
+		var old_strength := get_stacks("strength")
+		apply_status("strength", old_strength + gain)
+
+	# 金属化：每回合结束获得格挡（通过 battle_controller 处理）
+	if has_status("metallicize"):
+		result.block_gain = get_stacks("metallicize")
+
+	return result
 
 
 ## 计算最终伤害（考虑力量、易伤、无力）

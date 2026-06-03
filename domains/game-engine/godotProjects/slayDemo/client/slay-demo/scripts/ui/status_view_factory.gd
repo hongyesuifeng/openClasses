@@ -65,6 +65,20 @@ const STATUS_CONFIG := {
 		"icon_path": "res://assets/ui/status/status_fortify.png",
 		"description": "格挡不会在回合开始清除"
 	},
+	"ritual": {
+		"name": "仪式",
+		"color": Color(0.95, 0.70, 0.95),
+		"icon": "★",
+		"icon_path": "",
+		"description": "每回合结束获得 {stacks} 层力量"
+	},
+	"metallicize": {
+		"name": "金属化",
+		"color": Color(0.8, 0.85, 0.95),
+		"icon": "⬡",
+		"icon_path": "",
+		"description": "每回合结束获得 {stacks} 点格挡"
+	},
 }
 
 

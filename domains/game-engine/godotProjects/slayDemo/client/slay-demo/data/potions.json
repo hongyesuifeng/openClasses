@@ -26,6 +26,51 @@
       "effects": [
         { "type": "block", "value": 12, "target": "self" }
       ]
+    },
+    {
+      "id": "potion_draw",
+      "name": "洞察药水",
+      "description": "立即抽 2 张牌。",
+      "rarity": "common",
+      "effects": [
+        { "type": "draw", "value": 2 }
+      ]
+    },
+    {
+      "id": "potion_dexterity",
+      "name": "敏捷药水",
+      "description": "本场战斗获得 2 层敏捷（每次获得格挡额外+2）。",
+      "rarity": "uncommon",
+      "effects": [
+        { "type": "apply_status", "status_id": "dexterity", "value": 2, "target": "self" }
+      ]
+    },
+    {
+      "id": "potion_energy",
+      "name": "活力药水",
+      "description": "本回合获得 2 点能量。",
+      "rarity": "uncommon",
+      "effects": [
+        { "type": "gain_energy", "value": 2 }
+      ]
+    },
+    {
+      "id": "potion_fire",
+      "name": "爆炎药水",
+      "description": "对所有敌人造成 20 点伤害。",
+      "rarity": "rare",
+      "effects": [
+        { "type": "aoe_damage", "value": 20 }
+      ]
+    },
+    {
+      "id": "potion_block_large",
+      "name": "钢铁药水",
+      "description": "立即获得 24 点格挡。",
+      "rarity": "rare",
+      "effects": [
+        { "type": "block", "value": 24, "target": "self" }
+      ]
     }
   ]
 }

@@ -40,8 +40,9 @@ func _test_elite_battle_sets_pending_potion(ctx: Variant, game_state: Variant, d
 	ctx.assert_false(game_state.pending_potion_reward.is_empty(), "elite battle sets pending_potion_reward")
 	var potion_id := str(game_state.pending_potion_reward.get("id", ""))
 	ctx.assert_false(potion_id.is_empty(), "pending_potion_reward has valid id")
-	var valid_ids := ["potion_heal", "potion_strength", "potion_block"]
-	ctx.assert_true(valid_ids.has(potion_id), "pending potion id is one of the 3 valid potions")
+	var all_potions: Array = data_loader.get_all_potions()
+	var valid_ids := all_potions.map(func(p: Dictionary) -> String: return str(p.get("id", "")))
+	ctx.assert_true(valid_ids.has(potion_id), "pending potion id is one of the valid potions")
 
 
 ## 普通战斗不写入 pending_potion_reward
