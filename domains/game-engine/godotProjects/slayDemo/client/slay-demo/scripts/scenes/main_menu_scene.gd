@@ -4,6 +4,9 @@ const SaveServiceScript := preload("res://scripts/autoload/save_service.gd")
 
 
 func _ready() -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_bgm("main_menu")
 	_build()
 
 

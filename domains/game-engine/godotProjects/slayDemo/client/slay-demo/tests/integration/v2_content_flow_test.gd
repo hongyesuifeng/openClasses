@@ -112,7 +112,7 @@ func _finish_battle(battle: Variant) -> bool:
 	var safety := 0
 	while str(battle.phase) == "player" or str(battle.phase) == "enemy":
 		safety += 1
-		if safety > 160:
+		if safety > 300:
 			return false
 
 		if str(battle.phase) != "player":
@@ -121,7 +121,9 @@ func _finish_battle(battle: Variant) -> bool:
 		var played := false
 		var snapshot: Dictionary = battle.get_snapshot()
 		var hand: Array = snapshot.get("hand", [])
-		for priority in ["gain_strength", "gain_energy", "draw", "aoe_damage", "multi_damage", "damage", "block"]:
+		# 先按优先级出牌，兜底：尝试打出手中任意一张可出的牌
+		var priority_list := ["gain_strength", "gain_energy", "draw", "aoe_damage", "multi_damage", "damage", "heal", "block", "exhaust", "lose_hp", "_any"]
+		for priority in priority_list:
 			for hand_index in range(hand.size()):
 				var card := hand[hand_index] as Dictionary
 				if not _card_matches_priority(card, priority):
@@ -141,7 +143,7 @@ func _finish_battle(battle: Variant) -> bool:
 
 
 func _best_reward_index(choices: Array) -> int:
-	for priority in ["gain_strength", "gain_energy", "draw", "aoe_damage", "multi_damage", "damage", "block"]:
+	for priority in ["gain_strength", "gain_energy", "draw", "aoe_damage", "multi_damage", "damage", "heal", "block", "exhaust", "lose_hp"]:
 		for index in range(choices.size()):
 			var card := choices[index] as Dictionary
 			if _card_matches_priority(card, priority):
@@ -150,6 +152,8 @@ func _best_reward_index(choices: Array) -> int:
 
 
 func _card_matches_priority(card: Dictionary, priority: String) -> bool:
+	if priority == "_any":
+		return true
 	for effect in card.get("effects", []):
 		if str((effect as Dictionary).get("type", "")) == priority:
 			return true

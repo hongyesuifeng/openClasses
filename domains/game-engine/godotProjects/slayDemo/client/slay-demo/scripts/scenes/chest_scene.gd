@@ -8,6 +8,9 @@ var _open_button: Button
 
 
 func _ready() -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_bgm("map")
 	_build()
 
 
@@ -78,6 +81,9 @@ func _on_open_pressed() -> void:
 		_status_label.text = "获得 %d 金币。\n没有新的遗物。" % gold
 	else:
 		_status_label.text = "获得 %d 金币。\n获得遗物：%s\n效果：%s" % [gold, relic_name, relic_description]
+		var audio_manager: Variant = _autoload("AudioManager")
+		if audio_manager != null:
+			audio_manager.play_sfx("relic")
 
 	var run_controller: Variant = _autoload("RunController")
 	if run_controller != null:

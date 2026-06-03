@@ -13,6 +13,9 @@ var _confirm_upgrade_button: Button
 
 
 func _ready() -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_bgm("rest")
 	_refresh_upgradeable_cards()
 	_build()
 

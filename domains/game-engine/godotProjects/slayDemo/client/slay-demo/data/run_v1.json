@@ -71,10 +71,18 @@
         "inflame",
         "offering",
         "impervious",
-        "bludgeon"
+        "bludgeon",
+        "carnage",
+        "reaper",
+        "adrenaline",
+        "thunderclap",
+        "double_tap",
+        "limit_break",
+        "barricade",
+        "brutality"
       ],
       "player": {
-        "max_hp": 110,
+        "max_hp": 150,
         "gold": 300,
         "energy_per_turn": 3,
         "draw_per_turn": 5

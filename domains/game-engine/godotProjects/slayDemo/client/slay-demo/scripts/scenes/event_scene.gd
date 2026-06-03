@@ -21,6 +21,9 @@ var _event_messages: Array[String] = []
 
 
 func _ready() -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_bgm("map")
 	_build()
 
 

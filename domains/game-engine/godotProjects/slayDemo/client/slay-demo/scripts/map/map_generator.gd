@@ -370,6 +370,7 @@ static func _to_map_config(map_data: Dictionary) -> Dictionary:
 	return {
 		"id": "generated_map_run",
 		"start_deck": ["strike", "strike", "strike", "defend", "defend", "bash"],
+		"start_relics": ["burning_blood"],
 		"player": {
 			"max_hp": 80,
 			"gold": 120,

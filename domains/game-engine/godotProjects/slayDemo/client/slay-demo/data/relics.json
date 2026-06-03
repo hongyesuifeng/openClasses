@@ -98,6 +98,52 @@
       "effects": [
         { "type": "card_gain_heal", "value": 5 }
       ]
+    },
+    {
+      "id": "philosopher_stone",
+      "name": "哲人之石",
+      "description": "每回合开始时获得 1 点力量，但所有敌人获得 1 点力量。",
+      "rarity": "boss",
+      "effects": [
+        { "type": "battle_start_block", "value": 0 },
+        { "type": "draw_per_turn", "value": 1 }
+      ]
+    },
+    {
+      "id": "burning_blood",
+      "name": "燃烧之血",
+      "description": "每场战斗胜利后回复 6 点生命。",
+      "rarity": "starter",
+      "effects": [
+        { "type": "card_gain_heal", "value": 6 }
+      ]
+    },
+    {
+      "id": "ring_of_serpent",
+      "name": "蛇之戒指",
+      "description": "每回合额外抽 1 张牌。",
+      "rarity": "boss",
+      "effects": [
+        { "type": "draw_per_turn", "value": 1 }
+      ]
+    },
+    {
+      "id": "fusion_hammer",
+      "name": "融合锤",
+      "description": "进入商店时获得 20 金币，但无法升级牌。",
+      "rarity": "boss",
+      "effects": [
+        { "type": "battle_win_gold", "value": 20 }
+      ]
+    },
+    {
+      "id": "runic_dome",
+      "name": "符文穹顶",
+      "description": "战斗开始时获得 25 点格挡，但无法看到敌人意图。",
+      "rarity": "boss",
+      "effects": [
+        { "type": "battle_start_block", "value": 25 }
+      ]
     }
   ]
 }

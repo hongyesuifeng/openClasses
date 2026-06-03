@@ -60,9 +60,24 @@ func exhaust(card: Dictionary) -> void:
 
 
 func discard_hand() -> void:
+	var keep: Array = []
 	while not hand.is_empty():
 		var card: Variant = hand.pop_back()
+		if card is Dictionary:
+			var tags: Array = (card as Dictionary).get("tags", [])
+			var has_retain := false
+			for tag in tags:
+				if str(tag) == "retain":
+					has_retain = true
+					break
+			if has_retain and not (card as Dictionary).get("_retain_used", false):
+				(card as Dictionary)["_retain_used"] = true
+				keep.append(card)
+				continue
+			if card is Dictionary:
+				(card as Dictionary).erase("_retain_used")
 		discard_pile.append(card)
+	hand.append_array(keep)
 
 
 func get_counts() -> Dictionary:
