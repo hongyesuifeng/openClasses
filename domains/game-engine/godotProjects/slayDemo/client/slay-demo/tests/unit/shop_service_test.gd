@@ -69,3 +69,32 @@ func run(ctx: Variant) -> void:
 
 	ctx.assert_true(ShopSceneScript != null, "ShopScene script compiles")
 	ctx.assert_true(load("res://scenes/shop/shop_scene.tscn") != null, "ShopScene resource loads")
+
+	## 药水商品生成测试
+	var potion_offer: Dictionary = ShopServiceScript.generate_potion_offer(data_loader, 0)
+	ctx.assert_false(potion_offer.is_empty(), "generate_potion_offer returns non-empty dict")
+	ctx.assert_true(potion_offer.has("potion"), "potion offer has potion key")
+	ctx.assert_true(potion_offer.has("price"), "potion offer has price key")
+	ctx.assert_gt(int(potion_offer.get("price", 0)), 0, "potion offer price > 0")
+
+	var potion_data := potion_offer.get("potion", {}) as Dictionary
+	ctx.assert_false(str(potion_data.get("id", "")).is_empty(), "potion offer has valid id")
+
+	## 楼层价格加成
+	var price_fl0: int = ShopServiceScript.price_for_potion({"rarity": "common"}, 0)
+	var price_fl5: int = ShopServiceScript.price_for_potion({"rarity": "common"}, 5)
+	ctx.assert_eq(price_fl5, price_fl0 + 10, "potion floor bonus is 2 gold per floor")
+
+	## buy_potion 成功路径
+	game_state.start_new_run(data_loader.get_run_config("v1_fixed_run"))
+	game_state.player_gold = 300
+	var potion_id := str(potion_data.get("id", "potion_heal"))
+	var bought_potion: bool = ShopServiceScript.buy_potion(game_state, potion_id, int(potion_offer.get("price", 0)))
+	ctx.assert_true(bought_potion, "buy_potion succeeds with enough gold and empty slot")
+	ctx.assert_eq(game_state.owned_potions.size(), 1, "buy_potion adds to owned_potions")
+
+	## buy_potion 槽满时失败
+	game_state.add_potion("potion_block")
+	ctx.assert_false(game_state.can_add_potion(), "slots full after two potions")
+	var failed_potion: bool = ShopServiceScript.buy_potion(game_state, "potion_heal", 50)
+	ctx.assert_false(failed_potion, "buy_potion fails when slots full")

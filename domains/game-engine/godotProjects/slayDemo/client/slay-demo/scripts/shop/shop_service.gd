@@ -100,6 +100,35 @@ static func buy_relic(game_state: Variant, relic_id: String, price: int) -> bool
 	return game_state.add_relic(relic_id)
 
 
+static func generate_potion_offer(data_loader: Variant, floor_index: int = 0) -> Dictionary:
+	const PotionServiceScript := preload("res://scripts/potion/potion_service.gd")
+	var potion: Dictionary = PotionServiceScript.choose_potion_reward(data_loader)
+	if potion.is_empty():
+		return {}
+	return {
+		"potion": potion.duplicate(true),
+		"price": price_for_potion(potion, floor_index),
+		"sold": false
+	}
+
+
+static func price_for_potion(potion: Dictionary, floor_index: int = 0) -> int:
+	var base: int
+	match str(potion.get("rarity", "common")):
+		"uncommon": base = 80
+		"rare":     base = 120
+		_:          base = 50
+	return base + floor_index * 2
+
+
+static func buy_potion(game_state: Variant, potion_id: String, price: int) -> bool:
+	if potion_id.is_empty() or not game_state.can_add_potion():
+		return false
+	if not game_state.spend_gold(price):
+		return false
+	return game_state.add_potion(potion_id)
+
+
 static func _score_card(card: Dictionary, owned_deck: Array) -> int:
 	var score := 10
 	match str(card.get("rarity", "common")):

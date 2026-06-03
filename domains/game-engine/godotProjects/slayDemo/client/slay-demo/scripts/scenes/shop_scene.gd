@@ -8,6 +8,7 @@ var _gold_label: Label
 var _content_row: HBoxContainer
 var _offers: Array = []
 var _relic_offer: Dictionary = {}
+var _potion_offer: Dictionary = {}
 var _remove_mode := false
 
 
@@ -112,6 +113,10 @@ func _render_shop_choices() -> void:
 	if not _relic_offer.is_empty() and not bool(_relic_offer.get("sold", false)):
 		_render_relic_offer()
 
+	# 药水商品
+	if not _potion_offer.is_empty() and not bool(_potion_offer.get("sold", false)):
+		_render_potion_offer()
+
 
 func _render_remove_choices() -> void:
 	var data_loader: Variant = _autoload("DataLoader")
@@ -191,6 +196,71 @@ func _on_buy_relic_pressed() -> void:
 		_status_label.text = "金币不足。"
 
 
+func _render_potion_offer() -> void:
+	var potion := _potion_offer.get("potion", {}) as Dictionary
+	var price := int(_potion_offer.get("price", 0))
+	var game_state: Variant = _autoload("GameState")
+	var slots_full: bool = game_state != null and not game_state.can_add_potion()
+
+	var box := VBoxContainer.new()
+	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	box.add_theme_constant_override("separation", 8)
+	_content_row.add_child(box)
+
+	var panel := PanelContainer.new()
+	panel.custom_minimum_size = Vector2(180, 180)
+	box.add_child(panel)
+
+	var inner := VBoxContainer.new()
+	inner.alignment = BoxContainer.ALIGNMENT_CENTER
+	inner.add_theme_constant_override("separation", 6)
+	panel.add_child(inner)
+
+	var tag := Label.new()
+	tag.text = "药水"
+	tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	tag.add_theme_font_size_override("font_size", 12)
+	tag.add_theme_color_override("font_color", Color(0.60, 0.96, 0.72))
+	inner.add_child(tag)
+
+	var name_label := Label.new()
+	name_label.text = str(potion.get("name", ""))
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_label.add_theme_font_size_override("font_size", 18)
+	name_label.add_theme_color_override("font_color", Color(0.7, 1.0, 0.8))
+	inner.add_child(name_label)
+
+	var desc_label := Label.new()
+	desc_label.text = str(potion.get("description", ""))
+	desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	desc_label.add_theme_font_size_override("font_size", 13)
+	desc_label.add_theme_color_override("font_color", Color(0.88, 0.80, 0.68))
+	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	desc_label.custom_minimum_size = Vector2(160, 0)
+	inner.add_child(desc_label)
+
+	var buy_btn := Button.new()
+	buy_btn.text = "%d 金" % price
+	buy_btn.custom_minimum_size = Vector2(160, 38)
+	buy_btn.disabled = not _can_afford(price) or slots_full
+	if slots_full:
+		buy_btn.tooltip_text = "药水栏已满"
+	buy_btn.pressed.connect(_on_buy_potion_pressed)
+	box.add_child(buy_btn)
+
+
+func _on_buy_potion_pressed() -> void:
+	var potion := _potion_offer.get("potion", {}) as Dictionary
+	var price := int(_potion_offer.get("price", 0))
+	var game_state: Variant = _autoload("GameState")
+	if ShopServiceScript.buy_potion(game_state, str(potion.get("id", "")), price):
+		_status_label.text = "获得药水：%s" % str(potion.get("name", ""))
+		_potion_offer["sold"] = true
+		_rebuild()
+	else:
+		_status_label.text = "金币不足或药水栏已满。"
+
+
 func _on_buy_pressed(index: int) -> void:
 	if index < 0 or index >= _offers.size():
 		return
@@ -239,6 +309,7 @@ func _refresh_offers() -> void:
 		floor_index = int(node.get("floor", 0))
 	_offers = ShopServiceScript.generate_card_offers(game_state.master_deck, data_loader, ShopServiceScript.CARD_SLOTS, floor_index)
 	_relic_offer = ShopServiceScript.generate_relic_offer(game_state.owned_relic_ids, data_loader, floor_index)
+	_potion_offer = ShopServiceScript.generate_potion_offer(data_loader, floor_index)
 
 
 func _remove_price() -> int:
