@@ -3,6 +3,7 @@ extends Control
 const RewardServiceScript := preload("res://scripts/reward/reward_service.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
+const PotionViewFactoryScript := preload("res://scripts/ui/potion_view_factory.gd")
 
 var _choices: Array = []
 var _choice_scroll: ScrollContainer
@@ -12,6 +13,8 @@ var _upgrade_mode := false
 var _upgradeable_cards: Array = []
 var _relic_mode := false
 var _pending_relic: Dictionary = {}
+var _potion_mode := false
+var _pending_potion: Dictionary = {}
 var _selected_choice_index := -1
 var _selected_upgrade_index := -1
 var _confirm_button: Button
@@ -22,6 +25,9 @@ func _ready() -> void:
 	if game_state != null and game_state.has_pending_relic_reward():
 		_pending_relic = game_state.consume_pending_relic_reward()
 		_relic_mode = true
+	elif game_state != null and game_state.has_pending_potion_reward():
+		_pending_potion = game_state.consume_pending_potion_reward()
+		_potion_mode = true
 	_check_upgrade_availability()
 	_build()
 
@@ -61,6 +67,8 @@ func _build() -> void:
 
 	if _relic_mode:
 		_build_relic_reward(root)
+	elif _potion_mode:
+		_build_potion_reward(root)
 	else:
 		_build_card_reward(root)
 
@@ -211,6 +219,116 @@ func _on_relic_confirmed() -> void:
 	game_state.add_relic(str(_pending_relic.get("id", "")))
 	_relic_mode = false
 	_pending_relic = {}
+	## 遗物确认后，检查是否还有待处理药水
+	if game_state.has_pending_potion_reward():
+		_pending_potion = game_state.consume_pending_potion_reward()
+		_potion_mode = true
+	_clear_children(self)
+	_build()
+
+
+func _build_potion_reward(root: VBoxContainer) -> void:
+	var game_state: Variant = _autoload("GameState")
+	var is_full: bool = game_state != null and not game_state.can_add_potion()
+
+	var title := Label.new()
+	title.text = "获得药水"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 30)
+	title.add_theme_color_override("font_color", Color(0.60, 0.96, 0.72))
+	root.add_child(title)
+
+	_status_label = Label.new()
+	_status_label.text = "药水栏已满，请选择丢弃哪瓶" if is_full else "加入药水栏"
+	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_status_label.add_theme_font_size_override("font_size", 16)
+	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	root.add_child(_status_label)
+
+	## 新药水展示
+	var potion_name := str(_pending_potion.get("name", "未知药水"))
+	var panel := PanelContainer.new()
+	panel.custom_minimum_size = Vector2(280, 0)
+	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	root.add_child(panel)
+	var panel_vbox := VBoxContainer.new()
+	panel_vbox.add_theme_constant_override("separation", 8)
+	panel.add_child(panel_vbox)
+	var name_label := Label.new()
+	name_label.text = potion_name
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_label.add_theme_font_size_override("font_size", 22)
+	name_label.add_theme_color_override("font_color", Color(0.7, 1.0, 0.8))
+	panel_vbox.add_child(name_label)
+	var desc_label := Label.new()
+	desc_label.text = str(_pending_potion.get("description", ""))
+	desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	desc_label.add_theme_font_size_override("font_size", 16)
+	desc_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	panel_vbox.add_child(desc_label)
+
+	var button_row := HBoxContainer.new()
+	button_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	button_row.add_theme_constant_override("separation", 14)
+	root.add_child(button_row)
+
+	if is_full and game_state != null:
+		## 槽满：展示每格旧药水，让玩家选择丢弃
+		var data_loader: Variant = _autoload("DataLoader")
+		for slot in range(game_state.MAX_POTION_SLOTS):
+			var entry: Dictionary = game_state.get_potion_at(slot)
+			if entry.is_empty():
+				continue
+			var old_potion: Dictionary = data_loader.get_potion(str(entry.get("id", "")))
+			var discard_btn := Button.new()
+			discard_btn.text = "丢弃 %s\n换取 %s" % [
+				str(old_potion.get("name", "?")), potion_name]
+			discard_btn.custom_minimum_size = Vector2(160, 56)
+			discard_btn.pressed.connect(_on_potion_slot_discard.bind(slot))
+			button_row.add_child(discard_btn)
+
+		var abandon_btn := Button.new()
+		abandon_btn.text = "放弃新药水"
+		abandon_btn.custom_minimum_size = Vector2(130, 48)
+		abandon_btn.pressed.connect(_on_potion_abandon)
+		button_row.add_child(abandon_btn)
+	else:
+		var take_btn := Button.new()
+		take_btn.text = "收取药水"
+		take_btn.custom_minimum_size = Vector2(160, 48)
+		take_btn.pressed.connect(_on_potion_take)
+		button_row.add_child(take_btn)
+
+		var skip_btn := Button.new()
+		skip_btn.text = "放弃"
+		skip_btn.custom_minimum_size = Vector2(110, 48)
+		skip_btn.pressed.connect(_on_potion_abandon)
+		button_row.add_child(skip_btn)
+
+
+func _on_potion_take() -> void:
+	var game_state: Variant = _autoload("GameState")
+	if game_state != null:
+		game_state.add_potion(str(_pending_potion.get("id", "")))
+	_finish_potion_mode()
+
+
+func _on_potion_slot_discard(slot: int) -> void:
+	var game_state: Variant = _autoload("GameState")
+	if game_state != null:
+		game_state.remove_potion_at(slot)
+		game_state.add_potion(str(_pending_potion.get("id", "")))
+	_finish_potion_mode()
+
+
+func _on_potion_abandon() -> void:
+	_finish_potion_mode()
+
+
+func _finish_potion_mode() -> void:
+	_potion_mode = false
+	_pending_potion = {}
 	_clear_children(self)
 	_build()
 

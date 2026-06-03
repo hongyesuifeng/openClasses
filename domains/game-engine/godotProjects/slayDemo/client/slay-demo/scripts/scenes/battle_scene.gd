@@ -4,6 +4,8 @@ const BattleControllerScript := preload("res://scripts/battle/battle_controller.
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const StatusViewFactoryScript := preload("res://scripts/ui/status_view_factory.gd")
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
+const PotionViewFactoryScript := preload("res://scripts/ui/potion_view_factory.gd")
+const PotionServiceScript := preload("res://scripts/potion/potion_service.gd")
 
 const SFX_CARD_PLACE := "res://assets/audio/sfx/card_place_1.ogg"
 const PLAYER_ART := "res://assets/player/sprites/player_warrior_idle.png"
@@ -49,8 +51,11 @@ var _messages: Array[String] = []
 var _last_player_hp := -1
 var _last_player_block := -1
 var _last_phase := ""
+var _banner_queue: Array[Dictionary] = []
+var _banner_playing := false
 var _player_status_row: HBoxContainer  # 玩家状态栏
 var _relic_row: HBoxContainer
+var _potion_row: HBoxContainer
 
 
 func _ready() -> void:
@@ -149,6 +154,12 @@ func _build() -> void:
 	_relic_row.add_theme_constant_override("separation", 6)
 	player_stats.add_child(_relic_row)
 	_render_relics()
+
+	_potion_row = HBoxContainer.new()
+	_potion_row.name = "BattlePotionRow"
+	_potion_row.add_theme_constant_override("separation", 6)
+	player_stats.add_child(_potion_row)
+	_render_potions()
 
 	_status_label = Label.new()
 	_status_label.add_theme_font_size_override("font_size", 16)
@@ -256,9 +267,9 @@ func _on_state_changed(snapshot: Dictionary) -> void:
 	## 检测回合切换并播放提示
 	if _last_phase != phase and not _last_phase.is_empty():
 		if phase == "player":
-			_spawn_turn_banner("玩家回合", Color(0.4, 0.85, 1.0))
+			_queue_turn_banner("玩家回合", Color(0.4, 0.85, 1.0))
 		elif phase == "enemy":
-			_spawn_turn_banner("敌人回合", Color(1.0, 0.55, 0.4))
+			_queue_turn_banner("敌人回合", Color(1.0, 0.55, 0.4))
 	_last_phase = phase
 
 	_render_enemies(snapshot.get("enemies", []))
@@ -385,6 +396,39 @@ func _render_relics() -> void:
 
 func _on_relic_pressed(relic: Dictionary) -> void:
 	_status_label.text = RelicViewFactoryScript.detail_text(relic)
+
+
+func _render_potions() -> void:
+	if _potion_row == null:
+		return
+	_clear_children(_potion_row)
+	var game_state: Variant = _autoload("GameState")
+	if game_state == null:
+		return
+	var label := Label.new()
+	label.text = "药水:"
+	label.add_theme_font_size_override("font_size", 14)
+	label.add_theme_color_override("font_color", Color(0.90, 0.82, 0.68))
+	_potion_row.add_child(label)
+	for slot in range(game_state.MAX_POTION_SLOTS):
+		var potion_entry: Dictionary = game_state.get_potion_at(slot)
+		if potion_entry.is_empty():
+			_potion_row.add_child(PotionViewFactoryScript.create_empty_slot())
+		else:
+			var data_loader: Variant = _autoload("DataLoader")
+			var potion: Dictionary = data_loader.get_potion(str(potion_entry.get("id", "")))
+			var btn := PotionViewFactoryScript.create_potion_button(
+				potion, Callable(self, "_on_potion_pressed").bind(slot))
+			_potion_row.add_child(btn)
+
+
+func _on_potion_pressed(slot: int) -> void:
+	var game_state: Variant = _autoload("GameState")
+	var data_loader: Variant = _autoload("DataLoader")
+	if game_state == null or _battle == null:
+		return
+	if PotionServiceScript.use_potion(slot, game_state, _battle, data_loader):
+		_render_potions()
 
 
 func _render_hand(hand: Array, phase: String) -> void:
@@ -699,6 +743,21 @@ func _autoload(autoload_name: String) -> Variant:
 
 
 ## 回合切换横幅提示
+func _queue_turn_banner(text: String, color: Color) -> void:
+	_banner_queue.append({"text": text, "color": color})
+	if not _banner_playing:
+		_play_next_banner()
+
+
+func _play_next_banner() -> void:
+	if _banner_queue.is_empty():
+		_banner_playing = false
+		return
+	_banner_playing = true
+	var entry: Dictionary = _banner_queue.pop_front()
+	_spawn_turn_banner(entry["text"], entry["color"])
+
+
 func _spawn_turn_banner(text: String, color: Color) -> void:
 	var label := Label.new()
 	label.text = text
@@ -725,3 +784,4 @@ func _spawn_turn_banner(text: String, color: Color) -> void:
 	tween.tween_interval(0.6)
 	tween.tween_property(label, "modulate:a", 0.0, 0.3)
 	tween.finished.connect(label.queue_free)
+	tween.finished.connect(_play_next_banner)

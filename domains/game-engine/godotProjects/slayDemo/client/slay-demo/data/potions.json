@@ -1,0 +1,31 @@
+{
+  "potions": [
+    {
+      "id": "potion_heal",
+      "name": "治疗药水",
+      "description": "立即回复 20 点生命。",
+      "rarity": "common",
+      "effects": [
+        { "type": "heal", "value": 20, "target": "self" }
+      ]
+    },
+    {
+      "id": "potion_strength",
+      "name": "力量药水",
+      "description": "本场战斗获得 2 层力量。",
+      "rarity": "uncommon",
+      "effects": [
+        { "type": "apply_status", "status_id": "strength", "value": 2, "target": "self" }
+      ]
+    },
+    {
+      "id": "potion_block",
+      "name": "格挡药水",
+      "description": "立即获得 12 点格挡。",
+      "rarity": "common",
+      "effects": [
+        { "type": "block", "value": 12, "target": "self" }
+      ]
+    }
+  ]
+}

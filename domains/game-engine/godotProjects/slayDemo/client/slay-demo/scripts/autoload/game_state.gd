@@ -12,6 +12,8 @@ var draw_per_turn := 5
 var card_removal_count := 0
 var master_deck: Array = []
 var owned_relic_ids: Array[String] = []
+var owned_potions: Array = []
+const MAX_POTION_SLOTS := 2
 var run_nodes: Array = []
 var map_nodes: Array = []
 var completed_map_node_ids: Array[String] = []
@@ -19,6 +21,7 @@ var available_map_node_ids: Array[String] = []
 var current_map_node_id := ""
 var pending_map_reward: Dictionary = {}
 var pending_relic_reward: Dictionary = {}
+var pending_potion_reward: Dictionary = {}
 var battle_wins := 0
 var is_run_won := false
 var is_run_finished := false
@@ -44,8 +47,10 @@ func start_new_run(run_config: Dictionary) -> void:
 	current_map_node_id = ""
 	pending_map_reward.clear()
 	pending_relic_reward.clear()
+	pending_potion_reward.clear()
 	master_deck.clear()
 	owned_relic_ids.clear()
+	owned_potions.clear()
 
 	var data_loader: Variant = _autoload("DataLoader")
 	for card_id in run_config.get("start_deck", []):
@@ -193,6 +198,16 @@ func has_pending_relic_reward() -> bool:
 	return not pending_relic_reward.is_empty()
 
 
+func consume_pending_potion_reward() -> Dictionary:
+	var potion := pending_potion_reward.duplicate(true)
+	pending_potion_reward.clear()
+	return potion
+
+
+func has_pending_potion_reward() -> bool:
+	return not pending_potion_reward.is_empty()
+
+
 func get_owned_relics() -> Array:
 	var data_loader: Variant = _autoload("DataLoader")
 	var result: Array = []
@@ -276,3 +291,29 @@ func _unlock_starting_map_nodes() -> void:
 
 func _autoload(autoload_name: String) -> Variant:
 	return get_node_or_null("/root/%s" % autoload_name)
+
+
+## ── 药水槽位 ────────────────────────────────────────────
+
+func can_add_potion() -> bool:
+	return owned_potions.size() < MAX_POTION_SLOTS
+
+
+func add_potion(potion_id: String) -> bool:
+	if not can_add_potion():
+		return false
+	owned_potions.append({"id": potion_id})
+	return true
+
+
+func remove_potion_at(slot: int) -> bool:
+	if slot < 0 or slot >= owned_potions.size():
+		return false
+	owned_potions.remove_at(slot)
+	return true
+
+
+func get_potion_at(slot: int) -> Dictionary:
+	if slot < 0 or slot >= owned_potions.size():
+		return {}
+	return (owned_potions[slot] as Dictionary).duplicate(true)

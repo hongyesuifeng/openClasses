@@ -5,6 +5,7 @@ const ENEMIES_PATH := "res://data/enemies.json"
 const ENCOUNTERS_PATH := "res://data/encounters.json"
 const REWARDS_PATH := "res://data/rewards.json"
 const RELICS_PATH := "res://data/relics.json"
+const POTIONS_PATH := "res://data/potions.json"
 const RUNS_PATH := "res://data/run_v1.json"
 
 const CARD_TYPES := ["attack", "skill", "power", "status"]
@@ -15,13 +16,16 @@ const RUN_NODE_TYPES := ["battle", "reward", "rest", "shop", "chest", "event", "
 const EFFECT_TYPES := ["damage", "block", "draw", "apply_status", "gain_strength", "gain_barricade", "heal", "multi_damage", "aoe_damage", "gain_energy", "exhaust", "summon", "lose_hp"]
 const RELIC_RARITIES := ["common", "uncommon", "rare"]
 const RELIC_EFFECT_TYPES := ["battle_start_block", "first_turn_energy", "max_hp", "card_gain_heal", "battle_win_gold"]
-const EVENT_EFFECT_TYPES := ["lose_hp", "gain_gold", "remove_card", "gain_card", "upgrade_card", "transform_card"]
+const POTION_RARITIES := ["common", "uncommon", "rare"]
+const POTION_EFFECT_TYPES := ["heal", "block", "apply_status"]
+const EVENT_EFFECT_TYPES := ["lose_hp", "gain_gold", "remove_card", "upgrade_card", "gain_card", "transform_card"]
 
 var _cards: Dictionary = {}
 var _enemies: Dictionary = {}
 var _encounters: Dictionary = {}
 var _reward_profiles: Dictionary = {}
 var _relics: Dictionary = {}
+var _potions: Dictionary = {}
 var _runs: Dictionary = {}
 var _loaded := false
 var _next_card_instance_id := 1
@@ -33,6 +37,7 @@ func load_all() -> void:
 	_encounters = _load_collection(ENCOUNTERS_PATH, "encounters")
 	_reward_profiles = _load_collection(REWARDS_PATH, "reward_profiles")
 	_relics = _load_collection(RELICS_PATH, "relics")
+	_potions = _load_collection(POTIONS_PATH, "potions")
 	_runs = _load_collection(RUNS_PATH, "runs")
 	_loaded = true
 
@@ -43,6 +48,7 @@ func clear_cache() -> void:
 	_encounters.clear()
 	_reward_profiles.clear()
 	_relics.clear()
+	_potions.clear()
 	_runs.clear()
 	_loaded = false
 	_next_card_instance_id = 1
@@ -58,6 +64,7 @@ func validate_all() -> PackedStringArray:
 	_validate_encounters(errors)
 	_validate_rewards(errors)
 	_validate_relics(errors)
+	_validate_potions(errors)
 	_validate_runs(errors)
 	return errors
 
@@ -105,6 +112,19 @@ func get_all_relics() -> Array:
 	var result: Array = []
 	for relic in _relics.values():
 		result.append((relic as Dictionary).duplicate(true))
+	return result
+
+
+func get_potion(id: String) -> Dictionary:
+	_ensure_loaded()
+	return _duplicate_entry(_potions.get(id, {}))
+
+
+func get_all_potions() -> Array:
+	_ensure_loaded()
+	var result: Array = []
+	for potion in _potions.values():
+		result.append((potion as Dictionary).duplicate(true))
 	return result
 
 
@@ -317,6 +337,26 @@ func _validate_relics(errors: PackedStringArray) -> void:
 			_require_string(effect_dict, "type", "relic_effect", "%s[%d]" % [id, effect_index], errors)
 			_require_int(effect_dict, "value", "relic_effect", "%s[%d]" % [id, effect_index], errors)
 			_enum_value(effect_dict, "type", RELIC_EFFECT_TYPES, "relic_effect", "%s[%d]" % [id, effect_index], errors)
+
+
+func _validate_potions(errors: PackedStringArray) -> void:
+	for id in _potions:
+		var potion: Dictionary = _potions[id]
+		_require_string(potion, "id", "potion", id, errors)
+		_require_string(potion, "name", "potion", id, errors)
+		_require_string(potion, "description", "potion", id, errors)
+		_require_string(potion, "rarity", "potion", id, errors)
+		_require_array(potion, "effects", "potion", id, errors)
+		_enum_value(potion, "rarity", POTION_RARITIES, "potion", id, errors)
+
+		for effect_index in range((potion.get("effects", []) as Array).size()):
+			var effect: Variant = (potion.get("effects", []) as Array)[effect_index]
+			if not (effect is Dictionary):
+				errors.append("potion:%s effect[%d] must be an object" % [id, effect_index])
+				continue
+			var effect_dict := effect as Dictionary
+			_require_string(effect_dict, "type", "potion_effect", "%s[%d]" % [id, effect_index], errors)
+			_enum_value(effect_dict, "type", POTION_EFFECT_TYPES, "potion_effect", "%s[%d]" % [id, effect_index], errors)
 
 
 func _validate_runs(errors: PackedStringArray) -> void:

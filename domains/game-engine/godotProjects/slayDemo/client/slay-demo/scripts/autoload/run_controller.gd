@@ -1,6 +1,7 @@
 extends Node
 
 const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
+const PotionServiceScript := preload("res://scripts/potion/potion_service.gd")
 const MapGeneratorScript := preload("res://scripts/map/map_generator.gd")
 const SaveServiceScript := preload("res://scripts/autoload/save_service.gd")
 
@@ -126,6 +127,7 @@ func on_battle_won(remaining_hp: int) -> void:
 	_grant_battle_gold_reward()
 	_apply_battle_win_relics()
 	_grant_elite_relic_if_needed()
+	_grant_potion_if_needed()
 	if game_state.has_map():
 		if game_state.current_map_node_is_final():
 			game_state.complete_current_map_node()
@@ -283,6 +285,22 @@ func _grant_elite_relic_if_needed() -> void:
 	if relic.is_empty():
 		return
 	game_state.set_pending_relic_reward(relic)
+
+
+func _grant_potion_if_needed() -> void:
+	var data_loader: Variant = _autoload("DataLoader")
+	var game_state: Variant = _autoload("GameState")
+	var encounter_id := get_current_encounter_id()
+	var encounter: Dictionary = data_loader.get_encounter(encounter_id)
+	var encounter_type := str(encounter.get("encounter_type", ""))
+	if encounter_type != "elite" and encounter_type != "boss":
+		return
+
+	var potion: Dictionary = PotionServiceScript.choose_potion_reward(data_loader)
+	if potion.is_empty():
+		return
+	## 写入 pending，由 RewardScene 处理 UI 和槽位满的选择逻辑
+	game_state.pending_potion_reward = potion.duplicate(true)
 
 
 func _autoload(autoload_name: String) -> Variant:

@@ -3,6 +3,7 @@ extends Node
 const TestContextScript := preload("res://tests/framework/test_context.gd")
 
 const TEST_SCRIPTS := [
+	preload("res://tests/unit/compile_check_test.gd"),
 	preload("res://tests/unit/data_loader_test.gd"),
 	preload("res://tests/unit/deck_runtime_test.gd"),
 	preload("res://tests/unit/status_manager_test.gd"),
@@ -11,6 +12,7 @@ const TEST_SCRIPTS := [
 	preload("res://tests/unit/reward_service_test.gd"),
 	preload("res://tests/unit/shop_service_test.gd"),
 	preload("res://tests/unit/save_service_test.gd"),
+	preload("res://tests/unit/potion_service_test.gd"),
 	preload("res://tests/integration/v1_flow_test.gd"),
 	preload("res://tests/integration/v2_content_flow_test.gd"),
 	preload("res://tests/integration/map_route_test.gd"),

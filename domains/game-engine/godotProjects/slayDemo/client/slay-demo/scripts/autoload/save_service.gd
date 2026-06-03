@@ -20,11 +20,13 @@ static func save(game_state: Variant, run_controller: Variant, data_loader: Vari
 		"map_nodes": (game_state.map_nodes as Array).duplicate(true),
 		"master_deck": _serialize_deck(game_state.master_deck),
 		"owned_relic_ids": (game_state.owned_relic_ids as Array).duplicate(),
+		"owned_potions": (game_state.owned_potions as Array).duplicate(true),
 		"completed_map_node_ids": (game_state.completed_map_node_ids as Array).duplicate(),
 		"available_map_node_ids": (game_state.available_map_node_ids as Array).duplicate(),
 		"current_map_node_id": str(game_state.current_map_node_id),
 		"pending_map_reward": (game_state.pending_map_reward as Dictionary).duplicate(true),
 		"pending_relic_reward": (game_state.pending_relic_reward as Dictionary).duplicate(true),
+		"pending_potion_reward": (game_state.pending_potion_reward as Dictionary).duplicate(true),
 		"battle_wins": int(game_state.battle_wins),
 		"current_phase": str(game_state.current_phase),
 	}
@@ -97,6 +99,11 @@ static func restore(save_data: Dictionary, game_state: Variant, run_controller: 
 	for relic_id in save_data.get("owned_relic_ids", []):
 		game_state.owned_relic_ids.append(str(relic_id))
 
+	game_state.owned_potions.clear()
+	for p in save_data.get("owned_potions", []):
+		if p is Dictionary:
+			game_state.owned_potions.append((p as Dictionary).duplicate(true))
+
 	game_state.completed_map_node_ids.clear()
 	for node_id in save_data.get("completed_map_node_ids", []):
 		game_state.completed_map_node_ids.append(str(node_id))
@@ -118,6 +125,12 @@ static func restore(save_data: Dictionary, game_state: Variant, run_controller: 
 		game_state.pending_relic_reward = (pending_relic as Dictionary).duplicate(true)
 	else:
 		game_state.pending_relic_reward = {}
+
+	var pending_potion: Variant = save_data.get("pending_potion_reward", {})
+	if pending_potion is Dictionary:
+		game_state.pending_potion_reward = (pending_potion as Dictionary).duplicate(true)
+	else:
+		game_state.pending_potion_reward = {}
 
 	## 遗物的 max_hp 加成不重新触发（存档时已包含在 player_max_hp 里）
 
