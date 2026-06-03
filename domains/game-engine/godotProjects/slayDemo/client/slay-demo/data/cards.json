@@ -1353,7 +1353,7 @@
     {
       "id": "corruption",
       "name": "腐化",
-      "description": "技能牌费用变为 0，但打出后消耗。",
+      "description": "获得 3 层力量。",
       "type": "power",
       "rarity": "rare",
       "cost": 3,
@@ -1371,7 +1371,7 @@
       ],
       "upgrade": {
         "name": "腐化+",
-        "description": "技能牌费用变为 0，但打出后消耗。费用降至 2。",
+        "description": "获得 3 层力量。费用降至 2。",
         "cost": 2,
         "effects": [
           {
@@ -1498,7 +1498,7 @@
     {
       "id": "double_tap",
       "name": "双重点击",
-      "description": "本回合第一张攻击牌额外触发一次。",
+      "description": "抽 1 张牌。保留至下回合。",
       "type": "skill",
       "rarity": "rare",
       "cost": 1,
@@ -1516,12 +1516,12 @@
       ],
       "upgrade": {
         "name": "双重点击+",
-        "description": "本回合前两张攻击牌额外触发一次。",
+        "description": "抽 2 张牌。保留至下回合。",
         "cost": 1,
         "effects": [
           {
             "type": "draw",
-            "value": 1
+            "value": 2
           }
         ]
       }

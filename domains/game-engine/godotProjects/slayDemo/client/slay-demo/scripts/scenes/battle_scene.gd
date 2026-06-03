@@ -13,12 +13,14 @@ const BACKGROUND_BOSS := "res://assets/backgrounds/bg_battle_boss.png"
 
 const ENEMY_ART_BY_KEY := {
 	"enemy_slime": "res://assets/enemies/slime/enemy_slime_idle.png",
+	"enemy_slime_king": "res://assets/enemies/slime_king/enemy_slime_king_idle.png",
 	"enemy_bat": "res://assets/enemies/bat/enemy_bat_idle.png",
 	"enemy_mushroom": "res://assets/enemies/mushroom/enemy_mushroom_idle.png",
 	"enemy_gargoyle": "res://assets/enemies/gargoyle/enemy_gargoyle_idle.png",
 	"enemy_shadow_mage": "res://assets/enemies/shadow_mage/enemy_shadow_mage_idle.png",
 	"enemy_skeleton": "res://assets/enemies/skeleton/enemy_skeleton_idle.png",
 	"enemy_corrupted_knight": "res://assets/enemies/corrupted_knight/enemy_corrupted_knight_idle.png",
+	"enemy_orc_berserker": "res://assets/enemies/orc_berserker/enemy_orc_berserker_idle.png",
 	"enemy_ancient_dragon": "res://assets/enemies/ancient_dragon/enemy_ancient_dragon_idle.png"
 }
 

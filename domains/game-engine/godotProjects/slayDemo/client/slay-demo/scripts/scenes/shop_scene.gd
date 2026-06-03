@@ -293,15 +293,81 @@ func _on_back_pressed() -> void:
 
 func _on_remove_card_pressed(instance_id: int) -> void:
 	var game_state: Variant = _autoload("GameState")
-	if ShopServiceScript.remove_card(game_state, instance_id, _remove_price()):
-		_status_label.text = "已移除卡牌。"
-		var audio_manager: Variant = _autoload("AudioManager")
-		if audio_manager != null:
-			audio_manager.play_sfx("buy")
-		_remove_mode = false
-		_rebuild()
-	else:
-		_status_label.text = "无法移除卡牌。"
+	var data_loader: Variant = _autoload("DataLoader")
+	var card_name := "这张牌"
+	for card_instance in game_state.master_deck:
+		if int((card_instance as Dictionary).get("instance_id", -1)) == instance_id:
+			var card_data: Dictionary = data_loader.resolve_card_instance(card_instance as Dictionary)
+			card_name = str(card_data.get("name", card_name))
+			break
+
+	_show_remove_confirm(instance_id, card_name)
+
+
+func _show_remove_confirm(instance_id: int, card_name: String) -> void:
+	var overlay := ColorRect.new()
+	overlay.color = Color(0, 0, 0, 0.62)
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.z_index = 100
+	add_child(overlay)
+
+	var panel := PanelContainer.new()
+	panel.custom_minimum_size = Vector2(320, 0)
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.z_index = 101
+	add_child(panel)
+
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 14)
+	panel.add_child(vbox)
+
+	var title := Label.new()
+	title.text = "确认移除"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 20)
+	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
+	vbox.add_child(title)
+
+	var msg := Label.new()
+	msg.text = "花费 %d 金币移除【%s】？\n移除后无法撤销。" % [_remove_price(), card_name]
+	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	msg.add_theme_font_size_override("font_size", 16)
+	msg.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	vbox.add_child(msg)
+
+	var btn_row := HBoxContainer.new()
+	btn_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	btn_row.add_theme_constant_override("separation", 12)
+	vbox.add_child(btn_row)
+
+	var confirm_btn := Button.new()
+	confirm_btn.text = "确认移除"
+	confirm_btn.custom_minimum_size = Vector2(130, 44)
+	confirm_btn.pressed.connect(func() -> void:
+		overlay.queue_free()
+		panel.queue_free()
+		var game_state2: Variant = _autoload("GameState")
+		if ShopServiceScript.remove_card(game_state2, instance_id, _remove_price()):
+			_status_label.text = "已移除 %s。" % card_name
+			var audio_manager: Variant = _autoload("AudioManager")
+			if audio_manager != null:
+				audio_manager.play_sfx("buy")
+			_remove_mode = false
+			_rebuild()
+		else:
+			_status_label.text = "无法移除卡牌。"
+	)
+	btn_row.add_child(confirm_btn)
+
+	var cancel_btn := Button.new()
+	cancel_btn.text = "取消"
+	cancel_btn.custom_minimum_size = Vector2(110, 44)
+	cancel_btn.pressed.connect(func() -> void:
+		overlay.queue_free()
+		panel.queue_free()
+	)
+	btn_row.add_child(cancel_btn)
 
 
 func _on_leave_pressed() -> void:

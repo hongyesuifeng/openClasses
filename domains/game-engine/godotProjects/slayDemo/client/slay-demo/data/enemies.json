@@ -46,7 +46,7 @@
       "name": "尖刺史莱姆",
       "enemy_type": "normal",
       "max_hp": 22,
-      "art_key": "enemy_mushroom",
+      "art_key": "enemy_slime",
       "tags": [
         "thorns"
       ],
@@ -211,7 +211,7 @@
       "name": "盾卫",
       "enemy_type": "normal",
       "max_hp": 34,
-      "art_key": "enemy_skeleton",
+      "art_key": "enemy_corrupted_knight",
       "tags": [
         "block",
         "combined_pressure"
@@ -273,7 +273,7 @@
       "name": "狂战士",
       "enemy_type": "normal",
       "max_hp": 42,
-      "art_key": "enemy_gargoyle",
+      "art_key": "enemy_orc_berserker",
       "tags": [
         "aggressive"
       ],
@@ -335,7 +335,7 @@
       "name": "亡灵法师",
       "enemy_type": "normal",
       "max_hp": 38,
-      "art_key": "enemy_shadow_mage",
+      "art_key": "enemy_skeleton",
       "tags": [
         "debuff"
       ],
@@ -472,7 +472,7 @@
       "name": "史莱姆王",
       "enemy_type": "elite",
       "max_hp": 65,
-      "art_key": "enemy_mushroom",
+      "art_key": "enemy_slime_king",
       "tags": [
         "elite",
         "multi_phase"
