@@ -1,17 +1,30 @@
 extends RefCounted
 
 const RARITY_COLORS := {
-	"common": Color(0.46, 0.40, 0.32, 0.95),
+	"common":   Color(0.46, 0.40, 0.32, 0.95),
 	"uncommon": Color(0.22, 0.40, 0.32, 0.95),
-	"rare": Color(0.34, 0.24, 0.50, 0.95)
+	"rare":     Color(0.34, 0.24, 0.50, 0.95),
+	"boss":     Color(0.55, 0.18, 0.18, 0.95),
+	"starter":  Color(0.28, 0.36, 0.50, 0.95),
 }
 
 const RELIC_ICON_PATHS := {
-	"anchor":      "res://assets/ui/relics/relic_anchor.png",
-	"lantern":     "res://assets/ui/relics/relic_lantern.png",
-	"strawberry":  "res://assets/ui/relics/relic_strawberry.png",
-	"meal_ticket": "res://assets/ui/relics/relic_meal_ticket.png",
-	"golden_idol": "res://assets/ui/relics/relic_golden_idol.png",
+	"anchor":             "res://assets/ui/relics/relic_anchor.png",
+	"lantern":            "res://assets/ui/relics/relic_lantern.png",
+	"strawberry":         "res://assets/ui/relics/relic_strawberry.png",
+	"meal_ticket":        "res://assets/ui/relics/relic_meal_ticket.png",
+	"golden_idol":        "res://assets/ui/relics/relic_golden_idol.png",
+	"iron_boots":         "res://assets/ui/relics/relic_iron_boots.png",
+	"blood_ring":         "res://assets/ui/relics/relic_blood_ring.png",
+	"war_drum":           "res://assets/ui/relics/relic_war_drum.png",
+	"ancient_scroll":     "res://assets/ui/relics/relic_ancient_scroll.png",
+	"crystal_ball":       "res://assets/ui/relics/relic_crystal_ball.png",
+	"healing_spring":     "res://assets/ui/relics/relic_healing_spring.png",
+	"philosopher_stone":  "res://assets/ui/relics/relic_philosopher_stone.png",
+	"burning_blood":      "res://assets/ui/relics/relic_burning_blood.png",
+	"ring_of_serpent":    "res://assets/ui/relics/relic_ring_of_serpent.png",
+	"fusion_hammer":      "res://assets/ui/relics/relic_fusion_hammer.png",
+	"runic_dome":         "res://assets/ui/relics/relic_runic_dome.png",
 }
 
 
