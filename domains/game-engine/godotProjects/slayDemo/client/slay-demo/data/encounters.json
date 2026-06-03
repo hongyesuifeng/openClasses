@@ -228,7 +228,10 @@
         "elite_hexmage_v1"
       ],
       "reward_type": "relic",
-      "gold_reward": 30
+      "gold_reward": {
+        "min": 30,
+        "max": 42
+      }
     },
     {
       "id": "v1_elite_04",
@@ -237,7 +240,10 @@
         "elite_gargoyle_sentinel_v1"
       ],
       "reward_type": "relic",
-      "gold_reward": 30
+      "gold_reward": {
+        "min": 32,
+        "max": 45
+      }
     }
   ]
 }
