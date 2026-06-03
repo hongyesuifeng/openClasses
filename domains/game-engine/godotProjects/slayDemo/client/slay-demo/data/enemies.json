@@ -6,14 +6,22 @@
       "enemy_type": "normal",
       "max_hp": 18,
       "art_key": "enemy_slime",
-      "tags": ["startup_pressure"],
+      "tags": [
+        "startup_pressure"
+      ],
       "actions": [
         {
           "id": "tackle",
           "name": "撞击",
           "intent_type": "attack",
           "intent_value": 5,
-          "effects": [{ "type": "damage", "value": 5, "target": "player" }],
+          "effects": [
+            {
+              "type": "damage",
+              "value": 5,
+              "target": "player"
+            }
+          ],
           "weight": 60
         },
         {
@@ -21,7 +29,13 @@
           "name": "吸收",
           "intent_type": "buff",
           "intent_value": 0,
-          "effects": [{ "type": "heal", "value": 4, "target": "self" }],
+          "effects": [
+            {
+              "type": "heal",
+              "value": 4,
+              "target": "self"
+            }
+          ],
           "weight": 40
         }
       ],
@@ -33,14 +47,22 @@
       "enemy_type": "normal",
       "max_hp": 22,
       "art_key": "enemy_mushroom",
-      "tags": ["thorns"],
+      "tags": [
+        "thorns"
+      ],
       "actions": [
         {
           "id": "spike_tackle",
           "name": "尖刺撞击",
           "intent_type": "attack",
           "intent_value": 6,
-          "effects": [{ "type": "damage", "value": 6, "target": "player" }],
+          "effects": [
+            {
+              "type": "damage",
+              "value": 6,
+              "target": "player"
+            }
+          ],
           "weight": 50
         },
         {
@@ -48,7 +70,14 @@
           "name": "竖刺",
           "intent_type": "buff",
           "intent_value": 0,
-          "effects": [{ "type": "apply_status", "status_id": "thorns", "value": 2, "target": "self" }],
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "thorns",
+              "value": 2,
+              "target": "self"
+            }
+          ],
           "weight": 50
         }
       ],
@@ -60,14 +89,22 @@
       "enemy_type": "normal",
       "max_hp": 28,
       "art_key": "enemy_shadow_mage",
-      "tags": ["scaling_pressure"],
+      "tags": [
+        "scaling_pressure"
+      ],
       "actions": [
         {
           "id": "chant",
           "name": "咏唱",
           "intent_type": "buff",
           "intent_value": 0,
-          "effects": [{ "type": "gain_strength", "value": 2, "target": "self" }],
+          "effects": [
+            {
+              "type": "gain_strength",
+              "value": 2,
+              "target": "self"
+            }
+          ],
           "weight": 30
         },
         {
@@ -75,7 +112,13 @@
           "name": "暗影打击",
           "intent_type": "attack",
           "intent_value": 8,
-          "effects": [{ "type": "damage", "value": 8, "target": "player" }],
+          "effects": [
+            {
+              "type": "damage",
+              "value": 8,
+              "target": "player"
+            }
+          ],
           "weight": 50
         },
         {
@@ -83,7 +126,14 @@
           "name": "诅咒",
           "intent_type": "debuff",
           "intent_value": 0,
-          "effects": [{ "type": "apply_status", "status_id": "weak", "value": 1, "target": "player" }],
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "weak",
+              "value": 1,
+              "target": "player"
+            }
+          ],
           "weight": 20
         }
       ],
@@ -95,7 +145,9 @@
       "enemy_type": "normal",
       "max_hp": 24,
       "art_key": "enemy_bat",
-      "tags": ["poison"],
+      "tags": [
+        "poison"
+      ],
       "actions": [
         {
           "id": "venom_bite",
@@ -103,8 +155,17 @@
           "intent_type": "attack",
           "intent_value": 4,
           "effects": [
-            { "type": "damage", "value": 4, "target": "player" },
-            { "type": "apply_status", "status_id": "poison", "value": 2, "target": "player" }
+            {
+              "type": "damage",
+              "value": 4,
+              "target": "player"
+            },
+            {
+              "type": "apply_status",
+              "status_id": "poison",
+              "value": 2,
+              "target": "player"
+            }
           ],
           "weight": 45
         },
@@ -113,7 +174,14 @@
           "name": "尖啸",
           "intent_type": "debuff",
           "intent_value": 0,
-          "effects": [{ "type": "apply_status", "status_id": "weak", "value": 1, "target": "player" }],
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "weak",
+              "value": 1,
+              "target": "player"
+            }
+          ],
           "weight": 30
         },
         {
@@ -122,8 +190,16 @@
           "intent_type": "attack",
           "intent_value": 6,
           "effects": [
-            { "type": "damage", "value": 6, "target": "player" },
-            { "type": "heal", "value": 3, "target": "self" }
+            {
+              "type": "damage",
+              "value": 6,
+              "target": "player"
+            },
+            {
+              "type": "heal",
+              "value": 3,
+              "target": "self"
+            }
           ],
           "weight": 25
         }
@@ -136,14 +212,23 @@
       "enemy_type": "normal",
       "max_hp": 34,
       "art_key": "enemy_skeleton",
-      "tags": ["block", "combined_pressure"],
+      "tags": [
+        "block",
+        "combined_pressure"
+      ],
       "actions": [
         {
           "id": "guard",
           "name": "举盾",
           "intent_type": "defend",
           "intent_value": 8,
-          "effects": [{ "type": "block", "value": 8, "target": "self" }],
+          "effects": [
+            {
+              "type": "block",
+              "value": 8,
+              "target": "self"
+            }
+          ],
           "weight": 35
         },
         {
@@ -151,7 +236,13 @@
           "name": "盾击",
           "intent_type": "attack",
           "intent_value": 7,
-          "effects": [{ "type": "damage", "value": 7, "target": "player" }],
+          "effects": [
+            {
+              "type": "damage",
+              "value": 7,
+              "target": "player"
+            }
+          ],
           "weight": 40
         },
         {
@@ -160,8 +251,17 @@
           "intent_type": "attack",
           "intent_value": 10,
           "effects": [
-            { "type": "damage", "value": 10, "target": "player" },
-            { "type": "apply_status", "status_id": "vulnerable", "value": 1, "target": "player" }
+            {
+              "type": "damage",
+              "value": 10,
+              "target": "player"
+            },
+            {
+              "type": "apply_status",
+              "status_id": "vulnerable",
+              "value": 1,
+              "target": "player"
+            }
           ],
           "weight": 25
         }
@@ -174,23 +274,42 @@
       "enemy_type": "normal",
       "max_hp": 42,
       "art_key": "enemy_gargoyle",
-      "tags": ["aggressive"],
+      "tags": [
+        "aggressive"
+      ],
       "actions": [
         {
           "id": "rage",
           "name": "狂怒",
           "intent_type": "buff",
           "intent_value": 0,
-          "effects": [{ "type": "gain_strength", "value": 2, "target": "self" }],
+          "effects": [
+            {
+              "type": "gain_strength",
+              "value": 2,
+              "target": "self"
+            }
+          ],
           "weight": 25,
-          "conditions": [{ "type": "self_hp_above", "value": 0.3 }]
+          "conditions": [
+            {
+              "type": "self_hp_above",
+              "value": 0.3
+            }
+          ]
         },
         {
           "id": "crush",
           "name": "粉碎",
           "intent_type": "attack",
           "intent_value": 10,
-          "effects": [{ "type": "damage", "value": 10, "target": "player" }],
+          "effects": [
+            {
+              "type": "damage",
+              "value": 10,
+              "target": "player"
+            }
+          ],
           "weight": 40
         },
         {
@@ -198,7 +317,14 @@
           "name": "双击",
           "intent_type": "attack",
           "intent_value": 6,
-          "effects": [{ "type": "multi_damage", "value": 6, "hits": 2, "target": "player" }],
+          "effects": [
+            {
+              "type": "multi_damage",
+              "value": 6,
+              "hits": 2,
+              "target": "player"
+            }
+          ],
           "weight": 35
         }
       ],
@@ -210,14 +336,23 @@
       "enemy_type": "normal",
       "max_hp": 38,
       "art_key": "enemy_shadow_mage",
-      "tags": ["debuff"],
+      "tags": [
+        "debuff"
+      ],
       "actions": [
         {
           "id": "hex",
           "name": "诅咒",
           "intent_type": "debuff",
           "intent_value": 0,
-          "effects": [{ "type": "apply_status", "status_id": "weak", "value": 1, "target": "player" }],
+          "effects": [
+            {
+              "type": "apply_status",
+              "status_id": "weak",
+              "value": 1,
+              "target": "player"
+            }
+          ],
           "weight": 25
         },
         {
@@ -226,8 +361,16 @@
           "intent_type": "attack",
           "intent_value": 7,
           "effects": [
-            { "type": "damage", "value": 7, "target": "player" },
-            { "type": "heal", "value": 3, "target": "self" }
+            {
+              "type": "damage",
+              "value": 7,
+              "target": "player"
+            },
+            {
+              "type": "heal",
+              "value": 3,
+              "target": "self"
+            }
           ],
           "weight": 35
         },
@@ -236,7 +379,13 @@
           "name": "召唤骷髅",
           "intent_type": "summon",
           "intent_value": 0,
-          "effects": [{ "type": "summon", "enemy_id": "shield_guard_v1", "count": 1 }],
+          "effects": [
+            {
+              "type": "summon",
+              "enemy_id": "shield_guard_v1",
+              "count": 1
+            }
+          ],
           "weight": 20,
           "cooldown": 4
         },
@@ -245,7 +394,13 @@
           "name": "暗影箭",
           "intent_type": "attack",
           "intent_value": 10,
-          "effects": [{ "type": "damage", "value": 10, "target": "player" }],
+          "effects": [
+            {
+              "type": "damage",
+              "value": 10,
+              "target": "player"
+            }
+          ],
           "weight": 20
         }
       ],
@@ -257,14 +412,22 @@
       "enemy_type": "normal",
       "max_hp": 50,
       "art_key": "enemy_gargoyle",
-      "tags": ["tank"],
+      "tags": [
+        "tank"
+      ],
       "actions": [
         {
           "id": "stone_wall",
           "name": "石墙",
           "intent_type": "defend",
           "intent_value": 12,
-          "effects": [{ "type": "block", "value": 12, "target": "self" }],
+          "effects": [
+            {
+              "type": "block",
+              "value": 12,
+              "target": "self"
+            }
+          ],
           "weight": 30
         },
         {
@@ -272,7 +435,13 @@
           "name": "重击",
           "intent_type": "attack",
           "intent_value": 9,
-          "effects": [{ "type": "damage", "value": 9, "target": "player" }],
+          "effects": [
+            {
+              "type": "damage",
+              "value": 9,
+              "target": "player"
+            }
+          ],
           "weight": 40
         },
         {
@@ -281,8 +450,17 @@
           "intent_type": "buff",
           "intent_value": 0,
           "effects": [
-            { "type": "block", "value": 6, "target": "self" },
-            { "type": "apply_status", "status_id": "thorns", "value": 2, "target": "self" }
+            {
+              "type": "block",
+              "value": 6,
+              "target": "self"
+            },
+            {
+              "type": "apply_status",
+              "status_id": "thorns",
+              "value": 2,
+              "target": "self"
+            }
           ],
           "weight": 30
         }
@@ -295,7 +473,10 @@
       "enemy_type": "elite",
       "max_hp": 65,
       "art_key": "enemy_mushroom",
-      "tags": ["elite", "multi_phase"],
+      "tags": [
+        "elite",
+        "multi_phase"
+      ],
       "phases": [
         {
           "name": "正常形态",
@@ -307,7 +488,13 @@
               "name": "猛击",
               "intent_type": "attack",
               "intent_value": 12,
-              "effects": [{ "type": "damage", "value": 12, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 12,
+                  "target": "player"
+                }
+              ],
               "weight": 35
             },
             {
@@ -315,7 +502,13 @@
               "name": "粘液喷射",
               "intent_type": "attack",
               "intent_value": 8,
-              "effects": [{ "type": "damage", "value": 8, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 8,
+                  "target": "player"
+                }
+              ],
               "weight": 35
             },
             {
@@ -323,7 +516,13 @@
               "name": "召唤小史莱姆",
               "intent_type": "summon",
               "intent_value": 0,
-              "effects": [{ "type": "summon", "enemy_id": "slime_small_v1", "count": 2 }],
+              "effects": [
+                {
+                  "type": "summon",
+                  "enemy_id": "slime_small_v1",
+                  "count": 2
+                }
+              ],
               "weight": 30,
               "cooldown": 4
             }
@@ -333,14 +532,25 @@
           "name": "分裂形态",
           "trigger": "hp_below_50%",
           "selection_mode": "weighted_pool",
-          "phase_effects": [{ "type": "gain_strength", "value": 2 }],
+          "phase_effects": [
+            {
+              "type": "gain_strength",
+              "value": 2
+            }
+          ],
           "actions": [
             {
               "id": "desperate_slam",
               "name": "疯狂猛击",
               "intent_type": "attack",
               "intent_value": 16,
-              "effects": [{ "type": "damage", "value": 16, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 16,
+                  "target": "player"
+                }
+              ],
               "weight": 30
             },
             {
@@ -348,7 +558,13 @@
               "name": "快速分裂",
               "intent_type": "summon",
               "intent_value": 0,
-              "effects": [{ "type": "summon", "enemy_id": "slime_small_v1", "count": 3 }],
+              "effects": [
+                {
+                  "type": "summon",
+                  "enemy_id": "slime_small_v1",
+                  "count": 3
+                }
+              ],
               "weight": 30,
               "cooldown": 3
             },
@@ -358,8 +574,16 @@
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
-                { "type": "heal", "value": 12, "target": "self" },
-                { "type": "gain_strength", "value": 1, "target": "self" }
+                {
+                  "type": "heal",
+                  "value": 12,
+                  "target": "self"
+                },
+                {
+                  "type": "gain_strength",
+                  "value": 1,
+                  "target": "self"
+                }
               ],
               "weight": 40
             }
@@ -373,7 +597,10 @@
       "enemy_type": "elite",
       "max_hp": 75,
       "art_key": "enemy_gargoyle",
-      "tags": ["elite", "scaling"],
+      "tags": [
+        "elite",
+        "scaling"
+      ],
       "phases": [
         {
           "name": "战斗姿态",
@@ -385,7 +612,13 @@
               "name": "战吼",
               "intent_type": "buff",
               "intent_value": 0,
-              "effects": [{ "type": "gain_strength", "value": 3, "target": "self" }],
+              "effects": [
+                {
+                  "type": "gain_strength",
+                  "value": 3,
+                  "target": "self"
+                }
+              ],
               "weight": 20
             },
             {
@@ -393,7 +626,13 @@
               "name": "横扫",
               "intent_type": "attack",
               "intent_value": 10,
-              "effects": [{ "type": "damage", "value": 10, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 10,
+                  "target": "player"
+                }
+              ],
               "weight": 35
             },
             {
@@ -401,7 +640,13 @@
               "name": "狂乱攻击",
               "intent_type": "attack",
               "intent_value": 15,
-              "effects": [{ "type": "damage", "value": 15, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 15,
+                  "target": "player"
+                }
+              ],
               "weight": 25
             },
             {
@@ -409,7 +654,13 @@
               "name": "防御姿态",
               "intent_type": "defend",
               "intent_value": 8,
-              "effects": [{ "type": "block", "value": 8, "target": "self" }],
+              "effects": [
+                {
+                  "type": "block",
+                  "value": 8,
+                  "target": "self"
+                }
+              ],
               "weight": 20
             }
           ]
@@ -418,16 +669,32 @@
           "name": "狂暴姿态",
           "trigger": "hp_below_40%",
           "selection_mode": "weighted_pool",
-          "phase_effects": [{ "type": "gain_strength", "value": 4 }],
+          "phase_effects": [
+            {
+              "type": "gain_strength",
+              "value": 4
+            }
+          ],
           "actions": [
             {
               "id": "execute",
               "name": "处决",
               "intent_type": "attack",
               "intent_value": 25,
-              "effects": [{ "type": "damage", "value": 25, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 25,
+                  "target": "player"
+                }
+              ],
               "weight": 30,
-              "conditions": [{ "type": "player_hp_below", "value": 0.5 }]
+              "conditions": [
+                {
+                  "type": "player_hp_below",
+                  "value": 0.5
+                }
+              ]
             },
             {
               "id": "rampage",
@@ -435,8 +702,16 @@
               "intent_type": "attack",
               "intent_value": 18,
               "effects": [
-                { "type": "damage", "value": 18, "target": "player" },
-                { "type": "lose_hp", "value": 5, "target": "self" }
+                {
+                  "type": "damage",
+                  "value": 18,
+                  "target": "player"
+                },
+                {
+                  "type": "lose_hp",
+                  "value": 5,
+                  "target": "self"
+                }
               ],
               "weight": 40
             },
@@ -446,8 +721,17 @@
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
-                { "type": "gain_strength", "value": 3, "target": "self" },
-                { "type": "apply_status", "status_id": "vulnerable", "value": 1, "target": "self" }
+                {
+                  "type": "gain_strength",
+                  "value": 3,
+                  "target": "self"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "vulnerable",
+                  "value": 1,
+                  "target": "self"
+                }
               ],
               "weight": 30
             }
@@ -461,7 +745,11 @@
       "enemy_type": "boss",
       "max_hp": 100,
       "art_key": "enemy_corrupted_knight",
-      "tags": ["boss", "burst", "scaling_pressure"],
+      "tags": [
+        "boss",
+        "burst",
+        "scaling_pressure"
+      ],
       "phases": [
         {
           "name": "防守反击",
@@ -473,7 +761,13 @@
               "name": "蓄势",
               "intent_type": "buff",
               "intent_value": 0,
-              "effects": [{ "type": "gain_strength", "value": 2, "target": "self" }],
+              "effects": [
+                {
+                  "type": "gain_strength",
+                  "value": 2,
+                  "target": "self"
+                }
+              ],
               "weight": 20
             },
             {
@@ -481,7 +775,13 @@
               "name": "斩击",
               "intent_type": "attack",
               "intent_value": 14,
-              "effects": [{ "type": "damage", "value": 14, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 14,
+                  "target": "player"
+                }
+              ],
               "weight": 30
             },
             {
@@ -489,7 +789,13 @@
               "name": "防御姿态",
               "intent_type": "defend",
               "intent_value": 15,
-              "effects": [{ "type": "block", "value": 15, "target": "self" }],
+              "effects": [
+                {
+                  "type": "block",
+                  "value": 15,
+                  "target": "self"
+                }
+              ],
               "weight": 25
             },
             {
@@ -498,8 +804,17 @@
               "intent_type": "attack",
               "intent_value": 10,
               "effects": [
-                { "type": "damage", "value": 10, "target": "player" },
-                { "type": "apply_status", "status_id": "vulnerable", "value": 1, "target": "player" }
+                {
+                  "type": "damage",
+                  "value": 10,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "vulnerable",
+                  "value": 1,
+                  "target": "player"
+                }
               ],
               "weight": 25
             }
@@ -509,23 +824,45 @@
           "name": "破釜沉舟",
           "trigger": "hp_below_40%",
           "selection_mode": "weighted_pool",
-          "phase_effects": [{ "type": "gain_strength", "value": 5 }],
+          "phase_effects": [
+            {
+              "type": "gain_strength",
+              "value": 5
+            }
+          ],
           "actions": [
             {
               "id": "execute",
               "name": "处决",
               "intent_type": "attack",
               "intent_value": 30,
-              "effects": [{ "type": "damage", "value": 30, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 30,
+                  "target": "player"
+                }
+              ],
               "weight": 25,
-              "conditions": [{ "type": "player_hp_below", "value": 0.5 }]
+              "conditions": [
+                {
+                  "type": "player_hp_below",
+                  "value": 0.5
+                }
+              ]
             },
             {
               "id": "heavy_cleave",
               "name": "重斩",
               "intent_type": "attack",
               "intent_value": 22,
-              "effects": [{ "type": "damage", "value": 22, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 22,
+                  "target": "player"
+                }
+              ],
               "weight": 35
             },
             {
@@ -534,8 +871,16 @@
               "intent_type": "defend",
               "intent_value": 25,
               "effects": [
-                { "type": "block", "value": 25, "target": "self" },
-                { "type": "lose_hp", "value": 5, "target": "self" }
+                {
+                  "type": "block",
+                  "value": 25,
+                  "target": "self"
+                },
+                {
+                  "type": "lose_hp",
+                  "value": 5,
+                  "target": "self"
+                }
               ],
               "weight": 20
             },
@@ -545,8 +890,17 @@
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
-                { "type": "gain_strength", "value": 4, "target": "self" },
-                { "type": "apply_status", "status_id": "vulnerable", "value": 1, "target": "self" }
+                {
+                  "type": "gain_strength",
+                  "value": 4,
+                  "target": "self"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "vulnerable",
+                  "value": 1,
+                  "target": "self"
+                }
               ],
               "weight": 20
             }
@@ -560,7 +914,11 @@
       "enemy_type": "boss",
       "max_hp": 120,
       "art_key": "enemy_ancient_dragon",
-      "tags": ["boss", "fire", "multi_phase"],
+      "tags": [
+        "boss",
+        "fire",
+        "multi_phase"
+      ],
       "phases": [
         {
           "name": "常规阶段",
@@ -572,7 +930,13 @@
               "name": "地狱火",
               "intent_type": "attack",
               "intent_value": 12,
-              "effects": [{ "type": "damage", "value": 12, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 12,
+                  "target": "player"
+                }
+              ],
               "weight": 30
             },
             {
@@ -581,8 +945,17 @@
               "intent_type": "defend",
               "intent_value": 15,
               "effects": [
-                { "type": "block", "value": 15, "target": "self" },
-                { "type": "apply_status", "status_id": "thorns", "value": 2, "target": "self" }
+                {
+                  "type": "block",
+                  "value": 15,
+                  "target": "self"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "thorns",
+                  "value": 2,
+                  "target": "self"
+                }
               ],
               "weight": 25
             },
@@ -591,7 +964,13 @@
               "name": "燃烧之怒",
               "intent_type": "buff",
               "intent_value": 0,
-              "effects": [{ "type": "gain_strength", "value": 2, "target": "self" }],
+              "effects": [
+                {
+                  "type": "gain_strength",
+                  "value": 2,
+                  "target": "self"
+                }
+              ],
               "weight": 20
             },
             {
@@ -600,8 +979,17 @@
               "intent_type": "attack",
               "intent_value": 8,
               "effects": [
-                { "type": "damage", "value": 8, "target": "player" },
-                { "type": "apply_status", "status_id": "vulnerable", "value": 1, "target": "player" }
+                {
+                  "type": "damage",
+                  "value": 8,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "vulnerable",
+                  "value": 1,
+                  "target": "player"
+                }
               ],
               "weight": 25
             }
@@ -612,8 +1000,16 @@
           "trigger": "hp_below_50%",
           "selection_mode": "weighted_pool",
           "phase_effects": [
-            { "type": "gain_strength", "value": 3 },
-            { "type": "apply_status", "status_id": "thorns", "value": 3, "target": "self" }
+            {
+              "type": "gain_strength",
+              "value": 3
+            },
+            {
+              "type": "apply_status",
+              "status_id": "thorns",
+              "value": 3,
+              "target": "self"
+            }
           ],
           "actions": [
             {
@@ -621,7 +1017,13 @@
               "name": "陨石打击",
               "intent_type": "attack",
               "intent_value": 25,
-              "effects": [{ "type": "damage", "value": 25, "target": "player" }],
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 25,
+                  "target": "player"
+                }
+              ],
               "weight": 20
             },
             {
@@ -629,7 +1031,14 @@
               "name": "强化地狱火",
               "intent_type": "attack",
               "intent_value": 6,
-              "effects": [{ "type": "multi_damage", "value": 6, "hits": 3, "target": "player" }],
+              "effects": [
+                {
+                  "type": "multi_damage",
+                  "value": 6,
+                  "hits": 3,
+                  "target": "player"
+                }
+              ],
               "weight": 30
             },
             {
@@ -638,8 +1047,17 @@
               "intent_type": "attack",
               "intent_value": 15,
               "effects": [
-                { "type": "damage", "value": 15, "target": "player" },
-                { "type": "apply_status", "status_id": "weak", "value": 1, "target": "player" }
+                {
+                  "type": "damage",
+                  "value": 15,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "weak",
+                  "value": 1,
+                  "target": "player"
+                }
               ],
               "weight": 25
             },
@@ -649,10 +1067,216 @@
               "intent_type": "defend",
               "intent_value": 20,
               "effects": [
-                { "type": "block", "value": 20, "target": "self" },
-                { "type": "apply_status", "status_id": "thorns", "value": 4, "target": "self" }
+                {
+                  "type": "block",
+                  "value": 20,
+                  "target": "self"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "thorns",
+                  "value": 4,
+                  "target": "self"
+                }
               ],
               "weight": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elite_hexmage_v1",
+      "name": "诅咒法师",
+      "enemy_type": "elite",
+      "max_hp": 58,
+      "art_key": "enemy_shadow_mage",
+      "tags": [
+        "elite",
+        "debuff"
+      ],
+      "phases": [
+        {
+          "name": "诅咒形态",
+          "trigger": "always",
+          "selection_mode": "weighted_pool",
+          "actions": [
+            {
+              "id": "hex_bolt",
+              "name": "诅咒箭",
+              "intent_type": "attack",
+              "intent_value": 9,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 9,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "vulnerable",
+                  "value": 1,
+                  "target": "player"
+                }
+              ],
+              "weight": 40
+            },
+            {
+              "id": "weaken_curse",
+              "name": "虚弱咒",
+              "intent_type": "debuff",
+              "intent_value": 0,
+              "effects": [
+                {
+                  "type": "apply_status",
+                  "status_id": "weak",
+                  "value": 2,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "frail",
+                  "value": 1,
+                  "target": "player"
+                }
+              ],
+              "weight": 35
+            },
+            {
+              "id": "dark_shield",
+              "name": "暗盾",
+              "intent_type": "defend",
+              "intent_value": 14,
+              "effects": [
+                {
+                  "type": "block",
+                  "value": 14,
+                  "target": "self"
+                }
+              ],
+              "weight": 25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elite_gargoyle_sentinel_v1",
+      "name": "石像哨兵",
+      "enemy_type": "elite",
+      "max_hp": 80,
+      "art_key": "enemy_gargoyle",
+      "tags": [
+        "elite",
+        "tank"
+      ],
+      "phases": [
+        {
+          "name": "守卫形态",
+          "trigger": "hp_above_40%",
+          "selection_mode": "weighted_pool",
+          "actions": [
+            {
+              "id": "stone_strike",
+              "name": "石击",
+              "intent_type": "attack",
+              "intent_value": 11,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 11,
+                  "target": "player"
+                }
+              ],
+              "weight": 40
+            },
+            {
+              "id": "fortify",
+              "name": "强化",
+              "intent_type": "defend",
+              "intent_value": 18,
+              "effects": [
+                {
+                  "type": "block",
+                  "value": 18,
+                  "target": "self"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "thorns",
+                  "value": 3,
+                  "target": "self"
+                }
+              ],
+              "weight": 35,
+              "cooldown": 3
+            },
+            {
+              "id": "pummel",
+              "name": "连击",
+              "intent_type": "attack",
+              "intent_value": 18,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 6,
+                  "target": "player"
+                },
+                {
+                  "type": "damage",
+                  "value": 6,
+                  "target": "player"
+                },
+                {
+                  "type": "damage",
+                  "value": 6,
+                  "target": "player"
+                }
+              ],
+              "weight": 25,
+              "cooldown": 2
+            }
+          ]
+        },
+        {
+          "name": "狂暴形态",
+          "trigger": "hp_below_40%",
+          "selection_mode": "weighted_pool",
+          "phase_effects": [
+            {
+              "type": "gain_strength",
+              "value": 3
+            }
+          ],
+          "actions": [
+            {
+              "id": "rage_strike",
+              "name": "狂怒重击",
+              "intent_type": "attack",
+              "intent_value": 16,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 16,
+                  "target": "player"
+                }
+              ],
+              "weight": 50
+            },
+            {
+              "id": "crush",
+              "name": "压碎",
+              "intent_type": "attack",
+              "intent_value": 24,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 24,
+                  "target": "player"
+                }
+              ],
+              "weight": 50,
+              "cooldown": 2
             }
           ]
         }

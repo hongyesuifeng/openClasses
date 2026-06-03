@@ -862,7 +862,19 @@
           "value": 1,
           "target": "self"
         }
-      ]
+      ],
+      "upgrade": {
+        "name": "堡垒+",
+        "description": "格挡不再在回合开始时清除。费用降至 2。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "gain_barricade",
+            "value": 1,
+            "target": "self"
+          }
+        ]
+      }
     },
     {
       "id": "whirlwind",
@@ -1375,17 +1387,28 @@
       "rarity": "uncommon",
       "cost": 1,
       "target": "self",
-      "tags": ["block", "retain"],
+      "tags": [
+        "block",
+        "retain"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "block", "value": 5, "target": "self" }
+        {
+          "type": "block",
+          "value": 5,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "哨兵+",
         "description": "获得 8 点格挡。若此牌被消耗，获得 2 点能量。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 8, "target": "self" }
+          {
+            "type": "block",
+            "value": 8,
+            "target": "self"
+          }
         ]
       }
     },
@@ -1397,19 +1420,36 @@
       "rarity": "uncommon",
       "cost": 1,
       "target": "self",
-      "tags": ["block", "exhaust"],
+      "tags": [
+        "block",
+        "exhaust"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "block", "value": 7, "target": "self" },
-        { "type": "exhaust", "target": "current_card" }
+        {
+          "type": "block",
+          "value": 7,
+          "target": "self"
+        },
+        {
+          "type": "exhaust",
+          "target": "current_card"
+        }
       ],
       "upgrade": {
         "name": "真正的勇气+",
         "description": "获得 9 点格挡。消耗手中随机一张牌。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 9, "target": "self" },
-          { "type": "exhaust", "target": "current_card" }
+          {
+            "type": "block",
+            "value": 9,
+            "target": "self"
+          },
+          {
+            "type": "exhaust",
+            "target": "current_card"
+          }
         ]
       }
     },
@@ -1421,19 +1461,34 @@
       "rarity": "uncommon",
       "cost": 1,
       "target": "self",
-      "tags": ["energy", "exhaust"],
+      "tags": [
+        "energy",
+        "exhaust"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "gain_energy", "value": 2 },
-        { "type": "exhaust", "target": "current_card" }
+        {
+          "type": "gain_energy",
+          "value": 2
+        },
+        {
+          "type": "exhaust",
+          "target": "current_card"
+        }
       ],
       "upgrade": {
         "name": "看见红色+",
         "description": "获得 2 点能量。消耗。费用降至 0。",
         "cost": 0,
         "effects": [
-          { "type": "gain_energy", "value": 2 },
-          { "type": "exhaust", "target": "current_card" }
+          {
+            "type": "gain_energy",
+            "value": 2
+          },
+          {
+            "type": "exhaust",
+            "target": "current_card"
+          }
         ]
       }
     },
@@ -1445,17 +1500,26 @@
       "rarity": "rare",
       "cost": 1,
       "target": "self",
-      "tags": ["power", "retain"],
+      "tags": [
+        "power",
+        "retain"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "draw", "value": 1 }
+        {
+          "type": "draw",
+          "value": 1
+        }
       ],
       "upgrade": {
         "name": "双重点击+",
         "description": "本回合前两张攻击牌额外触发一次。",
         "cost": 1,
         "effects": [
-          { "type": "draw", "value": 1 }
+          {
+            "type": "draw",
+            "value": 1
+          }
         ]
       }
     },
@@ -1467,17 +1531,26 @@
       "rarity": "common",
       "cost": 1,
       "target": "all_enemies",
-      "tags": ["damage", "multi_hit"],
+      "tags": [
+        "damage",
+        "multi_hit"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "aoe_damage", "value": 3 }
+        {
+          "type": "aoe_damage",
+          "value": 3
+        }
       ],
       "upgrade": {
         "name": "回旋剑+",
         "description": "对随机敌人造成 3 点伤害，共 4 次。",
         "cost": 1,
         "effects": [
-          { "type": "aoe_damage", "value": 3 }
+          {
+            "type": "aoe_damage",
+            "value": 3
+          }
         ]
       }
     },
@@ -1489,17 +1562,28 @@
       "rarity": "uncommon",
       "cost": 1,
       "target": "single_enemy",
-      "tags": ["buff", "strength"],
+      "tags": [
+        "buff",
+        "strength"
+      ],
       "art_key": "card_buff",
       "effects": [
-        { "type": "gain_strength", "value": 3, "target": "self" }
+        {
+          "type": "gain_strength",
+          "value": 3,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "发现弱点+",
         "description": "若敌人正在攻击，获得 4 点力量。",
         "cost": 1,
         "effects": [
-          { "type": "gain_strength", "value": 4, "target": "self" }
+          {
+            "type": "gain_strength",
+            "value": 4,
+            "target": "self"
+          }
         ]
       }
     },
@@ -1511,18 +1595,33 @@
       "rarity": "rare",
       "cost": 1,
       "target": "self",
-      "tags": ["buff", "strength", "exhaust"],
+      "tags": [
+        "buff",
+        "strength",
+        "exhaust"
+      ],
       "art_key": "card_buff",
       "effects": [
-        { "type": "gain_strength", "value": 3, "target": "self" },
-        { "type": "exhaust", "target": "current_card" }
+        {
+          "type": "gain_strength",
+          "value": 3,
+          "target": "self"
+        },
+        {
+          "type": "exhaust",
+          "target": "current_card"
+        }
       ],
       "upgrade": {
         "name": "极限突破+",
         "description": "力量翻倍。（不消耗）",
         "cost": 1,
         "effects": [
-          { "type": "gain_strength", "value": 3, "target": "self" }
+          {
+            "type": "gain_strength",
+            "value": 3,
+            "target": "self"
+          }
         ]
       }
     },
@@ -1534,19 +1633,36 @@
       "rarity": "common",
       "cost": 0,
       "target": "self",
-      "tags": ["heal", "exhaust"],
+      "tags": [
+        "heal",
+        "exhaust"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "heal", "value": 4, "target": "self" },
-        { "type": "exhaust", "target": "current_card" }
+        {
+          "type": "heal",
+          "value": 4,
+          "target": "self"
+        },
+        {
+          "type": "exhaust",
+          "target": "current_card"
+        }
       ],
       "upgrade": {
         "name": "绷带包扎+",
         "description": "恢复 6 点生命值。消耗。",
         "cost": 0,
         "effects": [
-          { "type": "heal", "value": 6, "target": "self" },
-          { "type": "exhaust", "target": "current_card" }
+          {
+            "type": "heal",
+            "value": 6,
+            "target": "self"
+          },
+          {
+            "type": "exhaust",
+            "target": "current_card"
+          }
         ]
       }
     },
@@ -1558,17 +1674,28 @@
       "rarity": "common",
       "cost": 1,
       "target": "single_enemy",
-      "tags": ["damage", "block"],
+      "tags": [
+        "damage",
+        "block"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "damage", "value": 8, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 8,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "身体冲撞+",
         "description": "造成等同于当前格挡值的伤害。费用降至 0。",
         "cost": 0,
         "effects": [
-          { "type": "damage", "value": 8, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 8,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -1580,17 +1707,28 @@
       "rarity": "uncommon",
       "cost": 2,
       "target": "self",
-      "tags": ["block", "buff"],
+      "tags": [
+        "block",
+        "buff"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "block", "value": 10, "target": "self" }
+        {
+          "type": "block",
+          "value": 10,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "深挖战壕+",
         "description": "格挡值翻倍。费用降至 1。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 10, "target": "self" }
+          {
+            "type": "block",
+            "value": 10,
+            "target": "self"
+          }
         ]
       }
     },
@@ -1602,17 +1740,28 @@
       "rarity": "common",
       "cost": 2,
       "target": "single_enemy",
-      "tags": ["damage", "strike"],
+      "tags": [
+        "damage",
+        "strike"
+      ],
       "art_key": "card_strike",
       "effects": [
-        { "type": "damage", "value": 10, "target": "selected_enemy" }
+        {
+          "type": "damage",
+          "value": 10,
+          "target": "selected_enemy"
+        }
       ],
       "upgrade": {
         "name": "完美打击+",
         "description": "造成 6 点伤害。每有一张含【打击】的牌额外造成 3 点伤害。",
         "cost": 2,
         "effects": [
-          { "type": "damage", "value": 12, "target": "selected_enemy" }
+          {
+            "type": "damage",
+            "value": 12,
+            "target": "selected_enemy"
+          }
         ]
       }
     },
@@ -1624,21 +1773,48 @@
       "rarity": "uncommon",
       "cost": 2,
       "target": "all_enemies",
-      "tags": ["damage", "aoe", "debuff", "exhaust"],
+      "tags": [
+        "damage",
+        "aoe",
+        "debuff",
+        "exhaust"
+      ],
       "art_key": "card_attack",
       "effects": [
-        { "type": "aoe_damage", "value": 5 },
-        { "type": "apply_status", "status_id": "weak", "value": 3, "target": "selected_enemy" },
-        { "type": "exhaust", "target": "current_card" }
+        {
+          "type": "aoe_damage",
+          "value": 5
+        },
+        {
+          "type": "apply_status",
+          "status_id": "weak",
+          "value": 3,
+          "target": "selected_enemy"
+        },
+        {
+          "type": "exhaust",
+          "target": "current_card"
+        }
       ],
       "upgrade": {
         "name": "冲击波+",
         "description": "对所有敌人造成 5 点伤害并施加 5 层虚弱。消耗。",
         "cost": 2,
         "effects": [
-          { "type": "aoe_damage", "value": 5 },
-          { "type": "apply_status", "status_id": "weak", "value": 5, "target": "selected_enemy" },
-          { "type": "exhaust", "target": "current_card" }
+          {
+            "type": "aoe_damage",
+            "value": 5
+          },
+          {
+            "type": "apply_status",
+            "status_id": "weak",
+            "value": 5,
+            "target": "selected_enemy"
+          },
+          {
+            "type": "exhaust",
+            "target": "current_card"
+          }
         ]
       }
     },
@@ -1650,17 +1826,102 @@
       "rarity": "uncommon",
       "cost": 1,
       "target": "self",
-      "tags": ["block", "retain"],
+      "tags": [
+        "block",
+        "retain"
+      ],
       "art_key": "card_skill",
       "effects": [
-        { "type": "block", "value": 12, "target": "self" }
+        {
+          "type": "block",
+          "value": 12,
+          "target": "self"
+        }
       ],
       "upgrade": {
         "name": "铁甲防御+",
         "description": "获得 16 点格挡。保留。",
         "cost": 1,
         "effects": [
-          { "type": "block", "value": 16, "target": "self" }
+          {
+            "type": "block",
+            "value": 16,
+            "target": "self"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ritual_dagger",
+      "name": "仪式",
+      "description": "获得 1 层仪式（每回合结束增加 1 层力量）。",
+      "type": "power",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "self",
+      "tags": [
+        "power",
+        "buff",
+        "strength",
+        "scaling"
+      ],
+      "art_key": "card_power",
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "ritual",
+          "value": 1,
+          "target": "self"
+        }
+      ],
+      "upgrade": {
+        "name": "仪式+",
+        "description": "获得 2 层仪式（每回合结束增加 2 层力量）。",
+        "cost": 1,
+        "effects": [
+          {
+            "type": "apply_status",
+            "status_id": "ritual",
+            "value": 2,
+            "target": "self"
+          }
+        ]
+      }
+    },
+    {
+      "id": "metallicize_card",
+      "name": "金属化",
+      "description": "获得 3 层金属化（每回合结束获得 3 点格挡）。",
+      "type": "power",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "self",
+      "tags": [
+        "power",
+        "buff",
+        "block",
+        "persistent"
+      ],
+      "art_key": "card_power",
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "metallicize",
+          "value": 3,
+          "target": "self"
+        }
+      ],
+      "upgrade": {
+        "name": "金属化+",
+        "description": "获得 4 层金属化（每回合结束获得 4 点格挡）。",
+        "cost": 1,
+        "effects": [
+          {
+            "type": "apply_status",
+            "status_id": "metallicize",
+            "value": 4,
+            "target": "self"
+          }
         ]
       }
     }

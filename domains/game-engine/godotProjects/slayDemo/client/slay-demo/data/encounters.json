@@ -3,114 +3,241 @@
     {
       "id": "v1_normal_01",
       "encounter_type": "normal",
-      "enemy_ids": ["slime_small_v1"],
+      "enemy_ids": [
+        "slime_small_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 8, "max": 12 },
-      "tags": ["startup_pressure"]
+      "gold_reward": {
+        "min": 8,
+        "max": 12
+      },
+      "tags": [
+        "startup_pressure"
+      ]
     },
     {
       "id": "v1_normal_02",
       "encounter_type": "normal",
-      "enemy_ids": ["cultist_v1"],
+      "enemy_ids": [
+        "cultist_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 10, "max": 15 },
-      "tags": ["scaling_pressure"]
+      "gold_reward": {
+        "min": 10,
+        "max": 15
+      },
+      "tags": [
+        "scaling_pressure"
+      ]
     },
     {
       "id": "v1_normal_03",
       "encounter_type": "normal",
-      "enemy_ids": ["slime_small_v1", "shield_guard_v1"],
+      "enemy_ids": [
+        "slime_small_v1",
+        "shield_guard_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 12, "max": 18 },
-      "tags": ["combined_pressure"]
+      "gold_reward": {
+        "min": 12,
+        "max": 18
+      },
+      "tags": [
+        "combined_pressure"
+      ]
     },
     {
       "id": "v1_normal_04",
       "encounter_type": "normal",
-      "enemy_ids": ["poison_bat_v1"],
+      "enemy_ids": [
+        "poison_bat_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 10, "max": 14 },
-      "tags": ["poison"]
+      "gold_reward": {
+        "min": 10,
+        "max": 14
+      },
+      "tags": [
+        "poison"
+      ]
     },
     {
       "id": "v1_normal_05",
       "encounter_type": "normal",
-      "enemy_ids": ["slime_spiky_v1"],
+      "enemy_ids": [
+        "slime_spiky_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 11, "max": 16 },
-      "tags": ["thorns"]
+      "gold_reward": {
+        "min": 11,
+        "max": 16
+      },
+      "tags": [
+        "thorns"
+      ]
     },
     {
       "id": "v1_normal_06",
       "encounter_type": "normal",
-      "enemy_ids": ["berserker_v1"],
+      "enemy_ids": [
+        "berserker_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 13, "max": 20 },
-      "tags": ["aggressive"]
+      "gold_reward": {
+        "min": 13,
+        "max": 20
+      },
+      "tags": [
+        "aggressive"
+      ]
     },
     {
       "id": "v1_normal_07",
       "encounter_type": "normal",
-      "enemy_ids": ["necromancer_v1"],
+      "enemy_ids": [
+        "necromancer_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 12, "max": 17 },
-      "tags": ["debuff"]
+      "gold_reward": {
+        "min": 12,
+        "max": 17
+      },
+      "tags": [
+        "debuff"
+      ]
     },
     {
       "id": "v1_normal_08",
       "encounter_type": "normal",
-      "enemy_ids": ["stone_guardian_v1"],
+      "enemy_ids": [
+        "stone_guardian_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 14, "max": 22 },
-      "tags": ["tank"]
+      "gold_reward": {
+        "min": 14,
+        "max": 22
+      },
+      "tags": [
+        "tank"
+      ]
     },
     {
       "id": "v1_normal_09",
       "encounter_type": "normal",
-      "enemy_ids": ["slime_small_v1", "slime_spiky_v1"],
+      "enemy_ids": [
+        "slime_small_v1",
+        "slime_spiky_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 15, "max": 20 },
-      "tags": ["startup_pressure", "thorns"]
+      "gold_reward": {
+        "min": 15,
+        "max": 20
+      },
+      "tags": [
+        "startup_pressure",
+        "thorns"
+      ]
     },
     {
       "id": "v1_normal_10",
       "encounter_type": "normal",
-      "enemy_ids": ["cultist_v1", "poison_bat_v1"],
+      "enemy_ids": [
+        "cultist_v1",
+        "poison_bat_v1"
+      ],
       "reward_profile_id": "normal_card_reward",
-      "gold_reward": { "min": 16, "max": 24 },
-      "tags": ["scaling_pressure", "poison"]
+      "gold_reward": {
+        "min": 16,
+        "max": 24
+      },
+      "tags": [
+        "scaling_pressure",
+        "poison"
+      ]
     },
     {
       "id": "v1_elite_01",
       "encounter_type": "elite",
-      "enemy_ids": ["elite_slime_king_v1"],
+      "enemy_ids": [
+        "elite_slime_king_v1"
+      ],
       "reward_profile_id": "elite_card_reward",
-      "gold_reward": { "min": 25, "max": 35 },
-      "tags": ["elite", "multi_phase"]
+      "gold_reward": {
+        "min": 25,
+        "max": 35
+      },
+      "tags": [
+        "elite",
+        "multi_phase"
+      ]
     },
     {
       "id": "v1_elite_02",
       "encounter_type": "elite",
-      "enemy_ids": ["elite_orc_berserker_v1"],
+      "enemy_ids": [
+        "elite_orc_berserker_v1"
+      ],
       "reward_profile_id": "elite_card_reward",
-      "gold_reward": { "min": 28, "max": 40 },
-      "tags": ["elite", "scaling"]
+      "gold_reward": {
+        "min": 28,
+        "max": 40
+      },
+      "tags": [
+        "elite",
+        "scaling"
+      ]
     },
     {
       "id": "v1_boss_01",
       "encounter_type": "boss",
-      "enemy_ids": ["boss_knight_v1"],
+      "enemy_ids": [
+        "boss_knight_v1"
+      ],
       "reward_profile_id": "boss_card_reward",
-      "gold_reward": { "min": 55, "max": 80 },
-      "tags": ["boss", "burst", "scaling_pressure"]
+      "gold_reward": {
+        "min": 55,
+        "max": 80
+      },
+      "tags": [
+        "boss",
+        "burst",
+        "scaling_pressure"
+      ]
     },
     {
       "id": "v1_boss_02",
       "encounter_type": "boss",
-      "enemy_ids": ["boss_fire_lord_v1"],
+      "enemy_ids": [
+        "boss_fire_lord_v1"
+      ],
       "reward_profile_id": "boss_card_reward",
-      "gold_reward": { "min": 60, "max": 85 },
-      "tags": ["boss", "fire", "multi_phase"]
+      "gold_reward": {
+        "min": 60,
+        "max": 85
+      },
+      "tags": [
+        "boss",
+        "fire",
+        "multi_phase"
+      ]
+    },
+    {
+      "id": "v1_elite_03",
+      "encounter_type": "elite",
+      "enemy_ids": [
+        "elite_hexmage_v1"
+      ],
+      "reward_type": "relic",
+      "gold_reward": 30
+    },
+    {
+      "id": "v1_elite_04",
+      "encounter_type": "elite",
+      "enemy_ids": [
+        "elite_gargoyle_sentinel_v1"
+      ],
+      "reward_type": "relic",
+      "gold_reward": 30
     }
   ]
 }

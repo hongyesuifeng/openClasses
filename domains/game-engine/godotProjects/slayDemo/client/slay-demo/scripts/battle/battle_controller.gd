@@ -59,6 +59,13 @@ func setup(p_encounter_id: String, master_deck: Array, player_state: Dictionary)
 		enemy["status_manager"] = StatusManagerScript.new()
 		enemies.append(enemy)
 
+	## philosopher_stone：持有时所有敌人战斗开始获得 1 层力量
+	if relic_ids.has("philosopher_stone"):
+		for enemy in enemies:
+			if enemy.has("status_manager"):
+				(enemy["status_manager"] as RefCounted).call("apply_status", "strength", 1)
+		_log("philosopher_stone：所有敌人获得 1 层力量")
+
 
 func start_combat() -> void:
 	_log("遭遇开始: %s" % encounter_id)
