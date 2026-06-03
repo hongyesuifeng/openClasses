@@ -36,6 +36,9 @@ var _node_positions: Dictionary = {}
 
 
 func _ready() -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_bgm("map")
 	_build()
 
 

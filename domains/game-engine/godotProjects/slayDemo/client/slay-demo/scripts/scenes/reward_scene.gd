@@ -21,6 +21,9 @@ var _confirm_button: Button
 
 
 func _ready() -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	if audio_manager != null:
+		audio_manager.play_bgm("victory")
 	var game_state: Variant = _autoload("GameState")
 	if game_state != null and game_state.has_pending_relic_reward():
 		_pending_relic = game_state.consume_pending_relic_reward()

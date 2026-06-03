@@ -87,6 +87,8 @@ func _ready() -> void:
 			audio_manager.play_bgm("battle_elite")
 		elif encounter_type == "boss":
 			audio_manager.play_bgm("battle_boss")
+		else:
+			audio_manager.play_bgm("battle")
 
 
 func _build() -> void:

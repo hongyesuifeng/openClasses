@@ -5,6 +5,12 @@ const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 
 
 func _ready() -> void:
+	var audio_manager: Variant = _autoload("AudioManager")
+	var game_state: Variant = _autoload("GameState")
+	if audio_manager != null and game_state != null:
+		var summary: Dictionary = game_state.get_result_summary()
+		var bgm_key := "victory" if bool(summary.get("won", false)) else "defeat"
+		audio_manager.play_bgm(bgm_key)
 	_build()
 
 
