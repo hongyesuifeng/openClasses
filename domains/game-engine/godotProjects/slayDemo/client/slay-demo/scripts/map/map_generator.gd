@@ -328,7 +328,7 @@ static func _assign_random_encounter(node: Dictionary, floor_index: int) -> void
 
 
 static func _random_elite_encounter() -> String:
-	var encounter_pool := ["v1_elite_01", "v1_elite_02"]
+	var encounter_pool := ["v1_elite_01", "v1_elite_02", "v1_elite_03", "v1_elite_04"]
 	return encounter_pool[randi() % encounter_pool.size()]
 
 

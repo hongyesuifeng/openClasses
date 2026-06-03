@@ -204,14 +204,20 @@
           "floor": 1,
           "type": "battle",
           "encounter_id": "v1_normal_01",
-          "next_nodes": ["map_02a", "map_02b"]
+          "next_nodes": [
+            "map_02a",
+            "map_02b"
+          ]
         },
         {
           "id": "map_02a",
           "floor": 2,
           "type": "battle",
           "encounter_id": "v1_normal_02",
-          "next_nodes": ["map_03a", "map_03b"]
+          "next_nodes": [
+            "map_03a",
+            "map_03b"
+          ]
         },
         {
           "id": "map_02b",
@@ -224,16 +230,28 @@
               "label": "购买神秘卡牌",
               "description": "花费 50 金币，获得一张随机稀有卡牌。",
               "effects": [
-                { "type": "gain_gold", "value": -50 },
-                { "type": "gain_card", "card_id": "cleave" }
+                {
+                  "type": "gain_gold",
+                  "value": -50
+                },
+                {
+                  "type": "gain_card",
+                  "card_id": "cleave"
+                }
               ]
             },
             {
               "label": "出售生命精华",
               "description": "失去 8 点生命，获得 100 金币。",
               "effects": [
-                { "type": "lose_hp", "value": 8 },
-                { "type": "gain_gold", "value": 100 }
+                {
+                  "type": "lose_hp",
+                  "value": 8
+                },
+                {
+                  "type": "gain_gold",
+                  "value": 100
+                }
               ]
             },
             {
@@ -242,14 +260,18 @@
               "effects": []
             }
           ],
-          "next_nodes": ["map_03b"]
+          "next_nodes": [
+            "map_03b"
+          ]
         },
         {
           "id": "map_03a",
           "floor": 3,
           "type": "chest",
           "gold": 45,
-          "next_nodes": ["map_04a"]
+          "next_nodes": [
+            "map_04a"
+          ]
         },
         {
           "id": "map_03b",
@@ -262,41 +284,64 @@
               "label": "献血换金币",
               "description": "失去 6 点生命，获得 75 金币。",
               "effects": [
-                { "type": "lose_hp", "value": 6 },
-                { "type": "gain_gold", "value": 75 }
+                {
+                  "type": "lose_hp",
+                  "value": 6
+                },
+                {
+                  "type": "gain_gold",
+                  "value": 75
+                }
               ]
             },
             {
               "label": "净化牌组",
               "description": "失去 5 点生命，选择一张卡牌移除。",
               "effects": [
-                { "type": "lose_hp", "value": 5 },
-                { "type": "remove_card", "requires_selection": true }
+                {
+                  "type": "lose_hp",
+                  "value": 5
+                },
+                {
+                  "type": "remove_card",
+                  "requires_selection": true
+                }
               ]
             },
             {
               "label": "祭坛祝福",
               "description": "选择一张卡牌进行升级。",
               "effects": [
-                { "type": "upgrade_card", "requires_selection": true }
+                {
+                  "type": "upgrade_card",
+                  "requires_selection": true
+                }
               ]
             }
           ],
-          "next_nodes": ["map_04a", "map_04b"]
+          "next_nodes": [
+            "map_04a",
+            "map_04b"
+          ]
         },
         {
           "id": "map_04a",
           "floor": 4,
           "type": "battle",
           "encounter_id": "v1_normal_06",
-          "next_nodes": ["map_05a", "map_05b"]
+          "next_nodes": [
+            "map_05a",
+            "map_05b"
+          ]
         },
         {
           "id": "map_04b",
           "floor": 4,
           "type": "battle",
           "encounter_id": "v1_elite_01",
-          "next_nodes": ["map_05b"]
+          "next_nodes": [
+            "map_05b"
+          ]
         },
         {
           "id": "map_05a",
@@ -309,40 +354,62 @@
               "label": "研读武技",
               "description": "选择一张卡牌进行升级。",
               "effects": [
-                { "type": "upgrade_card", "requires_selection": true }
+                {
+                  "type": "upgrade_card",
+                  "requires_selection": true
+                }
               ]
             },
             {
               "label": "寻找财宝",
               "description": "获得 50 金币，但失去 3 点生命（书架倒塌）。",
               "effects": [
-                { "type": "gain_gold", "value": 50 },
-                { "type": "lose_hp", "value": 3 }
+                {
+                  "type": "gain_gold",
+                  "value": 50
+                },
+                {
+                  "type": "lose_hp",
+                  "value": 3
+                }
               ]
             },
             {
               "label": "撕毁典籍",
               "description": "移除一张卡牌，获得 30 金币。",
               "effects": [
-                { "type": "remove_card", "requires_selection": true },
-                { "type": "gain_gold", "value": 30 }
+                {
+                  "type": "remove_card",
+                  "requires_selection": true
+                },
+                {
+                  "type": "gain_gold",
+                  "value": 30
+                }
               ]
             }
           ],
-          "next_nodes": ["map_06a"]
+          "next_nodes": [
+            "map_06a"
+          ]
         },
         {
           "id": "map_05b",
           "floor": 5,
           "type": "shop",
-          "next_nodes": ["map_06a"]
+          "next_nodes": [
+            "map_06a"
+          ]
         },
         {
           "id": "map_06a",
           "floor": 6,
           "type": "battle",
           "encounter_id": "v1_normal_08",
-          "next_nodes": ["map_07a", "map_07b"]
+          "next_nodes": [
+            "map_07a",
+            "map_07b"
+          ]
         },
         {
           "id": "map_07a",
@@ -355,39 +422,55 @@
               "label": "饮用泉水",
               "description": "恢复 15 点生命。",
               "effects": [
-                { "type": "lose_hp", "value": -15 }
+                {
+                  "type": "lose_hp",
+                  "value": -15
+                }
               ]
             },
             {
               "label": "装瓶带走",
               "description": "获得 50 金币。",
               "effects": [
-                { "type": "gain_gold", "value": 50 }
+                {
+                  "type": "gain_gold",
+                  "value": 50
+                }
               ]
             },
             {
               "label": "洗炼卡牌",
               "description": "选择一张卡牌移除，获得一张随机卡牌。",
               "effects": [
-                { "type": "transform_card", "requires_selection": true, "to_card_id": "cleave" }
+                {
+                  "type": "transform_card",
+                  "requires_selection": true,
+                  "to_card_id": "cleave"
+                }
               ]
             }
           ],
-          "next_nodes": ["map_08a"]
+          "next_nodes": [
+            "map_08a"
+          ]
         },
         {
           "id": "map_07b",
           "floor": 7,
           "type": "battle",
           "encounter_id": "v1_normal_10",
-          "next_nodes": ["map_08a"]
+          "next_nodes": [
+            "map_08a"
+          ]
         },
         {
           "id": "map_08a",
           "floor": 8,
           "type": "rest",
           "heal_percent": 0.3,
-          "next_nodes": ["map_09a"]
+          "next_nodes": [
+            "map_09a"
+          ]
         },
         {
           "id": "map_09a",

@@ -756,7 +756,8 @@
       "target": "all_enemies",
       "tags": [
         "damage",
-        "aoe"
+        "aoe",
+        "magic"
       ],
       "art_key": "card_attack",
       "effects": [
@@ -961,7 +962,8 @@
       "target": "single_enemy",
       "tags": [
         "damage",
-        "debuff"
+        "debuff",
+        "poison"
       ],
       "art_key": "card_attack",
       "effects": [
@@ -1052,7 +1054,8 @@
       "tags": [
         "damage",
         "aoe",
-        "debuff"
+        "debuff",
+        "magic"
       ],
       "art_key": "card_attack",
       "effects": [
@@ -1777,7 +1780,8 @@
         "damage",
         "aoe",
         "debuff",
-        "exhaust"
+        "exhaust",
+        "magic"
       ],
       "art_key": "card_attack",
       "effects": [

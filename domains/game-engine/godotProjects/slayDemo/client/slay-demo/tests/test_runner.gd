@@ -16,6 +16,7 @@ const TEST_SCRIPTS := [
 	preload("res://tests/unit/save_service_test.gd"),
 	preload("res://tests/unit/potion_service_test.gd"),
 	preload("res://tests/unit/content_expansion_test.gd"),
+	preload("res://tests/unit/p3_features_test.gd"),
 	preload("res://tests/integration/v1_flow_test.gd"),
 	preload("res://tests/integration/v2_content_flow_test.gd"),
 	preload("res://tests/integration/map_route_test.gd"),

@@ -143,7 +143,7 @@ func _finish_battle(battle: Variant) -> bool:
 
 
 func _best_reward_index(choices: Array) -> int:
-	for priority in ["gain_strength", "gain_energy", "draw", "aoe_damage", "multi_damage", "damage", "heal", "block", "exhaust", "lose_hp"]:
+	for priority in ["gain_strength", "gain_energy", "draw", "aoe_damage", "multi_damage", "damage", "apply_status", "heal", "block", "exhaust", "lose_hp"]:
 		for index in range(choices.size()):
 			var card := choices[index] as Dictionary
 			if _card_matches_priority(card, priority):
