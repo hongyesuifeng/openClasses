@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"\nconst path = require('path');\nconst fs = require('fs');\nconst projectRoot = '/mnt/d/openClass/openClasses/domains/game-engine/godotProjects/slayDemo/client/slay-demo';\n\nconst dataFiles = ['cards','relics','potions','enemies','encounters'];\nconst counts = {};\ndataFiles.forEach(f => {\n  try {\n    const d = JSON.parse(fs.readFileSync(path.join(projectRoot, 'data', f + '.json'), 'utf8'));\n    counts[f] = d[f] ? d[f].length : '?';\n  } catch(e) { counts[f] = 'err'; }\n});\n\nconst scriptCount = fs.readdirSync(path.join(projectRoot,'scripts'), {recursive:true}).filter(f=>f.endsWith('.gd')).length;\nconst testCount = fs.readdirSync(path.join(projectRoot,'tests'), {recursive:true}).filter(f=>f.endsWith('.gd')).length;\n\nconst { execSync } = require('child_process');\nconst lastCommit = execSync('git -C /mnt/d/openClass/openClasses/domains/game-engine/godotProjects/slayDemo log --oneline -1').toString().trim();\nconst commitCount = execSync('git -C /mnt/d/openClass/openClasses/domains/game-engine/godotProjects/slayDemo rev-list --count main').toString().trim();\n\nconsole.log('=== slayDemo 提交后状态快照 ===');\nconsole.log('最新提交: ' + lastCommit);\nconsole.log('总提交数: ' + commitCount);\nconsole.log('');\nconsole.log('数据规模:');\ndataFiles.forEach(f => console.log('  ' + f + ': ' + counts[f]));\nconsole.log('');\nconsole.log('代码规模:');\nconsole.log('  scripts: ' + scriptCount + ' .gd 文件');\nconsole.log('  tests:   ' + testCount + ' .gd 文件');\nconsole.log('');\nconsole.log('请根据以上快照，分析本次提交完成了什么，并规划下一步推进计划。');\n\""
+          }
+        ]
+      }
+    ]
+  }
+}
