@@ -1,6 +1,83 @@
 {
-	"version": 1,
-	"templates": {},
-	"instances": {},
-	"gallery": {}
+	"gallery": {
+
+	},
+	"instances": {
+
+	},
+	"templates": {
+		"background.preview": {
+			"anchors": [
+				0.0,
+				0.0,
+				0.0,
+				0.0
+			],
+			"min_size": [
+				320.0,
+				180.0
+			],
+			"offsets": [
+				0.0,
+				60.0,
+				1920.0,
+				1140.0
+			]
+		},
+		"card.cost": {
+			"anchors": [
+				0.02,
+				0.02,
+				0.25,
+				0.18
+			],
+			"min_size": [
+				0.0,
+				0.0
+			],
+			"offsets": [
+				8.0,
+				8.0,
+				8.4,
+				14.12
+			]
+		},
+		"card.name": {
+			"anchors": [
+				0.18,
+				0.06,
+				0.92,
+				0.19
+			],
+			"min_size": [
+				0.0,
+				0.0
+			],
+			"offsets": [
+				16.0,
+				8.0,
+				16.0,
+				11.16
+			]
+		},
+		"relic.icon": {
+			"anchors": [
+				0.0,
+				0.0,
+				1.0,
+				1.0
+			],
+			"min_size": [
+				0.0,
+				0.0
+			],
+			"offsets": [
+				-4.0,
+				-4.0,
+				4.0,
+				4.0
+			]
+		}
+	},
+	"version": 1
 }
