@@ -2,13 +2,22 @@ extends Node
 
 ## 战斗特效管理器 - 统一管理所有战斗视觉特效
 
-# 特效资源
+# 静态图 fallback 资源（序列帧不存在时使用）
 const HIT_SLASH := "res://assets/vfx/effects/hit_slash.png"
 const MAGIC_BURST := "res://assets/vfx/effects/magic_burst.png"
 const PARTICLE_FIRE := "res://assets/vfx/particles/particle_fire.png"
 const PARTICLE_POISON := "res://assets/vfx/particles/particle_poison.png"
 const PARTICLE_SHIELD := "res://assets/vfx/particles/particle_shield.png"
 const PARTICLE_SPARK := "res://assets/vfx/particles/particle_spark.png"
+
+# 序列帧目录
+const VFX_SLASH_DIR   := "res://assets/vfx/slash"
+const VFX_MAGIC_DIR   := "res://assets/vfx/magic"
+const VFX_FIRE_DIR    := "res://assets/vfx/fire"
+const VFX_POISON_DIR  := "res://assets/vfx/poison"
+const VFX_DEATH_DIR   := "res://assets/vfx/death"
+const VFX_BLOCK_DIR   := "res://assets/vfx/block"
+const VFX_HEAL_DIR    := "res://assets/vfx/heal"
 
 # 颜色配置
 const COLOR_DAMAGE := Color(1.0, 0.35, 0.24)
@@ -20,8 +29,6 @@ const COLOR_FIRE := Color(1.0, 0.5, 0.15)
 
 # 当前场景引用
 var _current_scene: Node = null
-
-
 func set_current_scene(scene: Node) -> void:
 	_current_scene = scene
 
@@ -89,15 +96,17 @@ func spawn_floating_number(value: int, target_position: Vector2, color: Color = 
 
 ## 斩击特效
 func _spawn_slash_effect(pos: Vector2) -> void:
+	if _try_spawn_vfx_anim(VFX_SLASH_DIR, "hit_slash", pos, 128, 32.0):
+		return
+	## fallback
 	var sprite := TextureRect.new()
 	sprite.texture = load(HIT_SLASH)
-	sprite.pivot_offset = Vector2(64, 64)  # 假设图片 128x128
+	sprite.pivot_offset = Vector2(64, 64)
 	sprite.global_position = pos - Vector2(64, 64)
 	sprite.modulate = Color(1.0, 1.0, 1.0, 0.95)
 	sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sprite.z_index = 50
 	_add_to_scene(sprite)
-
 	var tween := _create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(sprite, "scale", Vector2(1.3, 1.3), 0.15)
@@ -108,14 +117,13 @@ func _spawn_slash_effect(pos: Vector2) -> void:
 
 ## 火焰特效
 func _spawn_fire_effect(pos: Vector2) -> void:
-	# 粒子效果
+	if _try_spawn_vfx_anim(VFX_FIRE_DIR, "particle_fire", pos, 128, 28.0):
+		return
+	## fallback
 	var particles := _create_particles(PARTICLE_FIRE, pos, COLOR_FIRE)
 	_add_to_scene(particles)
-
-	# 闪光效果
 	var flash := _create_flash(pos, COLOR_FIRE)
 	_add_to_scene(flash)
-
 	var tween := _create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(flash, "scale", Vector2(2.0, 2.0), 0.2)
@@ -125,12 +133,18 @@ func _spawn_fire_effect(pos: Vector2) -> void:
 
 ## 毒素特效
 func _spawn_poison_effect(pos: Vector2) -> void:
+	if _try_spawn_vfx_anim(VFX_POISON_DIR, "particle_poison", pos, 128, 24.0):
+		return
+	## fallback
 	var particles := _create_particles(PARTICLE_POISON, pos, COLOR_POISON)
 	_add_to_scene(particles)
 
 
 ## 魔法爆发特效
 func _spawn_magic_effect(pos: Vector2) -> void:
+	if _try_spawn_vfx_anim(VFX_MAGIC_DIR, "magic_burst", pos, 128, 32.0):
+		return
+	## fallback
 	var sprite := TextureRect.new()
 	sprite.texture = load(MAGIC_BURST)
 	sprite.pivot_offset = Vector2(64, 64)
@@ -139,7 +153,6 @@ func _spawn_magic_effect(pos: Vector2) -> void:
 	sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sprite.z_index = 50
 	_add_to_scene(sprite)
-
 	var tween := _create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(sprite, "scale", Vector2(1.5, 1.5), 0.2)
@@ -149,6 +162,8 @@ func _spawn_magic_effect(pos: Vector2) -> void:
 
 ## 护盾粒子
 func _spawn_shield_particles(pos: Vector2) -> void:
+	if _try_spawn_vfx_anim(VFX_BLOCK_DIR, "particle_shield", pos, 96, 24.0):
+		return
 	var particles := _create_particles(PARTICLE_SHIELD, pos, COLOR_BLOCK)
 	particles.amount = 12
 	_add_to_scene(particles)
@@ -156,13 +171,13 @@ func _spawn_shield_particles(pos: Vector2) -> void:
 
 ## 毒素粒子
 func _spawn_poison_particles(pos: Vector2) -> void:
-	var particles := _create_particles(PARTICLE_POISON, pos, COLOR_POISON)
-	particles.amount = 8
-	_add_to_scene(particles)
+	_spawn_poison_effect(pos)
 
 
 ## 火花粒子
 func _spawn_spark_particles(pos: Vector2, color: Color) -> void:
+	if _try_spawn_vfx_anim(VFX_HEAL_DIR, "particle_spark", pos, 96, 24.0):
+		return
 	var particles := _create_particles(PARTICLE_SPARK, pos, color)
 	particles.amount = 10
 	_add_to_scene(particles)
@@ -170,6 +185,9 @@ func _spawn_spark_particles(pos: Vector2, color: Color) -> void:
 
 ## 死亡溶解效果
 func _spawn_death_dissolve(pos: Vector2) -> void:
+	if _try_spawn_vfx_anim(VFX_DEATH_DIR, "vfx_death", pos, 160, 24.0):
+		return
+	## fallback
 	var rect := ColorRect.new()
 	rect.color = Color(0.8, 0.2, 0.1, 0.6)
 	rect.custom_minimum_size = Vector2(100, 100)
@@ -177,13 +195,64 @@ func _spawn_death_dissolve(pos: Vector2) -> void:
 	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rect.z_index = 45
 	_add_to_scene(rect)
-
 	var tween := _create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(rect, "scale", Vector2(0.1, 0.1), 0.4)
 	tween.tween_property(rect, "modulate:a", 0.0, 0.35)
 	tween.tween_property(rect, "rotation", 0.5, 0.4)
 	tween.finished.connect(rect.queue_free)
+
+
+## 通用序列帧特效生成（返回 true 表示序列帧已启动，false 走 fallback）
+func _try_spawn_vfx_anim(dir: String, prefix: String, pos: Vector2, size: int, fps: float) -> bool:
+	var test_path := "%s/%s_000.png" % [dir, prefix]
+	if not ResourceLoader.exists(test_path, "Texture2D"):
+		return false
+
+	var sprite := TextureRect.new()
+	sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	sprite.size = Vector2(size, size)
+	sprite.custom_minimum_size = Vector2(size, size)
+	sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	sprite.global_position = pos - Vector2(size * 0.5, size * 0.5)
+	sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sprite.z_index = 50
+	_add_to_scene(sprite)
+
+	## 直接用 dir 作为 base_dir，prefix 作为 frame_prefix，anim 名为空（帧文件名：{prefix}_{000}.png）
+	var frame_count := 0
+	while ResourceLoader.exists("%s/%s_%03d.png" % [dir, prefix, frame_count], "Texture2D"):
+		frame_count += 1
+
+	if frame_count == 0:
+		sprite.queue_free()
+		return false
+
+	## 手动切帧（VFX 帧名格式与角色不同，不走 SpriteAnimHelper 的 anim 逻辑）
+	var elapsed := 0.0
+	var current_frame := 0
+	var frame_dur := 1.0 / fps
+	var textures: Array[Texture2D] = []
+	for i in range(frame_count):
+		var tex := ResourceLoader.load("%s/%s_%03d.png" % [dir, prefix, i], "Texture2D") as Texture2D
+		if tex != null:
+			textures.append(tex)
+	if not textures.is_empty():
+		sprite.texture = textures[0]
+
+	## 用场景的 create_tween 驱动帧切换
+	if _current_scene != null and is_instance_valid(_current_scene):
+		var tween := _current_scene.create_tween()
+		for i in range(textures.size()):
+			tween.tween_callback(func(): _set_tex(sprite, textures, i)).set_delay(frame_dur * i)
+		tween.tween_callback(sprite.queue_free).set_delay(frame_dur * textures.size())
+
+	return true
+
+
+func _set_tex(sprite: TextureRect, textures: Array[Texture2D], index: int) -> void:
+	if is_instance_valid(sprite) and index < textures.size():
+		sprite.texture = textures[index]
 
 
 ## 飘动文字

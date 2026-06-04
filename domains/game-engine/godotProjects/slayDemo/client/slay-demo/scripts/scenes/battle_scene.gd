@@ -32,6 +32,8 @@ const INTENT_ICON_BY_TYPE := {
 	"stun": "res://assets/ui/intents/intent_stun.png"
 }
 
+const SpriteAnimHelperScript := preload("res://scripts/vfx/sprite_anim_helper.gd")
+
 var _battle := BattleControllerScript.new()
 var _selected_card_index := -1
 var _header_label: Label
@@ -46,6 +48,9 @@ var _block_bar: TextureProgressBar
 var _energy_label: Label
 var _enemy_buttons: Array[Button] = []
 var _enemy_art_paths: Array[String] = []
+var _enemy_anims: Array = []       ## SpriteAnimHelper，每个敌人一个
+var _player_anim: Variant = null
+var _player_sprite: TextureRect = null
 var _hand_buttons: Array[Button] = []
 var _messages: Array[String] = []
 var _last_player_hp := -1
@@ -56,6 +61,14 @@ var _banner_playing := false
 var _player_status_row: HBoxContainer  # 玩家状态栏
 var _relic_row: HBoxContainer
 var _potion_row: HBoxContainer
+
+
+func _process(delta: float) -> void:
+	for anim in _enemy_anims:
+		if anim != null:
+			(anim as RefCounted).call("update", delta)
+	if _player_anim != null:
+		_player_anim.update(delta)
 
 
 func _ready() -> void:
@@ -130,6 +143,12 @@ func _build() -> void:
 	portrait.custom_minimum_size = Vector2(72, 68)
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	top_row.add_child(portrait)
+	_player_sprite = portrait
+	_player_anim = SpriteAnimHelperScript.new(portrait, "res://assets/player/sprites", "player_warrior")
+	if _player_anim.has_frames("idle"):
+		_player_anim.play("idle", Callable(), 6.0, 4, true)
+	else:
+		_player_anim = null
 
 	var player_stats := VBoxContainer.new()
 	player_stats.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -299,10 +318,12 @@ func _render_enemies(enemies: Array) -> void:
 	_clear_children(_enemy_row)
 	_enemy_buttons.clear()
 	_enemy_art_paths.clear()
+	_enemy_anims.clear()
 	for index in range(enemies.size()):
 		var enemy := enemies[index] as Dictionary
 		var intent: Dictionary = enemy.get("intent", {})
-		var art_path := str(ENEMY_ART_BY_KEY.get(str(enemy.get("art_key", "")), ENEMY_ART_BY_KEY["enemy_slime"]))
+		var art_key := str(enemy.get("art_key", "enemy_slime"))
+		var art_path := str(ENEMY_ART_BY_KEY.get(art_key, ENEMY_ART_BY_KEY["enemy_slime"]))
 		var button := Button.new()
 		button.custom_minimum_size = Vector2(260, 252)
 		button.text = ""
@@ -324,6 +345,17 @@ func _render_enemies(enemies: Array) -> void:
 		sprite.texture = load(art_path)
 		sprite.set_deferred("size", Vector2(202, 165))
 		button.add_child(sprite)
+
+		## 序列帧：art_key 去掉 "enemy_" 前缀得到目录名
+		var folder_name := art_key.replace("enemy_", "")
+		var base_dir := "res://assets/enemies/%s" % folder_name
+		var frame_prefix := art_key  ## 例如 enemy_slime
+		var anim: Variant = SpriteAnimHelperScript.new(sprite, base_dir, frame_prefix)
+		if anim.has_frames("idle"):
+			anim.play("idle", Callable(), _get_enemy_idle_fps(art_key), 0, true)
+			_enemy_anims.append(anim)
+		else:
+			_enemy_anims.append(null)
 
 		var name_label := _make_label(str(enemy.get("name", "")), 18, HORIZONTAL_ALIGNMENT_CENTER)
 		name_label.anchor_left = 0.08
@@ -673,16 +705,37 @@ func _hit_enemy_feedback(enemy_index: int) -> void:
 	if not is_instance_valid(target):
 		return
 
-	var original_x := target.position.x
-	var shake_tween := create_tween()
-	shake_tween.tween_property(target, "position:x", original_x + 10.0, 0.035)
-	shake_tween.tween_property(target, "position:x", original_x - 8.0, 0.04)
-	shake_tween.tween_property(target, "position:x", original_x + 5.0, 0.035)
-	shake_tween.tween_property(target, "position:x", original_x, 0.04)
+	## 触发序列帧 hit 动画（如果有），播完回 idle
+	if enemy_index < _enemy_anims.size() and _enemy_anims[enemy_index] != null:
+		var anim: Variant = _enemy_anims[enemy_index]
+		var art_key := str((_battle.enemies[enemy_index] as Dictionary).get("art_key", ""))
+		anim.play("hit", func(): anim.play("idle", Callable(), _get_enemy_idle_fps(art_key), 0, true), 24.0, 0, false)
+	else:
+		## 无序列帧时保留原 Tween 抖动+闪色
+		var original_x := target.position.x
+		var shake_tween := create_tween()
+		shake_tween.tween_property(target, "position:x", original_x + 10.0, 0.035)
+		shake_tween.tween_property(target, "position:x", original_x - 8.0, 0.04)
+		shake_tween.tween_property(target, "position:x", original_x + 5.0, 0.035)
+		shake_tween.tween_property(target, "position:x", original_x, 0.04)
 
 	var color_tween := create_tween()
 	color_tween.tween_property(target, "modulate", Color(1.35, 0.58, 0.48, 1.0), 0.05)
 	color_tween.tween_property(target, "modulate", Color.WHITE, 0.12)
+
+
+func _get_enemy_idle_fps(art_key: String) -> float:
+	match art_key:
+		"enemy_bat": return 10.0
+		"enemy_ancient_dragon": return 6.0
+		"enemy_slime": return 6.0
+		"enemy_skeleton": return 6.0
+		"enemy_slime_king": return 5.0
+		"enemy_shadow_mage": return 5.0
+		"enemy_orc_berserker": return 5.0
+		"enemy_gargoyle": return 4.0
+		"enemy_corrupted_knight": return 4.0
+		_: return 6.0
 
 
 func _spawn_enemy_damage_text(enemy_index: int, damage: int, blocked: int) -> void:
@@ -758,6 +811,13 @@ func _spawn_damage_text(text: String, start_position: Vector2, is_player: bool) 
 func _flash_player_panel() -> void:
 	if _player_panel == null or not is_instance_valid(_player_panel):
 		return
+	## 触发玩家受击序列帧（播完回 idle）
+	if _player_anim != null:
+		_player_anim.play("hit", func():
+			if _player_anim != null:
+				_player_anim.play("idle", Callable(), 6.0, 4, true),
+			24.0, 4, false)
+	## 面板闪光保留（视觉叠加）
 	var tween := create_tween()
 	tween.tween_property(_player_panel, "modulate", Color(1.35, 1.22, 0.86, 1.0), 0.08)
 	tween.tween_property(_player_panel, "modulate", Color.WHITE, 0.18)
