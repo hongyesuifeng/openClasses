@@ -2,6 +2,7 @@ extends RefCounted
 class_name CardViewFactory
 
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
 const TEMPLATE_BY_RARITY := {
 	"starter": "res://assets/card/templates/card_template_common.png",
@@ -38,6 +39,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	button.text = ""
 	button.set_meta("card_id", str(card.get("id", "")))
 	button.set_meta("card_type", str(card.get("type", "")))
+	var instance_id := str(card.get("id", ""))
 
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0, 0, 0, 0)
@@ -58,6 +60,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	template.stretch_mode = TextureRect.STRETCH_SCALE
 	template.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(template)
+	UILayoutStoreScript.apply_layout(template, "card.template", instance_id)
 
 	var icon := TextureRect.new()
 	icon.texture = load(_icon_path_for(card))
@@ -68,6 +71,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(icon)
+	UILayoutStoreScript.apply_layout(icon, "card.icon", instance_id)
 
 	var cost := _label(str(card.get("cost", 0)), 22, HORIZONTAL_ALIGNMENT_CENTER)
 	cost.anchor_left = 0.02
@@ -75,6 +79,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	cost.anchor_right = 0.25
 	cost.anchor_bottom = 0.18
 	button.add_child(cost)
+	UILayoutStoreScript.apply_layout(cost, "card.cost", instance_id)
 
 	var name_label := _label(str(card.get("name", "")), 17, HORIZONTAL_ALIGNMENT_CENTER)
 	name_label.anchor_left = 0.18
@@ -83,6 +88,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	name_label.anchor_bottom = 0.19
 	name_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	button.add_child(name_label)
+	UILayoutStoreScript.apply_layout(name_label, "card.name", instance_id)
 
 	var type_label := _label(_type_text(str(card.get("type", ""))), 13, HORIZONTAL_ALIGNMENT_CENTER)
 	type_label.anchor_left = 0.18
@@ -90,6 +96,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	type_label.anchor_right = 0.82
 	type_label.anchor_bottom = 0.68
 	button.add_child(type_label)
+	UILayoutStoreScript.apply_layout(type_label, "card.type", instance_id)
 
 	var description := _label(str(card.get("description", "")), 13, HORIZONTAL_ALIGNMENT_CENTER)
 	description.anchor_left = 0.11
@@ -98,6 +105,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	description.anchor_bottom = 0.93
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	button.add_child(description)
+	UILayoutStoreScript.apply_layout(description, "card.description", instance_id)
 
 	if disabled:
 		var veil := ColorRect.new()
@@ -105,7 +113,9 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 		veil.set_anchors_preset(Control.PRESET_FULL_RECT)
 		veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(veil)
+		UILayoutStoreScript.apply_layout(veil, "card.disabled_veil", instance_id)
 
+	UILayoutStoreScript.apply_layout(button, "card.root", instance_id)
 	return button
 
 

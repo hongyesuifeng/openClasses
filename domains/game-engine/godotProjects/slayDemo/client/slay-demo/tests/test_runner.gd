@@ -9,6 +9,7 @@ const TEST_SCRIPTS := [
 	preload("res://tests/unit/deck_runtime_test.gd"),
 	preload("res://tests/unit/status_manager_test.gd"),
 	preload("res://tests/unit/status_view_factory_test.gd"),
+	preload("res://tests/unit/ui_layout_store_test.gd"),
 	preload("res://tests/unit/battle_rules_test.gd"),
 	preload("res://tests/unit/map_generator_test.gd"),
 	preload("res://tests/unit/reward_service_test.gd"),

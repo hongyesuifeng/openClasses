@@ -1,5 +1,7 @@
 extends RefCounted
 
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
+
 const RARITY_COLORS := {
 	"common":   Color(0.46, 0.40, 0.32, 0.95),
 	"uncommon": Color(0.22, 0.40, 0.32, 0.95),
@@ -62,6 +64,7 @@ static func create_relic_button(relic: Dictionary, detail_callback: Callable = C
 		tex.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		tex.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(tex)
+		UILayoutStoreScript.apply_layout(tex, "relic.icon", relic_id)
 	else:
 		# fallback：无图片时用文字按钮
 		button.text = _short_name(relic_name)
@@ -71,6 +74,7 @@ static func create_relic_button(relic: Dictionary, detail_callback: Callable = C
 
 	if detail_callback.is_valid():
 		button.pressed.connect(detail_callback.bind(relic.duplicate(true)))
+	UILayoutStoreScript.apply_layout(button, "relic.root", relic_id)
 	return button
 
 

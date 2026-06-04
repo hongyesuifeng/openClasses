@@ -2,6 +2,7 @@ extends Control
 
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
 const NODE_LABELS := {
 	"battle": "战斗",
@@ -49,6 +50,7 @@ func _build() -> void:
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
 	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
+	UILayoutStoreScript.apply_layout(background, "map.background")
 
 	var tint := ColorRect.new()
 	tint.color = Color(0.025, 0.028, 0.032, 0.70)
@@ -71,6 +73,7 @@ func _build() -> void:
 	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
+	UILayoutStoreScript.apply_layout(title, "map.title")
 
 	_status_label = Label.new()
 	_status_label.text = _status_text()
@@ -79,6 +82,7 @@ func _build() -> void:
 	UIThemeScript.apply_cn(_status_label)
 	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
 	root.add_child(_status_label)
+	UILayoutStoreScript.apply_layout(_status_label, "map.status")
 
 	_relic_row = HBoxContainer.new()
 	_relic_row.name = "MapRelicRow"
@@ -91,6 +95,7 @@ func _build() -> void:
 	_node_root.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_node_root.custom_minimum_size = Vector2(0, 560)
 	root.add_child(_node_root)
+	UILayoutStoreScript.apply_layout(_node_root, "map.node_surface")
 
 	var map_surface := ColorRect.new()
 	map_surface.color = Color(0.025, 0.026, 0.026, 0.46)
@@ -156,6 +161,7 @@ func _render_nodes() -> void:
 		button.pressed.connect(_on_node_pressed.bind(node_id))
 		_add_node_content(button, node_dict, selectable, done)
 		_node_root.add_child(button)
+		UILayoutStoreScript.apply_layout(button, "map.node.root", node_id)
 
 
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
@@ -221,6 +227,7 @@ func _add_node_content(button: Button, node: Dictionary, selectable: bool, done:
 	icon.modulate = Color(1, 1, 1, 1) if selectable or done else Color(0.62, 0.62, 0.62, 0.82)
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(icon)
+	UILayoutStoreScript.apply_layout(icon, "map.node.icon", str(node.get("id", "")))
 
 	var label := Label.new()
 	label.text = _node_text(node, selectable, done)
@@ -237,6 +244,7 @@ func _add_node_content(button: Button, node: Dictionary, selectable: bool, done:
 	label.add_theme_constant_override("shadow_offset_y", 1)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(label)
+	UILayoutStoreScript.apply_layout(label, "map.node.label", str(node.get("id", "")))
 
 	if done:
 		var check := Label.new()
@@ -254,6 +262,7 @@ func _add_node_content(button: Button, node: Dictionary, selectable: bool, done:
 		check.add_theme_constant_override("shadow_offset_y", 2)
 		check.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(check)
+		UILayoutStoreScript.apply_layout(check, "map.node.completed", str(node.get("id", "")))
 
 
 func _status_text() -> String:

@@ -1,6 +1,8 @@
 extends RefCounted
 class_name StatusViewFactory
 
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
+
 const STATUS_CONFIG := {
 	"strength": {
 		"name": "力量",
@@ -116,6 +118,7 @@ static func create_status_label(status_id: String, stacks: int, compact: bool = 
 		widget = label
 
 	widget.tooltip_text = tooltip
+	UILayoutStoreScript.apply_layout(widget, "status.root", status_id)
 
 	if click_callback.is_valid():
 		var btn := Button.new()
@@ -126,6 +129,7 @@ static func create_status_label(status_id: String, stacks: int, compact: bool = 
 		btn.add_theme_stylebox_override("pressed", _transparent_style())
 		btn.custom_minimum_size = widget.custom_minimum_size
 		btn.add_child(widget)
+		UILayoutStoreScript.apply_layout(btn, "status.button", status_id)
 		btn.pressed.connect(click_callback.bind(status_id, stacks))
 		return btn
 
@@ -166,6 +170,7 @@ static func _create_icon_widget(texture: Texture2D, stacks: int, _color: Color, 
 	tex.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	tex.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	container.add_child(tex)
+	UILayoutStoreScript.apply_layout(tex, "status.icon")
 
 	var count_label := Label.new()
 	count_label.text = str(stacks)
@@ -182,6 +187,7 @@ static func _create_icon_widget(texture: Texture2D, stacks: int, _color: Color, 
 	count_label.add_theme_constant_override("shadow_offset_y", 1)
 	count_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	container.add_child(count_label)
+	UILayoutStoreScript.apply_layout(count_label, "status.count")
 
 	return container
 

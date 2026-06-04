@@ -42,6 +42,8 @@ const S_CardViewFactory   := preload("res://scripts/ui/card_view_factory.gd")
 const S_PotionViewFactory := preload("res://scripts/ui/potion_view_factory.gd")
 const S_RelicViewFactory  := preload("res://scripts/ui/relic_view_factory.gd")
 const S_StatusViewFactory := preload("res://scripts/ui/status_view_factory.gd")
+const S_UILayoutStore     := preload("res://scripts/ui/ui_layout_store.gd")
+const S_UILayoutEditor    := preload("res://scripts/dev/ui_layout_editor.gd")
 
 ## ── vfx ─────────────────────────────────────────────────
 const S_VFXManager := preload("res://scripts/vfx/vfx_manager.gd")
@@ -104,6 +106,8 @@ func run(ctx: Variant) -> void:
 	ctx.assert_true(S_PotionViewFactory != null, "potion_view_factory.gd compiles")
 	ctx.assert_true(S_RelicViewFactory != null,  "relic_view_factory.gd compiles")
 	ctx.assert_true(S_StatusViewFactory != null, "status_view_factory.gd compiles")
+	ctx.assert_true(S_UILayoutStore != null,     "ui_layout_store.gd compiles")
+	ctx.assert_true(S_UILayoutEditor != null,    "ui_layout_editor.gd compiles")
 
 	## vfx
 	ctx.assert_true(S_VFXManager != null, "vfx_manager.gd compiles")

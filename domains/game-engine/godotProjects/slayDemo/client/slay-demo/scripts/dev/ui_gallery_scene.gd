@@ -9,6 +9,8 @@ const CardViewFactoryScript    := preload("res://scripts/ui/card_view_factory.gd
 const RelicViewFactoryScript   := preload("res://scripts/ui/relic_view_factory.gd")
 const StatusViewFactoryScript  := preload("res://scripts/ui/status_view_factory.gd")
 const PotionViewFactoryScript  := preload("res://scripts/ui/potion_view_factory.gd")
+const UILayoutStoreScript      := preload("res://scripts/ui/ui_layout_store.gd")
+const UILayoutEditorScript     := preload("res://scripts/dev/ui_layout_editor.gd")
 
 const TABS := [
 	{"key": "cards",    "label": "卡牌 (52)"},
@@ -70,6 +72,13 @@ func _build_chrome() -> void:
 	bar_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tab_bar.add_child(bar_bg)
 
+	var editor_btn := Button.new()
+	editor_btn.text = "布局编辑器"
+	editor_btn.tooltip_text = "打开当前标签页第一个可编辑元素；也可右键任意预览元素"
+	editor_btn.custom_minimum_size = Vector2(120, 44)
+	editor_btn.pressed.connect(_open_first_editable)
+	tab_bar.add_child(editor_btn)
+
 	for tab in TABS:
 		var btn := Button.new()
 		btn.text = str(tab["label"])
@@ -118,6 +127,7 @@ func _switch_tab(tab_key: String) -> void:
 		"battle":   _build_battle_tab()
 		"map":      _build_map_tab()
 		"theme":    _build_theme_tab()
+	call_deferred("_register_editable_inputs")
 
 
 ## ─────────────────────────────────────────────────────────────
@@ -669,6 +679,7 @@ func _add_section_title(text: String) -> void:
 	lbl.add_theme_color_override("font_color", Color(0.68, 0.74, 0.84))
 	lbl.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.6))
 	lbl.add_theme_constant_override("shadow_offset_y", 1)
+	UILayoutStoreScript.apply_gallery_layout(lbl, "gallery.section_title")
 	_content_area.add_child(lbl)
 
 
@@ -687,6 +698,7 @@ func _add_rarity_label(rarity: String, color: Color, count: int) -> void:
 	lbl.text = "%s  (%d张)" % [rarity.to_upper(), count]
 	lbl.add_theme_font_size_override("font_size", 14)
 	lbl.add_theme_color_override("font_color", color)
+	UILayoutStoreScript.apply_gallery_layout(lbl, "gallery.rarity_label")
 	row.add_child(lbl)
 
 
@@ -728,6 +740,7 @@ func _add_background_preview(parent: Node, path: String, label_text: String) -> 
 		miss.set_anchors_preset(Control.PRESET_CENTER)
 		tex_rect.add_child(miss)
 	vbox.add_child(tex_rect)
+	UILayoutStoreScript.apply_layout(tex_rect, "background.preview", path)
 
 	var lbl := Label.new()
 	lbl.text = label_text
@@ -739,3 +752,51 @@ func _add_background_preview(parent: Node, path: String, label_text: String) -> 
 
 func _autoload(autoload_name: String) -> Variant:
 	return get_node_or_null("/root/%s" % autoload_name)
+
+
+func _register_editable_inputs() -> void:
+	if _content_area == null:
+		return
+	for control in _editable_controls(_content_area):
+		if control.get_meta("_layout_editor_input_registered", false):
+			continue
+		control.set_meta("_layout_editor_input_registered", true)
+		control.gui_input.connect(_on_editable_gui_input.bind(control))
+
+
+func _editable_controls(root: Control) -> Array[Control]:
+	var result: Array[Control] = []
+	if root.has_meta("layout_element_id"):
+		result.append(root)
+	for child in root.get_children():
+		if child is Control:
+			result.append_array(_editable_controls(child as Control))
+	return result
+
+
+func _on_editable_gui_input(event: InputEvent, control: Control) -> void:
+	if event is InputEventMouseButton:
+		var mouse := event as InputEventMouseButton
+		if mouse.pressed and mouse.button_index == MOUSE_BUTTON_RIGHT:
+			_open_layout_editor(control)
+
+
+func _open_first_editable() -> void:
+	var controls := _editable_controls(_content_area)
+	for preferred_id in ["card.root", "relic.root", "status.root", "background.preview", "gallery.section_title"]:
+		for control in controls:
+			if str(control.get_meta("layout_element_id", "")) == preferred_id:
+				_open_layout_editor(control)
+				return
+
+
+func _open_layout_editor(control: Control) -> void:
+	var editor := UILayoutEditorScript.new()
+	add_child(editor)
+	editor.open(control)
+	editor.closed.connect(_on_layout_editor_closed)
+
+
+func _on_layout_editor_closed(saved: bool) -> void:
+	if saved:
+		_switch_tab(_active_tab)

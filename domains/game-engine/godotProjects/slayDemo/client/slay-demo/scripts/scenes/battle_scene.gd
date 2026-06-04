@@ -5,6 +5,7 @@ const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const StatusViewFactoryScript := preload("res://scripts/ui/status_view_factory.gd")
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
 const PotionViewFactoryScript := preload("res://scripts/ui/potion_view_factory.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 const PotionServiceScript := preload("res://scripts/potion/potion_service.gd")
 
 const PLAYER_ART := "res://assets/player/sprites/player_warrior_idle.png"
@@ -119,6 +120,7 @@ func _build() -> void:
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
 	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
+	UILayoutStoreScript.apply_layout(background, "battle.background", encounter_id)
 
 	var tint := ColorRect.new()
 	tint.color = Color(0.035, 0.032, 0.038, 0.42)
@@ -137,6 +139,7 @@ func _build() -> void:
 	_player_panel = PanelContainer.new()
 	_player_panel.add_theme_stylebox_override("panel", _panel_style(Color(0.08, 0.075, 0.07, 0.86)))
 	root.add_child(_player_panel)
+	UILayoutStoreScript.apply_layout(_player_panel, "battle.player.panel")
 
 	var top_row := HBoxContainer.new()
 	top_row.add_theme_constant_override("separation", 14)
@@ -147,6 +150,7 @@ func _build() -> void:
 	portrait.custom_minimum_size = Vector2(72, 68)
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	top_row.add_child(portrait)
+	UILayoutStoreScript.apply_layout(portrait, "battle.player.sprite")
 	_player_sprite = portrait
 	_player_anim = SpriteAnimHelperScript.new(portrait, "res://assets/player/sprites", "player_warrior")
 	if _player_anim.has_frames("idle"):
@@ -180,12 +184,14 @@ func _build() -> void:
 	energy_icon.custom_minimum_size = Vector2(36, 36)
 	energy_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	energy_box.add_child(energy_icon)
+	UILayoutStoreScript.apply_layout(energy_icon, "battle.energy.icon")
 	_start_crystal_anim(energy_icon)
 
 	_energy_label = Label.new()
 	_energy_label.add_theme_font_size_override("font_size", 24)
 	_energy_label.add_theme_color_override("font_color", Color(0.72, 0.94, 1.0))
 	energy_box.add_child(_energy_label)
+	UILayoutStoreScript.apply_layout(_energy_label, "battle.energy.label")
 
 	_relic_row = HBoxContainer.new()
 	_relic_row.name = "BattleRelicRow"
@@ -214,6 +220,7 @@ func _build() -> void:
 	_enemy_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_enemy_row.add_theme_constant_override("separation", 20)
 	root.add_child(_enemy_row)
+	UILayoutStoreScript.apply_layout(_enemy_row, "battle.enemy.row")
 
 	var lower := HBoxContainer.new()
 	lower.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -258,6 +265,7 @@ func _build() -> void:
 	_hand_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_hand_row.add_theme_constant_override("separation", 8)
 	hand_scroll.add_child(_hand_row)
+	UILayoutStoreScript.apply_layout(_hand_row, "battle.hand.row")
 
 	var end_turn_button := Button.new()
 	end_turn_button.text = "结束回合"
@@ -265,6 +273,7 @@ func _build() -> void:
 	end_turn_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
 	hand_controls.add_child(end_turn_button)
+	UILayoutStoreScript.apply_layout(end_turn_button, "battle.end_turn")
 
 
 func _on_state_changed(snapshot: Dictionary) -> void:
@@ -338,6 +347,7 @@ func _render_enemies(enemies: Array) -> void:
 		button.add_theme_stylebox_override("pressed", _panel_style(Color(0.16, 0.11, 0.08, 0.96)))
 		button.pressed.connect(_on_enemy_pressed.bind(index))
 		button.pivot_offset = Vector2(130, 126)
+		var enemy_instance_id := str(enemy.get("id", index))
 
 		var sprite := TextureRect.new()
 		sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -350,6 +360,7 @@ func _render_enemies(enemies: Array) -> void:
 		sprite.texture = load(art_path)
 		sprite.set_deferred("size", Vector2(202, 165))
 		button.add_child(sprite)
+		UILayoutStoreScript.apply_layout(sprite, "battle.enemy.sprite", enemy_instance_id)
 
 		## 序列帧：art_key 去掉 "enemy_" 前缀得到目录名
 		var folder_name := art_key.replace("enemy_", "")
@@ -368,6 +379,7 @@ func _render_enemies(enemies: Array) -> void:
 		name_label.anchor_right = 0.92
 		name_label.anchor_bottom = 0.79
 		button.add_child(name_label)
+		UILayoutStoreScript.apply_layout(name_label, "battle.enemy.name", enemy_instance_id)
 
 		var hp := _make_label("HP %d/%d  格挡 %d" % [
 			int(enemy.get("hp", 0)),
@@ -379,6 +391,7 @@ func _render_enemies(enemies: Array) -> void:
 		hp.anchor_right = 0.95
 		hp.anchor_bottom = 0.88
 		button.add_child(hp)
+		UILayoutStoreScript.apply_layout(hp, "battle.enemy.hp", enemy_instance_id)
 
 		var intent_icon := TextureRect.new()
 		intent_icon.texture = load(str(INTENT_ICON_BY_TYPE.get(str(intent.get("type", "")), "res://assets/ui/intents/intent_question.png")))
@@ -389,6 +402,7 @@ func _render_enemies(enemies: Array) -> void:
 		intent_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		intent_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(intent_icon)
+		UILayoutStoreScript.apply_layout(intent_icon, "battle.enemy.intent_icon", enemy_instance_id)
 
 		var intent_text := _make_label("%s %d" % [str(intent.get("name", "")), int(intent.get("value", 0))], 14, HORIZONTAL_ALIGNMENT_LEFT)
 		intent_text.anchor_left = 0.36
@@ -396,6 +410,7 @@ func _render_enemies(enemies: Array) -> void:
 		intent_text.anchor_right = 0.92
 		intent_text.anchor_bottom = 1.0
 		button.add_child(intent_text)
+		UILayoutStoreScript.apply_layout(intent_text, "battle.enemy.intent_text", enemy_instance_id)
 
 		# 敌人状态显示
 		var enemy_statuses: Array = enemy.get("statuses", [])
@@ -408,6 +423,8 @@ func _render_enemies(enemies: Array) -> void:
 			status_row.anchor_bottom = 1.0
 			status_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			button.add_child(status_row)
+			UILayoutStoreScript.apply_layout(status_row, "battle.enemy.status_row", enemy_instance_id)
+		UILayoutStoreScript.apply_layout(button, "battle.enemy.root", enemy_instance_id)
 
 		_enemy_row.add_child(button)
 		_enemy_buttons.append(button)

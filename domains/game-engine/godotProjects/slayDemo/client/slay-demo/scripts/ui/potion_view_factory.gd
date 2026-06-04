@@ -1,6 +1,8 @@
 extends RefCounted
 class_name PotionViewFactory
 
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
+
 const RARITY_COLORS := {
 	"common":   Color(0.30, 0.48, 0.38, 0.95),
 	"uncommon": Color(0.22, 0.34, 0.52, 0.95),
@@ -24,6 +26,7 @@ static func create_potion_button(potion: Dictionary, use_callback: Callable = Ca
 	button.add_theme_stylebox_override("pressed", _style_for(str(potion.get("rarity", "common")), 1.22))
 	if use_callback.is_valid():
 		button.pressed.connect(use_callback)
+	UILayoutStoreScript.apply_layout(button, "potion.root", str(potion.get("id", potion_name)))
 	return button
 
 
@@ -36,6 +39,7 @@ static func create_empty_slot() -> Button:
 	button.add_theme_font_size_override("font_size", 12)
 	button.add_theme_color_override("font_color", Color(0.55, 0.50, 0.45))
 	button.add_theme_stylebox_override("disabled", _empty_style())
+	UILayoutStoreScript.apply_layout(button, "potion.empty")
 	return button
 
 
