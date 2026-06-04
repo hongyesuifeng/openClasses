@@ -105,6 +105,10 @@ func _ready() -> void:
 		else:
 			audio_manager.play_bgm("battle")
 
+	## 新手引导：第一场战斗（未完成任何节点）显示操作提示
+	if game_state.battle_wins == 0 and game_state.completed_map_node_ids.is_empty():
+		_show_tutorial_hint()
+
 
 func _build() -> void:
 	var run_controller: Variant = _autoload("RunController")
@@ -949,3 +953,52 @@ func _start_crystal_anim(icon: TextureRect) -> void:
 func _set_crystal_frame(icon: TextureRect, textures: Array[Texture2D], idx: int) -> void:
 	if is_instance_valid(icon) and idx < textures.size():
 		icon.texture = textures[idx]
+
+
+## ── 新手引导 ──────────────────────────────────────────────────────
+func _show_tutorial_hint() -> void:
+	var steps := [
+		{"text": "点击手牌中的卡牌来选择", "duration": 2.5},
+		{"text": "攻击牌需要点击敌人来指定目标", "duration": 2.5},
+		{"text": "点击「结束回合」结束你的行动", "duration": 2.5},
+		{"text": "消耗能量打出卡牌，击败所有敌人！", "duration": 2.5},
+	]
+	_play_tutorial_step(steps, 0)
+
+
+func _play_tutorial_step(steps: Array, index: int) -> void:
+	if index >= steps.size():
+		return
+	var step: Dictionary = steps[index] as Dictionary
+	var panel := PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.08, 0.10, 0.14, 0.88)
+	style.set_corner_radius_all(10)
+	style.set_border_width_all(1)
+	style.border_color = Color(0.98, 0.88, 0.42, 0.8)
+	panel.add_theme_stylebox_override("panel", style)
+	panel.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	panel.offset_top = -140
+	panel.offset_bottom = -60
+	panel.offset_left = -240
+	panel.offset_right = 240
+	panel.z_index = 90
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(panel)
+
+	var lbl := Label.new()
+	lbl.text = "💡 " + str(step["text"])
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	lbl.add_theme_font_size_override("font_size", 18)
+	lbl.add_theme_color_override("font_color", Color(0.98, 0.94, 0.82))
+	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(lbl)
+
+	var duration: float = float(step.get("duration", 2.5))
+	var tween := create_tween()
+	tween.tween_property(panel, "modulate:a", 1.0, 0.3)
+	tween.tween_interval(duration)
+	tween.tween_property(panel, "modulate:a", 0.0, 0.3)
+	tween.finished.connect(panel.queue_free)
+	tween.finished.connect(func(): _play_tutorial_step(steps, index + 1))
