@@ -1,6 +1,7 @@
 extends Control
 
 const SaveServiceScript := preload("res://scripts/autoload/save_service.gd")
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
 
 
 func _ready() -> void:
@@ -11,10 +12,16 @@ func _ready() -> void:
 
 
 func _build() -> void:
-	var background := ColorRect.new()
-	background.color = Color(0.08, 0.08, 0.1)
+	var background := TextureRect.new()
+	background.texture = load("res://assets/backgrounds/bg_main_menu.png")
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
+	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
+
+	var tint := ColorRect.new()
+	tint.color = Color(0.04, 0.04, 0.06, 0.52)
+	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(tint)
 
 	var panel := VBoxContainer.new()
 	panel.set_anchors_preset(Control.PRESET_CENTER)
@@ -28,15 +35,22 @@ func _build() -> void:
 	add_child(panel)
 
 	var title := Label.new()
-	title.text = "SlayDemo"
+	title.text = "甜心迷宫"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 42)
+	title.add_theme_font_size_override("font_size", 48)
+	title.add_theme_color_override("font_color", Color(1.0, 0.88, 0.94))
+	title.add_theme_color_override("font_shadow_color", Color(0.6, 0.2, 0.4, 0.8))
+	title.add_theme_constant_override("shadow_offset_x", 3)
+	title.add_theme_constant_override("shadow_offset_y", 3)
+	UIThemeScript.apply_cn(title)
 	panel.add_child(title)
 
 	var subtitle := Label.new()
-	subtitle.text = "Act 1 地图路线原型"
+	subtitle.text = "甜蜜的冒险，从这里开始"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.add_theme_font_size_override("font_size", 18)
+	subtitle.add_theme_color_override("font_color", Color(0.96, 0.82, 0.90))
+	UIThemeScript.apply_cn(subtitle)
 	panel.add_child(subtitle)
 
 	if SaveServiceScript.has_save():

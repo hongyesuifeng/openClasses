@@ -176,6 +176,7 @@ func _build() -> void:
 	energy_icon.custom_minimum_size = Vector2(36, 36)
 	energy_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	energy_box.add_child(energy_icon)
+	_start_crystal_anim(energy_icon)
 
 	_energy_label = Label.new()
 	_energy_label.add_theme_font_size_override("font_size", 24)
@@ -917,3 +918,34 @@ func _spawn_turn_banner(text: String, color: Color) -> void:
 	tween.tween_property(label, "modulate:a", 0.0, 0.3)
 	tween.finished.connect(label.queue_free)
 	tween.finished.connect(_play_next_banner)
+
+
+## 能量水晶序列帧循环动画（8fps，6帧，ui_energy_crystal_000~005.png）
+func _start_crystal_anim(icon: TextureRect) -> void:
+	const DIR := "res://assets/ui/icons/energy_crystal_anim"
+	const PREFIX := "ui_energy_crystal"
+	const FPS := 8.0
+	var textures: Array[Texture2D] = []
+	var i := 0
+	while true:
+		var path := "%s/%s_%03d.png" % [DIR, PREFIX, i]
+		if not ResourceLoader.exists(path, "Texture2D"):
+			break
+		var tex := ResourceLoader.load(path, "Texture2D") as Texture2D
+		if tex != null:
+			textures.append(tex)
+		i += 1
+	if textures.is_empty():
+		return
+	var frame_dur := 1.0 / FPS
+	var total_frames := textures.size()
+	icon.texture = textures[0]
+	## 用无限循环 Tween 驱动帧切换
+	var tween := create_tween().set_loops()
+	for idx in range(total_frames):
+		tween.tween_callback(_set_crystal_frame.bind(icon, textures, idx)).set_delay(frame_dur)
+
+
+func _set_crystal_frame(icon: TextureRect, textures: Array[Texture2D], idx: int) -> void:
+	if is_instance_valid(icon) and idx < textures.size():
+		icon.texture = textures[idx]

@@ -1,6 +1,7 @@
 extends Control
 
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
 
 const NODE_LABELS := {
 	"battle": "战斗",
@@ -68,12 +69,14 @@ func _build() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 32)
 	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
+	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 
 	_status_label = Label.new()
 	_status_label.text = _status_text()
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_label.add_theme_font_size_override("font_size", 16)
+	UIThemeScript.apply_cn(_status_label)
 	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
 	root.add_child(_status_label)
 

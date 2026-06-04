@@ -1,6 +1,8 @@
 extends RefCounted
 class_name CardViewFactory
 
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+
 const TEMPLATE_BY_RARITY := {
 	"starter": "res://assets/card/templates/card_template_common.png",
 	"common": "res://assets/card/templates/card_template_common.png",
@@ -118,6 +120,7 @@ static func _label(text: String, font_size: int, align: HorizontalAlignment) -> 
 	label.add_theme_constant_override("shadow_offset_x", 1)
 	label.add_theme_constant_override("shadow_offset_y", 1)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	UIThemeScript.apply_cn(label)
 	return label
 
 
