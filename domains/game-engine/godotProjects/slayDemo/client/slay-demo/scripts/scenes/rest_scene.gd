@@ -12,6 +12,7 @@ var _upgradeable_cards: Array = []
 var _upgrade_mode := false
 var _selected_upgrade_index := -1
 var _confirm_upgrade_button: Button
+var _compare_panel: Control = null  ## 升级对比面板
 
 
 func _ready() -> void:
@@ -161,9 +162,19 @@ func _on_upgrade_pressed(index: int) -> void:
 	var card_instance := _upgradeable_cards[index] as Dictionary
 	var data_loader: Variant = _autoload("DataLoader")
 	var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
-	_status_label.text = "已选择 %s，点击确认升级。" % str(card_data.get("name", ""))
+	_status_label.text = "升级 %s" % str(card_data.get("name", ""))
 	if _confirm_upgrade_button != null:
 		_confirm_upgrade_button.disabled = false
+
+	## 升级前后对比面板
+	if _compare_panel != null and is_instance_valid(_compare_panel):
+		_compare_panel.queue_free()
+	_compare_panel = CardViewFactoryScript.create_upgrade_compare(card_data, Vector2(120, 168))
+	var parent: Node = _choice_scroll.get_parent() if _choice_scroll != null else null
+	if parent != null:
+		parent.add_child(_compare_panel)
+		parent.move_child(_compare_panel, _choice_scroll.get_index() + 1)
+
 	_render_upgrade_choices()
 
 

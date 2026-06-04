@@ -1279,6 +1279,164 @@
           ]
         }
       ]
+    },
+    {
+      "id": "boss_witch_v1",
+      "name": "甜心女巫",
+      "enemy_type": "boss",
+      "max_hp": 110,
+      "art_key": "enemy_shadow_mage",
+      "tags": [
+        "boss",
+        "debuff"
+      ],
+      "phases": [
+        {
+          "name": "魔法仪式",
+          "trigger": "hp_above_50%",
+          "selection_mode": "weighted_pool",
+          "actions": [
+            {
+              "id": "hex_strike",
+              "name": "诅咒打击",
+              "intent_type": "attack",
+              "intent_value": 12,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 12,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "vulnerable",
+                  "value": 1,
+                  "target": "player"
+                }
+              ],
+              "weight": 35
+            },
+            {
+              "id": "poison_cauldron",
+              "name": "毒锅施法",
+              "intent_type": "debuff",
+              "intent_value": 0,
+              "effects": [
+                {
+                  "type": "apply_status",
+                  "status_id": "poison",
+                  "value": 6,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "weak",
+                  "value": 2,
+                  "target": "player"
+                }
+              ],
+              "weight": 35,
+              "cooldown": 2
+            },
+            {
+              "id": "arcane_shield",
+              "name": "奥术护盾",
+              "intent_type": "defend",
+              "intent_value": 20,
+              "effects": [
+                {
+                  "type": "block",
+                  "value": 20,
+                  "target": "self"
+                },
+                {
+                  "type": "gain_strength",
+                  "value": 1,
+                  "target": "self"
+                }
+              ],
+              "weight": 30,
+              "cooldown": 3
+            }
+          ]
+        },
+        {
+          "name": "黑魔法觉醒",
+          "trigger": "hp_below_50%",
+          "selection_mode": "weighted_pool",
+          "phase_effects": [
+            {
+              "type": "gain_strength",
+              "value": 4
+            }
+          ],
+          "actions": [
+            {
+              "id": "doom_strike",
+              "name": "末日打击",
+              "intent_type": "attack",
+              "intent_value": 20,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 20,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "poison",
+                  "value": 4,
+                  "target": "player"
+                }
+              ],
+              "weight": 45
+            },
+            {
+              "id": "cursed_ritual",
+              "name": "诅咒仪式",
+              "intent_type": "debuff",
+              "intent_value": 0,
+              "effects": [
+                {
+                  "type": "apply_status",
+                  "status_id": "weak",
+                  "value": 3,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "frail",
+                  "value": 2,
+                  "target": "player"
+                },
+                {
+                  "type": "apply_status",
+                  "status_id": "poison",
+                  "value": 8,
+                  "target": "player"
+                }
+              ],
+              "weight": 30,
+              "cooldown": 3
+            },
+            {
+              "id": "chaos_bolt",
+              "name": "混沌闪电",
+              "intent_type": "attack",
+              "intent_value": 20,
+              "effects": [
+                {
+                  "type": "damage",
+                  "value": 20,
+                  "target": "player"
+                }
+              ],
+              "weight": 25,
+              "cooldown": 2
+            }
+          ]
+        }
+      ]
     }
   ]
 }

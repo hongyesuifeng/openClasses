@@ -146,7 +146,7 @@ static func _assign_room_types(map_data: Dictionary) -> void:
 		var boss_node: Dictionary = nodes[last_floor_nodes[0]]
 		boss_node["type"] = "battle"
 		boss_node["is_final"] = true
-		boss_node["encounter_id"] = "v1_boss_02"
+		boss_node["encounter_id"] = _random_boss_encounter()
 
 	## 倒数第二层是休息点
 	if floors >= 2:
@@ -330,6 +330,11 @@ static func _assign_random_encounter(node: Dictionary, floor_index: int) -> void
 static func _random_elite_encounter() -> String:
 	var encounter_pool := ["v1_elite_01", "v1_elite_02", "v1_elite_03", "v1_elite_04"]
 	return encounter_pool[randi() % encounter_pool.size()]
+
+
+static func _random_boss_encounter() -> String:
+	var boss_pool := ["v1_boss_01", "v1_boss_02", "v1_boss_03"]
+	return boss_pool[randi() % boss_pool.size()]
 
 
 ## 验证路径可达性

@@ -19,6 +19,7 @@ var _potion_mode := false
 var _pending_potion: Dictionary = {}
 var _selected_choice_index := -1
 var _selected_upgrade_index := -1
+var _compare_panel: Control = null  ## 升级对比面板
 var _confirm_button: Button
 
 
@@ -363,9 +364,20 @@ func _on_upgrade_pressed(index: int) -> void:
 	var old_name := str(card_data.get("name", ""))
 
 	_selected_upgrade_index = index
-	_status_label.text = "已选择 %s，点击确认升级。" % old_name
+	_status_label.text = "升级 %s" % old_name
 	if _confirm_button != null:
 		_confirm_button.disabled = false
+
+	## 显示升级前后对比面板
+	if _compare_panel != null and is_instance_valid(_compare_panel):
+		_compare_panel.queue_free()
+	_compare_panel = CardViewFactoryScript.create_upgrade_compare(card_data, Vector2(120, 168))
+	## 插入到 _choice_row 之后（_choice_row 的父节点是 root VBoxContainer）
+	var parent: Node = _choice_scroll.get_parent() if _choice_scroll != null else null
+	if parent != null:
+		parent.add_child(_compare_panel)
+		parent.move_child(_compare_panel, _choice_scroll.get_index() + 1 if _choice_scroll != null else parent.get_child_count() - 1)
+
 	_render_choices()
 
 

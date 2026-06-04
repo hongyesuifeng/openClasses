@@ -131,6 +131,61 @@ static func _icon_path_for(card: Dictionary) -> String:
 	return str(ICON_BY_TYPE.get(str(card.get("type", "")), ICON_BY_TYPE["skill"]))
 
 
+## 返回升级后的卡牌数据（合并 upgrade patch），原始数据不变
+static func get_upgraded_card_data(card_data: Dictionary) -> Dictionary:
+	if not card_data.has("upgrade"):
+		return card_data.duplicate(true)
+	var upgraded := card_data.duplicate(true)
+	var patch := card_data["upgrade"] as Dictionary
+	for key in patch:
+		upgraded[key] = patch[key]
+	return upgraded
+
+
+## 生成升级前后并排对比面板
+static func create_upgrade_compare(card_data: Dictionary, card_size := Vector2(132, 183)) -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.alignment = BoxContainer.ALIGNMENT_CENTER
+	row.add_theme_constant_override("separation", 12)
+
+	## 升级前
+	var before_vbox := VBoxContainer.new()
+	before_vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	before_vbox.add_theme_constant_override("separation", 4)
+	row.add_child(before_vbox)
+	var before_lbl := Label.new()
+	before_lbl.text = "升级前"
+	before_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	before_lbl.add_theme_font_size_override("font_size", 13)
+	before_lbl.add_theme_color_override("font_color", Color(0.68, 0.64, 0.58))
+	before_vbox.add_child(before_lbl)
+	before_vbox.add_child(create_card_button(card_data, card_size, false, true))
+
+	## 箭头
+	var arrow := Label.new()
+	arrow.text = "→"
+	arrow.add_theme_font_size_override("font_size", 28)
+	arrow.add_theme_color_override("font_color", Color(0.98, 0.88, 0.40))
+	arrow.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	arrow.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	row.add_child(arrow)
+
+	## 升级后
+	var after_vbox := VBoxContainer.new()
+	after_vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	after_vbox.add_theme_constant_override("separation", 4)
+	row.add_child(after_vbox)
+	var after_lbl := Label.new()
+	after_lbl.text = "升级后"
+	after_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	after_lbl.add_theme_font_size_override("font_size", 13)
+	after_lbl.add_theme_color_override("font_color", Color(0.52, 0.92, 0.52))
+	after_vbox.add_child(after_lbl)
+	after_vbox.add_child(create_card_button(get_upgraded_card_data(card_data), card_size, true))
+
+	return row
+
+
 static func _type_text(type: String) -> String:
 	match type:
 		"attack":

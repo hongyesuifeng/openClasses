@@ -79,7 +79,13 @@
         "double_tap",
         "limit_break",
         "barricade",
-        "brutality"
+        "brutality",
+        "noxious_fumes",
+        "envenom",
+        "deadly_poison",
+        "noxious_fumes",
+        "envenom",
+        "deadly_poison"
       ],
       "player": {
         "max_hp": 150,

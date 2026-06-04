@@ -244,6 +244,15 @@
         "min": 32,
         "max": 45
       }
+    },
+    {
+      "id": "v1_boss_03",
+      "encounter_type": "boss",
+      "enemy_ids": [
+        "boss_witch_v1"
+      ],
+      "reward_type": "relic",
+      "gold_reward": 0
     }
   ]
 }

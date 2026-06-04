@@ -125,11 +125,29 @@ static func _apply_strength(effect: Dictionary, battle: Variant, source: String,
 static func _apply_status(effect: Dictionary, battle: Variant, source: String, target_index: int, acting_enemy_index: int) -> Dictionary:
 	var status_id := str(effect.get("status_id", ""))
 	var stacks := int(effect.get("value", 1))
+	var effect_target := str(effect.get("target", ""))
 
 	if status_id == "strength":
 		return _apply_strength(effect, battle, source, target_index, acting_enemy_index)
 
+	## all_enemies：对所有存活敌人施加状态
+	if effect_target == "all_enemies" and source == "player":
+		for i in range(battle.enemies.size()):
+			var enemy: Dictionary = battle.enemies[i]
+			if int(enemy.get("hp", 0)) <= 0:
+				continue
+			if enemy.has("status_manager"):
+				var enemy_status: RefCounted = enemy["status_manager"]
+				enemy_status.call("apply_status", status_id, stacks)
+				battle.combat_event.emit({ "type": "status_applied", "status_id": status_id, "target": "enemy", "target_index": i, "stacks": stacks })
+		return { "type": "apply_status", "target": "all_enemies", "status_id": status_id, "stacks": stacks }
+
 	if source == "player":
+		if str(effect.get("target", "")) == "self":
+			var player_status: RefCounted = battle.player_status
+			player_status.call("apply_status", status_id, stacks)
+			battle.combat_event.emit({ "type": "status_applied", "status_id": status_id, "target": "player", "stacks": stacks })
+			return { "type": "apply_status", "target": "player", "status_id": status_id, "stacks": stacks }
 		if target_index >= 0 and target_index < battle.enemies.size():
 			var enemy: Dictionary = battle.enemies[target_index]
 			if enemy.has("status_manager"):
@@ -138,7 +156,7 @@ static func _apply_status(effect: Dictionary, battle: Variant, source: String, t
 				battle.combat_event.emit({ "type": "status_applied", "status_id": status_id, "target": "enemy", "target_index": target_index, "stacks": stacks })
 				return { "type": "apply_status", "target": "enemy", "target_index": target_index, "status_id": status_id, "stacks": stacks }
 	else:
-		if str(effect.get("target", "")) == "player":
+		if effect_target == "player":
 			var player_status: RefCounted = battle.player_status
 			player_status.call("apply_status", status_id, stacks)
 			battle.combat_event.emit({ "type": "status_applied", "status_id": status_id, "target": "player", "stacks": stacks })

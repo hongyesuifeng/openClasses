@@ -1928,6 +1928,123 @@
           }
         ]
       }
+    },
+    {
+      "id": "noxious_fumes",
+      "name": "毒雾弥漫",
+      "description": "对所有敌人施加 3 层中毒。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "all_enemies",
+      "tags": [
+        "poison",
+        "debuff",
+        "aoe"
+      ],
+      "art_key": "card_power",
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "poison",
+          "value": 3,
+          "target": "all_enemies"
+        }
+      ],
+      "upgrade": {
+        "name": "毒雾弥漫+",
+        "description": "对所有敌人施加 5 层中毒。",
+        "cost": 1,
+        "effects": [
+          {
+            "type": "apply_status",
+            "status_id": "poison",
+            "value": 5,
+            "target": "all_enemies"
+          }
+        ]
+      }
+    },
+    {
+      "id": "envenom",
+      "name": "淬毒",
+      "description": "对所有敌人施加 5 层中毒。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "all_enemies",
+      "tags": [
+        "buff",
+        "poison"
+      ],
+      "art_key": "card_skill",
+      "effects": [
+        {
+          "type": "apply_status",
+          "status_id": "poison",
+          "value": 5,
+          "target": "all_enemies"
+        }
+      ],
+      "upgrade": {
+        "name": "淬毒+",
+        "description": "对所有敌人施加 8 层中毒。费用降至 0。",
+        "cost": 0,
+        "effects": [
+          {
+            "type": "apply_status",
+            "status_id": "poison",
+            "value": 8,
+            "target": "all_enemies"
+          }
+        ]
+      }
+    },
+    {
+      "id": "deadly_poison",
+      "name": "剧毒针",
+      "description": "造成 7 点伤害，施加 7 层中毒。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 2,
+      "target": "single_enemy",
+      "tags": [
+        "damage",
+        "poison",
+        "debuff"
+      ],
+      "art_key": "card_attack",
+      "effects": [
+        {
+          "type": "damage",
+          "value": 7,
+          "target": "single_enemy"
+        },
+        {
+          "type": "apply_status",
+          "status_id": "poison",
+          "value": 7,
+          "target": "single_enemy"
+        }
+      ],
+      "upgrade": {
+        "name": "剧毒针+",
+        "description": "造成 7 点伤害，施加 10 层中毒。",
+        "cost": 2,
+        "effects": [
+          {
+            "type": "damage",
+            "value": 7,
+            "target": "single_enemy"
+          },
+          {
+            "type": "apply_status",
+            "status_id": "poison",
+            "value": 10,
+            "target": "single_enemy"
+          }
+        ]
+      }
     }
   ]
 }
