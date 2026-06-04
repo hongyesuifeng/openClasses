@@ -36,7 +36,7 @@ func _test_chest_reward_feedback(ctx: Variant, game_state: Variant, data_loader:
 
 	var status_label: Label = chest.get("_status_label")
 	ctx.assert_true(status_label.text.contains("获得 45 金币"), "chest reward shows gold")
-	ctx.assert_true(status_label.text.contains("获得遗物：船锚"), "chest reward shows relic name")
+	ctx.assert_true(status_label.text.contains("获得遗物：魔法护符"), "chest reward shows relic name")
 	ctx.assert_true(status_label.text.contains("效果：每场战斗开始获得 10 点格挡。"), "chest reward shows relic description")
 	ctx.assert_eq(game_state.player_gold, 165, "chest cannot grant gold twice")
 	ctx.assert_eq(game_state.owned_relic_ids.size(), 1, "chest cannot grant relic twice")
@@ -56,13 +56,13 @@ func _test_battle_relic_row(ctx: Variant, game_state: Variant, data_loader: Vari
 	await _tree().process_frame
 
 	var relic_row: HBoxContainer = battle.get("_relic_row")
-	var relic_button := _find_relic_button(relic_row, "lantern", "灯笼")
+	var relic_button := _find_relic_button(relic_row, "lantern", "星光提灯")
 	ctx.assert_true(relic_button != null, "battle scene renders owned relic button")
 	ctx.assert_true(relic_button.tooltip_text.contains("每场战斗第一回合获得 1 点额外能量。"), "battle relic tooltip includes description")
 	relic_button.pressed.emit()
 
 	var status_label: Label = battle.get("_status_label")
-	ctx.assert_true(status_label.text.contains("灯笼"), "battle relic click writes name to status text")
+	ctx.assert_true(status_label.text.contains("星光提灯"), "battle relic click writes name to status text")
 	ctx.assert_true(status_label.text.contains("额外能量"), "battle relic click writes effect to status text")
 	battle.queue_free()
 
@@ -97,13 +97,13 @@ func _test_map_relic_row(ctx: Variant, game_state: Variant, data_loader: Variant
 	await _tree().process_frame
 
 	var relic_row: HBoxContainer = map.get("_relic_row")
-	var relic_button := _find_relic_button(relic_row, "strawberry", "草莓")
+	var relic_button := _find_relic_button(relic_row, "strawberry", "幸运草莓")
 	ctx.assert_true(relic_button != null, "map scene renders owned relic button")
 	ctx.assert_true(relic_button.tooltip_text.contains("获得时最大生命值提高 10。"), "map relic tooltip includes description")
 	relic_button.pressed.emit()
 
 	var status_label: Label = map.get("_status_label")
-	ctx.assert_true(status_label.text.contains("草莓"), "map relic click writes name to status text")
+	ctx.assert_true(status_label.text.contains("幸运草莓"), "map relic click writes name to status text")
 	ctx.assert_true(status_label.text.contains("最大生命值"), "map relic click writes effect to status text")
 	map.queue_free()
 

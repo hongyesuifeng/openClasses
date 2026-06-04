@@ -75,7 +75,7 @@ func _test_reward_scene_shows_potion_layer(ctx: Variant, game_state: Variant, da
 	ctx.assert_true(potion_mode, "RewardScene enters potion mode when pending_potion_reward exists")
 
 	## 界面包含药水名称
-	var found_label := _find_label_with_text(reward, "治疗药水")
+	var found_label := _find_label_with_text(reward, "草莓回复果汁")
 	ctx.assert_true(found_label != null, "RewardScene shows pending potion name in potion mode")
 
 	reward.queue_free()
@@ -121,7 +121,7 @@ func _test_battle_scene_renders_potion_row(ctx: Variant, game_state: Variant, da
 	ctx.assert_true(potion_row != null, "battle scene has _potion_row")
 
 	## 找到药水按钮
-	var potion_btn := _find_button_with_partial_text(potion_row, "力量")
+	var potion_btn := _find_button_with_partial_text(potion_row, "红色能量")
 	ctx.assert_true(potion_btn != null, "battle scene renders owned potion button")
 
 	battle.queue_free()

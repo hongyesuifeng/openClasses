@@ -15,7 +15,7 @@ func run(ctx: Variant) -> void:
 	ctx.assert_eq(errors.size(), 0, "V1 JSON has no validation errors")
 
 	var strike: Dictionary = data_loader.get_card("strike")
-	ctx.assert_eq(str(strike.get("name", "")), "打击", "strike card is loaded")
+	ctx.assert_eq(str(strike.get("name", "")), "魔法弹", "strike card is loaded")
 	ctx.assert_eq(int(strike.get("cost", -99)), 1, "strike cost is configured")
 
 	var boss: Dictionary = data_loader.get_enemy("boss_knight_v1")

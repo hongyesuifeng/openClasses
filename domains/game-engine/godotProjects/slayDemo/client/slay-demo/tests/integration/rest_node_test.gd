@@ -32,7 +32,7 @@ func run_async(ctx: Variant) -> void:
 	var upgraded: bool = UpgradeServiceScript.upgrade_card_instance(first_card, data_loader)
 	ctx.assert_true(upgraded, "rest upgrade can upgrade a card instance")
 	ctx.assert_true(bool(first_card.get("is_upgraded", false)), "card instance is marked upgraded")
-	ctx.assert_eq(str(data_loader.resolve_card_instance(first_card).get("name", "")), "打击+", "upgraded card resolves upgraded data")
+	ctx.assert_eq(str(data_loader.resolve_card_instance(first_card).get("name", "")), "魔法弹+", "upgraded card resolves upgraded data")
 
 	ctx.assert_true(RestSceneScript != null, "RestScene script compiles")
 	ctx.assert_true(RestScene != null, "RestScene resource loads")
