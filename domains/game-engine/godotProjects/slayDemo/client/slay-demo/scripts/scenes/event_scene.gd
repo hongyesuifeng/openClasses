@@ -1,5 +1,7 @@
 extends Control
 
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+
 const EventServiceScript := preload("res://scripts/event/event_service.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 
@@ -65,6 +67,7 @@ func _render_event() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 32)
 	title.add_theme_color_override("font_color", Color(0.96, 0.86, 0.68))
+	UIThemeScript.apply_cn(title)
 	_content_container.add_child(title)
 
 	## 状态/描述

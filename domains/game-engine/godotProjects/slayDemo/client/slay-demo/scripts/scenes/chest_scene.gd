@@ -1,5 +1,7 @@
 extends Control
 
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+
 const RelicServiceScript := preload("res://scripts/relic/relic_service.gd")
 
 var _opened := false
@@ -41,6 +43,7 @@ func _build() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 34)
 	title.add_theme_color_override("font_color", Color(0.98, 0.88, 0.54))
+	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 
 	_status_label = Label.new()

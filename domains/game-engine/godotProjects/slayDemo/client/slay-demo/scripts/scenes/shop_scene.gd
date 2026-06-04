@@ -1,5 +1,7 @@
 extends Control
 
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const ShopServiceScript := preload("res://scripts/shop/shop_service.gd")
 
@@ -47,6 +49,7 @@ func _build() -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 34)
 	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
+	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 
 	_gold_label = Label.new()

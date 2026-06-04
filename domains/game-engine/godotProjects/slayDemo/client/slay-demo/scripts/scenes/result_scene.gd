@@ -1,5 +1,7 @@
 extends Control
 
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 
@@ -46,6 +48,7 @@ func _build() -> void:
 	title.add_theme_font_size_override("font_size", 38)
 	title.add_theme_color_override("font_color",
 		Color(0.98, 0.88, 0.40) if won else Color(0.90, 0.36, 0.36))
+	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 
 	## ── 核心数据 ─────────────────────────────────────

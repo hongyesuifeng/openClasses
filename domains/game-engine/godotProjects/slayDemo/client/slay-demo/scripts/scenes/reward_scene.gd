@@ -1,5 +1,7 @@
 extends Control
 
+const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+
 const RewardServiceScript := preload("res://scripts/reward/reward_service.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
@@ -82,6 +84,7 @@ func _build_relic_reward(root: VBoxContainer) -> void:
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 30)
 	title.add_theme_color_override("font_color", Color(0.98, 0.84, 0.4))
+	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 
 	_status_label = Label.new()
