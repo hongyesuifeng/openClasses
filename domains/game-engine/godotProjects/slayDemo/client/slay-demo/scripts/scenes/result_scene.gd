@@ -51,6 +51,39 @@ func _build() -> void:
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 
+	## ── 得分 / 评价 ──────────────────────────────────
+	if won:
+		var score := _calc_score(summary)
+		var grade := _score_to_grade(score)
+		var grade_color := _grade_color(grade)
+
+		var grade_label := Label.new()
+		grade_label.text = grade
+		grade_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		grade_label.add_theme_font_size_override("font_size", 72)
+		grade_label.add_theme_color_override("font_color", grade_color)
+		grade_label.add_theme_color_override("font_shadow_color", Color(grade_color.r * 0.3, grade_color.g * 0.3, grade_color.b * 0.3, 0.9))
+		grade_label.add_theme_constant_override("shadow_offset_x", 3)
+		grade_label.add_theme_constant_override("shadow_offset_y", 3)
+		UIThemeScript.apply_cn(grade_label)
+		root.add_child(grade_label)
+
+		var score_label := Label.new()
+		score_label.text = "得分：%d 分" % score
+		score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		score_label.add_theme_font_size_override("font_size", 20)
+		score_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+		UIThemeScript.apply_cn(score_label)
+		root.add_child(score_label)
+
+		var breakdown := Label.new()
+		breakdown.text = _score_breakdown(summary)
+		breakdown.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		breakdown.add_theme_font_size_override("font_size", 13)
+		breakdown.add_theme_color_override("font_color", Color(0.62, 0.60, 0.56))
+		UIThemeScript.apply_cn(breakdown)
+		root.add_child(breakdown)
+
 	## ── 核心数据 ─────────────────────────────────────
 	var stats_panel := PanelContainer.new()
 	stats_panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
@@ -167,3 +200,42 @@ func _on_menu_pressed() -> void:
 
 func _autoload(autoload_name: String) -> Variant:
 	return get_node_or_null("/root/%s" % autoload_name)
+
+
+## ── 得分计算 ──────────────────────────────────────────────────────
+## HP 余量×2 + 金币×1 + 遗物数×50 + 战斗胜利×30 + 完成节点×10
+func _calc_score(summary: Dictionary) -> int:
+	var hp := int(summary.get("player_hp", 0))
+	var gold := int(summary.get("gold", 0))
+	var relics := int(summary.get("relic_count", 0))
+	var battles := int(summary.get("battle_wins", 0))
+	var nodes := int(summary.get("completed_map_nodes", 0))
+	return hp * 2 + gold + relics * 50 + battles * 30 + nodes * 10
+
+
+func _score_to_grade(score: int) -> String:
+	if score >= 800: return "S"
+	if score >= 600: return "A"
+	if score >= 400: return "B"
+	if score >= 200: return "C"
+	return "D"
+
+
+func _grade_color(grade: String) -> Color:
+	match grade:
+		"S": return Color(1.00, 0.90, 0.20)  ## 金色
+		"A": return Color(0.60, 1.00, 0.60)  ## 绿色
+		"B": return Color(0.50, 0.80, 1.00)  ## 蓝色
+		"C": return Color(0.90, 0.70, 0.40)  ## 橙色
+		_:   return Color(0.72, 0.68, 0.68)  ## 灰色
+
+
+func _score_breakdown(summary: Dictionary) -> String:
+	var hp := int(summary.get("player_hp", 0))
+	var gold := int(summary.get("gold", 0))
+	var relics := int(summary.get("relic_count", 0))
+	var battles := int(summary.get("battle_wins", 0))
+	var nodes := int(summary.get("completed_map_nodes", 0))
+	return "HP %d×2=%d  金币 %d  遗物 %d×50=%d  战斗 %d×30=%d  节点 %d×10=%d" % [
+		hp, hp*2, gold, relics, relics*50, battles, battles*30, nodes, nodes*10
+	]
