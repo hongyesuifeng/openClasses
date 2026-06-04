@@ -2,7 +2,7 @@
   "cards": [
     {
       "id": "strike",
-      "name": "打击",
+      "name": "魔法弹",
       "description": "造成 6 点伤害。",
       "type": "attack",
       "rarity": "starter",
@@ -21,7 +21,7 @@
         }
       ],
       "upgrade": {
-        "name": "打击+",
+        "name": "魔法弹+",
         "description": "造成 9 点伤害。",
         "cost": 1,
         "effects": [
@@ -35,7 +35,7 @@
     },
     {
       "id": "defend",
-      "name": "防御",
+      "name": "魔法盾",
       "description": "获得 5 点格挡。",
       "type": "skill",
       "rarity": "starter",
@@ -54,7 +54,7 @@
         }
       ],
       "upgrade": {
-        "name": "防御+",
+        "name": "魔法盾+",
         "description": "获得 8 点格挡。",
         "cost": 1,
         "effects": [
@@ -68,8 +68,8 @@
     },
     {
       "id": "bash",
-      "name": "痛击",
-      "description": "造成 8 点伤害，施加 2 层易伤。",
+      "name": "星光冲击",
+      "description": "造成 8 点伤害，施加 2 层弱点暴露。",
       "type": "attack",
       "rarity": "starter",
       "cost": 2,
@@ -93,8 +93,8 @@
         }
       ],
       "upgrade": {
-        "name": "痛击+",
-        "description": "造成 10 点伤害，施加 3 层易伤。",
+        "name": "星光冲击+",
+        "description": "造成 10 点伤害，施加 3 层弱点暴露。",
         "cost": 2,
         "effects": [
           {
@@ -113,7 +113,7 @@
     },
     {
       "id": "cleave",
-      "name": "横扫",
+      "name": "扇形星光",
       "description": "对所有敌人造成 8 点伤害。",
       "type": "attack",
       "rarity": "common",
@@ -131,7 +131,7 @@
         }
       ],
       "upgrade": {
-        "name": "横扫+",
+        "name": "扇形星光+",
         "description": "对所有敌人造成 11 点伤害。",
         "cost": 1,
         "effects": [
@@ -144,7 +144,7 @@
     },
     {
       "id": "iron_wave",
-      "name": "铁波",
+      "name": "魔力波",
       "description": "造成 5 点伤害，获得 5 点格挡。",
       "type": "attack",
       "rarity": "common",
@@ -168,7 +168,7 @@
         }
       ],
       "upgrade": {
-        "name": "铁波+",
+        "name": "魔力波+",
         "description": "造成 7 点伤害，获得 7 点格挡。",
         "cost": 1,
         "effects": [
@@ -187,7 +187,7 @@
     },
     {
       "id": "twin_strike",
-      "name": "双重打击",
+      "name": "双子星弹",
       "description": "造成 5 点伤害两次。",
       "type": "attack",
       "rarity": "common",
@@ -207,7 +207,7 @@
         }
       ],
       "upgrade": {
-        "name": "双重打击+",
+        "name": "双子星弹+",
         "description": "造成 7 点伤害两次。",
         "cost": 1,
         "effects": [
@@ -222,7 +222,7 @@
     },
     {
       "id": "heavy_strike",
-      "name": "重击",
+      "name": "超级魔法弹",
       "description": "造成 12 点伤害。",
       "type": "attack",
       "rarity": "common",
@@ -241,7 +241,7 @@
         }
       ],
       "upgrade": {
-        "name": "重击+",
+        "name": "超级魔法弹+",
         "description": "造成 16 点伤害。",
         "cost": 2,
         "effects": [
@@ -255,7 +255,7 @@
     },
     {
       "id": "pommel_strike",
-      "name": "柄击",
+      "name": "敲头术",
       "description": "造成 9 点伤害，抽 1 张牌。",
       "type": "attack",
       "rarity": "common",
@@ -278,7 +278,7 @@
         }
       ],
       "upgrade": {
-        "name": "柄击+",
+        "name": "敲头术+",
         "description": "造成 10 点伤害，抽 2 张牌。",
         "cost": 1,
         "effects": [
@@ -296,7 +296,7 @@
     },
     {
       "id": "clash",
-      "name": "冲突",
+      "name": "全力一击",
       "description": "造成 14 点伤害。只有当手牌全是攻击牌时才能打出。",
       "type": "attack",
       "rarity": "common",
@@ -315,8 +315,8 @@
         }
       ],
       "upgrade": {
-        "name": "冲突+",
-        "description": "造成 18 点伤害。",
+        "name": "全力一击+",
+        "description": "造成 18 点伤害。只有当手牌全是攻击牌时才能打出。",
         "cost": 0,
         "effects": [
           {
@@ -329,7 +329,7 @@
     },
     {
       "id": "quick_guard",
-      "name": "快速格挡",
+      "name": "闪光盾",
       "description": "获得 3 点格挡。",
       "type": "skill",
       "rarity": "common",
@@ -348,7 +348,7 @@
         }
       ],
       "upgrade": {
-        "name": "快速格挡+",
+        "name": "闪光盾+",
         "description": "获得 4 点格挡。",
         "cost": 0,
         "effects": [
@@ -362,7 +362,7 @@
     },
     {
       "id": "shrug_it_off",
-      "name": "耸肩无视",
+      "name": "毫不在意",
       "description": "获得 8 点格挡，抽 1 张牌。",
       "type": "skill",
       "rarity": "common",
@@ -386,7 +386,7 @@
         }
       ],
       "upgrade": {
-        "name": "耸肩无视+",
+        "name": "毫不在意+",
         "description": "获得 11 点格挡，抽 1 张牌。",
         "cost": 1,
         "effects": [
@@ -405,7 +405,7 @@
     },
     {
       "id": "battle_focus",
-      "name": "战斗专注",
+      "name": "魔法集中",
       "description": "抽 2 张牌。",
       "type": "skill",
       "rarity": "common",
@@ -423,7 +423,7 @@
         }
       ],
       "upgrade": {
-        "name": "战斗专注+",
+        "name": "魔法集中+",
         "description": "抽 3 张牌。",
         "cost": 1,
         "effects": [
@@ -437,8 +437,8 @@
     },
     {
       "id": "poison_dart",
-      "name": "毒镖",
-      "description": "施加 4 层中毒。",
+      "name": "毒毒泡泡",
+      "description": "施加 4 层毒毒状态。",
       "type": "skill",
       "rarity": "common",
       "cost": 1,
@@ -457,8 +457,8 @@
         }
       ],
       "upgrade": {
-        "name": "毒镖+",
-        "description": "施加 6 层中毒。",
+        "name": "毒毒泡泡+",
+        "description": "施加 6 层毒毒状态。",
         "cost": 1,
         "effects": [
           {
@@ -472,7 +472,7 @@
     },
     {
       "id": "armaments",
-      "name": "武装",
+      "name": "魔法调优",
       "description": "获得 5 点格挡。将一张手牌升级。",
       "type": "skill",
       "rarity": "common",
@@ -491,7 +491,7 @@
         }
       ],
       "upgrade": {
-        "name": "武装+",
+        "name": "魔法调优+",
         "description": "获得 5 点格挡。将所有手牌升级。",
         "cost": 1,
         "effects": [
@@ -505,8 +505,8 @@
     },
     {
       "id": "flex",
-      "name": "爆发",
-      "description": "获得 2 点力量。回合结束时失去 2 点力量。",
+      "name": "加油冲刺",
+      "description": "获得 2 点魔力强化。回合结束时失去 2 点魔力强化。",
       "type": "skill",
       "rarity": "common",
       "cost": 0,
@@ -524,8 +524,8 @@
         }
       ],
       "upgrade": {
-        "name": "爆发+",
-        "description": "获得 4 点力量。回合结束时失去 4 点力量。",
+        "name": "加油冲刺+",
+        "description": "获得 4 点魔力强化。回合结束时失去 4 点魔力强化。",
         "cost": 0,
         "effects": [
           {
@@ -538,8 +538,8 @@
     },
     {
       "id": "inflame",
-      "name": "燃起斗志",
-      "description": "获得 2 点力量。",
+      "name": "斗志满满",
+      "description": "获得 2 点魔力强化。",
       "type": "skill",
       "rarity": "uncommon",
       "cost": 1,
@@ -557,8 +557,8 @@
         }
       ],
       "upgrade": {
-        "name": "燃起斗志+",
-        "description": "获得 3 点力量。",
+        "name": "斗志满满+",
+        "description": "获得 3 点魔力强化。",
         "cost": 1,
         "effects": [
           {
@@ -571,7 +571,7 @@
     },
     {
       "id": "offering",
-      "name": "献祭",
+      "name": "魔力燃烧",
       "description": "获得 2 点能量，抽 2 张牌。",
       "type": "skill",
       "rarity": "uncommon",
@@ -593,7 +593,7 @@
         }
       ],
       "upgrade": {
-        "name": "献祭+",
+        "name": "魔力燃烧+",
         "description": "获得 2 点能量，抽 3 张牌。",
         "cost": 0,
         "effects": [
@@ -610,7 +610,7 @@
     },
     {
       "id": "rage",
-      "name": "愤怒",
+      "name": "反弹盾",
       "description": "每打出一张攻击牌，获得 3 点格挡。",
       "type": "skill",
       "rarity": "uncommon",
@@ -629,7 +629,7 @@
         }
       ],
       "upgrade": {
-        "name": "愤怒+",
+        "name": "反弹盾+",
         "description": "每打出一张攻击牌，获得 5 点格挡。",
         "cost": 1,
         "effects": [
@@ -643,7 +643,7 @@
     },
     {
       "id": "sever_soul",
-      "name": "断魂斩",
+      "name": "终极连段",
       "description": "消耗手牌中所有非攻击牌，造成 16 点伤害。",
       "type": "attack",
       "rarity": "uncommon",
@@ -666,7 +666,7 @@
         }
       ],
       "upgrade": {
-        "name": "断魂斩+",
+        "name": "终极连段+",
         "description": "消耗手牌中所有非攻击牌，造成 22 点伤害。",
         "cost": 2,
         "effects": [
@@ -684,7 +684,7 @@
     },
     {
       "id": "bloodletting",
-      "name": "放血",
+      "name": "以血换力",
       "description": "失去 3 点生命，获得 2 点能量。",
       "type": "skill",
       "rarity": "uncommon",
@@ -702,7 +702,7 @@
         }
       ],
       "upgrade": {
-        "name": "放血+",
+        "name": "以血换力+",
         "description": "失去 3 点生命，获得 3 点能量。",
         "cost": 0,
         "effects": [
@@ -715,7 +715,7 @@
     },
     {
       "id": "carnage",
-      "name": "大屠杀",
+      "name": "超级大招",
       "description": "造成 20 点伤害。",
       "type": "attack",
       "rarity": "rare",
@@ -734,7 +734,7 @@
         }
       ],
       "upgrade": {
-        "name": "大屠杀+",
+        "name": "超级大招+",
         "description": "造成 28 点伤害。",
         "cost": 2,
         "effects": [
@@ -748,7 +748,7 @@
     },
     {
       "id": "reaper",
-      "name": "死神之镰",
+      "name": "流星雨",
       "description": "对所有敌人造成 4 点伤害。",
       "type": "attack",
       "rarity": "rare",
@@ -767,7 +767,7 @@
         }
       ],
       "upgrade": {
-        "name": "死神之镰+",
+        "name": "流星雨+",
         "description": "对所有敌人造成 5 点伤害。",
         "cost": 2,
         "effects": [
@@ -780,7 +780,7 @@
     },
     {
       "id": "bludgeon",
-      "name": "重锤",
+      "name": "终极魔法炮",
       "description": "造成 32 点伤害。",
       "type": "attack",
       "rarity": "rare",
@@ -799,7 +799,7 @@
         }
       ],
       "upgrade": {
-        "name": "重锤+",
+        "name": "终极魔法炮+",
         "description": "造成 42 点伤害。",
         "cost": 3,
         "effects": [
@@ -813,7 +813,7 @@
     },
     {
       "id": "impervious",
-      "name": "无敌",
+      "name": "无敌时间",
       "description": "获得 30 点格挡。",
       "type": "skill",
       "rarity": "rare",
@@ -832,7 +832,7 @@
         }
       ],
       "upgrade": {
-        "name": "无敌+",
+        "name": "无敌时间+",
         "description": "获得 40 点格挡。",
         "cost": 2,
         "effects": [
@@ -846,7 +846,7 @@
     },
     {
       "id": "barricade",
-      "name": "堡垒",
+      "name": "永久护盾",
       "description": "格挡不再在回合开始时清除。",
       "type": "power",
       "rarity": "rare",
@@ -865,7 +865,7 @@
         }
       ],
       "upgrade": {
-        "name": "堡垒+",
+        "name": "永久护盾+",
         "description": "格挡不再在回合开始时清除。费用降至 2。",
         "cost": 2,
         "effects": [
@@ -879,7 +879,7 @@
     },
     {
       "id": "whirlwind",
-      "name": "旋风斩",
+      "name": "魔法旋风",
       "description": "对所有敌人造成 5 点伤害。",
       "type": "attack",
       "rarity": "common",
@@ -898,7 +898,7 @@
         }
       ],
       "upgrade": {
-        "name": "旋风斩+",
+        "name": "魔法旋风+",
         "description": "对所有敌人造成 8 点伤害。",
         "cost": 1,
         "effects": [
@@ -912,7 +912,7 @@
     },
     {
       "id": "reckless_charge",
-      "name": "莽撞冲锋",
+      "name": "横冲直撞",
       "description": "造成 14 点伤害，获得 1 点伤害反噬。",
       "type": "attack",
       "rarity": "common",
@@ -935,7 +935,7 @@
         }
       ],
       "upgrade": {
-        "name": "莽撞冲锋+",
+        "name": "横冲直撞+",
         "description": "造成 20 点伤害，获得 1 点伤害反噬。",
         "cost": 1,
         "effects": [
@@ -954,8 +954,8 @@
     },
     {
       "id": "venomous_stab",
-      "name": "毒刺",
-      "description": "造成 5 点伤害，施加 3 层中毒。",
+      "name": "毒刺针",
+      "description": "造成 5 点伤害，施加 3 层毒毒状态。",
       "type": "attack",
       "rarity": "uncommon",
       "cost": 1,
@@ -980,8 +980,8 @@
         }
       ],
       "upgrade": {
-        "name": "毒刺+",
-        "description": "造成 7 点伤害，施加 5 层中毒。",
+        "name": "毒刺针+",
+        "description": "造成 7 点伤害，施加 5 层毒毒状态。",
         "cost": 1,
         "effects": [
           {
@@ -1000,8 +1000,8 @@
     },
     {
       "id": "skull_crusher",
-      "name": "碎颅击",
-      "description": "造成 10 点伤害，施加 2 层无力。",
+      "name": "加重打击",
+      "description": "造成 10 点伤害，施加 2 层软绵绵。",
       "type": "attack",
       "rarity": "uncommon",
       "cost": 2,
@@ -1025,8 +1025,8 @@
         }
       ],
       "upgrade": {
-        "name": "碎颅击+",
-        "description": "造成 14 点伤害，施加 3 层无力。",
+        "name": "加重打击+",
+        "description": "造成 14 点伤害，施加 3 层软绵绵。",
         "cost": 2,
         "effects": [
           {
@@ -1045,8 +1045,8 @@
     },
     {
       "id": "thunderclap",
-      "name": "雷霆掌",
-      "description": "对所有敌人造成 4 点伤害并施加 1 层易伤。",
+      "name": "闪电魔法",
+      "description": "对所有敌人造成 4 点伤害并施加 1 层弱点暴露。",
       "type": "attack",
       "rarity": "rare",
       "cost": 2,
@@ -1072,8 +1072,8 @@
         }
       ],
       "upgrade": {
-        "name": "雷霆掌+",
-        "description": "对所有敌人造成 6 点伤害并施加 2 层易伤。",
+        "name": "闪电魔法+",
+        "description": "对所有敌人造成 6 点伤害并施加 2 层弱点暴露。",
         "cost": 2,
         "effects": [
           {
@@ -1092,7 +1092,7 @@
     },
     {
       "id": "fortify",
-      "name": "强化",
+      "name": "泡泡护甲",
       "description": "获得 9 点格挡，抽 1 张牌。",
       "type": "skill",
       "rarity": "common",
@@ -1115,7 +1115,7 @@
         }
       ],
       "upgrade": {
-        "name": "强化+",
+        "name": "泡泡护甲+",
         "description": "获得 12 点格挡，抽 1 张牌。",
         "cost": 2,
         "effects": [
@@ -1133,8 +1133,8 @@
     },
     {
       "id": "battle_hymn",
-      "name": "战歌",
-      "description": "获得 2 点力量，抽 1 张牌。",
+      "name": "应援之歌",
+      "description": "获得 2 点魔力强化，抽 1 张牌。",
       "type": "skill",
       "rarity": "uncommon",
       "cost": 2,
@@ -1156,8 +1156,8 @@
         }
       ],
       "upgrade": {
-        "name": "战歌+",
-        "description": "获得 3 点力量，抽 1 张牌。",
+        "name": "应援之歌+",
+        "description": "获得 3 点魔力强化，抽 1 张牌。",
         "cost": 2,
         "effects": [
           {
@@ -1174,7 +1174,7 @@
     },
     {
       "id": "second_wind",
-      "name": "喘息",
+      "name": "小憩片刻",
       "description": "回复 8 点生命，抽 1 张牌。",
       "type": "skill",
       "rarity": "uncommon",
@@ -1197,7 +1197,7 @@
         }
       ],
       "upgrade": {
-        "name": "喘息+",
+        "name": "小憩片刻+",
         "description": "回复 12 点生命，抽 1 张牌。",
         "cost": 2,
         "effects": [
@@ -1215,7 +1215,7 @@
     },
     {
       "id": "adrenaline",
-      "name": "肾上腺素",
+      "name": "超频加速",
       "description": "获得 1 点能量，抽 2 张牌，消耗。",
       "type": "skill",
       "rarity": "rare",
@@ -1243,7 +1243,7 @@
         }
       ],
       "upgrade": {
-        "name": "肾上腺素+",
+        "name": "超频加速+",
         "description": "获得 2 点能量，抽 2 张牌，消耗。",
         "cost": 0,
         "effects": [
@@ -1265,8 +1265,8 @@
     },
     {
       "id": "warcry",
-      "name": "战吼",
-      "description": "抽 2 张牌，获得 1 点力量，消耗。",
+      "name": "加油口号",
+      "description": "抽 2 张牌，获得 1 点魔力强化，消耗。",
       "type": "skill",
       "rarity": "common",
       "cost": 1,
@@ -1294,8 +1294,8 @@
         }
       ],
       "upgrade": {
-        "name": "战吼+",
-        "description": "抽 3 张牌，获得 1 点力量，消耗。",
+        "name": "加油口号+",
+        "description": "抽 3 张牌，获得 1 点魔力强化，消耗。",
         "cost": 1,
         "effects": [
           {
@@ -1317,7 +1317,7 @@
     },
     {
       "id": "brutality",
-      "name": "野蛮",
+      "name": "越战越勇",
       "description": "每次失去生命时抽 1 张牌。（被动，永久生效）",
       "type": "power",
       "rarity": "rare",
@@ -1337,7 +1337,7 @@
         }
       ],
       "upgrade": {
-        "name": "野蛮+",
+        "name": "越战越勇+",
         "description": "每次失去生命时抽 1 张牌，且不消耗能量。",
         "cost": 0,
         "effects": [
@@ -1352,8 +1352,8 @@
     },
     {
       "id": "corruption",
-      "name": "腐化",
-      "description": "获得 3 层力量。",
+      "name": "魔力爆发",
+      "description": "获得 3 层魔力强化。",
       "type": "power",
       "rarity": "rare",
       "cost": 3,
@@ -1370,8 +1370,8 @@
         }
       ],
       "upgrade": {
-        "name": "腐化+",
-        "description": "获得 3 层力量。费用降至 2。",
+        "name": "魔力爆发+",
+        "description": "获得 3 层魔力强化。费用降至 2。",
         "cost": 2,
         "effects": [
           {
@@ -1384,7 +1384,7 @@
     },
     {
       "id": "sentinel",
-      "name": "哨兵",
+      "name": "魔法哨兵",
       "description": "获得 5 点格挡。若此牌被消耗，获得 2 点能量。",
       "type": "skill",
       "rarity": "uncommon",
@@ -1403,7 +1403,7 @@
         }
       ],
       "upgrade": {
-        "name": "哨兵+",
+        "name": "魔法哨兵+",
         "description": "获得 8 点格挡。若此牌被消耗，获得 2 点能量。",
         "cost": 1,
         "effects": [
@@ -1417,7 +1417,7 @@
     },
     {
       "id": "true_grit",
-      "name": "真正的勇气",
+      "name": "破釜沉舟",
       "description": "获得 7 点格挡。消耗手中随机一张牌。",
       "type": "skill",
       "rarity": "uncommon",
@@ -1440,7 +1440,7 @@
         }
       ],
       "upgrade": {
-        "name": "真正的勇气+",
+        "name": "破釜沉舟+",
         "description": "获得 9 点格挡。消耗手中随机一张牌。",
         "cost": 1,
         "effects": [
@@ -1458,7 +1458,7 @@
     },
     {
       "id": "seeing_red",
-      "name": "看见红色",
+      "name": "全力模式",
       "description": "获得 2 点能量。消耗。",
       "type": "skill",
       "rarity": "uncommon",
@@ -1480,7 +1480,7 @@
         }
       ],
       "upgrade": {
-        "name": "看见红色+",
+        "name": "全力模式+",
         "description": "获得 2 点能量。消耗。费用降至 0。",
         "cost": 0,
         "effects": [
@@ -1497,7 +1497,7 @@
     },
     {
       "id": "double_tap",
-      "name": "双重点击",
+      "name": "留一手",
       "description": "抽 1 张牌。保留至下回合。",
       "type": "skill",
       "rarity": "rare",
@@ -1515,7 +1515,7 @@
         }
       ],
       "upgrade": {
-        "name": "双重点击+",
+        "name": "留一手+",
         "description": "抽 2 张牌。保留至下回合。",
         "cost": 1,
         "effects": [
@@ -1528,7 +1528,7 @@
     },
     {
       "id": "sword_boomerang",
-      "name": "回旋剑",
+      "name": "星星飞镖",
       "description": "对所有敌人各造成 3 点伤害。",
       "type": "attack",
       "rarity": "common",
@@ -1546,7 +1546,7 @@
         }
       ],
       "upgrade": {
-        "name": "回旋剑+",
+        "name": "星星飞镖+",
         "description": "对随机敌人造成 3 点伤害，共 4 次。",
         "cost": 1,
         "effects": [
@@ -1559,8 +1559,8 @@
     },
     {
       "id": "spot_weakness",
-      "name": "发现弱点",
-      "description": "若敌人正在攻击，获得 3 点力量。",
+      "name": "弱点扫描",
+      "description": "若敌人正在攻击，获得 3 点魔力强化。",
       "type": "skill",
       "rarity": "uncommon",
       "cost": 1,
@@ -1578,8 +1578,8 @@
         }
       ],
       "upgrade": {
-        "name": "发现弱点+",
-        "description": "若敌人正在攻击，获得 4 点力量。",
+        "name": "弱点扫描+",
+        "description": "若敌人正在攻击，获得 4 点魔力强化。",
         "cost": 1,
         "effects": [
           {
@@ -1592,8 +1592,8 @@
     },
     {
       "id": "limit_break",
-      "name": "极限突破",
-      "description": "力量翻倍。消耗。",
+      "name": "极限爆发",
+      "description": "魔力强化翻倍。消耗。",
       "type": "skill",
       "rarity": "rare",
       "cost": 1,
@@ -1616,8 +1616,8 @@
         }
       ],
       "upgrade": {
-        "name": "极限突破+",
-        "description": "力量翻倍。（不消耗）",
+        "name": "极限爆发+",
+        "description": "魔力强化翻倍。（不消耗）",
         "cost": 1,
         "effects": [
           {
@@ -1630,7 +1630,7 @@
     },
     {
       "id": "bandage_up",
-      "name": "绷带包扎",
+      "name": "魔法创可贴",
       "description": "恢复 4 点生命值。消耗。",
       "type": "skill",
       "rarity": "common",
@@ -1653,7 +1653,7 @@
         }
       ],
       "upgrade": {
-        "name": "绷带包扎+",
+        "name": "魔法创可贴+",
         "description": "恢复 6 点生命值。消耗。",
         "cost": 0,
         "effects": [
@@ -1671,7 +1671,7 @@
     },
     {
       "id": "body_slam",
-      "name": "身体冲撞",
+      "name": "盾反冲击",
       "description": "造成等同于当前格挡值的伤害。",
       "type": "attack",
       "rarity": "common",
@@ -1690,7 +1690,7 @@
         }
       ],
       "upgrade": {
-        "name": "身体冲撞+",
+        "name": "盾反冲击+",
         "description": "造成等同于当前格挡值的伤害。费用降至 0。",
         "cost": 0,
         "effects": [
@@ -1704,7 +1704,7 @@
     },
     {
       "id": "entrench",
-      "name": "深挖战壕",
+      "name": "双重护盾",
       "description": "格挡值翻倍。",
       "type": "skill",
       "rarity": "uncommon",
@@ -1723,7 +1723,7 @@
         }
       ],
       "upgrade": {
-        "name": "深挖战壕+",
+        "name": "双重护盾+",
         "description": "格挡值翻倍。费用降至 1。",
         "cost": 1,
         "effects": [
@@ -1737,8 +1737,8 @@
     },
     {
       "id": "perfected_strike",
-      "name": "完美打击",
-      "description": "造成 6 点伤害。每有一张含【打击】的牌额外造成 2 点伤害。",
+      "name": "连击终结",
+      "description": "造成 6 点伤害。每有一张含【魔法弹】的牌额外造成 2 点伤害。",
       "type": "attack",
       "rarity": "common",
       "cost": 2,
@@ -1756,8 +1756,8 @@
         }
       ],
       "upgrade": {
-        "name": "完美打击+",
-        "description": "造成 6 点伤害。每有一张含【打击】的牌额外造成 3 点伤害。",
+        "name": "连击终结+",
+        "description": "造成 6 点伤害。每有一张含【魔法弹】的牌额外造成 3 点伤害。",
         "cost": 2,
         "effects": [
           {
@@ -1770,8 +1770,8 @@
     },
     {
       "id": "shockwave",
-      "name": "冲击波",
-      "description": "对所有敌人造成 5 点伤害并施加 3 层虚弱。消耗。",
+      "name": "星光冲击波",
+      "description": "对所有敌人造成 5 点伤害并施加 3 层软绵绵。消耗。",
       "type": "attack",
       "rarity": "uncommon",
       "cost": 2,
@@ -1801,8 +1801,8 @@
         }
       ],
       "upgrade": {
-        "name": "冲击波+",
-        "description": "对所有敌人造成 5 点伤害并施加 5 层虚弱。消耗。",
+        "name": "星光冲击波+",
+        "description": "对所有敌人造成 5 点伤害并施加 5 层软绵绵。消耗。",
         "cost": 2,
         "effects": [
           {
@@ -1824,7 +1824,7 @@
     },
     {
       "id": "iron_defense",
-      "name": "铁甲防御",
+      "name": "钢铁意志",
       "description": "获得 12 点格挡。保留。",
       "type": "skill",
       "rarity": "uncommon",
@@ -1843,7 +1843,7 @@
         }
       ],
       "upgrade": {
-        "name": "铁甲防御+",
+        "name": "钢铁意志+",
         "description": "获得 16 点格挡。保留。",
         "cost": 1,
         "effects": [
@@ -1857,8 +1857,8 @@
     },
     {
       "id": "ritual_dagger",
-      "name": "仪式",
-      "description": "获得 1 层仪式（每回合结束增加 1 层力量）。",
+      "name": "成长仪式",
+      "description": "获得 1 层成长光环（每回合结束增加 1 层魔力强化）。",
       "type": "power",
       "rarity": "uncommon",
       "cost": 1,
@@ -1879,8 +1879,8 @@
         }
       ],
       "upgrade": {
-        "name": "仪式+",
-        "description": "获得 2 层仪式（每回合结束增加 2 层力量）。",
+        "name": "成长仪式+",
+        "description": "获得 2 层成长光环（每回合结束增加 2 层魔力强化）。",
         "cost": 1,
         "effects": [
           {
@@ -1894,8 +1894,8 @@
     },
     {
       "id": "metallicize_card",
-      "name": "金属化",
-      "description": "获得 3 层金属化（每回合结束获得 3 点格挡）。",
+      "name": "钢铁少女",
+      "description": "获得 3 层钢铁少女状态（每回合结束获得 3 点格挡）。",
       "type": "power",
       "rarity": "uncommon",
       "cost": 1,
@@ -1916,8 +1916,8 @@
         }
       ],
       "upgrade": {
-        "name": "金属化+",
-        "description": "获得 4 层金属化（每回合结束获得 4 点格挡）。",
+        "name": "钢铁少女+",
+        "description": "获得 4 层钢铁少女状态（每回合结束获得 4 点格挡）。",
         "cost": 1,
         "effects": [
           {

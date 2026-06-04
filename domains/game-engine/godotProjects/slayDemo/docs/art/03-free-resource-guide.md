@@ -1,8 +1,8 @@
 # 免费美术资源获取指南
 
-> 适用项目：SlayDemo — 类《杀戮尖塔》卡牌 Roguelike Demo
-> 文档版本：v1.0
-> 更新日期：2025年
+> 适用项目：SlayDemo《甜心迷宫》— Q版卡通卡牌 Roguelike Demo（Chibi/Kawaii 风格，马卡龙粉彩色系）
+> 文档版本：v1.1
+> 更新日期：2026年
 
 ---
 
@@ -36,12 +36,12 @@
 |------|------------|
 | 卡牌 UI | `card game ui`, `card frame`, `card template` |
 | 卡牌游戏全套 | `card game assets`, `deckbuilder` |
-| RPG 角色 | `rpg characters`, `fantasy characters`, `monster sprite` |
-| 敌人/怪物 | `enemy sprites`, `fantasy monsters`, `slime`, `skeleton` |
-| UI 框架 | `ui kit`, `game ui`, `rpg ui` |
-| 图标 | `game icons`, `status icons`, `rpg icons` |
-| 背景 | `game background`, `fantasy background`, `dungeon background` |
-| 特效 | `particle texture`, `vfx sprites`, `hit effect` |
+| Q版角色 | `chibi characters`, `kawaii characters`, `cute sprite` |
+| 敌人/怪物 | `cute monster sprite`, `chibi enemy`, `slime cute`, `kawaii monster` |
+| UI 框架 | `ui kit`, `cute game ui`, `kawaii ui` |
+| 图标 | `cute game icons`, `kawaii icons`, `pastel icons` |
+| 背景 | `game background`, `cute fantasy background`, `candy background`, `magical background` |
+| 特效 | `particle texture`, `vfx sprites`, `hit effect`, `magical effect` |
 
 #### itch.io 推荐资源包（免费）
 
@@ -58,9 +58,10 @@
 
 | 资源包 | 搜索方式 | 说明 |
 |--------|----------|------|
-| **Mystic Woods** | 搜索 "Mystic Woods" | 完整的 RPG 角色和 tileset |
-| **Tiny RPG Forest** | 搜索 "Tiny RPG" | 可爱的 RPG 角色 |
-| **Free Fantasy Game Items** | 搜索 "fantasy items" | 物品和装备图标 |
+| **Mystic Woods** | 搜索 "Mystic Woods" | 完整的 RPG 角色和 tileset（可做基底参考） |
+| **Tiny RPG Forest** | 搜索 "Tiny RPG" | 可爱的 RPG 角色，接近 Q 版风格 |
+| **Cute Fantasy Characters** | 搜索 "cute fantasy characters" | 可爱奇幻角色合集 |
+| **Kawaii Monster Pack** | 搜索 "kawaii monster" | Q版小怪，适合作为敌人占位 |
 
 ### 1.2 Kenney.nl
 
@@ -87,7 +88,7 @@
 | **Simple Sector** | `/assets/simple-sector` | 科幻风格 UI 元素 |
 | **Minimal Pack** | `/assets/minimal-pack` | 极简几何图形素材 |
 
-> **Kenney 资源特别说明**：Kenney 的风格偏"卡通可爱"，和我们的"暗黑奇幻"有差距。解决方案：使用 Kenney 的布局和结构作为基础，通过 Godot 的 `modulate` 属性和自定义 `Theme` 调整色彩。
+> **Kenney 资源特别说明**：Kenney 的风格偏"卡通可爱"，与《甜心迷宫》的 Q版/Kawaii 方向高度契合。使用 Kenney 的布局和结构作为基础，通过 Godot 的 `modulate` 属性和自定义 `Theme` 调整为马卡龙粉彩色系。
 
 ### 1.3 OpenGameArt.org
 
@@ -105,11 +106,11 @@
 
 | 需求 | 搜索关键词 |
 |------|------------|
-| 角色 | `character sprite`, `warrior`, `knight` |
-| 怪物 | `monster`, `slime sprite`, `skeleton sprite` |
-| 背景 | `game background`, `dungeon background` |
-| 特效 | `explosion sprite`, `hit effect`, `slash effect` |
-| 图标 | `rpg icons`, `status effect` |
+| 角色 | `chibi character sprite`, `magical girl`, `cute warrior` |
+| 怪物 | `cute monster`, `chibi enemy sprite`, `kawaii slime` |
+| 背景 | `game background`, `candy background`, `magical background`, `cute fantasy` |
+| 特效 | `explosion sprite`, `hit effect`, `slash effect`, `magical effect` |
+| 图标 | `cute rpg icons`, `kawaii status effect`, `pastel icons` |
 
 #### OpenGameArt 推荐艺术家
 
@@ -129,7 +130,7 @@
 | 资源 | 来源 | 协议 | 说明 |
 |------|------|------|------|
 | **Kenney Boardgame Pack** | kenney.nl | CC0 | 含卡牌背面、边框、装饰元素。作为基础框架最合适。 |
-| **Nod and Blink Card Frames** | itch.io | CC-BY | 多种风格卡牌边框，暗色奇幻风格。搜索 "card frames nod blink"。 |
+| **Nod and Blink Card Frames** | itch.io | CC-BY | 多种风格卡牌边框，可调整配色为粉彩风格。搜索 "card frames nod blink"。 |
 | **Craftpix Card UI** | craftpix.net | 免费版可用 | 含卡牌模板和 UI 元素。 |
 | **Game-Icons.net** | game-icons.net | CC-BY | 海量游戏图标（5000+），可直接作为卡牌中心图案使用。 |
 
@@ -166,12 +167,12 @@
 
 | 资源/来源 | 风格 | 协议 | 适用性 |
 |-----------|------|------|--------|
-| **Mystic Woods (itch.io)** | 像素风奇幻 RPG | CC0 | 有战士角色、史莱姆、骷髅等经典敌人 |
-| **Slime Asset Pack (itch.io)** | 像素风 | CC0 | 专门做史莱姆的，多种颜色变体 |
-| **Undead Sprite Pack (itch.io)** | 像素风亡灵 | 免费/署名 | 骷髅兵、僵尸等 |
-| **Tiny Swords (itch.io)** | 扁平风微型 | 免费 | 极简风格的角色和怪物 |
-| **Rogue Fantasy (itch.io)** | 像素风冒险 | 免费 | 战士角色，有完整动作帧 |
-| **Bringer of Darkness (itch.io)** | 像素风暗黑 | 免费 | 暗黑风格的 Boss 级角色 |
+| **Mystic Woods (itch.io)** | 像素风奇幻 RPG | CC0 | 有战士角色、史莱姆等，可作为占位参考 |
+| **Slime Asset Pack (itch.io)** | 像素风 | CC0 | 专门做史莱姆的，多种颜色变体，适合布丁怪占位 |
+| **Tiny Swords (itch.io)** | 扁平风微型 | 免费 | 极简可爱风格的角色和怪物，接近 Q 版 |
+| **Cute Fantasy Pack (itch.io)** | Q版/可爱奇幻 | 免费/署名 | 可爱奇幻角色，风格接近甜心迷宫 |
+| **Rogue Fantasy (itch.io)** | 像素风冒险 | 免费 | 有完整动作帧，可用于占位 |
+| **Kawaii RPG Characters (itch.io)** | Kawaii/Q版 | 免费/署名 | Q版角色，最接近目标风格 |
 
 ### 3.2 无合适免费资源时的自制方案
 
@@ -180,11 +181,11 @@
 #### 方案 A：几何组合法
 
 ```
-使用基础形状组合角色：
+使用基础形状组合 Q版角色：
 
-史莱姆 = 椭圆形身体 + 两个白色圆形(眼睛) + 两个黑色小圆(瞳孔)
-骷髅兵 = 圆形(头) + 矩形(身体) + 线条(四肢) + 两个黑色圆(眼窝)
-蘑菇 = 半圆(伞盖) + 矩形(柄) + 两个白圆(眼睛)
+布丁怪 = 椭圆形身体 + 两个白色大圆形(眼睛) + 腮红圆形 + 爱心嘴巴
+棉花甲士 = 圆形(头) + 棉花团(身体) + 两个黑色大圆(眼睛) + 圆盾
+蘑菇 = 半圆(伞盖，粉色点点) + 圆柄 + 两个白圆(眼睛)
 ```
 
 工具：Aseprite（付费但便宜，$20）或 Piskel（免费在线工具 https://www.piskelapp.com）
@@ -193,9 +194,9 @@
 
 | 工具 | 说明 | 注意事项 |
 |------|------|----------|
-| **Bing Image Creator** | 免费，可生成像素风角色 | 需要手动清理背景，风格可能不一致 |
-| **Leonardo.ai** | 免费额度，支持生成游戏素材 | 可指定 "pixel art sprite sheet" 风格 |
-| **ComfyUI + Stable Diffusion** | 本地免费，完全控制 | 需要一定技术门槛，但生成角色精灵图效果好 |
+| **Bing Image Creator** | 免费，可生成 Q 版/Chibi 角色 | 需要手动清理背景，风格可能不一致 |
+| **Leonardo.ai** | 免费额度，支持生成游戏素材 | 可指定 "chibi sprite sheet" 或 "kawaii monster" 风格 |
+| **ComfyUI + Stable Diffusion** | 本地免费，完全控制 | 需要一定技术门槛，但生成 Q 版角色效果好；推荐使用 Anything V5 等动漫风 LoRA |
 
 > **AI 生成的注意事项**：AI 生成的图像需要二次加工（统一风格、裁切、调整尺寸）。不要直接拿来用，会显得不统一。
 
@@ -236,9 +237,9 @@ death_tween.parallel().tween_property(self, "modulate:a", 0.0, 0.5)
 | 资源 | 来源 | 协议 | 说明 |
 |------|------|------|------|
 | **Kenney UI Pack RPG** | kenney.nl | CC0 | 最完整的免费 RPG UI 包，含按钮、面板、HP条等 |
-| **Nod and Blink UI** | itch.io | 免费 | 暗色系 UI，适合我们的风格 |
+| **Nod and Blink UI** | itch.io | 免费 | 可配合马卡龙配色使用 |
 | **Basic RPG GUI** | opengameart.org | CC0 | 简洁的 RPG UI 元素 |
-| **MGUI** | itch.io | 免费 | 现代/扁平风格的 UI 包 |
+| **Cute UI Pack** | itch.io 搜索 "cute ui" | 免费/署名 | Q版风格 UI 包，更贴近甜心迷宫风格 |
 
 ### 4.2 状态效果图标
 
@@ -267,10 +268,10 @@ death_tween.parallel().tween_property(self, "modulate:a", 0.0, 0.5)
 
 | 资源 | 来源 | 协议 | 说明 |
 |------|------|------|------|
-| **Dungeon Background Pack** | itch.io 搜索 "dungeon background" | 因包而异 | 多种地牢背景 |
-| **Cave Background** | itch.io 搜索 "cave background 2d" | 因包而异 | 洞穴风格 |
+| **Dungeon Background Pack** | itch.io 搜索 "candy background" 或 "magic background" | 因包而异 | 搜索 Q版/糖果/魔法风格背景 |
+| **Cave Background** | itch.io 搜索 "crystal cave background" | 因包而异 | 水晶洞窟风格，适合魔法水晶洞窟场景 |
 | **Kenney Backgrounds** | kenney.nl | CC0 | 简洁风格的背景图 |
-| **OpenGameArt Backgrounds** | opengameart.org | 因作者而异 | 搜索 "battle background" |
+| **OpenGameArt Backgrounds** | opengameart.org | 因作者而异 | 搜索 "magical background" 或 "cute battle background" |
 
 ### 5.2 可平铺纹理
 
@@ -286,12 +287,12 @@ death_tween.parallel().tween_property(self, "modulate:a", 0.0, 0.5)
 
 #### 方案：渐变 + 纹理叠加
 
-1. 在 Godot 中创建一个 `ColorRect`，使用深色渐变（`#1a1a2e` 到 `#16213e`）
+1. 在 Godot 中创建一个 `ColorRect`，使用马卡龙渐变（`#fce4ec` 到 `#e1bee7`，粉→淡紫）
 2. 叠加一张来自 Kenney Texture Pack 的噪点纹理，透明度设为 5-10%
-3. 在前景添加几个简单的几何形状作为"柱子"或"墙壁"轮廓
-4. 添加几盏低强度的 PointLight2D 营造氛围
+3. 在前景添加几个简单的几何形状作为"糖果柱子"或"星光装饰"轮廓
+4. 添加几盏低强度的 PointLight2D（粉色/薰衣草色）营造魔法氛围
 
-> 这个方案不需要任何绘画能力，15 分钟就能做出一个还不错的地牢背景。
+> 这个方案不需要任何绘画能力，15 分钟就能做出一个还不错的 Q 版魔法走廊背景。
 
 ---
 
@@ -325,7 +326,7 @@ death_tween.parallel().tween_property(self, "modulate:a", 0.0, 0.5)
 | **Chakra Petch** | Google Fonts | OFL | 科幻风无衬线字体，适合 UI |
 | **Russo One** | Google Fonts | OFL | 粗体无衬线，适合标题和按钮 |
 | **Roboto** | Google Fonts | OFL | 通用无衬线，适合正文和数字 |
-| **Cinzel** | Google Fonts | OFL | 哥特/奇幻风格，适合游戏标题 |
+| **Cinzel** | Google Fonts | OFL | 优雅字体，可用于标题（配合粉彩色系也有魔法感） |
 
 ### 7.2 推荐搭配
 

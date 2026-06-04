@@ -1,6 +1,6 @@
 # 特效与动画方案
 
-> 适用项目：SlayDemo — 类《杀戮尖塔》卡牌 Roguelike Demo
+> 适用项目：SlayDemo — 《甜心迷宫》Q版卡通卡牌 Roguelike
 > 文档版本：v1.0
 
 ---
@@ -11,21 +11,21 @@
 
 | 特效名称 | 触发时机 | 优先级 | 实现方式 | 说明 |
 |----------|----------|--------|----------|------|
-| 伤害数字弹出 | 任何角色受到伤害 | P0 | Tween 动画 | 红色数字上浮淡出 |
-| 格挡数值显示 | 获得格挡时 | P0 | Tween 动画 | 蓝色数值弹出 |
-| 攻击命中闪光 | 攻击卡牌命中敌人 | P0 | GPUParticles2D | 白色闪光粒子 |
+| 伤害数字弹出 | 任何角色受到伤害 | P0 | Tween 动画 | 粉红数字上浮淡出 |
+| 格挡数值显示 | 获得格挡时 | P0 | Tween 动画 | 天蓝数值弹出 |
+| 攻击命中粉色刀光 | 攻击卡牌命中敌人 | P0 | GPUParticles2D | 粉色刀光粒子 |
 | 屏幕震动 | 玩家受伤/Boss攻击 | P0 | Camera2D offset | 按伤害量调整强度 |
 | 闪白效果 | 任何角色受击 | P0 | modulate | 0.1s 白色闪烁 |
 | 抽牌动画 | 回合开始抽牌 | P1 | Tween | 从牌堆位置飞入手牌 |
 | 弃牌动画 | 回合结束弃牌 | P1 | Tween | 卡牌缩小淡出 |
-| 中毒泡泡 | 中毒角色每回合 | P1 | GPUParticles2D | 绿色泡泡上升 |
-| 护盾闪光 | 获得格挡时 | P1 | Shader/动画 | 蓝色六边形闪光 |
+| 消失泡泡 | 角色死亡时 | P1 | GPUParticles2D | 粉紫泡泡散射消失 |
+| 护盾闪光 | 获得格挡时 | P1 | Shader/动画 | 天蓝六边形闪光 |
 | 卡牌打出飞行 | 打出卡牌时 | P1 | Tween | 从手牌飞向目标 |
-| 力量增强 | 获得力量增益 | P1 | Tween | 向上箭头图标弹出 |
-| 燃烧效果 | 燃烧卡牌在手牌中 | P2 | GPUParticles2D | 火焰粒子 |
-| 冰冻效果 | 被冰冻时 | P2 | Shader | 蓝色叠加 + 减速动画 |
-| 治疗效果 | 回复 HP | P2 | Tween | 绿色数字上浮 |
-| 金币飞入 | 获得金币 | P2 | Tween | 金色粒子向金币位置飞 |
+| 力量增强 | 获得力量增益 | P1 | Tween | 向上星星图标弹出 |
+| 星星散射 | 技能/爆炸效果 | P2 | GPUParticles2D | 金色星星向外散射 |
+| 冰冻效果 | 被冰冻时 | P2 | Shader | 天蓝叠加 + 减速动画 |
+| 治疗效果 | 回复 HP | P2 | Tween | 嫩绿数字上浮 |
+| 金币飞入 | 获得金币 | P2 | Tween | 暖黄粒子向金币位置飞 |
 
 ---
 
@@ -92,10 +92,10 @@ func spawn_poison_effect(target: Node2D):
     process_mat.spread = 30.0
     process_mat.gravity = Vector3(0, -20, 0)
 
-    # 绿色
+    # 粉紫色（泡泡消失特效）
     var color_ramp = Gradient.new()
     color_ramp.colors = PackedColorArray([
-        Color("#44cc88"), Color("#44cc88"), Color.TRANSPARENT
+        Color("#ce93d8"), Color("#f8bbd0"), Color.TRANSPARENT
     ])
     color_ramp.offsets = PackedFloat32Array([0.0, 0.5, 1.0])
     process_mat.color_ramp = color_ramp
@@ -122,7 +122,7 @@ func show_damage_number(value: int, position: Vector2, is_heal: bool = false):
     # 字体设置
     label.add_theme_font_size_override("font_size", 28)
     label.add_theme_color_override("font_color",
-        Color.RED if not is_heal else Color.GREEN)
+        Color("#ef5350") if not is_heal else Color("#66bb6a"))
 
     # 添加描边
     label.add_theme_color_override("font_shadow_color", Color.BLACK)
@@ -188,7 +188,7 @@ func flash_white(sprite: Sprite2D, duration: float = 0.1):
 // card_glow.gdshader
 shader_type canvas_item;
 
-uniform vec4 glow_color : source_color = vec4(0.27, 0.53, 1.0, 1.0);
+uniform vec4 glow_color : source_color = vec4(0.81, 0.58, 0.85, 1.0);
 uniform float glow_intensity : hint_range(0.0, 2.0) = 1.0;
 
 void fragment() {
@@ -224,13 +224,13 @@ void fragment() {
 
 | 状态 | 目标 | 持续效果 | 获得时效果 | 失去时效果 |
 |------|------|----------|-----------|-----------|
-| 力量+ | 玩家/敌人 | 角色边缘微红 | 向上箭头弹出 | 箭头淡出 |
+| 力量+ | 玩家/敌人 | 角色边缘微粉 | 向上星星弹出 | 星星淡出 |
 | 敏捷+ | 玩家/敌人 | 角色边缘微蓝 | 闪电图标弹出 | 图标淡出 |
-| 中毒 | 敌人/玩家 | 绿色泡泡粒子 | 绿色闪光 | 泡泡消失 |
-| 易伤 | 敌人/玩家 | 角色轮廓变红 | 破盾图标弹出 | 轮廓恢复 |
+| 中毒 | 敌人/玩家 | 嫩绿泡泡粒子 | 嫩绿闪光 | 泡泡消失 |
+| 易伤 | 敌人/玩家 | 角色轮廓变粉红 | 破盾图标弹出 | 轮廓恢复 |
 | 虚弱 | 敌人/玩家 | 角色灰暗 | 断剑图标弹出 | 颜色恢复 |
-| 格挡 | 玩家 | 蓝色护盾光圈 | 盾牌弹出 | 光圈消失 |
-| 燃烧 | 玩家(手牌) | 卡牌周围火焰 | 火焰粒子 | 火焰消失 |
+| 格挡 | 玩家 | 天蓝护盾光圈 | 盾牌弹出 | 光圈消失 |
+| 燃烧 | 玩家(手牌) | 卡牌周围星星 | 星星粒子 | 星星消失 |
 
 ### 3.2 状态图标动画
 
@@ -312,8 +312,8 @@ func hit_stop(duration: float = 0.05):
 → 命中瞬间：Hit Stop 0.05s
 → 同时：屏幕微震 (intensity: 3)
 → 同时：敌人闪白 0.1s
-→ 同时：白色闪光粒子
-→ Hit Stop 结束后：伤害数字弹出（红色，上浮）
+→ 同时：粉色刀光粒子
+→ Hit Stop 结束后：伤害数字弹出（粉红，上浮）
 → 稍后：敌人 HP 条平滑减少
 
 总时长：约 0.4-0.5s，非常紧凑
@@ -460,13 +460,13 @@ func arrange_hand(cards: Array[Control]):
 
 | 特效 | 纯代码实现 |
 |------|-----------|
-| 攻击命中 | ColorRect 白色闪烁 0.05s |
+| 攻击命中 | ColorRect 粉色刀光闪烁 0.05s |
 | 伤害数字 | Label + Tween 上浮淡出 |
 | 屏幕震动 | Camera2D offset 随机偏移 |
-| 受伤反馈 | modulate 闪白 -> 变红 -> 恢复 |
-| 死亡 | scale -> 0 + modulate.a -> 0 |
-| 中毒 | 每隔 1s 闪绿 + 绿色数字弹出 |
-| 格挡 | modulate 短暂变蓝 |
+| 受伤反馈 | modulate 闪白 -> 变粉红 -> 恢复 |
+| 死亡 | scale -> 0 + modulate.a -> 0（消失泡泡效果） |
+| 中毒 | 每隔 1s 闪嫩绿 + 嫩绿数字弹出 |
+| 格挡 | modulate 短暂变天蓝 |
 | Buff/Debuff | 32x32 ColorRect 作为图标背景 + Label 显示数值 |
 
 ### 7.2 逐步升级路线
@@ -503,10 +503,10 @@ func arrange_hand(cards: Array[Control]):
 | 文件名 | 尺寸 | 说明 | 来源 |
 |--------|------|------|------|
 | `particle_spark.png` | 16x16 | 白色圆形粒子 | Kenney Particle Pack 或自制 |
-| `particle_fire.png` | 16x16 | 橙色不规则粒子 | Kenney Particle Pack |
-| `particle_poison.png` | 16x16 | 绿色圆形粒子 | Kenney Particle Pack |
-| `particle_shield.png` | 16x16 | 蓝色菱形粒子 | Kenney Particle Pack |
-| `hit_flash.tscn` | — | 命中闪光特效场景 | 自制（GPUParticles2D） |
+| `particle_star.png` | 16x16 | 金色星形粒子 | Kenney Particle Pack 或自制 |
+| `particle_bubble.png` | 16x16 | 粉紫色圆形粒子（消失泡泡） | Kenney Particle Pack 或自制 |
+| `particle_shield.png` | 16x16 | 天蓝菱形粒子 | Kenney Particle Pack |
+| `hit_flash.tscn` | — | 粉色刀光特效场景 | 自制（GPUParticles2D） |
 | `damage_number.tscn` | — | 伤害数字弹出场景 | 自制（Label + Tween） |
 
 > 所有粒子纹理都可以用一张 16x16 白色圆点的 PNG 替代，通过 GPUParticles2D 的 `modulate` 属性着色。

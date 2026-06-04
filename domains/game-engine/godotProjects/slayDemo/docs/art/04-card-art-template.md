@@ -1,6 +1,6 @@
 # 卡牌美术模板方案
 
-> 适用项目：SlayDemo — 类《杀戮尖塔》卡牌 Roguelike Demo
+> 适用项目：SlayDemo — 《甜心迷宫》Q版卡通卡牌 Roguelike
 > 文档版本：v1.0
 
 ---
@@ -67,37 +67,37 @@
 #### 费用区域（左上角）
 
 - 位置：左上角，距左边 8px，距上边 8px
-- 圆形背景：直径 36px，填充 `#00d2ff`（能量色）
+- 圆形背景：直径 36px，填充 `#80deea`（能量色）
 - 数字：白色，字体 Roboto Bold，24px，居中于圆形中
 - 当费用为 0 时，圆形背景为 `#2a9d8f`（绿色调）
 - 当费用为 X 时，显示 "X"
 
 #### 插画/图标区域
 
-- 背景色块：按卡牌类型着色
-  - 攻击卡：`#441111`（深红底）
-  - 技能卡：`#114422`（深绿底）
-  - 能力卡：`#112244`（深蓝底）
+- 背景色块：按卡牌类型着色，采用Q版卡通圆润风格
+  - 攻击卡：`#fce4ec`（浅玫瑰粉底）
+  - 技能卡：`#e8f5e9`（浅嫩绿底）
+  - 能力卡：`#e8eaf6`（浅蓝紫底）
 - 中心图标：64x64px，白色或浅色，来自 Game-Icons.net
 - 图标与背景之间有 16px 内边距
 
 #### 名称区域
 
 - 字体：Chakra Petch Bold，18px
-- 颜色：`#e2e2e2`（浅白）
+- 颜色：`#3e2a5a`（深紫）
 - 对齐：水平居中
 - 底部有 1px 横线分隔（颜色同稀有度色）
 
 #### 描述区域
 
 - 字体：Chakra Petch Regular，12px
-- 颜色：`#a0a0b0`（柔灰）
+- 颜色：`#7c5f9a`（中深紫）
 - 对齐：水平居中，垂直居中
 - 行间距：16px
 - 数值变量用颜色高亮：
-  - 伤害数值：`#ff4444`（红色）
-  - 格挡数值：`#4488ff`（蓝色）
-  - 其他数值：`#ffcc00`（金色）
+  - 伤害数值：`#ef5350`（粉红红）
+  - 格挡数值：`#42a5f5`（天蓝）
+  - 其他数值：`#ffd54f`（暖黄）
 
 #### 底部信息区域
 
@@ -116,10 +116,10 @@
 
 | 稀有度 | 边框色 | 边框宽度 | 说明 |
 |--------|--------|----------|------|
-| 普通 | `#8b8b8b` | 2px | 灰色边框 |
-| 罕见 | `#44aa44` | 2px | 绿色边框 |
-| 稀有 | `#4488ff` | 3px | 蓝色边框，略粗 |
-| 诅咒 | `#9944cc` | 2px | 紫色边框 |
+| 普通 | `#f8bbd0` | 2px | 白粉边框 |
+| 罕见 | `#66bb6a` | 2px | 嫩绿边框 |
+| 稀有 | `#42a5f5` | 3px | 天蓝边框，略粗 |
+| 传说 | `#ffd54f` | 3px | 金色彩虹边框 |
 
 ### 2.2 底部稀有度条
 
@@ -127,16 +127,16 @@
 
 | 稀有度 | 色条样式 |
 |--------|----------|
-| 普通 | 纯灰色细条 |
-| 罕见 | 绿色细条 + 微微发光 |
-| 稀有 | 蓝色粗条 + 发光 + 微闪动画 |
-| 诅咒 | 紫色细条 + 暗影效果 |
+| 普通 | 白粉色细条 |
+| 罕见 | 嫩绿细条 + 微微发光 |
+| 稀有 | 天蓝粗条 + 发光 + 微闪动画 |
+| 传说 | 金色粗条 + 彩虹渐变效果 |
 
 ### 2.3 光效与动画（P1/P2）
 
 - **稀有卡牌**：手牌中悬停时，边框有微微脉动发光效果
 - **普通/罕见**：无特殊光效
-- **诅咒**：暗淡，边框有轻微的紫雾效果
+- **传说**：金色边框有流光彩虹动画效果
 
 > **实现建议**：光效用 Godot Shader 实现最方便。一个简单的 `outline` shader + `sin(time)` 控制透明度即可。
 
@@ -268,16 +268,16 @@ Step 4: 在游戏场景中实例化 CardScene + CardData
 
 ```
 原始描述：造成 {damage} 点伤害。获得 {block} 点格挡。
-BBCode 输出：造成 [color=#ff4444]8[/color] 点伤害。获得 [color=#4488ff]5[/color] 点格挡。
+BBCode 输出：造成 [color=#ef5350]8[/color] 点伤害。获得 [color=#42a5f5]5[/color] 点格挡。
 ```
 
 ```gdscript
 func get_formatted_description() -> String:
     var text = description
     # 替换数值变量为带颜色的 BBCode
-    text = text.replace("{damage}", "[color=#ff4444]%d[/color]" % damage)
-    text = text.replace("{block}", "[color=#4488ff]%d[/color]" % block)
-    text = text.replace("{poison}", "[color=#44cc88]%d[/color]" % poison)
+    text = text.replace("{damage}", "[color=#ef5350]%d[/color]" % damage)
+    text = text.replace("{block}", "[color=#42a5f5]%d[/color]" % block)
+    text = text.replace("{poison}", "[color=#66bb6a]%d[/color]" % poison)
     return text
 ```
 
@@ -290,10 +290,10 @@ func get_formatted_description() -> String:
 | 区域 | 字体 | 字号 | 字重 | 颜色 |
 |------|------|------|------|------|
 | 费用数字 | Roboto Bold | 24px | Bold | `#ffffff` |
-| 卡牌名称 | Chakra Petch | 18px | Bold | `#e2e2e2` |
-| 卡牌描述 | Chakra Petch | 12px | Regular | `#a0a0b0` |
+| 卡牌名称 | Chakra Petch | 18px | Bold | `#3e2a5a` |
+| 卡牌描述 | Chakra Petch | 12px | Regular | `#7c5f9a` |
 | 描述中数值 | Roboto Bold | 12px | Bold | 见色彩方案 |
-| 类型文字 | Chakra Petch | 10px | Regular | `#707080` |
+| 类型文字 | Chakra Petch | 10px | Regular | `#ce93d8` |
 
 ### 5.2 排版规范
 
@@ -335,8 +335,8 @@ func get_formatted_description() -> String:
 +------------------------------------------+
 ```
 
-- 背景：`#0f3460`（深蓝）
-- 边框：`#1a3a6a`（稍浅蓝）2px
+- 背景：`#fce4ec`（浅玫瑰粉）
+- 边框：`#ce93d8`（中紫）2px
 - 中央图案：一个简单的几何装饰（菱形 + 十字）
 - 使用 Kenney Boardgame Pack 的卡背图案修改即可
 

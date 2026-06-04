@@ -1,7 +1,7 @@
 # SlayDemo 美术资源清单
 
-> 生成日期: 2026-06-02  
-> 用途: 开发侧资源状态核查 + UI 主题替换规划  
+> 生成日期: 2026-06-04  
+> 用途: 开发侧资源状态核查 + UI 主题替换规划（《甜心迷宫》Q版卡通风格）
 > 说明: "当前状态"列描述资源实际存在情况，"代码接入状态"描述是否已被代码正确引用
 
 ---
@@ -11,8 +11,8 @@
 | 文件名 | 用途 | 当前状态 | 代码接入 |
 |--------|------|----------|----------|
 | `bg_battle_boss.png` | Boss 战斗背景 | ✅ 有文件 | ✅ battle_scene.gd |
-| `bg_battle_cave.png` | 普通战斗背景（洞穴） | ✅ 有文件 | ✅ battle_scene.gd |
-| `bg_battle_dungeon.png` | 普通战斗背景（地牢） | ✅ 有文件 | ✅ battle_scene.gd |
+| `bg_battle_cave.png` | 普通战斗背景（魔法水晶洞窟） | ✅ 有文件 | ✅ battle_scene.gd |
+| `bg_battle_dungeon.png` | 普通战斗背景（糖果走廊） | ✅ 有文件 | ✅ battle_scene.gd |
 | `bg_main_menu.png` | 主菜单背景 | ✅ 有文件 | ✅ main_menu_scene.gd |
 | `bg_map.png` | 地图 / 奖励 / 商店通用背景 | ✅ 有文件 | ✅ 多场景复用 |
 | `bg_battle_elite.png` | 精英战斗专用背景 | ❌ 缺失 | ─ 当前复用 bg_battle_cave |
@@ -58,31 +58,31 @@
 
 ### 当前文件 vs 数据层 art_key 映射
 
-> 注意：同一张图被多个敌人复用（如 shadow_mage 对应信徒和法师），这是临时占位
+> 注意：同一张图被多个敌人复用（如 shadow_mage 对应见习巫女和星座魔女），这是临时占位
 
 | art_key（代码引用） | 文件路径 | 对应敌人（data） | 当前状态 |
 |---------------------|----------|------------------|----------|
-| `enemy_slime` | `slime/enemy_slime_idle.png` | 小史莱姆 | ✅ 独占，图文一致 |
-| `enemy_bat` | `bat/enemy_bat_idle.png` | 毒素蝙蝠 | ✅ 独占，图文一致 |
-| `enemy_mushroom` | `mushroom/enemy_mushroom_idle.png` | 尖刺史莱姆 / 史莱姆王（复用） | ⚠️ 图文不一致，占位 |
-| `enemy_shadow_mage` | `shadow_mage/enemy_shadow_mage_idle.png` | 暗影信徒 / 亡灵法师（复用） | ⚠️ 图文不一致，占位 |
-| `enemy_gargoyle` | `gargoyle/enemy_gargoyle_idle.png` | 狂战士 / 石像守卫 / 狂暴兽人（复用） | ⚠️ 图文不一致，占位 |
-| `enemy_skeleton` | `skeleton/enemy_skeleton_idle.png` | 盾卫 | ✅ 可接受（盾牌骷髅） |
-| `enemy_corrupted_knight` | `corrupted_knight/enemy_corrupted_knight_idle.png` | 腐化骑士（Boss） | ✅ 独占，图文一致 |
-| `enemy_ancient_dragon` | `ancient_dragon/enemy_ancient_dragon_idle.png` | 火焰领主（Boss） | ✅ 近似，可接受 |
+| `enemy_slime` | `slime/enemy_slime_idle.png` | 布丁怪 | ✅ 独占，图文一致 |
+| `enemy_bat` | `bat/enemy_bat_idle.png` | 泡泡蝙蝠 | ✅ 独占，图文一致 |
+| `enemy_mushroom` | `mushroom/enemy_mushroom_idle.png` | 暴躁布丁 / 布丁女王（复用） | ⚠️ 图文不一致，占位 |
+| `enemy_shadow_mage` | `shadow_mage/enemy_shadow_mage_idle.png` | 见习巫女 / 星座魔女（复用） | ⚠️ 图文不一致，占位 |
+| `enemy_gargoyle` | `gargoyle/enemy_gargoyle_idle.png` | 暴走熊 / 布偶守卫 / 狂暴糖果熊（复用） | ⚠️ 图文不一致，占位 |
+| `enemy_skeleton` | `skeleton/enemy_skeleton_idle.png` | 棉花甲士 | ✅ 可接受（棉花护盾形象） |
+| `enemy_corrupted_knight` | `corrupted_knight/enemy_corrupted_knight_idle.png` | 甜心骑士长（Boss） | ✅ 独占，图文一致 |
+| `enemy_ancient_dragon` | `ancient_dragon/enemy_ancient_dragon_idle.png` | 星愿守护龙（Boss） | ✅ 近似，可接受 |
 
 ### 缺失的独立敌人立绘
 
 | 敌人ID | 名称 | 当前占位图 | 需要的专属图 |
 |--------|------|-----------|-------------|
-| `slime_spiky_v1` | 尖刺史莱姆 | enemy_mushroom | ❌ 需要带刺史莱姆形象 |
-| `cultist_v1` | 暗影信徒 | enemy_shadow_mage | ❌ 需要信徒/法袍形象 |
-| `shield_guard_v1` | 盾卫 | enemy_skeleton | ⚠️ 可接受或替换为持盾形象 |
-| `berserker_v1` | 狂战士 | enemy_gargoyle | ❌ 需要狂战士形象 |
-| `necromancer_v1` | 亡灵法师 | enemy_shadow_mage | ❌ 与信徒共用，区分度低 |
-| `stone_guardian_v1` | 石像守卫 | enemy_gargoyle | ⚠️ 石像守卫与石像鬼接近，可接受 |
-| `elite_slime_king_v1` | 史莱姆王（精英） | enemy_mushroom | ❌ 需要大型史莱姆王 |
-| `elite_orc_berserker_v1` | 狂暴兽人（精英） | enemy_gargoyle | ❌ 需要兽人形象 |
+| `slime_spiky_v1` | 暴躁布丁 | enemy_mushroom | ❌ 需要带刺布丁形象 |
+| `cultist_v1` | 见习巫女 | enemy_shadow_mage | ❌ 需要可爱巫女形象 |
+| `shield_guard_v1` | 棉花甲士 | enemy_skeleton | ⚠️ 可接受或替换为棉花盔甲形象 |
+| `berserker_v1` | 暴走熊 | enemy_gargoyle | ❌ 需要暴走熊形象 |
+| `necromancer_v1` | 星座魔女 | enemy_shadow_mage | ❌ 与见习巫女共用，区分度低 |
+| `stone_guardian_v1` | 布偶守卫 | enemy_gargoyle | ⚠️ 需要布偶守卫专属形象 |
+| `elite_slime_king_v1` | 布丁女王（精英） | enemy_mushroom | ❌ 需要大型布丁女王形象 |
+| `elite_orc_berserker_v1` | 狂暴糖果熊（精英） | enemy_gargoyle | ❌ 需要糖果熊形象 |
 
 ### 敌人动画帧（全部缺失）
 
@@ -280,7 +280,7 @@
 > **替换路径**：将来替换 UI 主题时，统一在 Godot 项目里创建 `Theme` 资源（`.tres`），场景脚本只需切换 Theme 引用，不需逐个改代码。当前 `assets/ui/buttons/*.png` 和 `assets/ui/panels/*.png` 已为此做好了资源储备。
 
 **建议步骤**：
-1. 确定一套新视觉风格（如像素风/奇幻手绘）
-2. 制作或替换 `ui/buttons/`、`ui/panels/`、`card/templates/` 纹理
+1. 确定一套新视觉风格（Q版卡通/马卡龙粉彩色系）
+2. 制作或替换 `ui/buttons/`、`ui/panels/`、`card/templates/` 纹理（使用柔和圆角、粉彩配色）
 3. 制作 Godot Theme 资源，绑定 StyleBox 使用新纹理
 4. 各场景脚本中统一切换 `theme` 属性，覆盖现有程序化样式

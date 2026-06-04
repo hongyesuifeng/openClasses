@@ -1,6 +1,6 @@
 # 美术实施时间线
 
-> 适用项目：SlayDemo — 类《杀戮尖塔》卡牌 Roguelike Demo
+> 适用项目：SlayDemo — 《甜心迷宫》Q版卡通卡牌 Roguelike
 > 文档版本：v1.0
 
 ---
@@ -49,14 +49,14 @@ slayDemo/
 │   │   ├── icons/           # 卡牌中心图标（25-30个）
 │   │   └── frames/          # 卡牌边框（按稀有度）
 │   ├── enemies/
-│   │   ├── slime/
-│   │   ├── skeleton/
-│   │   ├── mushroom/
-│   │   ├── bat/
-│   │   ├── gargoyle/
-│   │   ├── shadow_mage/
-│   │   ├── corrupted_knight/
-│   │   └── ancient_dragon/
+│   │   ├── pudding/
+│   │   ├── cotton_knight/
+│   │   ├── angry_pudding/
+│   │   ├── bubble_bat/
+│   │   ├── plush_guard/
+│   │   ├── zodiac_witch/
+│   │   ├── sweet_knight_commander/
+│   │   └── star_wish_dragon/
 │   ├── player/
 │   │   ├── sprites/
 │   │   └── portrait/
@@ -67,11 +67,11 @@ slayDemo/
 │   │   ├── icons/
 │   │   └── intents/
 │   ├── backgrounds/
-│   │   ├── battle_dungeon.png
-│   │   ├── battle_cave.png
-│   │   ├── battle_boss.png
-│   │   ├── main_menu.png
-│   │   └── map.png
+│   │   ├── bg_battle_candy_corridor.png
+│   │   ├── bg_battle_crystal_cave.png
+│   │   ├── bg_battle_starwish_hall.png
+│   │   ├── bg_main_menu.png
+│   │   └── bg_map.png
 │   ├── vfx/
 │   │   ├── particles/
 │   │   └── effects/
@@ -110,9 +110,9 @@ slayDemo/
 | 卡牌占位模板 | 最简版：色块 + 文字，无图标 | P0 | 1h |
 | 1 张攻击卡牌数据 | CardData .tres | P0 | 10min |
 | 1 张防御卡牌数据 | CardData .tres | P0 | 10min |
-| 史莱姆静态图 | 96x96px，最简几何体 | P0 | 30min |
-| 玩家静态图 | 128x128px，最简剪影 | P0 | 30min |
-| 纯色战斗背景 | 深蓝渐变，1920x1080 | P0 | 15min |
+| 布丁怪静态图 | 96x96px，Q版布丁怪几何体 | P0 | 30min |
+| 玩家静态图 | 128x128px，Q版魔法少女剪影 | P0 | 30min |
+| 纯色战斗背景 | 粉彩渐变，1920x1080 | P0 | 15min |
 | HP 条（代码） | ProgressBar + StyleBoxFlat | P0 | 30min |
 | 能量显示（代码） | Label + 简单底板 | P0 | 15min |
 | 基础伤害数字 | Label + Tween 上浮淡出 | P0 | 30min |
@@ -178,8 +178,8 @@ slayDemo/
 
 | 交付物 | 数量 | 时间 | 说明 |
 |--------|------|------|------|
-| 地牢战斗背景 | 1 | 1h | 免费资源或自制渐变 |
-| Boss 战斗背景 | 1 | 1h | 氛围更暗更紧张 |
+| 糖果走廊战斗背景 | 1 | 1h | 免费资源或自制粉彩渐变 |
+| 星愿殿堂Boss背景 | 1 | 1h | 氛围更华丽紧张 |
 
 #### 资源规范
 
@@ -206,10 +206,10 @@ slayDemo/
 | 交付物 | 规格 | 时间 | 说明 |
 |--------|------|------|------|
 | 完整 Godot Theme | .tres 文件 | 2h | 统一按钮、标签、面板样式 |
-| 主菜单界面美术 | 1920x1080 | 2h | 背景暗化 + 标题排版 + 按钮布局 |
+| 主菜单界面美术 | 1920x1080 | 2h | 云端学院入口 + 标题排版 + 粉紫按钮布局 |
 | 战斗 UI 完善版 | — | 3h | 能量水晶、手牌区背景、牌堆图标 |
 | 地图节点图标 | 6个, 32x32px | 1h | 战斗/精英/Boss/商店/休息/事件 |
-| 地图背景 | 1920x1080 | 1h | 羊皮纸或暗色纹理 |
+| 地图背景 | 1920x1080 | 1h | 云端魔法学院塔楼风格 |
 | 奖励选择弹窗 | 800x500px | 1.5h | 半透明遮罩 + 卡牌选择框 |
 | 通用弹窗模板 | 三种尺寸 | 1h | 小/中/大弹窗 |
 | 界面过渡动画 | — | 1.5h | 淡入淡出、弹窗出现/消失 |
@@ -232,12 +232,12 @@ slayDemo/
 
 | 交付物 | 规格 | 时间 | 说明 |
 |--------|------|------|------|
-| 粒子特效完善 | GPUParticles2D | 3h | 命中闪光、中毒泡泡、护盾光效 |
+| 粒子特效完善 | GPUParticles2D | 3h | 粉色刀光、消失泡泡、护盾光效 |
 | 屏幕震动优化 | Camera2D | 1h | 调整不同攻击的震动参数 |
 | Hit Stop 实现 | get_tree().paused | 30min | 命中停顿，增加打击感 |
 | 卡牌动画优化 | Tween | 2h | 抽牌/弃牌/打出动画打磨 |
 | 死亡动画 | Tween + 粒子 | 1h | 敌人倒下效果 |
-| 稀有卡牌光效 | Shader/动画 | 1h | 蓝色发光脉动 |
+| 稀有卡牌光效 | Shader/动画 | 1h | 天蓝/金色发光脉动 |
 | 色彩一致性检查 | 全局 | 1h | 确保所有界面配色统一 |
 | 字体显示检查 | 全局 | 1h | 确保所有文字清晰可读 |
 | 分辨率适配测试 | 1920x1080/2560x1440 | 1h | 多分辨率测试 |
@@ -282,10 +282,10 @@ slayDemo/
 | 前缀 | 含义 | 示例 |
 |------|------|------|
 | `card_` | 卡牌 | `card_icon_slash.png`, `card_frame_rare.png` |
-| `enemy_` | 敌人 | `enemy_slime_idle.png`, `enemy_dragon_atk_01.png` |
-| `player_` | 玩家 | `player_warrior_idle.png`, `player_portrait.png` |
-| `ui_` | UI 元素 | `ui_btn_normal.png`, `ui_panel_dark.png` |
-| `bg_` | 背景 | `bg_battle_dungeon.png`, `bg_map.png` |
+| `enemy_` | 敌人 | `enemy_pudding_idle.png`, `enemy_dragon_atk_01.png` |
+| `player_` | 玩家 | `player_mage_idle.png`, `player_portrait.png` |
+| `ui_` | UI 元素 | `ui_btn_normal.png`, `ui_panel_pink.png` |
+| `bg_` | 背景 | `bg_battle_candy_corridor.png`, `bg_map.png` |
 | `icon_` | 图标 | `icon_status_poison.png`, `icon_node_battle.png` |
 | `vfx_` | 特效 | `vfx_particle_spark.png`, `vfx_hit_flash.tscn` |
 | `font_` | 字体 | `font_chakra_bold.ttf` |
@@ -325,17 +325,17 @@ assets/
 │       ├── card_frame_common.png
 │       ├── card_frame_uncommon.png
 │       ├── card_frame_rare.png
-│       └── card_frame_curse.png
+│       └── card_frame_legendary.png
 │
 ├── enemies/                   # 敌人美术（按敌人分目录）
-│   ├── slime/
-│   │   └── enemy_slime_idle.png
-│   ├── skeleton/
-│   │   └── enemy_skeleton_idle.png
+│   ├── pudding/
+│   │   └── enemy_pudding_idle.png
+│   ├── cotton_knight/
+│   │   └── enemy_cotton_knight_idle.png
 │   └── ...
 │
 ├── player/                    # 玩家角色美术
-│   └── player_warrior_idle.png
+│   └── player_mage_idle.png
 │
 ├── ui/                        # UI 美术
 │   ├── buttons/               # 按钮素材
@@ -355,16 +355,16 @@ assets/
 │       └── ...
 │
 ├── backgrounds/               # 场景背景
-│   ├── bg_battle_dungeon.png
-│   ├── bg_battle_cave.png
-│   ├── bg_battle_boss.png
+│   ├── bg_battle_candy_corridor.png
+│   ├── bg_battle_crystal_cave.png
+│   ├── bg_battle_starwish_hall.png
 │   ├── bg_main_menu.png
 │   └── bg_map.png
 │
 ├── vfx/                       # 特效资源
 │   ├── particles/             # 粒子纹理
 │   │   ├── vfx_particle_spark.png
-│   │   ├── vfx_particle_fire.png
+│   │   ├── vfx_particle_star.png
 │   │   └── ...
 │   └── effects/               # 特效场景
 │       ├── vfx_hit_flash.tscn

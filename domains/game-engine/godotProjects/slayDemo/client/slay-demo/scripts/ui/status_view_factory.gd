@@ -34,7 +34,7 @@ const STATUS_CONFIG := {
 		"name": "虚弱",
 		"color": Color(0.7, 0.5, 0.3),
 		"icon": "🦴",
-		"icon_path": "",
+		"icon_path": "res://assets/ui/status/status_frail.png",
 		"description": "格挡 -25% ({stacks}回合)"
 	},
 	"poison": {
@@ -62,22 +62,29 @@ const STATUS_CONFIG := {
 		"name": "堡垒",
 		"color": Color(0.75, 0.9, 1.0),
 		"icon": "▣",
-		"icon_path": "res://assets/ui/status/status_fortify.png",
+		"icon_path": "res://assets/ui/status/status_barricade.png",
 		"description": "格挡不会在回合开始清除"
 	},
 	"ritual": {
 		"name": "仪式",
 		"color": Color(0.95, 0.70, 0.95),
 		"icon": "★",
-		"icon_path": "",
+		"icon_path": "res://assets/ui/status/status_ritual.png",
 		"description": "每回合结束获得 {stacks} 层力量"
 	},
 	"metallicize": {
 		"name": "金属化",
 		"color": Color(0.8, 0.85, 0.95),
 		"icon": "⬡",
-		"icon_path": "",
+		"icon_path": "res://assets/ui/status/status_metallicize.png",
 		"description": "每回合结束获得 {stacks} 点格挡"
+	},
+	"retain": {
+		"name": "保留",
+		"color": Color(0.6, 0.9, 0.6),
+		"icon": "📎",
+		"icon_path": "res://assets/ui/status/status_retain.png",
+		"description": "此牌保留至下回合"
 	},
 }
 

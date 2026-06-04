@@ -1,6 +1,6 @@
 # UI 美术设计指南
 
-> 适用项目：SlayDemo — 类《杀戮尖塔》卡牌 Roguelike Demo
+> 适用项目：SlayDemo — 《甜心迷宫》Q版卡通卡牌 Roguelike
 > 基准分辨率：1920 x 1080（16:9 桌面）
 > 文档版本：v1.0
 
@@ -16,7 +16,7 @@
 | 缩放模式 | `canvas_items` | Godot 项目设置中 `stretch_mode` |
 | 缩放比例 | `keep` | 保持宽高比 |
 | 安全边距 | 上下左右各 20px | 避免 UI 紧贴屏幕边缘 |
-| 全局圆角 | 4px（小元素）/ 8px（大面板） | 统一圆角 |
+| 全局圆角 | 8px（小元素）/ 12px（大面板） | 统一圆角，Q版风格更圆润 |
 | 全局阴影 | 偏移(2,2)，模糊4px，透明度25% | 统一投影 |
 
 ### 1.2 图层（Z-Index）规范
@@ -74,13 +74,13 @@
 | 设置按钮 | 300x60px | 继续按钮下方 16px | 次要按钮样式 |
 | 退出按钮 | 300x60px | 设置按钮下方 16px | 次要按钮样式 |
 | 版本号 | 自适应 | 左下角(20, 1060) | 小字，12px |
-| 背景 | 1920x1080 | 全屏 | 可复用战斗背景加暗化 |
+| 背景 | 1920x1080 | 全屏 | 云端学院入口场景，明亮粉彩风格 |
 
 ### 2.3 主菜单场景结构
 
 ```
 MainMenu (Control, 1920x1080)
-├── Background (TextureRect) -- 暗化后的战斗背景
+├── Background (TextureRect) -- 云端学院入口背景
 ├── TitleContainer (VBoxContainer, 居中)
 │   ├── TitleLabel (Label) -- "SLAY DEMO"
 │   └── SubtitleLabel (Label) -- "卡牌 Roguelike"（可选）
@@ -169,7 +169,7 @@ Y坐标分配：
 
 | 元素 | 尺寸 | 位置 | 说明 |
 |------|------|------|------|
-| 手牌区背景 | 1920x300px | 底部 | 半透明暗色，透明度 70% |
+| 手牌区背景 | 1920x300px | 底部 | 半透明粉彩色，透明度 70% |
 | 卡牌容器 | HBoxContainer | 手牌区居中 | 卡牌间距 20px |
 | 单张卡牌 | 144x200px（缩放后） | — | 手牌中缩小显示 |
 | 抽牌堆 | 60x80px | 手牌区左下 | 牌堆图标 + 数字 |
@@ -255,7 +255,7 @@ BattleUI (Control, 1920x1080)
 
 | 元素 | 规格 | 说明 |
 |------|------|------|
-| 地图背景 | 1920x1080 | 暗色或羊皮纸风格 |
+| 地图背景 | 1920x1080 | 云端魔法学院塔楼风格 |
 | 节点图标 | 32x32（普通）/ 48x48（Boss） | 不同类型不同图标 |
 | 节点间距 | 垂直 80px，水平可变 | 自适应 |
 | 路径连线 | Line2D | 2px 宽，灰色（已走过为亮色） |
@@ -307,7 +307,7 @@ BattleUI (Control, 1920x1080)
 | 参数 | 值 | 说明 |
 |------|------|------|
 | 遮罩 | 黑色 60% 透明 | 阻止对背景的交互 |
-| 弹窗面板 | 暗色背景 `#16213e`，8px圆角 | 居中显示 |
+| 弹窗面板 | 浅玫瑰粉背景 `#fce4ec`，12px圆角 | 居中显示 |
 | 关闭按钮 | 右上角 X 按钮 | 32x32px |
 | 标题栏 | 40px 高，含标题和关闭按钮 | 面板顶部 |
 | 内容区 | 自适应 | 面板中间 |
@@ -329,11 +329,11 @@ BattleUI (Control, 1920x1080)
 
 | 状态 | 视觉表现 | 实现 |
 |------|----------|------|
-| Normal | 默认背景色 `#0f3460`，浅色文字 | StyleBoxFlat |
-| Hover | 背景微亮 `#1a4a7a`，文字不变 | StyleBoxFlat |
-| Pressed | 背景微暗 `#0a2a4a`，文字微下移 1px | StyleBoxFlat |
-| Disabled | 背景灰 `#3a3a4a`，文字暗 `#6a6a7a` | StyleBoxFlat |
-| Focused | 添加 2px 亮色边框 `#00d2ff` | StyleBoxFlat |
+| Normal | 胶囊形粉紫底色 `#ce93d8`，深紫文字 | StyleBoxFlat |
+| Hover | 背景微亮 `#e1bee7`，文字不变 | StyleBoxFlat |
+| Pressed | 背景微暗 `#ab47bc`，文字微下移 1px | StyleBoxFlat |
+| Disabled | 背景灰 `#e0d4e8`，文字暗 `#b0a0c0` | StyleBoxFlat |
+| Focused | 添加 2px 亮色边框 `#80deea` | StyleBoxFlat |
 
 ### 7.2 按钮尺寸规范
 
@@ -353,21 +353,21 @@ var theme = Theme.new()
 
 # Button 样式
 var btn_normal = StyleBoxFlat.new()
-btn_normal.bg_color = Color("#0f3460")
-btn_normal.border_radius_top_left = 4
-btn_normal.border_radius_top_right = 4
-btn_normal.border_radius_bottom_left = 4
-btn_normal.border_radius_bottom_right = 4
+btn_normal.bg_color = Color("#ce93d8")
+btn_normal.border_radius_top_left = 12
+btn_normal.border_radius_top_right = 12
+btn_normal.border_radius_bottom_left = 12
+btn_normal.border_radius_bottom_right = 12
 btn_normal.content_margin_top = 8
 btn_normal.content_margin_bottom = 8
 btn_normal.content_margin_left = 16
 btn_normal.content_margin_right = 16
 
 var btn_hover = btn_normal.duplicate()
-btn_hover.bg_color = Color("#1a4a7a")
+btn_hover.bg_color = Color("#e1bee7")
 
 var btn_pressed = btn_normal.duplicate()
-btn_pressed.bg_color = Color("#0a2a4a")
+btn_pressed.bg_color = Color("#ab47bc")
 
 theme.set_stylebox("normal", "Button", btn_normal)
 theme.set_stylebox("hover", "Button", btn_hover)
@@ -377,7 +377,7 @@ theme.set_stylebox("pressed", "Button", btn_pressed)
 var font = load("res://assets/fonts/ChakraPetch-Bold.ttf")
 theme.set_font("font", "Button", font)
 theme.set_font_size("font_size", "Button", 18)
-theme.set_color("font_color", "Button", Color("#e2e2e2"))
+theme.set_color("font_color", "Button", Color("#3e2a5a"))
 ```
 
 ---
@@ -411,19 +411,19 @@ theme.set_color("font_color", "Button", Color("#e2e2e2"))
 # color_tokens.gd -- 全局色彩常量
 class_name ColorTokens
 
-const BG_PRIMARY := Color("#1a1a2e")
-const BG_SECONDARY := Color("#16213e")
-const BG_SURFACE := Color("#0f3460")
-const FG_PRIMARY := Color("#e2e2e2")
-const FG_SECONDARY := Color("#a0a0b0")
+const BG_PRIMARY := Color("#f0e6ff")
+const BG_SECONDARY := Color("#fce4ec")
+const BG_SURFACE := Color("#ce93d8")
+const FG_PRIMARY := Color("#3e2a5a")
+const FG_SECONDARY := Color("#7c5f9a")
 
-const ACCENT_ENERGY := Color("#00d2ff")
-const ACCENT_ATTACK := Color("#ff4444")
-const ACCENT_BLOCK := Color("#4488ff")
-const ACCENT_SKILL := Color("#44cc88")
-const ACCENT_CURSE := Color("#9944cc")
-const ACCENT_GOLD := Color("#ffcc00")
-const ACCENT_DANGER := Color("#ff6644")
+const ACCENT_ENERGY := Color("#80deea")
+const ACCENT_ATTACK := Color("#ef5350")
+const ACCENT_BLOCK := Color("#42a5f5")
+const ACCENT_SKILL := Color("#66bb6a")
+const ACCENT_CURSE := Color("#ce93d8")
+const ACCENT_GOLD := Color("#ffd54f")
+const ACCENT_DANGER := Color("#ef5350")
 ```
 
 ---

@@ -4,13 +4,13 @@
 
 ## Design Basis
 
-SlayDemo is a learning-focused, Slay-the-Spire-like card roguelike MVP. The current playable target is one warrior, one Act, 6-8 enemies, card combat, map progression, rewards, and basic UI feedback.
+SlayDemo (Sweet Spire) is a learning-focused, Slay-the-Spire-like card roguelike MVP with a cute chibi cartoon / kawaii visual style. The current playable target is one magical-girl player character, one Act, 6-8 enemies, card combat, map progression, rewards, and basic UI feedback.
 
 For this stage, assets should make the prototype readable before they make it visually final. The selected set therefore favors:
 
 - Static player/enemy placeholders that can be animated with Tween.
 - Card templates, card icons, intent icons, HP/block/energy UI, and panels/buttons.
-- A small set of battle/menu/map backgrounds.
+- A small set of battle/menu/map backgrounds (candy corridor, magic crystal cave, star wish palace).
 - Minimal hit/particle VFX and card interaction audio.
 - Two fonts: `ChakraPetch` for stylized Latin/card numbers and `NotoSansSC` for Chinese UI.
 
@@ -23,7 +23,7 @@ For this stage, assets should make the prototype readable before they make it vi
 | `assets/player/` | Warrior sprite and portrait | One character only for MVP. |
 | `assets/enemies/` | Static enemy placeholders | Covers the current art enemy list. |
 | `assets/ui/` | Buttons, panels, bars, map icons, intent icons | Enough for menu, battle HUD, map, rewards, and dialogs. |
-| `assets/backgrounds/` | Main menu, map, dungeon/cave/Boss battle backgrounds | Background count stays intentionally small. |
+| `assets/backgrounds/` | Main menu, map, candy corridor/magic crystal cave/star wish palace Boss battle backgrounds | Background count stays intentionally small. |
 | `assets/vfx/` | Basic particles and hit effects | Godot particle/tween logic should do most of the work. |
 | `assets/audio/sfx/` | Card place/slide sounds | Small feedback layer for card interactions. |
 | `assets/fonts/` | `ChakraPetch`, `NotoSansSC` | Removed redundant display/body fonts. |

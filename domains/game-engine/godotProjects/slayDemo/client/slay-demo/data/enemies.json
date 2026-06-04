@@ -2,7 +2,7 @@
   "enemies": [
     {
       "id": "slime_small_v1",
-      "name": "小史莱姆",
+      "name": "布丁怪",
       "enemy_type": "normal",
       "max_hp": 18,
       "art_key": "enemy_slime",
@@ -12,7 +12,7 @@
       "actions": [
         {
           "id": "tackle",
-          "name": "撞击",
+          "name": "布丁弹",
           "intent_type": "attack",
           "intent_value": 5,
           "effects": [
@@ -26,7 +26,7 @@
         },
         {
           "id": "absorb",
-          "name": "吸收",
+          "name": "回血泡泡",
           "intent_type": "buff",
           "intent_value": 0,
           "effects": [
@@ -43,7 +43,7 @@
     },
     {
       "id": "slime_spiky_v1",
-      "name": "尖刺史莱姆",
+      "name": "暴躁布丁",
       "enemy_type": "normal",
       "max_hp": 22,
       "art_key": "enemy_slime",
@@ -53,7 +53,7 @@
       "actions": [
         {
           "id": "spike_tackle",
-          "name": "尖刺撞击",
+          "name": "蜡笔刺击",
           "intent_type": "attack",
           "intent_value": 6,
           "effects": [
@@ -67,7 +67,7 @@
         },
         {
           "id": "bristle",
-          "name": "竖刺",
+          "name": "竖起蜡笔",
           "intent_type": "buff",
           "intent_value": 0,
           "effects": [
@@ -85,7 +85,7 @@
     },
     {
       "id": "cultist_v1",
-      "name": "暗影信徒",
+      "name": "见习巫女",
       "enemy_type": "normal",
       "max_hp": 28,
       "art_key": "enemy_shadow_mage",
@@ -95,7 +95,7 @@
       "actions": [
         {
           "id": "chant",
-          "name": "咏唱",
+          "name": "念念咒",
           "intent_type": "buff",
           "intent_value": 0,
           "effects": [
@@ -109,7 +109,7 @@
         },
         {
           "id": "dark_strike",
-          "name": "暗影打击",
+          "name": "魔法小弹",
           "intent_type": "attack",
           "intent_value": 8,
           "effects": [
@@ -123,7 +123,7 @@
         },
         {
           "id": "hex",
-          "name": "诅咒",
+          "name": "小诅咒",
           "intent_type": "debuff",
           "intent_value": 0,
           "effects": [
@@ -141,7 +141,7 @@
     },
     {
       "id": "poison_bat_v1",
-      "name": "毒素蝙蝠",
+      "name": "泡泡蝙蝠",
       "enemy_type": "normal",
       "max_hp": 24,
       "art_key": "enemy_bat",
@@ -151,7 +151,7 @@
       "actions": [
         {
           "id": "venom_bite",
-          "name": "毒咬",
+          "name": "毒毒泡泡",
           "intent_type": "attack",
           "intent_value": 4,
           "effects": [
@@ -171,7 +171,7 @@
         },
         {
           "id": "screech",
-          "name": "尖啸",
+          "name": "超音波泡泡",
           "intent_type": "debuff",
           "intent_value": 0,
           "effects": [
@@ -186,7 +186,7 @@
         },
         {
           "id": "drain",
-          "name": "汲取",
+          "name": "吸血泡泡",
           "intent_type": "attack",
           "intent_value": 6,
           "effects": [
@@ -208,7 +208,7 @@
     },
     {
       "id": "shield_guard_v1",
-      "name": "盾卫",
+      "name": "棉花甲士",
       "enemy_type": "normal",
       "max_hp": 34,
       "art_key": "enemy_corrupted_knight",
@@ -219,7 +219,7 @@
       "actions": [
         {
           "id": "guard",
-          "name": "举盾",
+          "name": "棉花护盾",
           "intent_type": "defend",
           "intent_value": 8,
           "effects": [
@@ -233,9 +233,7 @@
         },
         {
           "id": "shield_bash",
-          "name": "盾击",
-          "intent_type": "attack",
-          "intent_value": 7,
+          "name": "棉花砸",
           "effects": [
             {
               "type": "damage",
@@ -247,7 +245,7 @@
         },
         {
           "id": "shield_slam",
-          "name": "盾牌猛击",
+          "name": "棉花重砸",
           "intent_type": "attack",
           "intent_value": 10,
           "effects": [
@@ -270,7 +268,7 @@
     },
     {
       "id": "berserker_v1",
-      "name": "狂战士",
+      "name": "暴走熊",
       "enemy_type": "normal",
       "max_hp": 42,
       "art_key": "enemy_orc_berserker",
@@ -280,7 +278,7 @@
       "actions": [
         {
           "id": "rage",
-          "name": "狂怒",
+          "name": "暴走模式",
           "intent_type": "buff",
           "intent_value": 0,
           "effects": [
@@ -300,7 +298,7 @@
         },
         {
           "id": "crush",
-          "name": "粉碎",
+          "name": "熊掌拍",
           "intent_type": "attack",
           "intent_value": 10,
           "effects": [
@@ -314,7 +312,7 @@
         },
         {
           "id": "double_strike",
-          "name": "双击",
+          "name": "连续熊掌",
           "intent_type": "attack",
           "intent_value": 6,
           "effects": [
@@ -332,7 +330,7 @@
     },
     {
       "id": "necromancer_v1",
-      "name": "亡灵法师",
+      "name": "星座魔女",
       "enemy_type": "normal",
       "max_hp": 38,
       "art_key": "enemy_skeleton",
@@ -342,7 +340,7 @@
       "actions": [
         {
           "id": "hex",
-          "name": "诅咒",
+          "name": "星座诅咒",
           "intent_type": "debuff",
           "intent_value": 0,
           "effects": [
@@ -357,7 +355,7 @@
         },
         {
           "id": "soul_drain",
-          "name": "灵魂汲取",
+          "name": "星光汲取",
           "intent_type": "attack",
           "intent_value": 7,
           "effects": [
@@ -376,7 +374,7 @@
         },
         {
           "id": "summon_skeleton",
-          "name": "召唤骷髅",
+          "name": "召唤小弟",
           "intent_type": "summon",
           "intent_value": 0,
           "effects": [
@@ -391,7 +389,7 @@
         },
         {
           "id": "dark_bolt",
-          "name": "暗影箭",
+          "name": "星光魔法弹",
           "intent_type": "attack",
           "intent_value": 10,
           "effects": [
@@ -408,7 +406,7 @@
     },
     {
       "id": "stone_guardian_v1",
-      "name": "石像守卫",
+      "name": "布偶守卫",
       "enemy_type": "normal",
       "max_hp": 50,
       "art_key": "enemy_gargoyle",
@@ -418,7 +416,7 @@
       "actions": [
         {
           "id": "stone_wall",
-          "name": "石墙",
+          "name": "布偶屏障",
           "intent_type": "defend",
           "intent_value": 12,
           "effects": [
@@ -432,7 +430,7 @@
         },
         {
           "id": "heavy_slam",
-          "name": "重击",
+          "name": "布偶拍",
           "intent_type": "attack",
           "intent_value": 9,
           "effects": [
@@ -446,7 +444,7 @@
         },
         {
           "id": "stone_skin",
-          "name": "石肤",
+          "name": "布偶硬化",
           "intent_type": "buff",
           "intent_value": 0,
           "effects": [
@@ -469,7 +467,7 @@
     },
     {
       "id": "elite_slime_king_v1",
-      "name": "史莱姆王",
+      "name": "布丁女王",
       "enemy_type": "elite",
       "max_hp": 65,
       "art_key": "enemy_slime_king",
@@ -479,13 +477,13 @@
       ],
       "phases": [
         {
-          "name": "正常形态",
+          "name": "甜蜜形态",
           "trigger": "hp_above_50%",
           "selection_mode": "weighted_pool",
           "actions": [
             {
               "id": "slam",
-              "name": "猛击",
+              "name": "甜蜜重击",
               "intent_type": "attack",
               "intent_value": 12,
               "effects": [
@@ -499,7 +497,7 @@
             },
             {
               "id": "goop_spray",
-              "name": "粘液喷射",
+              "name": "布丁喷射",
               "intent_type": "attack",
               "intent_value": 8,
               "effects": [
@@ -513,7 +511,7 @@
             },
             {
               "id": "summon_minions",
-              "name": "召唤小史莱姆",
+              "name": "召唤小布丁",
               "intent_type": "summon",
               "intent_value": 0,
               "effects": [
@@ -529,7 +527,7 @@
           ]
         },
         {
-          "name": "分裂形态",
+          "name": "大乱布丁",
           "trigger": "hp_below_50%",
           "selection_mode": "weighted_pool",
           "phase_effects": [
@@ -541,7 +539,7 @@
           "actions": [
             {
               "id": "desperate_slam",
-              "name": "疯狂猛击",
+              "name": "甜蜜狂击",
               "intent_type": "attack",
               "intent_value": 16,
               "effects": [
@@ -555,7 +553,7 @@
             },
             {
               "id": "rapid_split",
-              "name": "快速分裂",
+              "name": "快速分裂啦",
               "intent_type": "summon",
               "intent_value": 0,
               "effects": [
@@ -570,7 +568,7 @@
             },
             {
               "id": "absorb_mass",
-              "name": "吸收质量",
+              "name": "大口吸收",
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
@@ -593,7 +591,7 @@
     },
     {
       "id": "elite_orc_berserker_v1",
-      "name": "狂暴兽人",
+      "name": "狂暴糖果熊",
       "enemy_type": "elite",
       "max_hp": 75,
       "art_key": "enemy_gargoyle",
@@ -603,13 +601,13 @@
       ],
       "phases": [
         {
-          "name": "战斗姿态",
+          "name": "糖果备战",
           "trigger": "hp_above_40%",
           "selection_mode": "weighted_pool",
           "actions": [
             {
               "id": "war_cry",
-              "name": "战吼",
+              "name": "糖果熊吼",
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
@@ -623,7 +621,7 @@
             },
             {
               "id": "cleave",
-              "name": "横扫",
+              "name": "蘑菇扫荡",
               "intent_type": "attack",
               "intent_value": 10,
               "effects": [
@@ -637,7 +635,7 @@
             },
             {
               "id": "frenzied_attack",
-              "name": "狂乱攻击",
+              "name": "乱爪攻击",
               "intent_type": "attack",
               "intent_value": 15,
               "effects": [
@@ -651,7 +649,7 @@
             },
             {
               "id": "defensive_stance",
-              "name": "防御姿态",
+              "name": "熊式防御",
               "intent_type": "defend",
               "intent_value": 8,
               "effects": [
@@ -666,7 +664,7 @@
           ]
         },
         {
-          "name": "狂暴姿态",
+          "name": "甜蜜狂暴",
           "trigger": "hp_below_40%",
           "selection_mode": "weighted_pool",
           "phase_effects": [
@@ -678,7 +676,7 @@
           "actions": [
             {
               "id": "execute",
-              "name": "处决",
+              "name": "终结一击",
               "intent_type": "attack",
               "intent_value": 25,
               "effects": [
@@ -698,7 +696,7 @@
             },
             {
               "id": "rampage",
-              "name": "暴走",
+              "name": "暴冲",
               "intent_type": "attack",
               "intent_value": 18,
               "effects": [
@@ -717,7 +715,7 @@
             },
             {
               "id": "blood_rage",
-              "name": "嗜血",
+              "name": "糖果狂热",
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
@@ -741,7 +739,7 @@
     },
     {
       "id": "boss_knight_v1",
-      "name": "腐化骑士",
+      "name": "甜心骑士长",
       "enemy_type": "boss",
       "max_hp": 100,
       "art_key": "enemy_corrupted_knight",
@@ -752,13 +750,13 @@
       ],
       "phases": [
         {
-          "name": "防守反击",
+          "name": "甜蜜反击",
           "trigger": "hp_above_40%",
           "selection_mode": "weighted_pool",
           "actions": [
             {
               "id": "ready_blade",
-              "name": "蓄势",
+              "name": "充能中",
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
@@ -772,7 +770,7 @@
             },
             {
               "id": "cleave",
-              "name": "斩击",
+              "name": "甜蜜斩击",
               "intent_type": "attack",
               "intent_value": 14,
               "effects": [
@@ -786,7 +784,7 @@
             },
             {
               "id": "fortify",
-              "name": "防御姿态",
+              "name": "骑士护盾",
               "intent_type": "defend",
               "intent_value": 15,
               "effects": [
@@ -800,7 +798,7 @@
             },
             {
               "id": "shield_bash",
-              "name": "盾击",
+              "name": "甜蜜重击",
               "intent_type": "attack",
               "intent_value": 10,
               "effects": [
@@ -821,7 +819,7 @@
           ]
         },
         {
-          "name": "破釜沉舟",
+          "name": "破釜冲锋",
           "trigger": "hp_below_40%",
           "selection_mode": "weighted_pool",
           "phase_effects": [
@@ -833,7 +831,7 @@
           "actions": [
             {
               "id": "execute",
-              "name": "处决",
+              "name": "终结一击",
               "intent_type": "attack",
               "intent_value": 30,
               "effects": [
@@ -853,7 +851,7 @@
             },
             {
               "id": "heavy_cleave",
-              "name": "重斩",
+              "name": "甜蜜斩",
               "intent_type": "attack",
               "intent_value": 22,
               "effects": [
@@ -867,7 +865,7 @@
             },
             {
               "id": "corrupted_shield",
-              "name": "腐化护盾",
+              "name": "甜蜜铁壁",
               "intent_type": "defend",
               "intent_value": 25,
               "effects": [
@@ -886,7 +884,7 @@
             },
             {
               "id": "dark_fury",
-              "name": "黑暗之怒",
+              "name": "甜蜜诅咒",
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
@@ -910,7 +908,7 @@
     },
     {
       "id": "boss_fire_lord_v1",
-      "name": "火焰领主",
+      "name": "星愿守护龙",
       "enemy_type": "boss",
       "max_hp": 120,
       "art_key": "enemy_ancient_dragon",
@@ -921,13 +919,13 @@
       ],
       "phases": [
         {
-          "name": "常规阶段",
+          "name": "星愿飞翔",
           "trigger": "hp_above_50%",
           "selection_mode": "weighted_pool",
           "actions": [
             {
               "id": "inferno",
-              "name": "地狱火",
+              "name": "星愿之火",
               "intent_type": "attack",
               "intent_value": 12,
               "effects": [
@@ -941,7 +939,7 @@
             },
             {
               "id": "fire_shield",
-              "name": "火焰护盾",
+              "name": "龙鳞护盾",
               "intent_type": "defend",
               "intent_value": 15,
               "effects": [
@@ -961,7 +959,7 @@
             },
             {
               "id": "burning_rage",
-              "name": "燃烧之怒",
+              "name": "星愿热身",
               "intent_type": "buff",
               "intent_value": 0,
               "effects": [
@@ -975,7 +973,7 @@
             },
             {
               "id": "scorch",
-              "name": "灼烧",
+              "name": "星火喷射",
               "intent_type": "attack",
               "intent_value": 8,
               "effects": [
@@ -996,7 +994,7 @@
           ]
         },
         {
-          "name": "狂暴阶段",
+          "name": "糖果风暴",
           "trigger": "hp_below_50%",
           "selection_mode": "weighted_pool",
           "phase_effects": [
@@ -1014,7 +1012,7 @@
           "actions": [
             {
               "id": "meteor_strike",
-              "name": "陨石打击",
+              "name": "星陨打击",
               "intent_type": "attack",
               "intent_value": 25,
               "effects": [
@@ -1028,7 +1026,7 @@
             },
             {
               "id": "inferno_enhanced",
-              "name": "强化地狱火",
+              "name": "强化星愿火",
               "intent_type": "attack",
               "intent_value": 6,
               "effects": [
@@ -1043,7 +1041,7 @@
             },
             {
               "id": "scorched_earth",
-              "name": "焦土",
+              "name": "甜蜜焦糖",
               "intent_type": "attack",
               "intent_value": 15,
               "effects": [
@@ -1063,7 +1061,7 @@
             },
             {
               "id": "flame_barrier",
-              "name": "火焰屏障",
+              "name": "龙翼护壁",
               "intent_type": "defend",
               "intent_value": 20,
               "effects": [
@@ -1087,7 +1085,7 @@
     },
     {
       "id": "elite_hexmage_v1",
-      "name": "诅咒法师",
+      "name": "诅咒魔女",
       "enemy_type": "elite",
       "max_hp": 58,
       "art_key": "enemy_shadow_mage",
@@ -1097,13 +1095,13 @@
       ],
       "phases": [
         {
-          "name": "诅咒形态",
+          "name": "魔女魔法",
           "trigger": "always",
           "selection_mode": "weighted_pool",
           "actions": [
             {
               "id": "hex_bolt",
-              "name": "诅咒箭",
+              "name": "魔女魔法弹",
               "intent_type": "attack",
               "intent_value": 9,
               "effects": [
@@ -1123,7 +1121,7 @@
             },
             {
               "id": "weaken_curse",
-              "name": "虚弱咒",
+              "name": "软软咒",
               "intent_type": "debuff",
               "intent_value": 0,
               "effects": [
@@ -1144,7 +1142,7 @@
             },
             {
               "id": "dark_shield",
-              "name": "暗盾",
+              "name": "魔法泡泡盾",
               "intent_type": "defend",
               "intent_value": 14,
               "effects": [
@@ -1162,7 +1160,7 @@
     },
     {
       "id": "elite_gargoyle_sentinel_v1",
-      "name": "石像哨兵",
+      "name": "石头布偶哨兵",
       "enemy_type": "elite",
       "max_hp": 80,
       "art_key": "enemy_gargoyle",
@@ -1172,13 +1170,13 @@
       ],
       "phases": [
         {
-          "name": "守卫形态",
+          "name": "布偶巡逻",
           "trigger": "hp_above_40%",
           "selection_mode": "weighted_pool",
           "actions": [
             {
               "id": "stone_strike",
-              "name": "石击",
+              "name": "布偶砸击",
               "intent_type": "attack",
               "intent_value": 11,
               "effects": [
@@ -1192,7 +1190,7 @@
             },
             {
               "id": "fortify",
-              "name": "强化",
+              "name": "布偶加固",
               "intent_type": "defend",
               "intent_value": 18,
               "effects": [
@@ -1213,7 +1211,7 @@
             },
             {
               "id": "pummel",
-              "name": "连击",
+              "name": "布偶连拍",
               "intent_type": "attack",
               "intent_value": 18,
               "effects": [
@@ -1239,7 +1237,7 @@
           ]
         },
         {
-          "name": "狂暴形态",
+          "name": "暴走布偶",
           "trigger": "hp_below_40%",
           "selection_mode": "weighted_pool",
           "phase_effects": [
@@ -1251,7 +1249,7 @@
           "actions": [
             {
               "id": "rage_strike",
-              "name": "狂怒重击",
+              "name": "愤怒布偶拍",
               "intent_type": "attack",
               "intent_value": 16,
               "effects": [
@@ -1265,7 +1263,7 @@
             },
             {
               "id": "crush",
-              "name": "压碎",
+              "name": "布偶压制",
               "intent_type": "attack",
               "intent_value": 24,
               "effects": [

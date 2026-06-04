@@ -1,9 +1,9 @@
-# SlayDemo AI 美术生成需求文档
+# SlayDemo AI 美术生成需求文档（v1 · 已废弃）
 
-> 版本：v1.0  
-> 日期：2026-06-02  
-> 用途：指导 AI（ChatGPT / Midjourney 等）批量生成游戏美术资源，实现全套视觉统一替换  
-> 项目：SlayDemo — 类《杀戮尖塔》卡牌 Roguelike，Godot 4.x
+> ⚠️ **本文档已废弃**，请使用新版：[11-ai-art-generation-brief-v2-cute.md](./11-ai-art-generation-brief-v2-cute.md)
+>
+> 版本：v1.0（暗黑奇幻旧世界观，已被《甜心迷宫》Q版卡通世界观取代）
+> 废弃日期：2026-06-04
 
 ---
 
