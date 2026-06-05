@@ -3,6 +3,8 @@ class_name UILayoutStore
 
 const DEFAULT_PATH := "res://data/ui_layouts.json"
 const LAYOUT_KEYS := ["anchors", "offsets", "min_size"]
+## 视觉属性 key 及其期望的数组长度（font_size 单独存为数值，不在此列）
+const VISUAL_ARRAY_KEYS := {"font_color": 4, "modulate": 4, "scale": 2}
 
 static var _path := DEFAULT_PATH
 static var _loaded := false
@@ -63,6 +65,17 @@ static func _apply_layout_dictionary(control: Control, layout: Dictionary) -> vo
 	if layout.has("min_size"):
 		var min_size := layout["min_size"] as Array
 		control.custom_minimum_size = Vector2(float(min_size[0]), float(min_size[1]))
+	if layout.has("font_size") and control is Label:
+		(control as Label).add_theme_font_size_override("font_size", int(layout["font_size"]))
+	if layout.has("font_color") and control is Label:
+		var fc := layout["font_color"] as Array
+		(control as Label).add_theme_color_override("font_color", Color(float(fc[0]), float(fc[1]), float(fc[2]), float(fc[3])))
+	if layout.has("modulate"):
+		var m := layout["modulate"] as Array
+		control.modulate = Color(float(m[0]), float(m[1]), float(m[2]), float(m[3]))
+	if layout.has("scale"):
+		var s := layout["scale"] as Array
+		control.scale = Vector2(float(s[0]), float(s[1]))
 
 
 static func set_override(element_id: String, layout: Dictionary, instance_id := "") -> void:
@@ -135,11 +148,20 @@ static func restore_default_storage() -> void:
 
 
 static func layout_from_control(control: Control) -> Dictionary:
-	return {
+	var result := {
 		"anchors": [control.anchor_left, control.anchor_top, control.anchor_right, control.anchor_bottom],
 		"offsets": [control.offset_left, control.offset_top, control.offset_right, control.offset_bottom],
 		"min_size": [control.custom_minimum_size.x, control.custom_minimum_size.y],
 	}
+	if control is Label:
+		if (control as Label).has_theme_font_size_override("font_size"):
+			result["font_size"] = (control as Label).get_theme_font_size("font_size")
+		if (control as Label).has_theme_color_override("font_color"):
+			var fc: Color = (control as Label).get_theme_color("font_color")
+			result["font_color"] = [fc.r, fc.g, fc.b, fc.a]
+	result["modulate"] = [control.modulate.r, control.modulate.g, control.modulate.b, control.modulate.a]
+	result["scale"] = [control.scale.x, control.scale.y]
+	return result
 
 
 static func _ensure_loaded() -> void:
@@ -188,6 +210,7 @@ static func _validated_layout(value: Variant) -> Dictionary:
 	var result: Dictionary = {}
 	if not value is Dictionary:
 		return result
+	## 几何属性（数组形式）
 	for key in LAYOUT_KEYS:
 		if not value.has(key) or not value[key] is Array:
 			continue
@@ -204,6 +227,28 @@ static func _validated_layout(value: Variant) -> Dictionary:
 			clean.append(_round_float(float(entry)))
 		if valid:
 			result[key] = clean
+	## 视觉属性（数组形式）
+	for key in VISUAL_ARRAY_KEYS:
+		if not value.has(key) or not value[key] is Array:
+			continue
+		var expected: int = VISUAL_ARRAY_KEYS[key]
+		var source := value[key] as Array
+		if source.size() != expected:
+			continue
+		var clean: Array = []
+		var valid := true
+		for entry in source:
+			if typeof(entry) != TYPE_INT and typeof(entry) != TYPE_FLOAT:
+				valid = false
+				break
+			clean.append(_round_float(float(entry)))
+		if valid:
+			result[key] = clean
+	## font_size（单个数值）
+	if value.has("font_size"):
+		var fs: Variant = value["font_size"]
+		if typeof(fs) == TYPE_INT or typeof(fs) == TYPE_FLOAT:
+			result["font_size"] = int(fs)
 	return result
 
 
@@ -228,6 +273,8 @@ static func _sorted_dictionary(source: Dictionary) -> Dictionary:
 			for entry in value:
 				rounded.append(_round_float(float(entry)) if entry is float else entry)
 			result[key] = rounded
+		elif typeof(value) == TYPE_INT:
+			result[key] = value
 		else:
 			result[key] = value
 	return result

@@ -11,6 +11,8 @@ var _preview: Control
 var _selected: Control
 var _tree: Tree
 var _fields: Dictionary = {}
+var _visual_section: Control        ## 视觉属性区容器，切换选中时动态 show/hide
+var _label_section: Control         ## Label 专属字段容器
 var _instance_toggle: CheckBox
 var _grid_toggle: CheckBox
 var _resolution: OptionButton
@@ -187,6 +189,38 @@ func _build_ui() -> void:
 	]:
 		_add_number_field(property_list, key)
 
+	## ── 视觉属性区 ──
+	var vis_sep := HSeparator.new()
+	property_list.add_child(vis_sep)
+
+	var vis_title := Label.new()
+	vis_title.text = "视觉属性"
+	vis_title.add_theme_font_size_override("font_size", 14)
+	vis_title.add_theme_color_override("font_color", Color(0.72, 0.86, 1.0))
+	property_list.add_child(vis_title)
+
+	_visual_section = VBoxContainer.new()
+	_visual_section.add_theme_constant_override("separation", 4)
+	property_list.add_child(_visual_section)
+
+	## modulate / scale（所有节点）
+	for key in ["modulate_r", "modulate_g", "modulate_b", "modulate_a", "scale_x", "scale_y"]:
+		_add_visual_field(_visual_section, key)
+
+	## Label 专属
+	_label_section = VBoxContainer.new()
+	_label_section.add_theme_constant_override("separation", 4)
+	var lbl_sep := HSeparator.new()
+	_label_section.add_child(lbl_sep)
+	var lbl_title := Label.new()
+	lbl_title.text = "文字属性 (Label)"
+	lbl_title.add_theme_font_size_override("font_size", 13)
+	lbl_title.add_theme_color_override("font_color", Color(1.0, 0.86, 0.55))
+	_label_section.add_child(lbl_title)
+	for key in ["font_size", "font_color_r", "font_color_g", "font_color_b", "font_color_a"]:
+		_add_visual_field(_label_section, key)
+	_visual_section.add_child(_label_section)
+
 	var separator := HSeparator.new()
 	inspector.add_child(separator)
 
@@ -232,6 +266,35 @@ func _add_number_field(parent: Control, key: String) -> void:
 	field.min_value = -4096
 	field.max_value = 4096
 	field.step = 0.001 if key.begins_with("anchor") else 1.0
+	field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	field.value_changed.connect(_on_field_changed.bind(key))
+	row.add_child(field)
+	_fields[key] = field
+
+
+func _add_visual_field(parent: Control, key: String) -> void:
+	var row := HBoxContainer.new()
+	parent.add_child(row)
+	var label := Label.new()
+	label.text = key
+	label.custom_minimum_size.x = 105
+	row.add_child(label)
+	var field := SpinBox.new()
+	field.allow_greater = true
+	field.allow_lesser = true
+	if key == "font_size":
+		field.min_value = 8
+		field.max_value = 72
+		field.step = 1.0
+	elif key.begins_with("scale"):
+		field.min_value = 0.01
+		field.max_value = 10.0
+		field.step = 0.01
+	else:
+		## modulate_* / font_color_*：0.0 ~ 1.0
+		field.min_value = 0.0
+		field.max_value = 1.0
+		field.step = 0.01
 	field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	field.value_changed.connect(_on_field_changed.bind(key))
 	row.add_child(field)
@@ -285,6 +348,26 @@ func _sync_fields() -> void:
 	_fields["offset_top"].value = _selected.offset_top
 	_fields["offset_right"].value = _selected.offset_right
 	_fields["offset_bottom"].value = _selected.offset_bottom
+	## 视觉属性
+	_fields["modulate_r"].value = _selected.modulate.r
+	_fields["modulate_g"].value = _selected.modulate.g
+	_fields["modulate_b"].value = _selected.modulate.b
+	_fields["modulate_a"].value = _selected.modulate.a
+	_fields["scale_x"].value = _selected.scale.x
+	_fields["scale_y"].value = _selected.scale.y
+	## Label 专属字段
+	var is_label := _selected is Label
+	if _label_section != null:
+		_label_section.visible = is_label
+	if is_label:
+		var lbl := _selected as Label
+		var fs := lbl.get_theme_font_size("font_size") if lbl.has_theme_font_size_override("font_size") else lbl.get_theme_font_size("font_size")
+		_fields["font_size"].value = fs
+		var fc := lbl.get_theme_color("font_color") if lbl.has_theme_color_override("font_color") else Color(0.96, 0.91, 0.82)
+		_fields["font_color_r"].value = fc.r
+		_fields["font_color_g"].value = fc.g
+		_fields["font_color_b"].value = fc.b
+		_fields["font_color_a"].value = fc.a
 	_instance_toggle.disabled = str(_selected.get_meta("layout_instance_id", "")) == ""
 	_syncing = false
 
@@ -306,6 +389,25 @@ func _on_field_changed(value: float, key: String) -> void:
 		"offset_top": _selected.offset_top = value
 		"offset_right": _selected.offset_right = value
 		"offset_bottom": _selected.offset_bottom = value
+		"modulate_r": _selected.modulate.r = value
+		"modulate_g": _selected.modulate.g = value
+		"modulate_b": _selected.modulate.b = value
+		"modulate_a": _selected.modulate.a = value
+		"scale_x": _selected.scale.x = value
+		"scale_y": _selected.scale.y = value
+		"font_size":
+			if _selected is Label:
+				(_selected as Label).add_theme_font_size_override("font_size", int(value))
+		"font_color_r", "font_color_g", "font_color_b", "font_color_a":
+			if _selected is Label:
+				var lbl := _selected as Label
+				var fc := lbl.get_theme_color("font_color") if lbl.has_theme_color_override("font_color") else Color(0.96, 0.91, 0.82)
+				match key:
+					"font_color_r": fc.r = value
+					"font_color_g": fc.g = value
+					"font_color_b": fc.b = value
+					"font_color_a": fc.a = value
+				lbl.add_theme_color_override("font_color", fc)
 	_interaction.queue_redraw()
 	_mark_dirty()
 
@@ -469,6 +571,18 @@ func _restore_snapshot(control: Control, snapshot: Dictionary) -> void:
 	control.offset_top = offsets[1]
 	control.offset_right = offsets[2]
 	control.offset_bottom = offsets[3]
+	if layout.has("modulate"):
+		var m := layout["modulate"] as Array
+		control.modulate = Color(m[0], m[1], m[2], m[3])
+	if layout.has("scale"):
+		var s := layout["scale"] as Array
+		control.scale = Vector2(s[0], s[1])
+	if control is Label:
+		if layout.has("font_size"):
+			(control as Label).add_theme_font_size_override("font_size", int(layout["font_size"]))
+		if layout.has("font_color"):
+			var fc := layout["font_color"] as Array
+			(control as Label).add_theme_color_override("font_color", Color(fc[0], fc[1], fc[2], fc[3]))
 
 
 func _reset_selected() -> void:
