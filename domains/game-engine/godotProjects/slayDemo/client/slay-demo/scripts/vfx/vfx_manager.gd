@@ -101,6 +101,9 @@ func _spawn_slash_effect(pos: Vector2) -> void:
 	## fallback
 	var sprite := TextureRect.new()
 	sprite.texture = load(HIT_SLASH)
+	sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	sprite.size = Vector2(128, 128)
+	sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	sprite.pivot_offset = Vector2(64, 64)
 	sprite.global_position = pos - Vector2(64, 64)
 	sprite.modulate = Color(1.0, 1.0, 1.0, 0.95)
@@ -147,6 +150,9 @@ func _spawn_magic_effect(pos: Vector2) -> void:
 	## fallback
 	var sprite := TextureRect.new()
 	sprite.texture = load(MAGIC_BURST)
+	sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	sprite.size = Vector2(128, 128)
+	sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	sprite.pivot_offset = Vector2(64, 64)
 	sprite.global_position = pos - Vector2(64, 64)
 	sprite.modulate = Color(0.7, 0.6, 1.0, 0.9)

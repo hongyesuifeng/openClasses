@@ -26,6 +26,7 @@ func _build() -> void:
 	var background := TextureRect.new()
 	background.texture = load("res://assets/backgrounds/bg_map.png")
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
+	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
 

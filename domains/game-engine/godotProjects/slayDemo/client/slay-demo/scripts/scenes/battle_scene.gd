@@ -118,6 +118,7 @@ func _build() -> void:
 	var background := TextureRect.new()
 	background.texture = load(BACKGROUND_BOSS if encounter_id == "v1_boss_01" else BACKGROUND_NORMAL)
 	background.set_anchors_preset(Control.PRESET_FULL_RECT)
+	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	add_child(background)
 	UILayoutStoreScript.apply_layout(background, "battle.background", encounter_id)
