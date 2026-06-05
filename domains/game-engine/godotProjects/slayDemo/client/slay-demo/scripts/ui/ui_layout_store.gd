@@ -258,6 +258,13 @@ static func _merge_layout(target: Dictionary, source: Variant) -> void:
 	for key in LAYOUT_KEYS:
 		if source.has(key):
 			target[key] = (source[key] as Array).duplicate()
+	## 视觉属性（数组形式：font_color / modulate / scale）
+	for key in VISUAL_ARRAY_KEYS:
+		if source.has(key):
+			target[key] = (source[key] as Array).duplicate()
+	## font_size（单个数值）
+	if source.has("font_size"):
+		target["font_size"] = source["font_size"]
 
 
 static func _sorted_dictionary(source: Dictionary) -> Dictionary:

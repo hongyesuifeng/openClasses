@@ -40,6 +40,56 @@ func run_async(ctx: Variant) -> void:
 	ctx.assert_eq(reloaded.get("offsets", []), [9.0, 8.0, 7.0, 6.0], "saved instance values reload")
 	control.free()
 
+	## ── 视觉属性 round-trip 测试 ──
+	UILayoutStoreScript.set_override("vis-test", {
+		"anchors": [0.0, 0.0, 1.0, 1.0],
+		"offsets": [0.0, 0.0, 0.0, 0.0],
+		"min_size": [0.0, 0.0],
+		"font_size": 28,
+		"font_color": [0.5, 0.6, 0.7, 0.8],
+		"modulate": [0.9, 0.8, 0.7, 0.6],
+		"scale": [1.5, 2.0],
+	})
+	var vis_layout := UILayoutStoreScript.get_layout("vis-test")
+	ctx.assert_true(vis_layout.has("font_size"), "font_size survives merge")
+	ctx.assert_eq(vis_layout.get("font_size", 0), 28, "font_size value correct after merge")
+	ctx.assert_true(vis_layout.has("font_color"), "font_color survives merge")
+	_assert_float_array_approx(ctx, vis_layout.get("font_color", []), [0.5, 0.6, 0.7, 0.8], "font_color value correct after merge")
+	ctx.assert_true(vis_layout.has("modulate"), "modulate survives merge")
+	_assert_float_array_approx(ctx, vis_layout.get("modulate", []), [0.9, 0.8, 0.7, 0.6], "modulate value correct after merge")
+	ctx.assert_true(vis_layout.has("scale"), "scale survives merge")
+	_assert_float_array_approx(ctx, vis_layout.get("scale", []), [1.5, 2.0], "scale value correct after merge")
+
+	var label := Label.new()
+	label.text = "test"
+	label.add_theme_font_size_override("font_size", 16)
+	UILayoutStoreScript.apply_layout(label, "vis-test")
+	ctx.assert_eq(label.get_theme_font_size("font_size"), 28, "font_size override applies to Label")
+	ctx.assert_eq(label.modulate, Color(0.9, 0.8, 0.7, 0.6), "modulate applies to Label")
+	ctx.assert_eq(label.scale, Vector2(1.5, 2.0), "scale applies to Label")
+	label.free()
+
+	## gallery 路径也应该保留视觉属性
+	UILayoutStoreScript.set_gallery_override("gallery.vis", {
+		"anchors": [0.0, 0.0, 0.5, 0.5],
+		"offsets": [10.0, 20.0, 30.0, 40.0],
+		"min_size": [0.0, 0.0],
+		"font_size": 36,
+		"modulate": [1.0, 0.5, 0.3, 1.0],
+		"scale": [1.0, 1.0],
+	})
+	var gal_layout := UILayoutStoreScript.get_gallery_layout("gallery.vis")
+	ctx.assert_true(gal_layout.has("font_size"), "gallery: font_size survives merge")
+	ctx.assert_eq(gal_layout.get("font_size", 0), 36, "gallery: font_size value correct")
+	ctx.assert_true(gal_layout.has("modulate"), "gallery: modulate survives merge")
+
+	UILayoutStoreScript.save()
+	UILayoutStoreScript.reload_config()
+	var reloaded_vis := UILayoutStoreScript.get_layout("vis-test")
+	ctx.assert_true(reloaded_vis.has("font_size"), "font_size survives save + reload")
+	ctx.assert_eq(reloaded_vis.get("font_size", 0), 28, "font_size value correct after reload")
+	ctx.assert_true(reloaded_vis.has("modulate"), "modulate survives save + reload")
+
 	var card := CardViewFactoryScript.create_card_button({"id": "strike", "name": "打击", "type": "attack"})
 	ctx.assert_true(_has_layout_id(card, "card.root"), "card factory marks root")
 	ctx.assert_true(_has_layout_id(card, "card.icon"), "card factory marks icon")
@@ -88,3 +138,9 @@ func _has_layout_id(root: Control, element_id: String) -> bool:
 		if child is Control and _has_layout_id(child as Control, element_id):
 			return true
 	return false
+
+
+func _assert_float_array_approx(ctx: Variant, actual: Array, expected: Array, label: String) -> void:
+	ctx.assert_eq(actual.size(), expected.size(), "%s (length)" % label)
+	for i in actual.size():
+		ctx.assert_true(is_equal_approx(float(actual[i]), float(expected[i])), "%s [%d]: %.6f ≈ %.6f" % [label, i, float(actual[i]), float(expected[i])])

@@ -57,6 +57,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	var template := TextureRect.new()
 	template.texture = load(str(TEMPLATE_BY_RARITY.get(str(card.get("rarity", "")), TEMPLATE_BY_RARITY["common"])))
 	template.set_anchors_preset(Control.PRESET_FULL_RECT)
+	template.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	template.stretch_mode = TextureRect.STRETCH_SCALE
 	template.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(template)
