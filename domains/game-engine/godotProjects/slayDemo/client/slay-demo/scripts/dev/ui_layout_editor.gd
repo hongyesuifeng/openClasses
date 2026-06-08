@@ -8,6 +8,7 @@ signal closed(saved: bool)
 var _preview_host: Control
 var _interaction: Control
 var _preview: Control
+var _edit_root: Node
 var _selected: Control
 var _tree: Tree
 var _fields: Dictionary = {}
@@ -29,22 +30,26 @@ var _before_drag: Dictionary = {}
 var _syncing := false
 ## live 模式：直接操作真实场景节点，不 duplicate，画布区隐藏
 var _live_mode := false
+var _live_container: Control
+var _live_viewport_size := Vector2(1280, 720)
 
 
-func open(source: Control, live_mode := false) -> void:
+func open(source: Control, live_mode := false, live_root: Node = null, live_container: Control = null, live_viewport_size := Vector2(1280, 720)) -> void:
 	_live_mode = live_mode
+	_live_container = live_container
+	_live_viewport_size = live_viewport_size
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	z_index = 1000
 	_build_ui()
 
 	if _live_mode:
-		## Live 模式：直接持有真实节点，隐藏画布区，背后场景即是预览
+		## Live 模式：直接持有真实节点，背后 SubViewport 即是实时预览。
 		_preview = source
-		if _preview_host != null:
-			_preview_host.get_parent().visible = false
-		_interaction = Control.new()  ## 虚拟 interaction，不需要实际绘制
+		_edit_root = live_root if live_root != null else source
+		_select_control(source)
 	else:
 		_preview = source.duplicate() as Control
+		_edit_root = _preview
 		if _preview == null:
 			_preview = ColorRect.new()
 			(_preview as ColorRect).color = Color(0.3, 0.35, 0.45)
@@ -56,28 +61,41 @@ func open(source: Control, live_mode := false) -> void:
 		_interaction.move_to_front()
 
 	_build_tree()
-	for control in _editable_controls(_preview):
+	for control in _editable_controls(_edit_root):
 		_initial[control] = _snapshot(control)
-	var editable := _editable_controls(_preview)
-	_select_control(editable[0] if not editable.is_empty() else _preview)
 	if not _live_mode:
-		_interaction.grab_focus()
+		var editable := _editable_controls(_edit_root)
+		_select_control(editable[0] if not editable.is_empty() else _preview)
+	_interaction.grab_focus()
 
 
 func _build_ui() -> void:
 	var shade := ColorRect.new()
-	shade.color = Color(0.025, 0.03, 0.04, 0.98)
+	shade.color = Color(0.025, 0.03, 0.04, 0.10) if _live_mode else Color(0.025, 0.03, 0.04, 0.98)
 	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(shade)
+
+	if _live_mode:
+		_interaction = Control.new()
+		_interaction.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_interaction.mouse_filter = Control.MOUSE_FILTER_STOP
+		_interaction.focus_mode = Control.FOCUS_ALL
+		_interaction.gui_input.connect(_on_canvas_input)
+		_interaction.draw.connect(_draw_selection)
+		add_child(_interaction)
 
 	var root := VBoxContainer.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	root.add_theme_constant_override("separation", 4)
+	if _live_mode:
+		root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(root)
 
 	var toolbar := HBoxContainer.new()
 	toolbar.custom_minimum_size.y = 46
 	toolbar.add_theme_constant_override("separation", 6)
+	toolbar.mouse_filter = Control.MOUSE_FILTER_STOP
 	root.add_child(toolbar)
 	_add_button(toolbar, "撤销", _undo_change)
 	_add_button(toolbar, "重做", _redo_change)
@@ -103,23 +121,28 @@ func _build_ui() -> void:
 	_add_button(toolbar, "放大", func(): _set_zoom(_zoom * 1.1))
 
 	var help := Label.new()
-	help.text = "左侧选元素  |  中间拖动  |  蓝色方块缩放"
+	help.text = "左侧选元素  |  预览上拖动  |  蓝色方块缩放" if _live_mode else "左侧选元素  |  中间拖动  |  蓝色方块缩放"
 	help.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	help.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	toolbar.add_child(help)
 
 	var columns := HSplitContainer.new()
 	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	if _live_mode:
+		columns.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(columns)
 
 	_tree = Tree.new()
 	_tree.custom_minimum_size.x = 220
 	_tree.hide_root = true
+	_tree.mouse_filter = Control.MOUSE_FILTER_STOP
 	_tree.item_selected.connect(_on_tree_selected)
 	columns.add_child(_tree)
 
 	var work_area := HSplitContainer.new()
 	work_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if _live_mode:
+		work_area.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	columns.add_child(work_area)
 
 	var viewport_panel := PanelContainer.new()
@@ -135,6 +158,8 @@ func _build_ui() -> void:
 	viewport_panel.add_theme_stylebox_override("panel", viewport_style)
 	## live 模式：画布区折叠，背后的真实场景本身就是预览
 	viewport_panel.visible = not _live_mode
+	if _live_mode:
+		viewport_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	work_area.add_child(viewport_panel)
 
 	_preview_host = Control.new()
@@ -146,13 +171,14 @@ func _build_ui() -> void:
 	_preview_host.clip_contents = true
 	viewport_panel.add_child(_preview_host)
 
-	_interaction = Control.new()
-	_interaction.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_interaction.mouse_filter = Control.MOUSE_FILTER_STOP
-	_interaction.focus_mode = Control.FOCUS_ALL
-	_interaction.gui_input.connect(_on_canvas_input)
-	_interaction.draw.connect(_draw_selection)
-	_preview_host.add_child(_interaction)
+	if not _live_mode:
+		_interaction = Control.new()
+		_interaction.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_interaction.mouse_filter = Control.MOUSE_FILTER_STOP
+		_interaction.focus_mode = Control.FOCUS_ALL
+		_interaction.gui_input.connect(_on_canvas_input)
+		_interaction.draw.connect(_draw_selection)
+		_preview_host.add_child(_interaction)
 
 	var canvas_hint := Label.new()
 	canvas_hint.text = "可操作画布"
@@ -161,12 +187,14 @@ func _build_ui() -> void:
 	canvas_hint.add_theme_font_size_override("font_size", 18)
 	canvas_hint.add_theme_color_override("font_color", Color(0.52, 0.78, 1.0))
 	_preview_host.add_child(canvas_hint)
-	_interaction.move_to_front()
+	if not _live_mode:
+		_interaction.move_to_front()
 
 	var inspector := VBoxContainer.new()
 	inspector.name = "LayoutInspector"
 	inspector.custom_minimum_size.x = 290
 	inspector.add_theme_constant_override("separation", 6)
+	inspector.mouse_filter = Control.MOUSE_FILTER_STOP
 	work_area.add_child(inspector)
 
 	var title := Label.new()
@@ -175,7 +203,7 @@ func _build_ui() -> void:
 	inspector.add_child(title)
 
 	var instructions := Label.new()
-	instructions.text = "左侧选择元素后，在中央画布拖动。\n拖动蓝框上的方块调整尺寸。\n方向键移动 1px，Shift+方向键移动 8px。"
+	instructions.text = "左侧选择元素后，在实时预览上拖动。\n拖动蓝框上的方块调整尺寸。\n方向键移动 1px，Shift+方向键移动 8px。" if _live_mode else "左侧选择元素后，在中央画布拖动。\n拖动蓝框上的方块调整尺寸。\n方向键移动 1px，Shift+方向键移动 8px。"
 	instructions.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	instructions.custom_minimum_size.y = 76
 	instructions.add_theme_color_override("font_color", Color(0.72, 0.82, 0.94))
@@ -319,18 +347,18 @@ func _add_visual_field(parent: Control, key: String) -> void:
 func _build_tree() -> void:
 	_tree.clear()
 	var root_item := _tree.create_item()
-	_add_tree_control(_preview, root_item)
+	_add_tree_control(_edit_root, root_item)
 
 
-func _add_tree_control(control: Control, parent_item: TreeItem) -> void:
-	if control.has_meta("layout_element_id"):
+func _add_tree_control(node: Node, parent_item: TreeItem) -> void:
+	if node is Control and (node as Control).has_meta("layout_element_id"):
+		var control := node as Control
 		var item := _tree.create_item(parent_item)
 		item.set_text(0, str(control.get_meta("layout_element_id")))
 		item.set_metadata(0, control)
 		parent_item = item
-	for child in control.get_children():
-		if child is Control:
-			_add_tree_control(child as Control, parent_item)
+	for child in node.get_children():
+		_add_tree_control(child, parent_item)
 
 
 func _on_tree_selected() -> void:
@@ -456,7 +484,7 @@ func _on_canvas_input(event: InputEvent) -> void:
 		elif mouse.button_index == MOUSE_BUTTON_LEFT:
 			_interaction.grab_focus()
 			if mouse.pressed:
-				var hit := _pick_editable(_preview, mouse.position)
+				var hit := _pick_editable_at_editor_pos(mouse.position)
 				if hit != null:
 					_select_control(hit)
 				_drag_mode = _resize_mode(mouse.position)
@@ -481,6 +509,18 @@ func _pick_editable(control: Control, point: Vector2) -> Control:
 	return null
 
 
+func _pick_editable_at_editor_pos(point: Vector2) -> Control:
+	if not _live_mode:
+		return _pick_editable(_preview, point)
+	var viewport_point := _editor_pos_to_viewport_pos(point)
+	var candidates := _editable_controls(_edit_root)
+	candidates.reverse()
+	for node in candidates:
+		if node.get_global_rect().has_point(viewport_point):
+			return node
+	return null
+
+
 func _resize_mode(point: Vector2) -> String:
 	var rect := _rect_in_editor(_selected)
 	var left := absf(point.x - rect.position.x) <= 7
@@ -501,6 +541,8 @@ func _resize_mode(point: Vector2) -> String:
 func _apply_drag(delta: Vector2) -> void:
 	_restore_snapshot(_selected, _before_drag)
 	delta = _snap(delta)
+	if _live_mode:
+		delta = _editor_delta_to_viewport_delta(delta)
 	if _drag_mode == "move":
 		_selected.position += delta
 	else:
@@ -617,7 +659,7 @@ func _reset_selected() -> void:
 
 
 func _reset_template() -> void:
-	for control in _editable_controls(_preview):
+	for control in _editable_controls(_edit_root):
 		var element_id := str(control.get_meta("layout_element_id", ""))
 		if str(control.get_meta("layout_scope", "")) == "gallery":
 			UILayoutStoreScript.reset_gallery_override(element_id)
@@ -630,7 +672,7 @@ func _reset_template() -> void:
 
 
 func _save_and_close() -> void:
-	for control in _editable_controls(_preview):
+	for control in _editable_controls(_edit_root):
 		if _initial.has(control) and UILayoutStoreScript.layout_from_control(control) == (_initial[control] as Dictionary)["layout"]:
 			continue
 		var element_id := str(control.get_meta("layout_element_id", ""))
@@ -652,7 +694,7 @@ func _save_and_close() -> void:
 func _close_without_save() -> void:
 	if _live_mode:
 		## 恢复节点到保存前的状态
-		for control in _editable_controls(_preview):
+		for control in _editable_controls(_edit_root):
 			if _initial.has(control):
 				_restore_snapshot(control, _initial[control])
 	UILayoutStoreScript.reload_config()
@@ -660,13 +702,12 @@ func _close_without_save() -> void:
 	queue_free()
 
 
-func _editable_controls(root: Control) -> Array[Control]:
+func _editable_controls(root: Node) -> Array[Control]:
 	var result: Array[Control] = []
-	if root.has_meta("layout_element_id"):
-		result.append(root)
+	if root is Control and (root as Control).has_meta("layout_element_id"):
+		result.append(root as Control)
 	for child in root.get_children():
-		if child is Control:
-			result.append_array(_editable_controls(child as Control))
+		result.append_array(_editable_controls(child))
 	return result
 
 
@@ -699,13 +740,49 @@ func _disable_input(control: Control) -> void:
 
 
 func _rect_in_editor(control: Control) -> Rect2:
+	if _live_mode:
+		return _live_rect_in_editor(control)
 	var global_rect := control.get_global_rect()
 	return Rect2(global_rect.position - _interaction.global_position, global_rect.size)
 
 
+func _live_rect_in_editor(control: Control) -> Rect2:
+	if _live_container == null:
+		return Rect2(control.get_global_rect().position, control.get_global_rect().size)
+	var container_rect := _live_container.get_global_rect()
+	var viewport_rect := control.get_global_rect()
+	var scale := Vector2(
+		container_rect.size.x / maxf(_live_viewport_size.x, 1.0),
+		container_rect.size.y / maxf(_live_viewport_size.y, 1.0)
+	)
+	return Rect2(
+		container_rect.position - _interaction.global_position + viewport_rect.position * scale,
+		viewport_rect.size * scale
+	)
+
+
+func _editor_pos_to_viewport_pos(point: Vector2) -> Vector2:
+	if _live_container == null:
+		return point
+	var container_rect := _live_container.get_global_rect()
+	var local := point - (container_rect.position - _interaction.global_position)
+	return Vector2(
+		local.x * _live_viewport_size.x / maxf(container_rect.size.x, 1.0),
+		local.y * _live_viewport_size.y / maxf(container_rect.size.y, 1.0)
+	)
+
+
+func _editor_delta_to_viewport_delta(delta: Vector2) -> Vector2:
+	if _live_container == null:
+		return delta
+	var container_size := _live_container.size
+	return Vector2(
+		delta.x * _live_viewport_size.x / maxf(container_size.x, 1.0),
+		delta.y * _live_viewport_size.y / maxf(container_size.y, 1.0)
+	)
+
+
 func _draw_selection() -> void:
-	if _live_mode:
-		return
 	var canvas_size := _interaction.size
 	var grid_color := Color(0.24, 0.29, 0.36, 0.42)
 	var major_grid_color := Color(0.32, 0.40, 0.50, 0.55)

@@ -834,7 +834,7 @@ func _build_scene_tab(scene_path: String, mock_fn: Callable) -> void:
 		var vp_pos := mouse.position * Vector2(scale_x, scale_y)
 		var hit := _pick_layout_node(scene_node, vp_pos)
 		if hit != null:
-			_open_live_editor(hit)
+			_open_live_editor(hit, scene_node, container, Vector2(viewport.size))
 		else:
 			hint.text = "未找到可编辑元素（需要 layout_element_id meta）— 右键其他位置再试"
 	)
@@ -859,10 +859,10 @@ func _collect_layout_controls(root: Node, result: Array[Control]) -> void:
 		_collect_layout_controls(child, result)
 
 
-func _open_live_editor(control: Control) -> void:
+func _open_live_editor(control: Control, scene_root: Node, preview_container: Control, viewport_size: Vector2) -> void:
 	var editor := UILayoutEditorScript.new()
 	add_child(editor)
-	editor.open(control, true)  ## live_mode = true
+	editor.open(control, true, scene_root, preview_container, viewport_size)
 	editor.closed.connect(func(_saved: bool) -> void:
 		pass  ## live 模式：不需要刷新 Gallery，真实场景已实时更新
 	)
@@ -896,7 +896,7 @@ func _mock_shop() -> void:
 	_mock_base()
 	var game_state: Variant = _autoload("GameState")
 	if game_state != null:
-		game_state.gold = 999
+		game_state.player_gold = 999
 
 
 func _mock_reward() -> void:
@@ -915,7 +915,7 @@ func _mock_result() -> void:
 	_mock_base()
 	var game_state: Variant = _autoload("GameState")
 	if game_state != null:
-		game_state.battles_won = 3
+		game_state.battle_wins = 3
 
 ## 所有有序列帧的动画条目：[folder_name, frame_prefix, label]
 const ANIM_ENTRIES := [
