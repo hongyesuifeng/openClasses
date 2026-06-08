@@ -3,6 +3,7 @@ class_name UILayoutStore
 
 const DEFAULT_PATH := "res://data/ui_layouts.json"
 const LAYOUT_KEYS := ["anchors", "offsets", "min_size"]
+const BOOLEAN_KEYS := ["free_position"]
 ## 视觉属性 key 及其期望的数组长度（font_size 单独存为数值，不在此列）
 const VISUAL_ARRAY_KEYS := {"font_color": 4, "modulate": 4, "scale": 2}
 
@@ -76,6 +77,8 @@ static func _apply_layout_dictionary(control: Control, layout: Dictionary) -> vo
 	if layout.has("scale"):
 		var s := layout["scale"] as Array
 		control.scale = Vector2(float(s[0]), float(s[1]))
+	if bool(layout.get("free_position", false)):
+		control.top_level = true
 
 
 static func set_override(element_id: String, layout: Dictionary, instance_id := "") -> void:
@@ -161,6 +164,8 @@ static func layout_from_control(control: Control) -> Dictionary:
 			result["font_color"] = [fc.r, fc.g, fc.b, fc.a]
 	result["modulate"] = [control.modulate.r, control.modulate.g, control.modulate.b, control.modulate.a]
 	result["scale"] = [control.scale.x, control.scale.y]
+	if control.top_level:
+		result["free_position"] = true
 	return result
 
 
@@ -249,6 +254,9 @@ static func _validated_layout(value: Variant) -> Dictionary:
 		var fs: Variant = value["font_size"]
 		if typeof(fs) == TYPE_INT or typeof(fs) == TYPE_FLOAT:
 			result["font_size"] = int(fs)
+	for key in BOOLEAN_KEYS:
+		if value.has(key):
+			result[key] = bool(value[key])
 	return result
 
 
@@ -265,6 +273,9 @@ static func _merge_layout(target: Dictionary, source: Variant) -> void:
 	## font_size（单个数值）
 	if source.has("font_size"):
 		target["font_size"] = source["font_size"]
+	for key in BOOLEAN_KEYS:
+		if source.has(key):
+			target[key] = bool(source[key])
 
 
 static func _sorted_dictionary(source: Dictionary) -> Dictionary:

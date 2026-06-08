@@ -127,6 +127,58 @@ func run_async(ctx: Variant) -> void:
 	source.free()
 	editor.free()
 
+	var live_root := Control.new()
+	live_root.size = Vector2(1280, 720)
+	var live_container := Control.new()
+	live_container.position = Vector2(40, 50)
+	live_container.size = Vector2(640, 360)
+	var vbox := VBoxContainer.new()
+	live_root.add_child(vbox)
+	var live_label := Label.new()
+	live_label.text = "live"
+	live_label.size = Vector2(100, 30)
+	live_label.set_meta("layout_element_id", "live.label")
+	vbox.add_child(live_label)
+	tree.root.add_child.call_deferred(live_root)
+	tree.root.add_child.call_deferred(live_container)
+	await tree.process_frame
+
+	var live_editor := UILayoutEditorScript.new()
+	tree.root.add_child.call_deferred(live_editor)
+	await tree.process_frame
+	live_editor.open(live_label, true, live_root, live_container, Vector2(1280, 720))
+	await tree.process_frame
+	var live_interaction := live_editor.get("_interaction") as Control
+	ctx.assert_eq(live_interaction.size, live_container.size, "live editor input layer only covers preview container")
+	live_editor.call("_on_field_changed", 64.0, "x")
+	ctx.assert_true(live_label.top_level, "live editor frees Container-managed controls when moving")
+	ctx.assert_eq(live_label.position.x, 64.0, "live editor position field updates real node")
+	live_editor.call("_on_field_changed", 0.25, "modulate_r")
+	ctx.assert_true(is_equal_approx(live_label.modulate.r, 0.25), "live editor visual field updates real node")
+	live_editor.free()
+	live_container.free()
+	live_root.free()
+
+	var freed_root := Control.new()
+	var freed_container := Control.new()
+	freed_container.size = Vector2(320, 180)
+	var freed_label := Label.new()
+	freed_label.set_meta("layout_element_id", "live.freed")
+	freed_root.add_child(freed_label)
+	tree.root.add_child.call_deferred(freed_root)
+	tree.root.add_child.call_deferred(freed_container)
+	await tree.process_frame
+	var freed_editor := UILayoutEditorScript.new()
+	tree.root.add_child.call_deferred(freed_editor)
+	await tree.process_frame
+	freed_editor.open(freed_label, true, freed_root, freed_container, Vector2(1280, 720))
+	await tree.process_frame
+	freed_root.free()
+	await tree.process_frame
+	freed_editor.call("_close_without_save")
+	freed_container.free()
+	ctx.assert_true(true, "live editor close tolerates freed preview root")
+
 	UILayoutStoreScript.restore_default_storage()
 	UILayoutStoreScript.reload_config()
 

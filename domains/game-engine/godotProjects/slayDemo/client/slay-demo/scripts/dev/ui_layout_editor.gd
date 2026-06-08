@@ -24,6 +24,7 @@ var _zoom := 1.0
 var _undo: Array[Dictionary] = []
 var _redo: Array[Dictionary] = []
 var _initial: Dictionary = {}
+var _tracked_controls: Array[Control] = []
 var _drag_mode := ""
 var _drag_start := Vector2.ZERO
 var _before_drag: Dictionary = {}
@@ -32,6 +33,11 @@ var _syncing := false
 var _live_mode := false
 var _live_container: Control
 var _live_viewport_size := Vector2(1280, 720)
+
+
+func _process(_delta: float) -> void:
+	if _live_mode:
+		_sync_live_interaction_rect()
 
 
 func open(source: Control, live_mode := false, live_root: Node = null, live_container: Control = null, live_viewport_size := Vector2(1280, 720)) -> void:
@@ -61,10 +67,11 @@ func open(source: Control, live_mode := false, live_root: Node = null, live_cont
 		_interaction.move_to_front()
 
 	_build_tree()
-	for control in _editable_controls(_edit_root):
+	_tracked_controls = _editable_controls(_edit_root)
+	for control in _tracked_controls:
 		_initial[control] = _snapshot(control)
 	if not _live_mode:
-		var editable := _editable_controls(_edit_root)
+		var editable := _tracked_controls
 		_select_control(editable[0] if not editable.is_empty() else _preview)
 	_interaction.grab_focus()
 
@@ -78,12 +85,13 @@ func _build_ui() -> void:
 
 	if _live_mode:
 		_interaction = Control.new()
-		_interaction.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_interaction.set_anchors_preset(Control.PRESET_TOP_LEFT)
 		_interaction.mouse_filter = Control.MOUSE_FILTER_STOP
 		_interaction.focus_mode = Control.FOCUS_ALL
 		_interaction.gui_input.connect(_on_canvas_input)
 		_interaction.draw.connect(_draw_selection)
 		add_child(_interaction)
+		call_deferred("_sync_live_interaction_rect")
 
 	var root := VBoxContainer.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -420,8 +428,12 @@ func _on_field_changed(value: float, key: String) -> void:
 		return
 	_push_undo()
 	match key:
-		"x": _selected.position.x = value
-		"y": _selected.position.y = value
+		"x":
+			_ensure_free_position_if_container_child()
+			_selected.position.x = value
+		"y":
+			_ensure_free_position_if_container_child()
+			_selected.position.y = value
 		"w": _selected.size.x = maxf(value, _selected.custom_minimum_size.x)
 		"h": _selected.size.y = maxf(value, _selected.custom_minimum_size.y)
 		"anchor_left": _selected.anchor_left = value
@@ -469,6 +481,7 @@ func _on_canvas_input(event: InputEvent) -> void:
 				KEY_UP: direction = Vector2.UP
 				KEY_DOWN: direction = Vector2.DOWN
 			_push_undo()
+			_ensure_free_position_if_container_child()
 			_selected.position += direction * amount
 			_sync_fields()
 			_interaction.queue_redraw()
@@ -483,6 +496,7 @@ func _on_canvas_input(event: InputEvent) -> void:
 			_set_zoom(_zoom / 1.1)
 		elif mouse.button_index == MOUSE_BUTTON_LEFT:
 			_interaction.grab_focus()
+			_sync_live_interaction_rect()
 			if mouse.pressed:
 				var hit := _pick_editable_at_editor_pos(mouse.position)
 				if hit != null:
@@ -544,8 +558,10 @@ func _apply_drag(delta: Vector2) -> void:
 	if _live_mode:
 		delta = _editor_delta_to_viewport_delta(delta)
 	if _drag_mode == "move":
+		_ensure_free_position_if_container_child()
 		_selected.position += delta
 	else:
+		_ensure_free_position_if_container_child()
 		var rect := Rect2(_selected.position, _selected.size)
 		if "l" in _drag_mode:
 			rect.position.x += delta.x
@@ -611,12 +627,17 @@ func _redo_change() -> void:
 
 
 func _snapshot(control: Control) -> Dictionary:
-	return {"control": control, "layout": UILayoutStoreScript.layout_from_control(control)}
+	return {
+		"control": control,
+		"layout": UILayoutStoreScript.layout_from_control(control),
+		"top_level": control.top_level,
+	}
 
 
 func _restore_snapshot(control: Control, snapshot: Dictionary) -> void:
 	if snapshot.is_empty() or snapshot.get("control") != control:
 		return
+	control.top_level = bool(snapshot.get("top_level", control.top_level))
 	var layout := snapshot["layout"] as Dictionary
 	var anchors := layout["anchors"] as Array
 	var offsets := layout["offsets"] as Array
@@ -659,7 +680,7 @@ func _reset_selected() -> void:
 
 
 func _reset_template() -> void:
-	for control in _editable_controls(_edit_root):
+	for control in _valid_tracked_controls():
 		var element_id := str(control.get_meta("layout_element_id", ""))
 		if str(control.get_meta("layout_scope", "")) == "gallery":
 			UILayoutStoreScript.reset_gallery_override(element_id)
@@ -672,7 +693,7 @@ func _reset_template() -> void:
 
 
 func _save_and_close() -> void:
-	for control in _editable_controls(_edit_root):
+	for control in _valid_tracked_controls():
 		if _initial.has(control) and UILayoutStoreScript.layout_from_control(control) == (_initial[control] as Dictionary)["layout"]:
 			continue
 		var element_id := str(control.get_meta("layout_element_id", ""))
@@ -694,7 +715,7 @@ func _save_and_close() -> void:
 func _close_without_save() -> void:
 	if _live_mode:
 		## 恢复节点到保存前的状态
-		for control in _editable_controls(_edit_root):
+		for control in _valid_tracked_controls():
 			if _initial.has(control):
 				_restore_snapshot(control, _initial[control])
 	UILayoutStoreScript.reload_config()
@@ -704,10 +725,20 @@ func _close_without_save() -> void:
 
 func _editable_controls(root: Node) -> Array[Control]:
 	var result: Array[Control] = []
+	if root == null or not is_instance_valid(root):
+		return result
 	if root is Control and (root as Control).has_meta("layout_element_id"):
 		result.append(root as Control)
 	for child in root.get_children():
 		result.append_array(_editable_controls(child))
+	return result
+
+
+func _valid_tracked_controls() -> Array[Control]:
+	var result: Array[Control] = []
+	for control in _tracked_controls:
+		if control != null and is_instance_valid(control):
+			result.append(control)
 	return result
 
 
@@ -730,6 +761,30 @@ func _mark_dirty() -> void:
 	if _status_label != null:
 		_status_label.text = "有未保存修改"
 		_status_label.add_theme_color_override("font_color", Color(1.0, 0.62, 0.28))
+
+
+func _sync_live_interaction_rect() -> void:
+	if not _live_mode or _interaction == null or _live_container == null:
+		return
+	if not is_instance_valid(_live_container):
+		return
+	var rect := _live_container.get_global_rect()
+	_interaction.position = rect.position - global_position
+	_interaction.size = rect.size
+	_interaction.queue_redraw()
+
+
+func _ensure_free_position_if_container_child() -> void:
+	if _selected == null:
+		return
+	var parent := _selected.get_parent()
+	if parent is Container and not _selected.top_level:
+		var global_pos := _selected.global_position
+		_selected.top_level = true
+		_selected.global_position = global_pos
+		if _status_label != null:
+			_status_label.text = "已切换为自由定位，可保存覆盖 Container 重排"
+			_status_label.add_theme_color_override("font_color", Color(0.50, 0.90, 1.0))
 
 
 func _disable_input(control: Control) -> void:
