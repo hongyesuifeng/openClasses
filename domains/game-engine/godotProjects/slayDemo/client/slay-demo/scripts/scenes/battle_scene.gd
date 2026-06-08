@@ -217,7 +217,7 @@ func _build() -> void:
 	root.add_child(_player_status_row)
 
 	_enemy_row = HBoxContainer.new()
-	_enemy_row.custom_minimum_size = Vector2(0, 310)
+	_enemy_row.custom_minimum_size = Vector2(0, 290)
 	_enemy_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_enemy_row.add_theme_constant_override("separation", 20)
 	root.add_child(_enemy_row)
@@ -340,26 +340,26 @@ func _render_enemies(enemies: Array) -> void:
 		var art_key := str(enemy.get("art_key", "enemy_slime"))
 		var art_path := str(ENEMY_ART_BY_KEY.get(art_key, ENEMY_ART_BY_KEY["enemy_slime"]))
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(260, 290)
+		button.custom_minimum_size = Vector2(220, 290)
 		button.text = ""
 		button.clip_contents = true
 		button.add_theme_stylebox_override("normal", _panel_style(Color(0.08, 0.065, 0.055, 0.82)))
 		button.add_theme_stylebox_override("hover", _panel_style(Color(0.12, 0.09, 0.07, 0.92)))
 		button.add_theme_stylebox_override("pressed", _panel_style(Color(0.16, 0.11, 0.08, 0.96)))
 		button.pressed.connect(_on_enemy_pressed.bind(index))
-		button.pivot_offset = Vector2(130, 145)
+		button.pivot_offset = Vector2(110, 145)
 		var enemy_instance_id := str(enemy.get("id", index))
 
 		var sprite := TextureRect.new()
 		sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		sprite.position = Vector2(29, 0)
-		sprite.size = Vector2(202, 165)
+		sprite.position = Vector2(10, 0)
+		sprite.size = Vector2(200, 165)
 		sprite.custom_minimum_size = Vector2.ZERO
 		sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		sprite.z_index = 2
 		sprite.texture = load(art_path)
-		sprite.set_deferred("size", Vector2(202, 165))
+		sprite.set_deferred("size", Vector2(200, 165))
 		button.add_child(sprite)
 		UILayoutStoreScript.apply_layout(sprite, "battle.enemy.sprite", enemy_instance_id)
 

@@ -53,7 +53,7 @@ func run_async(ctx: Variant) -> void:
 	var game_state: Variant = ctx.autoload("GameState")
 	data_loader.load_all()
 
-	## 5. 地图场景渲染后包含 Line2D 节点（路径线已绘制）
+	## 5. 地图场景渲染后 _path_lines 数组有数据（路径线已计算）
 	var run_config: Dictionary = data_loader.get_run_config("act1_map_run")
 	game_state.start_new_run(run_config)
 
@@ -62,13 +62,13 @@ func run_async(ctx: Variant) -> void:
 	await _tree().process_frame
 	await _tree().process_frame
 
-	var line_count := _count_line2d(map)
-	ctx.assert_gt(line_count, 0, "map scene renders at least one Line2D path line")
+	var path_lines: Array = map.get("_path_lines")
+	ctx.assert_gt(path_lines.size(), 0, "map scene renders at least one Line2D path line")
 
-	## 6. 每条路径线有两个端点
-	var first_line := _find_first_line2d(map)
-	if first_line != null:
-		ctx.assert_eq((first_line as Line2D).points.size(), 2, "path line has exactly 2 points (from-to)")
+	## 6. 每条路径线数据有 from/to 两个端点
+	if path_lines.size() > 0:
+		var first_line := path_lines[0] as Dictionary
+		ctx.assert_true(first_line.has("from") and first_line.has("to"), "path line has exactly 2 points (from-to)")
 
 	map.queue_free()
 

@@ -35,6 +35,9 @@ var _status_label: Label
 var _relic_row: HBoxContainer
 var _node_root: Control
 var _node_positions: Dictionary = {}
+## 连线数据：Array of {from, to, open}，供 _line_canvas._draw() 使用
+var _path_lines: Array = []
+var _line_canvas: Control
 
 
 func _ready() -> void:
@@ -97,6 +100,14 @@ func _build() -> void:
 	_node_root.custom_minimum_size = Vector2(0, 600)
 	root.add_child(_node_root)
 	UILayoutStoreScript.apply_layout(_node_root, "map.node_surface")
+
+	## 连线画布：铺满 _node_root，在节点按钮之下绘制
+	_line_canvas = Control.new()
+	_line_canvas.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_line_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_line_canvas.z_index = -1
+	_line_canvas.draw.connect(_draw_path_lines)
+	_node_root.add_child(_line_canvas)
 
 	var map_surface := ColorRect.new()
 	map_surface.color = Color(0.025, 0.026, 0.026, 0.46)
@@ -169,33 +180,35 @@ func _render_nodes() -> void:
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
 	## 节点中心偏移（按钮尺寸 144×64 的一半）
 	const NODE_HALF := Vector2(72.0, 32.0)
+	_path_lines.clear()
 	for node in nodes:
 		var node_dict := node as Dictionary
 		var from_id := str(node_dict.get("id", ""))
 		if not _node_positions.has(from_id):
 			continue
-
 		for next_id_value in node_dict.get("next_nodes", []):
 			var next_id := str(next_id_value)
 			if not _node_positions.has(next_id):
 				continue
+			_path_lines.append({
+				"from": _node_positions[from_id] + NODE_HALF,
+				"to":   _node_positions[next_id] + NODE_HALF,
+				"open": completed.has(from_id) or available.has(from_id),
+			})
+	if _line_canvas != null:
+		_line_canvas.call_deferred("queue_redraw")
 
-			var from_center: Vector2 = _node_positions[from_id] + NODE_HALF
-			var to_center: Vector2 = _node_positions[next_id] + NODE_HALF
-			var is_route_open := completed.has(from_id) or available.has(from_id)
-			var shadow := Line2D.new()
-			shadow.width = 8.0 if is_route_open else 6.0
-			shadow.default_color = Color(0.02, 0.018, 0.012, 0.86)
-			shadow.points = PackedVector2Array([from_center, to_center])
-			shadow.z_index = -3
-			_node_root.add_child(shadow)
 
-			var line := Line2D.new()
-			line.width = 4.0 if is_route_open else 3.0
-			line.default_color = Color(1.0, 0.78, 0.30, 0.95) if is_route_open else Color(0.62, 0.52, 0.34, 0.62)
-			line.points = PackedVector2Array([from_center, to_center])
-			line.z_index = -2
-			_node_root.add_child(line)
+func _draw_path_lines() -> void:
+	for line_data in _path_lines:
+		var from: Vector2 = line_data["from"]
+		var to: Vector2   = line_data["to"]
+		var open: bool    = line_data["open"]
+		## 描边（深色）
+		_line_canvas.draw_line(from, to, Color(0.02, 0.018, 0.012, 0.86), 8.0 if open else 6.0, true)
+		## 主线
+		var col := Color(1.0, 0.78, 0.30, 0.95) if open else Color(0.62, 0.52, 0.34, 0.62)
+		_line_canvas.draw_line(from, to, col, 4.0 if open else 3.0, true)
 
 
 func _node_position(floor_index: int, index: int, count: int, max_floor: int) -> Vector2:
