@@ -8,6 +8,15 @@ const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
 const PotionViewFactoryScript := preload("res://scripts/ui/potion_view_factory.gd")
 
+## ── 新 UI 色板 ─────────────────────────────
+const CLR_PINK        := Color(0.95, 0.55, 0.65)
+const CLR_PINK_LIGHT  := Color(1.0, 0.71, 0.76)
+const CLR_GOLD        := Color(1.0, 0.84, 0.0)
+const CLR_TEXT_WARM   := Color(0.98, 0.92, 0.82)
+const CLR_SUBTITLE    := Color(0.88, 0.80, 0.92)
+const CLR_TINT        := Color(0.04, 0.02, 0.06, 0.35)
+const CLR_PANEL_BG    := Color(0.14, 0.10, 0.22, 0.88)
+
 var _choices: Array = []
 var _choice_scroll: ScrollContainer
 var _choice_row: HBoxContainer
@@ -59,7 +68,7 @@ func _build() -> void:
 	add_child(background)
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.025, 0.024, 0.025, 0.72)
+	tint.color = CLR_TINT
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -86,7 +95,10 @@ func _build_relic_reward(root: VBoxContainer) -> void:
 	title.text = "精英战斗奖励"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 30)
-	title.add_theme_color_override("font_color", Color(0.98, 0.84, 0.4))
+	title.add_theme_color_override("font_color", CLR_GOLD)
+	title.add_theme_color_override("font_shadow_color", Color(0.4, 0.3, 0.1, 0.8))
+	title.add_theme_constant_override("shadow_offset_x", 2)
+	title.add_theme_constant_override("shadow_offset_y", 2)
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 	UILayoutStoreScript.apply_layout(title, "reward.title")
@@ -95,13 +107,13 @@ func _build_relic_reward(root: VBoxContainer) -> void:
 	_status_label.text = "获得遗物"
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_label.add_theme_font_size_override("font_size", 16)
-	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	_status_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	root.add_child(_status_label)
 
-	# 遗物展示面板
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(320, 0)
 	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	panel.add_theme_stylebox_override("panel", _card_panel_style())
 	root.add_child(panel)
 
 	var panel_vbox := VBoxContainer.new()
@@ -112,7 +124,7 @@ func _build_relic_reward(root: VBoxContainer) -> void:
 	relic_name_label.text = str(_pending_relic.get("name", "未知遗物"))
 	relic_name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	relic_name_label.add_theme_font_size_override("font_size", 24)
-	relic_name_label.add_theme_color_override("font_color", Color(0.98, 0.9, 0.5))
+	relic_name_label.add_theme_color_override("font_color", CLR_GOLD)
 	panel_vbox.add_child(relic_name_label)
 
 	var rarity_str := _rarity_label(str(_pending_relic.get("rarity", "common")))
@@ -127,30 +139,40 @@ func _build_relic_reward(root: VBoxContainer) -> void:
 	desc_label.text = str(_pending_relic.get("description", ""))
 	desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	desc_label.add_theme_font_size_override("font_size", 16)
-	desc_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	desc_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel_vbox.add_child(desc_label)
 
-	var confirm_button := Button.new()
-	confirm_button.text = "获得遗物，继续"
-	confirm_button.custom_minimum_size = Vector2(200, 48)
+	var confirm_button := _make_pink_button("获得遗物，继续", Vector2(220, 48))
 	confirm_button.pressed.connect(_on_relic_confirmed)
 	root.add_child(confirm_button)
 
 
 func _build_card_reward(root: VBoxContainer) -> void:
+	# ── 标题（新UI："选择一张卡牌奖励+"） ──
 	var title := Label.new()
-	title.text = "选择一张卡牌奖励" if not _upgrade_mode else "选择一张卡牌升级"
+	title.text = "选择一张卡牌奖励+" if not _upgrade_mode else "选择一张卡牌升级"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 30)
-	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
+	title.add_theme_font_size_override("font_size", 32)
+	title.add_theme_color_override("font_color", CLR_PINK_LIGHT)
+	title.add_theme_color_override("font_shadow_color", Color(0.5, 0.2, 0.35, 0.8))
+	title.add_theme_constant_override("shadow_offset_x", 2)
+	title.add_theme_constant_override("shadow_offset_y", 2)
 	root.add_child(title)
 
+	# ── 副标题 ──
+	var subtitle := Label.new()
+	subtitle.text = "加入牌组，增强你的冒险。" if not _upgrade_mode else "强化你的牌组！"
+	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	subtitle.add_theme_font_size_override("font_size", 16)
+	subtitle.add_theme_color_override("font_color", CLR_SUBTITLE)
+	root.add_child(subtitle)
+
 	_status_label = Label.new()
-	_status_label.text = "加入牌组，继续下一场战斗。" if not _upgrade_mode else "强化你的牌组！"
+	_status_label.text = ""
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_label.add_theme_font_size_override("font_size", 16)
-	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	_status_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	root.add_child(_status_label)
 
 	_choice_scroll = ScrollContainer.new()
@@ -175,16 +197,12 @@ func _build_card_reward(root: VBoxContainer) -> void:
 	root.add_child(button_row)
 
 	if not _upgradeable_cards.is_empty() and not _upgrade_mode:
-		var upgrade_button := Button.new()
-		upgrade_button.text = "升级卡牌 (%d张可选)" % _upgradeable_cards.size()
-		upgrade_button.custom_minimum_size = Vector2(180, 44)
+		var upgrade_button := _make_pink_button("升级卡牌 (%d张可选)" % _upgradeable_cards.size(), Vector2(200, 44))
 		upgrade_button.pressed.connect(_on_upgrade_mode_pressed)
 		button_row.add_child(upgrade_button)
 
 	if _upgrade_mode:
-		var card_button := Button.new()
-		card_button.text = "选择卡牌奖励"
-		card_button.custom_minimum_size = Vector2(160, 44)
+		var card_button := _make_action_button("选择卡牌奖励", Vector2(160, 44))
 		card_button.pressed.connect(_on_card_mode_pressed)
 		button_row.add_child(card_button)
 
@@ -192,15 +210,15 @@ func _build_card_reward(root: VBoxContainer) -> void:
 	_confirm_button.text = "确认升级" if _upgrade_mode else "确认选择"
 	_confirm_button.custom_minimum_size = Vector2(160, 44)
 	_confirm_button.disabled = true
+	_apply_pink_button_style(_confirm_button)
 	if _upgrade_mode:
 		_confirm_button.pressed.connect(_on_confirm_upgrade_pressed)
 	else:
 		_confirm_button.pressed.connect(_on_confirm_choice_pressed)
 	button_row.add_child(_confirm_button)
 
-	var skip_button := Button.new()
-	skip_button.text = "跳过"
-	skip_button.custom_minimum_size = Vector2(160, 44)
+	# ── 跳过按钮（粉色圆角） ──
+	var skip_button := _make_action_button("跳过", Vector2(160, 44))
 	skip_button.pressed.connect(_on_skip_pressed)
 	button_row.add_child(skip_button)
 
@@ -255,14 +273,14 @@ func _build_potion_reward(root: VBoxContainer) -> void:
 	_status_label.text = "药水栏已满，请选择丢弃哪瓶" if is_full else "加入药水栏"
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_label.add_theme_font_size_override("font_size", 16)
-	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	_status_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	root.add_child(_status_label)
 
-	## 新药水展示
 	var potion_name := str(_pending_potion.get("name", "未知药水"))
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(280, 0)
 	panel.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	panel.add_theme_stylebox_override("panel", _card_panel_style())
 	root.add_child(panel)
 	var panel_vbox := VBoxContainer.new()
 	panel_vbox.add_theme_constant_override("separation", 8)
@@ -277,7 +295,7 @@ func _build_potion_reward(root: VBoxContainer) -> void:
 	desc_label.text = str(_pending_potion.get("description", ""))
 	desc_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	desc_label.add_theme_font_size_override("font_size", 16)
-	desc_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	desc_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	panel_vbox.add_child(desc_label)
 
@@ -287,35 +305,26 @@ func _build_potion_reward(root: VBoxContainer) -> void:
 	root.add_child(button_row)
 
 	if is_full and game_state != null:
-		## 槽满：展示每格旧药水，让玩家选择丢弃
 		var data_loader: Variant = _autoload("DataLoader")
 		for slot in range(game_state.MAX_POTION_SLOTS):
 			var entry: Dictionary = game_state.get_potion_at(slot)
 			if entry.is_empty():
 				continue
 			var old_potion: Dictionary = data_loader.get_potion(str(entry.get("id", "")))
-			var discard_btn := Button.new()
-			discard_btn.text = "丢弃 %s\n换取 %s" % [
-				str(old_potion.get("name", "?")), potion_name]
-			discard_btn.custom_minimum_size = Vector2(160, 56)
+			var discard_btn := _make_action_button("丢弃 %s\n换取 %s" % [
+				str(old_potion.get("name", "?")), potion_name], Vector2(160, 56))
 			discard_btn.pressed.connect(_on_potion_slot_discard.bind(slot))
 			button_row.add_child(discard_btn)
 
-		var abandon_btn := Button.new()
-		abandon_btn.text = "放弃新药水"
-		abandon_btn.custom_minimum_size = Vector2(130, 48)
+		var abandon_btn := _make_action_button("放弃新药水", Vector2(130, 48))
 		abandon_btn.pressed.connect(_on_potion_abandon)
 		button_row.add_child(abandon_btn)
 	else:
-		var take_btn := Button.new()
-		take_btn.text = "收取药水"
-		take_btn.custom_minimum_size = Vector2(160, 48)
+		var take_btn := _make_pink_button("收取药水", Vector2(160, 48))
 		take_btn.pressed.connect(_on_potion_take)
 		button_row.add_child(take_btn)
 
-		var skip_btn := Button.new()
-		skip_btn.text = "放弃"
-		skip_btn.custom_minimum_size = Vector2(110, 48)
+		var skip_btn := _make_action_button("放弃", Vector2(110, 48))
 		skip_btn.pressed.connect(_on_potion_abandon)
 		button_row.add_child(skip_btn)
 
@@ -375,7 +384,6 @@ func _on_upgrade_pressed(index: int) -> void:
 	if _compare_panel != null and is_instance_valid(_compare_panel):
 		_compare_panel.queue_free()
 	_compare_panel = CardViewFactoryScript.create_upgrade_compare(card_data, Vector2(120, 168))
-	## 插入到 _choice_row 之后（_choice_row 的父节点是 root VBoxContainer）
 	var parent: Node = _choice_scroll.get_parent() if _choice_scroll != null else null
 	if parent != null:
 		parent.add_child(_compare_panel)
@@ -441,6 +449,76 @@ func _rarity_color(rarity: String) -> Color:
 		"uncommon": return Color(0.4, 0.8, 1.0)
 		"rare":     return Color(1.0, 0.6, 0.2)
 		_:          return Color(0.85, 0.85, 0.85)
+
+
+# ──────────────────────────────────────────────
+## 粉色金边按钮
+# ──────────────────────────────────────────────
+func _make_pink_button(text: String, min_size: Vector2) -> Button:
+	var btn := Button.new()
+	btn.text = text
+	btn.custom_minimum_size = min_size
+	_apply_pink_button_style(btn)
+	return btn
+
+
+func _apply_pink_button_style(btn: Button) -> void:
+	var style_normal := StyleBoxFlat.new()
+	style_normal.bg_color = CLR_PINK
+	style_normal.border_color = CLR_GOLD
+	style_normal.set_border_width_all(2)
+	style_normal.set_corner_radius_all(14)
+	style_normal.content_margin_left = 12
+	style_normal.content_margin_top = 6
+	style_normal.content_margin_right = 12
+	style_normal.content_margin_bottom = 6
+	btn.add_theme_stylebox_override("normal", style_normal)
+	btn.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
+	btn.add_theme_color_override("font_hover_color", CLR_GOLD)
+	btn.add_theme_font_size_override("font_size", 16)
+	var style_hover := style_normal.duplicate()
+	style_hover.bg_color = Color(1.0, 0.65, 0.72)
+	btn.add_theme_stylebox_override("hover", style_hover)
+	var style_disabled := style_normal.duplicate()
+	style_disabled.bg_color = Color(0.4, 0.35, 0.42, 0.7)
+	btn.add_theme_stylebox_override("disabled", style_disabled)
+
+
+## 灰色操作按钮
+func _make_action_button(text: String, min_size: Vector2) -> Button:
+	var btn := Button.new()
+	btn.text = text
+	btn.custom_minimum_size = min_size
+	var style_normal := StyleBoxFlat.new()
+	style_normal.bg_color = Color(0.25, 0.20, 0.32, 0.85)
+	style_normal.border_color = Color(0.45, 0.38, 0.55, 0.8)
+	style_normal.set_border_width_all(1)
+	style_normal.set_corner_radius_all(14)
+	style_normal.content_margin_left = 12
+	style_normal.content_margin_top = 6
+	style_normal.content_margin_right = 12
+	style_normal.content_margin_bottom = 6
+	btn.add_theme_stylebox_override("normal", style_normal)
+	btn.add_theme_color_override("font_color", Color(0.88, 0.82, 0.92))
+	btn.add_theme_font_size_override("font_size", 16)
+	var style_hover := style_normal.duplicate()
+	style_hover.bg_color = Color(0.35, 0.28, 0.42, 0.92)
+	btn.add_theme_stylebox_override("hover", style_hover)
+	return btn
+
+
+## 商品卡片面板样式
+func _card_panel_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = CLR_PANEL_BG
+	style.border_color = Color(0.85, 0.70, 0.30, 0.85)
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(12)
+	style.content_margin_left = 10
+	style.content_margin_top = 8
+	style.content_margin_right = 10
+	style.content_margin_bottom = 8
+	return style
 
 
 func _clear_children(node: Node) -> void:

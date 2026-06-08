@@ -4,6 +4,13 @@ const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd"
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
 const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
+## ── 新 UI 色板 ─────────────────────────────
+const CLR_PINK_LIGHT  := Color(1.0, 0.71, 0.76)
+const CLR_GOLD        := Color(1.0, 0.84, 0.0)
+const CLR_TEXT_WARM   := Color(0.98, 0.92, 0.82)
+const CLR_TINT        := Color(0.04, 0.02, 0.06, 0.35)
+const CLR_BORDER      := Color(0.55, 0.35, 0.70, 0.90)
+
 const NODE_LABELS := {
 	"battle": "战斗",
 	"shop": "商店",
@@ -13,13 +20,14 @@ const NODE_LABELS := {
 	"result": "终点"
 }
 
+## 紫粉主题节点颜色
 const NODE_COLORS := {
-	"battle": Color(0.48, 0.16, 0.12, 0.92),
-	"shop": Color(0.42, 0.32, 0.12, 0.92),
-	"chest": Color(0.50, 0.36, 0.08, 0.92),
-	"event": Color(0.30, 0.24, 0.46, 0.92),
-	"rest": Color(0.12, 0.34, 0.28, 0.92),
-	"result": Color(0.28, 0.22, 0.48, 0.92)
+	"battle": Color(0.48, 0.22, 0.38, 0.92),
+	"shop": Color(0.42, 0.32, 0.52, 0.92),
+	"chest": Color(0.55, 0.38, 0.22, 0.92),
+	"event": Color(0.35, 0.24, 0.50, 0.92),
+	"rest": Color(0.22, 0.38, 0.34, 0.92),
+	"result": Color(0.38, 0.22, 0.52, 0.92)
 }
 
 const NODE_ICON_PATHS := {
@@ -57,7 +65,7 @@ func _build() -> void:
 	UILayoutStoreScript.apply_layout(background, "map.background")
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.025, 0.028, 0.032, 0.45)
+	tint.color = CLR_TINT
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -70,11 +78,15 @@ func _build() -> void:
 	root.add_theme_constant_override("separation", 12)
 	add_child(root)
 
+	# ── 标题（粉色主题） ──
 	var title := Label.new()
-	title.text = "Act 1 地图"
+	title.text = "甜心迷宫"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 32)
-	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
+	title.add_theme_color_override("font_color", CLR_PINK_LIGHT)
+	title.add_theme_color_override("font_shadow_color", Color(0.5, 0.2, 0.35, 0.8))
+	title.add_theme_constant_override("shadow_offset_x", 2)
+	title.add_theme_constant_override("shadow_offset_y", 2)
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 	UILayoutStoreScript.apply_layout(title, "map.title")
@@ -84,7 +96,7 @@ func _build() -> void:
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_label.add_theme_font_size_override("font_size", 16)
 	UIThemeScript.apply_cn(_status_label)
-	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	_status_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	root.add_child(_status_label)
 	UILayoutStoreScript.apply_layout(_status_label, "map.status")
 
@@ -104,17 +116,18 @@ func _build() -> void:
 	## 连线画布：用 size 而非 anchors，等 resized 后更新尺寸再触发重绘
 	_line_canvas = Control.new()
 	_line_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_line_canvas.z_index = -1
+	_line_canvas.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_line_canvas.z_index = 1
 	_line_canvas.draw.connect(_draw_path_lines)
 	_node_root.add_child(_line_canvas)
 	## layout 完成后同步 _line_canvas 尺寸并触发连线绘制
 	_node_root.resized.connect(_on_node_root_resized)
 
 	var map_surface := ColorRect.new()
-	map_surface.color = Color(0.025, 0.026, 0.026, 0.20)
+	map_surface.color = Color(0.04, 0.02, 0.06, 0.15)
 	map_surface.set_anchors_preset(Control.PRESET_FULL_RECT)
 	map_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	map_surface.z_index = -10
+	map_surface.z_index = 0
 	_node_root.add_child(map_surface)
 
 	_render_nodes()
@@ -169,6 +182,7 @@ func _render_nodes() -> void:
 		button.text = ""
 		button.custom_minimum_size = Vector2(110, 56)
 		button.position = node_pos
+		button.z_index = 5
 		button.disabled = not selectable
 		button.add_theme_stylebox_override("normal", _node_style(str(node_dict.get("type", "")), done, selectable))
 		button.add_theme_stylebox_override("hover", _node_style(str(node_dict.get("type", "")), done, true))
@@ -197,13 +211,12 @@ func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
 				"open": completed.has(from_id) or available.has(from_id),
 			})
 	if _line_canvas != null:
-		pass  ## 由 _on_node_root_resized 触发重绘
+		_line_canvas.queue_redraw()
 
 
 func _on_node_root_resized() -> void:
 	if _line_canvas == null:
 		return
-	_line_canvas.size = _node_root.size
 	_line_canvas.queue_redraw()
 
 
@@ -212,11 +225,29 @@ func _draw_path_lines() -> void:
 		var from: Vector2 = line_data["from"]
 		var to: Vector2   = line_data["to"]
 		var open: bool    = line_data["open"]
-		## 描边（深色）
-		_line_canvas.draw_line(from, to, Color(0.02, 0.018, 0.012, 0.86), 8.0 if open else 6.0, true)
-		## 主线
-		var col := Color(1.0, 0.78, 0.30, 0.95) if open else Color(0.62, 0.52, 0.34, 0.62)
-		_line_canvas.draw_line(from, to, col, 4.0 if open else 3.0, true)
+		## 描边（深紫）
+		_line_canvas.draw_line(from, to, Color(0.08, 0.04, 0.12, 0.92), 10.0 if open else 8.0, true)
+		## 主线（粉金色）
+		var col := Color(0.95, 0.55, 0.65, 0.96) if open else Color(0.72, 0.52, 0.60, 0.58)
+		_line_canvas.draw_line(from, to, col, 5.0 if open else 4.0, true)
+		_draw_path_arrow(from, to, col, open)
+
+
+func _draw_path_arrow(from: Vector2, to: Vector2, color: Color, open: bool) -> void:
+	var direction := to - from
+	if direction.length() < 1.0:
+		return
+
+	var unit := direction.normalized()
+	var arrow_center := to - unit * 46.0
+	var side := Vector2(-unit.y, unit.x)
+	var size := 12.0 if open else 10.0
+	var arrow_points := PackedVector2Array([
+		arrow_center + unit * size,
+		arrow_center - unit * size * 0.75 + side * size * 0.55,
+		arrow_center - unit * size * 0.75 - side * size * 0.55,
+	])
+	_line_canvas.draw_colored_polygon(arrow_points, color)
 
 
 func _node_position(floor_index: int, index: int, count: int, max_floor: int) -> Vector2:
@@ -251,7 +282,7 @@ func _add_node_content(button: Button, node: Dictionary, selectable: bool, done:
 	icon.size = Vector2(34, 34)
 	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	icon.modulate = Color(1, 1, 1, 1) if selectable or done else Color(0.62, 0.62, 0.62, 0.82)
+	icon.modulate = Color(1, 1, 1, 1) if selectable or done else Color(0.62, 0.55, 0.68, 0.82)
 	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_child(icon)
 	UILayoutStoreScript.apply_layout(icon, "map.node.icon", str(node.get("id", "")))
@@ -265,8 +296,8 @@ func _add_node_content(button: Button, node: Dictionary, selectable: bool, done:
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", 14)
-	label.add_theme_color_override("font_color", Color(0.98, 0.91, 0.74) if selectable or done else Color(0.72, 0.68, 0.58))
-	label.add_theme_color_override("font_shadow_color", Color(0.06, 0.045, 0.035, 0.9))
+	label.add_theme_color_override("font_color", CLR_TEXT_WARM if selectable or done else Color(0.65, 0.58, 0.72))
+	label.add_theme_color_override("font_shadow_color", Color(0.06, 0.04, 0.08, 0.9))
 	label.add_theme_constant_override("shadow_offset_x", 1)
 	label.add_theme_constant_override("shadow_offset_y", 1)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -321,13 +352,14 @@ func _on_relic_pressed(relic: Dictionary) -> void:
 
 func _node_style(node_type: String, done: bool, selectable: bool) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
-	var color: Color = NODE_COLORS.get(node_type, Color(0.2, 0.22, 0.24, 0.9))
+	var color: Color = NODE_COLORS.get(node_type, Color(0.22, 0.18, 0.28, 0.9))
 	if done:
 		color = Color(0.12, 0.18, 0.13, 0.82)
 	elif not selectable:
 		color = Color(color.r * 0.45, color.g * 0.45, color.b * 0.45, 0.62)
 	style.bg_color = color
-	style.border_color = Color(0.95, 0.82, 0.48, 0.95) if selectable else (Color(0.50, 0.95, 0.48, 0.9) if done else Color(0.32, 0.29, 0.22, 0.82))
+	# 可选金色边框，完成绿色，不可选暗紫
+	style.border_color = CLR_GOLD if selectable else (Color(0.50, 0.95, 0.48, 0.9) if done else Color(0.35, 0.28, 0.42, 0.82))
 	style.set_border_width_all(3 if selectable else (2 if done else 1))
 	style.set_corner_radius_all(8)
 	style.content_margin_left = 8

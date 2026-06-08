@@ -35,6 +35,18 @@ const INTENT_ICON_BY_TYPE := {
 
 const SpriteAnimHelperScript := preload("res://scripts/vfx/sprite_anim_helper.gd")
 
+## ── 新 UI 色板 ─────────────────────────────
+const CLR_PANEL_BG    := Color(0.10, 0.06, 0.16, 0.88)
+const CLR_BORDER      := Color(0.55, 0.35, 0.70, 0.90)
+const CLR_PINK        := Color(0.95, 0.55, 0.65)
+const CLR_PINK_LIGHT  := Color(1.0, 0.71, 0.76)
+const CLR_GOLD        := Color(1.0, 0.84, 0.0)
+const CLR_TEXT_WARM   := Color(0.98, 0.92, 0.82)
+const CLR_HP_PINK     := Color(0.95, 0.45, 0.55)
+const CLR_BLOCK_BLUE  := Color(0.52, 0.82, 1.0)
+const CLR_ENERGY_BLUE := Color(0.72, 0.94, 1.0)
+const CLR_TINT        := Color(0.04, 0.02, 0.06, 0.35)
+
 var _battle := BattleControllerScript.new()
 var _selected_card_index := -1
 var _header_label: Label
@@ -130,9 +142,12 @@ func _build() -> void:
 	UILayoutStoreScript.apply_layout(background, "battle.background", encounter_id)
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.035, 0.032, 0.038, 0.42)
+	tint.color = CLR_TINT
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
+
+	# ── 右上角：水晶 + 设置/帮助 ──
+	_build_top_right_buttons()
 
 	var root := VBoxContainer.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -143,8 +158,9 @@ func _build() -> void:
 	root.add_theme_constant_override("separation", 8)
 	add_child(root)
 
+	# ── 玩家面板（紫粉主题） ──
 	_player_panel = PanelContainer.new()
-	_player_panel.add_theme_stylebox_override("panel", _panel_style(Color(0.08, 0.075, 0.07, 0.86)))
+	_player_panel.add_theme_stylebox_override("panel", _panel_style(CLR_PANEL_BG))
 	root.add_child(_player_panel)
 	UILayoutStoreScript.apply_layout(_player_panel, "battle.player.panel")
 
@@ -172,7 +188,7 @@ func _build() -> void:
 
 	_header_label = Label.new()
 	_header_label.add_theme_font_size_override("font_size", 20)
-	_header_label.add_theme_color_override("font_color", Color(0.98, 0.92, 0.82))
+	_header_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	player_stats.add_child(_header_label)
 
 	_hp_bar = _make_bar("res://assets/ui/bars/ui_hp_bar_bg.png", "res://assets/ui/bars/ui_hp_bar_fill.png")
@@ -196,7 +212,7 @@ func _build() -> void:
 
 	_energy_label = Label.new()
 	_energy_label.add_theme_font_size_override("font_size", 24)
-	_energy_label.add_theme_color_override("font_color", Color(0.72, 0.94, 1.0))
+	_energy_label.add_theme_color_override("font_color", CLR_ENERGY_BLUE)
 	energy_box.add_child(_energy_label)
 	UILayoutStoreScript.apply_layout(_energy_label, "battle.energy.label")
 
@@ -235,11 +251,13 @@ func _build() -> void:
 	lower.add_theme_constant_override("separation", 16)
 	root.add_child(lower)
 
+	# ── 战斗日志（缩小，半透明） ──
 	_log_label = RichTextLabel.new()
-	_log_label.custom_minimum_size = Vector2(240, 0)
+	_log_label.custom_minimum_size = Vector2(200, 0)
 	_log_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_log_label.fit_content = true
-	_log_label.add_theme_color_override("default_color", Color(0.92, 0.86, 0.76))
+	_log_label.add_theme_color_override("default_color", Color(0.80, 0.72, 0.88, 0.7))
+	_log_label.modulate.a = 0.6
 	lower.add_child(_log_label)
 
 	var hand_panel := VBoxContainer.new()
@@ -249,7 +267,7 @@ func _build() -> void:
 	lower.add_child(hand_panel)
 
 	_pile_label = Label.new()
-	_pile_label.add_theme_color_override("font_color", Color(0.94, 0.88, 0.78))
+	_pile_label.add_theme_color_override("font_color", Color(0.80, 0.72, 0.88))
 	hand_panel.add_child(_pile_label)
 
 	var hand_controls := HBoxContainer.new()
@@ -274,6 +292,7 @@ func _build() -> void:
 	hand_scroll.add_child(_hand_row)
 	UILayoutStoreScript.apply_layout(_hand_row, "battle.hand.row")
 
+	# ── 结束回合按钮（亮粉色主题） ──
 	var end_turn_button := Button.new()
 	end_turn_button.text = "结束回合"
 	end_turn_button.custom_minimum_size = Vector2(128, 50)
@@ -281,6 +300,60 @@ func _build() -> void:
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
 	hand_controls.add_child(end_turn_button)
 	UILayoutStoreScript.apply_layout(end_turn_button, "battle.end_turn")
+	# 粉色金边样式
+	var et_normal := StyleBoxFlat.new()
+	et_normal.bg_color = CLR_PINK
+	et_normal.border_color = CLR_GOLD
+	et_normal.set_border_width_all(2)
+	et_normal.set_corner_radius_all(12)
+	et_normal.content_margin_left = 14
+	et_normal.content_margin_top = 8
+	et_normal.content_margin_right = 14
+	et_normal.content_margin_bottom = 8
+	end_turn_button.add_theme_stylebox_override("normal", et_normal)
+	end_turn_button.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
+	end_turn_button.add_theme_font_size_override("font_size", 18)
+	var et_hover := et_normal.duplicate()
+	et_hover.bg_color = Color(1.0, 0.65, 0.72)
+	end_turn_button.add_theme_stylebox_override("hover", et_hover)
+
+
+## 右上角按钮组：帮助 + 设置
+func _build_top_right_buttons() -> void:
+	var box := HBoxContainer.new()
+	box.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	box.offset_left = -100
+	box.offset_top = 12
+	box.offset_right = -14
+	box.offset_bottom = 48
+	box.alignment = BoxContainer.ALIGNMENT_END
+	box.add_theme_constant_override("separation", 10)
+	add_child(box)
+
+	# 帮助按钮
+	var help_btn := Button.new()
+	help_btn.icon = load("res://assets/ui/icons/icon_question.png")
+	help_btn.custom_minimum_size = Vector2(32, 32)
+	help_btn.expand_icon = true
+	help_btn.add_theme_stylebox_override("normal", _round_btn_style(Color(0.18, 0.12, 0.28, 0.85)))
+	help_btn.add_theme_stylebox_override("hover", _round_btn_style(Color(0.30, 0.20, 0.42, 0.92)))
+	box.add_child(help_btn)
+
+	# 设置按钮
+	var settings_btn := Button.new()
+	settings_btn.icon = load("res://assets/ui/icons/icon_settings.png")
+	settings_btn.custom_minimum_size = Vector2(32, 32)
+	settings_btn.expand_icon = true
+	settings_btn.add_theme_stylebox_override("normal", _round_btn_style(Color(0.18, 0.12, 0.28, 0.85)))
+	settings_btn.add_theme_stylebox_override("hover", _round_btn_style(Color(0.30, 0.20, 0.42, 0.92)))
+	box.add_child(settings_btn)
+
+
+func _round_btn_style(color: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.set_corner_radius_all(16)
+	return style
 
 
 func _on_state_changed(snapshot: Dictionary) -> void:
@@ -349,9 +422,10 @@ func _render_enemies(enemies: Array) -> void:
 		button.custom_minimum_size = Vector2(220, 290)
 		button.text = ""
 		button.clip_contents = true
-		button.add_theme_stylebox_override("normal", _panel_style(Color(0.08, 0.065, 0.055, 0.82)))
-		button.add_theme_stylebox_override("hover", _panel_style(Color(0.12, 0.09, 0.07, 0.92)))
-		button.add_theme_stylebox_override("pressed", _panel_style(Color(0.16, 0.11, 0.08, 0.96)))
+		# 紫粉主题敌人面板
+		button.add_theme_stylebox_override("normal", _panel_style(Color(0.10, 0.06, 0.16, 0.82)))
+		button.add_theme_stylebox_override("hover", _panel_style(Color(0.18, 0.12, 0.28, 0.92)))
+		button.add_theme_stylebox_override("pressed", _panel_style(Color(0.25, 0.16, 0.35, 0.96)))
 		button.pressed.connect(_on_enemy_pressed.bind(index))
 		button.pivot_offset = Vector2(110, 145)
 		var enemy_instance_id := str(enemy.get("id", index))
@@ -484,7 +558,7 @@ func _render_potions() -> void:
 	var label := Label.new()
 	label.text = "药水:"
 	label.add_theme_font_size_override("font_size", 14)
-	label.add_theme_color_override("font_color", Color(0.90, 0.82, 0.68))
+	label.add_theme_color_override("font_color", Color(0.82, 0.72, 0.90))
 	_potion_row.add_child(label)
 	for slot in range(game_state.MAX_POTION_SLOTS):
 		var potion_entry: Dictionary = game_state.get_potion_at(slot)
@@ -627,7 +701,7 @@ func _on_combat_event(event: Dictionary) -> void:
 				if vfx_manager != null:
 					vfx_manager.play_block_effect(_get_player_center(), block_val)
 				if block_val > 0:
-					_spawn_colored_text("+%d 格挡" % block_val, _player_panel.global_position + Vector2(_player_panel.size.x * 0.5 - 36.0, 48.0), Color(0.52, 0.82, 1.0))
+					_spawn_colored_text("+%d 格挡" % block_val, _player_panel.global_position + Vector2(_player_panel.size.x * 0.5 - 36.0, 48.0), CLR_BLOCK_BLUE)
 				if audio_manager != null:
 					audio_manager.play_sfx("block")
 			else:
@@ -668,7 +742,7 @@ func _on_combat_event(event: Dictionary) -> void:
 				audio_manager.play_sfx("enemy_die")
 
 
-## 获取敌人中心位置
+	## 获取敌人中心位置
 func _get_enemy_center(enemy_index: int) -> Vector2:
 	if enemy_index < 0 or enemy_index >= _enemy_buttons.size():
 		return Vector2.ZERO
@@ -678,7 +752,7 @@ func _get_enemy_center(enemy_index: int) -> Vector2:
 	return btn.global_position + btn.size * 0.5
 
 
-## 获取玩家面板中心位置
+	## 获取玩家面板中心位置
 func _get_player_center() -> Vector2:
 	if _player_panel == null or not is_instance_valid(_player_panel):
 		return Vector2.ZERO
@@ -874,8 +948,8 @@ func _make_label(text: String, font_size: int, align: HorizontalAlignment) -> La
 	label.horizontal_alignment = align
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", font_size)
-	label.add_theme_color_override("font_color", Color(0.96, 0.9, 0.78))
-	label.add_theme_color_override("font_shadow_color", Color(0.06, 0.04, 0.025, 0.9))
+	label.add_theme_color_override("font_color", Color(0.96, 0.90, 0.78))
+	label.add_theme_color_override("font_shadow_color", Color(0.06, 0.04, 0.08, 0.9))
 	label.add_theme_constant_override("shadow_offset_x", 1)
 	label.add_theme_constant_override("shadow_offset_y", 1)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -885,7 +959,8 @@ func _make_label(text: String, font_size: int, align: HorizontalAlignment) -> La
 func _panel_style(color: Color) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = color
-	style.border_color = Color(0.42, 0.31, 0.17, 0.9)
+	# 紫粉主题边框
+	style.border_color = CLR_BORDER
 	style.set_border_width_all(1)
 	style.set_corner_radius_all(8)
 	style.content_margin_left = 10
@@ -997,7 +1072,7 @@ func _play_tutorial_step(steps: Array, index: int) -> void:
 	var step: Dictionary = steps[index] as Dictionary
 	var panel := PanelContainer.new()
 	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.08, 0.10, 0.14, 0.88)
+	style.bg_color = Color(0.12, 0.08, 0.18, 0.88)
 	style.set_corner_radius_all(10)
 	style.set_border_width_all(1)
 	style.border_color = Color(0.98, 0.88, 0.42, 0.8)

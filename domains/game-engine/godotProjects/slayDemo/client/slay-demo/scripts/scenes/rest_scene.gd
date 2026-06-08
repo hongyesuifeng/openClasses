@@ -6,6 +6,14 @@ const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
 
+## ── 新 UI 色板 ─────────────────────────────
+const CLR_PINK        := Color(0.95, 0.55, 0.65)
+const CLR_PINK_LIGHT  := Color(1.0, 0.71, 0.76)
+const CLR_GOLD        := Color(1.0, 0.84, 0.0)
+const CLR_TEXT_WARM   := Color(0.98, 0.92, 0.82)
+const CLR_TINT        := Color(0.04, 0.02, 0.06, 0.35)
+const CLR_PANEL_BG    := Color(0.14, 0.10, 0.22, 0.88)
+
 var _status_label: Label
 var _choice_scroll: ScrollContainer
 var _choice_row: HBoxContainer
@@ -33,7 +41,7 @@ func _build() -> void:
 	add_child(background)
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.025, 0.028, 0.032, 0.70)
+	tint.color = CLR_TINT
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -51,7 +59,10 @@ func _build() -> void:
 	title.text = "休息点"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 34)
-	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
+	title.add_theme_color_override("font_color", CLR_PINK_LIGHT)
+	title.add_theme_color_override("font_shadow_color", Color(0.5, 0.2, 0.35, 0.8))
+	title.add_theme_constant_override("shadow_offset_x", 2)
+	title.add_theme_constant_override("shadow_offset_y", 2)
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
 	UILayoutStoreScript.apply_layout(title, "rest.title")
@@ -60,7 +71,7 @@ func _build() -> void:
 	_status_label.text = _status_text()
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_status_label.add_theme_font_size_override("font_size", 17)
-	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
+	_status_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
 	root.add_child(_status_label)
 
 	if _upgrade_mode:
@@ -93,15 +104,11 @@ func _build() -> void:
 
 
 func _render_rest_choices() -> void:
-	var heal_button := Button.new()
-	heal_button.text = "回血 %d%%" % int(round(_heal_percent() * 100.0))
-	heal_button.custom_minimum_size = Vector2(220, 56)
+	var heal_button := _make_pink_button("回血 %d%%" % int(round(_heal_percent() * 100.0)), Vector2(240, 56))
 	heal_button.pressed.connect(_on_heal_pressed)
 	_choice_row.add_child(heal_button)
 
-	var upgrade_button := Button.new()
-	upgrade_button.text = "升级卡牌 (%d)" % _upgradeable_cards.size()
-	upgrade_button.custom_minimum_size = Vector2(220, 56)
+	var upgrade_button := _make_pink_button("升级卡牌 (%d)" % _upgradeable_cards.size(), Vector2(240, 56))
 	upgrade_button.disabled = _upgradeable_cards.is_empty()
 	upgrade_button.pressed.connect(_on_upgrade_mode_pressed)
 	_choice_row.add_child(upgrade_button)
@@ -117,6 +124,7 @@ func _render_upgrade_choices() -> void:
 		button.pressed.connect(_on_upgrade_pressed.bind(index))
 		_choice_row.add_child(button)
 
+
 func _render_upgrade_back_button(root: VBoxContainer) -> void:
 	var button_row := HBoxContainer.new()
 	button_row.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -125,14 +133,13 @@ func _render_upgrade_back_button(root: VBoxContainer) -> void:
 
 	_confirm_upgrade_button = Button.new()
 	_confirm_upgrade_button.text = "确认升级"
-	_confirm_upgrade_button.custom_minimum_size = Vector2(140, 44)
+	_confirm_upgrade_button.custom_minimum_size = Vector2(160, 44)
 	_confirm_upgrade_button.disabled = true
+	_apply_pink_button_style(_confirm_upgrade_button)
 	_confirm_upgrade_button.pressed.connect(_on_confirm_upgrade_pressed)
 	button_row.add_child(_confirm_upgrade_button)
 
-	var back_button := Button.new()
-	back_button.text = "返回"
-	back_button.custom_minimum_size = Vector2(140, 44)
+	var back_button := _make_action_button("返回", Vector2(140, 44))
 	back_button.pressed.connect(_on_back_pressed)
 	button_row.add_child(back_button)
 
@@ -219,6 +226,62 @@ func _status_text() -> String:
 	var heal_amount := int(ceil(int(game_state.player_max_hp) * _heal_percent())) if game_state != null else 0
 	var hp_text := "HP %d/%d" % [int(game_state.player_hp), int(game_state.player_max_hp)] if game_state != null else "HP -/-"
 	return "%s  |  回血 +%d 或升级 1 张牌" % [hp_text, heal_amount]
+
+
+# ──────────────────────────────────────────────
+## 粉色金边按钮
+# ──────────────────────────────────────────────
+func _make_pink_button(text: String, min_size: Vector2) -> Button:
+	var btn := Button.new()
+	btn.text = text
+	btn.custom_minimum_size = min_size
+	_apply_pink_button_style(btn)
+	return btn
+
+
+func _apply_pink_button_style(btn: Button) -> void:
+	var style_normal := StyleBoxFlat.new()
+	style_normal.bg_color = CLR_PINK
+	style_normal.border_color = CLR_GOLD
+	style_normal.set_border_width_all(2)
+	style_normal.set_corner_radius_all(14)
+	style_normal.content_margin_left = 14
+	style_normal.content_margin_top = 8
+	style_normal.content_margin_right = 14
+	style_normal.content_margin_bottom = 8
+	btn.add_theme_stylebox_override("normal", style_normal)
+	btn.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
+	btn.add_theme_color_override("font_hover_color", CLR_GOLD)
+	btn.add_theme_font_size_override("font_size", 18)
+	var style_hover := style_normal.duplicate()
+	style_hover.bg_color = Color(1.0, 0.65, 0.72)
+	btn.add_theme_stylebox_override("hover", style_hover)
+	var style_disabled := style_normal.duplicate()
+	style_disabled.bg_color = Color(0.4, 0.35, 0.42, 0.7)
+	btn.add_theme_stylebox_override("disabled", style_disabled)
+
+
+## 灰色操作按钮
+func _make_action_button(text: String, min_size: Vector2) -> Button:
+	var btn := Button.new()
+	btn.text = text
+	btn.custom_minimum_size = min_size
+	var style_normal := StyleBoxFlat.new()
+	style_normal.bg_color = Color(0.25, 0.20, 0.32, 0.85)
+	style_normal.border_color = Color(0.45, 0.38, 0.55, 0.8)
+	style_normal.set_border_width_all(1)
+	style_normal.set_corner_radius_all(14)
+	style_normal.content_margin_left = 12
+	style_normal.content_margin_top = 6
+	style_normal.content_margin_right = 12
+	style_normal.content_margin_bottom = 6
+	btn.add_theme_stylebox_override("normal", style_normal)
+	btn.add_theme_color_override("font_color", Color(0.88, 0.82, 0.92))
+	btn.add_theme_font_size_override("font_size", 16)
+	var style_hover := style_normal.duplicate()
+	style_hover.bg_color = Color(0.35, 0.28, 0.42, 0.92)
+	btn.add_theme_stylebox_override("hover", style_hover)
+	return btn
 
 
 func _rebuild() -> void:
