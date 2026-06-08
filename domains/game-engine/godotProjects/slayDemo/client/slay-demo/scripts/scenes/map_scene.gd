@@ -94,7 +94,7 @@ func _build() -> void:
 
 	_node_root = Control.new()
 	_node_root.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_node_root.custom_minimum_size = Vector2(0, 560)
+	_node_root.custom_minimum_size = Vector2(0, 600)
 	root.add_child(_node_root)
 	UILayoutStoreScript.apply_layout(_node_root, "map.node_surface")
 
@@ -138,7 +138,8 @@ func _render_nodes() -> void:
 		var floor_nodes := floors[floor_index] as Array
 		var index := floor_nodes.find(node_dict)
 		var node_pos := _node_position(floor_index, index, floor_nodes.size(), max_floor)
-		_node_positions[node_id] = node_pos + Vector2(72.0, 32.0)
+		## 存按钮左上角坐标，连线时再加半个按钮尺寸得到中心
+		_node_positions[node_id] = node_pos
 
 	_render_paths(nodes, completed, available)
 
@@ -166,6 +167,8 @@ func _render_nodes() -> void:
 
 
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
+	## 节点中心偏移（按钮尺寸 144×64 的一半）
+	const NODE_HALF := Vector2(72.0, 32.0)
 	for node in nodes:
 		var node_dict := node as Dictionary
 		var from_id := str(node_dict.get("id", ""))
@@ -177,18 +180,20 @@ func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
 			if not _node_positions.has(next_id):
 				continue
 
+			var from_center: Vector2 = _node_positions[from_id] + NODE_HALF
+			var to_center: Vector2 = _node_positions[next_id] + NODE_HALF
 			var is_route_open := completed.has(from_id) or available.has(from_id)
 			var shadow := Line2D.new()
 			shadow.width = 8.0 if is_route_open else 6.0
 			shadow.default_color = Color(0.02, 0.018, 0.012, 0.86)
-			shadow.points = PackedVector2Array([_node_positions[from_id], _node_positions[next_id]])
+			shadow.points = PackedVector2Array([from_center, to_center])
 			shadow.z_index = -3
 			_node_root.add_child(shadow)
 
 			var line := Line2D.new()
 			line.width = 4.0 if is_route_open else 3.0
 			line.default_color = Color(1.0, 0.78, 0.30, 0.95) if is_route_open else Color(0.62, 0.52, 0.34, 0.62)
-			line.points = PackedVector2Array([_node_positions[from_id], _node_positions[next_id]])
+			line.points = PackedVector2Array([from_center, to_center])
 			line.z_index = -2
 			_node_root.add_child(line)
 
@@ -199,7 +204,7 @@ func _node_position(floor_index: int, index: int, count: int, max_floor: int) ->
 	var height := maxf(1.0, viewport_size.y - 130.0)
 	var x_step := width / float(max_floor + 1)
 	var center_y := height * 0.5
-	var y_gap := 92.0
+	var y_gap := 80.0
 	var y := center_y + (float(index) - float(count - 1) * 0.5) * y_gap
 	return Vector2(x_step * floor_index - 72.0, y - 32.0)
 

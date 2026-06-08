@@ -217,7 +217,7 @@ func _build() -> void:
 	root.add_child(_player_status_row)
 
 	_enemy_row = HBoxContainer.new()
-	_enemy_row.custom_minimum_size = Vector2(0, 270)
+	_enemy_row.custom_minimum_size = Vector2(0, 310)
 	_enemy_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_enemy_row.add_theme_constant_override("separation", 20)
 	root.add_child(_enemy_row)
@@ -340,14 +340,14 @@ func _render_enemies(enemies: Array) -> void:
 		var art_key := str(enemy.get("art_key", "enemy_slime"))
 		var art_path := str(ENEMY_ART_BY_KEY.get(art_key, ENEMY_ART_BY_KEY["enemy_slime"]))
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(260, 252)
+		button.custom_minimum_size = Vector2(260, 290)
 		button.text = ""
 		button.clip_contents = true
 		button.add_theme_stylebox_override("normal", _panel_style(Color(0.08, 0.065, 0.055, 0.82)))
 		button.add_theme_stylebox_override("hover", _panel_style(Color(0.12, 0.09, 0.07, 0.92)))
 		button.add_theme_stylebox_override("pressed", _panel_style(Color(0.16, 0.11, 0.08, 0.96)))
 		button.pressed.connect(_on_enemy_pressed.bind(index))
-		button.pivot_offset = Vector2(130, 126)
+		button.pivot_offset = Vector2(130, 145)
 		var enemy_instance_id := str(enemy.get("id", index))
 
 		var sprite := TextureRect.new()
@@ -376,9 +376,9 @@ func _render_enemies(enemies: Array) -> void:
 
 		var name_label := _make_label(str(enemy.get("name", "")), 18, HORIZONTAL_ALIGNMENT_CENTER)
 		name_label.anchor_left = 0.08
-		name_label.anchor_top = 0.70
+		name_label.anchor_top = 0.62
 		name_label.anchor_right = 0.92
-		name_label.anchor_bottom = 0.79
+		name_label.anchor_bottom = 0.71
 		button.add_child(name_label)
 		UILayoutStoreScript.apply_layout(name_label, "battle.enemy.name", enemy_instance_id)
 
@@ -388,28 +388,28 @@ func _render_enemies(enemies: Array) -> void:
 			int(enemy.get("block", 0))
 		], 14, HORIZONTAL_ALIGNMENT_CENTER)
 		hp.anchor_left = 0.05
-		hp.anchor_top = 0.80
+		hp.anchor_top = 0.72
 		hp.anchor_right = 0.95
-		hp.anchor_bottom = 0.88
+		hp.anchor_bottom = 0.80
 		button.add_child(hp)
 		UILayoutStoreScript.apply_layout(hp, "battle.enemy.hp", enemy_instance_id)
 
 		var intent_icon := TextureRect.new()
 		intent_icon.texture = load(str(INTENT_ICON_BY_TYPE.get(str(intent.get("type", "")), "res://assets/ui/intents/intent_question.png")))
-		intent_icon.anchor_left = 0.18
-		intent_icon.anchor_top = 0.89
-		intent_icon.anchor_right = 0.34
-		intent_icon.anchor_bottom = 1.0
+		intent_icon.anchor_left = 0.05
+		intent_icon.anchor_top = 0.81
+		intent_icon.anchor_right = 0.24
+		intent_icon.anchor_bottom = 0.93
 		intent_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		intent_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		button.add_child(intent_icon)
 		UILayoutStoreScript.apply_layout(intent_icon, "battle.enemy.intent_icon", enemy_instance_id)
 
 		var intent_text := _make_label("%s %d" % [str(intent.get("name", "")), int(intent.get("value", 0))], 14, HORIZONTAL_ALIGNMENT_LEFT)
-		intent_text.anchor_left = 0.36
-		intent_text.anchor_top = 0.90
-		intent_text.anchor_right = 0.92
-		intent_text.anchor_bottom = 1.0
+		intent_text.anchor_left = 0.26
+		intent_text.anchor_top = 0.82
+		intent_text.anchor_right = 0.96
+		intent_text.anchor_bottom = 0.93
 		button.add_child(intent_text)
 		UILayoutStoreScript.apply_layout(intent_text, "battle.enemy.intent_text", enemy_instance_id)
 
@@ -851,11 +851,12 @@ func _make_bar(under_path: String, progress_path: String) -> TextureProgressBar:
 	bar.custom_minimum_size = Vector2(300, 24)
 	bar.texture_under = load(under_path)
 	bar.texture_progress = load(progress_path)
-	bar.nine_patch_stretch = true
-	bar.stretch_margin_left = 12
-	bar.stretch_margin_right = 12
-	bar.stretch_margin_top = 6
-	bar.stretch_margin_bottom = 6
+	bar.nine_patch_stretch = false
+	bar.fill_mode = TextureProgressBar.FILL_LEFT_TO_RIGHT
+	bar.stretch_margin_left = 0
+	bar.stretch_margin_right = 0
+	bar.stretch_margin_top = 0
+	bar.stretch_margin_bottom = 0
 	bar.max_value = 1
 	bar.value = 1
 	return bar

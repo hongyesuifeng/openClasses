@@ -11,6 +11,7 @@ const StatusViewFactoryScript  := preload("res://scripts/ui/status_view_factory.
 const PotionViewFactoryScript  := preload("res://scripts/ui/potion_view_factory.gd")
 const UILayoutStoreScript      := preload("res://scripts/ui/ui_layout_store.gd")
 const UILayoutEditorScript     := preload("res://scripts/dev/ui_layout_editor.gd")
+const SpriteAnimHelperScript   := preload("res://scripts/vfx/sprite_anim_helper.gd")
 
 const TABS := [
 	{"key": "cards",    "label": "卡牌 (52)"},
@@ -19,6 +20,7 @@ const TABS := [
 	{"key": "battle",   "label": "战斗UI"},
 	{"key": "map",      "label": "地图"},
 	{"key": "theme",    "label": "字体/色彩"},
+	{"key": "anim",     "label": "🎬 动画预览"},
 ]
 
 const RARITY_COLORS := {
@@ -32,6 +34,13 @@ const RARITY_COLORS := {
 var _content_area: Control
 var _active_tab := ""
 var _tab_buttons: Dictionary = {}
+var _anim_helpers: Array = []
+
+
+func _process(delta: float) -> void:
+	for helper in _anim_helpers:
+		if helper != null:
+			helper.update(delta)
 
 
 func _ready() -> void:
@@ -107,6 +116,7 @@ func _build_chrome() -> void:
 
 func _switch_tab(tab_key: String) -> void:
 	_active_tab = tab_key
+	_anim_helpers.clear()
 	for child in _content_area.get_children():
 		child.queue_free()
 
@@ -127,6 +137,7 @@ func _switch_tab(tab_key: String) -> void:
 		"battle":   _build_battle_tab()
 		"map":      _build_map_tab()
 		"theme":    _build_theme_tab()
+		"anim":     _build_anim_tab()
 	call_deferred("_register_editable_inputs")
 
 
@@ -752,6 +763,112 @@ func _add_background_preview(parent: Node, path: String, label_text: String) -> 
 
 func _autoload(autoload_name: String) -> Variant:
 	return get_node_or_null("/root/%s" % autoload_name)
+
+
+## ─────────────────────────────────────────────────────────────
+## Tab 7: 动画预览
+## ─────────────────────────────────────────────────────────────
+
+## 所有有序列帧的动画条目：[folder_name, frame_prefix, label]
+const ANIM_ENTRIES := [
+	["slime",            "enemy_slime",            "布丁怪"],
+	["slime_king",       "enemy_slime_king",       "史莱姆王"],
+	["bat",              "enemy_bat",              "吸血蝙蝠"],
+	["mushroom",         "enemy_mushroom",         "蘑菇精"],
+	["gargoyle",         "enemy_gargoyle",         "石像鬼"],
+	["shadow_mage",      "enemy_shadow_mage",      "影法师"],
+	["skeleton",         "enemy_skeleton",         "骷髅兵"],
+	["corrupted_knight", "enemy_corrupted_knight", "堕落骑士"],
+	["orc_berserker",    "enemy_orc_berserker",    "兽人狂战士"],
+	["ancient_dragon",   "enemy_ancient_dragon",   "远古巨龙"],
+]
+
+func _build_anim_tab() -> void:
+	_add_section_title("序列帧动画预览 — 点击格子切换 idle / hit，红色边框 = 素材有问题")
+
+	var help := Label.new()
+	help.text = "每格显示动画名 / 帧数 / FPS。⚠ = 无序列帧文件（仅静态图）。"
+	help.add_theme_font_size_override("font_size", 13)
+	help.add_theme_color_override("font_color", Color(0.72, 0.82, 0.94))
+	_content_area.add_child(help)
+
+	var flow := _make_flow_container()
+	flow.add_theme_constant_override("h_separation", 20)
+	flow.add_theme_constant_override("v_separation", 20)
+	_content_area.add_child(flow)
+
+	for entry in ANIM_ENTRIES:
+		var folder: String = str(entry[0])
+		var prefix: String = str(entry[1])
+		var label_text: String = str(entry[2])
+		var base_dir := "res://assets/enemies/%s" % folder
+
+		## 外框卡片
+		var card := PanelContainer.new()
+		var card_style := StyleBoxFlat.new()
+		card_style.bg_color = Color(0.10, 0.11, 0.14)
+		card_style.set_corner_radius_all(8)
+		card_style.set_border_width_all(2)
+		card_style.border_color = Color(0.28, 0.32, 0.40)
+		card.add_theme_stylebox_override("panel", card_style)
+		card.custom_minimum_size = Vector2(172, 0)
+		flow.add_child(card)
+
+		var vbox := VBoxContainer.new()
+		vbox.add_theme_constant_override("separation", 6)
+		card.add_child(vbox)
+
+		## 怪物名称
+		var name_lbl := Label.new()
+		name_lbl.text = label_text
+		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		name_lbl.add_theme_font_size_override("font_size", 14)
+		name_lbl.add_theme_color_override("font_color", Color(0.92, 0.84, 0.70))
+		vbox.add_child(name_lbl)
+
+		## idle / hit 两排
+		for anim_name in ["idle", "hit"]:
+			var rect := TextureRect.new()
+			rect.custom_minimum_size = Vector2(160, 140)
+			rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			rect.mouse_filter = Control.MOUSE_FILTER_STOP
+
+			var helper: Variant = SpriteAnimHelperScript.new(rect, base_dir, prefix)
+			var has: bool = helper.has_frames(anim_name)
+
+			## 状态标签（显示在图片下方）
+			var stat_lbl := Label.new()
+			stat_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			stat_lbl.add_theme_font_size_override("font_size", 11)
+
+			if has:
+				helper.play(anim_name, Callable(), 6.0, 0, true)
+				_anim_helpers.append(helper)
+				## 统计帧数
+				var anim_dir := "%s/%s" % [base_dir, anim_name]
+				var count := 0
+				while ResourceLoader.exists(
+					"%s/%s_%s_%03d.png" % [anim_dir, prefix, anim_name, count], "Texture2D"):
+					count += 1
+				stat_lbl.text = "%s  %d帧 / 6fps" % [anim_name, count]
+				stat_lbl.add_theme_color_override("font_color", Color(0.62, 0.90, 0.62))
+			else:
+				## 无序列帧，显示静态图 + 警告
+				var static_path := "res://assets/enemies/%s/%s_%s.png" % [folder, prefix, anim_name]
+				if ResourceLoader.exists(static_path, "Texture2D"):
+					rect.texture = load(static_path)
+				stat_lbl.text = "⚠ %s  无序列帧" % anim_name
+				stat_lbl.add_theme_color_override("font_color", Color(1.0, 0.55, 0.25))
+				card_style.border_color = Color(0.82, 0.28, 0.20)
+
+			var anim_wrap := VBoxContainer.new()
+			anim_wrap.add_theme_constant_override("separation", 2)
+			vbox.add_child(anim_wrap)
+			anim_wrap.add_child(rect)
+			anim_wrap.add_child(stat_lbl)
+
+
 
 
 func _register_editable_inputs() -> void:
