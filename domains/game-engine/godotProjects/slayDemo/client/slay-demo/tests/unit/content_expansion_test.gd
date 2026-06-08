@@ -83,3 +83,62 @@ func run(ctx: Variant) -> void:
 	for card_id in new_ids:
 		var card: Dictionary = data_loader.get_card(card_id)
 		ctx.assert_true(card.has("upgrade"), "new card %s has upgrade field" % card_id)
+
+	## ── V1.5 毒流/格挡流扩充验证 ─────────────────────
+
+	## 12. 新增毒流卡可查询
+	var poison_burst: Dictionary = data_loader.get_card("poison_burst")
+	ctx.assert_false(poison_burst.is_empty(), "poison_burst card exists")
+	ctx.assert_eq(str(poison_burst.get("type", "")), "attack", "poison_burst is attack type")
+	ctx.assert_eq(str(poison_burst.get("rarity", "")), "common", "poison_burst is common rarity")
+
+	var toxic_cloud: Dictionary = data_loader.get_card("toxic_cloud")
+	ctx.assert_false(toxic_cloud.is_empty(), "toxic_cloud card exists")
+	ctx.assert_eq(str(toxic_cloud.get("rarity", "")), "uncommon", "toxic_cloud is uncommon rarity")
+
+	var catalyst: Dictionary = data_loader.get_card("catalyst")
+	ctx.assert_false(catalyst.is_empty(), "catalyst card exists")
+	ctx.assert_eq(str(catalyst.get("type", "")), "skill", "catalyst is skill type")
+
+	var corrosive_strike: Dictionary = data_loader.get_card("corrosive_strike")
+	ctx.assert_false(corrosive_strike.is_empty(), "corrosive_strike card exists")
+	var cs_effects: Array = corrosive_strike.get("effects", [])
+	ctx.assert_eq(cs_effects.size(), 2, "corrosive_strike has 2 effects (damage + poison)")
+
+	var plague: Dictionary = data_loader.get_card("plague")
+	ctx.assert_false(plague.is_empty(), "plague card exists")
+	ctx.assert_eq(str(plague.get("rarity", "")), "rare", "plague is rare rarity")
+
+	## 13. 新增格挡流卡可查询
+	var shield_bash_pro: Dictionary = data_loader.get_card("shield_bash_pro")
+	ctx.assert_false(shield_bash_pro.is_empty(), "shield_bash_pro card exists")
+	ctx.assert_eq(str(shield_bash_pro.get("type", "")), "attack", "shield_bash_pro is attack type")
+
+	var juggernaut: Dictionary = data_loader.get_card("juggernaut")
+	ctx.assert_false(juggernaut.is_empty(), "juggernaut card exists")
+	ctx.assert_eq(str(juggernaut.get("type", "")), "power", "juggernaut is power type")
+
+	var fortress: Dictionary = data_loader.get_card("fortress")
+	ctx.assert_false(fortress.is_empty(), "fortress card exists")
+	ctx.assert_eq(str(fortress.get("rarity", "")), "uncommon", "fortress is uncommon rarity")
+
+	var counter_strike: Dictionary = data_loader.get_card("counter_strike")
+	ctx.assert_false(counter_strike.is_empty(), "counter_strike card exists")
+	ctx.assert_eq(str(counter_strike.get("rarity", "")), "rare", "counter_strike is rare rarity")
+
+	var steel_wall: Dictionary = data_loader.get_card("steel_wall")
+	ctx.assert_false(steel_wall.is_empty(), "steel_wall card exists")
+	var sw_effects: Array = steel_wall.get("effects", [])
+	ctx.assert_eq(sw_effects.size(), 2, "steel_wall has 2 effects (block + metallicize)")
+
+	## 14. 所有新增卡牌都有 upgrade 字段
+	var v15_card_ids := [
+		"poison_burst", "toxic_cloud", "catalyst", "corrosive_strike", "plague",
+		"shield_bash_pro", "juggernaut", "fortress", "counter_strike", "steel_wall"
+	]
+	for card_id in v15_card_ids:
+		var card: Dictionary = data_loader.get_card(card_id)
+		ctx.assert_true(card.has("upgrade"), "v1.5 card %s has upgrade field" % card_id)
+
+	## 15. 卡牌总数 >= 65（55基础卡 + 10新增）
+	ctx.assert_true(all_cards.size() >= 65, "cards expanded to at least 65 after v1.5 addition")

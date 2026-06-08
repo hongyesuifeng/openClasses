@@ -2045,6 +2045,239 @@
           }
         ]
       }
+    },
+    {
+      "id": "poison_burst",
+      "name": "毒爆",
+      "description": "造成 5 点伤害，施加 5 层中毒。若目标已中毒，额外抽 1 张牌。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["damage", "poison"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "damage", "value": 5, "target": "selected_enemy" },
+        { "type": "apply_status", "status_id": "poison", "value": 5, "target": "selected_enemy" },
+        { "type": "draw", "value": 1 }
+      ],
+      "upgrade": {
+        "name": "毒爆+",
+        "description": "造成 8 点伤害，施加 8 层中毒。若目标已中毒，额外抽 1 张牌。",
+        "effects": [
+          { "type": "damage", "value": 8, "target": "selected_enemy" },
+          { "type": "apply_status", "status_id": "poison", "value": 8, "target": "selected_enemy" },
+          { "type": "draw", "value": 1 }
+        ]
+      }
+    },
+    {
+      "id": "toxic_cloud",
+      "name": "毒雾弹",
+      "description": "对所有敌人施加 2 层中毒，抽 1 张牌。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "all_enemies",
+      "tags": ["debuff", "poison"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "apply_status", "status_id": "poison", "value": 2, "target": "all_enemies" },
+        { "type": "draw", "value": 1 }
+      ],
+      "upgrade": {
+        "name": "毒雾弹+",
+        "description": "对所有敌人施加 3 层中毒，抽 1 张牌。",
+        "effects": [
+          { "type": "apply_status", "status_id": "poison", "value": 3, "target": "all_enemies" },
+          { "type": "draw", "value": 1 }
+        ]
+      }
+    },
+    {
+      "id": "catalyst",
+      "name": "催化剂",
+      "description": "目标的中毒层数翻倍（最多 +10 层）。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["debuff", "poison"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "apply_status", "status_id": "poison", "value": 10, "target": "selected_enemy" }
+      ],
+      "upgrade": {
+        "name": "催化剂+",
+        "description": "目标的中毒层数翻倍（最多 +20 层）。费用降至 0。",
+        "cost": 0,
+        "effects": [
+          { "type": "apply_status", "status_id": "poison", "value": 20, "target": "selected_enemy" }
+        ]
+      }
+    },
+    {
+      "id": "corrosive_strike",
+      "name": "腐蚀斩",
+      "description": "造成 5 点伤害，施加 2 层中毒。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["damage", "poison"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "damage", "value": 5, "target": "selected_enemy" },
+        { "type": "apply_status", "status_id": "poison", "value": 2, "target": "selected_enemy" }
+      ],
+      "upgrade": {
+        "name": "腐蚀斩+",
+        "description": "造成 8 点伤害，施加 3 层中毒。",
+        "effects": [
+          { "type": "damage", "value": 8, "target": "selected_enemy" },
+          { "type": "apply_status", "status_id": "poison", "value": 3, "target": "selected_enemy" }
+        ]
+      }
+    },
+    {
+      "id": "plague",
+      "name": "瘟疫",
+      "description": "对所有敌人施加 8 层中毒，抽 2 张牌。",
+      "type": "skill",
+      "rarity": "rare",
+      "cost": 3,
+      "target": "all_enemies",
+      "tags": ["debuff", "poison"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "apply_status", "status_id": "poison", "value": 8, "target": "all_enemies" },
+        { "type": "draw", "value": 2 }
+      ],
+      "upgrade": {
+        "name": "瘟疫+",
+        "description": "对所有敌人施加 8 层中毒，抽 2 张牌。费用降至 2。",
+        "cost": 2,
+        "effects": [
+          { "type": "apply_status", "status_id": "poison", "value": 8, "target": "all_enemies" },
+          { "type": "draw", "value": 2 }
+        ]
+      }
+    },
+    {
+      "id": "shield_bash_pro",
+      "name": "护盾冲击",
+      "description": "造成等于当前格挡值一半的伤害（最少 3 点）。获得 4 点格挡。",
+      "type": "attack",
+      "rarity": "common",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["damage", "block"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "block", "value": 4, "target": "self" },
+        { "type": "damage", "value": 5, "target": "selected_enemy" }
+      ],
+      "upgrade": {
+        "name": "护盾冲击+",
+        "description": "造成等于当前格挡值一半的伤害（最少 3 点）。获得 7 点格挡。",
+        "effects": [
+          { "type": "block", "value": 7, "target": "self" },
+          { "type": "damage", "value": 5, "target": "selected_enemy" }
+        ]
+      }
+    },
+    {
+      "id": "juggernaut",
+      "name": "重装冲锋",
+      "description": "获得 9 点格挡。每次获得格挡时，对随机敌人造成 2 点伤害（本回合）。",
+      "type": "power",
+      "rarity": "uncommon",
+      "cost": 2,
+      "target": "self",
+      "tags": ["block"],
+      "art_key": "card_power",
+      "effects": [
+        { "type": "block", "value": 9, "target": "self" },
+        { "type": "apply_status", "status_id": "thorns", "value": 2, "target": "self" }
+      ],
+      "upgrade": {
+        "name": "重装冲锋+",
+        "description": "获得 12 点格挡。每次获得格挡时，对随机敌人造成 2 点伤害（本回合）。",
+        "effects": [
+          { "type": "block", "value": 12, "target": "self" },
+          { "type": "apply_status", "status_id": "thorns", "value": 2, "target": "self" }
+        ]
+      }
+    },
+    {
+      "id": "fortress",
+      "name": "堡垒守护",
+      "description": "获得 15 点格挡。抽 1 张牌。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 2,
+      "target": "self",
+      "tags": ["block"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "block", "value": 15, "target": "self" },
+        { "type": "draw", "value": 1 }
+      ],
+      "upgrade": {
+        "name": "堡垒守护+",
+        "description": "获得 15 点格挡。抽 2 张牌。",
+        "effects": [
+          { "type": "block", "value": 15, "target": "self" },
+          { "type": "draw", "value": 2 }
+        ]
+      }
+    },
+    {
+      "id": "counter_strike",
+      "name": "格挡反击",
+      "description": "消耗所有格挡，造成等量伤害。",
+      "type": "attack",
+      "rarity": "rare",
+      "cost": 1,
+      "target": "single_enemy",
+      "tags": ["damage", "block"],
+      "art_key": "card_attack",
+      "effects": [
+        { "type": "damage", "value": 0, "target": "selected_enemy" },
+        { "type": "block", "value": 0, "target": "self" }
+      ],
+      "upgrade": {
+        "name": "格挡反击+",
+        "description": "消耗所有格挡，造成等量伤害。费用降至 0。",
+        "cost": 0,
+        "effects": [
+          { "type": "damage", "value": 0, "target": "selected_enemy" },
+          { "type": "block", "value": 0, "target": "self" }
+        ]
+      }
+    },
+    {
+      "id": "steel_wall",
+      "name": "钢铁意志",
+      "description": "获得 10 点格挡，获得 2 层金属化。",
+      "type": "skill",
+      "rarity": "uncommon",
+      "cost": 2,
+      "target": "self",
+      "tags": ["block"],
+      "art_key": "card_skill",
+      "effects": [
+        { "type": "block", "value": 10, "target": "self" },
+        { "type": "apply_status", "status_id": "metallicize", "value": 2, "target": "self" }
+      ],
+      "upgrade": {
+        "name": "钢铁意志+",
+        "description": "获得 14 点格挡，获得 3 层金属化。",
+        "effects": [
+          { "type": "block", "value": 14, "target": "self" },
+          { "type": "apply_status", "status_id": "metallicize", "value": 3, "target": "self" }
+        ]
+      }
     }
   ]
 }
