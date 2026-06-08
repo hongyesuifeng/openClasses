@@ -1,6 +1,7 @@
 extends Control
 
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
@@ -53,6 +54,7 @@ func _build() -> void:
 	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
+	UILayoutStoreScript.apply_layout(title, "rest.title")
 
 	_status_label = Label.new()
 	_status_label.text = _status_text()

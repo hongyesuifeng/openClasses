@@ -74,6 +74,12 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	_build()
+
+	## Gallery 预览模式：只渲染 UI，不启动战斗逻辑
+	if get_meta("gallery_preview", false):
+		_render_mock_battle_state()
+		return
+
 	_battle.state_changed.connect(_on_state_changed)
 	_battle.message_logged.connect(_on_message_logged)
 	_battle.combat_event.connect(_on_combat_event)
@@ -1021,3 +1027,43 @@ func _play_tutorial_step(steps: Array, index: int) -> void:
 	tween.tween_property(panel, "modulate:a", 0.0, 0.3)
 	tween.finished.connect(panel.queue_free)
 	tween.finished.connect(func(): _play_tutorial_step(steps, index + 1))
+
+
+## Gallery 预览模式：用 Mock 数据渲染初始战斗界面，不启动战斗逻辑
+func _render_mock_battle_state() -> void:
+	var data_loader: Variant = _autoload("DataLoader")
+	var game_state: Variant = _autoload("GameState")
+	if data_loader == null or game_state == null:
+		return
+
+	## 玩家状态
+	_header_label.text = "HP %d/%d  格挡 %d  力量 %d  回合 %d" % [
+		game_state.player_hp, game_state.player_max_hp, 0, 0, 1
+	]
+	_hp_bar.max_value = maxf(1.0, float(game_state.player_max_hp))
+	_hp_bar.value = float(game_state.player_hp)
+	_block_bar.max_value = maxf(1.0, float(game_state.player_max_hp))
+	_block_bar.value = 0.0
+	if _energy_label != null:
+		_energy_label.text = "3/3"
+
+	## 用 v1_normal_01 遭遇的第一个敌人渲染怪物行
+	var encounter: Dictionary = data_loader.get_encounter("v1_normal_01")
+	var enemy_ids: Array = encounter.get("enemies", [])
+	var enemies: Array = []
+	for eid in enemy_ids:
+		var enemy_data: Dictionary = data_loader.get_enemy(str(eid))
+		if not enemy_data.is_empty():
+			var mock_enemy := enemy_data.duplicate(true)
+			mock_enemy["hp"] = int(enemy_data.get("max_hp", 20))
+			mock_enemy["block"] = 0
+			mock_enemy["intent"] = {"type": "attack", "name": "攻击", "value": 6}
+			mock_enemy["statuses"] = []
+			enemies.append(mock_enemy)
+	if not enemies.is_empty():
+		_render_enemies(enemies)
+
+	## 手牌：取前 5 张
+	var all_cards: Array = data_loader.get_all_cards()
+	var hand_cards: Array = all_cards.slice(0, mini(5, all_cards.size()))
+	_render_hand(hand_cards, "player")

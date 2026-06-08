@@ -1,6 +1,7 @@
 extends Control
 
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
 const EventServiceScript := preload("res://scripts/event/event_service.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
@@ -70,6 +71,7 @@ func _render_event() -> void:
 	title.add_theme_color_override("font_color", Color(0.96, 0.86, 0.68))
 	UIThemeScript.apply_cn(title)
 	_content_container.add_child(title)
+	UILayoutStoreScript.apply_layout(title, "event.title")
 
 	## 状态/描述
 	_status_label = Label.new()

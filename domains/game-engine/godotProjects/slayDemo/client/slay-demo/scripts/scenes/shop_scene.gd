@@ -1,9 +1,9 @@
 extends Control
 
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
-
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const ShopServiceScript := preload("res://scripts/shop/shop_service.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
 var _status_label: Label
 var _gold_label: Label
@@ -52,6 +52,7 @@ func _build() -> void:
 	title.add_theme_color_override("font_color", Color(0.98, 0.9, 0.72))
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
+	UILayoutStoreScript.apply_layout(title, "shop.title")
 
 	_gold_label = Label.new()
 	_gold_label.text = _gold_text()
@@ -59,6 +60,7 @@ func _build() -> void:
 	_gold_label.add_theme_font_size_override("font_size", 18)
 	_gold_label.add_theme_color_override("font_color", Color(0.94, 0.84, 0.54))
 	root.add_child(_gold_label)
+	UILayoutStoreScript.apply_layout(_gold_label, "shop.gold")
 
 	_status_label = Label.new()
 	_status_label.text = "购买卡牌，或移除一张牌。"
@@ -66,11 +68,13 @@ func _build() -> void:
 	_status_label.add_theme_font_size_override("font_size", 16)
 	_status_label.add_theme_color_override("font_color", Color(0.92, 0.84, 0.72))
 	root.add_child(_status_label)
+	UILayoutStoreScript.apply_layout(_status_label, "shop.status")
 
 	_content_row = HBoxContainer.new()
 	_content_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_content_row.add_theme_constant_override("separation", 16)
 	root.add_child(_content_row)
+	UILayoutStoreScript.apply_layout(_content_row, "shop.content_row")
 
 	if _remove_mode:
 		_render_remove_choices()

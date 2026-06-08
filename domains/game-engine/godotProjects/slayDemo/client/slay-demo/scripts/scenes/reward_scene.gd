@@ -1,6 +1,7 @@
 extends Control
 
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
 const RewardServiceScript := preload("res://scripts/reward/reward_service.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
@@ -88,6 +89,7 @@ func _build_relic_reward(root: VBoxContainer) -> void:
 	title.add_theme_color_override("font_color", Color(0.98, 0.84, 0.4))
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
+	UILayoutStoreScript.apply_layout(title, "reward.title")
 
 	_status_label = Label.new()
 	_status_label.text = "获得遗物"

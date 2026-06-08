@@ -1,6 +1,7 @@
 extends Control
 
 const UIThemeScript := preload("res://scripts/ui/ui_theme.gd")
+const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
 
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
@@ -50,6 +51,7 @@ func _build() -> void:
 		Color(0.98, 0.88, 0.40) if won else Color(0.90, 0.36, 0.36))
 	UIThemeScript.apply_cn(title)
 	root.add_child(title)
+	UILayoutStoreScript.apply_layout(title, "result.title")
 
 	## ── 得分 / 评价 ──────────────────────────────────
 	if won:

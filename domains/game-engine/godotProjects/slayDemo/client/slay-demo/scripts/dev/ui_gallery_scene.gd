@@ -17,8 +17,13 @@ const TABS := [
 	{"key": "cards",    "label": "卡牌 (52)"},
 	{"key": "relics",   "label": "遗物 (16)"},
 	{"key": "statuses", "label": "状态 (11)"},
-	{"key": "battle",   "label": "战斗UI"},
-	{"key": "map",      "label": "地图"},
+	{"key": "battle",   "label": "⚔ 战斗"},
+	{"key": "map",      "label": "🗺 地图"},
+	{"key": "shop",     "label": "🛒 商店"},
+	{"key": "reward",   "label": "🎁 奖励"},
+	{"key": "event",    "label": "❓ 事件"},
+	{"key": "rest",     "label": "🔥 休息"},
+	{"key": "result",   "label": "📊 结算"},
 	{"key": "theme",    "label": "字体/色彩"},
 	{"key": "anim",     "label": "🎬 动画预览"},
 ]
@@ -134,8 +139,13 @@ func _switch_tab(tab_key: String) -> void:
 		"cards":    _build_cards_tab()
 		"relics":   _build_relics_tab()
 		"statuses": _build_statuses_tab()
-		"battle":   _build_battle_tab()
-		"map":      _build_map_tab()
+		"battle":   _build_scene_tab("res://scenes/battle/battle_scene.tscn",  _mock_battle)
+		"map":      _build_scene_tab("res://scenes/map/map_scene.tscn",        _mock_map)
+		"shop":     _build_scene_tab("res://scenes/shop/shop_scene.tscn",      _mock_shop)
+		"reward":   _build_scene_tab("res://scenes/reward/reward_scene.tscn",  _mock_reward)
+		"event":    _build_scene_tab("res://scenes/event/event_scene.tscn",    _mock_event)
+		"rest":     _build_scene_tab("res://scenes/rest/rest_scene.tscn",      _mock_rest)
+		"result":   _build_scene_tab("res://scenes/result/result_scene.tscn",  _mock_result)
 		"theme":    _build_theme_tab()
 		"anim":     _build_anim_tab()
 	call_deferred("_register_editable_inputs")
@@ -766,8 +776,146 @@ func _autoload(autoload_name: String) -> Variant:
 
 
 ## ─────────────────────────────────────────────────────────────
-## Tab 7: 动画预览
+## 通用场景嵌入框架
 ## ─────────────────────────────────────────────────────────────
+
+## 嵌入真实场景到 SubViewport，交互层捕获右键打开 live 编辑器
+## mock_fn: 在场景实例化前注入所需 GameState 数据
+func _build_scene_tab(scene_path: String, mock_fn: Callable) -> void:
+	var hint := Label.new()
+	hint.text = "右键任意 UI 元素 → 打开实时编辑器（属性面板在右侧，背景即为实时预览）"
+	hint.add_theme_font_size_override("font_size", 13)
+	hint.add_theme_color_override("font_color", Color(0.52, 0.82, 1.0))
+	_content_area.add_child(hint)
+
+	if not ResourceLoader.exists(scene_path):
+		_add_error_label("场景文件不存在：%s" % scene_path)
+		return
+
+	## 调用 mock 注入，准备 GameState
+	mock_fn.call()
+
+	## SubViewportContainer 固定 16:9 高度
+	var container := SubViewportContainer.new()
+	container.stretch = true
+	container.custom_minimum_size = Vector2(0, 620)
+	container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_content_area.add_child(container)
+
+	var viewport := SubViewport.new()
+	viewport.size = Vector2i(1280, 720)
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	container.add_child(viewport)
+
+	## 实例化场景，标记 gallery_preview 让 _ready 跳过业务逻辑
+	var scene_res: PackedScene = load(scene_path)
+	var scene_node: Node = scene_res.instantiate()
+	scene_node.set_meta("gallery_preview", true)
+	viewport.add_child(scene_node)
+	## 暂停 _process 避免战斗/动画逻辑持续运行（序列帧动画除外）
+	scene_node.set_process(false)
+	scene_node.set_physics_process(false)
+
+	## 透明交互层：捕获鼠标，不阻断 SubViewport 内部
+	var overlay := Control.new()
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	container.add_child(overlay)
+
+	overlay.gui_input.connect(func(event: InputEvent) -> void:
+		if not event is InputEventMouseButton:
+			return
+		var mouse := event as InputEventMouseButton
+		if not (mouse.pressed and mouse.button_index == MOUSE_BUTTON_RIGHT):
+			return
+		## 坐标从 overlay 空间映射到 viewport 空间
+		var scale_x := float(viewport.size.x) / maxf(container.size.x, 1.0)
+		var scale_y := float(viewport.size.y) / maxf(container.size.y, 1.0)
+		var vp_pos := mouse.position * Vector2(scale_x, scale_y)
+		var hit := _pick_layout_node(scene_node, vp_pos)
+		if hit != null:
+			_open_live_editor(hit)
+		else:
+			hint.text = "未找到可编辑元素（需要 layout_element_id meta）— 右键其他位置再试"
+	)
+
+
+## 在 Viewport 树里找有 layout_element_id 且矩形包含 vp_pos 的节点
+## 逆序遍历保证后渲染（上层）节点优先命中
+func _pick_layout_node(root: Node, vp_pos: Vector2) -> Control:
+	var candidates: Array[Control] = []
+	_collect_layout_controls(root, candidates)
+	candidates.reverse()
+	for node in candidates:
+		if node.get_global_rect().has_point(vp_pos):
+			return node
+	return null
+
+
+func _collect_layout_controls(root: Node, result: Array[Control]) -> void:
+	if root is Control and (root as Control).has_meta("layout_element_id"):
+		result.append(root as Control)
+	for child in root.get_children():
+		_collect_layout_controls(child, result)
+
+
+func _open_live_editor(control: Control) -> void:
+	var editor := UILayoutEditorScript.new()
+	add_child(editor)
+	editor.open(control, true)  ## live_mode = true
+	editor.closed.connect(func(_saved: bool) -> void:
+		pass  ## live 模式：不需要刷新 Gallery，真实场景已实时更新
+	)
+
+
+## ─────────────────────────────────────────────────────────────
+## Mock 数据注入（各场景）
+## ─────────────────────────────────────────────────────────────
+
+func _mock_base() -> void:
+	var data_loader: Variant = _autoload("DataLoader")
+	var game_state: Variant = _autoload("GameState")
+	if data_loader == null or game_state == null:
+		return
+	data_loader.load_all()
+	var run_config: Dictionary = data_loader.get_run_config("act1_map_run")
+	if not run_config.is_empty():
+		game_state.start_new_run(run_config)
+
+
+func _mock_battle() -> void:
+	_mock_base()
+	## 战斗场景 _ready 里会检查 gallery_preview meta 跳过 start_combat
+
+
+func _mock_map() -> void:
+	_mock_base()
+
+
+func _mock_shop() -> void:
+	_mock_base()
+	var game_state: Variant = _autoload("GameState")
+	if game_state != null:
+		game_state.gold = 999
+
+
+func _mock_reward() -> void:
+	_mock_base()
+
+
+func _mock_event() -> void:
+	_mock_base()
+
+
+func _mock_rest() -> void:
+	_mock_base()
+
+
+func _mock_result() -> void:
+	_mock_base()
+	var game_state: Variant = _autoload("GameState")
+	if game_state != null:
+		game_state.battles_won = 3
 
 ## 所有有序列帧的动画条目：[folder_name, frame_prefix, label]
 const ANIM_ENTRIES := [

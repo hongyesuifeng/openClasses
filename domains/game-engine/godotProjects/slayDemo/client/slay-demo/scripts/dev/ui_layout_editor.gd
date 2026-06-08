@@ -11,8 +11,8 @@ var _preview: Control
 var _selected: Control
 var _tree: Tree
 var _fields: Dictionary = {}
-var _visual_section: Control        ## 视觉属性区容器，切换选中时动态 show/hide
-var _label_section: Control         ## Label 专属字段容器
+var _visual_section: Control
+var _label_section: Control
 var _instance_toggle: CheckBox
 var _grid_toggle: CheckBox
 var _resolution: OptionButton
@@ -27,28 +27,41 @@ var _drag_mode := ""
 var _drag_start := Vector2.ZERO
 var _before_drag: Dictionary = {}
 var _syncing := false
+## live 模式：直接操作真实场景节点，不 duplicate，画布区隐藏
+var _live_mode := false
 
 
-func open(source: Control) -> void:
+func open(source: Control, live_mode := false) -> void:
+	_live_mode = live_mode
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	z_index = 1000
 	_build_ui()
-	_preview = source.duplicate() as Control
-	if _preview == null:
-		_preview = ColorRect.new()
-		(_preview as ColorRect).color = Color(0.3, 0.35, 0.45)
-		_preview.custom_minimum_size = source.size
-		_preview.set_meta("layout_element_id", str(source.get_meta("layout_element_id", "gallery.preview")))
-	_preview.position = Vector2(80, 60)
-	_preview_host.add_child(_preview)
-	_disable_input(_preview)
-	_interaction.move_to_front()
+
+	if _live_mode:
+		## Live 模式：直接持有真实节点，隐藏画布区，背后场景即是预览
+		_preview = source
+		if _preview_host != null:
+			_preview_host.get_parent().visible = false
+		_interaction = Control.new()  ## 虚拟 interaction，不需要实际绘制
+	else:
+		_preview = source.duplicate() as Control
+		if _preview == null:
+			_preview = ColorRect.new()
+			(_preview as ColorRect).color = Color(0.3, 0.35, 0.45)
+			_preview.custom_minimum_size = source.size
+			_preview.set_meta("layout_element_id", str(source.get_meta("layout_element_id", "gallery.preview")))
+		_preview.position = Vector2(80, 60)
+		_preview_host.add_child(_preview)
+		_disable_input(_preview)
+		_interaction.move_to_front()
+
 	_build_tree()
 	for control in _editable_controls(_preview):
 		_initial[control] = _snapshot(control)
 	var editable := _editable_controls(_preview)
 	_select_control(editable[0] if not editable.is_empty() else _preview)
-	_interaction.grab_focus()
+	if not _live_mode:
+		_interaction.grab_focus()
 
 
 func _build_ui() -> void:
@@ -120,6 +133,8 @@ func _build_ui() -> void:
 	viewport_style.set_border_width_all(3)
 	viewport_style.set_content_margin_all(10)
 	viewport_panel.add_theme_stylebox_override("panel", viewport_style)
+	## live 模式：画布区折叠，背后的真实场景本身就是预览
+	viewport_panel.visible = not _live_mode
 	work_area.add_child(viewport_panel)
 
 	_preview_host = Control.new()
@@ -627,10 +642,19 @@ func _save_and_close() -> void:
 	var error := UILayoutStoreScript.save()
 	if error == OK:
 		closed.emit(true)
-		queue_free()
+		## live 模式：节点属于外部场景，只释放编辑器自身
+		if _live_mode:
+			queue_free()
+		else:
+			queue_free()
 
 
 func _close_without_save() -> void:
+	if _live_mode:
+		## 恢复节点到保存前的状态
+		for control in _editable_controls(_preview):
+			if _initial.has(control):
+				_restore_snapshot(control, _initial[control])
 	UILayoutStoreScript.reload_config()
 	closed.emit(false)
 	queue_free()
@@ -652,6 +676,8 @@ func _set_resolution(index: int) -> void:
 
 
 func _set_zoom(value: float) -> void:
+	if _live_mode:
+		return
 	_zoom = clampf(value, 0.25, 2.0)
 	_preview.scale = Vector2.ONE * _zoom
 	if _zoom_label != null:
@@ -678,6 +704,8 @@ func _rect_in_editor(control: Control) -> Rect2:
 
 
 func _draw_selection() -> void:
+	if _live_mode:
+		return
 	var canvas_size := _interaction.size
 	var grid_color := Color(0.24, 0.29, 0.36, 0.42)
 	var major_grid_color := Color(0.32, 0.40, 0.50, 0.55)
