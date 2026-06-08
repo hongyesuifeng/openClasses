@@ -333,7 +333,7 @@
       "name": "星座魔女",
       "enemy_type": "normal",
       "max_hp": 38,
-      "art_key": "enemy_skeleton",
+      "art_key": "enemy_shadow_mage",
       "tags": [
         "debuff"
       ],
@@ -594,7 +594,7 @@
       "name": "狂暴糖果熊",
       "enemy_type": "elite",
       "max_hp": 75,
-      "art_key": "enemy_gargoyle",
+      "art_key": "enemy_orc_berserker",
       "tags": [
         "elite",
         "scaling"
