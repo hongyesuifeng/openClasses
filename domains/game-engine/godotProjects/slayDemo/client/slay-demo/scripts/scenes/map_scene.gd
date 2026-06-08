@@ -57,7 +57,7 @@ func _build() -> void:
 	UILayoutStoreScript.apply_layout(background, "map.background")
 
 	var tint := ColorRect.new()
-	tint.color = Color(0.025, 0.028, 0.032, 0.70)
+	tint.color = Color(0.025, 0.028, 0.032, 0.45)
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -101,16 +101,17 @@ func _build() -> void:
 	root.add_child(_node_root)
 	UILayoutStoreScript.apply_layout(_node_root, "map.node_surface")
 
-	## 连线画布：铺满 _node_root，在节点按钮之下绘制
+	## 连线画布：用 size 而非 anchors，等 resized 后更新尺寸再触发重绘
 	_line_canvas = Control.new()
-	_line_canvas.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_line_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_line_canvas.z_index = -1
 	_line_canvas.draw.connect(_draw_path_lines)
 	_node_root.add_child(_line_canvas)
+	## layout 完成后同步 _line_canvas 尺寸并触发连线绘制
+	_node_root.resized.connect(_on_node_root_resized)
 
 	var map_surface := ColorRect.new()
-	map_surface.color = Color(0.025, 0.026, 0.026, 0.46)
+	map_surface.color = Color(0.025, 0.026, 0.026, 0.20)
 	map_surface.set_anchors_preset(Control.PRESET_FULL_RECT)
 	map_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	map_surface.z_index = -10
@@ -166,7 +167,7 @@ func _render_nodes() -> void:
 
 		var button := Button.new()
 		button.text = ""
-		button.custom_minimum_size = Vector2(144, 64)
+		button.custom_minimum_size = Vector2(110, 56)
 		button.position = node_pos
 		button.disabled = not selectable
 		button.add_theme_stylebox_override("normal", _node_style(str(node_dict.get("type", "")), done, selectable))
@@ -178,8 +179,8 @@ func _render_nodes() -> void:
 
 
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
-	## 节点中心偏移（按钮尺寸 144×64 的一半）
-	const NODE_HALF := Vector2(72.0, 32.0)
+	## 节点中心偏移（按钮尺寸 110×56 的一半）
+	const NODE_HALF := Vector2(55.0, 28.0)
 	_path_lines.clear()
 	for node in nodes:
 		var node_dict := node as Dictionary
@@ -196,7 +197,14 @@ func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
 				"open": completed.has(from_id) or available.has(from_id),
 			})
 	if _line_canvas != null:
-		_line_canvas.call_deferred("queue_redraw")
+		pass  ## 由 _on_node_root_resized 触发重绘
+
+
+func _on_node_root_resized() -> void:
+	if _line_canvas == null:
+		return
+	_line_canvas.size = _node_root.size
+	_line_canvas.queue_redraw()
 
 
 func _draw_path_lines() -> void:
@@ -217,7 +225,7 @@ func _node_position(floor_index: int, index: int, count: int, max_floor: int) ->
 	var height := maxf(1.0, viewport_size.y - 130.0)
 	var x_step := width / float(max_floor + 1)
 	var center_y := height * 0.5
-	var y_gap := 80.0
+	var y_gap := 70.0
 	var y := center_y + (float(index) - float(count - 1) * 0.5) * y_gap
 	return Vector2(x_step * floor_index - 72.0, y - 32.0)
 
