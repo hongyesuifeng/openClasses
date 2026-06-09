@@ -1287,9 +1287,9 @@ func _build_specs_tab() -> void:
 			return
 		var ui := _UIBuilder.build(spec_path)
 		if ui != null:
-			ui.set_anchors_preset(Control.PRESET_FULL_RECT)
-			ui.size = Vector2(preview_vp.size)
 			preview_vp.add_child(ui)
+			ui.set_anchors_preset(Control.PRESET_FULL_RECT)
+			ui.set_deferred("size", Vector2(preview_vp.size))
 		preview_title.text = "预览：%s（1280×720）" % spec_path.get_file()
 
 	## ── 加载 spec 到编辑器 ──────────────────────────────────────
@@ -1315,9 +1315,9 @@ func _build_specs_tab() -> void:
 			c.queue_free()
 		var ui := _UIBuilder.build(tmp)
 		if ui != null:
-			ui.set_anchors_preset(Control.PRESET_FULL_RECT)
-			ui.size = Vector2(preview_vp.size)
 			preview_vp.add_child(ui)
+			ui.set_anchors_preset(Control.PRESET_FULL_RECT)
+			ui.set_deferred("size", Vector2(preview_vp.size))
 		DirAccess.remove_absolute(tmp)
 		_set_status.call("✅ 预览已更新", true)
 
