@@ -1158,18 +1158,18 @@ func _build_specs_tab() -> void:
 	file_title.add_theme_color_override("font_color", Color(0.52, 0.82, 1.0))
 	file_panel.add_child(file_title)
 
-	## ── 右侧：上下两半（预览 / JSON 编辑器）──────────────────────
-	var right_split := VSplitContainer.new()
+	## ── 右侧：左右两栏（预览 / JSON 编辑器）──────────────────────
+	var right_split := HSplitContainer.new()
 	right_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	right_split.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	right_split.split_offset          = 330   ## 预览区默认高度，给 JSON 编辑器保留可见空间
+	right_split.split_offset          = 650
 	split.add_child(right_split)
 
 	## ── 预览区：SubViewport 渲染完整 1280×720 ─────────────────────
 	var preview_outer := VBoxContainer.new()
 	preview_outer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_outer.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	preview_outer.custom_minimum_size   = Vector2(0, 260)
+	preview_outer.custom_minimum_size   = Vector2(520, 0)
 	preview_outer.add_theme_constant_override("separation", 4)
 	right_split.add_child(preview_outer)
 
@@ -1193,9 +1193,10 @@ func _build_specs_tab() -> void:
 	## SubViewportContainer：自动按容器大小缩放 1280×720 内容
 	var preview_container := SubViewportContainer.new()
 	preview_container.stretch = true
-	preview_container.stretch_shrink = 1
+	preview_container.stretch_shrink = 2
 	preview_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_container.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	preview_container.custom_minimum_size   = Vector2(640, 360)
 	preview_outer.add_child(preview_container)
 
 	var preview_vp := SubViewport.new()
@@ -1208,7 +1209,7 @@ func _build_specs_tab() -> void:
 	var editor_panel := VBoxContainer.new()
 	editor_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	editor_panel.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	editor_panel.custom_minimum_size   = Vector2(0, 230)
+	editor_panel.custom_minimum_size   = Vector2(420, 0)
 	editor_panel.add_theme_constant_override("separation", 4)
 	right_split.add_child(editor_panel)
 
@@ -1235,7 +1236,7 @@ func _build_specs_tab() -> void:
 	var text_edit := TextEdit.new()
 	text_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	text_edit.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	text_edit.custom_minimum_size   = Vector2(0, 160)
+	text_edit.custom_minimum_size   = Vector2(0, 360)
 	text_edit.syntax_highlighter    = CodeHighlighter.new()
 	text_edit.add_theme_font_size_override("font_size", 13)
 	text_edit.add_theme_color_override("background_color", Color(0.06, 0.065, 0.075))
@@ -1243,26 +1244,26 @@ func _build_specs_tab() -> void:
 	editor_panel.add_child(text_edit)
 
 	## 按钮行
-	var btn_row := HBoxContainer.new()
+	var btn_row := HFlowContainer.new()
 	btn_row.add_theme_constant_override("separation", 8)
 	editor_panel.add_child(btn_row)
 
 	var apply_btn := Button.new()
 	apply_btn.text = "▶ 应用预览"
 	apply_btn.tooltip_text = "把当前 JSON 渲染到左上方预览区（不写磁盘）"
-	apply_btn.custom_minimum_size = Vector2(120, 32)
+	apply_btn.custom_minimum_size = Vector2(110, 32)
 	btn_row.add_child(apply_btn)
 
 	var save_btn := Button.new()
 	save_btn.text = "💾 保存"
 	save_btn.tooltip_text = "保存到 res://ui_specs/ 对应文件"
-	save_btn.custom_minimum_size = Vector2(90, 32)
+	save_btn.custom_minimum_size = Vector2(82, 32)
 	btn_row.add_child(save_btn)
 
 	var save_apply_btn := Button.new()
-	save_apply_btn.text = "💾 保存 + 预览"
+	save_apply_btn.text = "💾 保存+预览"
 	save_apply_btn.tooltip_text = "保存到文件并刷新预览"
-	save_apply_btn.custom_minimum_size = Vector2(130, 32)
+	save_apply_btn.custom_minimum_size = Vector2(118, 32)
 	btn_row.add_child(save_apply_btn)
 
 	var reload_btn := Button.new()
