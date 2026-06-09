@@ -1,0 +1,47 @@
+{
+  "backgrounds": {
+    "demo":        "res://assets/backgrounds/bg_main_menu.png",
+    "main_menu":   "res://assets/backgrounds/bg_main_menu.png",
+    "battle":      "res://assets/backgrounds/bg_battle_dungeon.png",
+    "battle_boss": "res://assets/backgrounds/bg_battle_boss.png",
+    "map":         "res://assets/backgrounds/bg_map.png",
+    "shop":        "res://assets/backgrounds/bg_map.png",
+    "rest":        "res://assets/backgrounds/bg_map.png",
+    "chest":       "res://assets/backgrounds/bg_map.png",
+    "event":       "res://assets/backgrounds/bg_map.png",
+    "reward":      "res://assets/backgrounds/bg_map.png"
+  },
+  "characters": {
+    "merchant": "res://assets/shop/merchant_portrait.png"
+  },
+  "icons": {
+    "achievement": "res://assets/ui/icons/icon_achievement.png",
+    "collection":  "res://assets/ui/icons/icon_collection.png",
+    "settings":    "res://assets/ui/icons/icon_settings.png",
+    "notice":      "res://assets/ui/icons/icon_notice.png",
+    "shop":        "res://assets/ui/icons/icon_shop.png",
+    "battle":      "res://assets/ui/icons/icon_battle.png",
+    "chest":       "res://assets/ui/icons/icon_chest.png",
+    "question":    "res://assets/ui/icons/icon_question.png",
+    "rest":        "res://assets/ui/icons/icon_rest.png",
+    "boss":        "res://assets/ui/icons/icon_boss.png"
+  },
+  "buttons": {
+    "primary": {
+      "normal":   "res://assets/ui/buttons/ui_btn_pink_normal.png",
+      "pressed":  "res://assets/ui/buttons/ui_btn_pink_pressed.png",
+      "disabled": "res://assets/ui/buttons/ui_btn_pink_disabled.png",
+      "nine_patch": [36, 24, 36, 24]
+    },
+    "secondary": {
+      "normal":   "res://assets/ui/buttons/ui_btn_normal.png",
+      "pressed":  "res://assets/ui/buttons/ui_btn_pressed.png",
+      "disabled": "res://assets/ui/buttons/ui_btn_disabled.png",
+      "nine_patch": [28, 20, 28, 20]
+    }
+  },
+  "panels": {
+    "dark":  "res://assets/ui/panels/ui_panel_dark.png",
+    "light": "res://assets/ui/panels/ui_panel_light.png"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "scene": "ChestUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "TextureRect",
+    "name": "Background",
+    "asset": "backgrounds.chest",
+    "stretch_mode": "keep_aspect_covered",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "Panel",
+      "name": "Tint",
+      "style": "panel_dark",
+      "layout": { "preset": "full_rect" },
+      "visible": false
+    },
+    {
+      "type": "VBoxContainer",
+      "name": "Root",
+      "layout": { "preset": "full_rect", "margin": [32, 28, 32, 28] },
+      "children": [
+        {
+          "type": "Label",
+          "name": "TitleLabel",
+          "text": "宝箱",
+          "style": "text_title_gold",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Label",
+          "name": "StatusLabel",
+          "text": "打开宝箱，获得金币和遗物。",
+          "style": "text_body",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Button",
+          "name": "OpenButton",
+          "text": "打开",
+          "style": "btn_primary",
+          "layout": { "preset": "full_rect" },
+          "action": "chest.on_open"
+        }
+      ]
+    }
+  ]
+}

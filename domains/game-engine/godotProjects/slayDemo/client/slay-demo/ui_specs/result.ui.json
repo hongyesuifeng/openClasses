@@ -1,0 +1,122 @@
+{
+  "scene": "ResultUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "Panel",
+    "name": "Background",
+    "style": "panel_dark",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "ScrollContainer",
+      "name": "Scroll",
+      "layout": { "preset": "full_rect", "margin": [20, 16, 20, 16] },
+      "children": [
+        {
+          "type": "VBoxContainer",
+          "name": "Root",
+          "layout": { "preset": "full_rect" },
+          "children": [
+            {
+              "type": "Label",
+              "name": "TitleLabel",
+              "text": "结算",
+              "style": "text_title_gold",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "GradeLabel",
+              "text": "",
+              "style": "text_title_gold",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "ScoreLabel",
+              "text": "",
+              "style": "text_body",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "BreakdownLabel",
+              "text": "",
+              "style": "text_caption",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Panel",
+              "name": "StatsPanel",
+              "style": "panel_card",
+              "layout": { "preset": "full_rect" },
+              "children": [
+                {
+                  "type": "VBoxContainer",
+                  "name": "StatsVBox",
+                  "layout": { "preset": "full_rect" }
+                }
+              ]
+            },
+            {
+              "type": "Label",
+              "name": "RelicSectionLabel",
+              "text": "持有遗物",
+              "style": "text_section",
+              "layout": { "preset": "full_rect" },
+              "visible": false
+            },
+            {
+              "type": "HBoxContainer",
+              "name": "RelicRow",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "DeckSectionLabel",
+              "text": "最终牌组",
+              "style": "text_section",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "ScrollContainer",
+              "name": "DeckScroll",
+              "layout": { "preset": "full_rect" },
+              "children": [
+                {
+                  "type": "HBoxContainer",
+                  "name": "DeckRow",
+                  "layout": { "preset": "full_rect" }
+                }
+              ]
+            },
+            {
+              "type": "HBoxContainer",
+              "name": "ButtonRow",
+              "layout": { "preset": "full_rect" },
+              "children": [
+                {
+                  "type": "Button",
+                  "name": "RestartButton",
+                  "text": "重新开始",
+                  "style": "btn_primary",
+                  "layout": { "preset": "full_rect" },
+                  "action": "result.on_restart"
+                },
+                {
+                  "type": "Button",
+                  "name": "MenuButton",
+                  "text": "返回主菜单",
+                  "style": "btn_secondary",
+                  "layout": { "preset": "full_rect" },
+                  "action": "result.on_menu"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

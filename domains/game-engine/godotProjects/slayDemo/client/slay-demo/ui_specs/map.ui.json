@@ -1,0 +1,44 @@
+{
+  "scene": "MapUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "TextureRect",
+    "name": "Background",
+    "asset": "backgrounds.map",
+    "stretch_mode": "keep_aspect_covered",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "VBoxContainer",
+      "name": "Root",
+      "layout": { "preset": "full_rect", "margin": [28, 22, 28, 22] },
+      "children": [
+        {
+          "type": "Label",
+          "name": "TitleLabel",
+          "text": "甜心迷宫",
+          "style": "text_title_pink",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Label",
+          "name": "StatusLabel",
+          "text": "",
+          "style": "text_body",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "HBoxContainer",
+          "name": "RelicRow",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Control",
+          "name": "NodeSurface",
+          "layout": { "preset": "full_rect" }
+        }
+      ]
+    }
+  ]
+}

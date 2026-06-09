@@ -129,40 +129,56 @@ func _ready() -> void:
 		_show_tutorial_hint()
 
 
+const _UIBuilder := preload("res://addons/ui_builder/ui_builder.gd")
+const SPEC_PATH := "res://ui_specs/battle.ui.json"
+
+
+func handle_action(action_name: String, _source: Node) -> void:
+	match action_name:
+		"battle.on_end_turn": _on_end_turn_pressed()
+
+
 func _build() -> void:
 	var run_controller: Variant = _autoload("RunController")
 	var encounter_id := str(run_controller.get_current_encounter_id()) if run_controller != null else ""
 
-	var background := TextureRect.new()
-	background.texture = load(BACKGROUND_BOSS if encounter_id == "v1_boss_01" else BACKGROUND_NORMAL)
-	background.set_anchors_preset(Control.PRESET_FULL_RECT)
-	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	background.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	add_child(background)
-	UILayoutStoreScript.apply_layout(background, "battle.background", encounter_id)
+	## ── UIBuilder 生成骨架 ──
+	var ui := _UIBuilder.build(SPEC_PATH)
+	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(ui)
+
+	## 根据 encounter 覆盖背景贴图
+	var bg := ui.find_child("Background", true, false) as TextureRect
+	if bg != null:
+		bg.texture = load(BACKGROUND_BOSS if encounter_id == "v1_boss_01" else BACKGROUND_NORMAL)
+	UILayoutStoreScript.apply_layout(bg if bg != null else Control.new(), "battle.background", encounter_id)
 
 	var tint := ColorRect.new()
 	tint.color = CLR_TINT
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
-	# ── 右上角：水晶 + 设置/帮助 ──
+	## 右上角工具按钮（保留原有实现）
 	_build_top_right_buttons()
 
-	var root := VBoxContainer.new()
-	root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	root.offset_left = 0
-	root.offset_top = 0
-	root.offset_right = 0
-	root.offset_bottom = 0
-	root.add_theme_constant_override("separation", 0)
-	add_child(root)
+	## 从骨架取容器节点
+	var root := ui.find_child("Root", true, false) as VBoxContainer
+	if root == null:
+		## fallback: 如果找不到则用旧方式创建
+		root = VBoxContainer.new()
+		root.set_anchors_preset(Control.PRESET_FULL_RECT)
+		root.add_theme_constant_override("separation", 0)
+		add_child(root)
 
 	# ══ 顶部状态栏 ══════════════════════════════════════════
-	_player_panel = PanelContainer.new()
-	_player_panel.custom_minimum_size = Vector2(0, 88)
-	_player_panel.add_theme_stylebox_override("panel", _panel_style(CLR_PANEL_BG))
-	root.add_child(_player_panel)
+	_player_panel = ui.find_child("PlayerPanel", true, false) as PanelContainer
+	if _player_panel == null:
+		_player_panel = PanelContainer.new()
+		_player_panel.add_theme_stylebox_override("panel", _panel_style(CLR_PANEL_BG))
+		root.add_child(_player_panel)
+	else:
+		_player_panel.custom_minimum_size = Vector2(0, 88)
+		_player_panel.add_theme_stylebox_override("panel", _panel_style(CLR_PANEL_BG))
 	UILayoutStoreScript.apply_layout(_player_panel, "battle.player.panel")
 
 	var top_row := HBoxContainer.new()
@@ -220,12 +236,14 @@ func _build() -> void:
 	player_stats.add_child(_player_status_row)
 
 	# ══ 中部敌人区 ══════════════════════════════════════════
-	_enemy_row = HBoxContainer.new()
+	_enemy_row = ui.find_child("EnemyRow", true, false) as HBoxContainer
+	if _enemy_row == null:
+		_enemy_row = HBoxContainer.new()
+		root.add_child(_enemy_row)
 	_enemy_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_enemy_row.custom_minimum_size = Vector2(0, 300)
 	_enemy_row.alignment = BoxContainer.ALIGNMENT_CENTER
 	_enemy_row.add_theme_constant_override("separation", 30)
-	root.add_child(_enemy_row)
 	UILayoutStoreScript.apply_layout(_enemy_row, "battle.enemy.row")
 
 	# 战斗提示（叠加在敌人区上方，不占布局空间）

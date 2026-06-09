@@ -1,0 +1,158 @@
+{
+  "colors": {
+    "text_primary":    "#FFFFFF",
+    "text_secondary":  "#CCCCCC",
+    "text_warm":       "#FAEBd0",
+    "text_gold":       "#FFD700",
+    "text_pink":       "#FFB5C2",
+    "text_subtitle":   "#F5EBFB",
+    "text_dark":       "#333333",
+    "accent_pink":     "#F28DA5",
+    "accent_gold":     "#FFD700"
+  },
+  "fonts": {
+    "default": "res://assets/fonts/NotoSansSC-VariableFont_wght.ttf",
+    "title":   "res://assets/fonts/ChakraPetch-Bold.ttf"
+  },
+  "styles": {
+    "btn_primary": {
+      "type": "flat",
+      "bg_color": "#F28DA5",
+      "border_color": "#FFD700",
+      "border_width": 2,
+      "corner_radius": 22,
+      "font": "default",
+      "font_size": 22,
+      "font_color": "text_primary"
+    },
+    "btn_secondary": {
+      "type": "flat",
+      "bg_color": "#40334FD9",
+      "border_color": "#7A5A8ECC",
+      "border_width": 1,
+      "corner_radius": 14,
+      "font": "default",
+      "font_size": 18,
+      "font_color": "text_primary"
+    },
+    "btn_action": {
+      "type": "flat",
+      "bg_color": "#3F3352D9",
+      "border_color": "#735E8DCC",
+      "border_width": 1,
+      "corner_radius": 14,
+      "font": "default",
+      "font_size": 16,
+      "font_color": "#E0D1EB"
+    },
+    "btn_icon": {
+      "type": "flat",
+      "bg_color": "#2E1F47BF",
+      "border_color": "#80589999",
+      "border_width": 1,
+      "corner_radius": 10,
+      "font": "default",
+      "font_size": 14,
+      "font_color": "text_primary"
+    },
+    "panel_dark": {
+      "type": "flat",
+      "bg_color": "#1A1A2ECC",
+      "border_color": "#6644AA",
+      "border_width": 2,
+      "corner_radius": 12
+    },
+    "panel_card": {
+      "type": "flat",
+      "bg_color": "#241338E0",
+      "border_color": "#8C5AA0",
+      "border_width": 1,
+      "corner_radius": 10
+    },
+    "panel_light": {
+      "type": "flat",
+      "bg_color": "#FFFFFFCC",
+      "border_color": "#CC88BB",
+      "border_width": 1,
+      "corner_radius": 8
+    },
+    "panel_resource": {
+      "type": "flat",
+      "bg_color": "#1A0D2ECC",
+      "border_color": "#8C5AA099",
+      "border_width": 1,
+      "corner_radius": 8
+    },
+    "panel_sidebar": {
+      "type": "flat",
+      "bg_color": "#1F1430BF",
+      "border_color": "#4D2D7099",
+      "border_width": 1,
+      "corner_radius": 6
+    },
+    "text_title": {
+      "font": "title",
+      "font_size": 32,
+      "color": "text_primary"
+    },
+    "text_title_pink": {
+      "font": "title",
+      "font_size": 32,
+      "color": "text_pink"
+    },
+    "text_title_gold": {
+      "font": "title",
+      "font_size": 30,
+      "color": "text_gold"
+    },
+    "text_hero_title": {
+      "font": "title",
+      "font_size": 56,
+      "color": "text_pink"
+    },
+    "text_body": {
+      "font": "default",
+      "font_size": 17,
+      "color": "text_warm"
+    },
+    "text_body_center": {
+      "font": "default",
+      "font_size": 17,
+      "color": "text_warm"
+    },
+    "text_caption": {
+      "font": "default",
+      "font_size": 14,
+      "color": "text_secondary"
+    },
+    "text_subtitle": {
+      "font": "default",
+      "font_size": 20,
+      "color": "text_subtitle"
+    },
+    "text_gold_label": {
+      "font": "default",
+      "font_size": 18,
+      "color": "text_gold"
+    },
+    "text_section": {
+      "font": "default",
+      "font_size": 18,
+      "color": "text_gold"
+    },
+    "progress_hp": {
+      "type": "progress",
+      "fill_color": "#FF6B9D",
+      "bg_color": "#442233",
+      "border_color": "#AA4477",
+      "border_width": 1
+    },
+    "progress_energy": {
+      "type": "progress",
+      "fill_color": "#AA66FF",
+      "bg_color": "#223344",
+      "border_color": "#7744BB",
+      "border_width": 1
+    }
+  }
+}

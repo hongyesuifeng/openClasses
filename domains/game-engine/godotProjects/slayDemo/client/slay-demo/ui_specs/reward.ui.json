@@ -1,0 +1,84 @@
+{
+  "scene": "RewardUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "TextureRect",
+    "name": "Background",
+    "asset": "backgrounds.reward",
+    "stretch_mode": "keep_aspect_covered",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "ScrollContainer",
+      "name": "Scroll",
+      "layout": { "preset": "full_rect" },
+      "children": [
+        {
+          "type": "VBoxContainer",
+          "name": "Root",
+          "layout": { "preset": "full_rect", "margin": [32, 28, 32, 28] },
+          "children": [
+            {
+              "type": "Label",
+              "name": "TitleLabel",
+              "text": "选择一张卡牌奖励",
+              "style": "text_title_pink",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "SubtitleLabel",
+              "text": "加入牌组，增强你的冒险。",
+              "style": "text_subtitle",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "StatusLabel",
+              "text": "",
+              "style": "text_body",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "ScrollContainer",
+              "name": "ChoiceScroll",
+              "layout": { "preset": "full_rect" },
+              "children": [
+                {
+                  "type": "HBoxContainer",
+                  "name": "ChoiceRow",
+                  "layout": { "preset": "full_rect" }
+                }
+              ]
+            },
+            {
+              "type": "HBoxContainer",
+              "name": "ButtonRow",
+              "layout": { "preset": "full_rect" },
+              "children": [
+                {
+                  "type": "Button",
+                  "name": "ConfirmButton",
+                  "text": "确认",
+                  "style": "btn_primary",
+                  "layout": { "preset": "full_rect" },
+                  "action": "reward.on_confirm",
+                  "visible": false
+                },
+                {
+                  "type": "Button",
+                  "name": "SkipButton",
+                  "text": "跳过奖励",
+                  "style": "btn_action",
+                  "layout": { "preset": "full_rect" },
+                  "action": "reward.on_skip"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

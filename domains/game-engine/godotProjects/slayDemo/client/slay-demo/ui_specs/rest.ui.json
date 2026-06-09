@@ -1,0 +1,39 @@
+{
+  "scene": "RestUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "TextureRect",
+    "name": "Background",
+    "asset": "backgrounds.rest",
+    "stretch_mode": "keep_aspect_covered",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "VBoxContainer",
+      "name": "Root",
+      "layout": { "preset": "full_rect", "margin": [32, 28, 32, 28] },
+      "children": [
+        {
+          "type": "Label",
+          "name": "TitleLabel",
+          "text": "休息点",
+          "style": "text_title_pink",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Label",
+          "name": "StatusLabel",
+          "text": "",
+          "style": "text_body",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "HBoxContainer",
+          "name": "ChoiceRow",
+          "layout": { "preset": "full_rect" }
+        }
+      ]
+    }
+  ]
+}

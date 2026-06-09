@@ -1,0 +1,124 @@
+{
+  "scene": "MainMenuUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "TextureRect",
+    "name": "Background",
+    "asset": "backgrounds.main_menu",
+    "stretch_mode": "keep_aspect_covered",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "Panel",
+      "name": "SidebarBg",
+      "style": "panel_sidebar",
+      "layout": { "preset": "left_full", "width": 68, "margin": [6, 68, 0, 32] }
+    },
+    {
+      "type": "VBoxContainer",
+      "name": "Sidebar",
+      "layout": { "preset": "left_full", "width": 68, "margin": [12, 80, 0, 40] },
+      "children": [
+        {
+          "type": "Button",
+          "name": "SidebarAchievement",
+          "style": "btn_icon",
+          "asset": "icons.achievement",
+          "layout": { "preset": "full_rect" },
+          "action": "menu.sidebar.achievement"
+        },
+        {
+          "type": "Button",
+          "name": "SidebarCollection",
+          "style": "btn_icon",
+          "asset": "icons.collection",
+          "layout": { "preset": "full_rect" },
+          "action": "menu.sidebar.collection"
+        },
+        {
+          "type": "Button",
+          "name": "SidebarSettings",
+          "style": "btn_icon",
+          "asset": "icons.settings",
+          "layout": { "preset": "full_rect" },
+          "action": "menu.sidebar.settings"
+        },
+        {
+          "type": "Button",
+          "name": "SidebarNotice",
+          "style": "btn_icon",
+          "asset": "icons.notice",
+          "layout": { "preset": "full_rect" },
+          "action": "menu.sidebar.notice"
+        }
+      ]
+    },
+    {
+      "type": "HBoxContainer",
+      "name": "TopRight",
+      "layout": { "preset": "top_right", "size": [56, 40], "margin": [0, 18, 24, 0] },
+      "children": [
+        {
+          "type": "Button",
+          "name": "SettingsBtn",
+          "style": "btn_icon",
+          "asset": "icons.settings",
+          "layout": { "preset": "full_rect" },
+          "action": "menu.on_settings"
+        }
+      ]
+    },
+    {
+      "type": "VBoxContainer",
+      "name": "CenterPanel",
+      "layout": { "preset": "center", "size": [460, 360] },
+      "children": [
+        {
+          "type": "Panel",
+          "name": "TitleBg",
+          "style": "panel_dark",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Label",
+          "name": "TitleLabel",
+          "text": "甜心迷宫",
+          "style": "text_hero_title",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Label",
+          "name": "SubtitleLabel",
+          "text": "甜蜜的冒险，从这里开始",
+          "style": "text_subtitle",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "VBoxContainer",
+          "name": "ButtonContainer",
+          "layout": { "preset": "full_rect" },
+          "children": [
+            {
+              "type": "Button",
+              "name": "ContinueButton",
+              "text": "继续游戏",
+              "style": "btn_primary",
+              "layout": { "preset": "full_rect" },
+              "action": "menu.on_continue",
+              "visible": false
+            },
+            {
+              "type": "Button",
+              "name": "StartButton",
+              "text": "开始游戏",
+              "style": "btn_primary",
+              "layout": { "preset": "full_rect" },
+              "action": "menu.on_start"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

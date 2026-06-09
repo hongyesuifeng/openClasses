@@ -1,0 +1,117 @@
+{
+  "scene": "ShopUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "TextureRect",
+    "name": "Background",
+    "asset": "backgrounds.shop",
+    "stretch_mode": "keep_aspect_covered",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "HBoxContainer",
+      "name": "ResourceBar",
+      "layout": { "preset": "top_right", "size": [160, 36], "margin": [0, 14, 24, 0] }
+    },
+    {
+      "type": "HBoxContainer",
+      "name": "MainRow",
+      "layout": { "preset": "full_rect", "margin": [32, 60, 32, 28] },
+      "children": [
+        {
+          "type": "VBoxContainer",
+          "name": "LeftPanel",
+          "layout": { "preset": "full_rect" },
+          "children": [
+            {
+              "type": "Label",
+              "name": "TitleLabel",
+              "text": "流浪商人",
+              "style": "text_title_pink",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "SubtitleLabel",
+              "text": "一个神秘的商人在路边摆摊，他看起来很会讨价还价。",
+              "style": "text_caption",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "Label",
+              "name": "StatusLabel",
+              "text": "购买卡牌，或移除一张牌。",
+              "style": "text_body",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "HBoxContainer",
+              "name": "ContentRow",
+              "layout": { "preset": "full_rect" }
+            },
+            {
+              "type": "HBoxContainer",
+              "name": "ButtonRow",
+              "layout": { "preset": "full_rect" },
+              "children": [
+                {
+                  "type": "Button",
+                  "name": "RemoveButton",
+                  "text": "删牌",
+                  "style": "btn_primary",
+                  "layout": { "preset": "full_rect" },
+                  "action": "shop.on_remove_mode"
+                },
+                {
+                  "type": "Button",
+                  "name": "LeaveButton",
+                  "text": "离开",
+                  "style": "btn_action",
+                  "layout": { "preset": "full_rect" },
+                  "action": "shop.on_leave"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "VBoxContainer",
+          "name": "PortraitBox",
+          "layout": { "preset": "full_rect" },
+          "children": [
+            {
+              "type": "Panel",
+              "name": "PortraitPanel",
+              "style": "panel_card",
+              "layout": { "preset": "full_rect" },
+              "children": [
+                {
+                  "type": "VBoxContainer",
+                  "name": "PortraitInner",
+                  "layout": { "preset": "full_rect" },
+                  "children": [
+                    {
+                      "type": "TextureRect",
+                      "name": "PortraitImage",
+                      "asset": "characters.merchant",
+                      "stretch_mode": "keep_aspect_centered",
+                      "layout": { "preset": "full_rect" }
+                    },
+                    {
+                      "type": "Label",
+                      "name": "MerchantName",
+                      "text": "流浪商人",
+                      "style": "text_body",
+                      "layout": { "preset": "full_rect" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

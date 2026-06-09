@@ -18,6 +18,7 @@ const TEST_SCRIPTS := [
 	preload("res://tests/unit/potion_service_test.gd"),
 	preload("res://tests/unit/content_expansion_test.gd"),
 	preload("res://tests/unit/p3_features_test.gd"),
+	preload("res://tests/unit/ui_builder_test.gd"),
 	preload("res://tests/integration/v1_flow_test.gd"),
 	preload("res://tests/integration/v2_content_flow_test.gd"),
 	preload("res://tests/integration/map_route_test.gd"),
@@ -26,7 +27,8 @@ const TEST_SCRIPTS := [
 	preload("res://tests/integration/event_node_test.gd"),
 	preload("res://tests/integration/potion_reward_flow_test.gd"),
 	preload("res://tests/integration/result_scene_test.gd"),
-	preload("res://tests/integration/map_path_lines_test.gd")
+	preload("res://tests/integration/map_path_lines_test.gd"),
+	preload("res://tests/integration/ui_spec_integration_test.gd"),
 ]
 
 

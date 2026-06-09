@@ -1,0 +1,39 @@
+{
+  "scene": "EventUI",
+  "design_resolution": [1365, 768],
+  "background": {
+    "type": "TextureRect",
+    "name": "Background",
+    "asset": "backgrounds.event",
+    "stretch_mode": "keep_aspect_covered",
+    "layout": { "preset": "full_rect" }
+  },
+  "children": [
+    {
+      "type": "VBoxContainer",
+      "name": "ContentContainer",
+      "layout": { "preset": "full_rect", "margin": [36, 34, 36, 34] },
+      "children": [
+        {
+          "type": "Label",
+          "name": "TitleLabel",
+          "text": "事件",
+          "style": "text_title_gold",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Label",
+          "name": "StatusLabel",
+          "text": "",
+          "style": "text_body",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "HBoxContainer",
+          "name": "ChoiceRow",
+          "layout": { "preset": "full_rect" }
+        }
+      ]
+    }
+  ]
+}
