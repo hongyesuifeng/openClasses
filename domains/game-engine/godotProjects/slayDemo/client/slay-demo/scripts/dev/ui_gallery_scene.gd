@@ -78,24 +78,45 @@ func _build_chrome() -> void:
 	layout.add_theme_constant_override("separation", 0)
 	add_child(layout)
 
-	## 顶部标签栏
-	var tab_bar := HBoxContainer.new()
-	tab_bar.custom_minimum_size = Vector2(0, 44)
-	tab_bar.add_theme_constant_override("separation", 2)
-	layout.add_child(tab_bar)
+	## ── 顶部整体行：固定按钮 + 可滚动 Tab 区 ──────────────────
+	var top_row := HBoxContainer.new()
+	top_row.custom_minimum_size = Vector2(0, 44)
+	top_row.add_theme_constant_override("separation", 0)
+	layout.add_child(top_row)
 
+	## 背景色
 	var bar_bg := ColorRect.new()
 	bar_bg.color = Color(0.10, 0.10, 0.12)
 	bar_bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	bar_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	tab_bar.add_child(bar_bg)
+	top_row.add_child(bar_bg)
 
+	## 固定在左侧的「布局编辑器」按钮（不随 Tab 滚动）
 	var editor_btn := Button.new()
 	editor_btn.text = "布局编辑器"
 	editor_btn.tooltip_text = "打开当前标签页第一个可编辑元素；也可右键任意预览元素"
 	editor_btn.custom_minimum_size = Vector2(120, 44)
 	editor_btn.pressed.connect(_open_first_editable)
-	tab_bar.add_child(editor_btn)
+	top_row.add_child(editor_btn)
+
+	## 分隔竖线
+	var vsep := ColorRect.new()
+	vsep.color = Color(0.28, 0.30, 0.34)
+	vsep.custom_minimum_size = Vector2(2, 44)
+	top_row.add_child(vsep)
+
+	## 可水平滚动的 Tab 区
+	var tab_scroll := ScrollContainer.new()
+	tab_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER  ## 用滚轮滚，不显示滚动条
+	tab_scroll.vertical_scroll_mode   = ScrollContainer.SCROLL_MODE_DISABLED
+	tab_scroll.custom_minimum_size    = Vector2(0, 44)
+	top_row.add_child(tab_scroll)
+
+	var tab_bar := HBoxContainer.new()
+	tab_bar.add_theme_constant_override("separation", 2)
+	tab_bar.custom_minimum_size = Vector2(0, 44)
+	tab_scroll.add_child(tab_bar)
 
 	for tab in TABS:
 		var btn := Button.new()
