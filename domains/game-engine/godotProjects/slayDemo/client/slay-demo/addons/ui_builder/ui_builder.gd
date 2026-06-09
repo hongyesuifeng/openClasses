@@ -98,16 +98,18 @@ static func _build_node(spec: Dictionary, spec_path: String = "", spec_node_path
 
 static func _create_node(type: String) -> Control:
 	match type:
-		"Control":         return Control.new()
-		"Panel":           return Panel.new()
-		"Label":           return Label.new()
-		"Button":          return Button.new()
-		"TextureRect":     return TextureRect.new()
-		"HBoxContainer":   return HBoxContainer.new()
-		"VBoxContainer":   return VBoxContainer.new()
-		"MarginContainer": return MarginContainer.new()
-		"CenterContainer": return CenterContainer.new()
-		"ProgressBar":     return ProgressBar.new()
+		"Control":           return Control.new()
+		"Panel":             return Panel.new()
+		"PanelContainer":    return PanelContainer.new()
+		"Label":             return Label.new()
+		"Button":            return Button.new()
+		"TextureRect":       return TextureRect.new()
+		"HBoxContainer":     return HBoxContainer.new()
+		"VBoxContainer":     return VBoxContainer.new()
+		"MarginContainer":   return MarginContainer.new()
+		"CenterContainer":   return CenterContainer.new()
+		"ScrollContainer":   return ScrollContainer.new()
+		"ProgressBar":       return ProgressBar.new()
 		_:
 			push_warning("UIBuilder: 未知节点类型 '%s'，降级为 Control" % type)
 			return Control.new()
