@@ -105,10 +105,18 @@ func _build_chrome() -> void:
 	vsep.custom_minimum_size = Vector2(2, 44)
 	top_row.add_child(vsep)
 
+	## ◀ 向左箭头
+	var left_btn := Button.new()
+	left_btn.text = "◀"
+	left_btn.custom_minimum_size = Vector2(32, 44)
+	left_btn.flat = true
+	top_row.add_child(left_btn)
+
 	## 可水平滚动的 Tab 区
 	var tab_scroll := ScrollContainer.new()
+	tab_scroll.name = "TabScroll"
 	tab_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER  ## 用滚轮滚，不显示滚动条
+	tab_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	tab_scroll.vertical_scroll_mode   = ScrollContainer.SCROLL_MODE_DISABLED
 	tab_scroll.custom_minimum_size    = Vector2(0, 44)
 	top_row.add_child(tab_scroll)
@@ -117,6 +125,22 @@ func _build_chrome() -> void:
 	tab_bar.add_theme_constant_override("separation", 2)
 	tab_bar.custom_minimum_size = Vector2(0, 44)
 	tab_scroll.add_child(tab_bar)
+
+	## ▶ 向右箭头
+	var right_btn := Button.new()
+	right_btn.text = "▶"
+	right_btn.custom_minimum_size = Vector2(32, 44)
+	right_btn.flat = true
+	top_row.add_child(right_btn)
+
+	## 箭头按钮连接滚动（step = 330px ≈ 3 个 Tab 按钮宽）
+	const SCROLL_STEP := 330
+	left_btn.pressed.connect(func() -> void:
+		tab_scroll.scroll_horizontal = maxi(0, tab_scroll.scroll_horizontal - SCROLL_STEP)
+	)
+	right_btn.pressed.connect(func() -> void:
+		tab_scroll.scroll_horizontal += SCROLL_STEP
+	)
 
 	for tab in TABS:
 		var btn := Button.new()
