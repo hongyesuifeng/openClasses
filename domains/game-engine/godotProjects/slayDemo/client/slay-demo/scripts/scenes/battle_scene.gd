@@ -34,18 +34,7 @@ const INTENT_ICON_BY_TYPE := {
 }
 
 const SpriteAnimHelperScript := preload("res://scripts/vfx/sprite_anim_helper.gd")
-
-## ── 新 UI 色板 ─────────────────────────────
-const CLR_PANEL_BG    := Color(0.10, 0.06, 0.16, 0.88)
-const CLR_BORDER      := Color(0.55, 0.35, 0.70, 0.90)
-const CLR_PINK        := Color(0.95, 0.55, 0.65)
-const CLR_PINK_LIGHT  := Color(1.0, 0.71, 0.76)
-const CLR_GOLD        := Color(1.0, 0.84, 0.0)
-const CLR_TEXT_WARM   := Color(0.98, 0.92, 0.82)
-const CLR_HP_PINK     := Color(0.95, 0.45, 0.55)
-const CLR_BLOCK_BLUE  := Color(0.52, 0.82, 1.0)
-const CLR_ENERGY_BLUE := Color(0.72, 0.94, 1.0)
-const CLR_TINT        := Color(0.04, 0.02, 0.06, 0.35)
+const SF := preload("res://scripts/ui/ui_style_factory.gd")
 
 var _battle := BattleControllerScript.new()
 var _selected_card_index := -1
@@ -154,7 +143,7 @@ func _build() -> void:
 	UILayoutStoreScript.apply_layout(bg if bg != null else Control.new(), "battle.background", encounter_id)
 
 	var tint := ColorRect.new()
-	tint.color = CLR_TINT
+	tint.color = SF.CLR_TINT
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
@@ -174,11 +163,11 @@ func _build() -> void:
 	_player_panel = ui.find_child("PlayerPanel", true, false) as PanelContainer
 	if _player_panel == null:
 		_player_panel = PanelContainer.new()
-		_player_panel.add_theme_stylebox_override("panel", _panel_style(CLR_PANEL_BG))
+		_player_panel.add_theme_stylebox_override("panel", SF.make_panel_style(SF.CLR_PANEL_BG))
 		root.add_child(_player_panel)
 	else:
 		_player_panel.custom_minimum_size = Vector2(0, 88)
-		_player_panel.add_theme_stylebox_override("panel", _panel_style(CLR_PANEL_BG))
+		_player_panel.add_theme_stylebox_override("panel", SF.make_panel_style(SF.CLR_PANEL_BG))
 	UILayoutStoreScript.apply_layout(_player_panel, "battle.player.panel")
 
 	var top_row := HBoxContainer.new()
@@ -209,7 +198,7 @@ func _build() -> void:
 
 	_header_label = Label.new()
 	_header_label.add_theme_font_size_override("font_size", 15)
-	_header_label.add_theme_color_override("font_color", CLR_TEXT_WARM)
+	_header_label.add_theme_color_override("font_color", SF.CLR_TEXT_WARM)
 	player_stats.add_child(_header_label)
 
 	_hp_bar = _make_bar("res://assets/ui/bars/ui_hp_bar_bg.png", "res://assets/ui/bars/ui_hp_bar_fill.png")
@@ -260,7 +249,7 @@ func _build() -> void:
 	# ══ 底部卡牌区 ══════════════════════════════════════════
 	var bottom_panel := PanelContainer.new()
 	bottom_panel.custom_minimum_size = Vector2(0, 210)
-	bottom_panel.add_theme_stylebox_override("panel", _panel_style(Color(0.07, 0.04, 0.12, 0.80)))
+	bottom_panel.add_theme_stylebox_override("panel", SF.make_panel_style(Color(0.07, 0.04, 0.12, 0.80)))
 	root.add_child(bottom_panel)
 
 	var bottom_row := HBoxContainer.new()
@@ -313,8 +302,8 @@ func _build() -> void:
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
 	UILayoutStoreScript.apply_layout(end_turn_button, "battle.end_turn")
 	var et_normal := StyleBoxFlat.new()
-	et_normal.bg_color = CLR_PINK
-	et_normal.border_color = CLR_GOLD
+	et_normal.bg_color = SF.CLR_PINK
+	et_normal.border_color = SF.CLR_GOLD
 	et_normal.set_border_width_all(2)
 	et_normal.set_corner_radius_all(12)
 	et_normal.content_margin_left = 10; et_normal.content_margin_right = 10
@@ -342,7 +331,7 @@ func _build() -> void:
 
 	_energy_label = Label.new()
 	_energy_label.add_theme_font_size_override("font_size", 22)
-	_energy_label.add_theme_color_override("font_color", CLR_ENERGY_BLUE)
+	_energy_label.add_theme_color_override("font_color", SF.CLR_ENERGY_BLUE)
 	energy_box.add_child(_energy_label)
 	UILayoutStoreScript.apply_layout(_energy_label, "battle.energy.label")
 
@@ -378,8 +367,8 @@ func _build_top_right_buttons() -> void:
 	help_btn.icon = load("res://assets/ui/icons/icon_question.png")
 	help_btn.custom_minimum_size = Vector2(32, 32)
 	help_btn.expand_icon = true
-	help_btn.add_theme_stylebox_override("normal", _round_btn_style(Color(0.18, 0.12, 0.28, 0.85)))
-	help_btn.add_theme_stylebox_override("hover", _round_btn_style(Color(0.30, 0.20, 0.42, 0.92)))
+	help_btn.add_theme_stylebox_override("normal", SF.make_round_btn_style(Color(0.18, 0.12, 0.28, 0.85)))
+	help_btn.add_theme_stylebox_override("hover", SF.make_round_btn_style(Color(0.30, 0.20, 0.42, 0.92)))
 	box.add_child(help_btn)
 
 	# 设置按钮
@@ -387,16 +376,10 @@ func _build_top_right_buttons() -> void:
 	settings_btn.icon = load("res://assets/ui/icons/icon_settings.png")
 	settings_btn.custom_minimum_size = Vector2(32, 32)
 	settings_btn.expand_icon = true
-	settings_btn.add_theme_stylebox_override("normal", _round_btn_style(Color(0.18, 0.12, 0.28, 0.85)))
-	settings_btn.add_theme_stylebox_override("hover", _round_btn_style(Color(0.30, 0.20, 0.42, 0.92)))
+	settings_btn.add_theme_stylebox_override("normal", SF.make_round_btn_style(Color(0.18, 0.12, 0.28, 0.85)))
+	settings_btn.add_theme_stylebox_override("hover", SF.make_round_btn_style(Color(0.30, 0.20, 0.42, 0.92)))
 	box.add_child(settings_btn)
 
-
-func _round_btn_style(color: Color) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	style.set_corner_radius_all(16)
-	return style
 
 
 func _on_state_changed(snapshot: Dictionary) -> void:
@@ -466,9 +449,9 @@ func _render_enemies(enemies: Array) -> void:
 		button.text = ""
 		button.clip_contents = true
 		# 紫粉主题敌人面板
-		button.add_theme_stylebox_override("normal", _panel_style(Color(0.10, 0.06, 0.16, 0.82)))
-		button.add_theme_stylebox_override("hover", _panel_style(Color(0.18, 0.12, 0.28, 0.92)))
-		button.add_theme_stylebox_override("pressed", _panel_style(Color(0.25, 0.16, 0.35, 0.96)))
+		button.add_theme_stylebox_override("normal", SF.make_panel_style(Color(0.10, 0.06, 0.16, 0.82)))
+		button.add_theme_stylebox_override("hover", SF.make_panel_style(Color(0.18, 0.12, 0.28, 0.92)))
+		button.add_theme_stylebox_override("pressed", SF.make_panel_style(Color(0.25, 0.16, 0.35, 0.96)))
 		button.pressed.connect(_on_enemy_pressed.bind(index))
 		button.pivot_offset = Vector2(110, 145)
 		var enemy_instance_id := str(enemy.get("id", index))
@@ -744,7 +727,7 @@ func _on_combat_event(event: Dictionary) -> void:
 				if vfx_manager != null:
 					vfx_manager.play_block_effect(_get_player_center(), block_val)
 				if block_val > 0:
-					_spawn_colored_text("+%d 格挡" % block_val, _player_panel.global_position + Vector2(_player_panel.size.x * 0.5 - 36.0, 48.0), CLR_BLOCK_BLUE)
+					_spawn_colored_text("+%d 格挡" % block_val, _player_panel.global_position + Vector2(_player_panel.size.x * 0.5 - 36.0, 48.0), SF.CLR_BLOCK_BLUE)
 				if audio_manager != null:
 					audio_manager.play_sfx("block")
 			else:
@@ -997,20 +980,6 @@ func _make_label(text: String, font_size: int, align: HorizontalAlignment) -> La
 	label.add_theme_constant_override("shadow_offset_y", 1)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return label
-
-
-func _panel_style(color: Color) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	# 紫粉主题边框
-	style.border_color = CLR_BORDER
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(8)
-	style.content_margin_left = 10
-	style.content_margin_top = 8
-	style.content_margin_right = 10
-	style.content_margin_bottom = 8
-	return style
 
 
 func _clear_children(node: Node) -> void:

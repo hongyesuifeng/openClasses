@@ -3,14 +3,9 @@ extends Control
 const _UIBuilder := preload("res://addons/ui_builder/ui_builder.gd")
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
 const UILayoutStoreScript    := preload("res://scripts/ui/ui_layout_store.gd")
+const SF := preload("res://scripts/ui/ui_style_factory.gd")
 
 const SPEC_PATH := "res://ui_specs/map.ui.json"
-
-const CLR_PINK_LIGHT := Color(1.0, 0.71, 0.76)
-const CLR_GOLD       := Color(1.0, 0.84, 0.0)
-const CLR_TEXT_WARM  := Color(0.98, 0.92, 0.82)
-const CLR_TINT       := Color(0.04, 0.02, 0.06, 0.35)
-const CLR_BORDER     := Color(0.55, 0.35, 0.70, 0.90)
 
 const NODE_LABELS := {
 	"battle": "战斗", "shop": "商店", "chest": "宝箱",
@@ -264,10 +259,10 @@ func _node_style(node_type: String, done: bool, selectable: bool) -> StyleBoxFla
 		style.border_color = Color(0.5, 0.5, 0.5, 0.35)
 	elif selectable:
 		style.bg_color = Color(base_color.r * 1.15, base_color.g * 1.05, base_color.b * 1.20, 0.96)
-		style.border_color = CLR_GOLD
+		style.border_color = SF.CLR_GOLD
 	else:
 		style.bg_color = Color(base_color.r * 0.68, base_color.g * 0.65, base_color.b * 0.72, 0.75)
-		style.border_color = Color(CLR_BORDER.r * 0.6, CLR_BORDER.g * 0.6, CLR_BORDER.b * 0.6, 0.45)
+		style.border_color = Color(SF.CLR_BORDER.r * 0.6, SF.CLR_BORDER.g * 0.6, SF.CLR_BORDER.b * 0.6, 0.45)
 	style.set_border_width_all(2 if selectable else 1)
 	style.set_corner_radius_all(10)
 	style.content_margin_left = 4

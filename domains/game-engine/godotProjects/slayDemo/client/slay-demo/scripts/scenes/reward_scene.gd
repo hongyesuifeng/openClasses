@@ -5,13 +5,9 @@ const RewardServiceScript   := preload("res://scripts/reward/reward_service.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript  := preload("res://scripts/battle/upgrade_service.gd")
 const PotionViewFactoryScript := preload("res://scripts/ui/potion_view_factory.gd")
+const SF := preload("res://scripts/ui/ui_style_factory.gd")
 
 const SPEC_PATH := "res://ui_specs/reward.ui.json"
-
-const CLR_PINK      := Color(0.95, 0.55, 0.65)
-const CLR_GOLD      := Color(1.0, 0.84, 0.0)
-const CLR_TEXT_WARM := Color(0.98, 0.92, 0.82)
-const CLR_PANEL_BG  := Color(0.14, 0.10, 0.22, 0.88)
 
 var _choices: Array = []
 var _choice_row: HBoxContainer
@@ -91,12 +87,12 @@ func _fill_card_reward(title_lbl: Label, subtitle_lbl: Label) -> void:
 		c.queue_free()
 
 	if not _upgradeable_cards.is_empty() and not _upgrade_mode:
-		var upgrade_btn := _make_pink_button("升级卡牌 (%d张可选)" % _upgradeable_cards.size(), Vector2(200, 44))
+		var upgrade_btn := SF.make_pink_button("升级卡牌 (%d张可选)" % _upgradeable_cards.size(), Vector2(200, 44))
 		upgrade_btn.pressed.connect(_on_upgrade_mode_pressed)
 		button_row_node.add_child(upgrade_btn)
 
 	if _upgrade_mode:
-		var card_btn := _make_action_button("选择卡牌奖励", Vector2(160, 44))
+		var card_btn := SF.make_action_button("选择卡牌奖励", Vector2(160, 44))
 		card_btn.pressed.connect(_on_card_mode_pressed)
 		button_row_node.add_child(card_btn)
 
@@ -107,7 +103,7 @@ func _fill_card_reward(title_lbl: Label, subtitle_lbl: Label) -> void:
 	_confirm_button.pressed.connect(_on_confirm_upgrade_pressed if _upgrade_mode else _on_confirm_choice_pressed)
 	button_row_node.add_child(_confirm_button)
 
-	var skip_btn := _make_action_button("跳过", Vector2(160, 44))
+	var skip_btn := SF.make_action_button("跳过", Vector2(160, 44))
 	skip_btn.pressed.connect(_on_skip_pressed)
 	button_row_node.add_child(skip_btn)
 
@@ -115,7 +111,7 @@ func _fill_card_reward(title_lbl: Label, subtitle_lbl: Label) -> void:
 func _fill_relic_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> void:
 	if title_lbl != null:
 		title_lbl.text = "精英战斗奖励"
-		title_lbl.add_theme_color_override("font_color", CLR_GOLD)
+		title_lbl.add_theme_color_override("font_color", SF.CLR_GOLD)
 	if subtitle_lbl != null: subtitle_lbl.text = ""
 
 	if _status_label != null:
@@ -125,7 +121,7 @@ func _fill_relic_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> v
 	if _choice_row != null:
 		var panel := PanelContainer.new()
 		panel.custom_minimum_size = Vector2(320, 0)
-		panel.add_theme_stylebox_override("panel", _card_panel_style())
+		panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 		_choice_row.add_child(panel)
 
 		var vbox := VBoxContainer.new()
@@ -136,7 +132,7 @@ func _fill_relic_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> v
 		name_lbl.text = str(_pending_relic.get("name", "未知遗物"))
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.add_theme_font_size_override("font_size", 24)
-		name_lbl.add_theme_color_override("font_color", CLR_GOLD)
+		name_lbl.add_theme_color_override("font_color", SF.CLR_GOLD)
 		vbox.add_child(name_lbl)
 
 		var rarity_lbl := Label.new()
@@ -150,7 +146,7 @@ func _fill_relic_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> v
 		desc_lbl.text = str(_pending_relic.get("description", ""))
 		desc_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		desc_lbl.add_theme_font_size_override("font_size", 16)
-		desc_lbl.add_theme_color_override("font_color", CLR_TEXT_WARM)
+		desc_lbl.add_theme_color_override("font_color", SF.CLR_TEXT_WARM)
 		desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		vbox.add_child(desc_lbl)
 
@@ -158,7 +154,7 @@ func _fill_relic_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> v
 	var btn_row := ui.find_child("ButtonRow", true, false) as HBoxContainer
 	if btn_row != null:
 		for c in btn_row.get_children(): c.queue_free()
-		var confirm_btn := _make_pink_button("获得遗物，继续", Vector2(220, 48))
+		var confirm_btn := SF.make_pink_button("获得遗物，继续", Vector2(220, 48))
 		confirm_btn.pressed.connect(_on_relic_confirmed)
 		btn_row.add_child(confirm_btn)
 
@@ -179,7 +175,7 @@ func _fill_potion_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> 
 	if _choice_row != null:
 		var panel := PanelContainer.new()
 		panel.custom_minimum_size = Vector2(280, 0)
-		panel.add_theme_stylebox_override("panel", _card_panel_style())
+		panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 		_choice_row.add_child(panel)
 		var vbox := VBoxContainer.new()
 		vbox.add_theme_constant_override("separation", 8)
@@ -192,7 +188,7 @@ func _fill_potion_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> 
 		var desc_lbl := Label.new(); desc_lbl.text = str(_pending_potion.get("description", ""))
 		desc_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		desc_lbl.add_theme_font_size_override("font_size", 16)
-		desc_lbl.add_theme_color_override("font_color", CLR_TEXT_WARM)
+		desc_lbl.add_theme_color_override("font_color", SF.CLR_TEXT_WARM)
 		desc_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		vbox.add_child(desc_lbl)
 
@@ -206,18 +202,18 @@ func _fill_potion_reward(ui: Control, title_lbl: Label, subtitle_lbl: Label) -> 
 			var entry: Dictionary = game_state.get_potion_at(slot)
 			if entry.is_empty(): continue
 			var old_potion: Dictionary = data_loader.get_potion(str(entry.get("id", "")))
-			var discard_btn := _make_action_button(
+			var discard_btn := SF.make_action_button(
 				"丢弃 %s\n换取 %s" % [str(old_potion.get("name", "?")), potion_name], Vector2(160, 56))
 			discard_btn.pressed.connect(_on_potion_slot_discard.bind(slot))
 			btn_row.add_child(discard_btn)
-		var abandon_btn := _make_action_button("放弃新药水", Vector2(130, 48))
+		var abandon_btn := SF.make_action_button("放弃新药水", Vector2(130, 48))
 		abandon_btn.pressed.connect(_on_potion_abandon)
 		btn_row.add_child(abandon_btn)
 	else:
-		var take_btn := _make_pink_button("收取药水", Vector2(160, 48))
+		var take_btn := SF.make_pink_button("收取药水", Vector2(160, 48))
 		take_btn.pressed.connect(_on_potion_take)
 		btn_row.add_child(take_btn)
-		var skip_btn := _make_action_button("放弃", Vector2(110, 48))
+		var skip_btn := SF.make_action_button("放弃", Vector2(110, 48))
 		skip_btn.pressed.connect(_on_potion_abandon)
 		btn_row.add_child(skip_btn)
 
@@ -351,37 +347,6 @@ func _rarity_color(rarity: String) -> Color:
 		"rare":     return Color(1.0, 0.6, 0.2)
 		_:          return Color(0.85, 0.85, 0.85)
 
-
-func _make_pink_button(text: String, min_size: Vector2) -> Button:
-	var btn := Button.new(); btn.text = text; btn.custom_minimum_size = min_size
-	var s := StyleBoxFlat.new()
-	s.bg_color = CLR_PINK; s.border_color = CLR_GOLD
-	s.set_border_width_all(2); s.set_corner_radius_all(14)
-	btn.add_theme_stylebox_override("normal", s)
-	btn.add_theme_color_override("font_color", Color(1, 1, 1))
-	btn.add_theme_color_override("font_hover_color", CLR_GOLD)
-	btn.add_theme_font_size_override("font_size", 16)
-	return btn
-
-func _make_action_button(text: String, min_size: Vector2) -> Button:
-	var btn := Button.new(); btn.text = text; btn.custom_minimum_size = min_size
-	var tex := ResourceLoader.load("res://assets/ui/buttons/ui_btn_purple_normal.png", "Texture2D") as Texture2D
-	if tex:
-		var sn := StyleBoxTexture.new(); sn.texture = tex
-		sn.content_margin_left = 12; sn.content_margin_right = 12
-		sn.content_margin_top = 6; sn.content_margin_bottom = 6
-		btn.add_theme_stylebox_override("normal", sn)
-	btn.add_theme_color_override("font_color", Color(0.88, 0.82, 0.92))
-	btn.add_theme_font_size_override("font_size", 16)
-	return btn
-
-func _card_panel_style() -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
-	s.bg_color = CLR_PANEL_BG; s.border_color = Color(0.85, 0.70, 0.30, 0.85)
-	s.set_border_width_all(2); s.set_corner_radius_all(12)
-	s.content_margin_left = 10; s.content_margin_top = 8
-	s.content_margin_right = 10; s.content_margin_bottom = 8
-	return s
 
 func _clear_children(node: Node) -> void:
 	for child in node.get_children(): child.queue_free()

@@ -3,13 +3,9 @@ extends Control
 const _UIBuilder := preload("res://addons/ui_builder/ui_builder.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const ShopServiceScript     := preload("res://scripts/shop/shop_service.gd")
+const SF := preload("res://scripts/ui/ui_style_factory.gd")
 
 const SPEC_PATH := "res://ui_specs/shop.ui.json"
-
-const CLR_PINK       := Color(0.95, 0.55, 0.65)
-const CLR_PINK_LIGHT := Color(1.0, 0.71, 0.76)
-const CLR_GOLD       := Color(1.0, 0.84, 0.0)
-const CLR_TEXT_WARM  := Color(0.98, 0.92, 0.82)
 
 var _status_label: Label
 var _gold_label: Label
@@ -49,7 +45,7 @@ func _build() -> void:
 		_gold_label = Label.new()
 		_gold_label.text = _gold_text()
 		_gold_label.add_theme_font_size_override("font_size", 18)
-		_gold_label.add_theme_color_override("font_color", CLR_GOLD)
+		_gold_label.add_theme_color_override("font_color", SF.CLR_GOLD)
 		_gold_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		resource_bar.add_child(_gold_label)
 
@@ -80,7 +76,7 @@ func _render_shop_choices() -> void:
 
 		var card_panel := PanelContainer.new()
 		card_panel.custom_minimum_size = Vector2(200, 320)
-		card_panel.add_theme_stylebox_override("panel", _card_panel_style())
+		card_panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 		_content_row.add_child(card_panel)
 
 		var inner := VBoxContainer.new()
@@ -92,7 +88,7 @@ func _render_shop_choices() -> void:
 		card_button.pressed.connect(_on_buy_pressed.bind(index))
 		inner.add_child(card_button)
 
-		var buy_btn := _make_pink_button("%d 金" % price, Vector2(140, 38))
+		var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(140, 38))
 		buy_btn.disabled = not _can_afford(price)
 		buy_btn.pressed.connect(_on_buy_pressed.bind(index))
 		inner.add_child(buy_btn)
@@ -115,7 +111,7 @@ func _render_remove_choices() -> void:
 		button.pressed.connect(_on_remove_card_pressed.bind(int(card_instance.get("instance_id", 0))))
 		_content_row.add_child(button)
 
-	var back_button := _make_action_card_button("返回", Vector2(140, 44))
+	var back_button := SF.make_action_button("返回", Vector2(140, 44))
 	back_button.pressed.connect(_on_back_pressed)
 	_content_row.add_child(back_button)
 
@@ -126,7 +122,7 @@ func _render_relic_offer() -> void:
 
 	var card_panel := PanelContainer.new()
 	card_panel.custom_minimum_size = Vector2(200, 280)
-	card_panel.add_theme_stylebox_override("panel", _card_panel_style())
+	card_panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 	_content_row.add_child(card_panel)
 
 	var inner := VBoxContainer.new()
@@ -137,7 +133,7 @@ func _render_relic_offer() -> void:
 	var tag := Label.new(); tag.text = "遗物"
 	tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	tag.add_theme_font_size_override("font_size", 12)
-	tag.add_theme_color_override("font_color", CLR_GOLD)
+	tag.add_theme_color_override("font_color", SF.CLR_GOLD)
 	inner.add_child(tag)
 
 	var name_label := Label.new(); name_label.text = str(relic.get("name", ""))
@@ -154,7 +150,7 @@ func _render_relic_offer() -> void:
 	desc_label.custom_minimum_size = Vector2(160, 0)
 	inner.add_child(desc_label)
 
-	var buy_btn := _make_pink_button("%d 金" % price, Vector2(140, 38))
+	var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(140, 38))
 	buy_btn.disabled = not _can_afford(price)
 	buy_btn.pressed.connect(_on_buy_relic_pressed)
 	inner.add_child(buy_btn)
@@ -168,7 +164,7 @@ func _render_potion_offer() -> void:
 
 	var card_panel := PanelContainer.new()
 	card_panel.custom_minimum_size = Vector2(200, 280)
-	card_panel.add_theme_stylebox_override("panel", _card_panel_style())
+	card_panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 	_content_row.add_child(card_panel)
 
 	var inner := VBoxContainer.new()
@@ -196,7 +192,7 @@ func _render_potion_offer() -> void:
 	desc_label.custom_minimum_size = Vector2(160, 0)
 	inner.add_child(desc_label)
 
-	var buy_btn := _make_pink_button("%d 金" % price, Vector2(140, 38))
+	var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(140, 38))
 	buy_btn.disabled = not _can_afford(price) or slots_full
 	if slots_full: buy_btn.tooltip_text = "药水栏已满"
 	buy_btn.pressed.connect(_on_buy_potion_pressed)
@@ -276,7 +272,7 @@ func _show_remove_confirm(instance_id: int, card_name: String) -> void:
 	panel.custom_minimum_size = Vector2(320, 0)
 	panel.set_anchors_preset(Control.PRESET_CENTER)
 	panel.z_index = 101
-	panel.add_theme_stylebox_override("panel", _card_panel_style())
+	panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 	add_child(panel)
 
 	var vbox := VBoxContainer.new()
@@ -286,14 +282,14 @@ func _show_remove_confirm(instance_id: int, card_name: String) -> void:
 	var title := Label.new(); title.text = "确认移除"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 20)
-	title.add_theme_color_override("font_color", CLR_PINK_LIGHT)
+	title.add_theme_color_override("font_color", SF.CLR_PINK_LIGHT)
 	vbox.add_child(title)
 
 	var msg := Label.new()
 	msg.text = "花费 %d 金币移除【%s】？\n移除后无法撤销。" % [_remove_price(), card_name]
 	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	msg.add_theme_font_size_override("font_size", 16)
-	msg.add_theme_color_override("font_color", CLR_TEXT_WARM)
+	msg.add_theme_color_override("font_color", SF.CLR_TEXT_WARM)
 	msg.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	vbox.add_child(msg)
 
@@ -302,7 +298,7 @@ func _show_remove_confirm(instance_id: int, card_name: String) -> void:
 	btn_row.add_theme_constant_override("separation", 12)
 	vbox.add_child(btn_row)
 
-	var confirm_btn := _make_pink_button("确认移除", Vector2(130, 44))
+	var confirm_btn := SF.make_pink_button("确认移除", Vector2(130, 44))
 	confirm_btn.pressed.connect(func() -> void:
 		overlay.queue_free()
 		panel.queue_free()
@@ -318,7 +314,7 @@ func _show_remove_confirm(instance_id: int, card_name: String) -> void:
 	)
 	btn_row.add_child(confirm_btn)
 
-	var cancel_btn := _make_action_card_button("取消", Vector2(110, 44))
+	var cancel_btn := SF.make_action_button("取消", Vector2(110, 44))
 	cancel_btn.pressed.connect(func() -> void:
 		overlay.queue_free()
 		panel.queue_free()
@@ -359,44 +355,6 @@ func _can_afford(price: int) -> bool:
 func _gold_text() -> String:
 	var game_state: Variant = _autoload("GameState")
 	return "金币 %d" % int(game_state.player_gold) if game_state != null else "金币 0"
-
-
-func _make_pink_button(text: String, min_size: Vector2) -> Button:
-	var btn := Button.new()
-	btn.text = text
-	btn.custom_minimum_size = min_size
-	var s := StyleBoxFlat.new()
-	s.bg_color = CLR_PINK; s.border_color = CLR_GOLD
-	s.set_border_width_all(2); s.set_corner_radius_all(14)
-	btn.add_theme_stylebox_override("normal", s)
-	btn.add_theme_color_override("font_color", Color(1, 1, 1))
-	btn.add_theme_color_override("font_hover_color", CLR_GOLD)
-	btn.add_theme_font_size_override("font_size", 16)
-	return btn
-
-
-func _make_action_card_button(text: String, min_size: Vector2) -> Button:
-	var btn := Button.new()
-	btn.text = text
-	btn.custom_minimum_size = min_size
-	var s := StyleBoxFlat.new()
-	s.bg_color = Color(0.25, 0.20, 0.32, 0.85)
-	s.border_color = Color(0.45, 0.38, 0.55, 0.8)
-	s.set_border_width_all(1); s.set_corner_radius_all(14)
-	btn.add_theme_stylebox_override("normal", s)
-	btn.add_theme_color_override("font_color", Color(0.88, 0.82, 0.92))
-	btn.add_theme_font_size_override("font_size", 16)
-	return btn
-
-
-func _card_panel_style() -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
-	s.bg_color = Color(0.14, 0.10, 0.22, 0.88)
-	s.border_color = Color(0.85, 0.70, 0.30, 0.85)
-	s.set_border_width_all(2); s.set_corner_radius_all(12)
-	s.content_margin_left = 10; s.content_margin_top = 8
-	s.content_margin_right = 10; s.content_margin_bottom = 8
-	return s
 
 
 func _rebuild() -> void:

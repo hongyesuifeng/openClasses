@@ -3,6 +3,7 @@ extends Control
 const _UIBuilder := preload("res://addons/ui_builder/ui_builder.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
 const UpgradeServiceScript := preload("res://scripts/battle/upgrade_service.gd")
+const SF := preload("res://scripts/ui/ui_style_factory.gd")
 
 const SPEC_PATH := "res://ui_specs/rest.ui.json"
 
@@ -52,11 +53,11 @@ func _render_rest_choices() -> void:
 		return
 	_clear_children(_choice_row)
 
-	var heal_btn := _make_pink_button("回血 %d%%" % int(round(_heal_percent() * 100.0)), Vector2(240, 56))
+	var heal_btn := SF.make_pink_button("回血 %d%%" % int(round(_heal_percent() * 100.0)), Vector2(240, 56))
 	heal_btn.pressed.connect(_on_heal_pressed)
 	_choice_row.add_child(heal_btn)
 
-	var upgrade_btn := _make_pink_button("升级卡牌 (%d)" % _upgradeable_cards.size(), Vector2(240, 56))
+	var upgrade_btn := SF.make_pink_button("升级卡牌 (%d)" % _upgradeable_cards.size(), Vector2(240, 56))
 	upgrade_btn.disabled = _upgradeable_cards.is_empty()
 	upgrade_btn.pressed.connect(_on_upgrade_mode_pressed)
 	_choice_row.add_child(upgrade_btn)
@@ -70,7 +71,6 @@ func _render_upgrade_choices() -> void:
 	## 确保 _choice_row 被 ScrollContainer 包裹（测试和运行时一致性）
 	var parent := _choice_row.get_parent()
 	if parent == null or not (parent is ScrollContainer):
-		## 把 _choice_row 从当前位置移入新的 ScrollContainer
 		var grandparent: Node = parent
 		var insert_idx := 0
 		if grandparent != null:
@@ -115,7 +115,7 @@ func _render_upgrade_choices() -> void:
 	_confirm_upgrade_button.pressed.connect(_on_confirm_upgrade_pressed)
 	btn_row.add_child(_confirm_upgrade_button)
 
-	var back_btn := _make_action_button("返回", Vector2(140, 44))
+	var back_btn := SF.make_action_button("返回", Vector2(140, 44))
 	back_btn.pressed.connect(_on_back_pressed)
 	btn_row.add_child(back_btn)
 
@@ -204,34 +204,9 @@ func _status_text() -> String:
 	return "%s  |  回血 +%d 或升级 1 张牌" % [hp_text, heal_amount]
 
 
-func _make_pink_button(text: String, min_size: Vector2) -> Button:
-	var btn := Button.new()
-	btn.text = text
-	btn.custom_minimum_size = min_size
-	var s := StyleBoxFlat.new()
-	s.bg_color = Color(0.95, 0.55, 0.65)
-	s.border_color = Color(1.0, 0.84, 0.0)
-	s.set_border_width_all(2)
-	s.set_corner_radius_all(14)
-	btn.add_theme_stylebox_override("normal", s)
-	btn.add_theme_color_override("font_color", Color(1, 1, 1))
-	btn.add_theme_font_size_override("font_size", 18)
-	return btn
-
-
-func _make_action_button(text: String, min_size: Vector2) -> Button:
-	var btn := Button.new()
-	btn.text = text
-	btn.custom_minimum_size = min_size
-	var s := StyleBoxFlat.new()
-	s.bg_color = Color(0.25, 0.20, 0.32, 0.85)
-	s.border_color = Color(0.45, 0.38, 0.55, 0.8)
-	s.set_border_width_all(1)
-	s.set_corner_radius_all(14)
-	btn.add_theme_stylebox_override("normal", s)
-	btn.add_theme_color_override("font_color", Color(0.88, 0.82, 0.92))
-	btn.add_theme_font_size_override("font_size", 16)
-	return btn
+func _clear_children(node: Node) -> void:
+	for child in node.get_children():
+		child.queue_free()
 
 
 func _rebuild() -> void:
@@ -239,11 +214,6 @@ func _rebuild() -> void:
 		child.queue_free()
 	_compare_panel = null
 	_build()
-
-
-func _clear_children(node: Node) -> void:
-	for child in node.get_children():
-		child.queue_free()
 
 
 func _autoload(autoload_name: String) -> Variant:
