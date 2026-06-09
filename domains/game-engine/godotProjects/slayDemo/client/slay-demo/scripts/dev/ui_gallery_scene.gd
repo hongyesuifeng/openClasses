@@ -43,6 +43,7 @@ var _content_area: Control
 var _active_tab := ""
 var _tab_buttons: Dictionary = {}
 var _anim_helpers: Array = []
+var _live_editor: Control = null  ## 复用同一个 live 编辑器，避免叠加
 
 
 func _process(delta: float) -> void:
@@ -864,11 +865,16 @@ func _collect_layout_controls(root: Node, result: Array[Control]) -> void:
 
 
 func _open_live_editor(control: Control, scene_root: Node, preview_container: Control, viewport_size: Vector2) -> void:
+	## 复用已有编辑器：右键新节点时直接切换，不叠加新面板
+	if _live_editor != null and is_instance_valid(_live_editor):
+		_live_editor.open(control, true, scene_root, preview_container, viewport_size)
+		return
 	var editor := UILayoutEditorScript.new()
+	_live_editor = editor
 	add_child(editor)
 	editor.open(control, true, scene_root, preview_container, viewport_size)
 	editor.closed.connect(func(_saved: bool) -> void:
-		pass  ## live 模式：不需要刷新 Gallery，真实场景已实时更新
+		_live_editor = null
 	)
 
 

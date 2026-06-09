@@ -47,10 +47,13 @@ func open(source: Control, live_mode := false, live_root: Node = null, live_cont
 	_live_viewport_size = live_viewport_size
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	z_index = 1000
-	_build_ui()
+
+	## 二次调用（切换节点）：只更新状态，不重建 UI
+	var already_open := get_child_count() > 0
+	if not already_open:
+		_build_ui()
 
 	if _live_mode:
-		## Live 模式：直接持有真实节点，背后 SubViewport 即是实时预览。
 		_preview = source
 		_edit_root = live_root if live_root != null else source
 		_select_control(source)
@@ -78,13 +81,24 @@ func open(source: Control, live_mode := false, live_root: Node = null, live_cont
 
 
 func _build_ui() -> void:
-	var shade := ColorRect.new()
-	shade.color = Color(0.025, 0.03, 0.04, 0.10) if _live_mode else Color(0.025, 0.03, 0.04, 0.98)
-	shade.set_anchors_preset(Control.PRESET_FULL_RECT)
-	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(shade)
-
 	if _live_mode:
+		## ── Live 模式：右侧浮动面板，不遮挡背后场景 ──────────────
+		## 只有右侧 inspector 面板有背景/遮罩，背后场景全区域可右键选新节点
+
+		## 半透明遮罩仅覆盖右侧面板宽度（360px）
+		var panel_width := 360.0
+		var shade := ColorRect.new()
+		shade.color = Color(0.02, 0.025, 0.035, 0.92)
+		shade.anchor_left   = 1.0; shade.anchor_top    = 0.0
+		shade.anchor_right  = 1.0; shade.anchor_bottom = 1.0
+		shade.offset_left   = -panel_width
+		shade.offset_top    = 0.0
+		shade.offset_right  = 0.0
+		shade.offset_bottom = 0.0
+		shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(shade)
+
+		## 交互层：覆盖背后场景（不含右侧面板），用于拖拽选中
 		_interaction = Control.new()
 		_interaction.set_anchors_preset(Control.PRESET_TOP_LEFT)
 		_interaction.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -94,93 +108,134 @@ func _build_ui() -> void:
 		add_child(_interaction)
 		call_deferred("_sync_live_interaction_rect")
 
-	var root := VBoxContainer.new()
-	root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	root.add_theme_constant_override("separation", 4)
-	if _live_mode:
-		root.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(root)
+		## 右侧主面板（VBoxContainer 固定在右侧）
+		var root := VBoxContainer.new()
+		root.anchor_left   = 1.0; root.anchor_top    = 0.0
+		root.anchor_right  = 1.0; root.anchor_bottom = 1.0
+		root.offset_left   = -panel_width
+		root.offset_top    = 0.0
+		root.offset_right  = 0.0
+		root.offset_bottom = 0.0
+		root.add_theme_constant_override("separation", 4)
+		root.mouse_filter = Control.MOUSE_FILTER_STOP
+		add_child(root)
 
-	var toolbar := HBoxContainer.new()
-	toolbar.custom_minimum_size.y = 46
-	toolbar.add_theme_constant_override("separation", 6)
-	toolbar.mouse_filter = Control.MOUSE_FILTER_STOP
-	root.add_child(toolbar)
-	_add_button(toolbar, "撤销", _undo_change)
-	_add_button(toolbar, "重做", _redo_change)
-	_add_button(toolbar, "重置选中项", _reset_selected)
-	_add_button(toolbar, "重置当前模板", _reset_template)
+		## 工具栏（折叠为紧凑两行）
+		var toolbar := VBoxContainer.new()
+		toolbar.add_theme_constant_override("separation", 3)
+		toolbar.mouse_filter = Control.MOUSE_FILTER_STOP
+		root.add_child(toolbar)
 
-	_resolution = OptionButton.new()
-	for label in ["1280×720", "1600×900", "1920×1080", "1024×768"]:
-		_resolution.add_item(label)
-	_resolution.item_selected.connect(_set_resolution)
-	toolbar.add_child(_resolution)
+		var row1 := HBoxContainer.new()
+		row1.add_theme_constant_override("separation", 4)
+		toolbar.add_child(row1)
+		_add_button(row1, "↩ 撤销", _undo_change)
+		_add_button(row1, "↪ 重做", _redo_change)
+		_add_button(row1, "重置选中", _reset_selected)
+		_add_button(row1, "重置全部", _reset_template)
 
-	_add_button(toolbar, "缩小", func(): _set_zoom(_zoom / 1.1))
-	_grid_toggle = CheckBox.new()
-	_grid_toggle.text = "8px 网格吸附"
-	_grid_toggle.button_pressed = true
-	_grid_toggle.toggled.connect(func(_enabled: bool): _interaction.queue_redraw())
-	toolbar.add_child(_grid_toggle)
+		var row2 := HBoxContainer.new()
+		row2.add_theme_constant_override("separation", 4)
+		toolbar.add_child(row2)
+		_grid_toggle = CheckBox.new()
+		_grid_toggle.text = "8px 吸附"
+		_grid_toggle.button_pressed = true
+		_grid_toggle.toggled.connect(func(_e: bool): _interaction.queue_redraw())
+		row2.add_child(_grid_toggle)
+		var hint_lbl := Label.new()
+		hint_lbl.text = "右键背后场景可换选节点"
+		hint_lbl.add_theme_font_size_override("font_size", 11)
+		hint_lbl.add_theme_color_override("font_color", Color(0.52, 0.78, 1.0))
+		hint_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row2.add_child(hint_lbl)
 
-	_zoom_label = Label.new()
-	_zoom_label.text = "缩放 100%"
-	toolbar.add_child(_zoom_label)
-	_add_button(toolbar, "放大", func(): _set_zoom(_zoom * 1.1))
+		## inspector 直接放在 root 里（不需要 HSplit，面板本身就是 inspector）
+		_build_inspector(root)
 
-	var help := Label.new()
-	help.text = "左侧选元素  |  预览上拖动  |  蓝色方块缩放" if _live_mode else "左侧选元素  |  中间拖动  |  蓝色方块缩放"
-	help.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	help.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	toolbar.add_child(help)
+	else:
+		## ── 非 Live 模式：原始全屏布局 ────────────────────────────
+		var shade := ColorRect.new()
+		shade.color = Color(0.025, 0.03, 0.04, 0.98)
+		shade.set_anchors_preset(Control.PRESET_FULL_RECT)
+		shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(shade)
 
-	var columns := HSplitContainer.new()
-	columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	if _live_mode:
-		columns.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	root.add_child(columns)
+		var root := VBoxContainer.new()
+		root.set_anchors_preset(Control.PRESET_FULL_RECT)
+		root.add_theme_constant_override("separation", 4)
+		add_child(root)
 
-	_tree = Tree.new()
-	_tree.custom_minimum_size.x = 220
-	_tree.hide_root = true
-	_tree.mouse_filter = Control.MOUSE_FILTER_STOP
-	_tree.item_selected.connect(_on_tree_selected)
-	columns.add_child(_tree)
+		var toolbar := HBoxContainer.new()
+		toolbar.custom_minimum_size.y = 46
+		toolbar.add_theme_constant_override("separation", 6)
+		toolbar.mouse_filter = Control.MOUSE_FILTER_STOP
+		root.add_child(toolbar)
+		_add_button(toolbar, "撤销", _undo_change)
+		_add_button(toolbar, "重做", _redo_change)
+		_add_button(toolbar, "重置选中项", _reset_selected)
+		_add_button(toolbar, "重置当前模板", _reset_template)
 
-	var work_area := HSplitContainer.new()
-	work_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	if _live_mode:
-		work_area.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	columns.add_child(work_area)
+		_resolution = OptionButton.new()
+		for label in ["1280×720", "1600×900", "1920×1080", "1024×768"]:
+			_resolution.add_item(label)
+		_resolution.item_selected.connect(_set_resolution)
+		toolbar.add_child(_resolution)
 
-	var viewport_panel := PanelContainer.new()
-	viewport_panel.name = "EditableCanvasPanel"
-	viewport_panel.custom_minimum_size = Vector2(500, 400)
-	viewport_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	viewport_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	var viewport_style := StyleBoxFlat.new()
-	viewport_style.bg_color = Color(0.055, 0.06, 0.075)
-	viewport_style.border_color = Color(0.35, 0.68, 0.92)
-	viewport_style.set_border_width_all(3)
-	viewport_style.set_content_margin_all(10)
-	viewport_panel.add_theme_stylebox_override("panel", viewport_style)
-	## live 模式：画布区折叠，背后的真实场景本身就是预览
-	viewport_panel.visible = not _live_mode
-	if _live_mode:
-		viewport_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	work_area.add_child(viewport_panel)
+		_add_button(toolbar, "缩小", func(): _set_zoom(_zoom / 1.1))
+		_grid_toggle = CheckBox.new()
+		_grid_toggle.text = "8px 网格吸附"
+		_grid_toggle.button_pressed = true
+		_grid_toggle.toggled.connect(func(_enabled: bool): _interaction.queue_redraw())
+		toolbar.add_child(_grid_toggle)
 
-	_preview_host = Control.new()
-	_preview_host.custom_minimum_size = Vector2(480, 360)
-	_preview_host.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_preview_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_preview_host.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_preview_host.mouse_filter = Control.MOUSE_FILTER_PASS
-	_preview_host.clip_contents = true
-	viewport_panel.add_child(_preview_host)
+		_zoom_label = Label.new()
+		_zoom_label.text = "缩放 100%"
+		toolbar.add_child(_zoom_label)
+		_add_button(toolbar, "放大", func(): _set_zoom(_zoom * 1.1))
 
-	if not _live_mode:
+		var help := Label.new()
+		help.text = "左侧选元素  |  中间拖动  |  蓝色方块缩放"
+		help.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		help.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		toolbar.add_child(help)
+
+		var columns := HSplitContainer.new()
+		columns.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		root.add_child(columns)
+
+		_tree = Tree.new()
+		_tree.custom_minimum_size.x = 220
+		_tree.hide_root = true
+		_tree.mouse_filter = Control.MOUSE_FILTER_STOP
+		_tree.item_selected.connect(_on_tree_selected)
+		columns.add_child(_tree)
+
+		var work_area := HSplitContainer.new()
+		work_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		columns.add_child(work_area)
+
+		var viewport_panel := PanelContainer.new()
+		viewport_panel.name = "EditableCanvasPanel"
+		viewport_panel.custom_minimum_size = Vector2(500, 400)
+		viewport_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		viewport_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		var viewport_style := StyleBoxFlat.new()
+		viewport_style.bg_color = Color(0.055, 0.06, 0.075)
+		viewport_style.border_color = Color(0.35, 0.68, 0.92)
+		viewport_style.set_border_width_all(3)
+		viewport_style.set_content_margin_all(10)
+		viewport_panel.add_theme_stylebox_override("panel", viewport_style)
+		work_area.add_child(viewport_panel)
+
+		_preview_host = Control.new()
+		_preview_host.custom_minimum_size = Vector2(480, 360)
+		_preview_host.set_anchors_preset(Control.PRESET_FULL_RECT)
+		_preview_host.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_preview_host.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		_preview_host.mouse_filter = Control.MOUSE_FILTER_PASS
+		_preview_host.clip_contents = true
+		viewport_panel.add_child(_preview_host)
+
 		_interaction = Control.new()
 		_interaction.set_anchors_preset(Control.PRESET_FULL_RECT)
 		_interaction.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -189,32 +244,41 @@ func _build_ui() -> void:
 		_interaction.draw.connect(_draw_selection)
 		_preview_host.add_child(_interaction)
 
-	var canvas_hint := Label.new()
-	canvas_hint.text = "可操作画布"
-	canvas_hint.position = Vector2(12, 10)
-	canvas_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	canvas_hint.add_theme_font_size_override("font_size", 18)
-	canvas_hint.add_theme_color_override("font_color", Color(0.52, 0.78, 1.0))
-	_preview_host.add_child(canvas_hint)
-	if not _live_mode:
+		var canvas_hint := Label.new()
+		canvas_hint.text = "可操作画布"
+		canvas_hint.position = Vector2(12, 10)
+		canvas_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		canvas_hint.add_theme_font_size_override("font_size", 18)
+		canvas_hint.add_theme_color_override("font_color", Color(0.52, 0.78, 1.0))
+		_preview_host.add_child(canvas_hint)
 		_interaction.move_to_front()
 
+		_build_inspector(work_area)
+
+
+## inspector 属性面板（live / non-live 共用）
+func _build_inspector(parent: Control) -> void:
 	var inspector := VBoxContainer.new()
 	inspector.name = "LayoutInspector"
 	inspector.custom_minimum_size.x = 290
 	inspector.add_theme_constant_override("separation", 6)
 	inspector.mouse_filter = Control.MOUSE_FILTER_STOP
-	work_area.add_child(inspector)
+	if parent is SplitContainer or parent is HSplitContainer:
+		parent.add_child(inspector)
+	else:
+		inspector.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		parent.add_child(inspector)
 
-	var title := Label.new()
-	title.text = "布局属性"
-	title.add_theme_font_size_override("font_size", 18)
-	inspector.add_child(title)
+	if not _live_mode:
+		var title := Label.new()
+		title.text = "布局属性"
+		title.add_theme_font_size_override("font_size", 18)
+		inspector.add_child(title)
 
 	var instructions := Label.new()
-	instructions.text = "左侧选择元素后，在实时预览上拖动。\n拖动蓝框上的方块调整尺寸。\n方向键移动 1px，Shift+方向键移动 8px。" if _live_mode else "左侧选择元素后，在中央画布拖动。\n拖动蓝框上的方块调整尺寸。\n方向键移动 1px，Shift+方向键移动 8px。"
+	instructions.text = "右侧面板调整属性\n方向键移 1px，Shift×8px" if _live_mode else "左侧选择元素后，在中央画布拖动。\n拖动蓝框上的方块调整尺寸。\n方向键移动 1px，Shift+方向键移动 8px。"
 	instructions.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	instructions.custom_minimum_size.y = 76
+	instructions.custom_minimum_size.y = 48 if _live_mode else 76
 	instructions.add_theme_color_override("font_color", Color(0.72, 0.82, 0.94))
 	inspector.add_child(instructions)
 
@@ -354,12 +418,16 @@ func _add_visual_field(parent: Control, key: String) -> void:
 
 
 func _build_tree() -> void:
+	if _tree == null:
+		return
 	_tree.clear()
 	var root_item := _tree.create_item()
 	_add_tree_control(_edit_root, root_item)
 
 
 func _add_tree_control(node: Node, parent_item: TreeItem) -> void:
+	if _tree == null:
+		return
 	if node is Control and (node as Control).has_meta("layout_element_id"):
 		var control := node as Control
 		var item := _tree.create_item(parent_item)
@@ -371,6 +439,8 @@ func _add_tree_control(node: Node, parent_item: TreeItem) -> void:
 
 
 func _on_tree_selected() -> void:
+	if _tree == null:
+		return
 	var item := _tree.get_selected()
 	if item != null and item.get_metadata(0) is Control:
 		_select_control(item.get_metadata(0) as Control)
