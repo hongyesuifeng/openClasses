@@ -2,6 +2,7 @@ extends Control
 class_name UILayoutEditor
 
 const UILayoutStoreScript := preload("res://scripts/ui/ui_layout_store.gd")
+const _UISpecEditor := preload("res://addons/ui_builder/ui_spec_editor.gd")
 
 signal closed(saved: bool)
 
@@ -693,23 +694,45 @@ func _reset_template() -> void:
 
 
 func _save_and_close() -> void:
+	var spec_write_count := 0
+	var store_write_count := 0
+
 	for control in _valid_tracked_controls():
 		if _initial.has(control) and UILayoutStoreScript.layout_from_control(control) == (_initial[control] as Dictionary)["layout"]:
 			continue
 		var element_id := str(control.get_meta("layout_element_id", ""))
 		var instance_id := str(control.get_meta("layout_instance_id", "")) if _instance_toggle.button_pressed else ""
-		if str(control.get_meta("layout_scope", "")) == "gallery":
-			UILayoutStoreScript.set_gallery_override(element_id, UILayoutStoreScript.layout_from_control(control))
-		else:
-			UILayoutStoreScript.set_override(element_id, UILayoutStoreScript.layout_from_control(control), instance_id)
+
+		## ── 回写到 ui_specs/*.ui.json ──────────────────────────────────
+		var spec_path := str(control.get_meta("ui_spec_path", ""))
+		var spec_node_path := str(control.get_meta("ui_spec_node_path", ""))
+		if not spec_path.is_empty() and not spec_node_path.is_empty():
+			var result := _UISpecEditor.save_node_layout(control)
+			if result == OK:
+				spec_write_count += 1
+			else:
+				push_warning("UILayoutEditor: 回写 spec 失败 element=%s path=%s" % [element_id, spec_node_path])
+
+		## ── 同时保存到 UILayoutStore（兼容旧逻辑）─────────────────────
+		if not element_id.is_empty():
+			if str(control.get_meta("layout_scope", "")) == "gallery":
+				UILayoutStoreScript.set_gallery_override(element_id, UILayoutStoreScript.layout_from_control(control))
+			else:
+				UILayoutStoreScript.set_override(element_id, UILayoutStoreScript.layout_from_control(control), instance_id)
+			store_write_count += 1
+
 	var error := UILayoutStoreScript.save()
+	if _status_label != null:
+		if spec_write_count > 0:
+			_status_label.text = "✅ 已保存到 %d 个 spec 文件 + UILayoutStore" % spec_write_count
+		elif error == OK:
+			_status_label.text = "✅ 已保存到 UILayoutStore（无 spec meta）"
+		else:
+			_status_label.text = "⚠ 保存失败"
+
 	if error == OK:
 		closed.emit(true)
-		## live 模式：节点属于外部场景，只释放编辑器自身
-		if _live_mode:
-			queue_free()
-		else:
-			queue_free()
+		queue_free()
 
 
 func _close_without_save() -> void:

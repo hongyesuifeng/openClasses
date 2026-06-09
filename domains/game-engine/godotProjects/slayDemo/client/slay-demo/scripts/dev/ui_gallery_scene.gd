@@ -12,6 +12,8 @@ const PotionViewFactoryScript  := preload("res://scripts/ui/potion_view_factory.
 const UILayoutStoreScript      := preload("res://scripts/ui/ui_layout_store.gd")
 const UILayoutEditorScript     := preload("res://scripts/dev/ui_layout_editor.gd")
 const SpriteAnimHelperScript   := preload("res://scripts/vfx/sprite_anim_helper.gd")
+const _UIBuilder               := preload("res://addons/ui_builder/ui_builder.gd")
+const _UISpecEditor            := preload("res://addons/ui_builder/ui_spec_editor.gd")
 
 const TABS := [
 	{"key": "cards",    "label": "卡牌 (52)"},
@@ -26,6 +28,7 @@ const TABS := [
 	{"key": "result",   "label": "📊 结算"},
 	{"key": "theme",    "label": "字体/色彩"},
 	{"key": "anim",     "label": "🎬 动画预览"},
+	{"key": "specs",    "label": "📄 Spec JSON"},
 ]
 
 const RARITY_COLORS := {
@@ -148,6 +151,7 @@ func _switch_tab(tab_key: String) -> void:
 		"result":   _build_scene_tab("res://scenes/result/result_scene.tscn",  _mock_result)
 		"theme":    _build_theme_tab()
 		"anim":     _build_anim_tab()
+		"specs":    _build_specs_tab()
 	call_deferred("_register_editable_inputs")
 
 
@@ -1065,3 +1069,212 @@ func _open_layout_editor(control: Control) -> void:
 func _on_layout_editor_closed(saved: bool) -> void:
 	if saved:
 		_switch_tab(_active_tab)
+
+
+## ─────────────────────────────────────────────────────────────
+## Tab: Spec JSON 查看 / 编辑
+## 左侧：spec 文件列表；右侧：预览 + JSON 文本编辑器
+## ─────────────────────────────────────────────────────────────
+
+func _build_specs_tab() -> void:
+	_add_section_title("📄 UI Spec JSON 编辑器  —  修改 JSON 后点击「应用预览」热重载；点击「保存到文件」写回磁盘")
+
+	var specs := _UISpecEditor.list_specs()
+	if specs.is_empty():
+		_add_error_label("未找到任何 ui_specs/*.ui.json 文件")
+		return
+
+	## 水平分栏：左侧文件列表 + 右侧工作区
+	var split := HSplitContainer.new()
+	split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	split.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	split.custom_minimum_size   = Vector2(0, 680)
+	_content_area.add_child(split)
+
+	## ── 左侧：文件列表 ──────────────────────────────────────────
+	var file_panel := VBoxContainer.new()
+	file_panel.custom_minimum_size = Vector2(200, 0)
+	file_panel.add_theme_constant_override("separation", 4)
+	split.add_child(file_panel)
+
+	var file_title := Label.new()
+	file_title.text = "Spec 文件"
+	file_title.add_theme_font_size_override("font_size", 14)
+	file_title.add_theme_color_override("font_color", Color(0.52, 0.82, 1.0))
+	file_panel.add_child(file_title)
+
+	## ── 右侧：预览 + 编辑器 ─────────────────────────────────────
+	var work_area := VSplitContainer.new()
+	work_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	work_area.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	split.add_child(work_area)
+
+	## 上半：UIBuilder 实时预览（SubViewport）
+	var preview_container := SubViewportContainer.new()
+	preview_container.stretch = true
+	preview_container.custom_minimum_size = Vector2(0, 280)
+	preview_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	work_area.add_child(preview_container)
+
+	var preview_vp := SubViewport.new()
+	preview_vp.name = "SpecPreviewViewport"
+	preview_vp.size = Vector2i(1280, 720)
+	preview_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	preview_container.add_child(preview_vp)
+
+	## 下半：工具栏 + JSON 文本编辑器
+	var editor_panel := VBoxContainer.new()
+	editor_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	editor_panel.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	editor_panel.add_theme_constant_override("separation", 6)
+	work_area.add_child(editor_panel)
+
+	## 工具栏
+	var toolbar := HBoxContainer.new()
+	toolbar.add_theme_constant_override("separation", 8)
+	editor_panel.add_child(toolbar)
+
+	var current_spec_path := specs[0] if not specs.is_empty() else ""
+	var path_label := Label.new()
+	path_label.name = "SpecPathLabel"
+	path_label.text = current_spec_path.get_file()
+	path_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	path_label.add_theme_color_override("font_color", Color(0.88, 0.72, 0.40))
+	toolbar.add_child(path_label)
+
+	var status_lbl := Label.new()
+	status_lbl.name = "SpecStatusLabel"
+	status_lbl.text = ""
+	status_lbl.custom_minimum_size = Vector2(160, 0)
+	status_lbl.add_theme_color_override("font_color", Color(0.52, 0.94, 0.52))
+	toolbar.add_child(status_lbl)
+
+	## JSON 编辑器
+	var text_edit := TextEdit.new()
+	text_edit.name = "SpecTextEdit"
+	text_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	text_edit.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	text_edit.custom_minimum_size   = Vector2(0, 300)
+	text_edit.syntax_highlighter    = CodeHighlighter.new()
+	text_edit.add_theme_font_size_override("font_size", 14)
+	text_edit.add_theme_color_override("background_color", Color(0.07, 0.075, 0.09))
+	text_edit.add_theme_color_override("font_color",       Color(0.88, 0.88, 0.88))
+	editor_panel.add_child(text_edit)
+
+	## 按钮行
+	var btn_row := HBoxContainer.new()
+	btn_row.add_theme_constant_override("separation", 10)
+	editor_panel.add_child(btn_row)
+
+	var apply_btn := Button.new()
+	apply_btn.text = "▶ 应用预览（热重载）"
+	apply_btn.custom_minimum_size = Vector2(200, 36)
+	btn_row.add_child(apply_btn)
+
+	var save_btn := Button.new()
+	save_btn.text = "💾 保存到文件"
+	save_btn.custom_minimum_size = Vector2(160, 36)
+	btn_row.add_child(save_btn)
+
+	var fmt_btn := Button.new()
+	fmt_btn.text = "整理格式"
+	fmt_btn.custom_minimum_size = Vector2(100, 36)
+	btn_row.add_child(fmt_btn)
+
+	var validate_btn := Button.new()
+	validate_btn.text = "验证 JSON"
+	validate_btn.custom_minimum_size = Vector2(100, 36)
+	btn_row.add_child(validate_btn)
+
+	## ── 加载并显示第一个 spec ───────────────────────────────────
+	var _load_spec := func(spec_path: String) -> void:
+		current_spec_path = spec_path
+		path_label.text = spec_path.get_file() + "  (" + spec_path + ")"
+		status_lbl.text = ""
+		var spec := _UISpecEditor.read_spec(spec_path)
+		text_edit.text = JSON.stringify(spec, "\t") if not spec.is_empty() else "{}"
+		## 热重载预览
+		for c in preview_vp.get_children():
+			c.queue_free()
+		if FileAccess.file_exists(spec_path):
+			var ui := _UIBuilder.build(spec_path)
+			if ui != null:
+				preview_vp.add_child(ui)
+
+	_load_spec.call(current_spec_path)
+
+	## ── 文件列表按钮 ────────────────────────────────────────────
+	for spec_path in specs:
+		var btn := Button.new()
+		btn.text = spec_path.get_file().replace(".ui.json", "")
+		btn.custom_minimum_size = Vector2(190, 32)
+		btn.pressed.connect(_load_spec.bind(spec_path))
+		file_panel.add_child(btn)
+
+	## ── 应用预览（热重载，不写文件）────────────────────────────
+	apply_btn.pressed.connect(func() -> void:
+		var json_text := text_edit.text
+		var parsed := JSON.new()
+		var err := parsed.parse(json_text)
+		if err != OK:
+			status_lbl.text = "❌ JSON 语法错误（行 %d）" % parsed.get_error_line()
+			status_lbl.add_theme_color_override("font_color", Color(1.0, 0.4, 0.3))
+			return
+		## 用临时文件路径写入 user:// 再 build
+		var tmp_path := "user://spec_preview_tmp.ui.json"
+		var f := FileAccess.open(tmp_path, FileAccess.WRITE)
+		f.store_string(json_text)
+		f.close()
+		for c in preview_vp.get_children():
+			c.queue_free()
+		var ui := _UIBuilder.build(tmp_path)
+		if ui != null:
+			preview_vp.add_child(ui)
+		status_lbl.text = "✅ 预览已更新"
+		status_lbl.add_theme_color_override("font_color", Color(0.52, 0.94, 0.52))
+		DirAccess.remove_absolute(tmp_path)
+	)
+
+	## ── 保存到文件 ───────────────────────────────────────────────
+	save_btn.pressed.connect(func() -> void:
+		if current_spec_path.is_empty():
+			status_lbl.text = "❌ 无选中文件"
+			return
+		var json_text := text_edit.text
+		var parsed := JSON.new()
+		var err := parsed.parse(json_text)
+		if err != OK:
+			status_lbl.text = "❌ JSON 错误，未保存"
+			status_lbl.add_theme_color_override("font_color", Color(1.0, 0.4, 0.3))
+			return
+		var write_err := _UISpecEditor.write_spec(current_spec_path, parsed.data)
+		if write_err == OK:
+			status_lbl.text = "✅ 已保存到 %s" % current_spec_path.get_file()
+			status_lbl.add_theme_color_override("font_color", Color(0.52, 0.94, 0.52))
+		else:
+			status_lbl.text = "❌ 写文件失败 (err=%d)" % write_err
+			status_lbl.add_theme_color_override("font_color", Color(1.0, 0.4, 0.3))
+	)
+
+	## ── 整理格式 ─────────────────────────────────────────────────
+	fmt_btn.pressed.connect(func() -> void:
+		var parsed := JSON.new()
+		var err := parsed.parse(text_edit.text)
+		if err != OK:
+			status_lbl.text = "❌ JSON 语法错误（行 %d）" % parsed.get_error_line()
+			return
+		text_edit.text = JSON.stringify(parsed.data, "\t")
+		status_lbl.text = "✅ 已整理格式"
+	)
+
+	## ── 验证 JSON ────────────────────────────────────────────────
+	validate_btn.pressed.connect(func() -> void:
+		var parsed := JSON.new()
+		var err := parsed.parse(text_edit.text)
+		if err == OK:
+			status_lbl.text = "✅ JSON 语法正确"
+			status_lbl.add_theme_color_override("font_color", Color(0.52, 0.94, 0.52))
+		else:
+			status_lbl.text = "❌ 第 %d 行语法错误：%s" % [parsed.get_error_line(), parsed.get_error_message()]
+			status_lbl.add_theme_color_override("font_color", Color(1.0, 0.4, 0.3))
+	)

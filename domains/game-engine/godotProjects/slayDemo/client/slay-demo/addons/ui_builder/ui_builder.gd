@@ -39,19 +39,21 @@ static func build(spec_path: String) -> Control:
 	var root := Control.new()
 	root.name = spec.get("scene", "UIRoot")
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.set_meta("ui_spec_path", spec_path)
 	if spec.has("background"):
-		var bg := _build_node(spec["background"])
+		var bg := _build_node(spec["background"], spec_path, "background")
 		if bg:
 			root.add_child(bg)
-	for child_spec in (spec.get("children", []) as Array):
-		var child := _build_node(child_spec)
+	for i in (spec.get("children", []) as Array).size():
+		var child_spec: Dictionary = (spec.get("children", []) as Array)[i]
+		var child := _build_node(child_spec, spec_path, "children[%d]" % i)
 		if child:
 			root.add_child(child)
 	_ActionBinder.bind_all(root)
 	return root
 
 
-static func _build_node(spec: Dictionary) -> Control:
+static func _build_node(spec: Dictionary, spec_path: String = "", spec_node_path: String = "") -> Control:
 	var type: String = spec.get("type", "Control")
 	var node: Control
 	if type == "ComponentRef":
@@ -61,6 +63,10 @@ static func _build_node(spec: Dictionary) -> Control:
 	if node == null:
 		return null
 	node.name = spec.get("name", type)
+	## 记录来源，用于回写 JSON
+	if not spec_path.is_empty():
+		node.set_meta("ui_spec_path", spec_path)
+		node.set_meta("ui_spec_node_path", spec_node_path)
 	if node is Label and spec.has("text"):
 		(node as Label).text = spec["text"]
 	elif node is Button and spec.has("text"):
@@ -80,8 +86,11 @@ static func _build_node(spec: Dictionary) -> Control:
 	var bind_path: String = spec.get("bind", "")
 	if not bind_path.is_empty():
 		node.set_meta("ui_bind", bind_path)
-	for child_spec in (spec.get("children", []) as Array):
-		var child := _build_node(child_spec)
+	var children: Array = spec.get("children", [])
+	for i in children.size():
+		var child_spec: Dictionary = children[i] as Dictionary
+		var child_path := spec_node_path + ".children[%d]" % i if not spec_node_path.is_empty() else "children[%d]" % i
+		var child := _build_node(child_spec, spec_path, child_path)
 		if child:
 			node.add_child(child)
 	return node
@@ -193,6 +202,17 @@ static func _apply_layout(node: Control, layout: Dictionary, _type: String) -> v
 		var sz: Array = layout.get("size", [0, 0])
 		node.set_position(Vector2(float(pos[0]), float(pos[1])))
 		node.set_size(Vector2(float(sz[0]), float(sz[1])))
+		return
+	## raw_anchors：编辑器回写的精确坐标，直接赋值
+	if preset == "raw_anchors":
+		node.anchor_left   = float(layout.get("anchor_left",   0.0))
+		node.anchor_top    = float(layout.get("anchor_top",    0.0))
+		node.anchor_right  = float(layout.get("anchor_right",  0.0))
+		node.anchor_bottom = float(layout.get("anchor_bottom", 0.0))
+		node.offset_left   = float(layout.get("offset_left",   0.0))
+		node.offset_top    = float(layout.get("offset_top",    0.0))
+		node.offset_right  = float(layout.get("offset_right",  0.0))
+		node.offset_bottom = float(layout.get("offset_bottom", 0.0))
 		return
 	if not PRESET_ANCHORS.has(preset):
 		push_warning("UIBuilder: 未知 preset '%s'" % preset)
