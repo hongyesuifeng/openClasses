@@ -13,10 +13,10 @@ const CLR_SUBTITLE   := Color(0.96, 0.92, 0.98)   # 白偏紫
 
 ## 左侧功能栏配置：{ icon_path, tooltip }
 const SIDEBAR_ITEMS := [
-	{ "icon": "res://assets/ui/icons/icon_battle.png",    "tip": "成就" },
-	{ "icon": "res://assets/ui/icons/icon_question.png",  "tip": "图鉴" },
-	{ "icon": "res://assets/ui/icons/icon_settings.png",  "tip": "设置" },
-	{ "icon": "res://assets/ui/icons/icon_chest.png",     "tip": "公告" },
+	{ "icon": "res://assets/ui/icons/icon_achievement.png", "tip": "成就" },
+	{ "icon": "res://assets/ui/icons/icon_collection.png",  "tip": "图鉴" },
+	{ "icon": "res://assets/ui/icons/icon_settings.png",    "tip": "设置" },
+	{ "icon": "res://assets/ui/icons/icon_notice.png",      "tip": "公告" },
 ]
 
 
@@ -54,24 +54,33 @@ func _build() -> void:
 	panel.add_theme_constant_override("separation", 22)
 	add_child(panel)
 
-	# ── 主标题：粉金色 ──
+	# ── 主标题：粉金色，加半透明背景板保证可读性 ──
+	var title_bg := ColorRect.new()
+	title_bg.color = Color(0.08, 0.04, 0.15, 0.55)
+	title_bg.custom_minimum_size = Vector2(360, 0)
+	title_bg.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	panel.add_child(title_bg)
+
 	var title := Label.new()
 	title.text = "甜心迷宫"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 56)
 	title.add_theme_color_override("font_color", CLR_PINK_LIGHT)
-	title.add_theme_color_override("font_shadow_color", Color(0.6, 0.2, 0.4, 0.8))
+	title.add_theme_color_override("font_shadow_color", Color(0.3, 0.05, 0.2, 1.0))
 	title.add_theme_constant_override("shadow_offset_x", 3)
 	title.add_theme_constant_override("shadow_offset_y", 3)
 	UIThemeScript.apply_cn(title)
 	panel.add_child(title)
 
-	# ── 副标题 ──
+	# ── 副标题，加描边色增强可读性 ──
 	var subtitle := Label.new()
 	subtitle.text = "甜蜜的冒险，从这里开始"
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	subtitle.add_theme_font_size_override("font_size", 20)
 	subtitle.add_theme_color_override("font_color", CLR_SUBTITLE)
+	subtitle.add_theme_color_override("font_shadow_color", Color(0.1, 0.02, 0.15, 0.9))
+	subtitle.add_theme_constant_override("shadow_offset_x", 2)
+	subtitle.add_theme_constant_override("shadow_offset_y", 2)
 	UIThemeScript.apply_cn(subtitle)
 	panel.add_child(subtitle)
 
@@ -153,11 +162,12 @@ func _build_sidebar() -> void:
 		btn.add_theme_stylebox_override("pressed", _btn_style(Color(0.35, 0.25, 0.48, 0.96)))
 		btn.add_theme_color_override("icon_normal_color", CLR_GOLD)
 		btn.add_theme_color_override("icon_hover_color", CLR_PINK_LIGHT)
+		btn.pressed.connect(_on_sidebar_pressed.bind(str(item["tip"])))
 		sidebar.add_child(btn)
 
 
 # ──────────────────────────────────────────────
-## 创建粉色圆角金边按钮
+## 创建粉色圆角金边按钮（用 StyleBoxFlat 避免图片拉伸变形）
 # ──────────────────────────────────────────────
 func _make_pink_button(text: String, min_size: Vector2) -> Button:
 	var btn := Button.new()
@@ -176,15 +186,12 @@ func _make_pink_button(text: String, min_size: Vector2) -> Button:
 	btn.add_theme_color_override("font_color", CLR_WHITE)
 	btn.add_theme_color_override("font_hover_color", CLR_GOLD)
 	btn.add_theme_font_size_override("font_size", 22)
-
 	var style_hover := style_normal.duplicate()
 	style_hover.bg_color = Color(1.0, 0.65, 0.72)
 	btn.add_theme_stylebox_override("hover", style_hover)
-
 	var style_pressed := style_normal.duplicate()
 	style_pressed.bg_color = Color(0.88, 0.45, 0.55)
 	btn.add_theme_stylebox_override("pressed", style_pressed)
-
 	return btn
 
 
@@ -199,6 +206,34 @@ func _btn_style(color: Color) -> StyleBoxFlat:
 	style.content_margin_right = 6
 	style.content_margin_bottom = 6
 	return style
+
+
+func _on_sidebar_pressed(tip: String) -> void:
+	var toast := Label.new()
+	toast.text = "%s 暂未开放" % tip
+	toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	toast.add_theme_font_size_override("font_size", 18)
+	toast.add_theme_color_override("font_color", CLR_WHITE)
+	toast.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
+	toast.add_theme_constant_override("shadow_offset_x", 1)
+	toast.add_theme_constant_override("shadow_offset_y", 1)
+	var panel := PanelContainer.new()
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.1, 0.05, 0.2, 0.88)
+	style.set_corner_radius_all(10)
+	style.set_border_width_all(1)
+	style.border_color = CLR_GOLD
+	panel.add_theme_stylebox_override("panel", style)
+	panel.add_child(toast)
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.offset_left = -120; panel.offset_right = 120
+	panel.offset_top = -28;   panel.offset_bottom = 28
+	panel.z_index = 50
+	add_child(panel)
+	var tween := create_tween()
+	tween.tween_interval(1.5)
+	tween.tween_property(panel, "modulate:a", 0.0, 0.4)
+	tween.finished.connect(panel.queue_free)
 
 
 func _on_continue_pressed() -> void:

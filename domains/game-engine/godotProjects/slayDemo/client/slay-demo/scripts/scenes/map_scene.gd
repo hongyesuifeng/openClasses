@@ -117,7 +117,7 @@ func _build() -> void:
 	_line_canvas = Control.new()
 	_line_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_line_canvas.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_line_canvas.z_index = 1
+	_line_canvas.z_index = 0
 	_line_canvas.draw.connect(_draw_path_lines)
 	_node_root.add_child(_line_canvas)
 	## layout 完成后同步 _line_canvas 尺寸并触发连线绘制
@@ -193,8 +193,9 @@ func _render_nodes() -> void:
 
 
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
-	## 节点中心偏移（按钮尺寸 110×56 的一半）
-	const NODE_HALF := Vector2(55.0, 28.0)
+	## 节点尺寸 110×56，连线只连到节点边缘
+	const NODE_W := 110.0
+	const NODE_H := 56.0
 	_path_lines.clear()
 	for node in nodes:
 		var node_dict := node as Dictionary
@@ -205,13 +206,31 @@ func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
 			var next_id := str(next_id_value)
 			if not _node_positions.has(next_id):
 				continue
+			## 节点中心
+			var from_center: Vector2 = (_node_positions[from_id] as Vector2) + Vector2(NODE_W * 0.5, NODE_H * 0.5)
+			var to_center: Vector2   = (_node_positions[next_id] as Vector2) + Vector2(NODE_W * 0.5, NODE_H * 0.5)
+			var dir: Vector2 = (to_center - from_center).normalized()
+			## 从源节点边缘出发，到目标节点边缘结束（各缩进半个节点宽高+4px间距）
+			var from_edge_dist := _edge_offset(dir, NODE_W, NODE_H) + 4.0
+			var to_edge_dist   := _edge_offset(-dir, NODE_W, NODE_H) + 4.0
 			_path_lines.append({
-				"from": _node_positions[from_id] + NODE_HALF,
-				"to":   _node_positions[next_id] + NODE_HALF,
+				"from": from_center + dir * from_edge_dist,
+				"to":   to_center   - dir * to_edge_dist,
 				"open": completed.has(from_id) or available.has(from_id),
 			})
 	if _line_canvas != null:
 		_line_canvas.queue_redraw()
+
+
+## 计算方向 dir 与矩形（w×h）边缘的距离
+static func _edge_offset(dir: Vector2, w: float, h: float) -> float:
+	if dir.is_zero_approx():
+		return 0.0
+	var hw := w * 0.5
+	var hh := h * 0.5
+	var tx := hw / absf(dir.x) if absf(dir.x) > 0.001 else INF
+	var ty := hh / absf(dir.y) if absf(dir.y) > 0.001 else INF
+	return minf(tx, ty)
 
 
 func _on_node_root_resized() -> void:
@@ -225,12 +244,11 @@ func _draw_path_lines() -> void:
 		var from: Vector2 = line_data["from"]
 		var to: Vector2   = line_data["to"]
 		var open: bool    = line_data["open"]
-		## 描边（深紫）
-		_line_canvas.draw_line(from, to, Color(0.08, 0.04, 0.12, 0.92), 10.0 if open else 8.0, true)
-		## 主线（粉金色）
-		var col := Color(0.95, 0.55, 0.65, 0.96) if open else Color(0.72, 0.52, 0.60, 0.58)
-		_line_canvas.draw_line(from, to, col, 5.0 if open else 4.0, true)
-		_draw_path_arrow(from, to, col, open)
+		## 描边（深紫，细）
+		_line_canvas.draw_line(from, to, Color(0.08, 0.04, 0.12, 0.80), 3.0 if open else 2.5, true)
+		## 主线（粉金色，更细）
+		var col := Color(0.95, 0.55, 0.65, 0.90) if open else Color(0.72, 0.52, 0.60, 0.45)
+		_line_canvas.draw_line(from, to, col, 1.5 if open else 1.2, true)
 
 
 func _draw_path_arrow(from: Vector2, to: Vector2, color: Color, open: bool) -> void:

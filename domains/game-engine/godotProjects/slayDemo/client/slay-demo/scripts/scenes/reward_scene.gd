@@ -72,15 +72,24 @@ func _build() -> void:
 	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(tint)
 
+	## 用 ScrollContainer 包裹根容器，升级对比面板出现时可滚动而不超框
+	var scroll := ScrollContainer.new()
+	scroll.set_anchors_preset(Control.PRESET_FULL_RECT)
+	scroll.offset_left = 0; scroll.offset_top = 0
+	scroll.offset_right = 0; scroll.offset_bottom = 0
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	add_child(scroll)
+
 	var root := VBoxContainer.new()
-	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	root.offset_left = 32
 	root.offset_top = 28
 	root.offset_right = -32
 	root.offset_bottom = -28
 	root.alignment = BoxContainer.ALIGNMENT_CENTER
 	root.add_theme_constant_override("separation", 20)
-	add_child(root)
+	scroll.add_child(root)
 
 	if _relic_mode:
 		_build_relic_reward(root)
@@ -489,21 +498,16 @@ func _make_action_button(text: String, min_size: Vector2) -> Button:
 	var btn := Button.new()
 	btn.text = text
 	btn.custom_minimum_size = min_size
-	var style_normal := StyleBoxFlat.new()
-	style_normal.bg_color = Color(0.25, 0.20, 0.32, 0.85)
-	style_normal.border_color = Color(0.45, 0.38, 0.55, 0.8)
-	style_normal.set_border_width_all(1)
-	style_normal.set_corner_radius_all(14)
-	style_normal.content_margin_left = 12
-	style_normal.content_margin_top = 6
-	style_normal.content_margin_right = 12
-	style_normal.content_margin_bottom = 6
-	btn.add_theme_stylebox_override("normal", style_normal)
+	var tex := ResourceLoader.load("res://assets/ui/buttons/ui_btn_purple_normal.png", "Texture2D") as Texture2D
+	if tex:
+		var sn := StyleBoxTexture.new(); sn.texture = tex
+		sn.content_margin_left = 12; sn.content_margin_right = 12
+		sn.content_margin_top = 6; sn.content_margin_bottom = 6
+		btn.add_theme_stylebox_override("normal", sn)
+		var sh := StyleBoxTexture.new(); sh.texture = tex; sh.modulate_color = Color(0.88, 0.82, 1.0)
+		btn.add_theme_stylebox_override("hover", sh)
 	btn.add_theme_color_override("font_color", Color(0.88, 0.82, 0.92))
 	btn.add_theme_font_size_override("font_size", 16)
-	var style_hover := style_normal.duplicate()
-	style_hover.bg_color = Color(0.35, 0.28, 0.42, 0.92)
-	btn.add_theme_stylebox_override("hover", style_hover)
 	return btn
 
 

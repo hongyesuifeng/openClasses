@@ -15,8 +15,7 @@ const CLR_TEXT_WARM   := Color(0.98, 0.92, 0.82)
 
 const CLR_TINT        := Color(0.04, 0.02, 0.06, 0.35)
 
-## 商人立绘占位路径（缺失资源，后续替换）
-const MERCHANT_PORTRAIT := "res://assets/ui/icons/icon_shop.png"
+const MERCHANT_PORTRAIT := "res://assets/shop/merchant_portrait.png"
 
 var _status_label: Label
 var _gold_label: Label
