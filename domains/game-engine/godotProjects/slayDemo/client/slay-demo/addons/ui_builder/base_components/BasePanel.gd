@@ -1,4 +1,4 @@
-class_name BasePanel
+class_name UIBasePanel
 extends Panel
 
 const _StyleResolver := preload("res://addons/ui_builder/ui_style_resolver.gd")

@@ -1,4 +1,4 @@
-class_name BaseButton
+class_name UIBaseButton
 extends Button
 
 const _StyleResolver := preload("res://addons/ui_builder/ui_style_resolver.gd")
