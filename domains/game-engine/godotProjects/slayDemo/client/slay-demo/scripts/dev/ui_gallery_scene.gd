@@ -36,7 +36,10 @@ var _content_area: Control
 var _active_tab := ""
 var _tab_buttons: Dictionary = {}
 var _anim_helpers: Array = []
-var _live_editor: Control = null  ## 复用同一个 live 编辑器，避免叠加
+var _live_editor: Control = null
+var _root_layout: VBoxContainer   ## 顶层 VBox，Specs Tab 可直接往这里挂全屏节点
+var _content_scroll: ScrollContainer  ## 普通 Tab 的滚动容器，Specs 时隐藏
+var _spec_panel: Control = null   ## Specs Tab 专用面板引用，方便切换时移除
 
 
 func _process(delta: float) -> void:
@@ -70,6 +73,7 @@ func _build_chrome() -> void:
 	layout.set_anchors_preset(Control.PRESET_FULL_RECT)
 	layout.add_theme_constant_override("separation", 0)
 	add_child(layout)
+	_root_layout = layout
 
 	## ── 顶部整体行：固定按钮 + 可滚动 Tab 区 ──────────────────
 	var top_row := HBoxContainer.new()
@@ -149,11 +153,12 @@ func _build_chrome() -> void:
 	sep.custom_minimum_size = Vector2(0, 2)
 	layout.add_child(sep)
 
-	## 内容区（滚动）
+	## 普通 Tab 内容区（滚动）
 	var scroll := ScrollContainer.new()
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	layout.add_child(scroll)
+	_content_scroll = scroll
 
 	_content_area = VBoxContainer.new()
 	_content_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -164,8 +169,21 @@ func _build_chrome() -> void:
 func _switch_tab(tab_key: String) -> void:
 	_active_tab = tab_key
 	_anim_helpers.clear()
+
+	## 清理 Specs 专用面板
+	if _spec_panel != null and is_instance_valid(_spec_panel):
+		_spec_panel.queue_free()
+		_spec_panel = null
+
+	## 清理普通内容区
 	for child in _content_area.get_children():
 		child.queue_free()
+
+	## Specs Tab：隐藏滚动容器，全屏面板挂到 root_layout
+	if tab_key == "specs":
+		_content_scroll.visible = false
+	else:
+		_content_scroll.visible = true
 
 	for key in _tab_buttons:
 		var btn := _tab_buttons[key] as Button
@@ -1116,16 +1134,17 @@ func _on_layout_editor_closed(saved: bool) -> void:
 func _build_specs_tab() -> void:
 	var specs := _UISpecEditor.list_specs()
 	if specs.is_empty():
+		_content_scroll.visible = true
 		_add_error_label("未找到任何 ui_specs/*.ui.json 文件")
 		return
 
-	## 顶层：左右水平分栏，占满内容区剩余高度
+	## 全屏三栏布局：直接挂到 _root_layout，占满 Tab 栏以下的全部空间
 	var split := HSplitContainer.new()
 	split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	split.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	split.custom_minimum_size   = Vector2(0, 640)
-	split.split_offset          = 320   ## 左侧文件列表默认宽度
-	_content_area.add_child(split)
+	split.split_offset          = 185
+	_root_layout.add_child(split)
+	_spec_panel = split
 
 	## ── 左侧：文件列表 ───────────────────────────────────────────
 	var file_panel := VBoxContainer.new()
