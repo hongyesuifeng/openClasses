@@ -1162,13 +1162,14 @@ func _build_specs_tab() -> void:
 	var right_split := VSplitContainer.new()
 	right_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	right_split.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	right_split.split_offset          = 400   ## 预览区默认高度
+	right_split.split_offset          = 330   ## 预览区默认高度，给 JSON 编辑器保留可见空间
 	split.add_child(right_split)
 
 	## ── 预览区：SubViewport 渲染完整 1280×720 ─────────────────────
 	var preview_outer := VBoxContainer.new()
 	preview_outer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_outer.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	preview_outer.custom_minimum_size   = Vector2(0, 260)
 	preview_outer.add_theme_constant_override("separation", 4)
 	right_split.add_child(preview_outer)
 
@@ -1192,6 +1193,7 @@ func _build_specs_tab() -> void:
 	## SubViewportContainer：自动按容器大小缩放 1280×720 内容
 	var preview_container := SubViewportContainer.new()
 	preview_container.stretch = true
+	preview_container.stretch_shrink = 1
 	preview_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_container.size_flags_vertical   = Control.SIZE_EXPAND_FILL
 	preview_outer.add_child(preview_container)
@@ -1206,6 +1208,7 @@ func _build_specs_tab() -> void:
 	var editor_panel := VBoxContainer.new()
 	editor_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	editor_panel.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	editor_panel.custom_minimum_size   = Vector2(0, 230)
 	editor_panel.add_theme_constant_override("separation", 4)
 	right_split.add_child(editor_panel)
 
@@ -1232,6 +1235,7 @@ func _build_specs_tab() -> void:
 	var text_edit := TextEdit.new()
 	text_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	text_edit.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	text_edit.custom_minimum_size   = Vector2(0, 160)
 	text_edit.syntax_highlighter    = CodeHighlighter.new()
 	text_edit.add_theme_font_size_override("font_size", 13)
 	text_edit.add_theme_color_override("background_color", Color(0.06, 0.065, 0.075))
@@ -1260,6 +1264,12 @@ func _build_specs_tab() -> void:
 	save_apply_btn.tooltip_text = "保存到文件并刷新预览"
 	save_apply_btn.custom_minimum_size = Vector2(130, 32)
 	btn_row.add_child(save_apply_btn)
+
+	var reload_btn := Button.new()
+	reload_btn.text = "还原"
+	reload_btn.tooltip_text = "放弃当前编辑器内容，从磁盘重新加载当前 Spec JSON"
+	reload_btn.custom_minimum_size = Vector2(70, 32)
+	btn_row.add_child(reload_btn)
 
 	var fmt_btn := Button.new()
 	fmt_btn.text = "整理"
@@ -1345,6 +1355,14 @@ func _build_specs_tab() -> void:
 	save_apply_btn.pressed.connect(func() -> void:
 		if _save_spec.call():
 			_rebuild_preview.call(current_spec_path)
+	)
+
+	reload_btn.pressed.connect(func() -> void:
+		if current_spec_path.is_empty():
+			_set_status.call("❌ 未选中文件", false)
+			return
+		_load_spec.call(current_spec_path)
+		_set_status.call("✅ 已从磁盘还原", true)
 	)
 
 	fmt_btn.pressed.connect(func() -> void:
