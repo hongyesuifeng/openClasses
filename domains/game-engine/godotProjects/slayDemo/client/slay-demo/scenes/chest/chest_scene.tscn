@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://dp8jxir1ogy3a"]
 
-[ext_resource type="Script" path="res://scripts/scenes/chest_scene.gd" id="1"]
+[ext_resource type="Script" uid="uid://c4ccv1j6dc736" path="res://scripts/scenes/chest_scene.gd" id="1"]
 
-[node name="ChestScene" type="Control"]
+[node name="ChestScene" type="Control" unique_id=298868944]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
