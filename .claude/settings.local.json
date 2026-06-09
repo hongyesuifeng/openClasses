@@ -1,5 +1,6 @@
 {
   "permissions": {
+    "defaultMode": "bypassPermissions",
     "allow": [
       "Bash(cat:*)",
       "Bash(ssh-add:*)",
@@ -112,8 +113,8 @@
         "matcher": "Write",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "如果刚才写入的文件是 Markdown 文档（.md 文件），请使用 /humanizer-zh 技能对该文件进行人性化处理，然后覆盖原文件。处理时保持核心信息完整，只优化语言表达，去除 AI 写作痕迹。如果不是 .md 文件，请跳过处理。"
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty' 2>/dev/null); [[ \"$f\" == *.md ]] && echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"This is a .md file — apply /humanizer-zh to it.\"}}' || exit 0"
           }
         ]
       }
