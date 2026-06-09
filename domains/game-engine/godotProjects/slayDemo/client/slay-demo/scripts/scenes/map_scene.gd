@@ -12,9 +12,9 @@ const NODE_LABELS := {
 	"event": "事件", "rest": "休息", "result": "终点"
 }
 const NODE_COLORS := {
-	"battle": Color(0.48, 0.22, 0.38, 0.92), "shop": Color(0.42, 0.32, 0.52, 0.92),
-	"chest": Color(0.55, 0.38, 0.22, 0.92), "event": Color(0.35, 0.24, 0.50, 0.92),
-	"rest": Color(0.22, 0.38, 0.34, 0.92), "result": Color(0.38, 0.22, 0.52, 0.92)
+	"battle": Color(0.62, 0.28, 0.42, 0.95), "shop": Color(0.48, 0.38, 0.62, 0.95),
+	"chest": Color(0.62, 0.45, 0.25, 0.95), "event": Color(0.50, 0.35, 0.68, 0.95),
+	"rest": Color(0.30, 0.52, 0.42, 0.95), "result": Color(0.48, 0.28, 0.65, 0.95)
 }
 const NODE_ICON_PATHS := {
 	"battle": "res://assets/ui/icons/icon_battle.png",
@@ -184,8 +184,29 @@ func _draw_path_lines() -> void:
 		var from := line["from"] as Vector2
 		var to   := line["to"]   as Vector2
 		var open := bool(line.get("open", false))
-		var color := Color(0.85, 0.68, 0.95, 0.72) if open else Color(0.40, 0.32, 0.50, 0.36)
-		_line_canvas.draw_line(from, to, color, 2.0)
+		## 描边（深紫）
+		_line_canvas.draw_line(from, to, Color(0.08, 0.04, 0.12, 0.92), 8.0 if open else 6.0, true)
+		## 主线（粉金色）
+		var col := Color(0.95, 0.55, 0.65, 0.96) if open else Color(0.55, 0.42, 0.58, 0.50)
+		_line_canvas.draw_line(from, to, col, 4.0 if open else 3.0, true)
+		## 箭头
+		_draw_arrow(from, to, col, open)
+
+
+func _draw_arrow(from: Vector2, to: Vector2, color: Color, open: bool) -> void:
+	var direction := to - from
+	if direction.length() < 1.0:
+		return
+	var unit := direction.normalized()
+	var arrow_center := to - unit * 46.0
+	var side := Vector2(-unit.y, unit.x)
+	var size := 12.0 if open else 10.0
+	var arrow_points := PackedVector2Array([
+		arrow_center + unit * size,
+		arrow_center - unit * size * 0.75 + side * size * 0.55,
+		arrow_center - unit * size * 0.75 - side * size * 0.55,
+	])
+	_line_canvas.draw_colored_polygon(arrow_points, color)
 
 
 func _on_node_root_resized() -> void:

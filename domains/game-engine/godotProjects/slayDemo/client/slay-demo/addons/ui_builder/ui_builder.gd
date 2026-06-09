@@ -173,6 +173,7 @@ static func _apply_asset(node: Control, asset_key: String, stretch_override: Str
 			tr.texture = tex
 		var sm := stretch_override if not stretch_override.is_empty() else "keep_aspect_centered"
 		tr.stretch_mode = _parse_stretch_mode(sm)
+		tr.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	elif type == "Button":
 		var btn := node as Button
 		var path := _AssetLoader.resolve_path(asset_key)
@@ -180,6 +181,9 @@ static func _apply_asset(node: Control, asset_key: String, stretch_override: Str
 			var tex := load(path) as Texture2D
 			if tex:
 				btn.icon = tex
+				btn.expand_icon = true
+				btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+				btn.vertical_icon_alignment = VERTICAL_ALIGNMENT_CENTER
 
 
 static func _parse_stretch_mode(sm: String) -> TextureRect.StretchMode:
