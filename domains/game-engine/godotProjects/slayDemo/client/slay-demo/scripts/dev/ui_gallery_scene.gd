@@ -1138,6 +1138,20 @@ func _build_specs_tab() -> void:
 		_add_error_label("未找到任何 ui_specs/*.ui.json 文件")
 		return
 
+	## spec 文件名 → 对应完整场景路径
+	const SPEC_TO_SCENE := {
+		"main_menu": "res://scenes/main_menu/main_menu_scene.tscn",
+		"battle":    "res://scenes/battle/battle_scene.tscn",
+		"chest":     "res://scenes/chest/chest_scene.tscn",
+		"event":     "res://scenes/event/event_scene.tscn",
+		"map":       "res://scenes/map/map_scene.tscn",
+		"rest":      "res://scenes/rest/rest_scene.tscn",
+		"result":    "res://scenes/result/result_scene.tscn",
+		"reward":    "res://scenes/reward/reward_scene.tscn",
+		"shop":      "res://scenes/shop/shop_scene.tscn",
+		"demo":      "",  ## 无对应场景，只用 UIBuilder 渲染
+	}
+
 	## 全屏三栏布局：直接挂到 _root_layout，占满 Tab 栏以下的全部空间
 	var split := HSplitContainer.new()
 	split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1296,29 +1310,38 @@ func _build_specs_tab() -> void:
 		status_lbl.add_theme_color_override("font_color",
 			Color(0.52, 0.94, 0.52) if ok else Color(1.0, 0.4, 0.3))
 
-	## ── 预览重建 ──────────────────────────────────────────────────
+	## ── 预览重建：优先加载完整 .tscn，无对应场景时退化为 UIBuilder ──
 	var _rebuild_preview := func(spec_path: String) -> void:
 		for c in preview_vp.get_children():
 			c.queue_free()
-		if not FileAccess.file_exists(spec_path):
+		if spec_path.is_empty():
 			return
-		var ui := _UIBuilder.build(spec_path)
-		if ui != null:
-			preview_vp.add_child(ui)
-			ui.set_anchors_preset(Control.PRESET_FULL_RECT)
-			ui.set_deferred("size", Vector2(preview_vp.size))
-		preview_title.text = "预览：%s（1280×720）" % spec_path.get_file()
 
-	## ── 加载 spec 到编辑器 ──────────────────────────────────────
-	var _load_spec := func(spec_path: String) -> void:
-		current_spec_path = spec_path
-		path_label.text = spec_path.get_file()
-		status_lbl.text = ""
-		var spec := _UISpecEditor.read_spec(spec_path)
-		text_edit.text = JSON.stringify(spec, "\t") if not spec.is_empty() else "{}"
-		_rebuild_preview.call(spec_path)
+		var spec_key := spec_path.get_file().replace(".ui.json", "")
+		var scene_path: String = SPEC_TO_SCENE.get(spec_key, "") as String
 
-	## ── 应用预览（临时文件，不改磁盘）──────────────────────────
+		if not scene_path.is_empty() and ResourceLoader.exists(scene_path):
+			## 加载完整场景（带 _build()，真实视觉效果）
+			_mock_base()
+			var packed := load(scene_path) as PackedScene
+			if packed != null:
+				var scene_node := packed.instantiate()
+				scene_node.set_meta("gallery_preview", true)
+				scene_node.set_process(false)
+				scene_node.set_physics_process(false)
+				preview_vp.add_child(scene_node)
+				preview_title.text = "完整场景预览：%s" % spec_key
+				return
+
+		## fallback：只渲染 spec JSON 骨架
+		if FileAccess.file_exists(spec_path):
+			var ui := _UIBuilder.build(spec_path)
+			if ui != null:
+				ui.set_anchors_preset(Control.PRESET_FULL_RECT)
+				preview_vp.add_child(ui)
+		preview_title.text = "Spec 骨架预览：%s" % spec_path.get_file()
+
+	## ── 应用预览（JSON 编辑结果，临时渲染，不写磁盘）──────────
 	var _apply_preview := func() -> void:
 		var parsed := JSON.new()
 		if parsed.parse(text_edit.text) != OK:
@@ -1332,11 +1355,20 @@ func _build_specs_tab() -> void:
 			c.queue_free()
 		var ui := _UIBuilder.build(tmp)
 		if ui != null:
-			preview_vp.add_child(ui)
 			ui.set_anchors_preset(Control.PRESET_FULL_RECT)
-			ui.set_deferred("size", Vector2(preview_vp.size))
+			preview_vp.add_child(ui)
 		DirAccess.remove_absolute(tmp)
-		_set_status.call("✅ 预览已更新", true)
+		preview_title.text = "JSON 骨架预览（编辑中）"
+		_set_status.call("✅ 预览已更新（仅 spec 骨架）", true)
+
+	## ── 加载 spec 到编辑器并刷新预览 ─────────────────────────
+	var _load_spec := func(spec_path: String) -> void:
+		current_spec_path = spec_path
+		path_label.text = spec_path.get_file()
+		status_lbl.text = ""
+		var spec := _UISpecEditor.read_spec(spec_path)
+		text_edit.text = JSON.stringify(spec, "\t") if not spec.is_empty() else "{}"
+		_rebuild_preview.call(spec_path)
 
 	## ── 保存到文件 ───────────────────────────────────────────────
 	var _save_spec := func() -> bool:
