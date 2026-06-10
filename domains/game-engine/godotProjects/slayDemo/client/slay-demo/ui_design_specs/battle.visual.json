@@ -3,6 +3,13 @@
   "target_image": "res://ui_snapshots/target/battle_target.png",
   "design_resolution": [1365, 768],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "token_convention": {
+    "note": "所有 token 遵循 <category>.<scene>.<role>[.<state>] 格式",
+    "asset_prefix": "asset.battle.",
+    "style_prefix": "style.battle.",
+    "action_prefix": "action.battle.",
+    "bind_prefix": "bind.battle."
+  },
   "elements": [
     {
       "id": "background",
@@ -14,8 +21,11 @@
       "z_layer": "BackgroundLayer",
       "asset_token": "backgrounds.battle",
       "dynamic": true,
-      "bind_hint": "boss battle uses bg_battle_boss",
-      "priority": "high"
+      "bind_hint": "bind.battle.background_key",
+      "priority": "high",
+      "tolerance": { "position_px": 0, "size_px": 0, "color_delta": 30 },
+      "acceptance_weight": 0.3,
+      "ai_hint": "boss 战时切换为 bg_battle_boss"
     },
     {
       "id": "player_panel",
@@ -28,20 +38,114 @@
       "style_token": "panel_card",
       "dynamic": false,
       "priority": "high",
-      "ai_hint": "顶部玩家状态栏，包含头像/HP/格挡/遗物/药水"
+      "tolerance": { "position_px": 4, "size_px": 8, "color_delta": 10 },
+      "acceptance_weight": 0.9,
+      "ai_hint": "顶部玩家状态栏，含头像/HP条/格挡/遗物/药水，高度固定约 88px"
+    },
+    {
+      "id": "player_sprite",
+      "role": "player_character_sprite",
+      "type_hint": "TextureRect",
+      "expected_node": "PortraitSlot",
+      "bbox": [8, 4, 72, 80],
+      "anchor_hint": "top_left",
+      "z_layer": "HUDLayer",
+      "asset_token": "player.portrait",
+      "dynamic": false,
+      "priority": "medium",
+      "tolerance": { "position_px": 8, "size_px": 8, "color_delta": 20 },
+      "acceptance_weight": 0.6
+    },
+    {
+      "id": "player_hp_bar",
+      "role": "player_hp_progress_bar",
+      "type_hint": "ProgressBar",
+      "expected_node": "HpBarSlot",
+      "bbox": [88, 20, 320, 22],
+      "anchor_hint": "top_left",
+      "z_layer": "HUDLayer",
+      "style_token": "progress_hp",
+      "dynamic": true,
+      "bind_hint": "bind.battle.player_hp",
+      "priority": "high",
+      "tolerance": { "position_px": 4, "size_px": 4, "color_delta": 8 },
+      "acceptance_weight": 0.95,
+      "ai_hint": "低血量（< 25%）时应显示红色警示，满血时粉色"
+    },
+    {
+      "id": "energy_label",
+      "role": "energy_current_label",
+      "type_hint": "Label",
+      "expected_node": "EnergyLabel",
+      "bbox": [88, 52, 80, 28],
+      "anchor_hint": "top_left",
+      "z_layer": "HUDLayer",
+      "style_token": "text_body",
+      "dynamic": true,
+      "bind_hint": "bind.battle.energy",
+      "priority": "high",
+      "tolerance": { "position_px": 4, "size_px": 4, "color_delta": 10 },
+      "acceptance_weight": 0.85
+    },
+    {
+      "id": "relic_row",
+      "role": "owned_relics_row",
+      "type_hint": "HBoxContainer",
+      "expected_node": "RelicRow",
+      "bbox": [88, 56, 400, 30],
+      "anchor_hint": "top_left",
+      "z_layer": "HUDLayer",
+      "dynamic": true,
+      "bind_hint": "bind.battle.owned_relics",
+      "priority": "medium",
+      "tolerance": { "position_px": 8, "size_px": 12, "color_delta": 15 },
+      "acceptance_weight": 0.7,
+      "ai_hint": "遗物图标 56×56，数量不定，超出时可水平滚动"
+    },
+    {
+      "id": "player_status_row",
+      "role": "player_status_effects_row",
+      "type_hint": "HBoxContainer",
+      "expected_node": "PlayerStatusRow",
+      "bbox": [88, 62, 600, 24],
+      "anchor_hint": "top_left",
+      "z_layer": "HUDLayer",
+      "dynamic": true,
+      "bind_hint": "bind.battle.player_statuses",
+      "priority": "medium",
+      "tolerance": { "position_px": 8, "size_px": 16, "color_delta": 15 },
+      "acceptance_weight": 0.65,
+      "ai_hint": "状态图标 32×32，力量/敏捷/脆弱/中毒等，最多可能 8+ 个同时存在"
     },
     {
       "id": "enemy_row",
       "role": "enemy_display_area",
       "type_hint": "HBoxContainer",
       "expected_node": "EnemyRow",
-      "bbox": [0, 90, 1365, 300],
+      "bbox": [0, 90, 1365, 320],
       "anchor_hint": "center",
       "z_layer": "HUDLayer",
       "dynamic": true,
-      "bind_hint": "battle.enemies",
+      "bind_hint": "bind.battle.enemies",
       "priority": "high",
-      "ai_hint": "敌人展示区，居中横排，1~4 个敌人"
+      "tolerance": { "position_px": 12, "size_px": 20, "color_delta": 20 },
+      "acceptance_weight": 0.8,
+      "ai_hint": "敌人居中横排，1~4 个敌人，每个敌人含精灵/HP条/意图图标/状态图标。动态，禁止硬编码"
+    },
+    {
+      "id": "status_label",
+      "role": "battle_log_label",
+      "type_hint": "Label",
+      "expected_node": "StatusLabel",
+      "bbox": [8, 580, 600, 40],
+      "anchor_hint": "bottom_left",
+      "z_layer": "HUDLayer",
+      "style_token": "text_body",
+      "dynamic": true,
+      "bind_hint": "bind.battle.status_text",
+      "priority": "low",
+      "tolerance": { "position_px": 16, "size_px": 20, "color_delta": 20 },
+      "acceptance_weight": 0.4
     },
     {
       "id": "hand_row",
@@ -52,9 +156,26 @@
       "anchor_hint": "bottom_center",
       "z_layer": "InteractionLayer",
       "dynamic": true,
-      "bind_hint": "battle.hand_cards",
+      "bind_hint": "bind.battle.hand_cards",
       "priority": "high",
-      "ai_hint": "手牌区，底部居中，可水平滚动"
+      "tolerance": { "position_px": 8, "size_px": 12, "color_delta": 15 },
+      "acceptance_weight": 0.9,
+      "ai_hint": "手牌横排，每张 120×168，最多 10 张。动态，必须用 ComponentRef 或 HBoxContainer，禁止硬编码卡牌节点"
+    },
+    {
+      "id": "pile_label",
+      "role": "pile_count_label",
+      "type_hint": "Label",
+      "expected_node": "PileLabel",
+      "bbox": [8, 570, 76, 80],
+      "anchor_hint": "bottom_left",
+      "z_layer": "InteractionLayer",
+      "style_token": "text_caption",
+      "dynamic": true,
+      "bind_hint": "bind.battle.pile_counts",
+      "priority": "low",
+      "tolerance": { "position_px": 8, "size_px": 8, "color_delta": 15 },
+      "acceptance_weight": 0.5
     },
     {
       "id": "end_turn_button",
@@ -65,9 +186,13 @@
       "anchor_hint": "bottom_right",
       "z_layer": "InteractionLayer",
       "style_token": "btn_primary",
+      "action_token": "action.battle.on_end_turn",
       "action_hint": "battle.on_end_turn",
       "dynamic": false,
-      "priority": "high"
+      "priority": "high",
+      "tolerance": { "position_px": 6, "size_px": 6, "color_delta": 8 },
+      "acceptance_weight": 0.95,
+      "ai_hint": "「结束回合」按钮，右下角固定位置，敌人回合时应禁用"
     },
     {
       "id": "top_right_buttons",
@@ -78,7 +203,19 @@
       "anchor_hint": "top_right",
       "z_layer": "InteractionLayer",
       "dynamic": false,
-      "priority": "low"
+      "priority": "low",
+      "tolerance": { "position_px": 12, "size_px": 12, "color_delta": 20 },
+      "acceptance_weight": 0.4
     }
-  ]
+  ],
+  "static_dynamic_rules": {
+    "note": "以下区域必须使用 ComponentRef 或动态容器，禁止在 spec 中硬编码子节点",
+    "dynamic_areas": [
+      "EnemyRow — 敌人数量 1~4 个，由 GDScript 动态创建",
+      "HandRow — 手牌数量 0~10 张，由 GDScript 动态填充",
+      "RelicRow — 遗物数量不定，由 GDScript 动态填充",
+      "PlayerStatusRow — 状态效果数量不定",
+      "PotionRow — 药水槽位数量由配置决定"
+    ]
+  }
 }

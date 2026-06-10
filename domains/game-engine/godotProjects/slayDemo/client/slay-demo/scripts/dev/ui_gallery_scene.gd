@@ -1595,7 +1595,7 @@ const _VALID_NODE_TYPES := [
 	"Control", "Panel", "PanelContainer", "Label", "Button",
 	"TextureRect", "HBoxContainer", "VBoxContainer", "ScrollContainer",
 	"MarginContainer", "CenterContainer", "ProgressBar", "ComponentRef",
-	"ColorRect", "RichTextLabel", "GridContainer", "HFlowContainer",
+	"ColorRect",
 ]
 
 const _VALID_PRESETS := [
@@ -1614,6 +1614,14 @@ const _PRESET_REQUIRED := {
 	"bottom_center": ["size"], "left_center": ["size"],
 	"right_center": ["size"],
 	"absolute_rect": ["position", "size"],
+}
+
+const _DYNAMIC_CONTAINER_RULES := {
+	"HandRow": "手牌区", "EnemyRow": "敌人区",
+	"RelicRow": "遗物栏", "PotionRow": "药水栏",
+	"PlayerStatusRow": "玩家状态栏", "CardList": "卡牌列表",
+	"ShopItemGrid": "商店商品格", "ChoiceRow": "选项行",
+	"DeckRow": "牌组展示行",
 }
 
 
@@ -1681,6 +1689,15 @@ func _run_lint_on_spec(spec_path: String, json_text: String) -> Dictionary:
 				for rf in (_PRESET_REQUIRED[preset] as Array):
 					if not layout.has(rf):
 						errors.append("layout 缺少字段 '%s'（preset=%s，节点: %s）" % [rf, preset, nname])
+
+		## 动态容器不允许硬编码子节点
+		for dyn_key in _DYNAMIC_CONTAINER_RULES.keys():
+			if nname.contains(dyn_key):
+				var children: Array = node.get("children", []) as Array
+				for child in children:
+					if str((child as Dictionary).get("type", "")) != "ComponentRef":
+						errors.append("动态容器 '%s' 包含硬编码子节点，应由 GDScript 动态填充" % nname)
+						break
 
 	return {"errors": errors, "warns": warns}
 

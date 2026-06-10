@@ -5,6 +5,7 @@ extends SceneTree
 ##
 ## 校验项：
 ##   ERROR — JSON 语法、节点类型合法、节点名唯一、style_key 存在、layout preset 合法
+##           动态内容区域必须使用 ComponentRef 或空容器
 ##   WARN  — asset_key 存在、action 已在 manifest.actions.json 声明
 ##   INFO  — visual.json / mock.json 是否配套
 
@@ -15,14 +16,27 @@ const MANIFEST_ACTIONS  := "res://ui_manifest/manifest.actions.json"
 const DESIGN_SPECS_DIR  := "res://ui_design_specs"
 const MOCK_DATA_DIR     := "res://ui_mock_data"
 
+## UIBuilder 当前支持的节点类型白名单
 const VALID_NODE_TYPES := [
 	"Control", "Panel", "PanelContainer", "Label", "Button",
 	"TextureRect", "HBoxContainer", "VBoxContainer", "ScrollContainer",
 	"MarginContainer", "CenterContainer", "ProgressBar", "ComponentRef",
-	"ColorRect", "RichTextLabel", "GridContainer", "HFlowContainer",
-	"VFlowContainer", "TextureButton", "CheckBox", "SpinBox",
-	"LineEdit", "TextEdit", "ItemList", "Tree", "OptionButton",
+	"ColorRect",
 ]
+
+## 动态内容规则：这些节点名如果有硬编码子节点，报 ERROR
+## key = 节点名关键字（部分匹配），value = 说明
+const DYNAMIC_CONTAINER_RULES := {
+	"HandRow":         "手牌区",
+	"EnemyRow":        "敌人区",
+	"RelicRow":        "遗物栏",
+	"PotionRow":       "药水栏",
+	"PlayerStatusRow": "玩家状态栏",
+	"CardList":        "卡牌列表",
+	"ShopItemGrid":    "商店商品格",
+	"ChoiceRow":       "选项行（事件/奖励等）",
+	"DeckRow":         "牌组展示行",
+}
 
 const VALID_PRESETS := [
 	"full_rect", "top_full", "bottom_full", "left_full", "right_full",
@@ -184,6 +198,24 @@ func _lint_spec(spec_path: String) -> void:
 				for required_field in (PRESET_REQUIRED[preset] as Array):
 					if not layout.has(required_field):
 						errors.append("layout 缺少必填字段 '%s'（preset=%s，节点: %s）" % [required_field, preset, nname])
+
+		## 动态内容容器：禁止硬编码子节点
+		for dyn_key in DYNAMIC_CONTAINER_RULES.keys():
+			if nname.contains(dyn_key):
+				var children: Array = node.get("children", []) as Array
+				var has_data_children := false
+				for child in children:
+					var child_dict := child as Dictionary
+					## ComponentRef 是合法的动态占位
+					if str(child_dict.get("type", "")) != "ComponentRef":
+						has_data_children = true
+						break
+				if has_data_children:
+					errors.append(
+						"动态容器 '%s'（%s）包含硬编码子节点，应使用 ComponentRef 或由 GDScript 动态填充" % [
+							nname, DYNAMIC_CONTAINER_RULES[dyn_key]
+						]
+					)
 
 	## 3. 配套文件检查（INFO 级）
 	var visual_path := DESIGN_SPECS_DIR.path_join("%s.visual.json" % scene_name)

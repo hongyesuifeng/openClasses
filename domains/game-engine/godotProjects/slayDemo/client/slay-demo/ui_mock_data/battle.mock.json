@@ -1,53 +1,145 @@
 {
   "scene": "battle",
-  "description": "战斗场景 mock 数据 — 中期战斗状态，玩家手持 4 张牌，对抗 2 个敌人",
-  "game_state": {
-    "player_hp": 45,
-    "player_max_hp": 80,
-    "player_block": 12,
-    "energy": 2,
-    "energy_per_turn": 3,
-    "draw_per_turn": 5,
-    "turn": 3,
-    "battle_wins": 2,
-    "owned_relic_ids": ["anchor", "lantern"],
-    "owned_potions": [{"id": "heal", "name": "治疗药水"}]
-  },
-  "battle_state": {
-    "phase": "player_turn",
-    "hand_cards": [
-      {"id": "strike",  "name": "打击",  "cost": 1, "type": "attack", "damage": 6},
-      {"id": "defend",  "name": "防御",  "cost": 1, "type": "skill",  "block": 5},
-      {"id": "bash",    "name": "重击",  "cost": 2, "type": "attack", "damage": 8},
-      {"id": "strike",  "name": "打击",  "cost": 1, "type": "attack", "damage": 6}
-    ],
-    "draw_pile_count": 8,
-    "discard_pile_count": 3,
-    "exhaust_pile_count": 1,
-    "enemies": [
-      {
-        "id": "enemy_slime",
-        "name": "史莱姆",
-        "hp": 24,
-        "max_hp": 36,
-        "block": 0,
-        "intent": "attack",
-        "intent_value": 8,
-        "statuses": [{"id": "vulnerable", "stacks": 2}]
+  "description": "战斗场景 mock 数据 — 多状态，覆盖典型边界情况",
+  "default_case": "normal",
+  "cases": {
+    "normal": {
+      "description": "常规战斗，中期状态",
+      "game_state": {
+        "player_hp": 45, "player_max_hp": 80, "player_block": 12,
+        "energy": 2, "energy_per_turn": 3, "draw_per_turn": 5,
+        "battle_wins": 2,
+        "owned_relic_ids": ["anchor", "lantern"],
+        "owned_potions": [{"id": "heal", "name": "治疗药水"}]
       },
-      {
-        "id": "enemy_bat",
-        "name": "蝙蝠",
-        "hp": 14,
-        "max_hp": 20,
-        "block": 4,
-        "intent": "defend",
-        "intent_value": 6,
-        "statuses": []
+      "battle_state": {
+        "phase": "player_turn", "turn": 3,
+        "hand_cards": [
+          {"id": "strike",  "name": "打击", "cost": 1, "type": "attack"},
+          {"id": "defend",  "name": "防御", "cost": 1, "type": "skill"},
+          {"id": "bash",    "name": "重击", "cost": 2, "type": "attack"},
+          {"id": "strike",  "name": "打击", "cost": 1, "type": "attack"}
+        ],
+        "draw_pile_count": 8, "discard_pile_count": 3, "exhaust_pile_count": 1,
+        "enemies": [
+          {"id": "enemy_slime", "name": "史莱姆", "hp": 24, "max_hp": 36,
+           "block": 0, "intent": "attack", "intent_value": 8,
+           "statuses": [{"id": "vulnerable", "stacks": 2}]}
+        ],
+        "player_statuses": [{"id": "strength", "stacks": 1}]
       }
-    ],
-    "player_statuses": [
-      {"id": "strength", "stacks": 1}
-    ]
+    },
+    "low_hp": {
+      "description": "玩家濒死，HP 低于 25%，血条应显示警示色",
+      "game_state": {
+        "player_hp": 12, "player_max_hp": 80, "player_block": 0,
+        "energy": 1, "energy_per_turn": 3,
+        "owned_relic_ids": ["anchor"],
+        "owned_potions": []
+      },
+      "battle_state": {
+        "phase": "player_turn", "turn": 7,
+        "hand_cards": [
+          {"id": "defend", "name": "防御", "cost": 1, "type": "skill"},
+          {"id": "defend", "name": "防御", "cost": 1, "type": "skill"}
+        ],
+        "draw_pile_count": 4, "discard_pile_count": 9, "exhaust_pile_count": 2,
+        "enemies": [
+          {"id": "enemy_corrupted_knight", "name": "堕落骑士",
+           "hp": 180, "max_hp": 250, "block": 20,
+           "intent": "attack", "intent_value": 24, "statuses": []}
+        ],
+        "player_statuses": [{"id": "vulnerable", "stacks": 2}, {"id": "weak", "stacks": 1}]
+      }
+    },
+    "full_hand": {
+      "description": "手牌满（10 张），测试手牌区是否挤压或溢出",
+      "game_state": {
+        "player_hp": 60, "player_max_hp": 80, "player_block": 5,
+        "energy": 3, "energy_per_turn": 3,
+        "owned_relic_ids": ["war_drum"],
+        "owned_potions": []
+      },
+      "battle_state": {
+        "phase": "player_turn", "turn": 2,
+        "hand_cards": [
+          {"id": "strike",      "name": "打击",    "cost": 1, "type": "attack"},
+          {"id": "strike",      "name": "打击",    "cost": 1, "type": "attack"},
+          {"id": "defend",      "name": "防御",    "cost": 1, "type": "skill"},
+          {"id": "defend",      "name": "防御",    "cost": 1, "type": "skill"},
+          {"id": "bash",        "name": "重击",    "cost": 2, "type": "attack"},
+          {"id": "iron_wave",   "name": "铁波浪",  "cost": 1, "type": "attack"},
+          {"id": "shrug_it_off","name": "轻描淡写","cost": 1, "type": "skill"},
+          {"id": "inflame",     "name": "燃烧",    "cost": 1, "type": "power"},
+          {"id": "true_grit",   "name": "真正的勇气","cost":1,"type": "skill"},
+          {"id": "pommel_strike","name": "护手斩", "cost": 1, "type": "attack"}
+        ],
+        "draw_pile_count": 2, "discard_pile_count": 0,
+        "enemies": [
+          {"id": "enemy_bat", "name": "蝙蝠", "hp": 14, "max_hp": 20,
+           "block": 0, "intent": "attack", "intent_value": 6, "statuses": []}
+        ],
+        "player_statuses": []
+      }
+    },
+    "many_status": {
+      "description": "玩家有多种状态效果，测试状态栏是否溢出",
+      "game_state": {
+        "player_hp": 55, "player_max_hp": 80, "player_block": 30,
+        "energy": 2, "energy_per_turn": 3,
+        "owned_relic_ids": ["anchor", "lantern", "golden_idol", "crystal_ball"],
+        "owned_potions": [{"id": "heal"}, {"id": "strength"}]
+      },
+      "battle_state": {
+        "phase": "player_turn", "turn": 5,
+        "hand_cards": [
+          {"id": "bash", "name": "重击", "cost": 2, "type": "attack"},
+          {"id": "defend", "name": "防御", "cost": 1, "type": "skill"}
+        ],
+        "draw_pile_count": 6, "discard_pile_count": 5,
+        "enemies": [
+          {"id": "enemy_shadow_mage", "name": "暗影法师",
+           "hp": 60, "max_hp": 70, "block": 0,
+           "intent": "debuff", "intent_value": 0,
+           "statuses": [{"id": "poison", "stacks": 8}]}
+        ],
+        "player_statuses": [
+          {"id": "strength",    "stacks": 4},
+          {"id": "dexterity",   "stacks": 2},
+          {"id": "thorns",      "stacks": 3},
+          {"id": "barricade",   "stacks": 1},
+          {"id": "metallicize", "stacks": 2},
+          {"id": "ritual",      "stacks": 1}
+        ]
+      }
+    },
+    "boss_fight": {
+      "description": "Boss 战，测试长名称/高数值/Boss 背景",
+      "game_state": {
+        "player_hp": 38, "player_max_hp": 80, "player_block": 0,
+        "energy": 3, "energy_per_turn": 3,
+        "owned_relic_ids": ["anchor", "lantern", "golden_idol"],
+        "owned_potions": [{"id": "heal"}]
+      },
+      "battle_state": {
+        "phase": "player_turn", "turn": 1,
+        "background_override": "bg_battle_boss",
+        "hand_cards": [
+          {"id": "strike", "name": "打击", "cost": 1, "type": "attack"},
+          {"id": "strike", "name": "打击", "cost": 1, "type": "attack"},
+          {"id": "bash",   "name": "重击", "cost": 2, "type": "attack"},
+          {"id": "defend", "name": "防御", "cost": 1, "type": "skill"},
+          {"id": "inflame","name": "燃烧", "cost": 1, "type": "power"}
+        ],
+        "draw_pile_count": 7, "discard_pile_count": 0,
+        "enemies": [
+          {"id": "enemy_ancient_dragon", "name": "远古巨龙（最终守卫）",
+           "hp": 420, "max_hp": 450, "block": 30,
+           "intent": "attack", "intent_value": 42,
+           "statuses": [{"id": "strength", "stacks": 3}]}
+        ],
+        "player_statuses": []
+      }
+    }
   }
 }
