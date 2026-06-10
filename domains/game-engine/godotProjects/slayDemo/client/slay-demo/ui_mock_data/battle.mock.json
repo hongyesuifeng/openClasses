@@ -1,0 +1,53 @@
+{
+  "scene": "battle",
+  "description": "战斗场景 mock 数据 — 中期战斗状态，玩家手持 4 张牌，对抗 2 个敌人",
+  "game_state": {
+    "player_hp": 45,
+    "player_max_hp": 80,
+    "player_block": 12,
+    "energy": 2,
+    "energy_per_turn": 3,
+    "draw_per_turn": 5,
+    "turn": 3,
+    "battle_wins": 2,
+    "owned_relic_ids": ["anchor", "lantern"],
+    "owned_potions": [{"id": "heal", "name": "治疗药水"}]
+  },
+  "battle_state": {
+    "phase": "player_turn",
+    "hand_cards": [
+      {"id": "strike",  "name": "打击",  "cost": 1, "type": "attack", "damage": 6},
+      {"id": "defend",  "name": "防御",  "cost": 1, "type": "skill",  "block": 5},
+      {"id": "bash",    "name": "重击",  "cost": 2, "type": "attack", "damage": 8},
+      {"id": "strike",  "name": "打击",  "cost": 1, "type": "attack", "damage": 6}
+    ],
+    "draw_pile_count": 8,
+    "discard_pile_count": 3,
+    "exhaust_pile_count": 1,
+    "enemies": [
+      {
+        "id": "enemy_slime",
+        "name": "史莱姆",
+        "hp": 24,
+        "max_hp": 36,
+        "block": 0,
+        "intent": "attack",
+        "intent_value": 8,
+        "statuses": [{"id": "vulnerable", "stacks": 2}]
+      },
+      {
+        "id": "enemy_bat",
+        "name": "蝙蝠",
+        "hp": 14,
+        "max_hp": 20,
+        "block": 4,
+        "intent": "defend",
+        "intent_value": 6,
+        "statuses": []
+      }
+    ],
+    "player_statuses": [
+      {"id": "strength", "stacks": 1}
+    ]
+  }
+}

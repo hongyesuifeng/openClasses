@@ -1,0 +1,21 @@
+{
+  "scene": "reward",
+  "description": "奖励场景 mock 数据 — 普通战斗胜利后选卡奖励",
+  "game_state": {
+    "player_hp": 48,
+    "player_max_hp": 80,
+    "player_gold": 95,
+    "battle_wins": 3,
+    "owned_relic_ids": ["anchor", "lantern"]
+  },
+  "reward_state": {
+    "mode": "card_reward",
+    "card_choices": [
+      {"id": "pommel_strike",  "name": "护手斩",   "cost": 1, "type": "attack", "rarity": "common"},
+      {"id": "true_grit",      "name": "真正的勇气","cost": 1, "type": "skill",  "rarity": "uncommon"},
+      {"id": "inflame",        "name": "燃烧",      "cost": 1, "type": "power",  "rarity": "uncommon"}
+    ],
+    "upgradeable_cards_count": 4,
+    "can_skip": true
+  }
+}

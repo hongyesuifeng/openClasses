@@ -1,0 +1,20 @@
+{
+  "scene": "map",
+  "description": "地图场景 mock 数据 — Act 1 第 4 层，已完成 3 个节点",
+  "game_state": {
+    "player_hp": 52,
+    "player_max_hp": 80,
+    "player_gold": 85,
+    "battle_wins": 3,
+    "owned_relic_ids": ["anchor", "lantern"],
+    "owned_potions": []
+  },
+  "map_state": {
+    "act": 1,
+    "current_floor": 4,
+    "max_floor": 10,
+    "completed_node_count": 3,
+    "available_node_types": ["battle", "shop", "rest"],
+    "current_node_id": ""
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "scene": "result",
+  "target_image": "res://ui_snapshots/target/result_target.png",
+  "design_resolution": [1365, 768],
+  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "elements": [
+    {
+      "id": "background",
+      "role": "result_background",
+      "type_hint": "Panel",
+      "expected_node": "Background",
+      "bbox": [0, 0, 1365, 768],
+      "anchor_hint": "full_rect",
+      "z_layer": "BackgroundLayer",
+      "style_token": "panel_dark",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "title_label",
+      "role": "win_lose_title",
+      "type_hint": "Label",
+      "expected_node": "TitleLabel",
+      "bbox": [502, 40, 360, 60],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_title_gold",
+      "dynamic": true,
+      "bind_hint": "result.won",
+      "priority": "high"
+    },
+    {
+      "id": "grade_label",
+      "role": "score_grade_display",
+      "type_hint": "Label",
+      "expected_node": "GradeLabel",
+      "bbox": [607, 110, 150, 90],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_title_gold",
+      "dynamic": true,
+      "bind_hint": "result.grade",
+      "priority": "high",
+      "ai_hint": "S/A/B/C/D 评级，字号 72，颜色随评级变化"
+    },
+    {
+      "id": "stats_panel",
+      "role": "game_stats_panel",
+      "type_hint": "Panel",
+      "expected_node": "StatsPanel",
+      "bbox": [502, 240, 360, 280],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "panel_card",
+      "dynamic": true,
+      "priority": "high"
+    },
+    {
+      "id": "button_row",
+      "role": "restart_menu_buttons",
+      "type_hint": "HBoxContainer",
+      "expected_node": "ButtonRow",
+      "bbox": [382, 680, 600, 56],
+      "anchor_hint": "bottom_center",
+      "z_layer": "InteractionLayer",
+      "dynamic": false,
+      "priority": "high"
+    }
+  ]
+}

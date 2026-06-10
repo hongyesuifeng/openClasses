@@ -1,0 +1,20 @@
+{
+  "scene": "event",
+  "description": "事件场景 mock 数据 — 神秘商人事件，三个选项",
+  "game_state": {
+    "player_hp": 52,
+    "player_max_hp": 80,
+    "player_gold": 85
+  },
+  "event_state": {
+    "event_id": "mysterious_merchant",
+    "title": "神秘商人",
+    "description": "一个身穿斗篷的商人拦住了你的去路。「嘿，小魔法少女，想要一些……特殊商品吗？」",
+    "choices": [
+      {"label": "购买神秘药水", "description": "花费 50 金币，获得随机药水", "cost_gold": 50},
+      {"label": "讨价还价",     "description": "30% 概率免费，70% 概率失去 20 HP"},
+      {"label": "继续前行",     "description": "什么都不做，离开"}
+    ],
+    "resolved": false
+  }
+}

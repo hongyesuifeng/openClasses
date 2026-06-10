@@ -1,0 +1,70 @@
+{
+  "scene": "map",
+  "target_image": "res://ui_snapshots/target/map_target.png",
+  "design_resolution": [1365, 768],
+  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "elements": [
+    {
+      "id": "background",
+      "role": "map_background",
+      "type_hint": "TextureRect",
+      "expected_node": "Background",
+      "bbox": [0, 0, 1365, 768],
+      "anchor_hint": "full_rect",
+      "z_layer": "BackgroundLayer",
+      "asset_token": "backgrounds.map",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "title_label",
+      "role": "map_title",
+      "type_hint": "Label",
+      "expected_node": "TitleLabel",
+      "bbox": [502, 30, 360, 58],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_title_pink",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "status_label",
+      "role": "hp_gold_status",
+      "type_hint": "Label",
+      "expected_node": "StatusLabel",
+      "bbox": [382, 690, 600, 42],
+      "anchor_hint": "bottom_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_body",
+      "dynamic": true,
+      "bind_hint": "map.player_status_text",
+      "priority": "high"
+    },
+    {
+      "id": "relic_row",
+      "role": "owned_relics_display",
+      "type_hint": "HBoxContainer",
+      "expected_node": "RelicRow",
+      "bbox": [36, 28, 360, 48],
+      "anchor_hint": "top_left",
+      "z_layer": "HUDLayer",
+      "dynamic": true,
+      "bind_hint": "map.owned_relics",
+      "priority": "medium"
+    },
+    {
+      "id": "node_surface",
+      "role": "map_nodes_canvas",
+      "type_hint": "Control",
+      "expected_node": "NodeSurface",
+      "bbox": [80, 138, 1205, 526],
+      "anchor_hint": "full_rect",
+      "z_layer": "InteractionLayer",
+      "dynamic": true,
+      "bind_hint": "map.nodes",
+      "priority": "high",
+      "ai_hint": "地图节点从左到右布局，floor_index 控制 x 轴"
+    }
+  ]
+}

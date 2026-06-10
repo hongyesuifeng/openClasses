@@ -1,0 +1,96 @@
+{
+  "scene": "main_menu",
+  "target_image": "res://ui_snapshots/target/main_menu_target.png",
+  "design_resolution": [1365, 768],
+  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "elements": [
+    {
+      "id": "background",
+      "role": "scene_background",
+      "type_hint": "TextureRect",
+      "expected_node": "Background",
+      "bbox": [0, 0, 1365, 768],
+      "anchor_hint": "full_rect",
+      "z_layer": "BackgroundLayer",
+      "asset_token": "backgrounds.main_menu",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "sidebar_bg",
+      "role": "left_sidebar_background",
+      "type_hint": "Panel",
+      "expected_node": "SidebarBg",
+      "bbox": [6, 68, 62, 632],
+      "anchor_hint": "left_full",
+      "z_layer": "DecorationLayer",
+      "style_token": "panel_sidebar",
+      "dynamic": false,
+      "priority": "medium"
+    },
+    {
+      "id": "sidebar_buttons",
+      "role": "sidebar_icon_buttons",
+      "type_hint": "VBoxContainer",
+      "expected_node": "Sidebar",
+      "bbox": [12, 80, 56, 220],
+      "anchor_hint": "left_full",
+      "z_layer": "InteractionLayer",
+      "dynamic": false,
+      "children": ["SidebarAchievement", "SidebarCollection", "SidebarSettings", "SidebarNotice"],
+      "priority": "medium"
+    },
+    {
+      "id": "title_label",
+      "role": "game_title",
+      "type_hint": "Label",
+      "expected_node": "TitleLabel",
+      "bbox": [452, 120, 460, 80],
+      "anchor_hint": "center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_hero_title",
+      "dynamic": false,
+      "priority": "high",
+      "ai_hint": "游戏主标题「甜心迷宫」，字号 56，粉色"
+    },
+    {
+      "id": "subtitle_label",
+      "role": "game_subtitle",
+      "type_hint": "Label",
+      "expected_node": "SubtitleLabel",
+      "bbox": [452, 210, 460, 36],
+      "anchor_hint": "center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_subtitle",
+      "dynamic": false,
+      "priority": "medium"
+    },
+    {
+      "id": "continue_button",
+      "role": "continue_game_button",
+      "type_hint": "Button",
+      "expected_node": "ContinueButton",
+      "bbox": [542, 270, 280, 58],
+      "anchor_hint": "center",
+      "z_layer": "InteractionLayer",
+      "style_token": "btn_primary",
+      "action_hint": "menu.on_continue",
+      "dynamic": true,
+      "bind_hint": "visible when save exists",
+      "priority": "high"
+    },
+    {
+      "id": "start_button",
+      "role": "start_game_button",
+      "type_hint": "Button",
+      "expected_node": "StartButton",
+      "bbox": [542, 340, 280, 58],
+      "anchor_hint": "center",
+      "z_layer": "InteractionLayer",
+      "style_token": "btn_primary",
+      "action_hint": "menu.on_start",
+      "dynamic": false,
+      "priority": "high"
+    }
+  ]
+}

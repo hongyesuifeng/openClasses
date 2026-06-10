@@ -1,0 +1,35 @@
+{
+  "scene": "result",
+  "description": "结算场景 mock 数据 — 胜利结算，S 级评价",
+  "game_state": {
+    "won": true,
+    "player_hp": 38,
+    "player_max_hp": 80,
+    "gold": 245,
+    "battle_wins": 9,
+    "completed_map_nodes": 12,
+    "deck_size": 18,
+    "relic_count": 4,
+    "relic_ids": ["anchor", "lantern", "golden_idol", "crystal_ball"],
+    "potions_held": 1,
+    "master_deck": [
+      {"id": "strike",      "name": "打击",    "instance_id": 1},
+      {"id": "defend",      "name": "防御",    "instance_id": 2},
+      {"id": "bash",        "name": "重击",    "instance_id": 3},
+      {"id": "iron_wave",   "name": "铁波浪",  "instance_id": 4},
+      {"id": "inflame",     "name": "燃烧",    "instance_id": 5},
+      {"id": "true_grit",   "name": "真正的勇气","instance_id": 6}
+    ]
+  },
+  "result_state": {
+    "score": 850,
+    "grade": "S",
+    "score_breakdown": {
+      "hp_score": 76,
+      "gold_score": 245,
+      "relic_score": 200,
+      "battle_score": 270,
+      "node_score": 120
+    }
+  }
+}

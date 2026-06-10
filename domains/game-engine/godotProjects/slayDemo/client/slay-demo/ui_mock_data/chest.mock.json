@@ -1,0 +1,15 @@
+{
+  "scene": "chest",
+  "description": "宝箱场景 mock 数据 — 尚未开启",
+  "game_state": {
+    "player_hp": 55,
+    "player_max_hp": 80,
+    "player_gold": 90,
+    "owned_relic_ids": ["anchor", "lantern"]
+  },
+  "chest_state": {
+    "opened": false,
+    "gold_reward": 35,
+    "relic_pool": ["golden_idol", "iron_boots", "blood_ring"]
+  }
+}

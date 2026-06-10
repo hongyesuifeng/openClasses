@@ -1,0 +1,23 @@
+{
+  "scene": "rest",
+  "description": "休息场景 mock 数据 — 玩家 HP 低，有可升级卡牌",
+  "game_state": {
+    "player_hp": 28,
+    "player_max_hp": 80,
+    "player_gold": 60,
+    "owned_relic_ids": ["anchor"],
+    "master_deck_count": 12
+  },
+  "rest_state": {
+    "heal_percent": 0.30,
+    "heal_amount": 24,
+    "upgradeable_cards": [
+      {"id": "strike",     "name": "打击",   "instance_id": 1},
+      {"id": "defend",     "name": "防御",   "instance_id": 2},
+      {"id": "bash",       "name": "重击",   "instance_id": 5},
+      {"id": "iron_wave",  "name": "铁波浪", "instance_id": 8}
+    ],
+    "upgrade_mode": false,
+    "selected_upgrade_index": -1
+  }
+}

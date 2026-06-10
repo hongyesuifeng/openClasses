@@ -1,0 +1,69 @@
+{
+  "scene": "reward",
+  "target_image": "res://ui_snapshots/target/reward_target.png",
+  "design_resolution": [1365, 768],
+  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "elements": [
+    {
+      "id": "background",
+      "role": "reward_background",
+      "type_hint": "TextureRect",
+      "expected_node": "Background",
+      "bbox": [0, 0, 1365, 768],
+      "anchor_hint": "full_rect",
+      "z_layer": "BackgroundLayer",
+      "asset_token": "backgrounds.reward",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "title_label",
+      "role": "reward_title",
+      "type_hint": "Label",
+      "expected_node": "TitleLabel",
+      "bbox": [302, 42, 760, 82],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_title_pink",
+      "dynamic": true,
+      "bind_hint": "reward.title_text",
+      "priority": "high"
+    },
+    {
+      "id": "subtitle_label",
+      "role": "reward_subtitle",
+      "type_hint": "Label",
+      "expected_node": "SubtitleLabel",
+      "bbox": [457, 120, 450, 38],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_subtitle",
+      "dynamic": true,
+      "priority": "medium"
+    },
+    {
+      "id": "choice_scroll",
+      "role": "card_choices_scroll",
+      "type_hint": "ScrollContainer",
+      "expected_node": "ChoiceScroll",
+      "bbox": [192, 220, 980, 320],
+      "anchor_hint": "top_center",
+      "z_layer": "InteractionLayer",
+      "dynamic": true,
+      "bind_hint": "reward.card_choices",
+      "priority": "high",
+      "ai_hint": "可水平滚动的卡牌选择区，每张牌 180×250"
+    },
+    {
+      "id": "button_row",
+      "role": "action_buttons",
+      "type_hint": "HBoxContainer",
+      "expected_node": "ButtonRow",
+      "bbox": [422, 698, 520, 70],
+      "anchor_hint": "bottom_center",
+      "z_layer": "InteractionLayer",
+      "dynamic": true,
+      "priority": "high"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "scene": "main_menu",
+  "description": "主菜单场景 mock 数据 — 有存档状态，显示继续游戏按钮",
+  "game_state": {
+    "has_save": true,
+    "battle_wins": 5,
+    "player_hp": 52,
+    "player_max_hp": 80,
+    "player_gold": 120
+  }
+}

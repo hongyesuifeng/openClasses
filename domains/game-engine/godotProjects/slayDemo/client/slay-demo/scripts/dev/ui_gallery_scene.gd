@@ -948,6 +948,44 @@ func _mock_base() -> void:
 		game_state.start_new_run(run_config)
 
 
+## 从 ui_mock_data/<scene>.mock.json 读取数据并注入 GameState
+func _mock_from_file(scene_key: String) -> bool:
+	var mock_path := "res://ui_mock_data/%s.mock.json" % scene_key
+	if not FileAccess.file_exists(mock_path):
+		return false
+	var f := FileAccess.open(mock_path, FileAccess.READ)
+	if f == null:
+		return false
+	var json := JSON.new()
+	var err := json.parse(f.get_as_text())
+	f.close()
+	if err != OK:
+		push_warning("Gallery: mock.json 解析失败 %s" % mock_path)
+		return false
+	var mock: Dictionary = json.data as Dictionary
+
+	## 先执行基础 mock（加载数据、启动 run）
+	_mock_base()
+
+	## 再根据 game_state 字段覆盖
+	var game_state: Variant = _autoload("GameState")
+	if game_state == null:
+		return true
+	var gs: Dictionary = mock.get("game_state", {}) as Dictionary
+	if gs.has("player_hp"):       game_state.player_hp       = int(gs["player_hp"])
+	if gs.has("player_max_hp"):   game_state.player_max_hp   = int(gs["player_max_hp"])
+	if gs.has("player_gold"):     game_state.player_gold      = int(gs["player_gold"])
+	if gs.has("energy_per_turn"): game_state.energy_per_turn  = int(gs["energy_per_turn"])
+	if gs.has("battle_wins"):     game_state.battle_wins      = int(gs["battle_wins"])
+	if gs.has("owned_relic_ids"):
+		game_state.owned_relic_ids.clear()
+		var data_loader: Variant = _autoload("DataLoader")
+		for rid in (gs["owned_relic_ids"] as Array):
+			if data_loader != null:
+				game_state.add_relic(str(rid))
+	return true
+
+
 func _mock_battle() -> void:
 	_mock_base()
 	## 战斗场景 _ready 里会检查 gallery_preview meta 跳过 start_combat
@@ -1314,6 +1352,18 @@ func _build_specs_tab() -> void:
 	validate_btn.custom_minimum_size = Vector2(60, 32)
 	btn_row.add_child(validate_btn)
 
+	var lint_btn := Button.new()
+	lint_btn.text = "🔍 Lint"
+	lint_btn.tooltip_text = "对当前 spec 文件运行 ui_lint 校验（style/asset/action/layout 合法性）"
+	lint_btn.custom_minimum_size = Vector2(80, 32)
+	btn_row.add_child(lint_btn)
+
+	var screenshot_btn := Button.new()
+	screenshot_btn.text = "📷 截图"
+	screenshot_btn.tooltip_text = "保存当前预览为 ui_snapshots/current/<scene>_current.png"
+	screenshot_btn.custom_minimum_size = Vector2(80, 32)
+	btn_row.add_child(screenshot_btn)
+
 	## ── 状态辅助函数 ──────────────────────────────────────────────
 	var current_spec_path := ""
 	var preview_tmp_path := "user://spec_preview_tmp.ui.json"
@@ -1470,10 +1520,57 @@ func _build_specs_tab() -> void:
 			_set_status.call("❌ 第 %d 行：%s" % [parsed.get_error_line(), parsed.get_error_message()], false)
 	)
 
+	lint_btn.pressed.connect(func() -> void:
+		if current_spec_path.is_empty():
+			_set_status.call("❌ 未选中文件", false)
+			return
+		_set_status.call("⏳ Lint 校验中…", true)
+		var results := _run_lint_on_spec(current_spec_path, text_edit.text)
+		var err_count: int  = results.get("errors", []).size()
+		var warn_count: int = results.get("warns", []).size()
+		if err_count == 0 and warn_count == 0:
+			_set_status.call("✅ Lint 通过 — 0 错误，0 警告", true)
+		elif err_count > 0:
+			_set_status.call("❌ Lint: %d 错误，%d 警告 — 查看控制台" % [err_count, warn_count], false)
+		else:
+			_set_status.call("⚠ Lint: 0 错误，%d 警告 — 查看控制台" % warn_count, true)
+		for e in results.get("errors", []):
+			print("[LINT ERROR] %s" % e)
+		for w in results.get("warns", []):
+			print("[LINT WARN]  %s" % w)
+	)
+
+	screenshot_btn.pressed.connect(func() -> void:
+		if current_spec_path.is_empty():
+			_set_status.call("❌ 未选中文件", false)
+			return
+		var scene_key := current_spec_path.get_file().replace(".ui.json", "")
+		## 确保目录存在
+		DirAccess.make_dir_recursive_absolute(
+			ProjectSettings.globalize_path("res://ui_snapshots/current")
+		)
+		var out_path := "res://ui_snapshots/current/%s_current.png" % scene_key
+		var img := preview_vp.get_texture().get_image()
+		if img == null:
+			_set_status.call("❌ 无法获取预览图像", false)
+			return
+		var err := img.save_png(out_path)
+		if err == OK:
+			_set_status.call("✅ 截图已保存: ui_snapshots/current/%s_current.png" % scene_key, true)
+			print("[RENDER] 截图保存: %s" % out_path)
+		else:
+			_set_status.call("❌ 截图保存失败 (err=%d)" % err, false)
+	)
+
 	mock_btn.pressed.connect(func() -> void:
-		_mock_base()
+		var scene_key := current_spec_path.get_file().replace(".ui.json", "")
+		var loaded := _mock_from_file(scene_key)
+		if loaded:
+			_set_status.call("✅ 已从 %s.mock.json 注入数据，刷新预览" % scene_key, true)
+		else:
+			_mock_base()
+			_set_status.call("⚠ 无 mock.json（使用默认 mock），预览已刷新", true)
 		_rebuild_preview.call(current_spec_path)
-		_set_status.call("✅ Mock 数据已注入，预览已刷新", true)
 	)
 
 	## ── 文件列表 ─────────────────────────────────────────────────
@@ -1488,3 +1585,141 @@ func _build_specs_tab() -> void:
 	## 初始加载第一个 spec
 	if not specs.is_empty():
 		_load_spec.call(specs[0])
+
+
+## ─────────────────────────────────────────────────────────────
+## 内嵌 UI Lint（Gallery 内调用，不依赖外部进程）
+## ─────────────────────────────────────────────────────────────
+
+const _VALID_NODE_TYPES := [
+	"Control", "Panel", "PanelContainer", "Label", "Button",
+	"TextureRect", "HBoxContainer", "VBoxContainer", "ScrollContainer",
+	"MarginContainer", "CenterContainer", "ProgressBar", "ComponentRef",
+	"ColorRect", "RichTextLabel", "GridContainer", "HFlowContainer",
+]
+
+const _VALID_PRESETS := [
+	"full_rect", "top_full", "bottom_full", "left_full", "right_full",
+	"center", "top_left", "top_right", "top_center",
+	"bottom_left", "bottom_right", "bottom_center",
+	"left_center", "right_center", "absolute_rect", "raw_anchors",
+]
+
+const _PRESET_REQUIRED := {
+	"top_full": ["height"], "bottom_full": ["height"],
+	"left_full": ["width"],  "right_full":  ["width"],
+	"center":    ["size"],   "top_left":    ["size"],
+	"top_right": ["size"],   "top_center":  ["size"],
+	"bottom_left": ["size"], "bottom_right": ["size"],
+	"bottom_center": ["size"], "left_center": ["size"],
+	"right_center": ["size"],
+	"absolute_rect": ["position", "size"],
+}
+
+
+func _run_lint_on_spec(spec_path: String, json_text: String) -> Dictionary:
+	var errors: Array[String] = []
+	var warns:  Array[String] = []
+
+	## 1. JSON 解析
+	var parsed := JSON.new()
+	if parsed.parse(json_text) != OK:
+		errors.append("JSON 语法错误（行 %d）：%s" % [parsed.get_error_line(), parsed.get_error_message()])
+		return {"errors": errors, "warns": warns}
+	var spec: Dictionary = parsed.data as Dictionary
+
+	## 2. 加载 manifest
+	var styles_data := _read_json_file("res://ui_manifest/manifest.styles.json")
+	var assets_data := _read_json_file("res://ui_manifest/manifest.assets.json")
+	var actions_data := _read_json_file("res://ui_manifest/manifest.actions.json")
+	var all_actions: Array[String] = []
+	for dk in (actions_data.get("domains", {}) as Dictionary).keys():
+		var d := (actions_data.get("domains", {}) as Dictionary)[dk] as Dictionary
+		for ak in (d.get("actions", {}) as Dictionary).keys():
+			all_actions.append(str(ak))
+
+	## 3. 收集节点
+	var all_nodes: Array[Dictionary] = []
+	_lint_collect_nodes(spec, all_nodes)
+	var node_names: Array[String] = []
+
+	for node in all_nodes:
+		var nname := str(node.get("name", ""))
+		var ntype := str(node.get("type", "Control"))
+
+		if not _VALID_NODE_TYPES.has(ntype):
+			errors.append("节点类型不支持: '%s' (节点: %s)" % [ntype, nname])
+
+		if not nname.is_empty():
+			if node_names.has(nname):
+				errors.append("节点名重复: '%s'" % nname)
+			else:
+				node_names.append(nname)
+
+		var style_key := str(node.get("style", ""))
+		if not style_key.is_empty():
+			var styles := styles_data.get("styles", {}) as Dictionary
+			if not styles.has(style_key):
+				errors.append("style_key 未注册: '%s' (节点: %s)" % [style_key, nname])
+
+		var asset_key := str(node.get("asset", ""))
+		if not asset_key.is_empty():
+			if not _lint_has_asset(assets_data, asset_key):
+				warns.append("asset_key 不存在: '%s' (节点: %s)" % [asset_key, nname])
+
+		var action := str(node.get("action", ""))
+		if not action.is_empty() and not all_actions.is_empty():
+			if not all_actions.has(action):
+				warns.append("action 未声明: '%s' (节点: %s)" % [action, nname])
+
+		var layout: Dictionary = node.get("layout", {}) as Dictionary
+		if not layout.is_empty():
+			var preset := str(layout.get("preset", "full_rect"))
+			if not _VALID_PRESETS.has(preset):
+				errors.append("layout.preset 不合法: '%s' (节点: %s)" % [preset, nname])
+			elif _PRESET_REQUIRED.has(preset):
+				for rf in (_PRESET_REQUIRED[preset] as Array):
+					if not layout.has(rf):
+						errors.append("layout 缺少字段 '%s'（preset=%s，节点: %s）" % [rf, preset, nname])
+
+	return {"errors": errors, "warns": warns}
+
+
+func _lint_collect_nodes(spec: Dictionary, result: Array[Dictionary]) -> void:
+	if spec.has("background") and spec["background"] is Dictionary:
+		result.append(spec["background"] as Dictionary)
+		_lint_collect_children(spec["background"] as Dictionary, result)
+	for child in (spec.get("children", []) as Array):
+		if child is Dictionary:
+			result.append(child as Dictionary)
+			_lint_collect_children(child as Dictionary, result)
+
+
+func _lint_collect_children(node: Dictionary, result: Array[Dictionary]) -> void:
+	for child in (node.get("children", []) as Array):
+		if child is Dictionary:
+			result.append(child as Dictionary)
+			_lint_collect_children(child as Dictionary, result)
+
+
+func _lint_has_asset(assets: Dictionary, key: String) -> bool:
+	var parts := key.split(".")
+	var node: Variant = assets
+	for part in parts:
+		if node is Dictionary and (node as Dictionary).has(part):
+			node = (node as Dictionary)[part]
+		else:
+			return false
+	return true
+
+
+func _read_json_file(path: String) -> Dictionary:
+	if not FileAccess.file_exists(path):
+		return {}
+	var f := FileAccess.open(path, FileAccess.READ)
+	if f == null: return {}
+	var json := JSON.new()
+	var err := json.parse(f.get_as_text())
+	f.close()
+	if err != OK: return {}
+	return json.data as Dictionary if json.data is Dictionary else {}

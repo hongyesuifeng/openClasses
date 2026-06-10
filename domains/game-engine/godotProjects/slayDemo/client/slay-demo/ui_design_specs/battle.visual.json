@@ -1,0 +1,84 @@
+{
+  "scene": "battle",
+  "target_image": "res://ui_snapshots/target/battle_target.png",
+  "design_resolution": [1365, 768],
+  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "elements": [
+    {
+      "id": "background",
+      "role": "battle_background",
+      "type_hint": "TextureRect",
+      "expected_node": "Background",
+      "bbox": [0, 0, 1365, 768],
+      "anchor_hint": "full_rect",
+      "z_layer": "BackgroundLayer",
+      "asset_token": "backgrounds.battle",
+      "dynamic": true,
+      "bind_hint": "boss battle uses bg_battle_boss",
+      "priority": "high"
+    },
+    {
+      "id": "player_panel",
+      "role": "player_status_panel",
+      "type_hint": "Panel",
+      "expected_node": "PlayerPanel",
+      "bbox": [0, 0, 1365, 88],
+      "anchor_hint": "top_full",
+      "z_layer": "HUDLayer",
+      "style_token": "panel_card",
+      "dynamic": false,
+      "priority": "high",
+      "ai_hint": "顶部玩家状态栏，包含头像/HP/格挡/遗物/药水"
+    },
+    {
+      "id": "enemy_row",
+      "role": "enemy_display_area",
+      "type_hint": "HBoxContainer",
+      "expected_node": "EnemyRow",
+      "bbox": [0, 90, 1365, 300],
+      "anchor_hint": "center",
+      "z_layer": "HUDLayer",
+      "dynamic": true,
+      "bind_hint": "battle.enemies",
+      "priority": "high",
+      "ai_hint": "敌人展示区，居中横排，1~4 个敌人"
+    },
+    {
+      "id": "hand_row",
+      "role": "hand_cards_area",
+      "type_hint": "HBoxContainer",
+      "expected_node": "HandRow",
+      "bbox": [80, 560, 1100, 190],
+      "anchor_hint": "bottom_center",
+      "z_layer": "InteractionLayer",
+      "dynamic": true,
+      "bind_hint": "battle.hand_cards",
+      "priority": "high",
+      "ai_hint": "手牌区，底部居中，可水平滚动"
+    },
+    {
+      "id": "end_turn_button",
+      "role": "end_turn_button",
+      "type_hint": "Button",
+      "expected_node": "EndTurnButton",
+      "bbox": [1210, 608, 140, 56],
+      "anchor_hint": "bottom_right",
+      "z_layer": "InteractionLayer",
+      "style_token": "btn_primary",
+      "action_hint": "battle.on_end_turn",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "top_right_buttons",
+      "role": "help_settings_buttons",
+      "type_hint": "HBoxContainer",
+      "expected_node": "TopRightButtons",
+      "bbox": [1233, 8, 120, 44],
+      "anchor_hint": "top_right",
+      "z_layer": "InteractionLayer",
+      "dynamic": false,
+      "priority": "low"
+    }
+  ]
+}

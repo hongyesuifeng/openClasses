@@ -1,0 +1,59 @@
+{
+  "scene": "event",
+  "target_image": "res://ui_snapshots/target/event_target.png",
+  "design_resolution": [1365, 768],
+  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "elements": [
+    {
+      "id": "background",
+      "role": "event_background",
+      "type_hint": "TextureRect",
+      "expected_node": "Background",
+      "bbox": [0, 0, 1365, 768],
+      "anchor_hint": "full_rect",
+      "z_layer": "BackgroundLayer",
+      "asset_token": "backgrounds.event",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "title_label",
+      "role": "event_title",
+      "type_hint": "Label",
+      "expected_node": "TitleLabel",
+      "bbox": [300, 80, 765, 60],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_title_gold",
+      "dynamic": true,
+      "bind_hint": "event.title",
+      "priority": "high"
+    },
+    {
+      "id": "status_label",
+      "role": "event_description",
+      "type_hint": "Label",
+      "expected_node": "StatusLabel",
+      "bbox": [200, 180, 965, 120],
+      "anchor_hint": "top_center",
+      "z_layer": "HUDLayer",
+      "style_token": "text_body",
+      "dynamic": true,
+      "bind_hint": "event.description",
+      "priority": "high"
+    },
+    {
+      "id": "choice_row",
+      "role": "event_choices",
+      "type_hint": "HBoxContainer",
+      "expected_node": "ChoiceRow",
+      "bbox": [200, 360, 965, 300],
+      "anchor_hint": "center",
+      "z_layer": "InteractionLayer",
+      "dynamic": true,
+      "bind_hint": "event.choices",
+      "priority": "high",
+      "ai_hint": "事件选项按钮横排，每个按钮 250×84"
+    }
+  ]
+}

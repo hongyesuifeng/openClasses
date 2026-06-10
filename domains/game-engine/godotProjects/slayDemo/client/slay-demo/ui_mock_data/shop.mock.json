@@ -1,0 +1,29 @@
+{
+  "scene": "shop",
+  "description": "商店场景 mock 数据 — 3 张卡牌 + 1 个遗物 + 1 瓶药水可购买",
+  "game_state": {
+    "player_hp": 52,
+    "player_max_hp": 80,
+    "player_gold": 120,
+    "card_removal_count": 0,
+    "owned_relic_ids": ["anchor"],
+    "owned_potions": [],
+    "potion_slots": 3
+  },
+  "shop_state": {
+    "card_offers": [
+      {"id": "bash",        "name": "重击",    "cost": 1, "type": "attack", "price": 75},
+      {"id": "iron_wave",   "name": "铁波浪",  "cost": 1, "type": "attack", "price": 80},
+      {"id": "shrug_it_off","name": "轻描淡写","cost": 1, "type": "skill",  "price": 65}
+    ],
+    "relic_offer": {
+      "relic": {"id": "golden_idol", "name": "黄金神像", "rarity": "uncommon", "description": "战斗胜利额外获得 25 金币"},
+      "price": 150
+    },
+    "potion_offer": {
+      "potion": {"id": "heal", "name": "治疗药水", "description": "回复 20 点生命"},
+      "price": 50
+    },
+    "remove_price": 75
+  }
+}

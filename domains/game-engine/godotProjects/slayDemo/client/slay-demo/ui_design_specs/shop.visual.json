@@ -1,0 +1,95 @@
+{
+  "scene": "shop",
+  "target_image": "res://ui_snapshots/target/shop_target.png",
+  "design_resolution": [1365, 768],
+  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "elements": [
+    {
+      "id": "background",
+      "role": "shop_background",
+      "type_hint": "TextureRect",
+      "expected_node": "Background",
+      "bbox": [0, 0, 1365, 768],
+      "anchor_hint": "full_rect",
+      "z_layer": "BackgroundLayer",
+      "asset_token": "backgrounds.shop",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "resource_bar",
+      "role": "gold_display_bar",
+      "type_hint": "HBoxContainer",
+      "expected_node": "ResourceBar",
+      "bbox": [1181, 14, 160, 36],
+      "anchor_hint": "top_right",
+      "z_layer": "HUDLayer",
+      "dynamic": true,
+      "bind_hint": "shop.player_gold",
+      "priority": "high"
+    },
+    {
+      "id": "title_label",
+      "role": "shop_title",
+      "type_hint": "Label",
+      "expected_node": "TitleLabel",
+      "bbox": [100, 80, 600, 56],
+      "anchor_hint": "top_left",
+      "z_layer": "HUDLayer",
+      "style_token": "text_title_pink",
+      "dynamic": false,
+      "priority": "high"
+    },
+    {
+      "id": "content_row",
+      "role": "shop_items_row",
+      "type_hint": "HBoxContainer",
+      "expected_node": "ContentRow",
+      "bbox": [32, 200, 900, 380],
+      "anchor_hint": "center",
+      "z_layer": "InteractionLayer",
+      "dynamic": true,
+      "bind_hint": "shop.offers",
+      "priority": "high",
+      "ai_hint": "商品展示区，卡牌/遗物/药水卡片横排"
+    },
+    {
+      "id": "merchant_portrait",
+      "role": "merchant_illustration",
+      "type_hint": "TextureRect",
+      "expected_node": "PortraitImage",
+      "bbox": [1080, 150, 200, 320],
+      "anchor_hint": "right_center",
+      "z_layer": "DecorationLayer",
+      "asset_token": "characters.merchant",
+      "dynamic": false,
+      "priority": "medium"
+    },
+    {
+      "id": "remove_button",
+      "role": "remove_card_button",
+      "type_hint": "Button",
+      "expected_node": "RemoveButton",
+      "bbox": [100, 630, 160, 44],
+      "anchor_hint": "bottom_left",
+      "z_layer": "InteractionLayer",
+      "style_token": "btn_primary",
+      "action_hint": "shop.on_remove_mode",
+      "dynamic": true,
+      "priority": "medium"
+    },
+    {
+      "id": "leave_button",
+      "role": "leave_shop_button",
+      "type_hint": "Button",
+      "expected_node": "LeaveButton",
+      "bbox": [270, 630, 160, 44],
+      "anchor_hint": "bottom_left",
+      "z_layer": "InteractionLayer",
+      "style_token": "btn_action",
+      "action_hint": "shop.on_leave",
+      "dynamic": false,
+      "priority": "high"
+    }
+  ]
+}
