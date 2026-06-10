@@ -18,14 +18,14 @@ var _remove_mode := false
 
 func _ready() -> void:
 	var audio_manager: Variant = _autoload("AudioManager")
-	if audio_manager != null:
+	if audio_manager != null and not _is_gallery_preview():
 		audio_manager.play_bgm("shop")
 	_refresh_offers()
 	_build()
 
 
 func _build() -> void:
-	var ui := _UIBuilder.build(SPEC_PATH)
+	var ui := _UIBuilder.build(_spec_path())
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(ui)
 
@@ -69,13 +69,15 @@ func handle_action(action_name: String, _source: Node) -> void:
 func _render_shop_choices() -> void:
 	if _content_row == null:
 		return
+	_content_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_content_row.add_theme_constant_override("separation", 18)
 	for index in range(_offers.size()):
 		var offer := _offers[index] as Dictionary
 		var card  := offer.get("card", {}) as Dictionary
 		var price := int(offer.get("price", 0))
 
 		var card_panel := PanelContainer.new()
-		card_panel.custom_minimum_size = Vector2(200, 320)
+		card_panel.custom_minimum_size = Vector2(170, 300)
 		card_panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 		_content_row.add_child(card_panel)
 
@@ -84,11 +86,11 @@ func _render_shop_choices() -> void:
 		inner.add_theme_constant_override("separation", 8)
 		card_panel.add_child(inner)
 
-		var card_button: Button = CardViewFactoryScript.create_card_button(card, Vector2(160, 220), false, not _can_afford(price))
+		var card_button: Button = CardViewFactoryScript.create_card_button(card, Vector2(132, 183), false, not _can_afford(price))
 		card_button.pressed.connect(_on_buy_pressed.bind(index))
 		inner.add_child(card_button)
 
-		var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(140, 38))
+		var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(132, 38))
 		buy_btn.disabled = not _can_afford(price)
 		buy_btn.pressed.connect(_on_buy_pressed.bind(index))
 		inner.add_child(buy_btn)
@@ -121,7 +123,7 @@ func _render_relic_offer() -> void:
 	var price := int(_relic_offer.get("price", 0))
 
 	var card_panel := PanelContainer.new()
-	card_panel.custom_minimum_size = Vector2(200, 280)
+	card_panel.custom_minimum_size = Vector2(170, 280)
 	card_panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 	_content_row.add_child(card_panel)
 
@@ -147,10 +149,10 @@ func _render_relic_offer() -> void:
 	desc_label.add_theme_font_size_override("font_size", 13)
 	desc_label.add_theme_color_override("font_color", Color(0.88, 0.80, 0.68))
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	desc_label.custom_minimum_size = Vector2(160, 0)
+	desc_label.custom_minimum_size = Vector2(140, 0)
 	inner.add_child(desc_label)
 
-	var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(140, 38))
+	var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(132, 38))
 	buy_btn.disabled = not _can_afford(price)
 	buy_btn.pressed.connect(_on_buy_relic_pressed)
 	inner.add_child(buy_btn)
@@ -163,7 +165,7 @@ func _render_potion_offer() -> void:
 	var slots_full: bool = game_state != null and not game_state.can_add_potion()
 
 	var card_panel := PanelContainer.new()
-	card_panel.custom_minimum_size = Vector2(200, 280)
+	card_panel.custom_minimum_size = Vector2(170, 280)
 	card_panel.add_theme_stylebox_override("panel", SF.make_card_panel_style())
 	_content_row.add_child(card_panel)
 
@@ -189,10 +191,10 @@ func _render_potion_offer() -> void:
 	desc_label.add_theme_font_size_override("font_size", 13)
 	desc_label.add_theme_color_override("font_color", Color(0.88, 0.80, 0.68))
 	desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	desc_label.custom_minimum_size = Vector2(160, 0)
+	desc_label.custom_minimum_size = Vector2(140, 0)
 	inner.add_child(desc_label)
 
-	var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(140, 38))
+	var buy_btn := SF.make_pink_button("%d 金" % price, Vector2(132, 38))
 	buy_btn.disabled = not _can_afford(price) or slots_full
 	if slots_full: buy_btn.tooltip_text = "药水栏已满"
 	buy_btn.pressed.connect(_on_buy_potion_pressed)
@@ -364,4 +366,15 @@ func _rebuild() -> void:
 
 
 func _autoload(autoload_name: String) -> Variant:
-	return get_node_or_null("/root/%s" % autoload_name)
+	if is_inside_tree():
+		return get_node_or_null("/root/%s" % autoload_name)
+	var tree := Engine.get_main_loop() as SceneTree
+	return tree.root.get_node_or_null(autoload_name) if tree != null else null
+
+
+func _spec_path() -> String:
+	return str(get_meta("ui_spec_override_path", SPEC_PATH))
+
+
+func _is_gallery_preview() -> bool:
+	return bool(get_meta("gallery_preview", false))

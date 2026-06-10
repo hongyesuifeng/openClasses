@@ -55,7 +55,10 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	button.modulate = Color(1.15, 1.12, 1.02, 1.0) if selected else Color.WHITE
 
 	var template := TextureRect.new()
-	template.texture = load(str(TEMPLATE_BY_RARITY.get(str(card.get("rarity", "")), TEMPLATE_BY_RARITY["common"])))
+	template.texture = _load_texture_or_fallback(
+		str(TEMPLATE_BY_RARITY.get(str(card.get("rarity", "")), TEMPLATE_BY_RARITY["common"])),
+		Color(0.96, 0.76, 0.86, 0.95)
+	)
 	template.set_anchors_preset(Control.PRESET_FULL_RECT)
 	template.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	template.stretch_mode = TextureRect.STRETCH_SCALE
@@ -64,7 +67,7 @@ static func create_card_button(card: Dictionary, card_size := Vector2(144, 200),
 	UILayoutStoreScript.apply_layout(template, "card.template", instance_id)
 
 	var icon := TextureRect.new()
-	icon.texture = load(_icon_path_for(card))
+	icon.texture = _load_texture_or_fallback(_icon_path_for(card), Color(0.88, 0.62, 0.82, 0.86))
 	icon.anchor_left = 0.18
 	icon.anchor_top = 0.25
 	icon.anchor_right = 0.82
@@ -140,6 +143,16 @@ static func _icon_path_for(card: Dictionary) -> String:
 	if ICON_BY_ART_KEY.has(art_key):
 		return str(ICON_BY_ART_KEY[art_key])
 	return str(ICON_BY_TYPE.get(str(card.get("type", "")), ICON_BY_TYPE["skill"]))
+
+
+static func _load_texture_or_fallback(path: String, fallback_color: Color) -> Texture2D:
+	if ResourceLoader.exists(path, "Texture2D"):
+		var tex := ResourceLoader.load(path, "Texture2D") as Texture2D
+		if tex != null:
+			return tex
+	var image := Image.create(16, 16, false, Image.FORMAT_RGBA8)
+	image.fill(fallback_color)
+	return ImageTexture.create_from_image(image)
 
 
 ## 返回升级后的卡牌数据（合并 upgrade patch），原始数据不变

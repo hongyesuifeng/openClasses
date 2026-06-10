@@ -10,28 +10,34 @@
   },
   "children": [
     {
-      "type": "VBoxContainer",
+      "type": "Panel",
+      "name": "ScreenFrame",
+      "style": "panel_dark",
+      "layout": { "preset": "full_rect" }
+    },
+    {
+      "type": "Control",
       "name": "Root",
-      "layout": { "preset": "full_rect", "margin": [32, 28, 32, 28] },
+      "layout": { "preset": "full_rect", "margin": [42, 34, 42, 34] },
       "children": [
         {
           "type": "Label",
           "name": "TitleLabel",
           "text": "休息点",
           "style": "text_title_pink",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_center", "size": [760, 82], "margin": [0, 54, 0, 0] }
         },
         {
           "type": "Label",
           "name": "StatusLabel",
           "text": "",
           "style": "text_body",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_center", "size": [720, 46], "margin": [0, 148, 0, 0] }
         },
         {
           "type": "HBoxContainer",
           "name": "ChoiceRow",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_center", "size": [960, 320], "margin": [0, 236, 0, 0] }
         }
       ]
     }

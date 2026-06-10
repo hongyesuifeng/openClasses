@@ -3,6 +3,7 @@ extends Control
 const _UIBuilder := preload("res://addons/ui_builder/ui_builder.gd")
 const EventServiceScript    := preload("res://scripts/event/event_service.gd")
 const CardViewFactoryScript := preload("res://scripts/ui/card_view_factory.gd")
+const SF := preload("res://scripts/ui/ui_style_factory.gd")
 
 const SPEC_PATH := "res://ui_specs/event.ui.json"
 
@@ -25,13 +26,13 @@ var _event_messages: Array[String] = []
 
 func _ready() -> void:
 	var audio_manager: Variant = _autoload("AudioManager")
-	if audio_manager != null:
+	if audio_manager != null and not _is_gallery_preview():
 		audio_manager.play_bgm("map")
 	_build()
 
 
 func _build() -> void:
-	var ui := _UIBuilder.build(SPEC_PATH)
+	var ui := _UIBuilder.build(_spec_path())
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(ui)
 
@@ -83,11 +84,17 @@ func _render_event() -> void:
 func _render_choices(choices: Array) -> void:
 	if _choice_row == null:
 		return
+	_choice_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_choice_row.add_theme_constant_override("separation", 28)
 	for index in range(choices.size()):
 		var choice := choices[index] as Dictionary
 		var button := Button.new()
-		button.text = "%s\n%s" % [str(choice.get("label", "选择")), str(choice.get("description", ""))]
-		button.custom_minimum_size = Vector2(250, 84)
+		button.text = "%s\n\n%s" % [str(choice.get("label", "选择")), str(choice.get("description", ""))]
+		button.custom_minimum_size = Vector2(240, 280)
+		button.add_theme_stylebox_override("normal", SF.make_choice_panel_style())
+		button.add_theme_stylebox_override("hover", SF.make_panel_style(Color(0.98, 0.82, 0.92, 0.92), SF.CLR_GOLD, 16, 3))
+		button.add_theme_font_size_override("font_size", 20)
+		button.add_theme_color_override("font_color", Color(0.34, 0.18, 0.34))
 		button.pressed.connect(_on_choice_pressed.bind(index))
 		_choice_row.add_child(button)
 
@@ -245,4 +252,15 @@ func _current_event_node() -> Dictionary:
 
 
 func _autoload(autoload_name: String) -> Variant:
-	return get_node_or_null("/root/%s" % autoload_name)
+	if is_inside_tree():
+		return get_node_or_null("/root/%s" % autoload_name)
+	var tree := Engine.get_main_loop() as SceneTree
+	return tree.root.get_node_or_null(autoload_name) if tree != null else null
+
+
+func _spec_path() -> String:
+	return str(get_meta("ui_spec_override_path", SPEC_PATH))
+
+
+func _is_gallery_preview() -> bool:
+	return bool(get_meta("gallery_preview", false))

@@ -8,21 +8,23 @@ const SF := preload("res://scripts/ui/ui_style_factory.gd")
 const SPEC_PATH := "res://ui_specs/map.ui.json"
 
 const NODE_LABELS := {
-	"battle": "战斗", "shop": "商店", "chest": "宝箱",
-	"event": "事件", "rest": "休息", "result": "终点"
+	"battle": "战斗", "elite": "精英", "shop": "商店", "chest": "宝箱",
+	"event": "事件", "rest": "休息", "result": "Boss"
 }
 const NODE_COLORS := {
-	"battle": Color(0.62, 0.28, 0.42, 0.95), "shop": Color(0.48, 0.38, 0.62, 0.95),
-	"chest": Color(0.62, 0.45, 0.25, 0.95), "event": Color(0.50, 0.35, 0.68, 0.95),
-	"rest": Color(0.30, 0.52, 0.42, 0.95), "result": Color(0.48, 0.28, 0.65, 0.95)
+	"battle": Color(0.78, 0.42, 0.68, 0.96), "elite": Color(0.52, 0.40, 0.78, 0.96),
+	"shop": Color(0.40, 0.58, 0.78, 0.96), "chest": Color(0.76, 0.50, 0.30, 0.96),
+	"event": Color(0.86, 0.36, 0.62, 0.96), "rest": Color(0.46, 0.72, 0.50, 0.96),
+	"result": Color(0.62, 0.32, 0.82, 0.98)
 }
 const NODE_ICON_PATHS := {
-	"battle": "res://assets/ui/icons/icon_battle.png",
-	"shop":   "res://assets/ui/icons/icon_shop.png",
+	"battle": "res://assets/ui/map/map_node_battle.png",
+	"elite":  "res://assets/ui/map/map_node_elite.png",
+	"shop":   "res://assets/ui/map/map_node_shop.png",
 	"chest":  "res://assets/ui/icons/icon_chest.png",
-	"event":  "res://assets/ui/icons/icon_question.png",
-	"rest":   "res://assets/ui/icons/icon_rest.png",
-	"result": "res://assets/ui/icons/icon_boss.png"
+	"event":  "res://assets/ui/map/map_node_event.png",
+	"rest":   "res://assets/ui/map/map_node_rest.png",
+	"result": "res://assets/ui/map/map_node_boss.png"
 }
 
 var _status_label: Label
@@ -35,13 +37,13 @@ var _line_canvas: Control
 
 func _ready() -> void:
 	var audio_manager: Variant = _autoload("AudioManager")
-	if audio_manager != null:
+	if audio_manager != null and not _is_gallery_preview():
 		audio_manager.play_bgm("map")
 	_build()
 
 
 func _build() -> void:
-	var ui := _UIBuilder.build(SPEC_PATH)
+	var ui := _UIBuilder.build(_spec_path())
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(ui)
 
@@ -68,7 +70,7 @@ func _build() -> void:
 		_node_root.resized.connect(_on_node_root_resized)
 
 		var map_surface := ColorRect.new()
-		map_surface.color = Color(0.04, 0.02, 0.06, 0.15)
+		map_surface.color = Color(0.08, 0.04, 0.14, 0.34)
 		map_surface.set_anchors_preset(Control.PRESET_FULL_RECT)
 		map_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		map_surface.z_index = 0
@@ -147,7 +149,7 @@ func _render_nodes() -> void:
 
 		var button := Button.new()
 		button.text = ""
-		button.custom_minimum_size = Vector2(90, 64)
+		button.custom_minimum_size = Vector2(82, 82)
 		button.position = node_pos
 		button.z_index = 5
 		button.disabled = not selectable
@@ -160,8 +162,8 @@ func _render_nodes() -> void:
 
 
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
-	const NODE_W := 90.0
-	const NODE_H := 64.0
+	const NODE_W := 82.0
+	const NODE_H := 82.0
 	_path_lines.clear()
 	for node in nodes:
 		var node_dict := node as Dictionary
@@ -186,10 +188,10 @@ func _draw_path_lines() -> void:
 		var to   := line["to"]   as Vector2
 		var open := bool(line.get("open", false))
 		## 描边（深紫）
-		_line_canvas.draw_line(from, to, Color(0.08, 0.04, 0.12, 0.92), 8.0 if open else 6.0, true)
+		_line_canvas.draw_line(from, to, Color(0.18, 0.08, 0.22, 0.92), 9.0 if open else 7.0, true)
 		## 主线（粉金色）
-		var col := Color(0.95, 0.55, 0.65, 0.96) if open else Color(0.55, 0.42, 0.58, 0.50)
-		_line_canvas.draw_line(from, to, col, 4.0 if open else 3.0, true)
+		var col := Color(1.0, 0.86, 0.42, 0.98) if open else Color(0.78, 0.64, 0.86, 0.52)
+		_line_canvas.draw_line(from, to, col, 4.5 if open else 3.0, true)
 		## 箭头
 		_draw_arrow(from, to, col, open)
 
@@ -220,8 +222,8 @@ func _node_position(floor_index: int, index: int, floor_count: int, max_floor: i
 	if _node_root == null:
 		return Vector2.ZERO
 	var surface_size := _node_root.size
-	const NODE_W := 90.0
-	const NODE_H := 64.0
+	const NODE_W := 82.0
+	const NODE_H := 82.0
 	var total_w := surface_size.x if surface_size.x > 0 else 1000.0
 	var total_h := surface_size.y if surface_size.y > 0 else 600.0
 	## 从左到右：floor_index 控制 x，index 控制 y
@@ -249,7 +251,7 @@ func _add_node_content(button: Button, node_dict: Dictionary, selectable: bool, 
 	if not icon_path.is_empty() and FileAccess.file_exists(icon_path):
 		var icon_rect := TextureRect.new()
 		icon_rect.texture = load(icon_path)
-		icon_rect.custom_minimum_size = Vector2(22, 22)
+		icon_rect.custom_minimum_size = Vector2(34, 34)
 		icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -259,7 +261,7 @@ func _add_node_content(button: Button, node_dict: Dictionary, selectable: bool, 
 	var lbl := Label.new()
 	lbl.text = label_text
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lbl.add_theme_font_size_override("font_size", 11)
+	lbl.add_theme_font_size_override("font_size", 12)
 	lbl.add_theme_color_override("font_color",
 		Color(1, 1, 1, 0.95) if selectable else (Color(0.7, 0.9, 0.7, 0.85) if done else Color(0.6, 0.55, 0.65, 0.75)))
 	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -286,8 +288,8 @@ func _node_style(node_type: String, done: bool, selectable: bool) -> StyleBoxFla
 	else:
 		style.bg_color = Color(base_color.r * 0.68, base_color.g * 0.65, base_color.b * 0.72, 0.75)
 		style.border_color = Color(SF.CLR_BORDER.r * 0.6, SF.CLR_BORDER.g * 0.6, SF.CLR_BORDER.b * 0.6, 0.45)
-	style.set_border_width_all(2 if selectable else 1)
-	style.set_corner_radius_all(10)
+	style.set_border_width_all(3 if selectable else 2)
+	style.set_corner_radius_all(40)
 	style.content_margin_left = 4
 	style.content_margin_top = 2
 	style.content_margin_right = 4
@@ -305,4 +307,15 @@ func _status_text() -> String:
 
 
 func _autoload(autoload_name: String) -> Variant:
-	return get_node_or_null("/root/%s" % autoload_name)
+	if is_inside_tree():
+		return get_node_or_null("/root/%s" % autoload_name)
+	var tree := Engine.get_main_loop() as SceneTree
+	return tree.root.get_node_or_null(autoload_name) if tree != null else null
+
+
+func _spec_path() -> String:
+	return str(get_meta("ui_spec_override_path", SPEC_PATH))
+
+
+func _is_gallery_preview() -> bool:
+	return bool(get_meta("gallery_preview", false))

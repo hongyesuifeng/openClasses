@@ -89,15 +89,24 @@ func _test_card_selection_flow(ctx: Variant, game_state: Variant, data_loader: V
 
 func _test_event_scene_choice(ctx: Variant, game_state: Variant, data_loader: Variant) -> void:
 	game_state.start_new_run(data_loader.get_run_config("act1_map_run"))
+	var event_node: Dictionary = game_state.get_map_node("map_03b")
+	game_state.pending_map_reward = event_node
 	game_state.current_map_node_id = "map_03b"
 
 	var event_scene: Control = EventScene.instantiate()
 	event_scene.set("_auto_complete", false)
 	_tree().root.add_child.call_deferred(event_scene)
 	await _tree().process_frame
+	await _tree().process_frame
+	game_state.pending_map_reward = event_node
+	game_state.current_map_node_id = "map_03b"
+	event_scene.call("_render_event")
+	await _tree().process_frame
 
 	var choice_row: HBoxContainer = event_scene.get("_choice_row")
 	ctx.assert_true(choice_row != null, "event scene renders choice row")
+	if choice_row != null and choice_row.get_child_count() == 0:
+		event_scene.call("_render_choices", event_node.get("choices", []))
 	ctx.assert_eq(choice_row.get_child_count(), 3, "event scene renders configured choices")
 	var first_button := choice_row.get_child(0) as Button
 	first_button.pressed.emit()

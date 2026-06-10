@@ -428,10 +428,10 @@ func _build_tree() -> void:
 func _add_tree_control(node: Node, parent_item: TreeItem) -> void:
 	if _tree == null:
 		return
-	if node is Control and (node as Control).has_meta("layout_element_id"):
+	if node is Control and _is_editable_control(node as Control):
 		var control := node as Control
 		var item := _tree.create_item(parent_item)
-		item.set_text(0, str(control.get_meta("layout_element_id")))
+		item.set_text(0, _display_name(control))
 		item.set_metadata(0, control)
 		parent_item = item
 	for child in node.get_children():
@@ -449,7 +449,7 @@ func _on_tree_selected() -> void:
 func _select_control(control: Control) -> void:
 	_selected = control
 	if _selected_label != null:
-		_selected_label.text = "当前选择：%s" % str(control.get_meta("layout_element_id", control.name))
+		_selected_label.text = "当前选择：%s" % _display_name(control)
 	_sync_fields()
 	_interaction.queue_redraw()
 
@@ -589,7 +589,7 @@ func _pick_editable(control: Control, point: Vector2) -> Control:
 			var hit := _pick_editable(child as Control, point)
 			if hit != null:
 				return hit
-	if control.has_meta("layout_element_id") and _rect_in_editor(control).has_point(point):
+	if _is_editable_control(control) and _rect_in_editor(control).has_point(point):
 		return control
 	return null
 
@@ -820,11 +820,27 @@ func _editable_controls(root: Node) -> Array[Control]:
 	var result: Array[Control] = []
 	if root == null or not is_instance_valid(root):
 		return result
-	if root is Control and (root as Control).has_meta("layout_element_id"):
+	if root is Control and _is_editable_control(root as Control):
 		result.append(root as Control)
 	for child in root.get_children():
 		result.append_array(_editable_controls(child))
 	return result
+
+
+func _is_editable_control(control: Control) -> bool:
+	if control.has_meta("layout_element_id"):
+		return true
+	return control.has_meta("ui_spec_path") and control.has_meta("ui_spec_node_path")
+
+
+func _display_name(control: Control) -> String:
+	var element_id := str(control.get_meta("layout_element_id", ""))
+	if not element_id.is_empty():
+		return element_id
+	var spec_node_path := str(control.get_meta("ui_spec_node_path", ""))
+	if not spec_node_path.is_empty():
+		return "%s  (%s)" % [control.name, spec_node_path]
+	return str(control.name)
 
 
 func _valid_tracked_controls() -> Array[Control]:

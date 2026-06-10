@@ -132,14 +132,17 @@ func _build() -> void:
 	var encounter_id := str(run_controller.get_current_encounter_id()) if run_controller != null else ""
 
 	## ── UIBuilder 生成骨架 ──
-	var ui := _UIBuilder.build(SPEC_PATH)
+	var ui := _UIBuilder.build(_spec_path())
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(ui)
 
 	## 根据 encounter 覆盖背景贴图
 	var bg := ui.find_child("Background", true, false) as TextureRect
 	if bg != null:
-		bg.texture = load(BACKGROUND_BOSS if encounter_id == "v1_boss_01" else BACKGROUND_NORMAL)
+		var bg_path := BACKGROUND_BOSS if encounter_id == "v1_boss_01" else BACKGROUND_NORMAL
+		var bg_tex := _load_texture_or_null(bg_path)
+		if bg_tex != null:
+			bg.texture = bg_tex
 	UILayoutStoreScript.apply_layout(bg if bg != null else Control.new(), "battle.background", encounter_id)
 
 	var tint := ColorRect.new()
@@ -166,7 +169,7 @@ func _build() -> void:
 		_player_panel.add_theme_stylebox_override("panel", SF.make_panel_style(SF.CLR_PANEL_BG))
 		root.add_child(_player_panel)
 	else:
-		_player_panel.custom_minimum_size = Vector2(0, 88)
+		_player_panel.custom_minimum_size = Vector2(0, 78)
 		_player_panel.add_theme_stylebox_override("panel", SF.make_panel_style(SF.CLR_PANEL_BG))
 	UILayoutStoreScript.apply_layout(_player_panel, "battle.player.panel")
 
@@ -177,8 +180,8 @@ func _build() -> void:
 
 	# 玩家头像
 	var portrait := TextureRect.new()
-	portrait.texture = load(PLAYER_ART)
-	portrait.custom_minimum_size = Vector2(64, 64)
+	portrait.texture = _load_texture_or_fallback(PLAYER_ART, Color(0.72, 0.44, 0.78, 0.95))
+	portrait.custom_minimum_size = Vector2(58, 58)
 	portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	top_row.add_child(portrait)
@@ -232,7 +235,7 @@ func _build() -> void:
 	_enemy_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_enemy_row.custom_minimum_size = Vector2(0, 300)
 	_enemy_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	_enemy_row.add_theme_constant_override("separation", 30)
+	_enemy_row.add_theme_constant_override("separation", 36)
 	UILayoutStoreScript.apply_layout(_enemy_row, "battle.enemy.row")
 
 	# 战斗提示（叠加在敌人区上方，不占布局空间）
@@ -248,8 +251,8 @@ func _build() -> void:
 
 	# ══ 底部卡牌区 ══════════════════════════════════════════
 	var bottom_panel := PanelContainer.new()
-	bottom_panel.custom_minimum_size = Vector2(0, 210)
-	bottom_panel.add_theme_stylebox_override("panel", SF.make_panel_style(Color(0.07, 0.04, 0.12, 0.80)))
+	bottom_panel.custom_minimum_size = Vector2(0, 222)
+	bottom_panel.add_theme_stylebox_override("panel", SF.make_panel_style(Color(0.08, 0.04, 0.14, 0.82), Color(0.82, 0.50, 0.78, 0.72), 16, 2))
 	root.add_child(bottom_panel)
 
 	var bottom_row := HBoxContainer.new()
@@ -260,7 +263,7 @@ func _build() -> void:
 
 	# 左侧：牌组/弃牌/消耗 三个图标
 	var pile_col := VBoxContainer.new()
-	pile_col.custom_minimum_size = Vector2(76, 0)
+	pile_col.custom_minimum_size = Vector2(90, 0)
 	pile_col.alignment = BoxContainer.ALIGNMENT_CENTER
 	pile_col.add_theme_constant_override("separation", 6)
 	bottom_row.add_child(pile_col)
@@ -290,7 +293,7 @@ func _build() -> void:
 
 	# 右侧：结束回合 + 能量
 	var right_col := VBoxContainer.new()
-	right_col.custom_minimum_size = Vector2(110, 0)
+	right_col.custom_minimum_size = Vector2(150, 0)
 	right_col.alignment = BoxContainer.ALIGNMENT_CENTER
 	right_col.add_theme_constant_override("separation", 8)
 	bottom_row.add_child(right_col)
@@ -298,7 +301,7 @@ func _build() -> void:
 	# 结束回合按钮
 	var end_turn_button := Button.new()
 	end_turn_button.text = "结束回合"
-	end_turn_button.custom_minimum_size = Vector2(110, 56)
+	end_turn_button.custom_minimum_size = Vector2(150, 64)
 	end_turn_button.pressed.connect(_on_end_turn_pressed)
 	UILayoutStoreScript.apply_layout(end_turn_button, "battle.end_turn")
 	var et_normal := StyleBoxFlat.new()
@@ -322,8 +325,8 @@ func _build() -> void:
 	right_col.add_child(energy_box)
 
 	var energy_icon := TextureRect.new()
-	energy_icon.texture = load("res://assets/ui/icons/ui_energy_crystal.png")
-	energy_icon.custom_minimum_size = Vector2(28, 28)
+	energy_icon.texture = _load_texture_or_fallback("res://assets/ui/icons/ui_energy_crystal.png", Color(0.62, 0.84, 1.0, 0.95))
+	energy_icon.custom_minimum_size = Vector2(34, 34)
 	energy_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	energy_box.add_child(energy_icon)
 	UILayoutStoreScript.apply_layout(energy_icon, "battle.energy.icon")
@@ -426,9 +429,8 @@ func _on_state_changed(snapshot: Dictionary) -> void:
 	_render_player_statuses(snapshot.get("player_statuses", []))
 
 	var piles: Dictionary = snapshot.get("piles", {})
-	_pile_label.text = "抽牌堆 %d | 手牌 %d | 弃牌堆 %d | 消耗 %d" % [
+	_pile_label.text = "牌组\n%d\n\n弃牌堆\n%d\n\n消耗堆\n%d" % [
 		int(piles.get("draw", 0)),
-		int(piles.get("hand", 0)),
 		int(piles.get("discard", 0)),
 		int(piles.get("exhaust", 0))
 	]
@@ -445,7 +447,7 @@ func _render_enemies(enemies: Array) -> void:
 		var art_key := str(enemy.get("art_key", "enemy_slime"))
 		var art_path := str(ENEMY_ART_BY_KEY.get(art_key, ENEMY_ART_BY_KEY["enemy_slime"]))
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(220, 290)
+		button.custom_minimum_size = Vector2(210, 270)
 		button.text = ""
 		button.clip_contents = true
 		# 紫粉主题敌人面板
@@ -464,7 +466,7 @@ func _render_enemies(enemies: Array) -> void:
 		sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		sprite.z_index = 2
-		sprite.texture = load(art_path)
+		sprite.texture = _load_texture_or_fallback(art_path, Color(0.72, 0.42, 0.70, 0.92))
 		sprite.set_deferred("size", Vector2(200, 165))
 		button.add_child(sprite)
 		UILayoutStoreScript.apply_layout(sprite, "battle.enemy.sprite", enemy_instance_id)
@@ -615,7 +617,7 @@ func _render_hand(hand: Array, phase: String) -> void:
 	_hand_buttons.clear()
 	for index in range(hand.size()):
 		var card := hand[index] as Dictionary
-		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(132, 183), index == _selected_card_index, phase != "player")
+		var button: Button = CardViewFactoryScript.create_card_button(card, Vector2(144, 200), index == _selected_card_index, phase != "player")
 		button.pressed.connect(_on_card_pressed.bind(index))
 		## 添加悬浮放大效果
 		button.mouse_entered.connect(_on_card_hover.bind(button))
@@ -955,8 +957,9 @@ func _flash_player_panel() -> void:
 func _make_bar(under_path: String, progress_path: String) -> TextureProgressBar:
 	var bar := TextureProgressBar.new()
 	bar.custom_minimum_size = Vector2(300, 24)
-	bar.texture_under = load(under_path)
-	bar.texture_progress = load(progress_path)
+	bar.texture_under = _load_texture_or_fallback(under_path, Color(0.22, 0.12, 0.22, 0.95))
+	var fill_color := SF.CLR_BLOCK_BLUE if progress_path.find("block") >= 0 else SF.CLR_HP_PINK
+	bar.texture_progress = _load_texture_or_fallback(progress_path, fill_color)
 	bar.nine_patch_stretch = false
 	bar.fill_mode = TextureProgressBar.FILL_LEFT_TO_RIGHT
 	bar.stretch_margin_left = 0
@@ -966,6 +969,21 @@ func _make_bar(under_path: String, progress_path: String) -> TextureProgressBar:
 	bar.max_value = 1
 	bar.value = 1
 	return bar
+
+
+func _load_texture_or_null(path: String) -> Texture2D:
+	if ResourceLoader.exists(path, "Texture2D"):
+		return ResourceLoader.load(path, "Texture2D") as Texture2D
+	return null
+
+
+func _load_texture_or_fallback(path: String, fallback_color: Color) -> Texture2D:
+	var tex := _load_texture_or_null(path)
+	if tex != null:
+		return tex
+	var image := Image.create(16, 16, false, Image.FORMAT_RGBA8)
+	image.fill(fallback_color)
+	return ImageTexture.create_from_image(image)
 
 
 func _make_label(text: String, font_size: int, align: HorizontalAlignment) -> Label:
@@ -988,7 +1006,14 @@ func _clear_children(node: Node) -> void:
 
 
 func _autoload(autoload_name: String) -> Variant:
-	return get_node_or_null("/root/%s" % autoload_name)
+	if is_inside_tree():
+		return get_node_or_null("/root/%s" % autoload_name)
+	var tree := Engine.get_main_loop() as SceneTree
+	return tree.root.get_node_or_null(autoload_name) if tree != null else null
+
+
+func _spec_path() -> String:
+	return str(get_meta("ui_spec_override_path", SPEC_PATH))
 
 
 ## 回合切换横幅提示

@@ -95,6 +95,20 @@ static func make_card_panel_style() -> StyleBoxFlat:
 	return s
 
 
+# ── 事件/商店选项卡：浅色纸张 + 粉金边 ────────
+static func make_choice_panel_style() -> StyleBoxFlat:
+	var s := StyleBoxFlat.new()
+	s.bg_color = Color(1.0, 0.90, 0.78, 0.94)
+	s.border_color = Color(0.88, 0.58, 0.72, 0.92)
+	s.set_border_width_all(2)
+	s.set_corner_radius_all(16)
+	s.content_margin_left = 16
+	s.content_margin_top = 14
+	s.content_margin_right = 16
+	s.content_margin_bottom = 14
+	return s
+
+
 # ── 小圆按钮样式（右上角帮助/设置） ────────
 static func make_round_btn_style(color: Color) -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()

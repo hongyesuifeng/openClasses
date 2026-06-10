@@ -10,6 +10,12 @@
   },
   "children": [
     {
+      "type": "Panel",
+      "name": "ScreenFrame",
+      "style": "panel_dark",
+      "layout": { "preset": "full_rect" }
+    },
+    {
       "type": "HBoxContainer",
       "name": "TopRightButtons",
       "layout": { "preset": "top_right", "size": [120, 44], "margin": [0, 8, 12, 0] }
@@ -17,7 +23,7 @@
     {
       "type": "VBoxContainer",
       "name": "Root",
-      "layout": { "preset": "full_rect" },
+      "layout": { "preset": "full_rect", "margin": [18, 16, 18, 18] },
       "children": [
         {
           "type": "Panel",

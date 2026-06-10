@@ -894,7 +894,7 @@ func _build_scene_tab(scene_path: String, mock_fn: Callable) -> void:
 	)
 
 
-## 在 Viewport 树里找有 layout_element_id 且矩形包含 vp_pos 的节点
+## 在 Viewport 树里找可回写布局的节点，逆序遍历保证后渲染（上层）节点优先命中
 ## 逆序遍历保证后渲染（上层）节点优先命中
 func _pick_layout_node(root: Node, vp_pos: Vector2) -> Control:
 	var candidates: Array[Control] = []
@@ -907,10 +907,16 @@ func _pick_layout_node(root: Node, vp_pos: Vector2) -> Control:
 
 
 func _collect_layout_controls(root: Node, result: Array[Control]) -> void:
-	if root is Control and (root as Control).has_meta("layout_element_id"):
+	if root is Control and _is_layout_editable(root as Control):
 		result.append(root as Control)
 	for child in root.get_children():
 		_collect_layout_controls(child, result)
+
+
+func _is_layout_editable(control: Control) -> bool:
+	if control.has_meta("layout_element_id"):
+		return true
+	return control.has_meta("ui_spec_path") and control.has_meta("ui_spec_node_path")
 
 
 func _open_live_editor(control: Control, scene_root: Node, preview_container: Control, viewport_size: Vector2) -> void:
@@ -1183,7 +1189,7 @@ func _build_specs_tab() -> void:
 	var preview_outer := VBoxContainer.new()
 	preview_outer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_outer.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	preview_outer.custom_minimum_size   = Vector2(400, 0)
+	preview_outer.custom_minimum_size   = Vector2(640, 0)
 	preview_outer.add_theme_constant_override("separation", 2)
 	right_split.add_child(preview_outer)
 
@@ -1205,10 +1211,17 @@ func _build_specs_tab() -> void:
 	mock_btn.custom_minimum_size = Vector2(90, 24)
 	preview_toolbar.add_child(mock_btn)
 
+	var scene_edit_btn := Button.new()
+	scene_edit_btn.text = "场景编辑"
+	scene_edit_btn.tooltip_text = "隐藏 JSON 面板，让真实场景预览占满宽度；右键预览里的 UI 节点可打开 Live 编辑器"
+	scene_edit_btn.custom_minimum_size = Vector2(90, 24)
+	preview_toolbar.add_child(scene_edit_btn)
+
 	## SubViewportContainer 直接占满剩余空间
 	## stretch=true + SubViewport.size=1280×720 → Godot 自动等比缩放
 	var preview_container := SubViewportContainer.new()
 	preview_container.stretch = true
+	preview_container.custom_minimum_size = Vector2(640, 360)
 	preview_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_container.size_flags_vertical   = Control.SIZE_EXPAND_FILL
 	preview_outer.add_child(preview_container)
@@ -1218,6 +1231,11 @@ func _build_specs_tab() -> void:
 	preview_vp.size = Vector2i(1280, 720)
 	preview_vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	preview_container.add_child(preview_vp)
+
+	var preview_overlay := Control.new()
+	preview_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	preview_overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	preview_container.add_child(preview_overlay)
 
 	## ── JSON 编辑器区 ─────────────────────────────────────────────
 	var editor_panel := VBoxContainer.new()
@@ -1298,42 +1316,62 @@ func _build_specs_tab() -> void:
 
 	## ── 状态辅助函数 ──────────────────────────────────────────────
 	var current_spec_path := ""
+	var preview_tmp_path := "user://spec_preview_tmp.ui.json"
+	var current_preview_scene: Node = null
 
 	var _set_status := func(msg: String, ok: bool) -> void:
 		status_lbl.text = msg
 		status_lbl.add_theme_color_override("font_color",
 			Color(0.52, 0.94, 0.52) if ok else Color(1.0, 0.4, 0.3))
 
-	## ── 预览重建：优先加载完整 .tscn，无对应场景时退化为 UIBuilder ──
-	var _rebuild_preview := func(spec_path: String) -> void:
+	var _clear_preview := func() -> void:
 		for c in preview_vp.get_children():
-			c.queue_free()
+			preview_vp.remove_child(c)
+			c.free()
+		current_preview_scene = null
+
+	var _render_preview := func(spec_path: String, override_path: String) -> void:
+		_clear_preview.call()
 		if spec_path.is_empty():
 			return
 
 		var spec_key := spec_path.get_file().replace(".ui.json", "")
 		var scene_path: String = SPEC_TO_SCENE.get(spec_key, "") as String
+		var build_path := override_path if not override_path.is_empty() else spec_path
 
 		if not scene_path.is_empty() and ResourceLoader.exists(scene_path):
-			## 加载完整场景（带 _build()，真实视觉效果）
 			_mock_base()
 			var packed := load(scene_path) as PackedScene
 			if packed != null:
 				var scene_node := packed.instantiate()
 				scene_node.set_meta("gallery_preview", true)
+				if not override_path.is_empty():
+					scene_node.set_meta("ui_spec_override_path", override_path)
 				scene_node.set_process(false)
 				scene_node.set_physics_process(false)
 				preview_vp.add_child(scene_node)
-				preview_title.text = "完整场景预览：%s" % spec_key
+				current_preview_scene = scene_node
+				preview_title.text = "完整场景预览：%s%s" % [
+					spec_key,
+					"（编辑中）" if not override_path.is_empty() else ""
+				]
 				return
 
 		## fallback：只渲染 spec JSON 骨架
-		if FileAccess.file_exists(spec_path):
-			var ui := _UIBuilder.build(spec_path)
+		if FileAccess.file_exists(build_path):
+			var ui := _UIBuilder.build(build_path)
 			if ui != null:
 				ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 				preview_vp.add_child(ui)
-		preview_title.text = "Spec 骨架预览：%s" % spec_path.get_file()
+				current_preview_scene = ui
+		preview_title.text = "Spec 骨架预览：%s%s" % [
+			spec_path.get_file(),
+			"（编辑中）" if not override_path.is_empty() else ""
+		]
+
+	## ── 预览重建：优先加载完整 .tscn，无对应场景时退化为 UIBuilder ──
+	var _rebuild_preview := func(spec_path: String) -> void:
+		_render_preview.call(spec_path, "")
 
 	## ── 应用预览（JSON 编辑结果，临时渲染，不写磁盘）──────────
 	var _apply_preview := func() -> void:
@@ -1341,19 +1379,11 @@ func _build_specs_tab() -> void:
 		if parsed.parse(text_edit.text) != OK:
 			_set_status.call("❌ JSON 错误（行 %d）" % parsed.get_error_line(), false)
 			return
-		var tmp := "user://spec_preview_tmp.ui.json"
-		var f := FileAccess.open(tmp, FileAccess.WRITE)
+		var f := FileAccess.open(preview_tmp_path, FileAccess.WRITE)
 		f.store_string(text_edit.text)
 		f.close()
-		for c in preview_vp.get_children():
-			c.queue_free()
-		var ui := _UIBuilder.build(tmp)
-		if ui != null:
-			ui.set_anchors_preset(Control.PRESET_FULL_RECT)
-			preview_vp.add_child(ui)
-		DirAccess.remove_absolute(tmp)
-		preview_title.text = "JSON 骨架预览（编辑中）"
-		_set_status.call("✅ 预览已更新（仅 spec 骨架）", true)
+		_render_preview.call(current_spec_path, preview_tmp_path)
+		_set_status.call("✅ 预览已更新（当前 JSON）", true)
 
 	## ── 加载 spec 到编辑器并刷新预览 ─────────────────────────
 	var _load_spec := func(spec_path: String) -> void:
@@ -1382,6 +1412,31 @@ func _build_specs_tab() -> void:
 
 	## ── 按钮连接 ─────────────────────────────────────────────────
 	apply_btn.pressed.connect(func() -> void: _apply_preview.call())
+
+	scene_edit_btn.pressed.connect(func() -> void:
+		editor_panel.visible = not editor_panel.visible
+		scene_edit_btn.text = "显示 JSON" if not editor_panel.visible else "场景编辑"
+	)
+
+	preview_overlay.gui_input.connect(func(event: InputEvent) -> void:
+		if not event is InputEventMouseButton:
+			return
+		var mouse := event as InputEventMouseButton
+		if not (mouse.pressed and mouse.button_index == MOUSE_BUTTON_RIGHT):
+			return
+		if current_preview_scene == null or not is_instance_valid(current_preview_scene):
+			_set_status.call("❌ 当前没有可编辑的场景预览", false)
+			return
+		var scale_x := float(preview_vp.size.x) / maxf(preview_container.size.x, 1.0)
+		var scale_y := float(preview_vp.size.y) / maxf(preview_container.size.y, 1.0)
+		var vp_pos := mouse.position * Vector2(scale_x, scale_y)
+		var hit := _pick_layout_node(current_preview_scene, vp_pos)
+		if hit != null:
+			_open_live_editor(hit, current_preview_scene, preview_container, Vector2(preview_vp.size))
+			_set_status.call("✅ 已打开 Live 编辑器：%s" % hit.name, true)
+		else:
+			_set_status.call("❌ 未命中可编辑节点，请右键标题/按钮/面板等 UI 元素", false)
+	)
 
 	save_btn.pressed.connect(func() -> void: _save_spec.call())
 

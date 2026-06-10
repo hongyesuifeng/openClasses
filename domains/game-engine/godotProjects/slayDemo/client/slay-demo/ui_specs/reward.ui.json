@@ -10,40 +10,52 @@
   },
   "children": [
     {
+      "type": "Panel",
+      "name": "ScreenFrame",
+      "style": "panel_dark",
+      "layout": { "preset": "full_rect" }
+    },
+    {
       "type": "ScrollContainer",
       "name": "Scroll",
       "layout": { "preset": "full_rect" },
       "children": [
         {
-          "type": "VBoxContainer",
+          "type": "Control",
           "name": "Root",
-          "layout": { "preset": "full_rect", "margin": [32, 28, 32, 28] },
+          "layout": { "preset": "full_rect", "margin": [42, 34, 42, 34] },
           "children": [
             {
               "type": "Label",
               "name": "TitleLabel",
               "text": "选择一张卡牌奖励",
               "style": "text_title_pink",
-              "layout": { "preset": "full_rect" }
+              "layout": { "preset": "top_center", "size": [760, 82], "margin": [0, 42, 0, 0] }
+            },
+            {
+              "type": "Panel",
+              "name": "SubtitleBg",
+              "style": "panel_dark",
+              "layout": { "preset": "top_center", "size": [470, 42], "margin": [0, 118, 0, 0] }
             },
             {
               "type": "Label",
               "name": "SubtitleLabel",
               "text": "加入牌组，增强你的冒险。",
               "style": "text_subtitle",
-              "layout": { "preset": "full_rect" }
+              "layout": { "preset": "top_center", "size": [450, 38], "margin": [0, 120, 0, 0] }
             },
             {
               "type": "Label",
               "name": "StatusLabel",
               "text": "",
               "style": "text_body",
-              "layout": { "preset": "full_rect" }
+              "layout": { "preset": "top_center", "size": [760, 36], "margin": [0, 168, 0, 0] }
             },
             {
               "type": "ScrollContainer",
               "name": "ChoiceScroll",
-              "layout": { "preset": "full_rect" },
+              "layout": { "preset": "top_center", "size": [980, 320], "margin": [0, 220, 0, 0] },
               "children": [
                 {
                   "type": "HBoxContainer",
@@ -55,7 +67,7 @@
             {
               "type": "HBoxContainer",
               "name": "ButtonRow",
-              "layout": { "preset": "full_rect" },
+              "layout": { "preset": "bottom_center", "size": [520, 70], "margin": [0, 0, 0, 42] },
               "children": [
                 {
                   "type": "Button",

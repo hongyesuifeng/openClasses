@@ -27,7 +27,7 @@ var _confirm_button: Button
 
 func _ready() -> void:
 	var audio_manager: Variant = _autoload("AudioManager")
-	if audio_manager != null:
+	if audio_manager != null and not _is_gallery_preview():
 		audio_manager.play_bgm("victory")
 	var game_state: Variant = _autoload("GameState")
 	if game_state != null and game_state.has_pending_relic_reward():
@@ -50,7 +50,7 @@ func _check_upgrade_availability() -> void:
 
 
 func _build() -> void:
-	var ui := _UIBuilder.build(SPEC_PATH)
+	var ui := _UIBuilder.build(_spec_path())
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(ui)
 
@@ -71,7 +71,7 @@ func _build() -> void:
 
 func _fill_card_reward(title_lbl: Label, subtitle_lbl: Label) -> void:
 	if title_lbl != null:
-		title_lbl.text = "选择一张卡牌奖励+" if not _upgrade_mode else "选择一张卡牌升级"
+		title_lbl.text = "选择一张卡牌奖励" if not _upgrade_mode else "选择一张卡牌升级"
 	if subtitle_lbl != null:
 		subtitle_lbl.text = "加入牌组，增强你的冒险。" if not _upgrade_mode else "强化你的牌组！"
 
@@ -96,14 +96,12 @@ func _fill_card_reward(title_lbl: Label, subtitle_lbl: Label) -> void:
 		card_btn.pressed.connect(_on_card_mode_pressed)
 		button_row_node.add_child(card_btn)
 
-	_confirm_button = Button.new()
-	_confirm_button.text = "确认升级" if _upgrade_mode else "确认选择"
-	_confirm_button.custom_minimum_size = Vector2(160, 44)
+	_confirm_button = SF.make_pink_button("确认升级" if _upgrade_mode else "确认选择", Vector2(180, 52))
 	_confirm_button.disabled = true
 	_confirm_button.pressed.connect(_on_confirm_upgrade_pressed if _upgrade_mode else _on_confirm_choice_pressed)
 	button_row_node.add_child(_confirm_button)
 
-	var skip_btn := SF.make_action_button("跳过", Vector2(160, 44))
+	var skip_btn := SF.make_action_button("跳过", Vector2(160, 52))
 	skip_btn.pressed.connect(_on_skip_pressed)
 	button_row_node.add_child(skip_btn)
 
@@ -228,12 +226,14 @@ func _render_choices() -> void:
 	if _choice_row == null:
 		return
 	_clear_children(_choice_row)
+	_choice_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	_choice_row.add_theme_constant_override("separation", 20)
 	if _upgrade_mode:
 		for index in range(_upgradeable_cards.size()):
 			var card_instance := _upgradeable_cards[index] as Dictionary
 			var data_loader: Variant = _autoload("DataLoader")
 			var card_data: Dictionary = data_loader.resolve_card_instance(card_instance)
-			var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(180, 250), index == _selected_upgrade_index)
+			var button: Button = CardViewFactoryScript.create_card_button(card_data, Vector2(156, 217), index == _selected_upgrade_index)
 			button.pressed.connect(_on_upgrade_pressed.bind(index))
 			_choice_row.add_child(button)
 	else:
@@ -357,4 +357,15 @@ func _rebuild() -> void:
 	_build()
 
 func _autoload(autoload_name: String) -> Variant:
-	return get_node_or_null("/root/%s" % autoload_name)
+	if is_inside_tree():
+		return get_node_or_null("/root/%s" % autoload_name)
+	var tree := Engine.get_main_loop() as SceneTree
+	return tree.root.get_node_or_null(autoload_name) if tree != null else null
+
+
+func _spec_path() -> String:
+	return str(get_meta("ui_spec_override_path", SPEC_PATH))
+
+
+func _is_gallery_preview() -> bool:
+	return bool(get_meta("gallery_preview", false))

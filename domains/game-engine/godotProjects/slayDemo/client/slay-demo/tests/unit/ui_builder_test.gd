@@ -310,13 +310,13 @@ func _test_style_resolver_has_style(ctx: Variant) -> void:
 
 
 func _test_style_resolver_flat(ctx: Variant) -> void:
-	var sb := _UIStyleResolver.get_stylebox("panel_dark")
+	var sb := _UIStyleResolver.get_stylebox("panel_sidebar")
 	ctx.assert_true(sb != null, "style_resolver: get_stylebox 不为空")
-	ctx.assert_true(sb is StyleBoxFlat, "style_resolver: panel_dark 返回 StyleBoxFlat")
+	ctx.assert_true(sb is StyleBoxFlat, "style_resolver: panel_sidebar 返回 StyleBoxFlat")
 	var flat := sb as StyleBoxFlat
 	# 验证边框和圆角已应用
-	ctx.assert_eq(flat.border_width_top, 2, "style_resolver: panel_dark border_width=2")
-	ctx.assert_eq(flat.corner_radius_top_left, 12, "style_resolver: panel_dark corner_radius=12")
+	ctx.assert_eq(flat.border_width_top, 1, "style_resolver: panel_sidebar border_width=1")
+	ctx.assert_eq(flat.corner_radius_top_left, 6, "style_resolver: panel_sidebar corner_radius=6")
 
 
 func _test_style_resolver_label_colors(ctx: Variant) -> void:

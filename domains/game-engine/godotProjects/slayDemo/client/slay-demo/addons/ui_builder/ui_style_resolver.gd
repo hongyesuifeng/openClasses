@@ -17,6 +17,8 @@ static func get_stylebox(style_key: String) -> StyleBox:
 	match type:
 		"flat", "texture_button":
 			return _make_flat(cfg)
+		"texture":
+			return _make_texture_stylebox(cfg)
 		"progress":
 			return _make_progress_bg(cfg)
 		_:
@@ -122,6 +124,25 @@ static func _make_progress_bg(cfg: Dictionary) -> StyleBoxFlat:
 	s.border_width_right  = bw
 	s.border_width_bottom = bw
 	return s
+
+
+static func _make_texture_stylebox(cfg: Dictionary) -> StyleBox:
+	var asset_path := str(cfg.get("texture", ""))
+	if asset_path.is_empty():
+		asset_path = str(cfg.get("texture_asset", ""))
+	if not asset_path.is_empty() and ResourceLoader.exists(asset_path, "Texture2D"):
+		var tex := ResourceLoader.load(asset_path, "Texture2D") as Texture2D
+		if tex != null:
+			var s := StyleBoxTexture.new()
+			s.texture = tex
+			var margins: Array = cfg.get("texture_margins", cfg.get("nine_patch", [0, 0, 0, 0]))
+			if margins.size() >= 4:
+				s.texture_margin_left = float(margins[0])
+				s.texture_margin_top = float(margins[1])
+				s.texture_margin_right = float(margins[2])
+				s.texture_margin_bottom = float(margins[3])
+			return s
+	return _make_flat(cfg)
 
 
 static func _resolve_color(value: Variant, colors: Dictionary) -> Color:

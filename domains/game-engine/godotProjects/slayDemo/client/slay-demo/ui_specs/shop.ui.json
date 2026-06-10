@@ -12,48 +12,48 @@
     {
       "type": "HBoxContainer",
       "name": "ResourceBar",
-      "layout": { "preset": "top_right", "size": [160, 36], "margin": [0, 14, 24, 0] }
+      "layout": { "preset": "top_right", "size": [220, 44], "margin": [0, 18, 30, 0] }
     },
     {
-      "type": "HBoxContainer",
+      "type": "Control",
       "name": "MainRow",
-      "layout": { "preset": "full_rect", "margin": [32, 60, 32, 28] },
+      "layout": { "preset": "full_rect", "margin": [48, 64, 48, 40] },
       "children": [
         {
-          "type": "VBoxContainer",
+          "type": "Control",
           "name": "LeftPanel",
-          "layout": { "preset": "full_rect" },
+          "layout": { "preset": "left_full", "width": 860, "margin": [0, 0, 0, 0] },
           "children": [
             {
               "type": "Label",
               "name": "TitleLabel",
               "text": "流浪商人",
               "style": "text_title_pink",
-              "layout": { "preset": "full_rect" }
+              "layout": { "preset": "top_left", "size": [460, 84], "margin": [40, 40, 0, 0] }
             },
             {
               "type": "Label",
               "name": "SubtitleLabel",
               "text": "一个神秘的商人在路边摆摊，他看起来很会讨价还价。",
               "style": "text_caption",
-              "layout": { "preset": "full_rect" }
+              "layout": { "preset": "top_left", "size": [620, 62], "margin": [72, 132, 0, 0] }
             },
             {
               "type": "Label",
               "name": "StatusLabel",
               "text": "购买卡牌，或移除一张牌。",
               "style": "text_body",
-              "layout": { "preset": "full_rect" }
+              "layout": { "preset": "top_left", "size": [620, 44], "margin": [72, 196, 0, 0] }
             },
             {
               "type": "HBoxContainer",
               "name": "ContentRow",
-              "layout": { "preset": "full_rect" }
+              "layout": { "preset": "top_left", "size": [760, 340], "margin": [64, 260, 0, 0] }
             },
             {
               "type": "HBoxContainer",
               "name": "ButtonRow",
-              "layout": { "preset": "full_rect" },
+              "layout": { "preset": "bottom_left", "size": [430, 64], "margin": [220, 0, 0, 8] },
               "children": [
                 {
                   "type": "Button",
@@ -76,18 +76,18 @@
           ]
         },
         {
-          "type": "VBoxContainer",
+          "type": "Control",
           "name": "PortraitBox",
-          "layout": { "preset": "full_rect" },
+          "layout": { "preset": "right_full", "width": 390, "margin": [0, 42, 0, 0] },
           "children": [
             {
               "type": "Panel",
               "name": "PortraitPanel",
               "style": "panel_card",
-              "layout": { "preset": "full_rect" },
+              "layout": { "preset": "full_rect", "margin": [12, 0, 0, 0] },
               "children": [
                 {
-                  "type": "VBoxContainer",
+                  "type": "Control",
                   "name": "PortraitInner",
                   "layout": { "preset": "full_rect" },
                   "children": [
@@ -96,14 +96,14 @@
                       "name": "PortraitImage",
                       "asset": "characters.merchant",
                       "stretch_mode": "keep_aspect_centered",
-                      "layout": { "preset": "full_rect" }
+                      "layout": { "preset": "full_rect", "margin": [0, 0, 0, 80] }
                     },
                     {
                       "type": "Label",
                       "name": "MerchantName",
                       "text": "流浪商人",
                       "style": "text_body",
-                      "layout": { "preset": "full_rect" }
+                      "layout": { "preset": "bottom_center", "size": [220, 48], "margin": [0, 0, 0, 24] }
                     }
                   ]
                 }

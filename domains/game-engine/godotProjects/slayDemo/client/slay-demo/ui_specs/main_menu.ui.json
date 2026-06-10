@@ -11,18 +11,25 @@
   "children": [
     {
       "type": "Panel",
+      "name": "ScreenFrame",
+      "style": "panel_dark",
+      "layout": { "preset": "full_rect", "margin": [10, 10, 10, 10] }
+    },
+    {
+      "type": "Panel",
       "name": "SidebarBg",
       "style": "panel_sidebar",
-      "layout": { "preset": "left_full", "width": 68, "margin": [6, 68, 0, 32] }
+      "layout": { "preset": "left_center", "size": [88, 420], "margin": [24, 0, 0, 0] }
     },
     {
       "type": "VBoxContainer",
       "name": "Sidebar",
-      "layout": { "preset": "left_full", "width": 68, "margin": [12, 80, 0, 40] },
+      "layout": { "preset": "left_center", "size": [76, 390], "margin": [30, 0, 0, 0] },
       "children": [
         {
           "type": "Button",
           "name": "SidebarAchievement",
+          "text": "成就",
           "style": "btn_icon",
           "asset": "icons.achievement",
           "layout": { "preset": "full_rect" },
@@ -31,6 +38,7 @@
         {
           "type": "Button",
           "name": "SidebarCollection",
+          "text": "图鉴",
           "style": "btn_icon",
           "asset": "icons.collection",
           "layout": { "preset": "full_rect" },
@@ -39,6 +47,7 @@
         {
           "type": "Button",
           "name": "SidebarSettings",
+          "text": "设置",
           "style": "btn_icon",
           "asset": "icons.settings",
           "layout": { "preset": "full_rect" },
@@ -47,6 +56,7 @@
         {
           "type": "Button",
           "name": "SidebarNotice",
+          "text": "公告",
           "style": "btn_icon",
           "asset": "icons.notice",
           "layout": { "preset": "full_rect" },
@@ -57,54 +67,61 @@
     {
       "type": "HBoxContainer",
       "name": "TopRight",
-      "layout": { "preset": "top_right", "size": [56, 40], "margin": [0, 18, 24, 0] },
+      "layout": { "preset": "top_right", "size": [190, 48], "margin": [0, 24, 32, 0] },
       "children": [
+        {
+          "type": "Label",
+          "name": "CrystalLabel",
+          "text": "水晶 320",
+          "style": "text_body",
+          "layout": { "preset": "full_rect" }
+        },
         {
           "type": "Button",
           "name": "SettingsBtn",
           "style": "btn_icon",
-          "asset": "icons.settings",
+          "asset": "icons.crystal",
           "layout": { "preset": "full_rect" },
           "action": "menu.on_settings"
         }
       ]
     },
     {
-      "type": "VBoxContainer",
+      "type": "Control",
       "name": "CenterPanel",
-      "layout": { "preset": "center", "size": [460, 360] },
+      "layout": { "preset": "center", "size": [760, 430] },
       "children": [
-        {
-          "type": "Panel",
-          "name": "TitleBg",
-          "style": "panel_dark",
-          "layout": { "preset": "full_rect" }
-        },
         {
           "type": "Label",
           "name": "TitleLabel",
           "text": "甜心迷宫",
           "style": "text_hero_title",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_center", "size": [720, 140], "margin": [0, 8, 0, 0] }
+        },
+        {
+          "type": "Panel",
+          "name": "SubtitleBg",
+          "style": "panel_dark",
+          "layout": { "preset": "top_center", "size": [520, 58], "margin": [0, 150, 0, 0] }
         },
         {
           "type": "Label",
           "name": "SubtitleLabel",
           "text": "甜蜜的冒险，从这里开始",
           "style": "text_subtitle",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_center", "size": [500, 52], "margin": [0, 153, 0, 0] }
         },
         {
-          "type": "VBoxContainer",
+          "type": "Control",
           "name": "ButtonContainer",
-          "layout": { "preset": "full_rect" },
+          "layout": { "preset": "bottom_center", "size": [420, 138], "margin": [0, 0, 0, 0] },
           "children": [
             {
               "type": "Button",
               "name": "ContinueButton",
               "text": "继续游戏",
               "style": "btn_primary",
-              "layout": { "preset": "full_rect" },
+              "layout": { "preset": "top_center", "size": [360, 72], "margin": [0, 0, 0, 0] },
               "action": "menu.on_continue",
               "visible": false
             },
@@ -113,7 +130,7 @@
               "name": "StartButton",
               "text": "开始游戏",
               "style": "btn_primary",
-              "layout": { "preset": "full_rect" },
+              "layout": { "preset": "bottom_center", "size": [360, 78], "margin": [0, 0, 0, 0] },
               "action": "menu.on_start"
             }
           ]

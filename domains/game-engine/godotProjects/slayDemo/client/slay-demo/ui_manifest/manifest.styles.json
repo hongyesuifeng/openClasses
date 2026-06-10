@@ -16,7 +16,9 @@
   },
   "styles": {
     "btn_primary": {
-      "type": "flat",
+      "type": "texture",
+      "texture": "res://assets/ui/buttons/ui_btn_pink_normal.png",
+      "texture_margins": [36, 24, 36, 24],
       "bg_color": "#F28DA5",
       "border_color": "#FFD700",
       "border_width": 2,
@@ -26,7 +28,9 @@
       "font_color": "text_primary"
     },
     "btn_secondary": {
-      "type": "flat",
+      "type": "texture",
+      "texture": "res://assets/ui/buttons/ui_btn_normal.png",
+      "texture_margins": [28, 20, 28, 20],
       "bg_color": "#40334FD9",
       "border_color": "#7A5A8ECC",
       "border_width": 1,
@@ -36,7 +40,9 @@
       "font_color": "text_primary"
     },
     "btn_action": {
-      "type": "flat",
+      "type": "texture",
+      "texture": "res://assets/ui/buttons/ui_btn_purple_normal.png",
+      "texture_margins": [28, 20, 28, 20],
       "bg_color": "#3F3352D9",
       "border_color": "#735E8DCC",
       "border_width": 1,
@@ -56,21 +62,27 @@
       "font_color": "text_primary"
     },
     "panel_dark": {
-      "type": "flat",
+      "type": "texture",
+      "texture": "res://assets/ui/panels/ui_panel_dark.png",
+      "texture_margins": [18, 18, 18, 18],
       "bg_color": "#1A1A2ECC",
       "border_color": "#6644AA",
       "border_width": 2,
       "corner_radius": 12
     },
     "panel_card": {
-      "type": "flat",
+      "type": "texture",
+      "texture": "res://assets/ui/panels/ui_panel_dark.png",
+      "texture_margins": [18, 18, 18, 18],
       "bg_color": "#241338E0",
       "border_color": "#8C5AA0",
       "border_width": 1,
       "corner_radius": 10
     },
     "panel_light": {
-      "type": "flat",
+      "type": "texture",
+      "texture": "res://assets/ui/panels/ui_panel_light.png",
+      "texture_margins": [18, 18, 18, 18],
       "bg_color": "#FFFFFFCC",
       "border_color": "#CC88BB",
       "border_width": 1,

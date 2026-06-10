@@ -171,6 +171,8 @@ static func _apply_asset(node: Control, asset_key: String, stretch_override: Str
 		var tex := _AssetLoader.load_texture(asset_key)
 		if tex:
 			tr.texture = tex
+		else:
+			tr.texture = _make_fallback_texture(asset_key)
 		var sm := stretch_override if not stretch_override.is_empty() else "keep_aspect_centered"
 		tr.stretch_mode = _parse_stretch_mode(sm)
 		tr.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
@@ -198,10 +200,33 @@ static func _parse_stretch_mode(sm: String) -> TextureRect.StretchMode:
 		_:                      return TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
 
+static func _make_fallback_texture(asset_key: String) -> Texture2D:
+	var image := Image.create(16, 16, false, Image.FORMAT_RGBA8)
+	image.fill(_fallback_color(asset_key))
+	return ImageTexture.create_from_image(image)
+
+
+static func _fallback_color(asset_key: String) -> Color:
+	if asset_key.begins_with("backgrounds.main_menu"):
+		return Color(0.47, 0.26, 0.66, 1.0)
+	if asset_key.begins_with("backgrounds.battle"):
+		return Color(0.17, 0.08, 0.22, 1.0)
+	if asset_key.begins_with("backgrounds"):
+		return Color(0.30, 0.18, 0.48, 1.0)
+	if asset_key.begins_with("characters"):
+		return Color(0.75, 0.42, 0.68, 0.82)
+	return Color(0.62, 0.36, 0.72, 0.75)
+
+
 static func _apply_layout(node: Control, layout: Dictionary, _type: String) -> void:
 	var preset: String = layout.get("preset", "full_rect")
 	if preset == "full_rect":
 		node.set_anchors_preset(Control.PRESET_FULL_RECT)
+		var full_margin: Array = layout.get("margin", [0, 0, 0, 0])
+		node.offset_left = float(full_margin[0]) if full_margin.size() > 0 else 0.0
+		node.offset_top = float(full_margin[1]) if full_margin.size() > 1 else 0.0
+		node.offset_right = -float(full_margin[2]) if full_margin.size() > 2 else 0.0
+		node.offset_bottom = -float(full_margin[3]) if full_margin.size() > 3 else 0.0
 		return
 	if preset == "absolute_rect":
 		var pos: Array = layout.get("position", [0, 0])

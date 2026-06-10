@@ -12,13 +12,13 @@ var _open_button: Button
 
 func _ready() -> void:
 	var audio_manager: Variant = _autoload("AudioManager")
-	if audio_manager != null:
+	if audio_manager != null and not _is_gallery_preview():
 		audio_manager.play_bgm("map")
 	_build()
 
 
 func _build() -> void:
-	var ui := _UIBuilder.build(SPEC_PATH)
+	var ui := _UIBuilder.build(_spec_path())
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(ui)
 
@@ -67,4 +67,15 @@ func _on_open_pressed() -> void:
 
 
 func _autoload(autoload_name: String) -> Variant:
-	return get_node_or_null("/root/%s" % autoload_name)
+	if is_inside_tree():
+		return get_node_or_null("/root/%s" % autoload_name)
+	var tree := Engine.get_main_loop() as SceneTree
+	return tree.root.get_node_or_null(autoload_name) if tree != null else null
+
+
+func _spec_path() -> String:
+	return str(get_meta("ui_spec_override_path", SPEC_PATH))
+
+
+func _is_gallery_preview() -> bool:
+	return bool(get_meta("gallery_preview", false))

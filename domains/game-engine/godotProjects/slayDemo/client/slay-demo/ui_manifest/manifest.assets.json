@@ -20,11 +20,15 @@
     "settings":    "res://assets/ui/icons/icon_settings.png",
     "notice":      "res://assets/ui/icons/icon_notice.png",
     "shop":        "res://assets/ui/icons/icon_shop.png",
+    "gold":        "res://assets/ui/icons/icon_shop.png",
+    "crystal":     "res://assets/ui/icons/ui_energy_crystal.png",
     "battle":      "res://assets/ui/icons/icon_battle.png",
+    "elite":       "res://assets/ui/icons/icon_elite.png",
     "chest":       "res://assets/ui/icons/icon_chest.png",
     "question":    "res://assets/ui/icons/icon_question.png",
     "rest":        "res://assets/ui/icons/icon_rest.png",
-    "boss":        "res://assets/ui/icons/icon_boss.png"
+    "boss":        "res://assets/ui/icons/icon_boss.png",
+    "energy":      "res://assets/ui/icons/ui_energy_crystal.png"
   },
   "buttons": {
     "primary": {

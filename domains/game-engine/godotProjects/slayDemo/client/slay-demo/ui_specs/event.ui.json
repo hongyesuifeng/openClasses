@@ -10,28 +10,34 @@
   },
   "children": [
     {
-      "type": "VBoxContainer",
+      "type": "Panel",
+      "name": "ScreenFrame",
+      "style": "panel_dark",
+      "layout": { "preset": "full_rect" }
+    },
+    {
+      "type": "Control",
       "name": "ContentContainer",
-      "layout": { "preset": "full_rect", "margin": [36, 34, 36, 34] },
+      "layout": { "preset": "full_rect", "margin": [56, 52, 56, 48] },
       "children": [
         {
           "type": "Label",
           "name": "TitleLabel",
           "text": "事件",
           "style": "text_title_gold",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_left", "size": [520, 86], "margin": [86, 42, 0, 0] }
         },
         {
           "type": "Label",
           "name": "StatusLabel",
           "text": "",
           "style": "text_body",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_left", "size": [620, 92], "margin": [110, 142, 0, 0] }
         },
         {
           "type": "HBoxContainer",
           "name": "ChoiceRow",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "bottom_left", "size": [760, 300], "margin": [120, 0, 0, 72] }
         }
       ]
     }

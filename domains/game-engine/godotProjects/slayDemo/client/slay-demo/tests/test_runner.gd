@@ -29,6 +29,7 @@ const TEST_SCRIPTS := [
 	preload("res://tests/integration/result_scene_test.gd"),
 	preload("res://tests/integration/map_path_lines_test.gd"),
 	preload("res://tests/integration/ui_spec_integration_test.gd"),
+	preload("res://tests/integration/ui_scene_spec_override_test.gd"),
 ]
 
 

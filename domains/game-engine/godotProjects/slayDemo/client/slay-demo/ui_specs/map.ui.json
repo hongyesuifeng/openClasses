@@ -10,33 +10,73 @@
   },
   "children": [
     {
-      "type": "VBoxContainer",
+      "type": "Panel",
+      "name": "ScreenFrame",
+      "style": "panel_dark",
+      "layout": { "preset": "full_rect" }
+    },
+    {
+      "type": "HBoxContainer",
+      "name": "ResourceBar",
+      "layout": { "preset": "top_right", "size": [170, 42], "margin": [0, 18, 28, 0] },
+      "children": [
+        {
+          "type": "Label",
+          "name": "CrystalLabel",
+          "text": "水晶 320",
+          "style": "text_body",
+          "layout": { "preset": "full_rect" }
+        },
+        {
+          "type": "Button",
+          "name": "CrystalPlus",
+          "text": "+",
+          "style": "btn_icon",
+          "layout": { "preset": "full_rect" }
+        }
+      ]
+    },
+    {
+      "type": "Control",
       "name": "Root",
-      "layout": { "preset": "full_rect", "margin": [28, 22, 28, 22] },
+      "layout": { "preset": "full_rect", "margin": [28, 18, 28, 24] },
       "children": [
         {
           "type": "Label",
           "name": "TitleLabel",
-          "text": "甜心迷宫",
-          "style": "text_title_pink",
-          "layout": { "preset": "full_rect" }
+          "text": "Act 1 地图",
+          "style": "text_title",
+          "layout": { "preset": "top_center", "size": [360, 58], "margin": [0, 8, 0, 0] }
+        },
+        {
+          "type": "Panel",
+          "name": "LegendPanel",
+          "style": "panel_dark",
+          "layout": { "preset": "top_center", "size": [720, 54], "margin": [0, 72, 0, 0] }
+        },
+        {
+          "type": "Label",
+          "name": "LegendLabel",
+          "text": "战斗    精英    事件    商店    休息    Boss",
+          "style": "text_body",
+          "layout": { "preset": "top_center", "size": [690, 46], "margin": [0, 76, 0, 0] }
         },
         {
           "type": "Label",
           "name": "StatusLabel",
           "text": "",
           "style": "text_body",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "bottom_center", "size": [600, 42], "margin": [0, 0, 0, 36] }
         },
         {
           "type": "HBoxContainer",
           "name": "RelicRow",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "top_left", "size": [360, 48], "margin": [36, 28, 0, 0] }
         },
         {
           "type": "Control",
           "name": "NodeSurface",
-          "layout": { "preset": "full_rect" }
+          "layout": { "preset": "full_rect", "margin": [80, 138, 80, 104] }
         }
       ]
     }
