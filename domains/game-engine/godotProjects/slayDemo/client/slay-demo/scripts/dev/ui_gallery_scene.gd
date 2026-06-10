@@ -1179,45 +1179,39 @@ func _build_specs_tab() -> void:
 	right_split.split_offset          = 650
 	split.add_child(right_split)
 
-	## ── 预览区：SubViewport 渲染完整 1280×720 ─────────────────────
+	## ── 预览区 ────────────────────────────────────────────────────
 	var preview_outer := VBoxContainer.new()
 	preview_outer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_outer.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	preview_outer.custom_minimum_size   = Vector2(520, 0)
-	preview_outer.add_theme_constant_override("separation", 4)
+	preview_outer.custom_minimum_size   = Vector2(400, 0)
+	preview_outer.add_theme_constant_override("separation", 2)
 	right_split.add_child(preview_outer)
 
+	## 工具栏（单行，高度固定）
 	var preview_toolbar := HBoxContainer.new()
 	preview_toolbar.add_theme_constant_override("separation", 8)
 	preview_outer.add_child(preview_toolbar)
 
 	var preview_title := Label.new()
 	preview_title.text = "预览（1280×720）"
-	preview_title.add_theme_font_size_override("font_size", 13)
+	preview_title.add_theme_font_size_override("font_size", 12)
 	preview_title.add_theme_color_override("font_color", Color(0.72, 0.72, 0.72))
 	preview_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_toolbar.add_child(preview_title)
 
 	var mock_btn := Button.new()
-	mock_btn.text = "注入 Mock 数据"
-	mock_btn.tooltip_text = "为场景预览注入 GameState mock，使场景内容正常显示"
-	mock_btn.custom_minimum_size = Vector2(130, 28)
+	mock_btn.text = "注入 Mock"
+	mock_btn.tooltip_text = "注入 GameState mock 数据后刷新预览"
+	mock_btn.custom_minimum_size = Vector2(90, 24)
 	preview_toolbar.add_child(mock_btn)
 
-	## AspectRatioContainer 强制 16:9，内容完整等比缩放
-	var aspect_box := AspectRatioContainer.new()
-	aspect_box.ratio = 16.0 / 9.0
-	aspect_box.alignment_horizontal = AspectRatioContainer.ALIGNMENT_CENTER
-	aspect_box.alignment_vertical   = AspectRatioContainer.ALIGNMENT_CENTER
-	aspect_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	aspect_box.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	preview_outer.add_child(aspect_box)
-
-	## SubViewportContainer：在 16:9 容器内全填充，stretch 自动缩放 1280×720
+	## SubViewportContainer 直接占满剩余空间
+	## stretch=true + SubViewport.size=1280×720 → Godot 自动等比缩放
 	var preview_container := SubViewportContainer.new()
 	preview_container.stretch = true
-	preview_container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	aspect_box.add_child(preview_container)
+	preview_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	preview_container.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	preview_outer.add_child(preview_container)
 
 	var preview_vp := SubViewport.new()
 	preview_vp.name = "SpecPreviewViewport"
