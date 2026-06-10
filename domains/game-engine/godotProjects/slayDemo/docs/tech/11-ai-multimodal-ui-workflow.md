@@ -1,8 +1,9 @@
 # 11 - AI 多模态驱动 UI 视觉还原技术方案
 
 > 版本：2026-06-10  
-> 状态：✅ 架构设计完成 / 🚧 工具层待实现  
-> 前提：项目已具备 UIBuilder JSON 驱动 UI 能力（见 `docs/tech/10-ui-builder-json-spec.md`）
+> 状态：✅ 架构设计完成 / ✅ 工具层已实现  
+> 前提：项目已具备 UIBuilder JSON 驱动 UI 能力（见 `docs/tech/10-ui-builder-json-spec.md`）  
+> 注意：发给 UI 生成 Agent 时请使用 `docs/tech/13-ui-agent-specification.md`（精简可执行版）
 
 ---
 
