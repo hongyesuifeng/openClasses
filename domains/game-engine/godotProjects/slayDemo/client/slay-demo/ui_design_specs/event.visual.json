@@ -1,59 +1,181 @@
 {
   "scene": "event",
   "target_image": "res://ui_snapshots/target/event_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
       "id": "background",
-      "role": "event_background",
+      "role": "事件背景图",
       "type_hint": "TextureRect",
       "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
-      "asset_token": "backgrounds.event",
+      "asset_token": "backgrounds.map_event",
       "dynamic": false,
-      "priority": "high"
+      "priority": "low",
+      "tolerance": {
+        "position_px": 0,
+        "size_px": 0,
+        "color_delta": 30
+      },
+      "acceptance_weight": 0.3
     },
     {
-      "id": "title_label",
-      "role": "event_title",
-      "type_hint": "Label",
-      "expected_node": "TitleLabel",
-      "bbox": [300, 80, 765, 60],
-      "anchor_hint": "top_center",
-      "z_layer": "HUDLayer",
-      "style_token": "text_title_gold",
-      "dynamic": true,
-      "bind_hint": "event.title",
-      "priority": "high"
+      "id": "screen_border",
+      "role": "外层紫粉圆角边框",
+      "type_hint": "TextureRect",
+      "expected_node": "ScreenBorder",
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
+      "anchor_hint": "full_rect",
+      "z_layer": "DecorationLayer",
+      "asset_token": "ui.map_event.screen_border",
+      "dynamic": false,
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 0,
+        "size_px": 0,
+        "color_delta": 15
+      },
+      "acceptance_weight": 0.65
     },
     {
-      "id": "status_label",
-      "role": "event_description",
-      "type_hint": "Label",
-      "expected_node": "StatusLabel",
-      "bbox": [200, 180, 965, 120],
-      "anchor_hint": "top_center",
-      "z_layer": "HUDLayer",
-      "style_token": "text_body",
-      "dynamic": true,
-      "bind_hint": "event.description",
-      "priority": "high"
+      "id": "event_panel_art",
+      "role": "事件面板底图",
+      "type_hint": "TextureRect",
+      "expected_node": "EventPanelArt",
+      "bbox": [
+        425,
+        90,
+        430,
+        540
+      ],
+      "anchor_hint": "center",
+      "z_layer": "DecorationLayer",
+      "asset_token": "ui.map_event.panel_event",
+      "dynamic": false,
+      "priority": "high",
+      "tolerance": {
+        "position_px": 10,
+        "size_px": 12,
+        "color_delta": 12
+      },
+      "acceptance_weight": 0.88
     },
     {
-      "id": "choice_row",
-      "role": "event_choices",
-      "type_hint": "HBoxContainer",
-      "expected_node": "ChoiceRow",
-      "bbox": [200, 360, 965, 300],
+      "id": "content_container",
+      "role": "事件动态内容容器",
+      "type_hint": "VBoxContainer",
+      "expected_node": "ContentContainer",
+      "bbox": [
+        466,
+        145,
+        348,
+        430
+      ],
       "anchor_hint": "center",
       "z_layer": "InteractionLayer",
       "dynamic": true,
-      "bind_hint": "event.choices",
       "priority": "high",
-      "ai_hint": "事件选项按钮横排，每个按钮 250×84"
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 16,
+        "color_delta": 20
+      },
+      "acceptance_weight": 0.75
+    },
+    {
+      "id": "title_label",
+      "role": "事件标题",
+      "type_hint": "Label",
+      "expected_node": "TitleLabel",
+      "bbox": [
+        466,
+        145,
+        348,
+        56
+      ],
+      "anchor_hint": "center",
+      "z_layer": "InteractionLayer",
+      "style_token": "text_title_gold",
+      "bind_hint": "event.title",
+      "dynamic": true,
+      "priority": "high",
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 8,
+        "color_delta": 12
+      },
+      "acceptance_weight": 0.85
+    },
+    {
+      "id": "status_label",
+      "role": "事件描述",
+      "type_hint": "Label",
+      "expected_node": "StatusLabel",
+      "bbox": [
+        466,
+        210,
+        348,
+        120
+      ],
+      "anchor_hint": "center",
+      "z_layer": "InteractionLayer",
+      "style_token": "text_body",
+      "bind_hint": "event.description",
+      "dynamic": true,
+      "priority": "high",
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 8,
+        "color_delta": 12
+      },
+      "acceptance_weight": 0.85
+    },
+    {
+      "id": "choice_row",
+      "role": "事件选项动态容器",
+      "type_hint": "VBoxContainer",
+      "expected_node": "ChoiceRow",
+      "bbox": [
+        466,
+        350,
+        348,
+        190
+      ],
+      "anchor_hint": "center",
+      "z_layer": "InteractionLayer",
+      "bind_hint": "event.choices",
+      "dynamic": true,
+      "priority": "high",
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 16,
+        "color_delta": 20
+      },
+      "acceptance_weight": 0.7,
+      "ai_hint": "动态选项容器，children 必须为空；事件脚本运行时创建 2~4 个竖向短按钮。"
     }
-  ]
+  ],
+  "static_dynamic_rules": {
+    "note": "事件 UI 复用 map_event 面板资源；事件标题、描述和 ChoiceRow 由运行时填充。",
+    "dynamic_areas": [
+      "ContentContainer：事件运行时内容区域。",
+      "ChoiceRow：事件选项由事件数据决定，children 为空。"
+    ]
+  }
 }

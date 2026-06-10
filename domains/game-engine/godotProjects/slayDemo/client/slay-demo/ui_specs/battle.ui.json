@@ -1,74 +1,117 @@
 {
   "scene": "BattleUI",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "background": {
     "type": "TextureRect",
     "name": "Background",
     "asset": "backgrounds.battle",
     "stretch_mode": "keep_aspect_covered",
-    "layout": { "preset": "full_rect" }
+    "layout": {
+      "preset": "full_rect"
+    }
   },
   "children": [
     {
       "type": "Panel",
       "name": "ScreenFrame",
       "style": "panel_dark",
-      "layout": { "preset": "full_rect" }
+      "layout": {
+        "preset": "full_rect"
+      }
     },
     {
       "type": "HBoxContainer",
       "name": "TopRightButtons",
-      "layout": { "preset": "top_right", "size": [120, 44], "margin": [0, 8, 12, 0] }
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          113,
+          41
+        ],
+        "margin": [
+          0,
+          8,
+          11,
+          0
+        ]
+      }
     },
     {
       "type": "VBoxContainer",
       "name": "Root",
-      "layout": { "preset": "full_rect", "margin": [18, 16, 18, 18] },
+      "layout": {
+        "preset": "full_rect",
+        "margin": [
+          17,
+          15,
+          17,
+          17
+        ]
+      },
       "children": [
         {
           "type": "Panel",
           "name": "PlayerPanel",
           "style": "panel_card",
-          "layout": { "preset": "full_rect" },
+          "layout": {
+            "preset": "full_rect"
+          },
           "children": [
             {
               "type": "HBoxContainer",
               "name": "TopRow",
-              "layout": { "preset": "full_rect" },
+              "layout": {
+                "preset": "full_rect"
+              },
               "children": [
                 {
                   "type": "Control",
                   "name": "PortraitSlot",
-                  "layout": { "preset": "full_rect" }
+                  "layout": {
+                    "preset": "full_rect"
+                  }
                 },
                 {
                   "type": "VBoxContainer",
                   "name": "PlayerStats",
-                  "layout": { "preset": "full_rect" },
+                  "layout": {
+                    "preset": "full_rect"
+                  },
                   "children": [
                     {
                       "type": "Label",
                       "name": "HeaderLabel",
                       "text": "玩家",
                       "style": "text_body",
-                      "layout": { "preset": "full_rect" }
+                      "layout": {
+                        "preset": "full_rect"
+                      }
                     },
                     {
                       "type": "Control",
                       "name": "HpBarSlot",
-                      "layout": { "preset": "full_rect" }
+                      "layout": {
+                        "preset": "full_rect"
+                      }
                     },
                     {
                       "type": "Control",
                       "name": "BlockBarSlot",
-                      "layout": { "preset": "full_rect" }
+                      "layout": {
+                        "preset": "full_rect"
+                      }
                     },
                     {
                       "type": "Label",
                       "name": "EnergyLabel",
                       "text": "能量 3/3",
                       "style": "text_body",
-                      "layout": { "preset": "full_rect" }
+                      "layout": {
+                        "preset": "full_rect"
+                      }
                     }
                   ]
                 }
@@ -77,62 +120,82 @@
             {
               "type": "HBoxContainer",
               "name": "PlayerStatusRow",
-              "layout": { "preset": "full_rect" }
+              "layout": {
+                "preset": "full_rect"
+              }
             }
           ]
         },
         {
           "type": "HBoxContainer",
           "name": "RelicRow",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         },
         {
           "type": "HBoxContainer",
           "name": "PotionRow",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         },
         {
           "type": "HBoxContainer",
           "name": "EnemyRow",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         },
         {
           "type": "Label",
           "name": "StatusLabel",
           "text": "",
           "style": "text_body",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         },
         {
           "type": "Label",
           "name": "LogLabel",
           "text": "",
           "style": "text_caption",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         },
         {
           "type": "HBoxContainer",
           "name": "HandRow",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         },
         {
           "type": "HBoxContainer",
           "name": "BottomBar",
-          "layout": { "preset": "full_rect" },
+          "layout": {
+            "preset": "full_rect"
+          },
           "children": [
             {
               "type": "Label",
               "name": "PileLabel",
               "text": "牌堆",
               "style": "text_caption",
-              "layout": { "preset": "full_rect" }
+              "layout": {
+                "preset": "full_rect"
+              }
             },
             {
               "type": "Button",
               "name": "EndTurnButton",
               "text": "结束回合",
               "style": "btn_primary",
-              "layout": { "preset": "full_rect" },
+              "layout": {
+                "preset": "full_rect"
+              },
               "action": "battle.on_end_turn"
             }
           ]

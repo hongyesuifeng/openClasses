@@ -4,13 +4,13 @@
     "menu": {
       "description": "主菜单场景",
       "actions": {
-        "menu.on_start":             "开始新游戏",
-        "menu.on_continue":          "继续上次存档",
-        "menu.on_settings":          "打开设置",
-        "menu.sidebar.achievement":  "打开成就面板（暂未实现）",
-        "menu.sidebar.collection":   "打开图鉴面板（暂未实现）",
-        "menu.sidebar.settings":     "打开设置面板（暂未实现）",
-        "menu.sidebar.notice":       "打开公告面板（暂未实现）"
+        "menu.on_start": "开始新游戏",
+        "menu.on_continue": "继续上次存档",
+        "menu.on_settings": "打开设置",
+        "menu.sidebar.achievement": "打开成就面板（暂未实现）",
+        "menu.sidebar.collection": "打开图鉴面板（暂未实现）",
+        "menu.sidebar.settings": "打开设置面板（暂未实现）",
+        "menu.sidebar.notice": "打开公告面板（暂未实现）"
       }
     },
     "battle": {
@@ -28,7 +28,7 @@
     "shop": {
       "description": "商店场景",
       "actions": {
-        "shop.on_leave":       "离开商店",
+        "shop.on_leave": "离开商店",
         "shop.on_remove_mode": "进入删牌模式"
       }
     },
@@ -36,27 +36,36 @@
       "description": "奖励场景",
       "actions": {
         "reward.on_confirm": "确认奖励选择",
-        "reward.on_skip":    "跳过奖励"
+        "reward.on_skip": "跳过奖励"
       }
     },
     "result": {
       "description": "结算场景",
       "actions": {
         "result.on_restart": "重新开始游戏",
-        "result.on_menu":    "返回主菜单"
+        "result.on_menu": "返回主菜单"
       }
     },
     "demo": {
       "description": "框架 Demo 场景",
       "actions": {
-        "demo.on_primary":   "Demo 主按钮",
+        "demo.on_primary": "Demo 主按钮",
         "demo.on_secondary": "Demo 次要按钮"
+      }
+    },
+    "map_event": {
+      "description": "地图事件界面",
+      "actions": {
+        "map_event.add_crystal": "增加水晶入口",
+        "map_event.open_deck": "查看卡组",
+        "map_event.back": "返回上一界面",
+        "map_event.settings": "打开设置"
       }
     }
   },
   "_meta": {
     "total_actions": 17,
-    "last_updated": "2026-06-10",
+    "last_updated": "2026-06-11",
     "note": "event / rest / map 场景的按钮由 GDScript 动态创建，不走 UIBuilder action 机制"
   }
 }

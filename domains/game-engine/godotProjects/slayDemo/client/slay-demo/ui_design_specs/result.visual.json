@@ -1,7 +1,10 @@
 {
   "scene": "result",
   "target_image": "res://ui_snapshots/target/result_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
@@ -9,7 +12,12 @@
       "role": "result_background",
       "type_hint": "Panel",
       "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
       "style_token": "panel_dark",
@@ -21,7 +29,12 @@
       "role": "win_lose_title",
       "type_hint": "Label",
       "expected_node": "TitleLabel",
-      "bbox": [502, 40, 360, 60],
+      "bbox": [
+        471,
+        38,
+        338,
+        56
+      ],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "style_token": "text_title_gold",
@@ -34,7 +47,12 @@
       "role": "score_grade_display",
       "type_hint": "Label",
       "expected_node": "GradeLabel",
-      "bbox": [607, 110, 150, 90],
+      "bbox": [
+        569,
+        103,
+        141,
+        84
+      ],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "style_token": "text_title_gold",
@@ -48,7 +66,12 @@
       "role": "game_stats_panel",
       "type_hint": "Panel",
       "expected_node": "StatsPanel",
-      "bbox": [502, 240, 360, 280],
+      "bbox": [
+        471,
+        225,
+        338,
+        263
+      ],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "style_token": "panel_card",
@@ -60,7 +83,12 @@
       "role": "restart_menu_buttons",
       "type_hint": "HBoxContainer",
       "expected_node": "ButtonRow",
-      "bbox": [382, 680, 600, 56],
+      "bbox": [
+        358,
+        638,
+        563,
+        53
+      ],
       "anchor_hint": "bottom_center",
       "z_layer": "InteractionLayer",
       "dynamic": false,

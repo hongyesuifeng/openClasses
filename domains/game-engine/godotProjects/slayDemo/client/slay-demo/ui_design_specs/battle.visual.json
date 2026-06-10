@@ -1,7 +1,10 @@
 {
   "scene": "battle",
   "target_image": "res://ui_snapshots/target/battle_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "token_convention": {
     "note": "所有 token 遵循 <category>.<scene>.<role>[.<state>] 格式",
@@ -16,14 +19,23 @@
       "role": "battle_background",
       "type_hint": "TextureRect",
       "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
       "asset_token": "backgrounds.battle",
       "dynamic": true,
       "bind_hint": "bind.battle.background_key",
       "priority": "high",
-      "tolerance": { "position_px": 0, "size_px": 0, "color_delta": 30 },
+      "tolerance": {
+        "position_px": 0,
+        "size_px": 0,
+        "color_delta": 30
+      },
       "acceptance_weight": 0.3,
       "ai_hint": "boss 战时切换为 bg_battle_boss"
     },
@@ -32,13 +44,22 @@
       "role": "player_status_panel",
       "type_hint": "Panel",
       "expected_node": "PlayerPanel",
-      "bbox": [0, 0, 1365, 88],
+      "bbox": [
+        0,
+        0,
+        1280,
+        83
+      ],
       "anchor_hint": "top_full",
       "z_layer": "HUDLayer",
       "style_token": "panel_card",
       "dynamic": false,
       "priority": "high",
-      "tolerance": { "position_px": 4, "size_px": 8, "color_delta": 10 },
+      "tolerance": {
+        "position_px": 4,
+        "size_px": 8,
+        "color_delta": 10
+      },
       "acceptance_weight": 0.9,
       "ai_hint": "顶部玩家状态栏，含头像/HP条/格挡/遗物/药水，高度固定约 88px"
     },
@@ -47,13 +68,22 @@
       "role": "player_character_sprite",
       "type_hint": "TextureRect",
       "expected_node": "PortraitSlot",
-      "bbox": [8, 4, 72, 80],
+      "bbox": [
+        8,
+        4,
+        68,
+        75
+      ],
       "anchor_hint": "top_left",
       "z_layer": "HUDLayer",
       "asset_token": "player.portrait",
       "dynamic": false,
       "priority": "medium",
-      "tolerance": { "position_px": 8, "size_px": 8, "color_delta": 20 },
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 8,
+        "color_delta": 20
+      },
       "acceptance_weight": 0.6
     },
     {
@@ -61,14 +91,23 @@
       "role": "player_hp_progress_bar",
       "type_hint": "ProgressBar",
       "expected_node": "HpBarSlot",
-      "bbox": [88, 20, 320, 22],
+      "bbox": [
+        83,
+        19,
+        300,
+        21
+      ],
       "anchor_hint": "top_left",
       "z_layer": "HUDLayer",
       "style_token": "progress_hp",
       "dynamic": true,
       "bind_hint": "bind.battle.player_hp",
       "priority": "high",
-      "tolerance": { "position_px": 4, "size_px": 4, "color_delta": 8 },
+      "tolerance": {
+        "position_px": 4,
+        "size_px": 4,
+        "color_delta": 8
+      },
       "acceptance_weight": 0.95,
       "ai_hint": "低血量（< 25%）时应显示红色警示，满血时粉色"
     },
@@ -77,14 +116,23 @@
       "role": "energy_current_label",
       "type_hint": "Label",
       "expected_node": "EnergyLabel",
-      "bbox": [88, 52, 80, 28],
+      "bbox": [
+        83,
+        49,
+        75,
+        26
+      ],
       "anchor_hint": "top_left",
       "z_layer": "HUDLayer",
       "style_token": "text_body",
       "dynamic": true,
       "bind_hint": "bind.battle.energy",
       "priority": "high",
-      "tolerance": { "position_px": 4, "size_px": 4, "color_delta": 10 },
+      "tolerance": {
+        "position_px": 4,
+        "size_px": 4,
+        "color_delta": 10
+      },
       "acceptance_weight": 0.85
     },
     {
@@ -92,13 +140,22 @@
       "role": "owned_relics_row",
       "type_hint": "HBoxContainer",
       "expected_node": "RelicRow",
-      "bbox": [88, 56, 400, 30],
+      "bbox": [
+        83,
+        53,
+        375,
+        28
+      ],
       "anchor_hint": "top_left",
       "z_layer": "HUDLayer",
       "dynamic": true,
       "bind_hint": "bind.battle.owned_relics",
       "priority": "medium",
-      "tolerance": { "position_px": 8, "size_px": 12, "color_delta": 15 },
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 12,
+        "color_delta": 15
+      },
       "acceptance_weight": 0.7,
       "ai_hint": "遗物图标 56×56，数量不定，超出时可水平滚动"
     },
@@ -107,13 +164,22 @@
       "role": "player_status_effects_row",
       "type_hint": "HBoxContainer",
       "expected_node": "PlayerStatusRow",
-      "bbox": [88, 62, 600, 24],
+      "bbox": [
+        83,
+        58,
+        563,
+        23
+      ],
       "anchor_hint": "top_left",
       "z_layer": "HUDLayer",
       "dynamic": true,
       "bind_hint": "bind.battle.player_statuses",
       "priority": "medium",
-      "tolerance": { "position_px": 8, "size_px": 16, "color_delta": 15 },
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 16,
+        "color_delta": 15
+      },
       "acceptance_weight": 0.65,
       "ai_hint": "状态图标 32×32，力量/敏捷/脆弱/中毒等，最多可能 8+ 个同时存在"
     },
@@ -122,13 +188,22 @@
       "role": "enemy_display_area",
       "type_hint": "HBoxContainer",
       "expected_node": "EnemyRow",
-      "bbox": [0, 90, 1365, 320],
+      "bbox": [
+        0,
+        84,
+        1280,
+        300
+      ],
       "anchor_hint": "center",
       "z_layer": "HUDLayer",
       "dynamic": true,
       "bind_hint": "bind.battle.enemies",
       "priority": "high",
-      "tolerance": { "position_px": 12, "size_px": 20, "color_delta": 20 },
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 20,
+        "color_delta": 20
+      },
       "acceptance_weight": 0.8,
       "ai_hint": "敌人居中横排，1~4 个敌人，每个敌人含精灵/HP条/意图图标/状态图标。动态，禁止硬编码"
     },
@@ -137,14 +212,23 @@
       "role": "battle_log_label",
       "type_hint": "Label",
       "expected_node": "StatusLabel",
-      "bbox": [8, 580, 600, 40],
+      "bbox": [
+        8,
+        544,
+        563,
+        38
+      ],
       "anchor_hint": "bottom_left",
       "z_layer": "HUDLayer",
       "style_token": "text_body",
       "dynamic": true,
       "bind_hint": "bind.battle.status_text",
       "priority": "low",
-      "tolerance": { "position_px": 16, "size_px": 20, "color_delta": 20 },
+      "tolerance": {
+        "position_px": 16,
+        "size_px": 20,
+        "color_delta": 20
+      },
       "acceptance_weight": 0.4
     },
     {
@@ -152,13 +236,22 @@
       "role": "hand_cards_area",
       "type_hint": "HBoxContainer",
       "expected_node": "HandRow",
-      "bbox": [80, 560, 1100, 190],
+      "bbox": [
+        75,
+        525,
+        1032,
+        178
+      ],
       "anchor_hint": "bottom_center",
       "z_layer": "InteractionLayer",
       "dynamic": true,
       "bind_hint": "bind.battle.hand_cards",
       "priority": "high",
-      "tolerance": { "position_px": 8, "size_px": 12, "color_delta": 15 },
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 12,
+        "color_delta": 15
+      },
       "acceptance_weight": 0.9,
       "ai_hint": "手牌横排，每张 120×168，最多 10 张。动态，必须用 ComponentRef 或 HBoxContainer，禁止硬编码卡牌节点"
     },
@@ -167,14 +260,23 @@
       "role": "pile_count_label",
       "type_hint": "Label",
       "expected_node": "PileLabel",
-      "bbox": [8, 570, 76, 80],
+      "bbox": [
+        8,
+        534,
+        71,
+        75
+      ],
       "anchor_hint": "bottom_left",
       "z_layer": "InteractionLayer",
       "style_token": "text_caption",
       "dynamic": true,
       "bind_hint": "bind.battle.pile_counts",
       "priority": "low",
-      "tolerance": { "position_px": 8, "size_px": 8, "color_delta": 15 },
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 8,
+        "color_delta": 15
+      },
       "acceptance_weight": 0.5
     },
     {
@@ -182,7 +284,12 @@
       "role": "end_turn_button",
       "type_hint": "Button",
       "expected_node": "EndTurnButton",
-      "bbox": [1210, 608, 140, 56],
+      "bbox": [
+        1135,
+        570,
+        131,
+        53
+      ],
       "anchor_hint": "bottom_right",
       "z_layer": "InteractionLayer",
       "style_token": "btn_primary",
@@ -190,7 +297,11 @@
       "action_hint": "battle.on_end_turn",
       "dynamic": false,
       "priority": "high",
-      "tolerance": { "position_px": 6, "size_px": 6, "color_delta": 8 },
+      "tolerance": {
+        "position_px": 6,
+        "size_px": 6,
+        "color_delta": 8
+      },
       "acceptance_weight": 0.95,
       "ai_hint": "「结束回合」按钮，右下角固定位置，敌人回合时应禁用"
     },
@@ -199,12 +310,21 @@
       "role": "help_settings_buttons",
       "type_hint": "HBoxContainer",
       "expected_node": "TopRightButtons",
-      "bbox": [1233, 8, 120, 44],
+      "bbox": [
+        1156,
+        8,
+        113,
+        41
+      ],
       "anchor_hint": "top_right",
       "z_layer": "InteractionLayer",
       "dynamic": false,
       "priority": "low",
-      "tolerance": { "position_px": 12, "size_px": 12, "color_delta": 20 },
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 12,
+        "color_delta": 20
+      },
       "acceptance_weight": 0.4
     }
   ],

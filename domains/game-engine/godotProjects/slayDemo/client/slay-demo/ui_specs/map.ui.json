@@ -1,84 +1,107 @@
 {
   "scene": "MapUI",
-  "design_resolution": [1365, 768],
+  "design_resolution": [1280, 720],
   "background": {
     "type": "TextureRect",
     "name": "Background",
-    "asset": "backgrounds.map",
+    "asset": "backgrounds.map_event",
     "stretch_mode": "keep_aspect_covered",
     "layout": { "preset": "full_rect" }
   },
   "children": [
     {
-      "type": "Panel",
-      "name": "ScreenFrame",
-      "style": "panel_dark",
+      "type": "TextureRect",
+      "name": "ScreenBorder",
+      "asset": "ui.map_event.screen_border",
+      "stretch_mode": "keep_aspect",
       "layout": { "preset": "full_rect" }
     },
     {
+      "type": "TextureRect",
+      "name": "MapTitleRibbon",
+      "asset": "ui.map_event.title_ribbon",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "top_center", "size": [410, 66], "margin": [0, 24, 0, 0] }
+    },
+    {
+      "type": "TextureRect",
+      "name": "NodeLegendBar",
+      "asset": "ui.map_event.legend_bar",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "top_center", "size": [810, 58], "margin": [0, 99, 0, 0] }
+    },
+    {
+      "type": "TextureRect",
+      "name": "CrystalBar",
+      "asset": "ui.map_event.currency_crystal_bar",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "top_right", "size": [145, 48], "margin": [0, 18, 67, 0] }
+    },
+    {
+      "type": "TextureRect",
+      "name": "AddCrystalArt",
+      "asset": "ui.map_event.btn_plus",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "top_right", "size": [48, 48], "margin": [0, 18, 24, 0] }
+    },
+    {
+      "type": "Button",
+      "name": "AddCrystalButton",
+      "style": "btn_hotspot",
+      "layout": { "preset": "top_right", "size": [48, 48], "margin": [0, 18, 24, 0] },
+      "action": "map_event.add_crystal"
+    },
+    {
+      "type": "TextureRect",
+      "name": "PlayerStatusPanel",
+      "asset": "ui.map_event.player_status_panel",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "bottom_left", "size": [330, 58], "margin": [24, 0, 0, 47] }
+    },
+    {
+      "type": "Label",
+      "name": "StatusLabel",
+      "text": "",
+      "style": "text_body",
+      "layout": { "preset": "bottom_left", "size": [300, 36], "margin": [42, 0, 0, 57] }
+    },
+    {
+      "type": "TextureRect",
+      "name": "RelicPanel",
+      "asset": "ui.map_event.relic_panel",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "bottom_center", "size": [310, 56], "margin": [0, 0, 0, 44] }
+    },
+    {
       "type": "HBoxContainer",
-      "name": "ResourceBar",
-      "layout": { "preset": "top_right", "size": [170, 42], "margin": [0, 18, 28, 0] },
-      "children": [
-        {
-          "type": "Label",
-          "name": "CrystalLabel",
-          "text": "水晶 320",
-          "style": "text_body",
-          "layout": { "preset": "full_rect" }
-        },
-        {
-          "type": "Button",
-          "name": "CrystalPlus",
-          "text": "+",
-          "style": "btn_icon",
-          "layout": { "preset": "full_rect" }
-        }
-      ]
+      "name": "RelicRow",
+      "layout": { "preset": "bottom_center", "size": [280, 42], "margin": [0, 0, 0, 51] }
+    },
+    {
+      "type": "TextureRect",
+      "name": "ProgressPanel",
+      "asset": "ui.map_event.progress_panel",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "bottom_center", "size": [560, 55], "margin": [0, 0, 0, 70] }
+    },
+    {
+      "type": "TextureRect",
+      "name": "DeckButtonArt",
+      "asset": "ui.map_event.btn_deck",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "bottom_right", "size": [220, 58], "margin": [0, 0, 50, 46] }
+    },
+    {
+      "type": "Button",
+      "name": "DeckButton",
+      "style": "btn_hotspot",
+      "layout": { "preset": "bottom_right", "size": [220, 58], "margin": [0, 0, 50, 46] },
+      "action": "map_event.open_deck"
     },
     {
       "type": "Control",
-      "name": "Root",
-      "layout": { "preset": "full_rect", "margin": [28, 18, 28, 24] },
-      "children": [
-        {
-          "type": "Label",
-          "name": "TitleLabel",
-          "text": "Act 1 地图",
-          "style": "text_title",
-          "layout": { "preset": "top_center", "size": [360, 58], "margin": [0, 8, 0, 0] }
-        },
-        {
-          "type": "Panel",
-          "name": "LegendPanel",
-          "style": "panel_dark",
-          "layout": { "preset": "top_center", "size": [720, 54], "margin": [0, 72, 0, 0] }
-        },
-        {
-          "type": "Label",
-          "name": "LegendLabel",
-          "text": "战斗    精英    事件    商店    休息    Boss",
-          "style": "text_body",
-          "layout": { "preset": "top_center", "size": [690, 46], "margin": [0, 76, 0, 0] }
-        },
-        {
-          "type": "Label",
-          "name": "StatusLabel",
-          "text": "",
-          "style": "text_body",
-          "layout": { "preset": "bottom_center", "size": [600, 42], "margin": [0, 0, 0, 36] }
-        },
-        {
-          "type": "HBoxContainer",
-          "name": "RelicRow",
-          "layout": { "preset": "top_left", "size": [360, 48], "margin": [36, 28, 0, 0] }
-        },
-        {
-          "type": "Control",
-          "name": "NodeSurface",
-          "layout": { "preset": "full_rect", "margin": [80, 138, 80, 104] }
-        }
-      ]
+      "name": "NodeSurface",
+      "layout": { "preset": "absolute_rect", "position": [78, 185], "size": [1090, 360] }
     }
   ]
 }

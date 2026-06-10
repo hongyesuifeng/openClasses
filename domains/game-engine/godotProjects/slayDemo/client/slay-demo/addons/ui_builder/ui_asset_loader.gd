@@ -16,7 +16,11 @@ static func load_texture(asset_key: String) -> Texture2D:
 	if not FileAccess.file_exists(path):
 		push_warning("UIAssetLoader: 文件不存在 key=%s path=%s" % [asset_key, path])
 		return null
-	var tex := load(path) as Texture2D
+	var tex: Texture2D = null
+	if ResourceLoader.exists(path, "Texture2D"):
+		tex = load(path) as Texture2D
+	if tex == null:
+		tex = _load_image_texture(path)
 	_cache[asset_key] = tex
 	return tex
 
@@ -76,3 +80,12 @@ static func clear_cache() -> void:
 	_cache.clear()
 	_assets.clear()
 	_loaded = false
+
+
+static func _load_image_texture(path: String) -> Texture2D:
+	var image := Image.new()
+	var err := image.load(path)
+	if err != OK:
+		push_warning("UIAssetLoader: 图片读取失败 path=%s err=%d" % [path, err])
+		return null
+	return ImageTexture.create_from_image(image)

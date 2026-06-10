@@ -49,7 +49,7 @@
 ```
 elements[].expected_node  → ui_specs 里对应的节点 name
 elements[].type_hint      → 建议使用的 Godot 节点类型
-elements[].bbox           → 目标位置 [x, y, width, height]（1365×768 坐标系）
+elements[].bbox           → 目标位置 [x, y, width, height]（1280×720 坐标系）
 elements[].anchor_hint    → 建议的 layout.preset
 elements[].style_token    → 建议绑定的 style_key
 elements[].asset_token    → 建议绑定的 asset_key
@@ -59,6 +59,33 @@ elements[].action_hint    → 按钮 action 建议
 elements[].tolerance      → 视觉容差参考（position_px / size_px / color_delta）
 elements[].acceptance_weight → 对比权重（越高越重要，越接近 1 越严格）
 ```
+
+### 效果图一致性硬规则
+
+`target.png` 不是气氛参考图，而是最终验收基准。Coding Agent 合并 UI 时必须保证：
+
+```
+target.png
+≈ 背景资源 + visual.json 中每个静态元素按 bbox 重组后的 Godot 截图
+```
+
+因此每个静态 TextureRect 元素必须同时满足：
+
+| 检查项 | 要求 |
+|--------|------|
+| `expected_node` | 必须是 `ui_specs/<scene>.ui.json` 中真实存在的 `name`，禁止凭空改名 |
+| `asset_token` | 必须能在 `manifest.assets.json` 中解析到真实图片 |
+| `bbox` | 必须是该元素在 `target.png` 中的最终显示框，而不是资源原始尺寸 |
+| `stretch_mode` | 完整切图用 `keep_aspect`，铺满背景用 `keep_aspect_covered` |
+| 透明边界 | 资源透明画布不能远大于非透明内容；如果已有大透明边，spec bbox 必须补偿到非透明内容接近 target |
+| 透明热区 | 如果视觉已经烘焙在底图/侧栏图上，Button 必须用透明样式（如 `btn_hotspot`），不能盖一层可见按钮 |
+
+**禁止规则：**
+
+- 禁止对标题 Logo、横幅、按钮、侧栏等完整切图使用 `keep_aspect_centered`，除非 `bbox` 与资源原始尺寸一致且明确需要裁切。
+- 禁止 target 图里有 UI 元素，但资源切图/visual.json/spec 三者无法重组出同样位置和尺寸。
+- 禁止 `visual.json.expected_node` 使用 `AchievementButton`、`StartGameButton` 这类不存在于 spec 的名字；必须对齐真实节点名，例如 `SidebarAchievement`、`StartButton`。
+- 禁止把带文字的按钮切图直接挂在 Button.asset 上当 icon 使用；应使用 TextureRect 显示按钮图，再叠加透明 Button 热区。
 
 ### bbox → layout 的转换规则
 
@@ -71,10 +98,10 @@ bbox [x, y, w, h] + anchor_hint
 
 示例：
 ```
-bbox [1210, 608, 140, 56] + anchor_hint "bottom_right"
-→ margin = [0, 0, 1365-1210-140, 768-608-56]
-         = [0, 0, 15, 104]
-→ 写入：{"preset": "bottom_right", "size": [140, 56], "margin": [0, 0, 15, 104]}
+bbox [1135, 570, 131, 53] + anchor_hint "bottom_right"
+→ margin = [0, 0, 1280-1135-131, 720-570-53]
+         = [0, 0, 14, 97]
+→ 写入：{"preset": "bottom_right", "size": [131, 53], "margin": [0, 0, 14, 97]}
 ```
 
 ---
@@ -82,6 +109,30 @@ bbox [1210, 608, 140, 56] + anchor_hint "bottom_right"
 ## 4. 如何合并 manifest patch
 
 当你收到 `manifest.assets.patch.json` 或 `manifest.styles.patch.json` 时：
+
+### 标准输入包
+
+UI 生成 Agent 的最终交付物必须是一个 zip 压缩包。Coding Agent 接到包后先解压到临时目录，再按以下顺序接入：
+
+```text
+<scene_or_feature>_ui_package.zip
+├── assets/
+├── ui_snapshots/target/
+├── ui_design_specs/
+├── ui_manifest/
+├── ui_mock_data/
+└── docs/
+```
+
+必须检查：
+
+- `ui_snapshots/target/*_target.png` 是否存在，尺寸是否为 `1280×720`
+- `ui_design_specs/*.visual.json` 的 `design_resolution` 是否为 `[1280, 720]`
+- `manifest.assets.patch.json` 中引用的每个资源文件是否在压缩包中存在
+- `manifest.styles.patch.json` 中新增 style 是否语义命名，且没有覆盖无关 style
+- `docs/self_check_report.md` 或 handoff 文档是否说明动态区域、资源 key 和已知限制
+
+如果 UI 生成 Agent 只给文字、单张图片或散落文件，没有 zip 包，应要求其重新打包交付。
 
 ### assets patch
 
@@ -229,6 +280,9 @@ cmd.exe /c "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2
 | 不小心改了禁止文件 | 立即 `git restore <file>` 恢复 |
 | UI 预览和 target 差异大 | 优先改 layout.margin / layout.size，不要改节点层级 |
 | 颜色/透明度不对 | 改 manifest.styles.json 对应 key，不要在 spec 里写颜色值 |
+| 标题/按钮被放大裁切 | 检查 TextureRect 是否误用 `keep_aspect_centered`，完整切图改为 `keep_aspect` |
+| target 和 Godot 截图完全不像 | 先核对 target、资源切图、visual bbox 是否同源，再改 spec；不要只凭肉眼移动节点 |
+| 侧栏图标文字被暗块遮住 | 侧栏底图保留视觉，按钮改成透明热区样式，不要用 `btn_icon` 覆盖 |
 
 ---
 

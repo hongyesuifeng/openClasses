@@ -67,7 +67,7 @@ func _render_all() -> void:
 
 	var success_count := 0
 	for scene_key in spec_files:
-		if _render_scene(scene_key):
+		if await _render_scene(scene_key):
 			success_count += 1
 
 	print("\n[RENDER] ─────────────────────────────────────")
@@ -87,7 +87,7 @@ func _render_scene(scene_key: String) -> bool:
 
 	## 创建 SubViewport 渲染
 	var viewport := SubViewport.new()
-	viewport.size = Vector2i(1365, 768)
+	viewport.size = Vector2i(1280, 720)
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 	viewport.transparent_bg = false
 	get_root().add_child(viewport)

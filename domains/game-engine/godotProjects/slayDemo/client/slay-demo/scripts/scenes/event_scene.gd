@@ -9,7 +9,7 @@ const SPEC_PATH := "res://ui_specs/event.ui.json"
 
 var _status_label: Label
 var _content_container: VBoxContainer
-var _choice_row: HBoxContainer
+var _choice_row: BoxContainer
 var _card_selection_scroll: ScrollContainer
 var _card_selection_row: HBoxContainer
 var _back_button: Button
@@ -38,7 +38,7 @@ func _build() -> void:
 
 	_content_container = ui.find_child("ContentContainer", true, false) as VBoxContainer
 	_status_label      = ui.find_child("StatusLabel",       true, false) as Label
-	_choice_row        = ui.find_child("ChoiceRow",         true, false) as HBoxContainer
+	_choice_row        = ui.find_child("ChoiceRow",         true, false) as BoxContainer
 
 	_render_event()
 
@@ -84,17 +84,26 @@ func _render_event() -> void:
 func _render_choices(choices: Array) -> void:
 	if _choice_row == null:
 		return
+	_choice_row.custom_minimum_size = Vector2(300, 194)
 	_choice_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	_choice_row.add_theme_constant_override("separation", 28)
+	_choice_row.add_theme_constant_override("separation", 8)
 	for index in range(choices.size()):
 		var choice := choices[index] as Dictionary
 		var button := Button.new()
-		button.text = "%s\n\n%s" % [str(choice.get("label", "选择")), str(choice.get("description", ""))]
-		button.custom_minimum_size = Vector2(240, 280)
-		button.add_theme_stylebox_override("normal", SF.make_choice_panel_style())
-		button.add_theme_stylebox_override("hover", SF.make_panel_style(Color(0.98, 0.82, 0.92, 0.92), SF.CLR_GOLD, 16, 3))
-		button.add_theme_font_size_override("font_size", 20)
-		button.add_theme_color_override("font_color", Color(0.34, 0.18, 0.34))
+		var label_text := str(choice.get("label", "选择"))
+		var newline_index := label_text.find("\n")
+		if newline_index < 0:
+			newline_index = label_text.find("\\n")
+		if newline_index < 0:
+			newline_index = label_text.find("\r")
+		if newline_index >= 0:
+			label_text = label_text.substr(0, newline_index)
+		button.text = label_text
+		button.custom_minimum_size = Vector2(300, 54)
+		button.add_theme_stylebox_override("normal", SF.make_panel_style(Color(0.88, 0.28, 0.54, 0.92), SF.CLR_GOLD, 12, 2))
+		button.add_theme_stylebox_override("hover", SF.make_panel_style(Color(0.96, 0.43, 0.68, 0.96), SF.CLR_GOLD, 12, 3))
+		button.add_theme_font_size_override("font_size", 18)
+		button.add_theme_color_override("font_color", Color.WHITE)
 		button.pressed.connect(_on_choice_pressed.bind(index))
 		_choice_row.add_child(button)
 

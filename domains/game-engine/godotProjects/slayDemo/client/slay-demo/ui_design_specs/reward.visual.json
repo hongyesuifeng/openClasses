@@ -1,7 +1,10 @@
 {
   "scene": "reward",
   "target_image": "res://ui_snapshots/target/reward_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
@@ -9,7 +12,12 @@
       "role": "reward_background",
       "type_hint": "TextureRect",
       "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
       "asset_token": "backgrounds.reward",
@@ -21,7 +29,12 @@
       "role": "reward_title",
       "type_hint": "Label",
       "expected_node": "TitleLabel",
-      "bbox": [302, 42, 760, 82],
+      "bbox": [
+        283,
+        39,
+        713,
+        77
+      ],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "style_token": "text_title_pink",
@@ -34,7 +47,12 @@
       "role": "reward_subtitle",
       "type_hint": "Label",
       "expected_node": "SubtitleLabel",
-      "bbox": [457, 120, 450, 38],
+      "bbox": [
+        429,
+        113,
+        422,
+        36
+      ],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "style_token": "text_subtitle",
@@ -46,7 +64,12 @@
       "role": "card_choices_scroll",
       "type_hint": "ScrollContainer",
       "expected_node": "ChoiceScroll",
-      "bbox": [192, 220, 980, 320],
+      "bbox": [
+        180,
+        206,
+        919,
+        300
+      ],
       "anchor_hint": "top_center",
       "z_layer": "InteractionLayer",
       "dynamic": true,
@@ -59,7 +82,12 @@
       "role": "action_buttons",
       "type_hint": "HBoxContainer",
       "expected_node": "ButtonRow",
-      "bbox": [422, 698, 520, 70],
+      "bbox": [
+        396,
+        654,
+        488,
+        66
+      ],
       "anchor_hint": "bottom_center",
       "z_layer": "InteractionLayer",
       "dynamic": true,

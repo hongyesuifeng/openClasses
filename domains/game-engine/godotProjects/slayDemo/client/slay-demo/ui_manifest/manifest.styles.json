@@ -1,24 +1,34 @@
 {
   "colors": {
-    "text_primary":    "#FFFFFF",
-    "text_secondary":  "#CCCCCC",
-    "text_warm":       "#FAEBd0",
-    "text_gold":       "#FFD700",
-    "text_pink":       "#FFB5C2",
-    "text_subtitle":   "#F5EBFB",
-    "text_dark":       "#333333",
-    "accent_pink":     "#F28DA5",
-    "accent_gold":     "#FFD700"
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#CCCCCC",
+    "text_warm": "#FAEBd0",
+    "text_gold": "#FFD700",
+    "text_pink": "#FFB5C2",
+    "text_subtitle": "#F5EBFB",
+    "text_dark": "#333333",
+    "accent_pink": "#F28DA5",
+    "accent_gold": "#FFD700",
+    "map_event_panel_bg": "#321C4CE6",
+    "map_event_panel_border": "#FFD08BE0",
+    "map_event_choice_pink": "#E2528FFF",
+    "map_event_choice_purple": "#9C4BC6FF",
+    "map_event_path_gold": "#FFE564D6"
   },
   "fonts": {
     "default": "res://assets/fonts/NotoSansSC-VariableFont_wght.ttf",
-    "title":   "res://assets/fonts/ChakraPetch-Bold.ttf"
+    "title": "res://assets/fonts/ChakraPetch-Bold.ttf"
   },
   "styles": {
     "btn_primary": {
       "type": "texture",
       "texture": "res://assets/ui/buttons/ui_btn_pink_normal.png",
-      "texture_margins": [36, 24, 36, 24],
+      "texture_margins": [
+        36,
+        24,
+        36,
+        24
+      ],
       "bg_color": "#F28DA5",
       "border_color": "#FFD700",
       "border_width": 2,
@@ -30,7 +40,12 @@
     "btn_secondary": {
       "type": "texture",
       "texture": "res://assets/ui/buttons/ui_btn_normal.png",
-      "texture_margins": [28, 20, 28, 20],
+      "texture_margins": [
+        28,
+        20,
+        28,
+        20
+      ],
       "bg_color": "#40334FD9",
       "border_color": "#7A5A8ECC",
       "border_width": 1,
@@ -42,7 +57,12 @@
     "btn_action": {
       "type": "texture",
       "texture": "res://assets/ui/buttons/ui_btn_purple_normal.png",
-      "texture_margins": [28, 20, 28, 20],
+      "texture_margins": [
+        28,
+        20,
+        28,
+        20
+      ],
       "bg_color": "#3F3352D9",
       "border_color": "#735E8DCC",
       "border_width": 1,
@@ -61,10 +81,25 @@
       "font_size": 14,
       "font_color": "text_primary"
     },
+    "btn_hotspot": {
+      "type": "flat",
+      "bg_color": "#00000000",
+      "border_color": "#00000000",
+      "border_width": 0,
+      "corner_radius": 0,
+      "font": "default",
+      "font_size": 1,
+      "font_color": "#00000000"
+    },
     "panel_dark": {
       "type": "texture",
       "texture": "res://assets/ui/panels/ui_panel_dark.png",
-      "texture_margins": [18, 18, 18, 18],
+      "texture_margins": [
+        18,
+        18,
+        18,
+        18
+      ],
       "bg_color": "#1A1A2ECC",
       "border_color": "#6644AA",
       "border_width": 2,
@@ -73,7 +108,12 @@
     "panel_card": {
       "type": "texture",
       "texture": "res://assets/ui/panels/ui_panel_dark.png",
-      "texture_margins": [18, 18, 18, 18],
+      "texture_margins": [
+        18,
+        18,
+        18,
+        18
+      ],
       "bg_color": "#241338E0",
       "border_color": "#8C5AA0",
       "border_width": 1,
@@ -82,7 +122,12 @@
     "panel_light": {
       "type": "texture",
       "texture": "res://assets/ui/panels/ui_panel_light.png",
-      "texture_margins": [18, 18, 18, 18],
+      "texture_margins": [
+        18,
+        18,
+        18,
+        18
+      ],
       "bg_color": "#FFFFFFCC",
       "border_color": "#CC88BB",
       "border_width": 1,
@@ -165,6 +210,36 @@
       "bg_color": "#223344",
       "border_color": "#7744BB",
       "border_width": 1
+    },
+    "map_event.panel_event": {
+      "type": "flat",
+      "bg_color": "map_event_panel_bg",
+      "border_color": "map_event_panel_border",
+      "border_width": 3,
+      "corner_radius": 18,
+      "font": "default",
+      "font_size": 18,
+      "font_color": "#FFFFFF"
+    },
+    "map_event.choice_primary": {
+      "type": "flat",
+      "bg_color": "map_event_choice_pink",
+      "border_color": "map_event_panel_border",
+      "border_width": 2,
+      "corner_radius": 12,
+      "font": "default",
+      "font_size": 18,
+      "font_color": "#FFFFFF"
+    },
+    "map_event.choice_secondary": {
+      "type": "flat",
+      "bg_color": "map_event_choice_purple",
+      "border_color": "map_event_panel_border",
+      "border_width": 2,
+      "corner_radius": 12,
+      "font": "default",
+      "font_size": 18,
+      "font_color": "#FFFFFF"
     }
   }
 }

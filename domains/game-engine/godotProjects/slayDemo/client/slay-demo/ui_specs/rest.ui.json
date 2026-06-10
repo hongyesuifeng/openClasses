@@ -1,43 +1,94 @@
 {
   "scene": "RestUI",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "background": {
     "type": "TextureRect",
     "name": "Background",
     "asset": "backgrounds.rest",
     "stretch_mode": "keep_aspect_covered",
-    "layout": { "preset": "full_rect" }
+    "layout": {
+      "preset": "full_rect"
+    }
   },
   "children": [
     {
       "type": "Panel",
       "name": "ScreenFrame",
       "style": "panel_dark",
-      "layout": { "preset": "full_rect" }
+      "layout": {
+        "preset": "full_rect"
+      }
     },
     {
       "type": "Control",
       "name": "Root",
-      "layout": { "preset": "full_rect", "margin": [42, 34, 42, 34] },
+      "layout": {
+        "preset": "full_rect",
+        "margin": [
+          39,
+          32,
+          39,
+          32
+        ]
+      },
       "children": [
         {
           "type": "Label",
           "name": "TitleLabel",
           "text": "休息点",
           "style": "text_title_pink",
-          "layout": { "preset": "top_center", "size": [760, 82], "margin": [0, 54, 0, 0] }
+          "layout": {
+            "preset": "top_center",
+            "size": [
+              713,
+              77
+            ],
+            "margin": [
+              0,
+              51,
+              0,
+              0
+            ]
+          }
         },
         {
           "type": "Label",
           "name": "StatusLabel",
           "text": "",
           "style": "text_body",
-          "layout": { "preset": "top_center", "size": [720, 46], "margin": [0, 148, 0, 0] }
+          "layout": {
+            "preset": "top_center",
+            "size": [
+              675,
+              43
+            ],
+            "margin": [
+              0,
+              139,
+              0,
+              0
+            ]
+          }
         },
         {
           "type": "HBoxContainer",
           "name": "ChoiceRow",
-          "layout": { "preset": "top_center", "size": [960, 320], "margin": [0, 236, 0, 0] }
+          "layout": {
+            "preset": "top_center",
+            "size": [
+              900,
+              300
+            ],
+            "margin": [
+              0,
+              221,
+              0,
+              0
+            ]
+          }
         }
       ]
     }

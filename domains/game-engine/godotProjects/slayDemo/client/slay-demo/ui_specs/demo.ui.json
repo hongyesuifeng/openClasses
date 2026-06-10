@@ -1,44 +1,74 @@
 {
   "scene": "FrameworkDemo",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "background": {
     "type": "Panel",
     "style": "panel_dark",
-    "layout": { "preset": "full_rect" }
+    "layout": {
+      "preset": "full_rect"
+    }
   },
   "children": [
     {
       "type": "Panel",
       "name": "TopBar",
       "style": "panel_dark",
-      "layout": { "preset": "top_full", "margin": [0, 0, 0, 0], "height": 72 },
+      "layout": {
+        "preset": "top_full",
+        "margin": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "height": 68
+      },
       "children": [
         {
           "type": "Label",
           "name": "TitleLabel",
           "text": "UI 框架 Demo",
           "style": "text_title",
-          "layout": { "preset": "center", "size": [300, 48] }
+          "layout": {
+            "preset": "center",
+            "size": [
+              281,
+              45
+            ]
+          }
         }
       ]
     },
     {
       "type": "VBoxContainer",
       "name": "CenterContent",
-      "layout": { "preset": "center", "size": [400, 300] },
+      "layout": {
+        "preset": "center",
+        "size": [
+          375,
+          281
+        ]
+      },
       "children": [
         {
           "type": "Label",
           "name": "DescLabel",
           "text": "框架验证界面",
           "style": "text_body",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         },
         {
           "type": "Panel",
           "name": "DemoPanel",
           "style": "panel_light",
-          "layout": { "preset": "full_rect" }
+          "layout": {
+            "preset": "full_rect"
+          }
         }
       ]
     },
@@ -47,7 +77,19 @@
       "name": "PrimaryBtn",
       "text": "主要按钮",
       "style": "btn_primary",
-      "layout": { "preset": "bottom_center", "margin": [0, 0, 0, 40], "size": [240, 72] },
+      "layout": {
+        "preset": "bottom_center",
+        "margin": [
+          0,
+          0,
+          0,
+          38
+        ],
+        "size": [
+          225,
+          68
+        ]
+      },
       "action": "demo.on_primary"
     },
     {
@@ -55,7 +97,19 @@
       "name": "SecondaryBtn",
       "text": "次要按钮",
       "style": "btn_secondary",
-      "layout": { "preset": "bottom_right", "margin": [0, 0, 40, 40], "size": [180, 60] },
+      "layout": {
+        "preset": "bottom_right",
+        "margin": [
+          0,
+          0,
+          38,
+          38
+        ],
+        "size": [
+          169,
+          56
+        ]
+      },
       "action": "demo.on_secondary"
     }
   ]

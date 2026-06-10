@@ -175,6 +175,7 @@ static func _apply_asset(node: Control, asset_key: String, stretch_override: Str
 			tr.texture = _make_fallback_texture(asset_key)
 		var sm := stretch_override if not stretch_override.is_empty() else "keep_aspect_centered"
 		tr.stretch_mode = _parse_stretch_mode(sm)
+		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		tr.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	elif type == "Button":
 		var btn := node as Button

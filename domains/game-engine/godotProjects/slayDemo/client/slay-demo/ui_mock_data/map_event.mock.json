@@ -1,0 +1,107 @@
+{
+  "scene": "map_event",
+  "cases": {
+    "normal": {
+      "map": {
+        "act": 1,
+        "progress": [
+          12,
+          20
+        ],
+        "nodes": [
+          {
+            "id": "start",
+            "type": "start",
+            "state": "cleared"
+          },
+          {
+            "id": "n1",
+            "type": "battle",
+            "state": "available"
+          },
+          {
+            "id": "n2",
+            "type": "event",
+            "state": "locked"
+          },
+          {
+            "id": "shop",
+            "type": "shop",
+            "state": "future"
+          },
+          {
+            "id": "boss",
+            "type": "boss",
+            "state": "future"
+          }
+        ]
+      },
+      "player": {
+        "hp": [
+          80,
+          80
+        ],
+        "block": 12,
+        "energy": [
+          3,
+          3
+        ],
+        "stars": 3,
+        "relics": [
+          "anchor",
+          "lantern",
+          "lollipop",
+          "potion"
+        ]
+      },
+      "resources": {
+        "crystal": 320,
+        "gold": 1250
+      },
+      "event": {
+        "title": "神秘的糖果商人",
+        "description": "你遇到了一位神秘的糖果商人，她的店里摆满了奇妙的物品。要停下来看看吗？",
+        "choices": [
+          {
+            "id": "buy",
+            "title": "购买商品",
+            "desc": "消耗金币，获得随机物品",
+            "cost": 80
+          },
+          {
+            "id": "free",
+            "title": "免费糖果",
+            "desc": "获得一个普通道具"
+          },
+          {
+            "id": "leave",
+            "title": "离开",
+            "desc": "继续前进"
+          }
+        ]
+      }
+    },
+    "many_choices": {
+      "event": {
+        "choices": [
+          {
+            "id": "c1",
+            "title": "选项一"
+          },
+          {
+            "id": "c2",
+            "title": "选项二"
+          },
+          {
+            "id": "c3",
+            "title": "选项三"
+          },
+          {
+            "id": "c4",
+            "title": "选项四"
+          }
+        ]
+      }
+    }
+  }
+}

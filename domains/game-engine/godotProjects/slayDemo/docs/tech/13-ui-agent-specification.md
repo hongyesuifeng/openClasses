@@ -29,7 +29,7 @@ Coding Agent 接收你的输出后，将其合并到 Godot 工程并渲染截图
 ## 2. 视觉风格
 
 **关键词：** 紫粉马卡龙 / Q 版卡通 / 甜心魔法少女 / 糖果塔楼  
-**设计分辨率：** 1365 × 768（所有坐标以此为准）  
+**设计分辨率：** 1280 × 720（所有坐标以此为准）  
 **配色主调：**
 
 | 用途 | 颜色 |
@@ -78,9 +78,9 @@ Coding Agent 接收你的输出后，将其合并到 Godot 工程并渲染截图
 战斗场景的中央区域（敌人展示区）不能被 HUD 遮挡：
 
 ```
-顶部状态栏：约 0～90px（保留给玩家 HP/遗物/药水）
-底部交互区：约 550～768px（保留给手牌 + 结束回合按钮）
-中央视野区：90～550px（敌人展示，不能放固定 UI 元素）
+顶部状态栏：约 0～84px（保留给玩家 HP/遗物/药水）
+底部交互区：约 516～720px（保留给手牌 + 结束回合按钮）
+中央视野区：84～516px（敌人展示，不能放固定 UI 元素）
 ```
 
 ---
@@ -156,11 +156,38 @@ Coding Agent 接收你的输出后，将其合并到 Godot 工程并渲染截图
 文件路径：`ui_snapshots/target/<scene>_target.png`
 
 要求：
-- 尺寸：**1365 × 768**
+- 尺寸：**1280 × 720**
 - 格式：PNG，RGB（不需要透明背景）
 - 内容：完整的场景 UI，含背景 + 所有 UI 元素
 - 动态内容区域：用合理的占位内容填充（如 3 张示例手牌）
 - 背景图不包含 UI 按钮（UI 和背景分层生成）
+
+### 关键约束：target 必须可被 Godot 重组
+
+你不能只生成一张“看起来正确”的完整效果图。`target.png`、切片资源、`visual.json` 必须来自同一套布局，Coding Agent 按 `visual.json.bbox` 把资源放回 Godot 后，截图应接近 target。
+
+必须同时输出并自检：
+
+| 项目 | 要求 |
+|------|------|
+| 完整效果图 | 包含最终画面，作为验收目标 |
+| 背景资源 | 不含标题、按钮、侧栏、货币栏等 UI 元素 |
+| 静态 UI 切图 | 每个切图必须能缩放到对应 bbox 后保持完整，不应依赖裁切 |
+| visual bbox | 使用元素在完整 target 中的最终显示位置和尺寸 |
+| 资源尺寸 | 可以大于 bbox，但必须声明 Coding Agent 应使用 `keep_aspect` 缩放显示 |
+| 透明边界 | 透明画布必须紧贴非透明内容，最多保留少量发光/阴影边；不要交付内容只占画布一半的 PNG |
+
+`TextureRect` 缩放规则必须写入 `ai_hint`：
+
+| 元素类型 | Godot `stretch_mode` |
+|----------|----------------------|
+| 全屏背景 | `keep_aspect_covered` |
+| 标题 Logo / 横幅 / 侧栏底板 / 货币栏 | `keep_aspect` |
+| 装饰图标需要保持原始大小 | `keep` 或 `keep_centered`，仅限资源尺寸等于目标尺寸 |
+
+禁止把标题、横幅、按钮、侧栏底板这类完整切图标成 `keep_aspect_centered`。在 Godot 中该模式会按资源原尺寸居中裁切，资源大于 bbox 时会出现标题被放大、按钮只剩一条、侧栏只剩暗块等错误。
+
+如果资源必须保留较大透明画布，必须在 `ai_hint` 中说明非透明内容比例，并给出 Coding Agent 应使用的补偿 bbox。优先方案仍然是裁掉多余透明边，让资源画布贴近实际视觉边界。
 
 ---
 
@@ -174,7 +201,7 @@ Coding Agent 接收你的输出后，将其合并到 Godot 工程并渲染截图
 {
   "scene": "<场景名>",
   "target_image": "res://ui_snapshots/target/<scene>_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [1280, 720],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
@@ -317,6 +344,54 @@ left_center / right_center
 
 ---
 
+### 输出 E：最终压缩包（必须）
+
+每次生成 UI 完成后，必须把所有交付物打成一个 zip 压缩包并发送给用户。不要只贴 Markdown、JSON 或图片说明。
+
+压缩包命名：
+
+```text
+<scene_or_feature>_ui_package.zip
+```
+
+推荐目录结构：
+
+```text
+<scene_or_feature>_ui_package/
+├── README.md
+├── assets/
+│   ├── backgrounds/
+│   └── ui/<scene_or_feature>/
+├── ui_snapshots/
+│   └── target/
+│       └── <scene>_target.png
+├── ui_design_specs/
+│   └── <scene>.visual.json
+├── ui_manifest/
+│   ├── manifest.assets.patch.json
+│   └── manifest.styles.patch.json
+├── ui_mock_data/
+│   └── <scene>.mock.json
+└── docs/
+    ├── <scene_or_feature>_ui_handoff.md
+    ├── <scene_or_feature>_resource_sheet.png
+    └── self_check_report.md
+```
+
+压缩包内必须包含：
+
+- `target.png`，尺寸必须为 `1280×720`
+- `*.visual.json`，坐标必须基于 `1280×720`
+- 所有新增或替换的 PNG 资源文件
+- `manifest.assets.patch.json`
+- 如新增 style，包含 `manifest.styles.patch.json`
+- `README.md` 或 handoff 文档，说明接入顺序、动态区域、资源 key、已知限制
+- `self_check_report.md`，说明 target 尺寸、visual 字段、资源清单、动态区域是否已自检
+
+如果一次生成多个场景，可以放在同一个 zip 中，但每个场景都必须有独立的 `target/<scene>_target.png` 和 `ui_design_specs/<scene>.visual.json`。
+
+---
+
 ## 7. 九个游戏场景说明
 
 ### 主菜单（main_menu）
@@ -328,6 +403,14 @@ left_center / right_center
 侧边栏：左侧 4 个图标按钮（成就/图鉴/设置/公告）
 右上角：设置按钮
 ```
+
+登录/主菜单的额外硬约束：
+
+- 侧栏视觉应由 `ui.login.sidebar_panel` 一张底板资源提供，四个入口按钮只输出透明点击热区；不要在按钮上再画深紫矩形。
+- 标题 Logo、slogan 横幅、开始按钮、货币栏必须是透明 PNG 切图，放入 `visual.json` 的 bbox 后完整显示，不得被裁切。
+- `visual.json.expected_node` 必须使用现有 spec 节点名：`Background`、`LeftSidebarPanel`、`SidebarAchievement`、`SidebarCollection`、`SidebarSettings`、`SidebarNotice`、`TitleLogo`、`SubtitleRibbon`、`CrystalBar`、`AddCrystalButton`、`StartButtonArt`、`StartButton`。
+- `asset_token` 必须使用已注册 key：`backgrounds.main_menu`、`ui.login.sidebar_panel`、`ui.login.title_logo`、`ui.login.subtitle_ribbon`、`ui.login.crystal_bar`、`ui.login.start_game_btn`。
+- 目标图里如果按钮资源已经包含「开始游戏」文字，应使用 `TextureRect` 显示按钮视觉，再叠加透明 `Button` 热区；Button 仍需保留文本用于自动化测试和可访问性查找，但视觉上以切图为准。
 
 ### 战斗（battle）
 
@@ -411,7 +494,8 @@ Step 4  列出需要新增的美术资源
 Step 5  生成美术资源图片（按命名规范）
 Step 6  生成 manifest.assets.patch.json
 Step 7  如需新 style，生成 manifest.styles.patch.json
-Step 8  输出资源清单和修改说明
+Step 8  生成 README / handoff / self_check_report
+Step 9  打包为 <scene_or_feature>_ui_package.zip 并发送给用户
 ```
 
 ---
@@ -425,7 +509,7 @@ Step 8  输出资源清单和修改说明
 
 项目：甜心迷宫，Q 版卡通卡牌 Roguelike，Godot 4.x
 风格：紫粉马卡龙 / 魔法少女 / 糖果塔楼
-设计分辨率：1365 × 768
+设计分辨率：1280 × 720
 目标场景：<scene>
 
 当前 ui_specs/<scene>.ui.json 内容：
@@ -437,14 +521,17 @@ Step 8  输出资源清单和修改说明
 3. 需要新增或替换的美术资源列表（文件名、尺寸、是否需要九宫格）
 4. manifest.assets.patch.json（如有新资源）
 5. manifest.styles.patch.json（如有新 style_key，优先复用现有 key）
+6. 最终压缩包 <scene_or_feature>_ui_package.zip，包含 target、visual、assets、manifest patch、mock、handoff 和 self_check_report
 
 约束：
-- 坐标基于 1365×768，bbox 格式为 [x, y, width, height]
+- 坐标基于 1280×720，bbox 格式为 [x, y, width, height]
 - 动态区域（HandRow/EnemyRow/RelicRow 等）的 dynamic 必须为 true，不要描述具体子元素数量
 - style_token 优先使用已注册的 key，不要发明新的颜色
 - asset_token 优先使用已注册的 key
 - 背景图不包含 UI 按钮文字
-- 战斗场景中央区域（90~550px 高度范围）不放固定 UI 元素
+- target、切片资源、visual bbox 必须可重组；完整切图的 ai_hint 必须说明使用 keep_aspect，背景说明使用 keep_aspect_covered
+- 透明热区按钮使用 btn_hotspot，不要覆盖已烘焙在底图中的视觉
+- 战斗场景中央区域（84~516px 高度范围）不放固定 UI 元素
 ```
 
 ### 9.2 视觉微调
@@ -514,4 +601,4 @@ Coding Agent 会用以下标准检查你的输出，确保满足：
 ### 布局检查
 - [ ] 战斗场景中央视野区域无遮挡（90~550px）
 - [ ] 动态容器 `children` 为空（不硬编码子节点）
-- [ ] `bbox` 坐标在 1365×768 范围内
+- [ ] `bbox` 坐标在 1280×720 范围内

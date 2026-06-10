@@ -5,8 +5,8 @@ extends SceneTree
 ##
 ## 校验项：
 ##   ERROR — JSON 语法、节点类型合法、节点名唯一、style_key 存在、layout preset 合法
-##           动态内容区域必须使用 ComponentRef 或空容器
-##   WARN  — asset_key 存在、action 已在 manifest.actions.json 声明
+##           动态内容区域必须使用 ComponentRef 或空容器、visual.expected_node 存在
+##   WARN  — asset_key 存在、action 已在 manifest.actions.json 声明、visual token 可解析
 ##   INFO  — visual.json / mock.json 是否配套
 
 const SPECS_DIR         := "res://ui_specs"
@@ -15,6 +15,7 @@ const MANIFEST_ASSETS   := "res://ui_manifest/manifest.assets.json"
 const MANIFEST_ACTIONS  := "res://ui_manifest/manifest.actions.json"
 const DESIGN_SPECS_DIR  := "res://ui_design_specs"
 const MOCK_DATA_DIR     := "res://ui_mock_data"
+const DESIGN_RESOLUTION := Vector2i(1280, 720)
 
 ## UIBuilder 当前支持的节点类型白名单
 const VALID_NODE_TYPES := [
@@ -150,6 +151,8 @@ func _lint_spec(spec_path: String) -> void:
 		_report(scene_name, spec_path, errors, warns, infos)
 		return
 
+	_check_design_resolution(spec, "ui_specs/%s.ui.json" % scene_name, errors)
+
 	## 2. 遍历所有节点
 	var node_names: Array[String] = []
 	var all_nodes: Array[Dictionary] = []
@@ -222,6 +225,8 @@ func _lint_spec(spec_path: String) -> void:
 	var mock_path   := MOCK_DATA_DIR.path_join("%s.mock.json" % scene_name)
 	if not FileAccess.file_exists(visual_path):
 		infos.append("缺少配套 visual.json（%s）" % visual_path)
+	else:
+		_lint_visual(visual_path, node_names, errors, warns, infos)
 	if not FileAccess.file_exists(mock_path):
 		infos.append("缺少配套 mock.json（%s）" % mock_path)
 
@@ -276,6 +281,75 @@ func _collect_children(node: Dictionary, result: Array[Dictionary]) -> void:
 			_collect_children(child as Dictionary, result)
 
 
+## ── visual.json 对齐检查 ───────────────────────────────────────
+
+func _lint_visual(
+	visual_path: String,
+	node_names: Array[String],
+	errors: Array[String],
+	warns: Array[String],
+	infos: Array[String]
+) -> void:
+	var visual := _read_json(visual_path)
+	if visual.is_empty():
+		warns.append("visual.json 解析失败或为空: %s" % visual_path)
+		return
+
+	_check_design_resolution(visual, visual_path, errors)
+	_check_target_image_size(visual, errors, warns)
+
+	var elements: Array = visual.get("elements", []) as Array
+	if elements.is_empty():
+		warns.append("visual.json 缺少 elements: %s" % visual_path)
+		return
+
+	var element_ids: Array[String] = []
+	for element in elements:
+		if not (element is Dictionary):
+			warns.append("visual.elements 包含非对象条目: %s" % visual_path)
+			continue
+
+		var elem := element as Dictionary
+		var elem_id := str(elem.get("id", "<missing id>"))
+		if elem_id == "<missing id>" or elem_id.is_empty():
+			warns.append("visual element 缺少 id: %s" % visual_path)
+		elif element_ids.has(elem_id):
+			warns.append("visual element id 重复: '%s'" % elem_id)
+		else:
+			element_ids.append(elem_id)
+
+		var expected_node := str(elem.get("expected_node", ""))
+		if expected_node.is_empty():
+			warns.append("visual element '%s' 缺少 expected_node" % elem_id)
+		elif not node_names.has(expected_node):
+			errors.append("visual.expected_node 不存在: '%s' (element: %s)" % [expected_node, elem_id])
+
+		var type_hint := str(elem.get("type_hint", ""))
+		if not type_hint.is_empty() and not VALID_NODE_TYPES.has(type_hint):
+			errors.append("visual.type_hint 不支持: '%s' (element: %s)" % [type_hint, elem_id])
+
+		var anchor_hint := str(elem.get("anchor_hint", ""))
+		if not anchor_hint.is_empty() and not VALID_PRESETS.has(anchor_hint):
+			errors.append("visual.anchor_hint 不合法: '%s' (element: %s)" % [anchor_hint, elem_id])
+
+		var style_token := str(elem.get("style_token", ""))
+		if not style_token.is_empty() and not _has_style_key(style_token):
+			warns.append("visual.style_token 未注册: '%s' (element: %s)" % [style_token, elem_id])
+
+		var asset_token := str(elem.get("asset_token", ""))
+		if not asset_token.is_empty() and not _has_asset_key(asset_token):
+			warns.append("visual.asset_token 不存在: '%s' (element: %s)" % [asset_token, elem_id])
+
+		var action_hint := str(elem.get("action_hint", ""))
+		if not action_hint.is_empty() and not _has_action(action_hint):
+			warns.append("visual.action_hint 未声明: '%s' (element: %s)" % [action_hint, elem_id])
+
+		if not elem.has("tolerance"):
+			infos.append("visual element 缺少 tolerance: '%s'" % elem_id)
+		if not elem.has("acceptance_weight"):
+			infos.append("visual element 缺少 acceptance_weight: '%s'" % elem_id)
+
+
 ## ── manifest 查找辅助 ──────────────────────────────────────────
 
 func _has_style_key(key: String) -> bool:
@@ -304,6 +378,38 @@ func _has_action(action: String) -> bool:
 		if actions.has(action):
 			return true
 	return false
+
+
+func _check_design_resolution(data: Dictionary, label: String, errors: Array[String]) -> void:
+	var value: Array = data.get("design_resolution", []) as Array
+	if value.size() < 2:
+		errors.append("%s 缺少 design_resolution，应为 [1280, 720]" % label)
+		return
+	var width := int(value[0])
+	var height := int(value[1])
+	if width != DESIGN_RESOLUTION.x or height != DESIGN_RESOLUTION.y:
+		errors.append("%s design_resolution 应为 [%d, %d]，当前为 [%d, %d]" % [
+			label, DESIGN_RESOLUTION.x, DESIGN_RESOLUTION.y, width, height
+		])
+
+
+func _check_target_image_size(visual: Dictionary, errors: Array[String], warns: Array[String]) -> void:
+	var target_image := str(visual.get("target_image", ""))
+	if target_image.is_empty():
+		return
+	if not FileAccess.file_exists(target_image):
+		warns.append("target_image 不存在: %s" % target_image)
+		return
+	var image := Image.new()
+	var err := image.load(target_image)
+	if err != OK:
+		warns.append("target_image 无法读取: %s (err=%d)" % [target_image, err])
+		return
+	var size := image.get_size()
+	if size != DESIGN_RESOLUTION:
+		errors.append("target_image 尺寸应为 %dx%d，当前为 %dx%d: %s" % [
+			DESIGN_RESOLUTION.x, DESIGN_RESOLUTION.y, size.x, size.y, target_image
+		])
 
 
 ## ── JSON 读取工具 ───────────────────────────────────────────────

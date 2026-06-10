@@ -1,88 +1,415 @@
 {
   "backgrounds": {
-    "demo":        "res://assets/backgrounds/bg_main_menu.png",
-    "main_menu":   "res://assets/backgrounds/bg_login_main.png",
-    "battle":      "res://assets/backgrounds/bg_battle_dungeon.png",
+    "demo": "res://assets/backgrounds/bg_main_menu.png",
+    "main_menu": "res://assets/backgrounds/bg_login_main.png",
+    "battle": "res://assets/backgrounds/bg_battle_dungeon.png",
     "battle_boss": "res://assets/backgrounds/bg_battle_boss.png",
-    "map":         "res://assets/backgrounds/bg_map.png",
-    "shop":        "res://assets/backgrounds/bg_map.png",
-    "rest":        "res://assets/backgrounds/bg_map.png",
-    "chest":       "res://assets/backgrounds/bg_map.png",
-    "event":       "res://assets/backgrounds/bg_map.png",
-    "reward":      "res://assets/backgrounds/bg_map.png"
+    "map": "res://assets/backgrounds/bg_map.png",
+    "shop": "res://assets/backgrounds/bg_map.png",
+    "rest": "res://assets/backgrounds/bg_map.png",
+    "chest": "res://assets/backgrounds/bg_map.png",
+    "event": "res://assets/backgrounds/bg_map.png",
+    "reward": "res://assets/backgrounds/bg_map.png",
+    "map_event": "res://assets/backgrounds/bg_map_event.png"
   },
   "characters": {
     "merchant": "res://assets/shop/merchant_portrait.png"
   },
   "icons": {
     "achievement": "res://assets/ui/icons/icon_achievement.png",
-    "collection":  "res://assets/ui/icons/icon_collection.png",
-    "settings":    "res://assets/ui/icons/icon_settings.png",
-    "notice":      "res://assets/ui/icons/icon_notice.png",
-    "shop":        "res://assets/ui/icons/icon_shop.png",
-    "gold":        "res://assets/ui/icons/icon_shop.png",
-    "crystal":     "res://assets/ui/icons/ui_energy_crystal.png",
-    "battle":      "res://assets/ui/icons/icon_battle.png",
-    "elite":       "res://assets/ui/icons/icon_elite.png",
-    "chest":       "res://assets/ui/icons/icon_chest.png",
-    "question":    "res://assets/ui/icons/icon_question.png",
-    "rest":        "res://assets/ui/icons/icon_rest.png",
-    "boss":        "res://assets/ui/icons/icon_boss.png",
-    "energy":      "res://assets/ui/icons/ui_energy_crystal.png"
+    "collection": "res://assets/ui/icons/icon_collection.png",
+    "settings": "res://assets/ui/icons/icon_settings.png",
+    "notice": "res://assets/ui/icons/icon_notice.png",
+    "shop": "res://assets/ui/icons/icon_shop.png",
+    "gold": "res://assets/ui/icons/icon_shop.png",
+    "crystal": "res://assets/ui/icons/ui_energy_crystal.png",
+    "battle": "res://assets/ui/icons/icon_battle.png",
+    "elite": "res://assets/ui/icons/icon_elite.png",
+    "chest": "res://assets/ui/icons/icon_chest.png",
+    "question": "res://assets/ui/icons/icon_question.png",
+    "rest": "res://assets/ui/icons/icon_rest.png",
+    "boss": "res://assets/ui/icons/icon_boss.png",
+    "energy": "res://assets/ui/icons/ui_energy_crystal.png"
   },
   "buttons": {
     "primary": {
-      "normal":   "res://assets/ui/buttons/ui_btn_pink_normal.png",
-      "pressed":  "res://assets/ui/buttons/ui_btn_pink_pressed.png",
+      "normal": "res://assets/ui/buttons/ui_btn_pink_normal.png",
+      "pressed": "res://assets/ui/buttons/ui_btn_pink_pressed.png",
       "disabled": "res://assets/ui/buttons/ui_btn_pink_disabled.png",
-      "nine_patch": [36, 24, 36, 24]
+      "nine_patch": [
+        36,
+        24,
+        36,
+        24
+      ]
     },
     "secondary": {
-      "normal":   "res://assets/ui/buttons/ui_btn_normal.png",
-      "pressed":  "res://assets/ui/buttons/ui_btn_pressed.png",
+      "normal": "res://assets/ui/buttons/ui_btn_normal.png",
+      "pressed": "res://assets/ui/buttons/ui_btn_pressed.png",
       "disabled": "res://assets/ui/buttons/ui_btn_disabled.png",
-      "nine_patch": [28, 20, 28, 20]
+      "nine_patch": [
+        28,
+        20,
+        28,
+        20
+      ]
     }
   },
   "panels": {
-    "dark":  "res://assets/ui/panels/ui_panel_dark.png",
+    "dark": "res://assets/ui/panels/ui_panel_dark.png",
     "light": "res://assets/ui/panels/ui_panel_light.png"
   },
   "ui": {
     "login": {
       "title_logo": {
         "path": "res://assets/ui/login/ui_title_login_logo.png",
-        "size": [1400, 420],
+        "size": [
+          1400,
+          420
+        ],
         "nine_patch": null,
         "usage": "主标题 Logo"
       },
       "subtitle_ribbon": {
         "path": "res://assets/ui/login/ui_ribbon_login_subtitle.png",
-        "size": [1200, 220],
+        "size": [
+          1200,
+          220
+        ],
         "nine_patch": null,
         "usage": "副标题横幅"
       },
       "start_game_btn": {
-        "normal":   "res://assets/ui/login/ui_btn_start_game.png",
-        "pressed":  "res://assets/ui/login/ui_btn_start_game.png",
+        "normal": "res://assets/ui/login/ui_btn_start_game.png",
+        "pressed": "res://assets/ui/login/ui_btn_start_game.png",
         "disabled": "res://assets/ui/login/ui_btn_start_game.png",
-        "size": [900, 220],
-        "nine_patch": [60, 40, 60, 40],
+        "size": [
+          900,
+          220
+        ],
+        "nine_patch": [
+          60,
+          40,
+          60,
+          40
+        ],
         "usage": "开始游戏按钮"
       },
       "sidebar_panel": {
         "path": "res://assets/ui/login/ui_panel_login_sidebar.png",
-        "size": [320, 1200],
-        "nine_patch": [32, 32, 32, 32],
+        "size": [
+          320,
+          1200
+        ],
+        "nine_patch": [
+          32,
+          32,
+          32,
+          32
+        ],
         "usage": "左侧功能侧栏底板"
       },
       "crystal_bar": {
         "path": "res://assets/ui/login/ui_currency_crystal_bar.png",
-        "size": [520, 120],
-        "nine_patch": [36, 24, 36, 24],
+        "size": [
+          520,
+          120
+        ],
+        "nine_patch": [
+          36,
+          24,
+          36,
+          24
+        ],
         "usage": "右上角水晶资源栏"
+      }
+    },
+    "map_event": {
+      "screen_border": {
+        "path": "res://assets/ui/map_event/panels/ui_panel_map_border.png",
+        "size": [
+          1280,
+          720
+        ],
+        "nine_patch": null,
+        "usage": "地图事件界面外框"
+      },
+      "title_ribbon": {
+        "path": "res://assets/ui/map_event/panels/ui_ribbon_map_title.png",
+        "size": [
+          420,
+          90
+        ],
+        "nine_patch": null,
+        "usage": "顶部 Act 标题横幅"
+      },
+      "legend_bar": {
+        "path": "res://assets/ui/map_event/panels/ui_panel_map_legend.png",
+        "size": [
+          820,
+          72
+        ],
+        "nine_patch": [
+          24,
+          24,
+          24,
+          24
+        ],
+        "usage": "节点类型图例栏"
+      },
+      "currency_crystal_bar": {
+        "path": "res://assets/ui/map_event/panels/ui_currency_crystal_bar.png",
+        "size": [
+          176,
+          54
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "水晶资源栏"
+      },
+      "currency_gold_bar": {
+        "path": "res://assets/ui/map_event/panels/ui_currency_gold_bar.png",
+        "size": [
+          188,
+          54
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "金币资源栏"
+      },
+      "player_status_panel": {
+        "path": "res://assets/ui/map_event/panels/ui_panel_player_status.png",
+        "size": [
+          340,
+          62
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "左下角玩家状态面板"
+      },
+      "relic_panel": {
+        "path": "res://assets/ui/map_event/panels/ui_panel_relic_row.png",
+        "size": [
+          310,
+          62
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "遗物栏底板"
+      },
+      "progress_panel": {
+        "path": "res://assets/ui/map_event/panels/ui_panel_progress.png",
+        "size": [
+          620,
+          56
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "地图进度条面板"
+      },
+      "panel_event": {
+        "path": "res://assets/ui/map_event/panels/ui_panel_event.png",
+        "size": [
+          390,
+          430
+        ],
+        "nine_patch": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "usage": "右侧事件说明面板模板"
+      },
+      "node_start": {
+        "path": "res://assets/ui/map_event/nodes/node_start.png",
+        "size": [
+          170,
+          190
+        ],
+        "nine_patch": null,
+        "usage": "起点节点"
+      },
+      "node_battle": {
+        "path": "res://assets/ui/map_event/nodes/node_battle.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "战斗节点"
+      },
+      "node_elite": {
+        "path": "res://assets/ui/map_event/nodes/node_elite.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "精英节点"
+      },
+      "node_event": {
+        "path": "res://assets/ui/map_event/nodes/node_event.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "事件节点"
+      },
+      "node_shop": {
+        "path": "res://assets/ui/map_event/nodes/node_shop.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "商店节点"
+      },
+      "node_rest": {
+        "path": "res://assets/ui/map_event/nodes/node_rest.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "休息节点"
+      },
+      "node_chest": {
+        "path": "res://assets/ui/map_event/nodes/node_chest.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "宝箱节点"
+      },
+      "node_crystal": {
+        "path": "res://assets/ui/map_event/nodes/node_crystal.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "水晶奖励节点"
+      },
+      "node_boss": {
+        "path": "res://assets/ui/map_event/nodes/node_boss.png",
+        "size": [
+          128,
+          128
+        ],
+        "nine_patch": null,
+        "usage": "Boss 节点"
+      },
+      "path_dot": {
+        "path": "res://assets/ui/map_event/paths/ui_path_dot.png",
+        "size": [
+          24,
+          24
+        ],
+        "nine_patch": null,
+        "usage": "虚线路径点"
+      },
+      "path_line": {
+        "path": "res://assets/ui/map_event/paths/ui_path_line.png",
+        "size": [
+          160,
+          18
+        ],
+        "nine_patch": [
+          8,
+          0,
+          8,
+          0
+        ],
+        "usage": "路径连线段"
+      },
+      "btn_plus": {
+        "normal": "res://assets/ui/map_event/buttons/ui_btn_plus.png",
+        "pressed": "res://assets/ui/map_event/buttons/ui_btn_plus.png",
+        "disabled": "res://assets/ui/map_event/buttons/ui_btn_plus.png",
+        "size": [
+          64,
+          64
+        ],
+        "nine_patch": null,
+        "usage": "增加水晶按钮"
+      },
+      "btn_settings": {
+        "normal": "res://assets/ui/map_event/buttons/ui_btn_settings.png",
+        "pressed": "res://assets/ui/map_event/buttons/ui_btn_settings.png",
+        "disabled": "res://assets/ui/map_event/buttons/ui_btn_settings.png",
+        "size": [
+          64,
+          64
+        ],
+        "nine_patch": null,
+        "usage": "设置按钮"
+      },
+      "btn_back": {
+        "normal": "res://assets/ui/map_event/buttons/ui_btn_back.png",
+        "pressed": "res://assets/ui/map_event/buttons/ui_btn_back.png",
+        "disabled": "res://assets/ui/map_event/buttons/ui_btn_back.png",
+        "size": [
+          72,
+          72
+        ],
+        "nine_patch": null,
+        "usage": "返回按钮"
+      },
+      "btn_deck": {
+        "normal": "res://assets/ui/map_event/buttons/ui_btn_deck.png",
+        "pressed": "res://assets/ui/map_event/buttons/ui_btn_deck.png",
+        "disabled": "res://assets/ui/map_event/buttons/ui_btn_deck.png",
+        "size": [
+          220,
+          62
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "查看卡组按钮"
+      },
+      "btn_choice": {
+        "normal": "res://assets/ui/map_event/buttons/ui_btn_choice_normal.png",
+        "hover": "res://assets/ui/map_event/buttons/ui_btn_choice_hover.png",
+        "disabled": "res://assets/ui/map_event/buttons/ui_btn_choice_disabled.png",
+        "size": [
+          260,
+          58
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "事件选项按钮"
       }
     }
   }
 }
-

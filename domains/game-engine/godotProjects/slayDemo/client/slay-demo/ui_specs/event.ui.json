@@ -1,43 +1,51 @@
 {
   "scene": "EventUI",
-  "design_resolution": [1365, 768],
+  "design_resolution": [1280, 720],
   "background": {
     "type": "TextureRect",
     "name": "Background",
-    "asset": "backgrounds.event",
+    "asset": "backgrounds.map_event",
     "stretch_mode": "keep_aspect_covered",
     "layout": { "preset": "full_rect" }
   },
   "children": [
     {
-      "type": "Panel",
-      "name": "ScreenFrame",
-      "style": "panel_dark",
+      "type": "TextureRect",
+      "name": "ScreenBorder",
+      "asset": "ui.map_event.screen_border",
+      "stretch_mode": "keep_aspect",
       "layout": { "preset": "full_rect" }
     },
     {
-      "type": "Control",
+      "type": "TextureRect",
+      "name": "EventPanelArt",
+      "asset": "ui.map_event.panel_event",
+      "stretch_mode": "keep_aspect",
+      "layout": { "preset": "center", "size": [430, 540] }
+    },
+    {
+      "type": "VBoxContainer",
       "name": "ContentContainer",
-      "layout": { "preset": "full_rect", "margin": [56, 52, 56, 48] },
+      "layout": { "preset": "center", "size": [348, 430] },
       "children": [
         {
           "type": "Label",
           "name": "TitleLabel",
           "text": "事件",
           "style": "text_title_gold",
-          "layout": { "preset": "top_left", "size": [520, 86], "margin": [86, 42, 0, 0] }
+          "layout": { "preset": "full_rect" }
         },
         {
           "type": "Label",
           "name": "StatusLabel",
           "text": "",
           "style": "text_body",
-          "layout": { "preset": "top_left", "size": [620, 92], "margin": [110, 142, 0, 0] }
+          "layout": { "preset": "full_rect" }
         },
         {
-          "type": "HBoxContainer",
+          "type": "VBoxContainer",
           "name": "ChoiceRow",
-          "layout": { "preset": "bottom_left", "size": [760, 300], "margin": [120, 0, 0, 72] }
+          "layout": { "preset": "full_rect" }
         }
       ]
     }

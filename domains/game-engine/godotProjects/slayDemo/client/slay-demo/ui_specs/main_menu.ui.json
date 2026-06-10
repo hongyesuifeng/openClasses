@@ -1,88 +1,234 @@
 {
   "scene": "MainMenuUI",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "background": {
     "type": "TextureRect",
     "name": "Background",
     "asset": "backgrounds.main_menu",
     "stretch_mode": "keep_aspect_covered",
-    "layout": { "preset": "full_rect" }
+    "layout": {
+      "preset": "full_rect"
+    }
   },
   "children": [
     {
       "type": "TextureRect",
       "name": "LeftSidebarPanel",
       "asset": "ui.login.sidebar_panel",
-      "stretch_mode": "keep_aspect_centered",
-      "layout": { "preset": "top_left", "size": [108, 610], "margin": [25, 110, 0, 0] }
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          169,
+          872
+        ],
+        "margin": [
+          -2,
+          11,
+          0,
+          0
+        ]
+      }
     },
     {
       "type": "Button",
       "name": "SidebarAchievement",
-      "style": "btn_icon",
-      "layout": { "preset": "top_left", "size": [85, 105], "margin": [36, 140, 0, 0] },
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          80,
+          98
+        ],
+        "margin": [
+          34,
+          131,
+          0,
+          0
+        ]
+      },
       "action": "menu.sidebar.achievement"
     },
     {
       "type": "Button",
       "name": "SidebarCollection",
-      "style": "btn_icon",
-      "layout": { "preset": "top_left", "size": [85, 110], "margin": [36, 260, 0, 0] },
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          80,
+          103
+        ],
+        "margin": [
+          34,
+          244,
+          0,
+          0
+        ]
+      },
       "action": "menu.sidebar.collection"
     },
     {
       "type": "Button",
       "name": "SidebarSettings",
-      "style": "btn_icon",
-      "layout": { "preset": "top_left", "size": [85, 110], "margin": [36, 395, 0, 0] },
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          80,
+          103
+        ],
+        "margin": [
+          34,
+          370,
+          0,
+          0
+        ]
+      },
       "action": "menu.sidebar.settings"
     },
     {
       "type": "Button",
       "name": "SidebarNotice",
-      "style": "btn_icon",
-      "layout": { "preset": "top_left", "size": [85, 110], "margin": [36, 545, 0, 0] },
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          80,
+          103
+        ],
+        "margin": [
+          34,
+          511,
+          0,
+          0
+        ]
+      },
       "action": "menu.sidebar.notice"
     },
     {
       "type": "TextureRect",
       "name": "TitleLogo",
       "asset": "ui.login.title_logo",
-      "stretch_mode": "keep_aspect_centered",
-      "layout": { "preset": "top_center", "size": [582, 189], "margin": [0, 236, 0, 0] }
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_center",
+        "size": [
+          750,
+          225
+        ],
+        "margin": [
+          0,
+          188,
+          0,
+          0
+        ]
+      }
     },
     {
       "type": "TextureRect",
       "name": "SubtitleRibbon",
       "asset": "ui.login.subtitle_ribbon",
-      "stretch_mode": "keep_aspect_centered",
-      "layout": { "preset": "top_center", "size": [432, 67], "margin": [0, 438, 0, 0] }
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_center",
+        "size": [
+          975,
+          178
+        ],
+        "margin": [
+          0,
+          347,
+          0,
+          0
+        ]
+      }
     },
     {
       "type": "TextureRect",
       "name": "CrystalBar",
       "asset": "ui.login.crystal_bar",
-      "stretch_mode": "keep_aspect_centered",
-      "layout": { "preset": "top_right", "size": [220, 58], "margin": [0, 20, 35, 0] }
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          559,
+          129
+        ],
+        "margin": [
+          0,
+          9,
+          -141,
+          0
+        ]
+      }
     },
     {
       "type": "Button",
       "name": "AddCrystalButton",
-      "style": "btn_icon",
-      "layout": { "preset": "top_right", "size": [48, 48], "margin": [0, 24, 16, 0] },
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          45,
+          45
+        ],
+        "margin": [
+          0,
+          23,
+          15,
+          0
+        ]
+      },
       "action": "menu.on_settings"
     },
     {
-      "type": "VBoxContainer",
+      "type": "TextureRect",
+      "name": "StartButtonArt",
+      "asset": "ui.login.start_game_btn",
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "bottom_center",
+        "size": [
+          600,
+          146
+        ],
+        "margin": [
+          0,
+          0,
+          0,
+          50
+        ]
+      }
+    },
+    {
+      "type": "Control",
       "name": "ButtonContainer",
-      "layout": { "preset": "bottom_center", "size": [420, 180], "margin": [0, 0, 0, 20] },
+      "layout": {
+        "preset": "bottom_center",
+        "size": [
+          600,
+          146
+        ],
+        "margin": [
+          0,
+          0,
+          0,
+          50
+        ]
+      },
       "children": [
         {
           "type": "Button",
           "name": "ContinueButton",
           "text": "继续游戏",
-          "style": "btn_primary",
-          "layout": { "preset": "full_rect" },
+          "style": "btn_hotspot",
+          "layout": {
+            "preset": "full_rect"
+          },
           "action": "menu.on_continue",
           "visible": false
         },
@@ -90,9 +236,10 @@
           "type": "Button",
           "name": "StartButton",
           "text": "开始游戏",
-          "style": "btn_primary",
-          "asset": "ui.login.start_game_btn",
-          "layout": { "preset": "full_rect" },
+          "style": "btn_hotspot",
+          "layout": {
+            "preset": "full_rect"
+          },
           "action": "menu.on_start"
         }
       ]

@@ -1,7 +1,10 @@
 {
   "scene": "chest",
   "target_image": "res://ui_snapshots/target/chest_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
@@ -9,7 +12,12 @@
       "role": "chest_background",
       "type_hint": "TextureRect",
       "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
       "asset_token": "backgrounds.chest",
@@ -21,7 +29,12 @@
       "role": "chest_title",
       "type_hint": "Label",
       "expected_node": "TitleLabel",
-      "bbox": [502, 250, 360, 56],
+      "bbox": [
+        471,
+        234,
+        338,
+        53
+      ],
       "anchor_hint": "center",
       "z_layer": "HUDLayer",
       "style_token": "text_title_gold",
@@ -33,7 +46,12 @@
       "role": "chest_result_text",
       "type_hint": "Label",
       "expected_node": "StatusLabel",
-      "bbox": [382, 330, 600, 60],
+      "bbox": [
+        358,
+        309,
+        563,
+        56
+      ],
       "anchor_hint": "center",
       "z_layer": "HUDLayer",
       "style_token": "text_body",
@@ -46,7 +64,12 @@
       "role": "open_chest_button",
       "type_hint": "Button",
       "expected_node": "OpenButton",
-      "bbox": [572, 420, 220, 56],
+      "bbox": [
+        536,
+        394,
+        206,
+        53
+      ],
       "anchor_hint": "center",
       "z_layer": "InteractionLayer",
       "style_token": "btn_primary",

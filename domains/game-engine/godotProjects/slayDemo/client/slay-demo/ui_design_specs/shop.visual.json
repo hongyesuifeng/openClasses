@@ -1,7 +1,10 @@
 {
   "scene": "shop",
   "target_image": "res://ui_snapshots/target/shop_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
@@ -9,7 +12,12 @@
       "role": "shop_background",
       "type_hint": "TextureRect",
       "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
       "asset_token": "backgrounds.shop",
@@ -21,7 +29,12 @@
       "role": "gold_display_bar",
       "type_hint": "HBoxContainer",
       "expected_node": "ResourceBar",
-      "bbox": [1181, 14, 160, 36],
+      "bbox": [
+        1107,
+        13,
+        150,
+        34
+      ],
       "anchor_hint": "top_right",
       "z_layer": "HUDLayer",
       "dynamic": true,
@@ -33,7 +46,12 @@
       "role": "shop_title",
       "type_hint": "Label",
       "expected_node": "TitleLabel",
-      "bbox": [100, 80, 600, 56],
+      "bbox": [
+        94,
+        75,
+        563,
+        53
+      ],
       "anchor_hint": "top_left",
       "z_layer": "HUDLayer",
       "style_token": "text_title_pink",
@@ -45,7 +63,12 @@
       "role": "shop_items_row",
       "type_hint": "HBoxContainer",
       "expected_node": "ContentRow",
-      "bbox": [32, 200, 900, 380],
+      "bbox": [
+        30,
+        188,
+        844,
+        356
+      ],
       "anchor_hint": "center",
       "z_layer": "InteractionLayer",
       "dynamic": true,
@@ -58,7 +81,12 @@
       "role": "merchant_illustration",
       "type_hint": "TextureRect",
       "expected_node": "PortraitImage",
-      "bbox": [1080, 150, 200, 320],
+      "bbox": [
+        1013,
+        141,
+        188,
+        300
+      ],
       "anchor_hint": "right_center",
       "z_layer": "DecorationLayer",
       "asset_token": "characters.merchant",
@@ -70,7 +98,12 @@
       "role": "remove_card_button",
       "type_hint": "Button",
       "expected_node": "RemoveButton",
-      "bbox": [100, 630, 160, 44],
+      "bbox": [
+        94,
+        591,
+        150,
+        41
+      ],
       "anchor_hint": "bottom_left",
       "z_layer": "InteractionLayer",
       "style_token": "btn_primary",
@@ -83,7 +116,12 @@
       "role": "leave_shop_button",
       "type_hint": "Button",
       "expected_node": "LeaveButton",
-      "bbox": [270, 630, 160, 44],
+      "bbox": [
+        253,
+        591,
+        150,
+        41
+      ],
       "anchor_hint": "bottom_left",
       "z_layer": "InteractionLayer",
       "style_token": "btn_action",

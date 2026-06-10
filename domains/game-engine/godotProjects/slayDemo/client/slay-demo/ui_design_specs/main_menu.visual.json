@@ -2,8 +2,8 @@
   "scene": "main_menu",
   "target_image": "res://ui_snapshots/target/main_menu_target.png",
   "design_resolution": [
-    1365,
-    768
+    1280,
+    720
   ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
@@ -11,12 +11,12 @@
       "id": "login_background",
       "role": "登录场景背景图",
       "type_hint": "TextureRect",
-      "expected_node": "LoginBackground",
+      "expected_node": "Background",
       "bbox": [
         0,
         0,
-        1365,
-        768
+        1280,
+        720
       ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
@@ -29,7 +29,7 @@
         "color_delta": 30
       },
       "acceptance_weight": 0.3,
-      "ai_hint": "背景图独立输出，不包含任何 UI 元素；建议 TextureRect + keep_aspect_covered。"
+      "ai_hint": "背景图独立输出，不包含任何 UI 元素；TextureRect 必须使用 keep_aspect_covered。"
     },
     {
       "id": "left_sidebar_panel",
@@ -37,10 +37,10 @@
       "type_hint": "TextureRect",
       "expected_node": "LeftSidebarPanel",
       "bbox": [
-        25,
-        110,
-        108,
-        610
+        -2,
+        11,
+        169,
+        872
       ],
       "anchor_hint": "top_left",
       "z_layer": "DecorationLayer",
@@ -54,22 +54,23 @@
         "color_delta": 18
       },
       "acceptance_weight": 0.7,
-      "ai_hint": "侧栏建议作为单独底板资源挂载；内部交互入口建议使用独立 Button 热区覆盖。"
+      "ai_hint": "侧栏作为单独底板资源挂载，TextureRect 必须使用 keep_aspect 缩放到 bbox；内部交互入口使用 btn_hotspot 透明 Button 热区覆盖。"
     },
     {
       "id": "achievement_button",
       "role": "成就入口热区",
       "type_hint": "Button",
-      "expected_node": "AchievementButton",
+      "expected_node": "SidebarAchievement",
       "bbox": [
-        36,
-        140,
-        85,
-        105
+        34,
+        131,
+        80,
+        98
       ],
       "anchor_hint": "top_left",
       "z_layer": "InteractionLayer",
-      "action_hint": "main_menu.open_achievement",
+      "style_token": "btn_hotspot",
+      "action_hint": "menu.sidebar.achievement",
       "dynamic": false,
       "priority": "medium",
       "tolerance": {
@@ -84,16 +85,17 @@
       "id": "collection_button",
       "role": "图鉴入口热区",
       "type_hint": "Button",
-      "expected_node": "CollectionButton",
+      "expected_node": "SidebarCollection",
       "bbox": [
-        36,
-        260,
-        85,
-        110
+        34,
+        244,
+        80,
+        103
       ],
       "anchor_hint": "top_left",
       "z_layer": "InteractionLayer",
-      "action_hint": "main_menu.open_collection",
+      "style_token": "btn_hotspot",
+      "action_hint": "menu.sidebar.collection",
       "dynamic": false,
       "priority": "medium",
       "tolerance": {
@@ -108,16 +110,17 @@
       "id": "settings_button",
       "role": "设置入口热区",
       "type_hint": "Button",
-      "expected_node": "SettingsButton",
+      "expected_node": "SidebarSettings",
       "bbox": [
-        36,
-        395,
-        85,
-        110
+        34,
+        370,
+        80,
+        103
       ],
       "anchor_hint": "top_left",
       "z_layer": "InteractionLayer",
-      "action_hint": "main_menu.open_settings",
+      "style_token": "btn_hotspot",
+      "action_hint": "menu.sidebar.settings",
       "dynamic": false,
       "priority": "medium",
       "tolerance": {
@@ -132,16 +135,17 @@
       "id": "notice_button",
       "role": "公告入口热区",
       "type_hint": "Button",
-      "expected_node": "NoticeButton",
+      "expected_node": "SidebarNotice",
       "bbox": [
-        36,
-        545,
-        85,
-        110
+        34,
+        511,
+        80,
+        103
       ],
       "anchor_hint": "top_left",
       "z_layer": "InteractionLayer",
-      "action_hint": "main_menu.open_notice",
+      "style_token": "btn_hotspot",
+      "action_hint": "menu.sidebar.notice",
       "dynamic": false,
       "priority": "medium",
       "tolerance": {
@@ -158,10 +162,10 @@
       "type_hint": "TextureRect",
       "expected_node": "TitleLogo",
       "bbox": [
-        391,
-        236,
-        582,
-        189
+        264,
+        188,
+        750,
+        225
       ],
       "anchor_hint": "top_center",
       "z_layer": "DecorationLayer",
@@ -174,7 +178,7 @@
         "color_delta": 12
       },
       "acceptance_weight": 0.9,
-      "ai_hint": "主标题建议使用独立切图，居中显示。"
+      "ai_hint": "主标题使用透明独立切图，TextureRect 必须使用 keep_aspect 缩放到 bbox；资源透明边较大，当前 bbox 是为了让非透明标题视觉接近 target，禁止 keep_aspect_centered 裁切大图。"
     },
     {
       "id": "subtitle_ribbon",
@@ -182,10 +186,10 @@
       "type_hint": "TextureRect",
       "expected_node": "SubtitleRibbon",
       "bbox": [
-        468,
-        438,
-        432,
-        67
+        152,
+        347,
+        975,
+        178
       ],
       "anchor_hint": "top_center",
       "z_layer": "DecorationLayer",
@@ -198,7 +202,7 @@
         "color_delta": 15
       },
       "acceptance_weight": 0.75,
-      "ai_hint": "横幅位于 Logo 下方，作为补充 slogan。"
+      "ai_hint": "横幅位于 Logo 下方，使用 keep_aspect 缩放到 bbox；资源透明边较大，当前 bbox 是为了让非透明横幅视觉接近 target，禁止 keep_aspect_centered 裁切大图。"
     },
     {
       "id": "crystal_bar",
@@ -206,15 +210,15 @@
       "type_hint": "TextureRect",
       "expected_node": "CrystalBar",
       "bbox": [
-        1110,
-        20,
-        220,
-        58
+        862,
+        9,
+        559,
+        129
       ],
       "anchor_hint": "top_right",
       "z_layer": "HUDLayer",
       "style_token": "panel_resource",
-      "asset_token": "ui.login.currency_crystal_bar",
+      "asset_token": "ui.login.crystal_bar",
       "bind_hint": "main_menu.crystal_count",
       "dynamic": true,
       "priority": "medium",
@@ -224,7 +228,31 @@
         "color_delta": 15
       },
       "acceptance_weight": 0.7,
-      "ai_hint": "建议作为整条资源栏底图；数字可改为 Label 叠加，也可直接使用整图示例。"
+      "ai_hint": "建议作为整条资源栏底图，使用 keep_aspect 缩放到 bbox；数字可改为 Label 叠加，也可直接使用整图示例。"
+    },
+    {
+      "id": "start_game_button_art",
+      "role": "开始游戏按钮视觉切图",
+      "type_hint": "TextureRect",
+      "expected_node": "StartButtonArt",
+      "bbox": [
+        339,
+        524,
+        600,
+        146
+      ],
+      "anchor_hint": "bottom_center",
+      "z_layer": "DecorationLayer",
+      "asset_token": "ui.login.start_game_btn",
+      "dynamic": false,
+      "priority": "high",
+      "tolerance": {
+        "position_px": 6,
+        "size_px": 6,
+        "color_delta": 8
+      },
+      "acceptance_weight": 0.95,
+      "ai_hint": "开始按钮视觉由 TextureRect 显示；Button 节点只作为透明点击热区，避免 Button asset 被当作 icon 叠到默认按钮样式上。"
     },
     {
       "id": "add_crystal_button",
@@ -232,14 +260,14 @@
       "type_hint": "Button",
       "expected_node": "AddCrystalButton",
       "bbox": [
-        1262,
-        18,
-        68,
-        60
+        1183,
+        17,
+        64,
+        56
       ],
       "anchor_hint": "top_right",
       "z_layer": "InteractionLayer",
-      "action_hint": "main_menu.add_crystal",
+      "action_hint": "menu.on_settings",
       "dynamic": false,
       "priority": "medium",
       "tolerance": {
@@ -254,18 +282,17 @@
       "id": "start_game_button",
       "role": "开始游戏主入口按钮",
       "type_hint": "Button",
-      "expected_node": "StartGameButton",
+      "expected_node": "StartButton",
       "bbox": [
-        493,
-        623,
-        409,
-        108
+        339,
+        524,
+        600,
+        146
       ],
       "anchor_hint": "bottom_center",
       "z_layer": "InteractionLayer",
-      "style_token": "btn_primary",
-      "asset_token": "buttons.primary.start_game",
-      "action_hint": "main_menu.start_game",
+      "style_token": "btn_hotspot",
+      "action_hint": "menu.on_start",
       "dynamic": false,
       "priority": "high",
       "tolerance": {
@@ -274,7 +301,7 @@
         "color_delta": 8
       },
       "acceptance_weight": 0.95,
-      "ai_hint": "主按钮位于底部中央；建议使用独立按钮资源并保留可点击状态。"
+      "ai_hint": "主按钮位于底部中央；视觉资源为 ui.login.start_game_btn，Button 仍保留 text='开始游戏' 供自动化测试和可访问性查找。"
     }
   ],
   "static_dynamic_rules": {

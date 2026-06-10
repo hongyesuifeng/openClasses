@@ -1,7 +1,10 @@
 {
   "scene": "rest",
   "target_image": "res://ui_snapshots/target/rest_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1280,
+    720
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
@@ -9,7 +12,12 @@
       "role": "rest_background",
       "type_hint": "TextureRect",
       "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "bbox": [
+        0,
+        0,
+        1280,
+        720
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
       "asset_token": "backgrounds.rest",
@@ -21,7 +29,12 @@
       "role": "rest_title",
       "type_hint": "Label",
       "expected_node": "TitleLabel",
-      "bbox": [302, 54, 760, 82],
+      "bbox": [
+        283,
+        51,
+        713,
+        77
+      ],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "style_token": "text_title_pink",
@@ -33,7 +46,12 @@
       "role": "hp_status_text",
       "type_hint": "Label",
       "expected_node": "StatusLabel",
-      "bbox": [322, 148, 720, 46],
+      "bbox": [
+        302,
+        139,
+        675,
+        43
+      ],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "style_token": "text_body",
@@ -46,7 +64,12 @@
       "role": "rest_choices",
       "type_hint": "HBoxContainer",
       "expected_node": "ChoiceRow",
-      "bbox": [202, 236, 960, 320],
+      "bbox": [
+        189,
+        221,
+        900,
+        300
+      ],
       "anchor_hint": "top_center",
       "z_layer": "InteractionLayer",
       "dynamic": true,

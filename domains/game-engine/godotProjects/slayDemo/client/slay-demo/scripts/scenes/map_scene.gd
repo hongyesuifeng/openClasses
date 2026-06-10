@@ -18,13 +18,13 @@ const NODE_COLORS := {
 	"result": Color(0.62, 0.32, 0.82, 0.98)
 }
 const NODE_ICON_PATHS := {
-	"battle": "res://assets/ui/map/map_node_battle.png",
-	"elite":  "res://assets/ui/map/map_node_elite.png",
-	"shop":   "res://assets/ui/map/map_node_shop.png",
-	"chest":  "res://assets/ui/icons/icon_chest.png",
-	"event":  "res://assets/ui/map/map_node_event.png",
-	"rest":   "res://assets/ui/map/map_node_rest.png",
-	"result": "res://assets/ui/map/map_node_boss.png"
+	"battle": "res://assets/ui/map_event/nodes/node_battle.png",
+	"elite":  "res://assets/ui/map_event/nodes/node_elite.png",
+	"shop":   "res://assets/ui/map_event/nodes/node_shop.png",
+	"chest":  "res://assets/ui/map_event/nodes/node_chest.png",
+	"event":  "res://assets/ui/map_event/nodes/node_event.png",
+	"rest":   "res://assets/ui/map_event/nodes/node_rest.png",
+	"result": "res://assets/ui/map_event/nodes/node_boss.png"
 }
 
 var _status_label: Label
@@ -70,7 +70,7 @@ func _build() -> void:
 		_node_root.resized.connect(_on_node_root_resized)
 
 		var map_surface := ColorRect.new()
-		map_surface.color = Color(0.08, 0.04, 0.14, 0.34)
+		map_surface.color = Color(0.08, 0.04, 0.14, 0.12)
 		map_surface.set_anchors_preset(Control.PRESET_FULL_RECT)
 		map_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		map_surface.z_index = 0
@@ -251,7 +251,7 @@ func _add_node_content(button: Button, node_dict: Dictionary, selectable: bool, 
 	if not icon_path.is_empty() and FileAccess.file_exists(icon_path):
 		var icon_rect := TextureRect.new()
 		icon_rect.texture = load(icon_path)
-		icon_rect.custom_minimum_size = Vector2(34, 34)
+		icon_rect.custom_minimum_size = Vector2(44, 44)
 		icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 		icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
