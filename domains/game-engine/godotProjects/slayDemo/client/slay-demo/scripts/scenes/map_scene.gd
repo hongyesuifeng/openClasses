@@ -54,8 +54,9 @@ func _build() -> void:
 
 	_node_root = ui.find_child("NodeSurface", true, false) as Control
 	if _node_root != null:
-		_node_root.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		_node_root.custom_minimum_size = Vector2(0, 600)
+		_node_root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_node_root.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+		_node_root.custom_minimum_size   = Vector2(0, 400)
 		UILayoutStoreScript.apply_layout(_node_root, "map.node_surface")
 
 		_line_canvas = Control.new()
@@ -146,7 +147,7 @@ func _render_nodes() -> void:
 
 		var button := Button.new()
 		button.text = ""
-		button.custom_minimum_size = Vector2(110, 56)
+		button.custom_minimum_size = Vector2(90, 64)
 		button.position = node_pos
 		button.z_index = 5
 		button.disabled = not selectable
@@ -159,8 +160,8 @@ func _render_nodes() -> void:
 
 
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
-	const NODE_W := 110.0
-	const NODE_H := 56.0
+	const NODE_W := 90.0
+	const NODE_H := 64.0
 	_path_lines.clear()
 	for node in nodes:
 		var node_dict := node as Dictionary
@@ -219,14 +220,15 @@ func _node_position(floor_index: int, index: int, floor_count: int, max_floor: i
 	if _node_root == null:
 		return Vector2.ZERO
 	var surface_size := _node_root.size
-	const NODE_W := 110.0
-	const NODE_H := 56.0
-	var total_h := surface_size.y if surface_size.y > 0 else 600.0
+	const NODE_W := 90.0
+	const NODE_H := 64.0
 	var total_w := surface_size.x if surface_size.x > 0 else 1000.0
-	var y_step := total_h / float(max_floor + 1)
-	var y := total_h - (float(floor_index) * y_step) - NODE_H / 2.0
-	var x_step := total_w / float(floor_count + 1)
-	var x := x_step * float(index + 1) - NODE_W / 2.0
+	var total_h := surface_size.y if surface_size.y > 0 else 600.0
+	## 从左到右：floor_index 控制 x，index 控制 y
+	var x_step := total_w / float(max_floor + 1)
+	var x := float(floor_index) * x_step + (x_step - NODE_W) / 2.0
+	var y_step := total_h / float(floor_count + 1)
+	var y := y_step * float(index + 1) - NODE_H / 2.0
 	return Vector2(x, y)
 
 
