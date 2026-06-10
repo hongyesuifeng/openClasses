@@ -35,6 +35,8 @@ static func resolve_path(asset_key: String) -> String:
 		return node
 	if node is Dictionary and node.has("normal"):
 		return node["normal"]
+	if node is Dictionary and node.has("path"):
+		return node["path"]
 	push_warning("UIAssetLoader: key '%s' 不是路径字符串" % asset_key)
 	return ""
 

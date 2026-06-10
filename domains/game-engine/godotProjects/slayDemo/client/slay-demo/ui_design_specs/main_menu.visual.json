@@ -1,96 +1,288 @@
 {
   "scene": "main_menu",
   "target_image": "res://ui_snapshots/target/main_menu_target.png",
-  "design_resolution": [1365, 768],
+  "design_resolution": [
+    1365,
+    768
+  ],
   "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
   "elements": [
     {
-      "id": "background",
-      "role": "scene_background",
+      "id": "login_background",
+      "role": "登录场景背景图",
       "type_hint": "TextureRect",
-      "expected_node": "Background",
-      "bbox": [0, 0, 1365, 768],
+      "expected_node": "LoginBackground",
+      "bbox": [
+        0,
+        0,
+        1365,
+        768
+      ],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
       "asset_token": "backgrounds.main_menu",
       "dynamic": false,
-      "priority": "high"
+      "priority": "low",
+      "tolerance": {
+        "position_px": 0,
+        "size_px": 0,
+        "color_delta": 30
+      },
+      "acceptance_weight": 0.3,
+      "ai_hint": "背景图独立输出，不包含任何 UI 元素；建议 TextureRect + keep_aspect_covered。"
     },
     {
-      "id": "sidebar_bg",
-      "role": "left_sidebar_background",
-      "type_hint": "Panel",
-      "expected_node": "SidebarBg",
-      "bbox": [6, 68, 62, 632],
-      "anchor_hint": "left_full",
+      "id": "left_sidebar_panel",
+      "role": "左侧功能侧栏底板",
+      "type_hint": "TextureRect",
+      "expected_node": "LeftSidebarPanel",
+      "bbox": [
+        25,
+        110,
+        108,
+        610
+      ],
+      "anchor_hint": "top_left",
       "z_layer": "DecorationLayer",
       "style_token": "panel_sidebar",
+      "asset_token": "ui.login.sidebar_panel",
       "dynamic": false,
-      "priority": "medium"
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 10,
+        "size_px": 12,
+        "color_delta": 18
+      },
+      "acceptance_weight": 0.7,
+      "ai_hint": "侧栏建议作为单独底板资源挂载；内部交互入口建议使用独立 Button 热区覆盖。"
     },
     {
-      "id": "sidebar_buttons",
-      "role": "sidebar_icon_buttons",
-      "type_hint": "VBoxContainer",
-      "expected_node": "Sidebar",
-      "bbox": [12, 80, 56, 220],
-      "anchor_hint": "left_full",
+      "id": "achievement_button",
+      "role": "成就入口热区",
+      "type_hint": "Button",
+      "expected_node": "AchievementButton",
+      "bbox": [
+        36,
+        140,
+        85,
+        105
+      ],
+      "anchor_hint": "top_left",
       "z_layer": "InteractionLayer",
+      "action_hint": "main_menu.open_achievement",
       "dynamic": false,
-      "children": ["SidebarAchievement", "SidebarCollection", "SidebarSettings", "SidebarNotice"],
-      "priority": "medium"
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 12,
+        "color_delta": 20
+      },
+      "acceptance_weight": 0.6,
+      "ai_hint": "透明点击热区；视觉由侧栏底板资源提供。"
     },
     {
-      "id": "title_label",
-      "role": "game_title",
-      "type_hint": "Label",
-      "expected_node": "TitleLabel",
-      "bbox": [452, 120, 460, 80],
-      "anchor_hint": "center",
-      "z_layer": "HUDLayer",
-      "style_token": "text_hero_title",
+      "id": "collection_button",
+      "role": "图鉴入口热区",
+      "type_hint": "Button",
+      "expected_node": "CollectionButton",
+      "bbox": [
+        36,
+        260,
+        85,
+        110
+      ],
+      "anchor_hint": "top_left",
+      "z_layer": "InteractionLayer",
+      "action_hint": "main_menu.open_collection",
+      "dynamic": false,
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 12,
+        "color_delta": 20
+      },
+      "acceptance_weight": 0.6,
+      "ai_hint": "透明点击热区；视觉由侧栏底板资源提供。"
+    },
+    {
+      "id": "settings_button",
+      "role": "设置入口热区",
+      "type_hint": "Button",
+      "expected_node": "SettingsButton",
+      "bbox": [
+        36,
+        395,
+        85,
+        110
+      ],
+      "anchor_hint": "top_left",
+      "z_layer": "InteractionLayer",
+      "action_hint": "main_menu.open_settings",
+      "dynamic": false,
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 12,
+        "color_delta": 20
+      },
+      "acceptance_weight": 0.6,
+      "ai_hint": "透明点击热区；视觉由侧栏底板资源提供。"
+    },
+    {
+      "id": "notice_button",
+      "role": "公告入口热区",
+      "type_hint": "Button",
+      "expected_node": "NoticeButton",
+      "bbox": [
+        36,
+        545,
+        85,
+        110
+      ],
+      "anchor_hint": "top_left",
+      "z_layer": "InteractionLayer",
+      "action_hint": "main_menu.open_notice",
+      "dynamic": false,
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 12,
+        "size_px": 12,
+        "color_delta": 20
+      },
+      "acceptance_weight": 0.6,
+      "ai_hint": "透明点击热区；视觉由侧栏底板资源提供。"
+    },
+    {
+      "id": "title_logo",
+      "role": "主标题 Logo",
+      "type_hint": "TextureRect",
+      "expected_node": "TitleLogo",
+      "bbox": [
+        391,
+        236,
+        582,
+        189
+      ],
+      "anchor_hint": "top_center",
+      "z_layer": "DecorationLayer",
+      "asset_token": "ui.login.title_logo",
       "dynamic": false,
       "priority": "high",
-      "ai_hint": "游戏主标题「甜心迷宫」，字号 56，粉色"
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 10,
+        "color_delta": 12
+      },
+      "acceptance_weight": 0.9,
+      "ai_hint": "主标题建议使用独立切图，居中显示。"
     },
     {
-      "id": "subtitle_label",
-      "role": "game_subtitle",
-      "type_hint": "Label",
-      "expected_node": "SubtitleLabel",
-      "bbox": [452, 210, 460, 36],
-      "anchor_hint": "center",
+      "id": "subtitle_ribbon",
+      "role": "标题下方副标题横幅",
+      "type_hint": "TextureRect",
+      "expected_node": "SubtitleRibbon",
+      "bbox": [
+        468,
+        438,
+        432,
+        67
+      ],
+      "anchor_hint": "top_center",
+      "z_layer": "DecorationLayer",
+      "asset_token": "ui.login.subtitle_ribbon",
+      "dynamic": false,
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 10,
+        "size_px": 10,
+        "color_delta": 15
+      },
+      "acceptance_weight": 0.75,
+      "ai_hint": "横幅位于 Logo 下方，作为补充 slogan。"
+    },
+    {
+      "id": "crystal_bar",
+      "role": "右上角货币栏",
+      "type_hint": "TextureRect",
+      "expected_node": "CrystalBar",
+      "bbox": [
+        1110,
+        20,
+        220,
+        58
+      ],
+      "anchor_hint": "top_right",
       "z_layer": "HUDLayer",
-      "style_token": "text_subtitle",
-      "dynamic": false,
-      "priority": "medium"
-    },
-    {
-      "id": "continue_button",
-      "role": "continue_game_button",
-      "type_hint": "Button",
-      "expected_node": "ContinueButton",
-      "bbox": [542, 270, 280, 58],
-      "anchor_hint": "center",
-      "z_layer": "InteractionLayer",
-      "style_token": "btn_primary",
-      "action_hint": "menu.on_continue",
+      "style_token": "panel_resource",
+      "asset_token": "ui.login.currency_crystal_bar",
+      "bind_hint": "main_menu.crystal_count",
       "dynamic": true,
-      "bind_hint": "visible when save exists",
-      "priority": "high"
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 8,
+        "color_delta": 15
+      },
+      "acceptance_weight": 0.7,
+      "ai_hint": "建议作为整条资源栏底图；数字可改为 Label 叠加，也可直接使用整图示例。"
     },
     {
-      "id": "start_button",
-      "role": "start_game_button",
+      "id": "add_crystal_button",
+      "role": "充值 / 增加货币入口热区",
       "type_hint": "Button",
-      "expected_node": "StartButton",
-      "bbox": [542, 340, 280, 58],
-      "anchor_hint": "center",
+      "expected_node": "AddCrystalButton",
+      "bbox": [
+        1262,
+        18,
+        68,
+        60
+      ],
+      "anchor_hint": "top_right",
+      "z_layer": "InteractionLayer",
+      "action_hint": "main_menu.add_crystal",
+      "dynamic": false,
+      "priority": "medium",
+      "tolerance": {
+        "position_px": 8,
+        "size_px": 8,
+        "color_delta": 20
+      },
+      "acceptance_weight": 0.65,
+      "ai_hint": "覆盖到右侧加号圆按钮的透明点击热区。"
+    },
+    {
+      "id": "start_game_button",
+      "role": "开始游戏主入口按钮",
+      "type_hint": "Button",
+      "expected_node": "StartGameButton",
+      "bbox": [
+        493,
+        623,
+        409,
+        108
+      ],
+      "anchor_hint": "bottom_center",
       "z_layer": "InteractionLayer",
       "style_token": "btn_primary",
-      "action_hint": "menu.on_start",
+      "asset_token": "buttons.primary.start_game",
+      "action_hint": "main_menu.start_game",
       "dynamic": false,
-      "priority": "high"
+      "priority": "high",
+      "tolerance": {
+        "position_px": 6,
+        "size_px": 6,
+        "color_delta": 8
+      },
+      "acceptance_weight": 0.95,
+      "ai_hint": "主按钮位于底部中央；建议使用独立按钮资源并保留可点击状态。"
     }
-  ]
+  ],
+  "static_dynamic_rules": {
+    "note": "登录场景以固定展示为主，交互入口为静态元素；货币数量允许由运行时更新。",
+    "dynamic_areas": [
+      "CrystalBar 数值可动态刷新；若 UIBuilder 支持，建议使用 TextureRect 底图 + Label 数字。",
+      "ContinueButton 为可选动态元素：有存档时可在 StartGameButton 上方追加，不在本次 target 中强制体现。",
+      "左侧侧栏视觉为单张底板资源，实际交互建议拆为多个透明 Button 热区。"
+    ]
+  }
 }

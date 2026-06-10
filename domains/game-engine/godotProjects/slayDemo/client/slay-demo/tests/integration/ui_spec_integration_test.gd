@@ -21,8 +21,9 @@ const SPECS := {
 
 # 每个 spec 必须存在的关键节点名
 const REQUIRED_NODES := {
-	"main_menu": ["Background", "Sidebar", "TopRight", "CenterPanel",
-				  "TitleLabel", "SubtitleLabel", "ButtonContainer", "StartButton", "ContinueButton"],
+	"main_menu": ["Background", "LeftSidebarPanel", "TitleLogo", "SubtitleRibbon",
+				  "ButtonContainer", "StartButton", "ContinueButton",
+				  "SidebarAchievement", "SidebarCollection", "SidebarSettings", "SidebarNotice"],
 	"chest":     ["Background", "Root", "TitleLabel", "StatusLabel", "OpenButton"],
 	"rest":      ["Background", "Root", "TitleLabel", "StatusLabel", "ChoiceRow"],
 	"result":    ["Background", "Scroll", "Root", "TitleLabel", "ButtonRow", "RestartButton", "MenuButton"],
@@ -37,7 +38,7 @@ const REQUIRED_NODES := {
 # 每个 spec 预期的 action meta
 const REQUIRED_ACTIONS := {
 	"main_menu": { "StartButton": "menu.on_start", "ContinueButton": "menu.on_continue",
-				   "SettingsBtn": "menu.on_settings" },
+				   "SidebarSettings": "menu.sidebar.settings" },
 	"shop":   { "RemoveButton": "shop.on_remove_mode", "LeaveButton": "shop.on_leave" },
 	"reward": { "SkipButton": "reward.on_skip" },
 	"result": { "RestartButton": "result.on_restart", "MenuButton": "result.on_menu" },

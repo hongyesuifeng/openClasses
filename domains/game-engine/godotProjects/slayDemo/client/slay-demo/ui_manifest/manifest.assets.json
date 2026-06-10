@@ -1,7 +1,7 @@
 {
   "backgrounds": {
     "demo":        "res://assets/backgrounds/bg_main_menu.png",
-    "main_menu":   "res://assets/backgrounds/bg_main_menu.png",
+    "main_menu":   "res://assets/backgrounds/bg_login_main.png",
     "battle":      "res://assets/backgrounds/bg_battle_dungeon.png",
     "battle_boss": "res://assets/backgrounds/bg_battle_boss.png",
     "map":         "res://assets/backgrounds/bg_map.png",
@@ -47,5 +47,42 @@
   "panels": {
     "dark":  "res://assets/ui/panels/ui_panel_dark.png",
     "light": "res://assets/ui/panels/ui_panel_light.png"
+  },
+  "ui": {
+    "login": {
+      "title_logo": {
+        "path": "res://assets/ui/login/ui_title_login_logo.png",
+        "size": [1400, 420],
+        "nine_patch": null,
+        "usage": "主标题 Logo"
+      },
+      "subtitle_ribbon": {
+        "path": "res://assets/ui/login/ui_ribbon_login_subtitle.png",
+        "size": [1200, 220],
+        "nine_patch": null,
+        "usage": "副标题横幅"
+      },
+      "start_game_btn": {
+        "normal":   "res://assets/ui/login/ui_btn_start_game.png",
+        "pressed":  "res://assets/ui/login/ui_btn_start_game.png",
+        "disabled": "res://assets/ui/login/ui_btn_start_game.png",
+        "size": [900, 220],
+        "nine_patch": [60, 40, 60, 40],
+        "usage": "开始游戏按钮"
+      },
+      "sidebar_panel": {
+        "path": "res://assets/ui/login/ui_panel_login_sidebar.png",
+        "size": [320, 1200],
+        "nine_patch": [32, 32, 32, 32],
+        "usage": "左侧功能侧栏底板"
+      },
+      "crystal_bar": {
+        "path": "res://assets/ui/login/ui_currency_crystal_bar.png",
+        "size": [520, 120],
+        "nine_patch": [36, 24, 36, 24],
+        "usage": "右上角水晶资源栏"
+      }
+    }
   }
 }
+
