@@ -1190,14 +1190,20 @@ func _build_specs_tab() -> void:
 	mock_btn.custom_minimum_size = Vector2(130, 28)
 	preview_toolbar.add_child(mock_btn)
 
-	## SubViewportContainer：自动按容器大小缩放 1280×720 内容
+	## AspectRatioContainer 强制 16:9，内容完整等比缩放
+	var aspect_box := AspectRatioContainer.new()
+	aspect_box.ratio = 16.0 / 9.0
+	aspect_box.alignment_horizontal = AspectRatioContainer.ALIGNMENT_CENTER
+	aspect_box.alignment_vertical   = AspectRatioContainer.ALIGNMENT_CENTER
+	aspect_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	aspect_box.size_flags_vertical   = Control.SIZE_EXPAND_FILL
+	preview_outer.add_child(aspect_box)
+
+	## SubViewportContainer：在 16:9 容器内全填充，stretch 自动缩放 1280×720
 	var preview_container := SubViewportContainer.new()
 	preview_container.stretch = true
-	preview_container.stretch_shrink = 2
-	preview_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	preview_container.size_flags_vertical   = Control.SIZE_EXPAND_FILL
-	preview_container.custom_minimum_size   = Vector2(640, 360)
-	preview_outer.add_child(preview_container)
+	preview_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	aspect_box.add_child(preview_container)
 
 	var preview_vp := SubViewport.new()
 	preview_vp.name = "SpecPreviewViewport"
