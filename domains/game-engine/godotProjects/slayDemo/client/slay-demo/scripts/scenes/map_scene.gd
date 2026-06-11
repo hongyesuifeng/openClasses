@@ -3,29 +3,20 @@ extends Control
 const _UIBuilder := preload("res://addons/ui_builder/ui_builder.gd")
 const RelicViewFactoryScript := preload("res://scripts/ui/relic_view_factory.gd")
 const UILayoutStoreScript    := preload("res://scripts/ui/ui_layout_store.gd")
-const SF := preload("res://scripts/ui/ui_style_factory.gd")
 
 const SPEC_PATH := "res://ui_specs/map.ui.json"
 
-const NODE_LABELS := {
-	"battle": "战斗", "elite": "精英", "shop": "商店", "chest": "宝箱",
-	"event": "事件", "rest": "休息", "result": "Boss"
-}
-const NODE_COLORS := {
-	"battle": Color(0.78, 0.42, 0.68, 0.96), "elite": Color(0.52, 0.40, 0.78, 0.96),
-	"shop": Color(0.40, 0.58, 0.78, 0.96), "chest": Color(0.76, 0.50, 0.30, 0.96),
-	"event": Color(0.86, 0.36, 0.62, 0.96), "rest": Color(0.46, 0.72, 0.50, 0.96),
-	"result": Color(0.62, 0.32, 0.82, 0.98)
-}
 const NODE_ICON_PATHS := {
-	"battle": "res://assets/ui/map_event/nodes/node_battle.png",
-	"elite":  "res://assets/ui/map_event/nodes/node_elite.png",
-	"shop":   "res://assets/ui/map_event/nodes/node_shop.png",
+	"battle": "res://assets/ui/map/map_node_battle.png",
+	"elite":  "res://assets/ui/map/map_node_elite.png",
+	"shop":   "res://assets/ui/map/map_node_shop.png",
 	"chest":  "res://assets/ui/map_event/nodes/node_chest.png",
-	"event":  "res://assets/ui/map_event/nodes/node_event.png",
-	"rest":   "res://assets/ui/map_event/nodes/node_rest.png",
-	"result": "res://assets/ui/map_event/nodes/node_boss.png"
+	"event":  "res://assets/ui/map/map_node_event.png",
+	"rest":   "res://assets/ui/map/map_node_rest.png",
+	"result": "res://assets/ui/map/map_node_boss.png",
+	"boss":   "res://assets/ui/map/map_node_boss.png"
 }
+const NODE_SIZE := Vector2(100.0, 100.0)
 
 var _status_label: Label
 var _relic_row: HBoxContainer
@@ -68,13 +59,6 @@ func _build() -> void:
 		_line_canvas.draw.connect(_draw_path_lines)
 		_node_root.add_child(_line_canvas)
 		_node_root.resized.connect(_on_node_root_resized)
-
-		var map_surface := ColorRect.new()
-		map_surface.color = Color(0.08, 0.04, 0.14, 0.12)
-		map_surface.set_anchors_preset(Control.PRESET_FULL_RECT)
-		map_surface.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		map_surface.z_index = 0
-		_node_root.add_child(map_surface)
 
 		_render_nodes()
 
@@ -149,12 +133,12 @@ func _render_nodes() -> void:
 
 		var button := Button.new()
 		button.text = ""
-		button.custom_minimum_size = Vector2(82, 82)
+		button.custom_minimum_size = NODE_SIZE
+		button.size = NODE_SIZE
 		button.position = node_pos
 		button.z_index = 5
 		button.disabled = not selectable
-		button.add_theme_stylebox_override("normal", _node_style(str(node_dict.get("type", "")), done, selectable))
-		button.add_theme_stylebox_override("hover", _node_style(str(node_dict.get("type", "")), done, true))
+		_apply_hotspot_button_style(button, selectable)
 		button.pressed.connect(_on_node_pressed.bind(node_id))
 		_add_node_content(button, node_dict, selectable, done)
 		_node_root.add_child(button)
@@ -162,8 +146,6 @@ func _render_nodes() -> void:
 
 
 func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
-	const NODE_W := 82.0
-	const NODE_H := 82.0
 	_path_lines.clear()
 	for node in nodes:
 		var node_dict := node as Dictionary
@@ -174,10 +156,12 @@ func _render_paths(nodes: Array, completed: Array, available: Array) -> void:
 			var from_pos: Vector2 = _node_positions[from_id]
 			var to_pos:   Vector2 = _node_positions[str(next_id)]
 			_path_lines.append({
-				"from": from_pos + Vector2(NODE_W / 2.0, NODE_H / 2.0),
-				"to":   to_pos   + Vector2(NODE_W / 2.0, NODE_H / 2.0),
+				"from": from_pos + NODE_SIZE / 2.0,
+				"to":   to_pos   + NODE_SIZE / 2.0,
 				"open": available.has(str(next_id)) and (completed.has(from_id) or available.has(from_id))
 			})
+	if _line_canvas != null:
+		_line_canvas.queue_redraw()
 
 
 func _draw_path_lines() -> void:
@@ -188,10 +172,10 @@ func _draw_path_lines() -> void:
 		var to   := line["to"]   as Vector2
 		var open := bool(line.get("open", false))
 		## 描边（深紫）
-		_line_canvas.draw_line(from, to, Color(0.18, 0.08, 0.22, 0.92), 9.0 if open else 7.0, true)
+		_line_canvas.draw_line(from, to, Color(0.28, 0.11, 0.28, 0.92), 13.0 if open else 10.0, true)
 		## 主线（粉金色）
-		var col := Color(1.0, 0.86, 0.42, 0.98) if open else Color(0.78, 0.64, 0.86, 0.52)
-		_line_canvas.draw_line(from, to, col, 4.5 if open else 3.0, true)
+		var col := Color(1.0, 0.92, 0.48, 1.0) if open else Color(1.0, 0.84, 0.42, 0.82)
+		_line_canvas.draw_line(from, to, col, 7.0 if open else 5.0, true)
 		## 箭头
 		_draw_arrow(from, to, col, open)
 
@@ -203,7 +187,7 @@ func _draw_arrow(from: Vector2, to: Vector2, color: Color, open: bool) -> void:
 	var unit := direction.normalized()
 	var arrow_center := to - unit * 46.0
 	var side := Vector2(-unit.y, unit.x)
-	var size := 12.0 if open else 10.0
+	var size := 15.0 if open else 12.0
 	var arrow_points := PackedVector2Array([
 		arrow_center + unit * size,
 		arrow_center - unit * size * 0.75 + side * size * 0.55,
@@ -214,7 +198,6 @@ func _draw_arrow(from: Vector2, to: Vector2, color: Color, open: bool) -> void:
 
 func _on_node_root_resized() -> void:
 	if _line_canvas != null:
-		_line_canvas.size = _node_root.size
 		_line_canvas.queue_redraw()
 
 
@@ -222,15 +205,13 @@ func _node_position(floor_index: int, index: int, floor_count: int, max_floor: i
 	if _node_root == null:
 		return Vector2.ZERO
 	var surface_size := _node_root.size
-	const NODE_W := 82.0
-	const NODE_H := 82.0
 	var total_w := surface_size.x if surface_size.x > 0 else 1000.0
 	var total_h := surface_size.y if surface_size.y > 0 else 600.0
 	## 从左到右：floor_index 控制 x，index 控制 y
 	var x_step := total_w / float(max_floor + 1)
-	var x := float(floor_index) * x_step + (x_step - NODE_W) / 2.0
+	var x := float(floor_index) * x_step + (x_step - NODE_SIZE.x) / 2.0
 	var y_step := total_h / float(floor_count + 1)
-	var y := y_step * float(index + 1) - NODE_H / 2.0
+	var y := y_step * float(index + 1) - NODE_SIZE.y / 2.0
 	return Vector2(x, y)
 
 
@@ -240,60 +221,49 @@ func _on_node_pressed(node_id: String) -> void:
 
 
 func _add_node_content(button: Button, node_dict: Dictionary, selectable: bool, done: bool) -> void:
-	var node_type := str(node_dict.get("type", ""))
-	var label_text := str(NODE_LABELS.get(node_type, node_type))
+	var node_type := _node_visual_type(node_dict)
 	var icon_path := str(NODE_ICON_PATHS.get(node_type, ""))
-	var inner := VBoxContainer.new()
-	inner.set_anchors_preset(Control.PRESET_FULL_RECT)
-	inner.alignment = BoxContainer.ALIGNMENT_CENTER
-	inner.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	button.add_child(inner)
 	if not icon_path.is_empty() and FileAccess.file_exists(icon_path):
 		var icon_rect := TextureRect.new()
 		icon_rect.texture = load(icon_path)
-		icon_rect.custom_minimum_size = Vector2(44, 44)
+		icon_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 		icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		icon_rect.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		icon_rect.modulate = Color(1, 1, 1, 0.90) if (selectable or done) else Color(0.5, 0.5, 0.5, 0.6)
-		inner.add_child(icon_rect)
-	var lbl := Label.new()
-	lbl.text = label_text
-	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lbl.add_theme_font_size_override("font_size", 12)
-	lbl.add_theme_color_override("font_color",
-		Color(1, 1, 1, 0.95) if selectable else (Color(0.7, 0.9, 0.7, 0.85) if done else Color(0.6, 0.55, 0.65, 0.75)))
-	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	inner.add_child(lbl)
-	if done:
-		var done_lbl := Label.new()
-		done_lbl.text = "✓"
-		done_lbl.add_theme_font_size_override("font_size", 10)
-		done_lbl.add_theme_color_override("font_color", Color(0.5, 1.0, 0.5, 0.8))
-		done_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		done_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		inner.add_child(done_lbl)
+		icon_rect.modulate = Color(1.08, 1.05, 1.08, 1.0) if selectable else (Color(1, 1, 1, 0.95) if done else Color(0.86, 0.82, 0.90, 0.86))
+		button.add_child(icon_rect)
 
 
-func _node_style(node_type: String, done: bool, selectable: bool) -> StyleBoxFlat:
-	var base_color: Color = NODE_COLORS.get(node_type, Color(0.35, 0.24, 0.48, 0.88))
+func _node_visual_type(node_dict: Dictionary) -> String:
+	if bool(node_dict.get("is_final", false)):
+		return "boss"
+	var node_type := str(node_dict.get("type", ""))
+	if node_type == "result":
+		return "boss"
+	return node_type
+
+
+func _apply_hotspot_button_style(button: Button, selectable: bool) -> void:
+	var empty := StyleBoxEmpty.new()
+	var normal_style: StyleBox = _selected_node_style() if selectable else empty
+	for state in ["normal", "hover", "pressed"]:
+		button.add_theme_stylebox_override(state, normal_style)
+	for state in ["disabled", "focus"]:
+		button.add_theme_stylebox_override(state, empty)
+	button.add_theme_color_override("font_color", Color.TRANSPARENT)
+	button.add_theme_color_override("font_hover_color", Color.TRANSPARENT)
+	button.add_theme_color_override("font_pressed_color", Color.TRANSPARENT)
+	button.add_theme_color_override("font_disabled_color", Color.TRANSPARENT)
+	button.focus_mode = Control.FOCUS_NONE
+
+
+func _selected_node_style() -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
-	if done:
-		style.bg_color = Color(base_color.r * 0.55, base_color.g * 0.55, base_color.b * 0.55, 0.60)
-		style.border_color = Color(0.5, 0.5, 0.5, 0.35)
-	elif selectable:
-		style.bg_color = Color(base_color.r * 1.15, base_color.g * 1.05, base_color.b * 1.20, 0.96)
-		style.border_color = SF.CLR_GOLD
-	else:
-		style.bg_color = Color(base_color.r * 0.68, base_color.g * 0.65, base_color.b * 0.72, 0.75)
-		style.border_color = Color(SF.CLR_BORDER.r * 0.6, SF.CLR_BORDER.g * 0.6, SF.CLR_BORDER.b * 0.6, 0.45)
-	style.set_border_width_all(3 if selectable else 2)
-	style.set_corner_radius_all(40)
-	style.content_margin_left = 4
-	style.content_margin_top = 2
-	style.content_margin_right = 4
-	style.content_margin_bottom = 2
+	style.bg_color = Color(0.91, 0.30, 0.72, 0.40)
+	style.border_color = Color(1.0, 0.95, 0.10, 1.0)
+	style.set_border_width_all(4)
+	style.set_corner_radius_all(50)
+	style.set_content_margin_all(0)
 	return style
 
 
