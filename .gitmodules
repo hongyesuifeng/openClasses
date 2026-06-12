@@ -8,3 +8,6 @@
 [submodule "domains/game-engine/godotProjects/slayDemo/client/slay-demo/Gopeak-godot-mcp"]
 	path = domains/game-engine/godotProjects/slayDemo/client/slay-demo/Gopeak-godot-mcp
 	url = https://github.com/HaD0Yun/Gopeak-godot-mcp.git
+[submodule "domains/game-engine/cocosProjects"]
+	path = domains/game-engine/cocosProjects
+	url = git@github.com:hongyesuifeng/cocosProjects.git
