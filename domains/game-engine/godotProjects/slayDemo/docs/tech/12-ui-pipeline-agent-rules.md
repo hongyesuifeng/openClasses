@@ -238,7 +238,8 @@ CenterContainer / ProgressBar / ComponentRef / ColorRect
 2. 是否触碰禁止区域（是/否）
 3. ui_lint.gd 运行结果（通过/失败+错误数）
 4. 剩余视觉差异（对比 visual.json 中的 bbox/anchor，哪些还未匹配）
-5. 下一步建议（如需继续微调）
+5. UI 还原问题复盘是否已更新（是/否；如否，说明原因）
+6. 下一步建议（如需继续微调）
 ```
 
 **示例输出格式：**
@@ -249,12 +250,45 @@ CenterContainer / ProgressBar / ComponentRef / ColorRect
 [安全] 未触碰禁止区域 ✅
 [Lint] 10 个文件，0 错误，0 警告 ✅
 [差异] EndTurnButton: 位置偏左 8px（当前 x=1202，目标 x=1210）
+[复盘] 已追加 `docs/tech/17-ui-restoration-lessons.md`：2026-06-12 - map - 地图事件 UI 还原不完整
 [建议] 调整 EndTurnButton margin.right 从 13 → 15
 ```
 
 ---
 
-## 8. 如何跑 Lint
+## 8. UI 还原修复后的复盘沉淀
+
+每次修复 UI 还原问题后，必须把本次经验沉淀到 `docs/tech/17-ui-restoration-lessons.md`。这一步不是可选项；它用于防止后续 UI 生成 Agent 和 Coding Agent 重复犯同一类错误。
+
+### 必须记录的内容
+
+| 字段 | 说明 |
+|------|------|
+| 症状 | 当前截图和 target 的可见差异 |
+| 根因 | 资源、spec、visual、manifest、动态渲染或工具链中的真实原因 |
+| 修复动作 | 本次实际修改了哪些层 |
+| 沉淀规则 | 下次生成/接入同类 UI 时必须遵守的要点 |
+| 验证 | lint、截图渲染、测试或人工对比结果 |
+
+### 何时同步更新其他文档
+
+| 根因类型 | 必须同步更新 |
+|----------|--------------|
+| UI 生成 Agent 输出契约不清晰 | `docs/tech/13-ui-agent-specification.md` |
+| Coding Agent 接入/还原规则不清晰 | `docs/tech/12-ui-pipeline-agent-rules.md` |
+| 某类问题会反复出现 | 本文档 + 12/13 中的硬规则或验收清单 |
+
+### 本次地图 UI 修复沉淀出的硬规则
+
+- 背景图必须是干净场景底图，不能把标题、节点、路径、货币栏、底部 HUD 等 UI 烘焙进去；带 UI 残影的合成图不能作为 `backgrounds.*` 直接接入。
+- manifest key 名称不能替代视觉检查；接入前必须打开关键 PNG 确认它不是占位符、方框图标或旧风格资源。
+- target 中不存在的 HUD 或按钮必须从 `ui_specs` 移除，并同步删除 `visual.json` 中对应的 `expected_node`。
+- 动态区域必须同时考虑运行时数据和预览截图：运行时由 GDScript 填充，预览态需要 mock/fallback，避免 current 截图空白。
+- Lint 通过后仍要查看截图；Lint 不能发现“背景发糊”“节点语义错”“占位图标”等视觉问题。
+
+---
+
+## 9. 如何跑 Lint
 
 ```bash
 # Windows CMD / WSL
@@ -270,7 +304,7 @@ cmd.exe /c "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2
 
 ---
 
-## 9. 失败时如何处理
+## 10. 失败时如何处理
 
 | 情况 | 处理方式 |
 |------|---------|
@@ -286,12 +320,13 @@ cmd.exe /c "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2
 
 ---
 
-## 10. 参考文档
+## 11. 参考文档
 
 | 文档 | 内容 |
 |------|------|
 | `docs/tech/10-ui-builder-json-spec.md` | UIBuilder 完整技术规格 |
 | `docs/tech/11-ai-multimodal-ui-workflow.md` | UI 视觉还原流水线设计 |
+| `docs/tech/17-ui-restoration-lessons.md` | UI 还原问题复盘要点记录 |
 | `ui_manifest/manifest.actions.json` | 所有合法 action 声明 |
 | `ui_design_specs/<scene>.visual.json` | 场景视觉规格（bbox/tolerance） |
 | `ui_mock_data/<scene>.mock.json` | 场景 mock 数据（多状态） |

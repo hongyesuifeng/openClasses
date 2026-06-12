@@ -1,371 +1,147 @@
 {
   "scene": "map",
   "target_image": "res://ui_snapshots/target/map_target.png",
-  "design_resolution": [
-    1280,
-    720
-  ],
-  "style_theme": "甜心迷宫 — 紫粉马卡龙主题",
+  "design_resolution": [1280, 720],
+  "style_theme": "Sweet magical castle map UI",
   "elements": [
     {
       "id": "background",
-      "role": "地图事件背景图",
+      "role": "clear castle map background",
       "type_hint": "TextureRect",
       "expected_node": "Background",
-      "bbox": [
-        0,
-        0,
-        1280,
-        720
-      ],
+      "bbox": [0, 0, 1280, 720],
       "anchor_hint": "full_rect",
       "z_layer": "BackgroundLayer",
-      "asset_token": "backgrounds.map_event",
+      "asset_token": "backgrounds.map",
       "dynamic": false,
       "priority": "low",
-      "tolerance": {
-        "position_px": 0,
-        "size_px": 0,
-        "color_delta": 30
-      },
+      "tolerance": {"position_px": 0, "size_px": 0, "color_delta": 30},
       "acceptance_weight": 0.3,
-      "ai_hint": "全屏背景，TextureRect stretch_mode 使用 keep_aspect_covered。"
+      "ai_hint": "Fullscreen background; TextureRect stretch_mode must be keep_aspect_covered."
     },
     {
       "id": "screen_border",
-      "role": "外层紫粉圆角边框",
+      "role": "outer pink rounded border",
       "type_hint": "TextureRect",
       "expected_node": "ScreenBorder",
-      "bbox": [
-        0,
-        0,
-        1280,
-        720
-      ],
+      "bbox": [0, 0, 1280, 720],
       "anchor_hint": "full_rect",
       "z_layer": "DecorationLayer",
       "asset_token": "ui.map_event.screen_border",
       "dynamic": false,
       "priority": "medium",
-      "tolerance": {
-        "position_px": 0,
-        "size_px": 0,
-        "color_delta": 15
-      },
+      "tolerance": {"position_px": 0, "size_px": 0, "color_delta": 15},
       "acceptance_weight": 0.65,
-      "ai_hint": "完整边框切图，TextureRect stretch_mode 使用 keep_aspect。"
+      "ai_hint": "Full border slice; TextureRect stretch_mode must be keep_aspect."
     },
     {
       "id": "map_title",
-      "role": "顶部 Act 标题横幅",
+      "role": "Act 1 title ribbon",
       "type_hint": "TextureRect",
       "expected_node": "MapTitleRibbon",
-      "bbox": [
-        435,
-        24,
-        410,
-        66
-      ],
+      "bbox": [425, 16, 430, 82],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "asset_token": "ui.map_event.title_ribbon",
       "dynamic": false,
       "priority": "high",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 12
-      },
-      "acceptance_weight": 0.85
+      "tolerance": {"position_px": 8, "size_px": 8, "color_delta": 12},
+      "acceptance_weight": 0.85,
+      "ai_hint": "Title art includes text and ornaments; use keep_aspect."
     },
     {
       "id": "node_legend",
-      "role": "节点类型图例栏",
+      "role": "node type legend bar",
       "type_hint": "TextureRect",
       "expected_node": "NodeLegendBar",
-      "bbox": [
-        236,
-        99,
-        810,
-        58
-      ],
+      "bbox": [230, 100, 820, 62],
       "anchor_hint": "top_center",
       "z_layer": "HUDLayer",
       "asset_token": "ui.map_event.legend_bar",
       "dynamic": false,
       "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 10,
-        "color_delta": 15
-      },
-      "acceptance_weight": 0.75
+      "tolerance": {"position_px": 8, "size_px": 10, "color_delta": 15},
+      "acceptance_weight": 0.75,
+      "ai_hint": "Legend art includes icons and labels; use keep_aspect."
     },
     {
       "id": "crystal_bar",
-      "role": "水晶资源栏",
+      "role": "top-right crystal resource bar",
       "type_hint": "TextureRect",
       "expected_node": "CrystalBar",
-      "bbox": [
-        1068,
-        18,
-        145,
-        48
-      ],
+      "bbox": [1070, 34, 152, 48],
       "anchor_hint": "top_right",
       "z_layer": "HUDLayer",
       "asset_token": "ui.map_event.currency_crystal_bar",
       "dynamic": true,
       "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 15
-      },
+      "tolerance": {"position_px": 8, "size_px": 8, "color_delta": 15},
       "acceptance_weight": 0.7
     },
     {
       "id": "add_crystal_art",
-      "role": "增加水晶按钮视觉",
+      "role": "add crystal button art",
       "type_hint": "TextureRect",
       "expected_node": "AddCrystalArt",
-      "bbox": [
-        1208,
-        18,
-        48,
-        48
-      ],
+      "bbox": [1210, 34, 48, 48],
       "anchor_hint": "top_right",
       "z_layer": "HUDLayer",
       "asset_token": "ui.map_event.btn_plus",
       "dynamic": false,
       "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 15
-      },
+      "tolerance": {"position_px": 8, "size_px": 8, "color_delta": 15},
       "acceptance_weight": 0.65
     },
     {
       "id": "add_crystal_button",
-      "role": "增加水晶按钮热区",
+      "role": "transparent add crystal hotspot",
       "type_hint": "Button",
       "expected_node": "AddCrystalButton",
-      "bbox": [
-        1208,
-        18,
-        48,
-        48
-      ],
+      "bbox": [1210, 34, 48, 48],
       "anchor_hint": "top_right",
       "z_layer": "InteractionLayer",
       "style_token": "btn_hotspot",
       "action_hint": "map_event.add_crystal",
       "dynamic": false,
       "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 20
-      },
+      "tolerance": {"position_px": 8, "size_px": 8, "color_delta": 20},
       "acceptance_weight": 0.65
     },
     {
       "id": "node_surface",
-      "role": "地图节点路径动态区域",
+      "role": "dynamic map nodes and path lines",
       "type_hint": "Control",
       "expected_node": "NodeSurface",
-      "bbox": [
-        78,
-        185,
-        1090,
-        360
-      ],
+      "bbox": [72, 178, 1140, 380],
       "anchor_hint": "absolute_rect",
       "z_layer": "InteractionLayer",
       "bind_hint": "map.nodes",
       "dynamic": true,
       "priority": "high",
-      "tolerance": {
-        "position_px": 12,
-        "size_px": 16,
-        "color_delta": 20
-      },
+      "tolerance": {"position_px": 12, "size_px": 16, "color_delta": 20},
       "acceptance_weight": 0.82,
-      "ai_hint": "动态地图节点区：children 必须为空；节点和路径由 map_scene.gd 根据地图数据生成。"
-    },
-    {
-      "id": "player_status_panel",
-      "role": "左下角玩家状态面板",
-      "type_hint": "TextureRect",
-      "expected_node": "PlayerStatusPanel",
-      "bbox": [
-        24,
-        615,
-        330,
-        58
-      ],
-      "anchor_hint": "bottom_left",
-      "z_layer": "HUDLayer",
-      "asset_token": "ui.map_event.player_status_panel",
-      "dynamic": false,
-      "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 15
-      },
-      "acceptance_weight": 0.75
-    },
-    {
-      "id": "status_label",
-      "role": "玩家状态动态文本",
-      "type_hint": "Label",
-      "expected_node": "StatusLabel",
-      "bbox": [
-        42,
-        627,
-        300,
-        36
-      ],
-      "anchor_hint": "bottom_left",
-      "z_layer": "HUDLayer",
-      "style_token": "text_body",
-      "bind_hint": "map.player_status_text",
-      "dynamic": true,
-      "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 15
-      },
-      "acceptance_weight": 0.7
-    },
-    {
-      "id": "relic_panel",
-      "role": "底部遗物栏底板",
-      "type_hint": "TextureRect",
-      "expected_node": "RelicPanel",
-      "bbox": [
-        485,
-        620,
-        310,
-        56
-      ],
-      "anchor_hint": "bottom_center",
-      "z_layer": "HUDLayer",
-      "asset_token": "ui.map_event.relic_panel",
-      "dynamic": false,
-      "priority": "medium",
-      "tolerance": {
-        "position_px": 12,
-        "size_px": 16,
-        "color_delta": 20
-      },
-      "acceptance_weight": 0.6
-    },
-    {
-      "id": "relic_row",
-      "role": "底部遗物栏动态容器",
-      "type_hint": "HBoxContainer",
-      "expected_node": "RelicRow",
-      "bbox": [
-        500,
-        627,
-        280,
-        42
-      ],
-      "anchor_hint": "bottom_center",
-      "z_layer": "HUDLayer",
-      "bind_hint": "map.relics",
-      "dynamic": true,
-      "priority": "medium",
-      "tolerance": {
-        "position_px": 12,
-        "size_px": 16,
-        "color_delta": 20
-      },
-      "acceptance_weight": 0.6,
-      "ai_hint": "动态遗物栏：children 必须为空。"
+      "ai_hint": "Dynamic area; children are generated by map_scene.gd from map data. Includes a visual start node."
     },
     {
       "id": "progress_panel",
-      "role": "地图进度条面板",
+      "role": "bottom map progress panel",
       "type_hint": "TextureRect",
       "expected_node": "ProgressPanel",
-      "bbox": [
-        360,
-        610,
-        560,
-        55
-      ],
+      "bbox": [350, 598, 580, 56],
       "anchor_hint": "bottom_center",
       "z_layer": "HUDLayer",
       "asset_token": "ui.map_event.progress_panel",
       "dynamic": true,
       "priority": "medium",
-      "tolerance": {
-        "position_px": 10,
-        "size_px": 10,
-        "color_delta": 12
-      },
+      "tolerance": {"position_px": 10, "size_px": 10, "color_delta": 12},
       "acceptance_weight": 0.75
-    },
-    {
-      "id": "deck_button_art",
-      "role": "查看卡组按钮视觉",
-      "type_hint": "TextureRect",
-      "expected_node": "DeckButtonArt",
-      "bbox": [
-        1010,
-        616,
-        220,
-        58
-      ],
-      "anchor_hint": "bottom_right",
-      "z_layer": "HUDLayer",
-      "asset_token": "ui.map_event.btn_deck",
-      "dynamic": false,
-      "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 12
-      },
-      "acceptance_weight": 0.78
-    },
-    {
-      "id": "deck_button",
-      "role": "查看卡组按钮热区",
-      "type_hint": "Button",
-      "expected_node": "DeckButton",
-      "bbox": [
-        1010,
-        616,
-        220,
-        58
-      ],
-      "anchor_hint": "bottom_right",
-      "z_layer": "InteractionLayer",
-      "style_token": "btn_hotspot",
-      "action_hint": "map_event.open_deck",
-      "dynamic": false,
-      "priority": "medium",
-      "tolerance": {
-        "position_px": 8,
-        "size_px": 8,
-        "color_delta": 12
-      },
-      "acceptance_weight": 0.78
     }
   ],
   "static_dynamic_rules": {
-    "note": "地图 UI 使用 map_event 资源包；NodeSurface/RelicRow/StatusLabel 由运行时填充。",
+    "note": "The static map UI is rebuilt from clear background and map_event UI art. NodeSurface is runtime-generated.",
     "dynamic_areas": [
-      "NodeSurface：地图节点、路径连线、节点状态由 map 数据生成。",
-      "RelicRow：遗物数量由运行时数据决定，children 为空。",
-      "StatusLabel / CrystalBar / ProgressPanel：数值可由运行时覆盖。"
+      "NodeSurface: map nodes, visual start marker, path lines, and node states are generated from map data.",
+      "CrystalBar / ProgressPanel: numeric values may be overlaid by runtime code."
     ]
   }
 }

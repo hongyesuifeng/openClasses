@@ -26,6 +26,25 @@ Coding Agent 接收你的输出后，将其合并到 Godot 工程并渲染截图
 
 ---
 
+## 1.1 修复经验必读
+
+在生成或修复任何 UI 前，必须先阅读：
+
+- `docs/tech/12-ui-pipeline-agent-rules.md`
+- `docs/tech/17-ui-restoration-lessons.md`
+
+如果当前任务属于“修复 UI 还原问题”，交付物里必须说明本次问题是否已追加到 `17-ui-restoration-lessons.md`。如果发现新的可复用教训，要用“症状 / 根因 / 修复动作 / 沉淀规则 / 验证”的格式追加记录。
+
+当前已沉淀的高频规则：
+
+- 背景图必须是干净场景底图，不得烘焙标题、按钮、节点、路径、货币栏、底部 HUD 等 UI 元素。
+- manifest key 名称不能替代视觉检查；关键 PNG 必须打开确认，不得把占位方框、低清图标、旧风格资源当成目标资源。
+- `target.png` 里没有的 HUD、按钮或面板，不要为了展示状态额外加入 spec。
+- 删除或新增 `ui_specs` 节点后，必须同步 `ui_design_specs/*.visual.json` 的 `expected_node` 与 bbox。
+- 动态区域要同时给出运行时填充方式和预览/mock 策略，避免 Coding Agent 渲染 current 截图时出现空区域。
+
+---
+
 ## 2. 视觉风格
 
 **关键词：** 紫粉马卡龙 / Q 版卡通 / 甜心魔法少女 / 糖果塔楼  
@@ -390,6 +409,31 @@ left_center / right_center
 
 如果一次生成多个场景，可以放在同一个 zip 中，但每个场景都必须有独立的 `target/<scene>_target.png` 和 `ui_design_specs/<scene>.visual.json`。
 
+### 输出 F：还原问题复盘（修复类任务必须）
+
+当任务是“修复 UI 还原问题”或“根据 current/target 微调 UI”时，必须额外输出一段复盘内容，并同步追加到 `docs/tech/17-ui-restoration-lessons.md`：
+
+```md
+### YYYY-MM-DD - <scene/feature> - <short title>
+
+**症状**
+- 当前截图与 target 的主要差异。
+
+**根因**
+- 资源、spec、visual、运行时动态渲染或工具链中的真正原因。
+
+**修复动作**
+- 这次实际改了什么。
+
+**沉淀规则**
+- 后续 UI 生成 Agent / Coding Agent 必须遵守的要点。
+
+**验证**
+- lint、截图渲染、测试或人工对比结果。
+```
+
+如果本次只是全新 UI 生成，没有还原问题修复，也要在 `self_check_report.md` 中写明“本次未触发 UI 还原复盘”。
+
 ---
 
 ## 7. 九个游戏场景说明
@@ -495,7 +539,8 @@ Step 5  生成美术资源图片（按命名规范）
 Step 6  生成 manifest.assets.patch.json
 Step 7  如需新 style，生成 manifest.styles.patch.json
 Step 8  生成 README / handoff / self_check_report
-Step 9  打包为 <scene_or_feature>_ui_package.zip 并发送给用户
+Step 9  如本次修复了 UI 还原问题，追加 `docs/tech/17-ui-restoration-lessons.md`
+Step 10 打包为 <scene_or_feature>_ui_package.zip 并发送给用户
 ```
 
 ---
@@ -522,6 +567,7 @@ Step 9  打包为 <scene_or_feature>_ui_package.zip 并发送给用户
 4. manifest.assets.patch.json（如有新资源）
 5. manifest.styles.patch.json（如有新 style_key，优先复用现有 key）
 6. 最终压缩包 <scene_or_feature>_ui_package.zip，包含 target、visual、assets、manifest patch、mock、handoff 和 self_check_report
+7. 若是 UI 还原修复任务，追加 `docs/tech/17-ui-restoration-lessons.md` 的复盘条目；若不是，在 self_check_report 中说明未触发
 
 约束：
 - 坐标基于 1280×720，bbox 格式为 [x, y, width, height]
@@ -532,6 +578,7 @@ Step 9  打包为 <scene_or_feature>_ui_package.zip 并发送给用户
 - target、切片资源、visual bbox 必须可重组；完整切图的 ai_hint 必须说明使用 keep_aspect，背景说明使用 keep_aspect_covered
 - 透明热区按钮使用 btn_hotspot，不要覆盖已烘焙在底图中的视觉
 - 战斗场景中央区域（84~516px 高度范围）不放固定 UI 元素
+- 关键 PNG 必须打开检查，不得把占位方框、低清图标或旧风格资源当成目标资源
 ```
 
 ### 9.2 视觉微调
@@ -592,6 +639,7 @@ Coding Agent 会用以下标准检查你的输出，确保满足：
 - [ ] 图标标注 `"nine_patch": null`
 - [ ] 背景图不含 UI 元素
 - [ ] 每个资源对应唯一 asset_key
+- [ ] 已打开检查关键 PNG，不存在占位方框、低清图标或旧风格资源误用
 
 ### 样式检查
 - [ ] 优先复用已有 style_key
@@ -602,3 +650,7 @@ Coding Agent 会用以下标准检查你的输出，确保满足：
 - [ ] 战斗场景中央视野区域无遮挡（90~550px）
 - [ ] 动态容器 `children` 为空（不硬编码子节点）
 - [ ] `bbox` 坐标在 1280×720 范围内
+
+### 复盘检查
+- [ ] 修复 UI 还原问题后，已更新 `docs/tech/17-ui-restoration-lessons.md`
+- [ ] 若本次发现新规则，已同步更新本规范或 `12-ui-pipeline-agent-rules.md`

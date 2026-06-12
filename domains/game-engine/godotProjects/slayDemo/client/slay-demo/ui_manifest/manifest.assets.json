@@ -10,7 +10,8 @@
     "chest": "res://assets/backgrounds/bg_map.png",
     "event": "res://assets/backgrounds/bg_map.png",
     "reward": "res://assets/backgrounds/bg_map.png",
-    "map_event": "res://assets/backgrounds/bg_map_event.png"
+    "map_event": "res://assets/backgrounds/bg_map_event.png",
+    "battle_candy_corridor": "res://assets/backgrounds/bg_battle_candy_corridor.png"
   },
   "characters": {
     "merchant": "res://assets/shop/merchant_portrait.png"
@@ -409,6 +410,194 @@
           18
         ],
         "usage": "事件选项按钮"
+      }
+    },
+    "battle": {
+      "screen_frame": {
+        "path": "res://assets/ui/battle/ui_battle_screen_frame.png",
+        "size": [
+          1280,
+          720
+        ],
+        "nine_patch": null,
+        "usage": "战斗界面全屏装饰边框"
+      },
+      "top_status_panel": {
+        "path": "res://assets/ui/battle/ui_panel_battle_top_status.png",
+        "size": [
+          475,
+          62
+        ],
+        "nine_patch": [
+          24,
+          18,
+          24,
+          18
+        ],
+        "usage": "顶部玩家状态栏底板"
+      },
+      "crystal_bar": {
+        "path": "res://assets/ui/battle/ui_panel_battle_crystal_bar.png",
+        "size": [
+          187,
+          57
+        ],
+        "nine_patch": [
+          32,
+          18,
+          32,
+          18
+        ],
+        "usage": "右上角水晶资源栏"
+      },
+      "player_portrait_frame": {
+        "path": "res://assets/ui/battle/ui_battle_player_portrait_frame.png",
+        "size": [
+          94,
+          99
+        ],
+        "nine_patch": null,
+        "usage": "玩家头像框 mock"
+      },
+      "top_ornament": {
+        "path": "res://assets/ui/battle/ui_battle_top_ornament.png",
+        "size": [
+          112,
+          42
+        ],
+        "nine_patch": null,
+        "usage": "顶部中心装饰"
+      },
+      "end_turn_btn": {
+        "normal": "res://assets/ui/battle/ui_btn_battle_end_turn_normal.png",
+        "pressed": "res://assets/ui/battle/ui_btn_battle_end_turn_pressed.png",
+        "disabled": "res://assets/ui/battle/ui_btn_battle_end_turn_disabled.png",
+        "size": [
+          205,
+          104
+        ],
+        "nine_patch": [
+          36,
+          24,
+          36,
+          24
+        ],
+        "usage": "结束回合按钮视觉"
+      },
+      "energy_panel": {
+        "path": "res://assets/ui/battle/ui_panel_battle_energy.png",
+        "size": [
+          178,
+          64
+        ],
+        "nine_patch": [
+          32,
+          18,
+          32,
+          18
+        ],
+        "usage": "右下角能量显示底板"
+      },
+      "deck_counts_panel": {
+        "path": "res://assets/ui/battle/ui_panel_battle_deck_counts.png",
+        "size": [
+          260,
+          187
+        ],
+        "nine_patch": [
+          24,
+          24,
+          24,
+          24
+        ],
+        "usage": "左下角牌堆统计面板"
+      },
+      "enemy_status_panel": {
+        "path": "res://assets/ui/battle/ui_panel_battle_enemy_status.png",
+        "size": [
+          236,
+          145
+        ],
+        "nine_patch": [
+          24,
+          20,
+          24,
+          20
+        ],
+        "usage": "敌人状态信息面板模板"
+      },
+      "card_attack_template": {
+        "path": "res://assets/ui/battle/ui_card_battle_attack_template.png",
+        "size": [
+          148,
+          220
+        ],
+        "nine_patch": null,
+        "usage": "攻击卡 mock 模板"
+      },
+      "card_skill_template": {
+        "path": "res://assets/ui/battle/ui_card_battle_skill_template.png",
+        "size": [
+          148,
+          220
+        ],
+        "nine_patch": null,
+        "usage": "技能卡 mock 模板"
+      },
+      "help_btn": {
+        "normal": "res://assets/ui/battle/ui_btn_battle_help_normal.png",
+        "pressed": "res://assets/ui/battle/ui_btn_battle_help_pressed.png",
+        "disabled": "res://assets/ui/battle/ui_btn_battle_help_disabled.png",
+        "size": [
+          58,
+          58
+        ],
+        "nine_patch": null,
+        "usage": "帮助按钮"
+      },
+      "settings_btn": {
+        "normal": "res://assets/ui/battle/ui_btn_battle_settings_normal.png",
+        "pressed": "res://assets/ui/battle/ui_btn_battle_settings_pressed.png",
+        "disabled": "res://assets/ui/battle/ui_btn_battle_settings_disabled.png",
+        "size": [
+          58,
+          58
+        ],
+        "nine_patch": null,
+        "usage": "设置按钮"
+      },
+      "bag_btn": {
+        "normal": "res://assets/ui/battle/ui_btn_battle_bag_normal.png",
+        "pressed": "res://assets/ui/battle/ui_btn_battle_bag_pressed.png",
+        "disabled": "res://assets/ui/battle/ui_btn_battle_bag_disabled.png",
+        "size": [
+          42,
+          58
+        ],
+        "nine_patch": null,
+        "usage": "背包按钮"
+      }
+    }
+  },
+  "mock": {
+    "battle": {
+      "enemy_pudding": {
+        "path": "res://assets/ui/battle/ui_enemy_mock_pudding.png",
+        "size": [
+          210,
+          178
+        ],
+        "nine_patch": null,
+        "usage": "预览用敌人 mock 图，不建议作为正式敌人资源"
+      },
+      "enemy_knight": {
+        "path": "res://assets/ui/battle/ui_enemy_mock_knight.png",
+        "size": [
+          195,
+          190
+        ],
+        "nine_patch": null,
+        "usage": "预览用敌人 mock 图，不建议作为正式敌人资源"
       }
     }
   }

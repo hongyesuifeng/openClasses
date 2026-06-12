@@ -63,6 +63,7 @@ var _banner_playing := false
 var _player_status_row: HBoxContainer  # 玩家状态栏
 var _relic_row: HBoxContainer
 var _potion_row: HBoxContainer
+var _uses_packaged_battle_ui := false
 
 
 func _process(delta: float) -> void:
@@ -114,7 +115,7 @@ func _ready() -> void:
 			audio_manager.play_bgm("battle")
 
 	## 新手引导：第一场战斗（未完成任何节点）显示操作提示
-	if game_state.battle_wins == 0 and game_state.completed_map_node_ids.is_empty():
+	if not _uses_packaged_battle_ui and game_state.battle_wins == 0 and game_state.completed_map_node_ids.is_empty():
 		_show_tutorial_hint()
 
 
@@ -135,23 +136,26 @@ func _build() -> void:
 	var ui := _UIBuilder.build(_spec_path())
 	ui.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(ui)
+	_uses_packaged_battle_ui = ui.find_child("BattleScreenFrame", true, false) != null
 
 	## 根据 encounter 覆盖背景贴图
 	var bg := ui.find_child("Background", true, false) as TextureRect
-	if bg != null:
+	if bg != null and not _uses_packaged_battle_ui:
 		var bg_path := BACKGROUND_BOSS if encounter_id == "v1_boss_01" else BACKGROUND_NORMAL
 		var bg_tex := _load_texture_or_null(bg_path)
 		if bg_tex != null:
 			bg.texture = bg_tex
 	UILayoutStoreScript.apply_layout(bg if bg != null else Control.new(), "battle.background", encounter_id)
 
-	var tint := ColorRect.new()
-	tint.color = SF.CLR_TINT
-	tint.set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(tint)
+	if not _uses_packaged_battle_ui:
+		var tint := ColorRect.new()
+		tint.color = SF.CLR_TINT
+		tint.set_anchors_preset(Control.PRESET_FULL_RECT)
+		add_child(tint)
 
 	## 右上角工具按钮（保留原有实现）
-	_build_top_right_buttons()
+	if not _uses_packaged_battle_ui:
+		_build_top_right_buttons()
 
 	## 从骨架取容器节点
 	var root := ui.find_child("Root", true, false) as VBoxContainer
@@ -226,6 +230,8 @@ func _build() -> void:
 	_player_status_row = HBoxContainer.new()
 	_player_status_row.add_theme_constant_override("separation", 6)
 	player_stats.add_child(_player_status_row)
+	if _uses_packaged_battle_ui:
+		_player_panel.visible = false
 
 	# ══ 中部敌人区 ══════════════════════════════════════════
 	_enemy_row = ui.find_child("EnemyRow", true, false) as HBoxContainer
@@ -248,95 +254,111 @@ func _build() -> void:
 	_status_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_status_label.z_index = 10
 	add_child(_status_label)
+	if _uses_packaged_battle_ui:
+		_status_label.visible = false
 
 	# ══ 底部卡牌区 ══════════════════════════════════════════
-	var bottom_panel := PanelContainer.new()
-	bottom_panel.custom_minimum_size = Vector2(0, 222)
-	bottom_panel.add_theme_stylebox_override("panel", SF.make_panel_style(Color(0.08, 0.04, 0.14, 0.82), Color(0.82, 0.50, 0.78, 0.72), 16, 2))
-	root.add_child(bottom_panel)
+	if _uses_packaged_battle_ui:
+		_pile_label = Label.new()
+		_pile_label.visible = false
+		add_child(_pile_label)
+		_hand_row = ui.find_child("HandRow", true, false) as HBoxContainer
+		if _hand_row == null:
+			_hand_row = HBoxContainer.new()
+			root.add_child(_hand_row)
+		_hand_row.alignment = BoxContainer.ALIGNMENT_CENTER
+		_hand_row.add_theme_constant_override("separation", 8)
+		_energy_label = Label.new()
+		_energy_label.visible = false
+		add_child(_energy_label)
+	else:
+		var bottom_panel := PanelContainer.new()
+		bottom_panel.custom_minimum_size = Vector2(0, 222)
+		bottom_panel.add_theme_stylebox_override("panel", SF.make_panel_style(Color(0.08, 0.04, 0.14, 0.82), Color(0.82, 0.50, 0.78, 0.72), 16, 2))
+		root.add_child(bottom_panel)
 
-	var bottom_row := HBoxContainer.new()
-	bottom_row.add_theme_constant_override("separation", 10)
-	bottom_row.offset_left = 8; bottom_row.offset_right = -8
-	bottom_row.offset_top = 4; bottom_row.offset_bottom = -4
-	bottom_panel.add_child(bottom_row)
+		var bottom_row := HBoxContainer.new()
+		bottom_row.add_theme_constant_override("separation", 10)
+		bottom_row.offset_left = 8; bottom_row.offset_right = -8
+		bottom_row.offset_top = 4; bottom_row.offset_bottom = -4
+		bottom_panel.add_child(bottom_row)
 
-	# 左侧：牌组/弃牌/消耗 三个图标
-	var pile_col := VBoxContainer.new()
-	pile_col.custom_minimum_size = Vector2(90, 0)
-	pile_col.alignment = BoxContainer.ALIGNMENT_CENTER
-	pile_col.add_theme_constant_override("separation", 6)
-	bottom_row.add_child(pile_col)
+		# 左侧：牌组/弃牌/消耗 三个图标
+		var pile_col := VBoxContainer.new()
+		pile_col.custom_minimum_size = Vector2(90, 0)
+		pile_col.alignment = BoxContainer.ALIGNMENT_CENTER
+		pile_col.add_theme_constant_override("separation", 6)
+		bottom_row.add_child(pile_col)
 
-	_pile_label = Label.new()
-	_pile_label.add_theme_color_override("font_color", Color(0.80, 0.72, 0.88))
-	_pile_label.add_theme_font_size_override("font_size", 12)
-	_pile_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	pile_col.add_child(_pile_label)
+		_pile_label = Label.new()
+		_pile_label.add_theme_color_override("font_color", Color(0.80, 0.72, 0.88))
+		_pile_label.add_theme_font_size_override("font_size", 12)
+		_pile_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		pile_col.add_child(_pile_label)
 
-	# 中间：手牌区
-	var hand_scroll := ScrollContainer.new()
-	hand_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hand_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	hand_scroll.custom_minimum_size = Vector2(0, 190)
-	hand_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-	hand_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	hand_scroll.follow_focus = true
-	bottom_row.add_child(hand_scroll)
+		# 中间：手牌区
+		var hand_scroll := ScrollContainer.new()
+		hand_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		hand_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		hand_scroll.custom_minimum_size = Vector2(0, 190)
+		hand_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		hand_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		hand_scroll.follow_focus = true
+		bottom_row.add_child(hand_scroll)
 
-	_hand_row = HBoxContainer.new()
-	_hand_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_hand_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	_hand_row.add_theme_constant_override("separation", 8)
-	hand_scroll.add_child(_hand_row)
-	UILayoutStoreScript.apply_layout(_hand_row, "battle.hand.row")
+		_hand_row = HBoxContainer.new()
+		_hand_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_hand_row.alignment = BoxContainer.ALIGNMENT_CENTER
+		_hand_row.add_theme_constant_override("separation", 8)
+		hand_scroll.add_child(_hand_row)
+		UILayoutStoreScript.apply_layout(_hand_row, "battle.hand.row")
 
-	# 右侧：结束回合 + 能量
-	var right_col := VBoxContainer.new()
-	right_col.custom_minimum_size = Vector2(150, 0)
-	right_col.alignment = BoxContainer.ALIGNMENT_CENTER
-	right_col.add_theme_constant_override("separation", 8)
-	bottom_row.add_child(right_col)
+		# 右侧：结束回合 + 能量
+		var right_col := VBoxContainer.new()
+		right_col.custom_minimum_size = Vector2(150, 0)
+		right_col.alignment = BoxContainer.ALIGNMENT_CENTER
+		right_col.add_theme_constant_override("separation", 8)
+		bottom_row.add_child(right_col)
 
-	# 结束回合按钮
-	var end_turn_button := Button.new()
-	end_turn_button.text = "结束回合"
-	end_turn_button.custom_minimum_size = Vector2(150, 64)
-	end_turn_button.pressed.connect(_on_end_turn_pressed)
-	UILayoutStoreScript.apply_layout(end_turn_button, "battle.end_turn")
-	var et_normal := StyleBoxFlat.new()
-	et_normal.bg_color = SF.CLR_PINK
-	et_normal.border_color = SF.CLR_GOLD
-	et_normal.set_border_width_all(2)
-	et_normal.set_corner_radius_all(12)
-	et_normal.content_margin_left = 10; et_normal.content_margin_right = 10
-	et_normal.content_margin_top = 8; et_normal.content_margin_bottom = 8
-	end_turn_button.add_theme_stylebox_override("normal", et_normal)
-	end_turn_button.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
-	end_turn_button.add_theme_font_size_override("font_size", 18)
-	var et_hover := et_normal.duplicate(); et_hover.bg_color = Color(1.0, 0.65, 0.72)
-	end_turn_button.add_theme_stylebox_override("hover", et_hover)
-	right_col.add_child(end_turn_button)
+		# 结束回合按钮
+		var end_turn_button := Button.new()
+		end_turn_button.text = "结束回合"
+		end_turn_button.custom_minimum_size = Vector2(150, 64)
+		end_turn_button.pressed.connect(_on_end_turn_pressed)
+		UILayoutStoreScript.apply_layout(end_turn_button, "battle.end_turn")
+		var et_normal := StyleBoxFlat.new()
+		et_normal.bg_color = SF.CLR_PINK
+		et_normal.border_color = SF.CLR_GOLD
+		et_normal.set_border_width_all(2)
+		et_normal.set_corner_radius_all(12)
+		et_normal.content_margin_left = 10; et_normal.content_margin_right = 10
+		et_normal.content_margin_top = 8; et_normal.content_margin_bottom = 8
+		end_turn_button.add_theme_stylebox_override("normal", et_normal)
+		end_turn_button.add_theme_color_override("font_color", Color(1.0, 1.0, 1.0))
+		end_turn_button.add_theme_font_size_override("font_size", 18)
+		var et_hover := et_normal.duplicate(); et_hover.bg_color = Color(1.0, 0.65, 0.72)
+		end_turn_button.add_theme_stylebox_override("hover", et_hover)
+		right_col.add_child(end_turn_button)
 
-	# 能量显示
-	var energy_box := HBoxContainer.new()
-	energy_box.alignment = BoxContainer.ALIGNMENT_CENTER
-	energy_box.add_theme_constant_override("separation", 4)
-	right_col.add_child(energy_box)
+		# 能量显示
+		var energy_box := HBoxContainer.new()
+		energy_box.alignment = BoxContainer.ALIGNMENT_CENTER
+		energy_box.add_theme_constant_override("separation", 4)
+		right_col.add_child(energy_box)
 
-	var energy_icon := TextureRect.new()
-	energy_icon.texture = _load_texture_or_fallback("res://assets/ui/icons/ui_energy_crystal.png", Color(0.62, 0.84, 1.0, 0.95))
-	energy_icon.custom_minimum_size = Vector2(34, 34)
-	energy_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	energy_box.add_child(energy_icon)
-	UILayoutStoreScript.apply_layout(energy_icon, "battle.energy.icon")
-	_start_crystal_anim(energy_icon)
+		var energy_icon := TextureRect.new()
+		energy_icon.texture = _load_texture_or_fallback("res://assets/ui/icons/ui_energy_crystal.png", Color(0.62, 0.84, 1.0, 0.95))
+		energy_icon.custom_minimum_size = Vector2(34, 34)
+		energy_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		energy_box.add_child(energy_icon)
+		UILayoutStoreScript.apply_layout(energy_icon, "battle.energy.icon")
+		_start_crystal_anim(energy_icon)
 
-	_energy_label = Label.new()
-	_energy_label.add_theme_font_size_override("font_size", 22)
-	_energy_label.add_theme_color_override("font_color", SF.CLR_ENERGY_BLUE)
-	energy_box.add_child(_energy_label)
-	UILayoutStoreScript.apply_layout(_energy_label, "battle.energy.label")
+		_energy_label = Label.new()
+		_energy_label.add_theme_font_size_override("font_size", 22)
+		_energy_label.add_theme_color_override("font_color", SF.CLR_ENERGY_BLUE)
+		energy_box.add_child(_energy_label)
+		UILayoutStoreScript.apply_layout(_energy_label, "battle.energy.label")
 
 	# 战斗日志（右上角悬浮，不参与布局）
 	_log_label = RichTextLabel.new()
@@ -351,6 +373,8 @@ func _build() -> void:
 	_log_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_log_label.z_index = 5
 	add_child(_log_label)
+	if _uses_packaged_battle_ui:
+		_log_label.visible = false
 
 
 ## 右上角按钮组：帮助 + 设置
@@ -447,15 +471,21 @@ func _render_enemies(enemies: Array) -> void:
 		var art_key := str(enemy.get("art_key", "enemy_slime"))
 		var art_path := str(ENEMY_ART_BY_KEY.get(art_key, ENEMY_ART_BY_KEY["enemy_slime"]))
 		var button := Button.new()
-		button.custom_minimum_size = Vector2(210, 270)
+		button.custom_minimum_size = Vector2(240, 320) if _uses_packaged_battle_ui else Vector2(210, 270)
 		button.text = ""
-		button.clip_contents = true
-		# 紫粉主题敌人面板
-		button.add_theme_stylebox_override("normal", SF.make_panel_style(Color(0.10, 0.06, 0.16, 0.82)))
-		button.add_theme_stylebox_override("hover", SF.make_panel_style(Color(0.18, 0.12, 0.28, 0.92)))
-		button.add_theme_stylebox_override("pressed", SF.make_panel_style(Color(0.25, 0.16, 0.35, 0.96)))
+		button.clip_contents = not _uses_packaged_battle_ui
+		if _uses_packaged_battle_ui:
+			var transparent := _make_transparent_stylebox()
+			button.add_theme_stylebox_override("normal", transparent)
+			button.add_theme_stylebox_override("hover", transparent)
+			button.add_theme_stylebox_override("pressed", transparent)
+		else:
+			# 紫粉主题敌人面板
+			button.add_theme_stylebox_override("normal", SF.make_panel_style(Color(0.10, 0.06, 0.16, 0.82)))
+			button.add_theme_stylebox_override("hover", SF.make_panel_style(Color(0.18, 0.12, 0.28, 0.92)))
+			button.add_theme_stylebox_override("pressed", SF.make_panel_style(Color(0.25, 0.16, 0.35, 0.96)))
 		button.pressed.connect(_on_enemy_pressed.bind(index))
-		button.pivot_offset = Vector2(110, 145)
+		button.pivot_offset = Vector2(120, 160) if _uses_packaged_battle_ui else Vector2(110, 145)
 		var enemy_instance_id := str(enemy.get("id", index))
 
 		var sprite := TextureRect.new()
@@ -482,11 +512,23 @@ func _render_enemies(enemies: Array) -> void:
 		else:
 			_enemy_anims.append(null)
 
+		if _uses_packaged_battle_ui:
+			var panel_art := TextureRect.new()
+			panel_art.texture = _load_texture_or_fallback("res://assets/ui/battle/ui_panel_battle_enemy_status.png", Color(0.18, 0.08, 0.22, 0.9))
+			panel_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			panel_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+			panel_art.position = Vector2(2, 170)
+			panel_art.size = Vector2(236, 145)
+			panel_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			panel_art.z_index = 1
+			button.add_child(panel_art)
+
 		var name_label := _make_label(str(enemy.get("name", "")), 18, HORIZONTAL_ALIGNMENT_CENTER)
 		name_label.anchor_left = 0.08
 		name_label.anchor_top = 0.62
 		name_label.anchor_right = 0.92
 		name_label.anchor_bottom = 0.71
+		name_label.z_index = 3
 		button.add_child(name_label)
 		UILayoutStoreScript.apply_layout(name_label, "battle.enemy.name", enemy_instance_id)
 
@@ -499,6 +541,7 @@ func _render_enemies(enemies: Array) -> void:
 		hp.anchor_top = 0.72
 		hp.anchor_right = 0.95
 		hp.anchor_bottom = 0.80
+		hp.z_index = 3
 		button.add_child(hp)
 		UILayoutStoreScript.apply_layout(hp, "battle.enemy.hp", enemy_instance_id)
 
@@ -510,6 +553,7 @@ func _render_enemies(enemies: Array) -> void:
 		intent_icon.anchor_bottom = 0.93
 		intent_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		intent_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		intent_icon.z_index = 3
 		button.add_child(intent_icon)
 		UILayoutStoreScript.apply_layout(intent_icon, "battle.enemy.intent_icon", enemy_instance_id)
 
@@ -518,6 +562,7 @@ func _render_enemies(enemies: Array) -> void:
 		intent_text.anchor_top = 0.82
 		intent_text.anchor_right = 0.96
 		intent_text.anchor_bottom = 0.93
+		intent_text.z_index = 3
 		button.add_child(intent_text)
 		UILayoutStoreScript.apply_layout(intent_text, "battle.enemy.intent_text", enemy_instance_id)
 
@@ -998,6 +1043,14 @@ func _make_label(text: String, font_size: int, align: HorizontalAlignment) -> La
 	label.add_theme_constant_override("shadow_offset_y", 1)
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return label
+
+
+func _make_transparent_stylebox() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0, 0, 0, 0)
+	style.border_color = Color(0, 0, 0, 0)
+	style.set_border_width_all(0)
+	return style
 
 
 func _clear_children(node: Node) -> void:

@@ -7,7 +7,7 @@
   "background": {
     "type": "TextureRect",
     "name": "Background",
-    "asset": "backgrounds.battle",
+    "asset": "backgrounds.battle_candy_corridor",
     "stretch_mode": "keep_aspect_covered",
     "layout": {
       "preset": "full_rect"
@@ -15,27 +15,248 @@
   },
   "children": [
     {
-      "type": "Panel",
-      "name": "ScreenFrame",
-      "style": "panel_dark",
+      "type": "TextureRect",
+      "name": "BattleScreenFrame",
+      "asset": "ui.battle.screen_frame",
+      "stretch_mode": "keep_aspect",
       "layout": {
         "preset": "full_rect"
       }
     },
     {
-      "type": "HBoxContainer",
-      "name": "TopRightButtons",
+      "type": "TextureRect",
+      "name": "TopOrnament",
+      "asset": "ui.battle.top_ornament",
+      "stretch_mode": "keep_aspect",
       "layout": {
-        "preset": "top_right",
+        "preset": "top_center",
         "size": [
-          113,
-          41
+          112,
+          42
         ],
         "margin": [
           0,
-          8,
-          11,
+          0,
+          0,
           0
+        ]
+      }
+    },
+    {
+      "type": "TextureRect",
+      "name": "PlayerPortrait",
+      "asset": "ui.battle.player_portrait_frame",
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          94,
+          99
+        ],
+        "margin": [
+          22,
+          30,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "type": "TextureRect",
+      "name": "PlayerStatusBar",
+      "asset": "ui.battle.top_status_panel",
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          475,
+          62
+        ],
+        "margin": [
+          128,
+          27,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "type": "PanelContainer",
+      "name": "PlayerPanel",
+      "layout": {
+        "preset": "top_left",
+        "size": [
+          475,
+          62
+        ],
+        "margin": [
+          128,
+          27,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "type": "TextureRect",
+      "name": "CrystalBar",
+      "asset": "ui.battle.crystal_bar",
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          187,
+          57
+        ],
+        "margin": [
+          0,
+          25,
+          183,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Button",
+      "name": "AddCrystalButton",
+      "text": "+",
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          49,
+          49
+        ],
+        "margin": [
+          0,
+          28,
+          157,
+          0
+        ]
+      }
+    },
+    {
+      "type": "TextureRect",
+      "name": "HelpButtonArt",
+      "asset": "ui.battle.help_btn",
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          58,
+          58
+        ],
+        "margin": [
+          0,
+          24,
+          96,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Button",
+      "name": "HelpButton",
+      "text": "",
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          58,
+          58
+        ],
+        "margin": [
+          0,
+          24,
+          96,
+          0
+        ]
+      }
+    },
+    {
+      "type": "TextureRect",
+      "name": "SettingsButtonArt",
+      "asset": "ui.battle.settings_btn",
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          58,
+          58
+        ],
+        "margin": [
+          0,
+          24,
+          38,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Button",
+      "name": "SettingsButton",
+      "text": "",
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          58,
+          58
+        ],
+        "margin": [
+          0,
+          24,
+          38,
+          0
+        ]
+      }
+    },
+    {
+      "type": "TextureRect",
+      "name": "BackpackButtonArt",
+      "asset": "ui.battle.bag_btn",
+      "stretch_mode": "keep_aspect",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          42,
+          58
+        ],
+        "margin": [
+          0,
+          24,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "type": "Button",
+      "name": "BackpackButton",
+      "text": "",
+      "style": "btn_hotspot",
+      "layout": {
+        "preset": "top_right",
+        "size": [
+          42,
+          58
+        ],
+        "margin": [
+          0,
+          24,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "type": "HBoxContainer",
+      "name": "EnemyRow",
+      "layout": {
+        "preset": "center",
+        "size": [
+          455,
+          330
         ]
       }
     },
@@ -43,162 +264,109 @@
       "type": "VBoxContainer",
       "name": "Root",
       "layout": {
-        "preset": "full_rect",
-        "margin": [
-          17,
-          15,
-          17,
-          17
-        ]
+        "preset": "full_rect"
+      }
+    },
+    {
+      "type": "Control",
+      "name": "BottomBar",
+      "layout": {
+        "preset": "full_rect"
       },
       "children": [
         {
-          "type": "Panel",
-          "name": "PlayerPanel",
-          "style": "panel_card",
+          "type": "TextureRect",
+          "name": "DeckStatusPanel",
+          "asset": "ui.battle.deck_counts_panel",
+          "stretch_mode": "keep_aspect",
           "layout": {
-            "preset": "full_rect"
-          },
-          "children": [
-            {
-              "type": "HBoxContainer",
-              "name": "TopRow",
-              "layout": {
-                "preset": "full_rect"
-              },
-              "children": [
-                {
-                  "type": "Control",
-                  "name": "PortraitSlot",
-                  "layout": {
-                    "preset": "full_rect"
-                  }
-                },
-                {
-                  "type": "VBoxContainer",
-                  "name": "PlayerStats",
-                  "layout": {
-                    "preset": "full_rect"
-                  },
-                  "children": [
-                    {
-                      "type": "Label",
-                      "name": "HeaderLabel",
-                      "text": "玩家",
-                      "style": "text_body",
-                      "layout": {
-                        "preset": "full_rect"
-                      }
-                    },
-                    {
-                      "type": "Control",
-                      "name": "HpBarSlot",
-                      "layout": {
-                        "preset": "full_rect"
-                      }
-                    },
-                    {
-                      "type": "Control",
-                      "name": "BlockBarSlot",
-                      "layout": {
-                        "preset": "full_rect"
-                      }
-                    },
-                    {
-                      "type": "Label",
-                      "name": "EnergyLabel",
-                      "text": "能量 3/3",
-                      "style": "text_body",
-                      "layout": {
-                        "preset": "full_rect"
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "HBoxContainer",
-              "name": "PlayerStatusRow",
-              "layout": {
-                "preset": "full_rect"
-              }
-            }
-          ]
-        },
-        {
-          "type": "HBoxContainer",
-          "name": "RelicRow",
-          "layout": {
-            "preset": "full_rect"
-          }
-        },
-        {
-          "type": "HBoxContainer",
-          "name": "PotionRow",
-          "layout": {
-            "preset": "full_rect"
-          }
-        },
-        {
-          "type": "HBoxContainer",
-          "name": "EnemyRow",
-          "layout": {
-            "preset": "full_rect"
-          }
-        },
-        {
-          "type": "Label",
-          "name": "StatusLabel",
-          "text": "",
-          "style": "text_body",
-          "layout": {
-            "preset": "full_rect"
-          }
-        },
-        {
-          "type": "Label",
-          "name": "LogLabel",
-          "text": "",
-          "style": "text_caption",
-          "layout": {
-            "preset": "full_rect"
+            "preset": "bottom_left",
+            "size": [
+              260,
+              187
+            ],
+            "margin": [
+              14,
+              0,
+              0,
+              18
+            ]
           }
         },
         {
           "type": "HBoxContainer",
           "name": "HandRow",
           "layout": {
-            "preset": "full_rect"
+            "preset": "bottom_center",
+            "size": [
+              760,
+              220
+            ],
+            "margin": [
+              0,
+              0,
+              0,
+              20
+            ]
           }
         },
         {
-          "type": "HBoxContainer",
-          "name": "BottomBar",
+          "type": "TextureRect",
+          "name": "EndTurnButtonArt",
+          "asset": "ui.battle.end_turn_btn.normal",
+          "stretch_mode": "keep_aspect",
           "layout": {
-            "preset": "full_rect"
+            "preset": "bottom_right",
+            "size": [
+              205,
+              104
+            ],
+            "margin": [
+              0,
+              0,
+              11,
+              76
+            ]
+          }
+        },
+        {
+          "type": "Button",
+          "name": "EndTurnButton",
+          "text": "结束回合",
+          "style": "btn_hotspot",
+          "layout": {
+            "preset": "bottom_right",
+            "size": [
+              205,
+              104
+            ],
+            "margin": [
+              0,
+              0,
+              11,
+              76
+            ]
           },
-          "children": [
-            {
-              "type": "Label",
-              "name": "PileLabel",
-              "text": "牌堆",
-              "style": "text_caption",
-              "layout": {
-                "preset": "full_rect"
-              }
-            },
-            {
-              "type": "Button",
-              "name": "EndTurnButton",
-              "text": "结束回合",
-              "style": "btn_primary",
-              "layout": {
-                "preset": "full_rect"
-              },
-              "action": "battle.on_end_turn"
-            }
-          ]
+          "action": "battle.on_end_turn"
+        },
+        {
+          "type": "TextureRect",
+          "name": "EnergyPanel",
+          "asset": "ui.battle.energy_panel",
+          "stretch_mode": "keep_aspect",
+          "layout": {
+            "preset": "bottom_right",
+            "size": [
+              178,
+              64
+            ],
+            "margin": [
+              0,
+              0,
+              16,
+              15
+            ]
+          }
         }
       ]
     }

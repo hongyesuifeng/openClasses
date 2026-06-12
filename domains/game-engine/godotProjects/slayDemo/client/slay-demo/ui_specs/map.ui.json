@@ -4,7 +4,7 @@
   "background": {
     "type": "TextureRect",
     "name": "Background",
-    "asset": "backgrounds.map_event",
+    "asset": "backgrounds.map",
     "stretch_mode": "keep_aspect_covered",
     "layout": { "preset": "full_rect" }
   },
@@ -21,87 +21,47 @@
       "name": "MapTitleRibbon",
       "asset": "ui.map_event.title_ribbon",
       "stretch_mode": "keep_aspect",
-      "layout": { "preset": "top_center", "size": [410, 66], "margin": [0, 24, 0, 0] }
+      "layout": { "preset": "top_center", "size": [430, 82], "margin": [0, 16, 0, 0] }
     },
     {
       "type": "TextureRect",
       "name": "NodeLegendBar",
       "asset": "ui.map_event.legend_bar",
       "stretch_mode": "keep_aspect",
-      "layout": { "preset": "top_center", "size": [810, 58], "margin": [0, 99, 0, 0] }
+      "layout": { "preset": "top_center", "size": [820, 62], "margin": [0, 100, 0, 0] }
     },
     {
       "type": "TextureRect",
       "name": "CrystalBar",
       "asset": "ui.map_event.currency_crystal_bar",
       "stretch_mode": "keep_aspect",
-      "layout": { "preset": "top_right", "size": [145, 48], "margin": [0, 18, 67, 0] }
+      "layout": { "preset": "top_right", "size": [152, 48], "margin": [0, 34, 58, 0] }
     },
     {
       "type": "TextureRect",
       "name": "AddCrystalArt",
       "asset": "ui.map_event.btn_plus",
       "stretch_mode": "keep_aspect",
-      "layout": { "preset": "top_right", "size": [48, 48], "margin": [0, 18, 24, 0] }
+      "layout": { "preset": "top_right", "size": [48, 48], "margin": [0, 34, 22, 0] }
     },
     {
       "type": "Button",
       "name": "AddCrystalButton",
       "style": "btn_hotspot",
-      "layout": { "preset": "top_right", "size": [48, 48], "margin": [0, 18, 24, 0] },
+      "layout": { "preset": "top_right", "size": [48, 48], "margin": [0, 34, 22, 0] },
       "action": "map_event.add_crystal"
-    },
-    {
-      "type": "TextureRect",
-      "name": "PlayerStatusPanel",
-      "asset": "ui.map_event.player_status_panel",
-      "stretch_mode": "keep_aspect",
-      "layout": { "preset": "bottom_left", "size": [330, 58], "margin": [24, 0, 0, 47] }
-    },
-    {
-      "type": "Label",
-      "name": "StatusLabel",
-      "text": "",
-      "style": "text_body",
-      "layout": { "preset": "bottom_left", "size": [300, 36], "margin": [42, 0, 0, 57] }
-    },
-    {
-      "type": "TextureRect",
-      "name": "RelicPanel",
-      "asset": "ui.map_event.relic_panel",
-      "stretch_mode": "keep_aspect",
-      "layout": { "preset": "bottom_center", "size": [310, 56], "margin": [0, 0, 0, 44] }
-    },
-    {
-      "type": "HBoxContainer",
-      "name": "RelicRow",
-      "layout": { "preset": "bottom_center", "size": [280, 42], "margin": [0, 0, 0, 51] }
     },
     {
       "type": "TextureRect",
       "name": "ProgressPanel",
       "asset": "ui.map_event.progress_panel",
       "stretch_mode": "keep_aspect",
-      "layout": { "preset": "bottom_center", "size": [560, 55], "margin": [0, 0, 0, 70] }
-    },
-    {
-      "type": "TextureRect",
-      "name": "DeckButtonArt",
-      "asset": "ui.map_event.btn_deck",
-      "stretch_mode": "keep_aspect",
-      "layout": { "preset": "bottom_right", "size": [220, 58], "margin": [0, 0, 50, 46] }
-    },
-    {
-      "type": "Button",
-      "name": "DeckButton",
-      "style": "btn_hotspot",
-      "layout": { "preset": "bottom_right", "size": [220, 58], "margin": [0, 0, 50, 46] },
-      "action": "map_event.open_deck"
+      "layout": { "preset": "bottom_center", "size": [580, 56], "margin": [0, 0, 0, 66] }
     },
     {
       "type": "Control",
       "name": "NodeSurface",
-      "layout": { "preset": "absolute_rect", "position": [78, 185], "size": [1090, 360] }
+      "layout": { "preset": "absolute_rect", "position": [72, 178], "size": [1140, 380] }
     }
   ]
 }

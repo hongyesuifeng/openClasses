@@ -13,7 +13,10 @@
     "map_event_panel_border": "#FFD08BE0",
     "map_event_choice_pink": "#E2528FFF",
     "map_event_choice_purple": "#9C4BC6FF",
-    "map_event_path_gold": "#FFE564D6"
+    "map_event_path_gold": "#FFE564D6",
+    "battle_panel_deep_purple": "#241338CC",
+    "battle_panel_border_gold": "#FFD700",
+    "battle_text_warm": "#FAEBD0"
   },
   "fonts": {
     "default": "res://assets/fonts/NotoSansSC-VariableFont_wght.ttf",
@@ -240,6 +243,16 @@
       "font": "default",
       "font_size": 18,
       "font_color": "#FFFFFF"
+    },
+    "battle.enemy_panel": {
+      "type": "flat",
+      "bg_color": "battle_panel_deep_purple",
+      "border_color": "battle_panel_border_gold",
+      "border_width": 2,
+      "corner_radius": 12,
+      "font": "default",
+      "font_size": 18,
+      "font_color": "battle_text_warm"
     }
   }
 }
