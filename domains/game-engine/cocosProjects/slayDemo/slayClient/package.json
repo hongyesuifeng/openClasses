@@ -11,5 +11,9 @@
     "jest": "^29.0.0",
     "ts-jest": "^29.0.0",
     "typescript": "^5.0.0"
-  }
+  },
+  "creator": {
+    "version": "3.8.7"
+  },
+  "uuid": "aa08e087-033a-4197-8225-6ddc7a6270ef"
 }
