@@ -1,0 +1,17 @@
+{
+  "engine": "cocos-creator",
+  "version": "3.8.0",
+  "name": "slayDemo",
+  "uuid": "slay-demo-cocos-2026",
+  "orientation": {
+    "rotate": false,
+    "landscapeLeft": false,
+    "landscapeRight": false,
+    "portrait": true,
+    "upsideDown": false
+  },
+  "renderPipeline": "",
+  "modules": {
+    "include": []
+  }
+}
