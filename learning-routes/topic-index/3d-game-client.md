@@ -30,7 +30,7 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-    A[机制图与问题] --> B[Web 实现]
+    A[指定资料与机制图] --> B[Web 实现]
     B --> C[调参数与看过程]
     C --> D[检查中间数据和结果]
     D --> E[Cocos 机制对照]
@@ -54,7 +54,7 @@ flowchart LR
 
 ### 首个实验
 
-阶段 0 从 [立方体实验规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)开始，先建立可观察的帧循环。后续实验使用[统一说明模板](../../domains/game-engine/experiments/web3d-learning/docs/lab-template.md)，按[阶段验收规范](../../domains/game-engine/experiments/web3d-learning/docs/acceptance.md)登记证据。
+阶段 0 从[第一周阅读与练习计划](../../user-profile/progress/3d-game-client-week-01.md)开始，明确每次读到哪里、练什么、怎样自测，再按[立方体实验规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)建立可观察的帧循环。后续实验使用[统一说明模板](../../domains/game-engine/experiments/web3d-learning/docs/lab-template.md)，按[阶段验收规范](../../domains/game-engine/experiments/web3d-learning/docs/acceptance.md)登记证据。
 
 ### 扩展主题
 

@@ -30,6 +30,8 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 当前学习主线为[3D 游戏客户端路线](learning-routes/topic-index/3d-game-client.md)：先在 Web 端学习与验证，每个主题解释中间过程和 Cocos 对应机制，后续再迁移复现。路线与规范已建立，实验代码按阶段推进；实际成果见[学习进度](user-profile/progress/3d-game-client-progress.md)。已有内容可通过[图解复习](docs/general/2026-10-08-learning-review-visual.md)回顾，此前的 Agent 评估方案作为候选资料保留。
 
+开始学习先看[第一周阅读与练习计划](user-profile/progress/3d-game-client-week-01.md)：每次明确阅读范围、实验操作与自测，参考 15 小时安排。
+
 ## 🗂️ 项目结构
 
 ```

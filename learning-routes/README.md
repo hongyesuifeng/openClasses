@@ -17,6 +17,7 @@
 | 入口 | 用途 |
 | --- | --- |
 | [3D 游戏客户端路线](topic-index/3d-game-client.md) | Web 实验、Cocos 原理映射、七阶段资料与验收 |
+| [3D 第一周学习计划](../user-profile/progress/3d-game-client-week-01.md) | 指定阅读范围、六次学习安排、练习与自测 |
 | [实验工程说明](../domains/game-engine/experiments/web3d-learning/README.md) | 多实验组织、首个实验规格与统一模板 |
 | [3D 学习进度](../user-profile/progress/3d-game-client-progress.md) | 分别登记规划、实现、运行验证与个人理解 |
 

@@ -7,6 +7,8 @@
 - [x] 确认客户端能力与小实验为学习目标，Web／PC 为首要验证平台。
 - [x] 确认 Three.js 主线与原生 WebGL 小实验，资产制作学到客户端够用。
 - [x] 建立图示路线、资料导航、实验模板、首个实验规格与阶段验收规范。
+- [x] 制定[第一周阅读与练习计划](3d-game-client-week-01.md)，明确必读范围、15 小时预算与自测。
+- [ ] 完成第一周指定阅读，登记实际用时与自己的机制图。
 - [ ] 创建阶段 0 学习工程并运行首个实验。
 - [ ] 登记实际验证记录、自测答案与下一问题。
 
@@ -38,6 +40,7 @@
 ## 资料入口
 
 - [总体路线与资料导航](../../learning-routes/topic-index/3d-game-client.md)
+- [第一周阅读与练习计划](3d-game-client-week-01.md)
 - [学习工程说明](../../domains/game-engine/experiments/web3d-learning/README.md)
 - [阶段 0 实验规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)
 - [阶段验收规范](../../domains/game-engine/experiments/web3d-learning/docs/acceptance.md)
