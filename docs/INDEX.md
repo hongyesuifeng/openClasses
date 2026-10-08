@@ -172,7 +172,7 @@
 - [技能矩阵](../user-profile/skill-matrix.json)：2026-04-17 的技能自评，等待新的实验复核。
 - [3D 客户端学习进度](../user-profile/progress/3d-game-client-progress.md)：当前主线，区分规划与实际学习成果。
 - [图解复习](general/2026-10-08-learning-review-visual.md)：按需回顾已有内容。
-- [项目进展与候选计划](../user-profile/progress/2026-10-08-project-review-and-next-plan.md)：此前的 Agent 评估方案，保留供后续参考。
+- [当前进展与四周学习计划](../user-profile/progress/2026-10-08-project-review-and-next-plan.md)：[计划] 阶段 0 帧循环与阶段 1 空间数学，按验收推进。
 
 ## 🛠️ Claude Code 命令速查
 

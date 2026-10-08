@@ -15,6 +15,8 @@
 
 ## 阶段记录
 
+[已核查] 2026 年 10 月 8 日复核：学习工程目录仍只有四份说明文档，阶段 0 尚无实现或运行证据。[下一步四周计划](2026-10-08-project-review-and-next-plan.md)先安排阶段 0，再以验收结果决定是否进入阶段 1；实际阅读与个人自测待登记。
+
 | 阶段 | 规格状态 | 实验实现 | 运行验证 | 个人理解验收 | 实际投入与证据 |
 | --- | --- | --- | --- | --- | --- |
 | 0 环境与帧循环 | 已有详细规格 | 未开始 | 未开展 | 未开展 | 待登记 |
@@ -40,6 +42,7 @@
 
 ## 资料入口
 
+- [当前进展与四周学习计划](2026-10-08-project-review-and-next-plan.md)
 - [总体路线与资料导航](../../learning-routes/topic-index/3d-game-client.md)
 - [第一周阅读与练习计划](3d-game-client-week-01.md)
 - [学习工程说明](../../domains/game-engine/experiments/web3d-learning/README.md)

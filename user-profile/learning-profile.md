@@ -169,7 +169,8 @@
 - **开始学习**: [第一周阅读与练习计划](progress/3d-game-client-week-01.md)，先读场景与帧循环资料，再配合立方体实验和 Cocos 对照
 - **实际成果**: [3D 学习进度](progress/3d-game-client-progress.md)，路线与规范已建立，实验尚未开始；课程记录与技能自评沿用既有依据
 - **系统复习资料**: [六领域图解与自测](../docs/general/2026-10-08-learning-review-visual.md)，[详细解释与答案](../docs/general/2026-10-08-learning-review.md)按需查阅
-- **候选方案**: [项目进展与候选计划](progress/2026-10-08-project-review-and-next-plan.md)，原 Agent 评估实验尚未启动
+- **当前安排**: [当前进展与四周学习计划](progress/2026-10-08-project-review-and-next-plan.md)，[计划] 先完成阶段 0，再按验收结果进入空间数学
+- **候选方案**: [Agent 评估学习实验](progress/2026-10-agent-evaluation-plan.md)，[仓库记录] 尚未启动
 
 ### 后续方向储备
 
