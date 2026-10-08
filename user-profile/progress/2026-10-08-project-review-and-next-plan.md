@@ -4,6 +4,8 @@
 
 [建议] 下一步先完成阶段 0 的立方体与帧循环实验，再进入阶段 1 的空间数学。沿用[第一周计划](3d-game-client-week-01.md)的阅读范围与六次学习安排；本计划补充进展依据、后三周重点和阶段转换条件。
 
+[计划] 你提供的 Scratchapixel、MIT 6.837、Blender、Unity 动画、Mixamo、Cocos、Book of Shaders、Catlike Coding 与 Real-Time Rendering 均已纳入[24 周资料阅读计划](3d-game-client-reading-plan.md)。该计划逐周列出链接、选读范围、阅读预算与读后产出；第 1 至 4 周的阅读计入本计划每周 5 小时预算。
+
 ## 当前进展与依据
 
 | 方向 | 当前状态 | 依据与下一步 |
@@ -15,7 +17,7 @@
 | Web3D | [已核查] 目录包含 README、阶段 0 规格、实验模板、验收规范，尚无工程代码 | [实验目录](../../domains/game-engine/experiments/web3d-learning/README.md)；先建立可运行的阶段 0 实验 |
 | 技能评定 | [档案记录] 技能矩阵最后更新为 2026-04-17 | [技能矩阵](../skill-matrix.json)；以新的个人自测和实验记录复核评分 |
 
-[已核查] 最近三次提交分别补充 Web3D 路线与验收、第一周计划、互联网资料地图。它们体现规划与资料准备进展；阶段实现和个人理解状态见[学习进度表](3d-game-client-progress.md)。
+[已核查] 此前的学习准备提交已补充 Web3D 路线与验收、第一周计划、互联网资料地图。它们体现规划与资料准备进展；阶段实现和个人理解状态见[学习进度表](3d-game-client-progress.md)。
 
 ## 四周安排
 
@@ -26,11 +28,13 @@
 | 周次 | 核心问题与阅读范围 | 实验任务 | 可检查的产出 |
 | --- | --- | --- | --- |
 | 第 1 周 阶段 0 | [计划] 场景如何变成画面，时间如何改变状态？按[第一周 R1 至 R6](3d-game-client-week-01.md#本周资料每次只读指定范围)读 Three.js、MDN 和本地 Cocos 资料 | [计划] 建立 TypeScript／Vite／Three.js 工程，完成立方体、坐标轴、速度、暂停、继续、重置与过程面板 | [验收目标] 运行记录、时间与角度验证、清理检查、个人自测和 Cocos 职责对照 |
-| 第 2 周 阶段 1 入门 | [计划] 点与方向有什么区别，怎样得到方向与距离？读 [Scratchapixel Geometry](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/points-vectors-and-normals.html) 的 Points、Coordinate Systems、Math Operations；对照[本地数学库](../../domains/game-engine/guides/cocos-source-learning/01-core-foundation/01-math-types.md) | [计划] 在坐标实验台显示点、向量、局部轴、长度、点积与叉积；先手算再观察 | [验收目标] 正常输入与零向量等边界的预期和实际值，解释单位、方向和坐标空间 |
-| 第 3 周 阶段 1 变换 | [计划] 父节点如何影响子节点，变换顺序为何需要明确？读 Geometry 的矩阵与点／向量变换、[4×4 变换](https://www.scratchapixel.com/lessons/3d-basic-rendering/transforming-objects-using-matrices/using-4x4-matrices-transform-objects-3D.html)；选读本地四元数与 Node 变换 | [计划] 调整父子平移、旋转、缩放，展示局部／世界坐标与矩阵；比较变换组合及世界到局部转换 | [验收目标] 一组手算对照、父子变换记录、四元数旋转观察、不可逆变换的提示与解释 |
+| 第 2 周 阶段 1 入门 | [计划] 点与方向有什么区别，怎样得到方向与距离？读 [Scratchapixel Geometry](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/points-vectors-and-normals.html) 的 Points、Coordinate Systems、Math Operations；[MIT 03 坐标与变换](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/resources/mit6_837f12_lec03/)；对照[本地数学库](../../domains/game-engine/guides/cocos-source-learning/01-core-foundation/01-math-types.md) | [计划] 在坐标实验台显示点、向量、局部轴、长度、点积与叉积；先手算再观察 | [验收目标] 正常输入与零向量等边界的预期和实际值，解释单位、方向和坐标空间 |
+| 第 3 周 阶段 1 变换 | [计划] 父节点如何影响子节点，变换顺序为何需要明确？读 [4×4 变换](https://www.scratchapixel.com/lessons/3d-basic-rendering/transforming-objects-using-matrices/using-4x4-matrices-transform-objects-3D.html)、[MIT 04 层级建模](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/resources/mit6_837f12_lec04/)、[Catlike 矩阵图](https://catlikecoding.com/unity/tutorials/rendering/part-1/)；选读本地四元数与 Node 变换 | [计划] 调整父子平移、旋转、缩放，展示局部／世界坐标与矩阵；比较变换组合及世界到局部转换 | [验收目标] 一组手算对照、父子变换记录、四元数旋转观察、不可逆变换的提示与解释 |
 | 第 4 周 阶段 1 投影与复核 | [计划] 一个点怎样到达屏幕？读[投影导论](https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/projection-matrix-introduction.html)，对照本地 Camera 与数学资料 | [计划] 展示局部、世界、观察、裁剪、NDC 与屏幕坐标；比较透视／正交投影，检查重置、切换和清理 | [验收目标] 坐标过程图、固定输入的中间值、投影边界记录、Cocos 差异和阶段 1 自测结论 |
 
 [计划] Agent 负责搭建实验、解释关键代码并记录运行结果；你负责阅读、先预测结果、操作观察、重画机制图和回答自测。实验实现、运行验证与个人理解分别登记。
+
+[阅读预算] 第 2 周：Scratchapixel 3 小时＋MIT 1 小时＋Cocos 1 小时；第 3 周：Scratchapixel 2 小时＋Catlike 0.5 小时＋MIT 1 小时＋Cocos 1.5 小时；第 4 周：投影 2.5 小时＋Cocos 1.5 小时＋回读 1 小时。每次登记资料、版本、章节、实际用时、自己的机制图和自测状态；后续资料安排见[完整阅读计划](3d-game-client-reading-plan.md)。
 
 ```mermaid
 flowchart LR

@@ -4,6 +4,8 @@
 
 总体阶段以[当前 24 周路线](../topic-index/3d-game-client.md)为准；每课从本地图选出具体章节，配合[第一周计划](../../user-profile/progress/3d-game-client-week-01.md)这样的阅读、实验与自测安排。Tuntun 用于学习案例，正式游戏开发在独立项目进行。
 
+[计划] 九个主要入口已对应到[24 周资料阅读计划](../../user-profile/progress/3d-game-client-reading-plan.md)，逐周安排选读范围、时间预算和读后产出；本页保留资料导航，实际阅读用时与完成状态在学习记录中填写。
+
 ## 一 先按问题找资料
 
 ```mermaid
