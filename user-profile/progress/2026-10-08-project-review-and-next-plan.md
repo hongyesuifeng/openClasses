@@ -1,6 +1,6 @@
 # openClasses 项目进展与候选学习计划
 
-当前阶段先按用户要求[系统回顾已有学习内容](../../docs/general/2026-10-08-learning-review.md)。下列实验方向、任务与时间表为此前提出的候选方案，尚未启动；新的学习计划将在用户提供新目标后重新制定，不按原日期自动执行。
+当前学习主线已确定为 [3D 游戏客户端 Web 实验与 Cocos 原理映射](../../learning-routes/topic-index/3d-game-client.md)，实际状态见[新学习进度](3d-game-client-progress.md)。下列 Agent 评估方向、任务与时间表为此前候选方案，尚未启动，不按原日期自动执行。[已有学习内容回顾](../../docs/general/2026-10-08-learning-review.md)继续作为复习资料。
 
 截至 2026 年 10 月 8 日，仓库已完成学习定位确认、旧 slayDemo 工程归档和工作流整理。当前积累包括课程笔记、源码学习资料、核心玩法设计和 AI 协作复盘。新的个人学习成果还需要通过具体实验记录，技能评分暂沿用 2026-04-17 的档案。
 
@@ -61,4 +61,4 @@ slayDemo 的实际工程已迁移到独立 cocosProjects 项目。旧 Godot 工�
 - [slayDemo 学习资料入口](../../domains/game-engine/godotProjects/slayDemo/README.md)
 - [slayDemo 项目复盘](../../domains/game-engine/godotProjects/slayDemo/docs/project-retrospective.md)
 
-状态：进展核查与系统复习资料整理已完成，候选学习实验尚未开始。新阶段的方向、日期与验收要求待用户提供学习目标后制定。
+状态：此前进展核查与系统复习资料整理已完成，Agent 评估候选实验尚未开始。当前采用 3D 客户端路线，其规划与规范已建立，实验与个人理解验收分别登记。

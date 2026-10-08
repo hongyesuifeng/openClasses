@@ -12,6 +12,16 @@
 4. **进度追踪** - 跟踪学习进度和成果
 5. **学习优化系统** - 应用先进的学习方法论（基于 DeepTutor）
 
+## 当前学习主线
+
+| 入口 | 用途 |
+| --- | --- |
+| [3D 游戏客户端路线](topic-index/3d-game-client.md) | Web 实验、Cocos 原理映射、七阶段资料与验收 |
+| [实验工程说明](../domains/game-engine/experiments/web3d-learning/README.md) | 多实验组织、首个实验规格与统一模板 |
+| [3D 学习进度](../user-profile/progress/3d-game-client-progress.md) | 分别登记规划、实现、运行验证与个人理解 |
+
+当前已建立路线与规范，实验代码随阶段开展。总体路线使用图表说明关系与过程，详细解释按需查阅。
+
 ## 🧠 学习优化原则
 
 本框架集成了来自 [DeepTutor](https://github.com/HKUDS/DeepTutor) 的学习优化原则：
@@ -34,7 +44,7 @@
 | **Deep Research** | 深度研究 | 需要全面了解主题 |
 | **Math Animator** | 可视化理解 | 数学概念、算法可视化 |
 
-> 📖 详见：[学习优化准则](../docs/LEARNING_OPTIMIZATION_PRINCIPLES.md)
+> 📖 详见：[学习优化准则](../docs/general/LEARNING_OPTIMIZATION_PRINCIPLES.md)
 
 ## 🚀 快速开始
 

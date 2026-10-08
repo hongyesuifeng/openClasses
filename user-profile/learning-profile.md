@@ -161,12 +161,14 @@
 - **深度 vs 广度**: 需要平衡深入学习和广泛涉猎
 - **理论与实践**: 需要更多实践项目
 
-## 当前复习与方向储备
+## 当前学习主线与方向储备
 
-当前先系统回顾已有学习内容，新的学习计划等用户提供目标后再制定。课程完成记录和技能评分保持原有依据，不因资料整理而重新评定。
+当前主线为 3D 游戏客户端学习：TypeScript + Three.js 的 Web 实验，以及关键机制的原生 WebGL 小实验；每个主题说明中间过程和 Cocos 对应机制，后续再迁移复现。首要验证平台为 Web／PC，资产制作以客户端够用为目标，Tuntun 提供学习案例。
 
+- **新学习路线**: [3D 客户端路线与资料](../learning-routes/topic-index/3d-game-client.md)，参考每周 15 小时、核心 24 周，以阶段验收推进
+- **实际成果**: [3D 学习进度](progress/3d-game-client-progress.md)，路线与规范已建立，实验尚未开始；课程记录与技能自评沿用既有依据
 - **系统复习资料**: [六领域图解与自测](../docs/general/2026-10-08-learning-review-visual.md)，[详细解释与答案](../docs/general/2026-10-08-learning-review.md)按需查阅
-- **候选方案**: [项目进展与候选计划](progress/2026-10-08-project-review-and-next-plan.md)，尚未启动学习实验
+- **候选方案**: [项目进展与候选计划](progress/2026-10-08-project-review-and-next-plan.md)，原 Agent 评估实验尚未启动
 
 ### 后续方向储备
 

@@ -6,11 +6,20 @@
 
 **学习目标**: 深入理解游戏引擎核心系统，具备源码阅读和扩展能力
 
-**当前进度**: 15% 完成
+**当前主线**: [3D 游戏客户端学习](../../learning-routes/topic-index/3d-game-client.md)，路线与验收规范已建立，实验与个人理解验收待开展。
 
-**预计时长**: 16 周（每周 12 小时）
+**参考预算**: 3D 客户端核心 24 周、每周 15 小时；下面的通用源码路线保留作资料导航，分别登记实际成果。
 
 **难度**: ⭐⭐⭐⭐⭐ (5/5)
+
+## 3D 客户端学习入口
+
+| 入口 | 内容 |
+| --- | --- |
+| [Web3D 路线](../../learning-routes/topic-index/3d-game-client.md) | 数学、运动、资产、玩法、渲染、性能与 Cocos 对照 |
+| [学习实验目录](experiments/web3d-learning/README.md) | 一个 Web 工程、多独立实验；当前保存规格与规范 |
+| [阶段 0 规格](experiments/web3d-learning/docs/stage-00-spec.md) | 可观察的立方体与帧循环 |
+| [实际进度](../../user-profile/progress/3d-game-client-progress.md) | 规划、实现、运行验证和个人理解分别记录 |
 
 ## 🎯 学习目标
 
