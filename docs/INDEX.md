@@ -18,8 +18,8 @@
 **领域导航**: [domains/ai-agent/README.md](../domains/ai-agent/)
 
 **课程学习**：
-- [CS146S - The Modern Software Developer](../domains/ai-agent/courses/CS146S-The-Modern-Software-Developer/) - Week 4/10
-- [Hello-Agents](../domains/ai-agent/courses/Hello-Agents/) - Chapter 4/12
+- [CS146S - The Modern Software Developer](../domains/ai-agent/courses/CS146S-The-Modern-Software-Developer/) - 学习档案记录已完成
+- [Hello-Agents](../domains/ai-agent/courses/Hello-Agents/) - 学习档案记录已完成
 - [OpenClaw](../domains/ai-agent/courses/OpenClaw/) - AI Agent完整课程
 
 **论文研究**：
@@ -120,21 +120,18 @@
 
 ## 📊 学习进度一览
 
-### 进行中的学习
-- **CS146S**: Week 4/10 (40%)
-- **Hello-Agents**: Chapter 4/12 (33%)
-- **Cocos源码**: 核心基础阶段
-- **Godot源码**: 核心基础阶段
+### 课程与学习记录
 
-### 已掌握的技能
-- **提示工程**: 4/5 (高级)
-- **Python**: 4/5 (高级)
-- **TypeScript**: 3/5 (中级)
+- **CS146S、Hello-Agents、Prompt 设计与优化**：学习档案记录已完成。
+- **OpenClaw**：档案记录进行中，具体学习进度待补记。
+- **Cocos / Godot 源码**：已有学习资料，按选定主题登记阅读与实验结果。
+- **slayDemo**：保留学习资料与复盘，实际工程由独立 cocosProjects 项目维护。
 
-### 学习中的技能
-- **Agent开发**: 2/5 → 4/5
-- **游戏引擎架构**: 2/5 → 4/5
-- **源码阅读**: 2/5 → 4/5
+### 进度与技能依据
+
+- [学习档案](../user-profile/learning-profile.md)：课程记录与学习目标。
+- [技能矩阵](../user-profile/skill-matrix.json)：2026-04-17 的技能自评，等待新的实验复核。
+- [当前阶段计划](../user-profile/progress/2026-10-08-project-review-and-next-plan.md)：下一步任务与验收标准。
 
 ## 🛠️ Claude Code 命令速查
 
@@ -147,5 +144,5 @@
 
 ---
 
-**更新日期**: 2026-04-17
+**更新日期**: 2026-10-08
 **文档版本**: 2.0
