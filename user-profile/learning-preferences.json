@@ -1,10 +1,10 @@
 {
   "learner_id": "perry",
-  "last_updated": "2026-04-17",
+  "last_updated": "2026-10-08",
   "learning_style": {
     "primary": "practical",
     "secondary": "visual",
-    "description": "偏好通过实践项目学习，辅以图表和可视化内容"
+    "description": "偏好通过实践项目学习；讲解优先使用图片、架构图和流程图，减少大段文字"
   },
   "time_preferences": {
     "weekly_availability": 15,
@@ -20,12 +20,15 @@
   "content_preferences": {
     "format_priority": [
       "hands_on_projects",
+      "visual_diagrams",
       "comprehensive_guides",
       "video_tutorials",
       "documentation",
       "research_papers"
     ],
     "documentation_style": "structured",
+    "explanation_style": "diagram_first",
+    "text_density": "concise",
     "preferred_chapter_format": "11_chapter_standard"
   },
   "feedback_preferences": {

@@ -6,7 +6,7 @@
 
 | 我要... | 使用命令/资源 |
 |---------|-------------|
-| 系统复习已有内容 | [学习内容系统回顾](general/2026-10-08-learning-review.md)，含核心知识、资料入口与自测题 |
+| 系统复习已有内容 | [学习内容图解](general/2026-10-08-learning-review-visual.md)，含知识地图、架构图与流程图 |
 | 获取某个主题的学习路线 | `/topic-route <主题名称>` |
 | 生成学习计划 | `/learning-plan` |
 | 查看学习进度 | 参见 `user-profile/learning-profile.md` |
@@ -89,7 +89,8 @@
 
 ### 学习方法与优化
 
-- [学习内容系统回顾](general/2026-10-08-learning-review.md) - 六领域知识联系、实践经验与自测
+- [学习内容图解](general/2026-10-08-learning-review-visual.md) - 六领域知识关系、架构与验证流程
+- [详细复习与自测答案](general/2026-10-08-learning-review.md) - 按需查阅
 - [学习优化准则](general/LEARNING_OPTIMIZATION_PRINCIPLES.md) - 基于 DeepTutor 的方法论
 - [个性化学习框架指南](../learning-routes/README.md)
 - [项目结构规划](../PROJECT_STRUCTURE.md)
@@ -151,7 +152,7 @@
 
 - [学习档案](../user-profile/learning-profile.md)：课程记录与学习目标。
 - [技能矩阵](../user-profile/skill-matrix.json)：2026-04-17 的技能自评，等待新的实验复核。
-- [系统复习](general/2026-10-08-learning-review.md)：当前先回顾已有内容。
+- [图解复习](general/2026-10-08-learning-review-visual.md)：当前先用图回顾已有内容。
 - [项目进展与候选计划](../user-profile/progress/2026-10-08-project-review-and-next-plan.md)：此前方案供后续参考，新计划待明确学习目标后制定。
 
 ## 🛠️ Claude Code 命令速查

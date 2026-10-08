@@ -28,7 +28,7 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 | **软件工程** | 已有方法资料与实践样例 | 设计模式、架构、重构、评审与 AI 辅助开发 |
 | **产品与用户洞察** | 已有研究方法与历史分析样例 | 用户研究、访谈、画像与 Steam 讨论分析 |
 
-当前先进行[已有学习内容的系统复习](docs/general/2026-10-08-learning-review.md)，包含知识联系、实践经验、概念辨析及自测题。新学习计划将在明确新的学习目标后制定；此前的方案保留在[项目进展与候选计划](user-profile/progress/2026-10-08-project-review-and-next-plan.md)。
+当前先进行[已有学习内容的图解复习](docs/general/2026-10-08-learning-review-visual.md)，优先用知识地图、架构图和流程图说明，详细解释按需查阅。新学习计划将在明确新的学习目标后制定；此前的方案保留在[项目进展与候选计划](user-profile/progress/2026-10-08-project-review-and-next-plan.md)。
 
 ## 🗂️ 项目结构
 
