@@ -45,6 +45,9 @@
 - [Cocos 架构分析](game-engine/cocos-architecture.md)
 - [Godot 架构分析](game-engine/godot-architecture.md)
 
+**玩法实验与复盘**：
+- [slayDemo 学习资料](../domains/game-engine/godotProjects/slayDemo/README.md) - 核心玩法、技术方法与历史复盘；实际工程在独立 cocosProjects 仓库维护
+
 **相关论文**：
 - [GameDevBench](../domains/game-engine/papers/GameDevBench/) - 游戏开发AI基准
 

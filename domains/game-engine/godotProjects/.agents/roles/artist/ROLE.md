@@ -53,7 +53,7 @@
 |------|------|
 | `docs/art/` | 美术文档（8-9 份） |
 | `docs/art/RESOURCE_REVIEW.md` | 资源审查清单 |
-| `client/slay-demo/assets/` | 美术资源目录 |
+| 对应独立游戏项目的资源目录 | 实际美术资源；openClasses 保留资源说明和设计经验 |
 | `agent-tasks/task-art.md` | 美术任务看板 |
 
 ---

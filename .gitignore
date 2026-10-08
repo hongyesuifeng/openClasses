@@ -21,6 +21,7 @@ desktop.ini
 *.log
 *.cache
 .sisyphus/
+/.tmp/slaydemo-godot-2026-10-08/
 
 # Python 虚拟环境
 venv/

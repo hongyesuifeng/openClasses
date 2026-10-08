@@ -17,10 +17,10 @@
 
 ## 项目默认路径
 
-当前仓库常用 Godot 项目路径：
+当前仓库的 Godot 入门实验示例路径（使用前确认项目和 MCP 插件可用）：
 
 ```text
-D:\openClass\openClasses\domains\game-engine\godotProjects\slayDemo\client\slay-demo
+D:\openClass\openClasses\domains\game-engine\godotProjects\first2DGame
 ```
 
 当前 Godot 可执行文件路径：
@@ -85,7 +85,7 @@ Get-CimInstance Win32_Process |
 此时直接使用 Godot MCP 工具，例如：
 
 ```text
-projectPath: D:\openClass\openClasses\domains\game-engine\godotProjects\slayDemo\client\slay-demo
+projectPath: D:\openClass\openClasses\domains\game-engine\godotProjects\first2DGame
 scenePath: scenes/mcp_test_scene.tscn
 ```
 
@@ -153,7 +153,7 @@ Start-Process -FilePath "npx.cmd" -ArgumentList "-y", "gopeak" -WindowStyle Hidd
 Start-Sleep -Seconds 5
 
 Start-Process -FilePath "C:\Users\Lenovo\Downloads\Godot_v4.6.2-stable_win64.exe\Godot_v4.6.2-stable_win64.exe" `
-  -ArgumentList "--path", "D:\openClass\openClasses\domains\game-engine\godotProjects\slayDemo\client\slay-demo", "--editor"
+  -ArgumentList "--path", "D:\openClass\openClasses\domains\game-engine\godotProjects\first2DGame", "--editor" -WindowStyle Hidden
 ```
 
 连接检查：
@@ -185,7 +185,7 @@ Invoke-RestMethod -Uri "http://127.0.0.1:6505/health"
 目标：创建一个最小 `Node2D` 场景。
 
 ```text
-projectPath: D:\openClass\openClasses\domains\game-engine\godotProjects\slayDemo\client\slay-demo
+projectPath: D:\openClass\openClasses\domains\game-engine\godotProjects\first2DGame
 scenePath: scenes/mcp_smoke_test_scene.tscn
 rootNodeType: Node2D
 ```

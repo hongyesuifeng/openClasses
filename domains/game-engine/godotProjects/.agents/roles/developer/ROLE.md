@@ -52,7 +52,7 @@
 | 路径 | 用途 |
 |------|------|
 | `docs/tech/` | 技术文档（10 份） |
-| `client/slay-demo/` | Godot 项目代码 |
+| 当前任务选定的独立实验目录 | 最小技术验证代码；slayDemo 的旧 Godot 工程已归档 |
 | `Gopeak-godot-mcp/` | MCP 服务器项目 |
 | `agent-tasks/task-dev.md` | 开发任务看板 |
 

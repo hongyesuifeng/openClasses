@@ -10,7 +10,7 @@
 |------|------|------|
 | first2DGame | Godot 入门教程项目（2D 街机游戏） | 完成 |
 | Gopeak-godot-mcp | MCP 服务器项目（AI 辅助 Godot 开发） | 活跃 |
-| slayDemo | 卡牌对战游戏项目（类杀戮尖塔） | 进行中 |
+| slayDemo | 卡牌玩法、技术方法与项目复盘学习资料 | 工程已迁移至独立 cocosProjects 仓库 |
 
 ---
 
@@ -61,13 +61,13 @@ godotProjects/
 │
 ├── .opencode/                  # OpenCode 配置
 │
-├── slayDemo/                   # 主项目
+├── slayDemo/                   # 学习资料与历史复盘
 │   ├── docs/
-│   │   ├── design/             # 7 份设计文档
-│   │   ├── tech/               # 10 份技术文档
-│   │   ├── art/                # 8 份美术文档
+│   │   ├── design/             # 玩法设计
+│   │   ├── tech/               # 技术方法与验证经验
+│   │   ├── art/                # 美术与资源组织经验
 │   │   └── learning/           # 学习输出
-│   └── agent-tasks/            # 任务看板
+│   └── README.md               # 资料入口与工程归属
 │
 ├── first2DGame/                # 入门项目
 └── Gopeak-godot-mcp/           # MCP 工具
@@ -80,7 +80,10 @@ godotProjects/
 - **设计文档**: `slayDemo/docs/design/` - 游戏设计理念、卡牌设计、敌人设计等
 - **技术文档**: `slayDemo/docs/tech/` - 架构设计、系统实现方案
 - **美术文档**: `slayDemo/docs/art/` - 视觉风格、资源指南
-- **实施计划**: `slayDemo/docs/00-demo-implementation-plan.md`
+- **学习资料入口**: `slayDemo/README.md`
+- **历史实施计划**: `slayDemo/docs/00-demo-implementation-plan.md`（供学习决策与过程参考）
+
+slayDemo 的实际工程在独立 cocosProjects 仓库中维护。本目录保留学习资料，文档中的旧 Godot 工程路径属于历史记录。
 
 ---
 

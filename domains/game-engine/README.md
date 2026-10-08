@@ -160,6 +160,10 @@
 
 ## 💡 实践项目
 
+### 已有学习案例
+
+- [slayDemo 学习资料与复盘](godotProjects/slayDemo/README.md)：卡牌构筑玩法、数据驱动架构和 AI 协作方法。实际工程已迁移至独立 cocosProjects 仓库，旧 Godot 运行工程已移出本学习目录。
+
 ### 推荐项目
 
 1. **C++ 组件系统**
