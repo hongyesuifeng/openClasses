@@ -113,19 +113,23 @@ flowchart TB
 
 ## 四 资料导航与实验工程
 
+原规划中的互联网资料完整收录在[学习资料地图](../resources/3d-game-client-resources.md)：保留九个原推荐入口，标明主线必读、辅助参考与扩展选读，并给出具体章节、平台差异与适用条件。
+
 ### 主线资料
 
 | 阶段 | 官方或原始资料 | 选读重点 |
 | --- | --- | --- |
 | 0 | [Three.js 安装](https://threejs.org/manual/pages/installation.html)、[基础](https://threejs.org/manual/pages/fundamentals.html)、[Vite](https://vite.dev/guide/) | 场景、摄像机、Mesh、渲染器与开发环境 |
-| 1 | [MIT 6.837](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/)、本地数学库资料 | 变换、观察与投影；按实验问题选读 |
+| 1 | [Scratchapixel](https://www.scratchapixel.com/)、[MIT 6.837 讲义](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/pages/lecture-notes/)、本地数学库资料 | 点／向量、变换与投影；Scratchapixel 主线选读，MIT 03／04 辅助 |
 | 2 | [Three.js 文档](https://threejs.org/docs/)、本地场景图与物理资料 | 层级、Camera、Raycaster；明确时间与坐标约定 |
 | 3 | [Three.js 模型加载](https://threejs.org/manual/pages/loading-3d-models.html)、[GLTFLoader](https://threejs.org/docs/pages/GLTFLoader.html)、[AnimationMixer](https://threejs.org/docs/pages/AnimationMixer.html)、[Blender glTF 导出参考](https://docs.blender.org/manual/en/5.1/addons/import_export/scene_gltf2.html)、[Cocos 模型导入](https://docs.cocos.com/creator/3.8/manual/en/asset/model/mesh.html)、[动画系统](https://docs.cocos.com/creator/3.8/manual/en/animation/) | 资产结构、导入检查、骨骼、播放与混合；Blender 资料按实际软件版本核对 |
 | 4 | [slayDemo 设计资料](../../domains/game-engine/godotProjects/slayDemo/docs/design/)、[项目复盘](../../domains/game-engine/godotProjects/slayDemo/docs/project-retrospective.md)、[软件架构](../../domains/software-engineering/guides/foundations/software-architecture.md) | 规则与表现分离、状态结算、数据定义与事件顺序 |
-| 5 | [MDN WebGL 教程](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial)、[WebGLRenderer](https://threejs.org/docs/pages/WebGLRenderer.html) | 缓冲、Shader、纹理、深度与混合；小实验使用 WebGL2 |
-| 6 | [WebGLRenderer 统计接口](https://threejs.org/docs/pages/WebGLRenderer.html)、本地资源资料 | 绘制统计、释放与同条件比较；区分数量统计和内存字节测量 |
+| 5 | [MDN WebGL 教程](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial)、[The Book of Shaders 中文版](https://thebookofshaders.com/?lan=ch)、[Catlike Rendering](https://catlikecoding.com/unity/tutorials/rendering/)、[WebGLRenderer](https://threejs.org/docs/pages/WebGLRenderer.html) | MDN 与片元实验为主线，Catlike 推导辅助；缓冲、纹理、深度与混合按 WebGL2 核对 |
+| 6 | [WebGLRenderer 统计接口](https://threejs.org/docs/pages/WebGLRenderer.html)、[Cleanup](https://threejs.org/manual/pages/cleanup.html)、[Real-Time Rendering](https://www.realtimerendering.com/)、本地资源资料 | 绘制统计、释放与同条件比较；RTR 优化主题扩展选读；区分数量统计和内存字节测量 |
 
 Three.js 场景与原生 WebGL 实验使用不同抽象层；每个实验标明由库代做的步骤，以及本次实际观察的步骤。[Three.js 基础说明](https://threejs.org/manual/pages/fundamentals.html)
+
+阶段 3 同时保留[Blender 官方教程](https://www.blender.org/support/tutorials/)、[Unity 3D 动画资料](https://learn.unity.com/course/introduction-to-3d-animation-systems)和[Mixamo 资产入口](https://www.mixamo.com/)，具体阅读范围与角色适用条件见资料地图。各主题的 Cocos 对照使用[3.8 中文手册](https://docs.cocos.com/creator/3.8/manual/zh/)与仓库源码。
 
 MDN 教程用于理解基础步骤。原生实验明确使用 WebGL2，Shader 语法、接口和状态按实际上下文检查，避免直接混用不同版本示例。
 

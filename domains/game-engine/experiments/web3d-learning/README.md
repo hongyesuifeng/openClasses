@@ -9,6 +9,7 @@
 | 内容 | 入口 |
 | --- | --- |
 | 总路线与资料导航 | [3D 客户端学习路线](../../../../learning-routes/topic-index/3d-game-client.md) |
+| 原推荐互联网资料与章节 | [学习资料地图](../../../../learning-routes/resources/3d-game-client-resources.md) |
 | 第一周读什么、怎样练习 | [15 小时阅读与实验计划](../../../../user-profile/progress/3d-game-client-week-01.md) |
 | 首个实验 | [阶段 0 立方体规格](docs/stage-00-spec.md) |
 | 每个实验的说明格式 | [实验模板](docs/lab-template.md) |

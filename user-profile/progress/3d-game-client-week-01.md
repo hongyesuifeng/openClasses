@@ -28,6 +28,8 @@ flowchart LR
 
 ## 本周资料：每次只读指定范围
 
+完整互联网推荐见[学习资料地图](../../learning-routes/resources/3d-game-client-resources.md)，原规划中的 Scratchapixel、MIT、Blender、Unity 动画、Mixamo、Cocos、Book of Shaders、Catlike Coding 与 RTR 均已收录。下面是第一周选出的阅读范围。
+
 | 编号 | 资料 | 阅读范围与停止位置 | 读完要能说明 |
 | --- | --- | --- | --- |
 | R1 | [Three.js 基础](https://threejs.org/manual/pages/fundamentals.html) | 开头结构图 → 第一次静态立方体绘制；45 分钟 | Scene、Camera、Mesh、Renderer 怎样协作 |
@@ -43,7 +45,7 @@ R2 的官方旋转示例直接使用回调时间设置角度。本实验另外�
 
 **条件补读：**如果函数参数、对象类型或类型标注影响阅读，在 R6 中选读 [TypeScript Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) 对应小节。若超出缓冲预算，就延长阶段 0 并记录原因。
 
-MIT 图形学的变换与投影从阶段 1 选读；完整 MDN WebGL 教程在阶段 5 配合原生实验学习。后续每课都先明确必读范围，再安排实验与自测。
+Scratchapixel 的点／向量、变换与投影从阶段 1 作为主线选读，MIT 对应讲义用于辅助；Book of Shaders 与完整 MDN WebGL 教程在阶段 5 配合原生实验学习。若本周想先了解空间概念，可在 R6 回读预算内预览 [Scratchapixel 的点与向量](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/points-vectors-and-normals.html)，约 15 分钟。后续每课都先明确必读范围，再安排实验与自测。
 
 ## 六次学习安排
 

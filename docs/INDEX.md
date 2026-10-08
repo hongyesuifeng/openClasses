@@ -8,6 +8,7 @@
 |---------|-------------|
 | 系统复习已有内容 | [学习内容图解](general/2026-10-08-learning-review-visual.md)，含知识地图、架构图与流程图 |
 | 学习 3D 游戏客户端 | [Web3D 学习路线](../learning-routes/topic-index/3d-game-client.md)，含阶段、资料与 Cocos 原理映射 |
+| 查找 3D 互联网学习资料 | [资料地图](../learning-routes/resources/3d-game-client-resources.md)，保留原推荐清单与具体章节 |
 | 开始 3D 客户端第一课 | [第一周阅读与练习计划](../user-profile/progress/3d-game-client-week-01.md)，含阅读范围、操作与自测 |
 | 获取某个主题的学习路线 | `/topic-route <主题名称>` |
 | 生成学习计划 | `/learning-plan` |
@@ -39,6 +40,7 @@
 **3D 客户端主线**：
 
 - [整体路线与资料导航](../learning-routes/topic-index/3d-game-client.md)
+- [互联网学习资料与章节地图](../learning-routes/resources/3d-game-client-resources.md)
 - [第一周阅读与练习计划](../user-profile/progress/3d-game-client-week-01.md)
 - [Web 学习工程说明](../domains/game-engine/experiments/web3d-learning/README.md)
 - [首个立方体实验规格](../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)

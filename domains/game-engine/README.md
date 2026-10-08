@@ -17,6 +17,7 @@
 | 入口 | 内容 |
 | --- | --- |
 | [Web3D 路线](../../learning-routes/topic-index/3d-game-client.md) | 数学、运动、资产、玩法、渲染、性能与 Cocos 对照 |
+| [互联网资料地图](../../learning-routes/resources/3d-game-client-resources.md) | Scratchapixel、MIT、Blender、动画、Shader 与进阶参考资料 |
 | [学习实验目录](experiments/web3d-learning/README.md) | 一个 Web 工程、多独立实验；当前保存规格与规范 |
 | [阶段 0 规格](experiments/web3d-learning/docs/stage-00-spec.md) | 可观察的立方体与帧循环 |
 | [实际进度](../../user-profile/progress/3d-game-client-progress.md) | 规划、实现、运行验证和个人理解分别记录 |
