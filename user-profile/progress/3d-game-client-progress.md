@@ -11,6 +11,7 @@
 - [x] 补齐[互联网资料地图](../../learning-routes/resources/3d-game-client-resources.md)，保留原规划九个推荐入口、具体章节与适用条件。
 - [x] [规划完成] 将九个主要资料入口纳入[24 周阅读计划](3d-game-client-reading-plan.md)，逐周指定阅读范围、预算与产出；个人阅读完成情况待登记。
 - [x] [规划完成] 将[前四周学习内容](3d-game-client-month-01.md)展开为 24 次学习，补充概念图、手算例子、资料停止范围与自测；实际学习待开展。
+- [x] [资料整理完成] 提炼[核心知识图册](../../docs/game-engine/3d-client-core-visual.md)，用七张图串起六个问题；个人阅读与理解仍待登记。
 - [ ] 完成第一周指定阅读，登记实际用时与自己的机制图。
 - [ ] 创建阶段 0 学习工程并运行首个实验。
 - [ ] 登记实际验证记录、自测答案与下一问题。
@@ -45,6 +46,7 @@
 
 ## 资料入口
 
+- [核心知识图册](../../docs/game-engine/3d-client-core-visual.md) - 当前优先阅读入口
 - [前四周学习内容与资料安排](3d-game-client-month-01.md)
 - [最新进展核查与阶段 0 启动计划](2026-10-09-stage-00-start-plan.md)
 - [当前进展与四周学习计划](2026-10-08-project-review-and-next-plan.md)

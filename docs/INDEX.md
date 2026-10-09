@@ -7,6 +7,7 @@
 | 我要... | 使用命令/资源 |
 |---------|-------------|
 | 系统复习已有内容 | [学习内容图解](general/2026-10-08-learning-review-visual.md)，含知识地图、架构图与流程图 |
+| 先抓住 3D 核心知识 | [3D 客户端核心知识图册](game-engine/3d-client-core-visual.md)，七张图解释对象、空间、画面、动画、规则与成本 |
 | 学习 3D 游戏客户端 | [Web3D 学习路线](../learning-routes/topic-index/3d-game-client.md)，含阶段、资料与 Cocos 原理映射 |
 | 查找 3D 互联网学习资料 | [资料地图](../learning-routes/resources/3d-game-client-resources.md)，保留原推荐清单与具体章节 |
 | 学习资料网页打不开 | [访问记录与备用阅读入口](../learning-routes/resources/3d-game-client-resources.md#七-访问状态与备用阅读入口)，含 Scratchapixel 异常与按周替换方案 |
@@ -42,6 +43,7 @@
 
 **3D 客户端主线**：
 
+- [核心知识图册](game-engine/3d-client-core-visual.md) - 先建立整体认识，详细课时与资料按需查阅
 - [前四周学习内容与资料安排](../user-profile/progress/3d-game-client-month-01.md)
 - [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)
 - [整体路线与资料导航](../learning-routes/topic-index/3d-game-client.md)
