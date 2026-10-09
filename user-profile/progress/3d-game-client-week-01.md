@@ -4,6 +4,8 @@
 
 参考预算 15 小时：阅读与源码 5 小时、练习与实验 7 小时、检查与复盘缓冲 3 小时。完整方向见[24 周路线](../../learning-routes/topic-index/3d-game-client.md)，实验要求见[阶段 0 规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)。
 
+具体概念、时间更新过程和后三周的学习单元见[前四周学习内容与资料安排](3d-game-client-month-01.md)。本页保留第一周的阅读停止位置与源码范围。
+
 ## 今天从这里开始
 
 打开 [Three.js Fundamentals](https://threejs.org/manual/pages/fundamentals.html)，用约 45 分钟阅读开头的结构图，到第一次 `renderer.render(scene, camera)` 与静态立方体示例为止。

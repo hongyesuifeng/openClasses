@@ -10,6 +10,7 @@
 | 学习 3D 游戏客户端 | [Web3D 学习路线](../learning-routes/topic-index/3d-game-client.md)，含阶段、资料与 Cocos 原理映射 |
 | 查找 3D 互联网学习资料 | [资料地图](../learning-routes/resources/3d-game-client-resources.md)，保留原推荐清单与具体章节 |
 | 按周阅读 3D 学习资料 | [24 周资料阅读计划](../user-profile/progress/3d-game-client-reading-plan.md)，[计划] 含九个主要入口、选读范围、时间预算与读后产出 |
+| 展开每次 3D 学习内容 | [前四周学习内容与资料安排](../user-profile/progress/3d-game-client-month-01.md)，含概念图、手算、24 次学习和自测 |
 | 开始 3D 客户端第一课 | [第一周阅读与练习计划](../user-profile/progress/3d-game-client-week-01.md)，含阅读范围、操作与自测 |
 | 获取某个主题的学习路线 | `/topic-route <主题名称>` |
 | 生成学习计划 | `/learning-plan` |
@@ -40,6 +41,7 @@
 
 **3D 客户端主线**：
 
+- [前四周学习内容与资料安排](../user-profile/progress/3d-game-client-month-01.md)
 - [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)
 - [整体路线与资料导航](../learning-routes/topic-index/3d-game-client.md)
 - [互联网学习资料与章节地图](../learning-routes/resources/3d-game-client-resources.md)

@@ -166,7 +166,7 @@
 当前主线为 3D 游戏客户端学习：TypeScript + Three.js 的 Web 实验，以及关键机制的原生 WebGL 小实验；每个主题说明中间过程和 Cocos 对应机制，后续再迁移复现。首要验证平台为 Web／PC，资产制作以客户端够用为目标，Tuntun 提供学习案例。
 
 - **新学习路线**: [3D 客户端路线与资料](../learning-routes/topic-index/3d-game-client.md)，参考每周 15 小时、核心 24 周，以阶段验收推进
-- **开始学习**: [第一周阅读与练习计划](progress/3d-game-client-week-01.md)，先读场景与帧循环资料，再配合立方体实验和 Cocos 对照
+- **开始学习**: [前四周学习内容与资料安排](progress/3d-game-client-month-01.md)，逐课阅读、手算、实验与自测；[第一周计划](progress/3d-game-client-week-01.md)保留阅读停止位置和源码范围
 - **实际成果**: [3D 学习进度](progress/3d-game-client-progress.md)，路线与规范已建立，实验尚未开始；课程记录与技能自评沿用既有依据
 - **系统复习资料**: [六领域图解与自测](../docs/general/2026-10-08-learning-review-visual.md)，[详细解释与答案](../docs/general/2026-10-08-learning-review.md)按需查阅
 - **当前安排**: [最新进展与阶段 0 启动计划](progress/2026-10-09-stage-00-start-plan.md)，细化工程、控制、验证与个人自测；[四周计划](progress/2026-10-08-project-review-and-next-plan.md)按阶段验收推进
