@@ -13,7 +13,7 @@
 | 开始 3D 客户端第一课 | [第一周阅读与练习计划](../user-profile/progress/3d-game-client-week-01.md)，含阅读范围、操作与自测 |
 | 获取某个主题的学习路线 | `/topic-route <主题名称>` |
 | 生成学习计划 | `/learning-plan` |
-| 查看学习进度 | 参见 `user-profile/learning-profile.md` |
+| 查看当前进展与下一步 | [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)，含实际状态、启动条件与执行顺序 |
 | 优化学习方法 | `/learning-optimizer` 或阅读 `docs/general/LEARNING_OPTIMIZATION_PRINCIPLES.md` |
 
 ## 🗂️ 按领域浏览
@@ -40,6 +40,7 @@
 
 **3D 客户端主线**：
 
+- [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)
 - [整体路线与资料导航](../learning-routes/topic-index/3d-game-client.md)
 - [互联网学习资料与章节地图](../learning-routes/resources/3d-game-client-resources.md)
 - [第一周阅读与练习计划](../user-profile/progress/3d-game-client-week-01.md)
@@ -172,6 +173,7 @@
 - [学习档案](../user-profile/learning-profile.md)：课程记录与学习目标。
 - [技能矩阵](../user-profile/skill-matrix.json)：2026-04-17 的技能自评，等待新的实验复核。
 - [3D 客户端学习进度](../user-profile/progress/3d-game-client-progress.md)：当前主线，区分规划与实际学习成果。
+- [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)：2026-10-09 核查结果、环境条件与近期任务。
 - [图解复习](general/2026-10-08-learning-review-visual.md)：按需回顾已有内容。
 - [当前进展与四周学习计划](../user-profile/progress/2026-10-08-project-review-and-next-plan.md)：[计划] 阶段 0 帧循环与阶段 1 空间数学，按验收推进。
 
@@ -186,5 +188,5 @@
 
 ---
 
-**更新日期**: 2026-10-08
+**更新日期**: 2026-10-09
 **文档版本**: 2.0
