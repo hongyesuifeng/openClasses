@@ -24,6 +24,9 @@ desktop.ini
 .sisyphus/
 /.tmp/slaydemo-godot-2026-10-08/
 
+# Godot 编辑器生成缓存
+/domains/game-engine/godotProjects/slayDemo/client/slay-demo/.godot/
+
 # Python 虚拟环境
 venv/
 .venv/
