@@ -2,7 +2,7 @@
 
 以 TypeScript + Three.js 开展 Web 实验，用原生 WebGL 拆解关键渲染机制。每个主题说明原理、实现过程、中间数据和 Cocos 对应机制。Tuntun 提供吞噬进化案例，正式游戏整合在独立项目进行。
 
-**状态：路线、资料导航与验收规范已建立；阶段 0 至 6 的实验尚未实现，个人学习成果尚未验收。**
+**[实现记录] 阶段 0 首版已实现，数值、构建和核心浏览器交互已验证；阶段 1 至 6 尚未实现，个人学习成果尚未验收。** 已读基础后从[阶段 0 实践](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)开始。
 
 先读[核心知识图册](../../docs/game-engine/3d-client-core-visual.md)：七张图提炼对象、空间、画面、动画、规则和成本；下面的完整阶段与资料作为按需查阅的安排。
 
@@ -139,7 +139,7 @@ MDN 教程用于理解基础步骤。原生实验明确使用 WebGL2，Shader �
 
 ### 工程组织
 
-[Web3D 学习工程说明](../../domains/game-engine/experiments/web3d-learning/README.md)规定一个工程、多独立实验，以及初始化、更新、重置、释放约定。该目录当前保存实验规格与规范，阶段 0 再创建 TypeScript、Vite 和 Three.js 代码。
+[Web3D 学习工程说明](../../domains/game-engine/experiments/web3d-learning/README.md)规定一个工程、多独立实验，以及初始化、更新、重置、释放约定。[实现记录] 阶段 0 的 TypeScript、Vite 和 Three.js 工程已建立，运行与验证步骤见[实践记录](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)。
 
 默认桌面 Chrome／Edge 与 WebGL2。项目进程使用隔离 Node 24 运行时，保留系统 Node 18.15 给已有项目使用；安装与构建均在学习工程目录执行。当前 Vite 要求 Node 20.19+ 或 22.12+，初始化时核对锁定版本的要求。[Vite 官方说明](https://vite.dev/guide/)
 

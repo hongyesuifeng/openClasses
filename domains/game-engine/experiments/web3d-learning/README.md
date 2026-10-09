@@ -2,7 +2,13 @@
 
 一个 Web 工程承载多个独立实验，使用 TypeScript + Three.js，并用原生 WebGL 小实验观察底层渲染过程。每个实验同时说明 Cocos 对应机制，Tuntun 玩法作为学习案例。
 
-**当前状态：本目录只有学习规格与验收文档，尚无可运行应用、依赖或构建产物。** 阶段 0 创建首个立方体实验，后续按阶段扩展。
+**[实现记录] 阶段 0 立方体实验已可运行，支持速度、暂停／继续、重置、相机视角、固定步长对比与退出重入。** 数值检查和核心浏览器交互已验证；后台恢复与 WebGL2 不可用提示待桌面浏览器实测，个人理解待验收。详见[实践步骤与验证记录](docs/stage-00-lab.md)。
+
+## 直接开始实践
+
+[启动] 在本目录使用 Node 24 执行 `npm ci`、`npm run dev`，打开终端给出的本地地址。当前首版的[实践说明](docs/stage-00-lab.md#三-操作步骤)提供运行时选择与三轮练习。
+
+[验证] `npm test` 检查独立时间与角度逻辑；`npm run build` 执行类型检查和构建。依赖版本由 package-lock.json 固定。
 
 ## 入口
 
@@ -12,6 +18,7 @@
 | 原推荐互联网资料与章节 | [学习资料地图](../../../../learning-routes/resources/3d-game-client-resources.md) |
 | 第一周读什么、怎样练习 | [15 小时阅读与实验计划](../../../../user-profile/progress/3d-game-client-week-01.md) |
 | 首个实验 | [阶段 0 立方体规格](docs/stage-00-spec.md) |
+| 动手实践与实际证据 | [阶段 0 实践](docs/stage-00-lab.md) |
 | 每个实验的说明格式 | [实验模板](docs/lab-template.md) |
 | 阶段通过条件 | [验收规范](docs/acceptance.md) |
 | 实际学习记录 | [进度表](../../../../user-profile/progress/3d-game-client-progress.md) |
