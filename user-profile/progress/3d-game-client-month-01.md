@@ -4,6 +4,8 @@
 
 这是待执行的学习安排，实际阅读、实验和个人自测在[进度表](3d-game-client-progress.md)登记。每周 15 小时，其中阅读与源码 5 小时、实验 7 小时、检查与复盘缓冲 3 小时；四周共 60 小时。周次从实际开始学习计算，未通过的阶段顺延。工程启动条件见[最新核查](2026-10-09-stage-00-start-plan.md)。
 
+2026-10-09 检查发现 Scratchapixel 部分页面访问不稳定。打不开时使用[访问记录与按周替换方案](../../learning-routes/resources/3d-game-client-resources.md#七-访问状态与备用阅读入口)，在原预算内改读 MIT、Catlike、Three.js 与本地源码，保留本页实验和自测目标。
+
 ```mermaid
 flowchart LR
     A[阅读指定小节] --> B[画机制图与手算预期]

@@ -6,6 +6,8 @@
 
 [计划] 九个主要入口已对应到[24 周资料阅读计划](../../user-profile/progress/3d-game-client-reading-plan.md)，逐周安排选读范围、时间预算和读后产出；本页保留资料导航，实际阅读用时与完成状态在学习记录中填写。
 
+网页打不开时，使用[访问状态与备用阅读入口](#七-访问状态与备用阅读入口)。2026-10-09 的实际浏览器检查发现 Scratchapixel 部分页面访问不稳定，前四周可按下方替换方案继续学习。
+
 ## 一 先按问题找资料
 
 ```mermaid
@@ -135,4 +137,43 @@ Book of Shaders 示例的 GLSL 写法需按实验所用 WebGL2 核对；Three.js
 
 每课挑选与一个实验问题相关的主线章节，辅助资料在遇到疑问时加入，并把实际阅读用时计入每周预算。读后先画图和写预期，再调参数、观察数据、回答自测；使用[实验模板](../../domains/game-engine/experiments/web3d-learning/docs/lab-template.md)保存资料范围、自己的解释与证据。
 
-核对日期：2026-10-08。核心入口、目录与关键适用范围已通过原站页面或官方搜索索引核对。Blender 教程／手册部分页面本次抓取未成功，已保留原站链接与官方索引信息；这是抓取限制，未判定页面失效。Mixamo 适用条件使用 Adobe FAQ 核对。以后开始相应课时复核页面、章节与版本。
+资料分类与章节范围核对日期：2026-10-08。核心入口、目录与关键适用范围已通过原站页面或官方搜索索引核对。Blender 教程／手册部分页面当次抓取未成功，已保留原站链接与官方索引信息；未据此判定页面失效。Mixamo 适用条件使用 Adobe FAQ 核对。最新实际浏览器访问情况见下方记录，网页抓取到正文不等于当前浏览器能够正常打开。
+
+## 七 访问状态与备用阅读入口
+
+### 当前访问情况
+
+检查日期为 2026-10-09，使用当前 Codex 内置浏览器观察页面正文或错误页。以下是所列入口在本次检查时的状态；其余资料在开始对应课时核对。
+
+| 入口 | 实际浏览器结果 | 当前使用安排 |
+| --- | --- | --- |
+| 用户提供的[光栅化概览](https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/overview-rasterization-algorithm.html) | 显示 OpenResty 页面暂不可用错误；网页抓取端仍能取得正文 | 先使用下方 MIT 21 讲义；带 .html 的规范地址也出现错误，不能只靠补后缀解决 |
+| [Scratchapixel 点与向量](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/points-vectors-and-normals.html) | 首次导航等待超时，随后读到正文 | 可访问但加载较慢；失败时使用第二周替换安排 |
+| [Scratchapixel 坐标系](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/coordinate-systems.html) | 经页尾 next 跳转曾读到正文；规范直链随后出现 ERR_SSL_PROTOCOL_ERROR | 访问不稳定，不能将单次成功视为持续可用 |
+| [Three.js Fundamentals](https://threejs.org/manual/#fundamentals) | 旧 pages 链接跳转到手册界面，截图确认正文可读 | 第一周继续使用，目录跳转属于正常导航 |
+| [Three.js Cameras](https://threejs.org/manual/pages/cameras.html) | 截图确认正文可读 | 摄像机与投影参数备用资料 |
+| [MIT 03 坐标与变换](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/resources/mit6_837f12_lec03/) | 资源页可读，提供官方 PDF 下载入口 | 第二周坐标与数学备用资料 |
+| [MIT 04 层级建模](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/resources/mit6_837f12_lec04/) | 资源页可读，提供官方 PDF 下载入口 | 第三周父子变换备用资料 |
+| [Catlike Rendering 1](https://catlikecoding.com/unity/tutorials/rendering/part-1/) | 矩阵与投影正文可读 | 第三／四周选读图与推导，接口继续对照 Web 与 Cocos |
+| [MIT 21 管线与光栅化](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/resources/mit6_837f12_lec21/) | 资源页可读；官方 PDF 已通过网页工具读取 | 本次光栅化概览的替代资料，也用于第 17 周 |
+
+Scratchapixel 的 [Geometry 页面](https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/points-vectors-and-normals.html)公告说明，站点于 2026-06-29 使用新构建系统重新生成，可能仍有坏链接、格式或功能问题。这说明站点存在已知问题；本次观察尚不能确定各次失败的具体原因，也不能判定整站停用。
+
+### 当前光栅化章节可以先读哪里
+
+打开 [MIT 21 官方讲义 PDF](https://ocw.mit.edu/courses/6-837-computer-graphics-fall-2012/53d96abf747a3c82fd3497d2fea540f5_MIT6_837F12_Lec21.pdf)，先按 PDF 页码读第 4 至 9 页和第 18 至 22 页，约 20 至 30 分钟：前一段比较射线与三角形的遍历顺序，后一段说明管线、覆盖测试、颜色与深度记录。整份 PDF 共 98 页，其他主题按后续实验需要选读。
+
+读后画出“投影后的三角形 → 判断覆盖的像素 → 计算与比较深度 → 更新画面”的过程，并回答：同一像素被多个三角形覆盖时怎样决定可见结果？投影与光栅化分别改变了什么数据？这是阅读任务，个人完成状态仍需登记。
+
+### 前四周资料打不开时怎样替换
+
+如果 Scratchapixel 无法访问，下面方案替换该周的全部阅读安排，每周仍为 300 分钟。已经读过的范围计入完成记录，剩余时间用于未读主题或回读；实验 7 小时与检查缓冲 3 小时沿用原计划。
+
+| 周次 | 替换阅读范围与分钟数 | 保留的学习目标 |
+| --- | --- | --- |
+| 第 1 周 | 按[原第一周 R1 至 R6](../../user-profile/progress/3d-game-client-week-01.md#本周资料每次只读指定范围)继续，当前 Fundamentals 正文可读 | 场景职责、帧循环、暂停、重置与清理 |
+| 第 2 周 | MIT 03 的坐标与变换 120 分钟＋[本地 Vec3 资料](../../domains/game-engine/guides/cocos-source-learning/01-core-foundation/01-math-types.md) 120 分钟＋[前四周向量例子](../../user-profile/progress/3d-game-client-month-01.md#第二周-点与向量)与卡点回读 60 分钟 | 点与方向、距离、归一化、点积、叉积及零向量边界 |
+| 第 3 周 | Catlike Rendering 1 的变换与齐次坐标 120 分钟＋MIT 04 层级建模 90 分钟＋本地 Mat4／Quat／Node 对照 90 分钟 | 组合顺序、父子变换、局部与世界坐标、旋转表达 |
+| 第 4 周 | Catlike Rendering 1 的 Projection Matrices 90 分钟＋Three.js Cameras 60 分钟＋[本地 Camera 源码](../../domains/game-engine/engines/cocos-engine/cocos/misc/camera-component.ts)与数学对照 90 分钟＋坐标过程回读 60 分钟 | 观察、投影、透视除法、视口与逐步数值 |
+
+MIT 讲义页的 Download File 可用于保存官方 PDF 后阅读，仍需记录版本与实际页码。第 17 周的管线阅读可直接使用 MIT 21；阅读时间计入既有 MIT 预算。
