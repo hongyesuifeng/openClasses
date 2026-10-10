@@ -22,6 +22,8 @@ desktop.ini
 *.log
 *.cache
 .sisyphus/
+/.playwright-cli/
+/output/playwright/
 /.tmp/slaydemo-godot-2026-10-08/
 
 # Godot 编辑器生成缓存

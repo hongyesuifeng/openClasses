@@ -2,7 +2,7 @@
 
 以 TypeScript + Three.js 开展 Web 实验，用原生 WebGL 拆解关键渲染机制。每个主题说明原理、实现过程、中间数据和 Cocos 对应机制。Tuntun 提供吞噬进化案例，正式游戏整合在独立项目进行。
 
-**[实现记录] 阶段 0 首版已实现，数值、构建和核心浏览器交互已验证；阶段 1 至 6 尚未实现，个人学习成果尚未验收。** 已读基础后从[阶段 0 实践](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)开始。
+**[实现记录] 2026-10-10，阶段 0 与阶段 1 首版已实现，数值、构建和核心浏览器交互已验证；阶段 2 至 6 尚未实现，个人学习成果尚未验收。** 当前按学习者安排从[阶段 1 点与向量实践](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)开始；阶段 0 未验收项继续补齐。
 
 先读[核心知识图册](../../docs/game-engine/3d-client-core-visual.md)：七张图提炼对象、空间、画面、动画、规则和成本；下面的完整阶段与资料作为按需查阅的安排。
 
@@ -59,6 +59,8 @@ flowchart LR
 ### 首个实验
 
 阶段 0 从[第一周阅读与练习计划](../../user-profile/progress/3d-game-client-week-01.md)开始，明确每次读到哪里、练什么、怎样自测，再按[立方体实验规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)建立可观察的帧循环。后续实验使用[统一说明模板](../../domains/game-engine/experiments/web3d-learning/docs/lab-template.md)，按[阶段验收规范](../../domains/game-engine/experiments/web3d-learning/docs/acceptance.md)登记证据。
+
+阶段 1 的[坐标实验台规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-spec.md)与[实践记录](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)分别说明输入、计算过程、边界、个人自测和验证证据。三页对应点与向量、父子变换、投影，先做向量练习再按理解进入后两页。
 
 ### 扩展主题
 

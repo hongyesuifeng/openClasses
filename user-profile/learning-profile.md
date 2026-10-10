@@ -4,10 +4,10 @@
 
 - **学习者ID**: perry
 - **创建日期**: 2026-04-17
-- **最后更新**: 2026-10-09
+- **最后更新**: 2026-10-10
 - **学习目标**: 掌握AI Agent与游戏开发的结合，构建智能游戏系统
 - **本仓库定位**: 学习、最小实验与知识沉淀；实际游戏开发和整合由独立项目承担
-- **本次复核**: 2026-10-09 核查 Web3D 准备状态与启动环境；阶段 0 尚未实现，技能自评仍沿用2026-04-17
+- **本次复核**: 2026-10-10 阶段 0 与阶段 1 首版已实现并完成核心检查；个人理解尚未验收，技能自评仍沿用2026-04-17
 
 ## 学习偏好
 
@@ -167,9 +167,9 @@
 
 - **新学习路线**: [3D 客户端路线与资料](../learning-routes/topic-index/3d-game-client.md)，参考每周 15 小时、核心 24 周，以阶段验收推进
 - **开始学习**: 先看[核心知识图册](../docs/game-engine/3d-client-core-visual.md)，理解场景、空间、画面、动画、规则与成本；[前四周计划](progress/3d-game-client-month-01.md)和[第一周范围](progress/3d-game-client-week-01.md)配合实验按需查阅
-- **实际成果**: [3D 学习进度](progress/3d-game-client-progress.md)，路线与规范已建立，实验尚未开始；课程记录与技能自评沿用既有依据
+- **实际成果**: [3D 学习进度](progress/3d-game-client-progress.md)，阶段 0 与阶段 1 首版及核心检查已有证据；个人阅读、自测、实际用时和技能自评仍待复核
 - **系统复习资料**: [六领域图解与自测](../docs/general/2026-10-08-learning-review-visual.md)，[详细解释与答案](../docs/general/2026-10-08-learning-review.md)按需查阅
-- **当前安排**: [最新进展与阶段 0 启动计划](progress/2026-10-09-stage-00-start-plan.md)，细化工程、控制、验证与个人自测；[四周计划](progress/2026-10-08-project-review-and-next-plan.md)按阶段验收推进
+- **当前安排**: 按学习者要求从[阶段 1 点与向量实践](../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)开始，先预测、操作、解释，再进入变换与投影；阶段 0 未验收项继续补齐，[四周计划](progress/2026-10-08-project-review-and-next-plan.md)保留参考预算
 - **候选方案**: [Agent 评估学习实验](progress/2026-10-agent-evaluation-plan.md)，[仓库记录] 尚未启动
 
 ### 后续方向储备
@@ -184,5 +184,5 @@
 ---
 
 **档案创建时间**: 2026-04-17
-**最后更新**: 2026-10-09
+**最后更新**: 2026-10-10
 **更新频率**: 每周更新一次

@@ -4,11 +4,23 @@
 
 **[实现记录] 阶段 0 立方体实验已可运行，支持速度、暂停／继续、重置、相机视角、固定步长对比与退出重入。** 数值检查和核心浏览器交互已验证；后台恢复与 WebGL2 不可用提示待桌面浏览器实测，个人理解待验收。详见[实践步骤与验证记录](docs/stage-00-lab.md)。
 
+**[实现记录] 2026-10-10，阶段 1 坐标实验台首版已建立。** 点与向量、父子变换、投影三页显示计算过程，提供边界案例与个人记录下载；15 项数值测试、构建和核心浏览器检查通过。今天先做[点与向量三轮实践](docs/stage-01-lab.md)，个人理解继续单独验收，阶段 0 未验收项保留。
+
 ## 直接开始实践
 
-[启动] 在本目录使用 Node 24 执行 `npm ci`、`npm run dev`，打开终端给出的本地地址。当前首版的[实践说明](docs/stage-00-lab.md#三-操作步骤)提供运行时选择与三轮练习。
+[启动] 从当前仓库根目录执行：
+
+```powershell
+$labRunner = '.\domains\game-engine\experiments\web3d-learning\tools\run.ps1'
+powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner install
+powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner dev
+```
+
+启动器寻找隔离 Node 24.12+，只为当前进程选择运行时，并在本实验目录执行命令。若没有自动找到，为命令传入 `-NodePath` 指定自己的 Node 24 node.exe。打开终端给出的地址，`?lab=space` 进入阶段 1，`?lab=time` 进入阶段 0；默认地址保留阶段 0。
 
 [验证] `npm test` 检查独立时间与角度逻辑；`npm run build` 执行类型检查和构建。依赖版本由 package-lock.json 固定。
+
+也可使用启动器的 `test`／`build` 命令，避免终端默认 Node 18 与学习工程要求不一致。测试同时覆盖时间、向量、变换与投影的固定输入及边界。
 
 ## 入口
 
@@ -19,6 +31,8 @@
 | 第一周读什么、怎样练习 | [15 小时阅读与实验计划](../../../../user-profile/progress/3d-game-client-week-01.md) |
 | 首个实验 | [阶段 0 立方体规格](docs/stage-00-spec.md) |
 | 动手实践与实际证据 | [阶段 0 实践](docs/stage-00-lab.md) |
+| 下一阶段实践 | [阶段 1 坐标实验台](docs/stage-01-lab.md) |
+| 空间数学规格与自测 | [阶段 1 规格](docs/stage-01-spec.md) |
 | 每个实验的说明格式 | [实验模板](docs/lab-template.md) |
 | 阶段通过条件 | [验收规范](docs/acceptance.md) |
 | 实际学习记录 | [进度表](../../../../user-profile/progress/3d-game-client-progress.md) |

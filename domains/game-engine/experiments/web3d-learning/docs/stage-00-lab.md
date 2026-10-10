@@ -35,18 +35,15 @@ flowchart LR
 
 ## 三 操作步骤
 
-[启动] 在本实验目录运行下列命令，使用 Node 24；启动后访问终端给出的本地地址。当前验证的运行时为 Node 24.12.0，安装与构建使用该目录 npm-cli.js 的 11.6.2 版本。
+[启动] 2026-10-10 起使用工程启动器，从当前仓库根目录执行下列命令，再访问终端给出的地址并加上 `?lab=time`。首版历史验证使用 Node 24.12.0；本轮启动器验证使用隔离 Node 24.19.0。
 
 ```powershell
-cd D:\Desktop\openClasses\domains\game-engine\experiments\web3d-learning
-# 仅为当前终端选择已验证的运行时，不改变全局设置。
-$env:Path = 'D:\WorkSoftWare;' + $env:Path
-node --version
-npm ci
-npm run dev
+$labRunner = '.\domains\game-engine\experiments\web3d-learning\tools\run.ps1'
+powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner install
+powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner dev
 ```
 
-[启动条件] 其他机器需先定位自己的 Node 24 路径，替换示例中的运行时目录；依赖由锁文件固定。Vite 的最低要求见[官方说明](https://vite.dev/guide/)，本工程按 Node 24 约定运行。
+[启动条件] 启动器会寻找兼容的 Node 24.12+；其他机器未自动找到时，可传入 `-NodePath` 指定自己的 Node 24 node.exe。依赖由锁文件固定。Vite 的最低要求见[官方说明](https://vite.dev/guide/)，本工程按 Node 24 约定运行。
 
 | 轮次 | 先预测，再操作 | 记录内容 |
 | --- | --- | --- |
@@ -63,7 +60,7 @@ npm run dev
 | --- | --- |
 | [代码] [simulation.ts](../src/simulation.ts) | `createSimulation` 默认状态；`advance` 的时间与角度两行；`FrameClock.consume` 毫秒转秒和步长上限 |
 | [代码] [cube-view.ts](../src/cube-view.ts) | Geometry／Material／Mesh 初始化；`render`；`setCamera`；`dispose` |
-| [代码] [main.ts](../src/main.ts) | `tick` 先更新后绘制；暂停／重置事件；`stopLab` 取消任务与监听 |
+| [代码] [stage-00.ts](../src/stage-00.ts) | `tick` 先更新后绘制；暂停／重置事件；`stopLab` 取消任务与监听；main.ts 负责按地址选择实验 |
 
 [练习 A] 在 `cube-view.ts` 修改材质颜色，观察哪些面板数值不变；恢复原值。解释为何渲染结果变化不一定代表模拟状态变化。
 

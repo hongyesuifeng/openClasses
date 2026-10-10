@@ -22,7 +22,7 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 | 领域 | 学习情况 | 核心内容 |
 |------|----------|----------|
 | **AI Agent** | 档案记录基础课程已完成，进阶按实验验证 | CS146S、Hello-Agents、OpenClaw |
-| **游戏引擎与 3D 客户端** | 阶段 0 Web3D 实验已可运行，个人理解待验收 | Three.js、WebGL、Cocos 原理映射与源码资料 |
+| **游戏引擎与 3D 客户端** | 阶段 0／1 Web3D 首版已可运行，个人理解待验收 | Three.js、WebGL、Cocos 原理映射与源码资料 |
 | **提示工程** | 档案记录已掌握，继续实践复核 | Prompt 设计与优化 |
 | **论文研究** | 已有阅读材料与分析笔记，个人进度待登记 | AI Agent、游戏开发 AI |
 | **软件工程** | 已有方法资料与实践样例 | 设计模式、架构、重构、评审与 AI 辅助开发 |
@@ -32,7 +32,7 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 开始学习先看[第一周阅读与练习计划](user-profile/progress/3d-game-client-week-01.md)：每次明确阅读范围、实验操作与自测，参考 15 小时安排。
 
-[实践入口] 已读基础原理后，直接进入[阶段 0 立方体实践](domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)：先预测，再调整速度、暂停、视角与输入步数，观察时间和角度，并记录自己的解释。
+[当前实践] 2026-10-10 起按学习者安排进入[阶段 1 坐标实验台](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：先做点与向量三轮练习，再按理解进入父子变换和投影。每页先预测、操作观察、展开中间计算、写自己的解释并下载记录。[阶段 0 立方体实践](domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)的未验收项继续补齐。
 
 ## 🗂️ 项目结构
 

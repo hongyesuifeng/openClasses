@@ -16,7 +16,7 @@
 | 开始 3D 客户端第一课 | [第一周阅读与练习计划](../user-profile/progress/3d-game-client-week-01.md)，含阅读范围、操作与自测 |
 | 获取某个主题的学习路线 | `/topic-route <主题名称>` |
 | 生成学习计划 | `/learning-plan` |
-| 查看当前进展与下一步 | [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)，含实际状态、启动条件与执行顺序 |
+| 查看当前进展与下一步 | [学习进度](../user-profile/progress/3d-game-client-progress.md)与[阶段 1 坐标实践](../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)，当前从点与向量开始 |
 | 优化学习方法 | `/learning-optimizer` 或阅读 `docs/general/LEARNING_OPTIMIZATION_PRINCIPLES.md` |
 
 ## 🗂️ 按领域浏览
@@ -44,6 +44,8 @@
 **3D 客户端主线**：
 
 - [核心知识图册](game-engine/3d-client-core-visual.md) - 先建立整体认识，详细课时与资料按需查阅
+- [阶段 1 坐标实验台实践](../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md) - 当前从点与向量三轮练习开始
+- [阶段 1 实验规格与自测](../domains/game-engine/experiments/web3d-learning/docs/stage-01-spec.md)
 - [前四周学习内容与资料安排](../user-profile/progress/3d-game-client-month-01.md)
 - [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)
 - [整体路线与资料导航](../learning-routes/topic-index/3d-game-client.md)
@@ -170,7 +172,7 @@
 - **CS146S、Hello-Agents、Prompt 设计与优化**：学习档案记录已完成。
 - **OpenClaw**：档案记录进行中，具体学习进度待补记。
 - **Cocos / Godot 源码**：已有学习资料，按选定主题登记阅读与实验结果。
-- **3D 客户端**：Web 路线、实验规格与验收规范已建立，阶段 0 至 6 的实验和个人理解验收待开展。
+- **3D 客户端**：阶段 0／1 首版已实现并完成核心检查，当前进入点与向量实践；个人理解尚未验收，阶段 2 至 6 未开始。
 - **slayDemo**：保留学习资料与复盘，实际工程由独立 cocosProjects 项目维护。
 
 ### 进度与技能依据
