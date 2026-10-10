@@ -32,7 +32,7 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 开始学习先看[第一周阅读与练习计划](user-profile/progress/3d-game-client-week-01.md)：每次明确阅读范围、实验操作与自测，参考 15 小时安排。
 
-[当前实践] 2026-10-10 起按学习者安排进入[阶段 1 坐标实验台](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：先做点与向量三轮练习，再按理解进入父子变换和投影。每页先预测、操作观察、展开中间计算、写自己的解释并下载记录。[阶段 0 立方体实践](domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)的未验收项继续补齐。
+[当前学习] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲清空间原理。点按钮看变化，结合简明解释理解；公式与 3D 观察按需展开，不强制填写、手算或答题。三段基础动图可直接在文档观看。
 
 ## 🗂️ 项目结构
 

@@ -16,7 +16,7 @@
 | 开始 3D 客户端第一课 | [第一周阅读与练习计划](../user-profile/progress/3d-game-client-week-01.md)，含阅读范围、操作与自测 |
 | 获取某个主题的学习路线 | `/topic-route <主题名称>` |
 | 生成学习计划 | `/learning-plan` |
-| 查看当前进展与下一步 | [学习进度](../user-profile/progress/3d-game-client-progress.md)与[阶段 1 坐标实践](../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)，当前从点与向量开始 |
+| 查看当前进展与下一步 | [学习进度](../user-profile/progress/3d-game-client-progress.md)与[阶段 1 原理动画](../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)，通过动图和一键演示理解 |
 | 优化学习方法 | `/learning-optimizer` 或阅读 `docs/general/LEARNING_OPTIMIZATION_PRINCIPLES.md` |
 
 ## 🗂️ 按领域浏览
@@ -44,8 +44,8 @@
 **3D 客户端主线**：
 
 - [核心知识图册](game-engine/3d-client-core-visual.md) - 先建立整体认识，详细课时与资料按需查阅
-- [阶段 1 坐标实验台实践](../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md) - 当前从点与向量三轮练习开始
-- [阶段 1 实验规格与自测](../domains/game-engine/experiments/web3d-learning/docs/stage-01-spec.md)
+- [阶段 1 动图与简明讲解](../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md) - 当前看变化理解原理，不强制填写或测算
+- [阶段 1 原理演示规格](../domains/game-engine/experiments/web3d-learning/docs/stage-01-spec.md)
 - [前四周学习内容与资料安排](../user-profile/progress/3d-game-client-month-01.md)
 - [最新进展与阶段 0 启动计划](../user-profile/progress/2026-10-09-stage-00-start-plan.md)
 - [整体路线与资料导航](../learning-routes/topic-index/3d-game-client.md)

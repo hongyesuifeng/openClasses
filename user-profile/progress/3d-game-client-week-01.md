@@ -1,5 +1,7 @@
 # 3D 客户端第一周：阅读与立方体实验
 
+[学习方式更新] 2026-10-10 起采用简明原理、交互演示或动图讲解；本页的预测、手算与填写记录按需选用，不强制完成。当前入口见[阶段 1 原理动画](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)。
+
 **[实现记录] 阶段 0 实验已可运行，核心数值与浏览器交互已验证。** [用户报告] 已看完相关基础原理；具体阅读范围、实际投入与个人自测仍待登记。已读基础后从[实践步骤](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)开始。计划制定日期：2026-10-08，周次按实际学习安排计算。
 
 参考预算 15 小时：阅读与源码 5 小时、练习与实验 7 小时、检查与复盘缓冲 3 小时。完整方向见[24 周路线](../../learning-routes/topic-index/3d-game-client.md)，实验要求见[阶段 0 规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)。

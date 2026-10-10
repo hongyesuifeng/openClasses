@@ -1,5 +1,7 @@
 # 3D 客户端资料阅读与阶段学习计划
 
+[当前学习偏好] 先用[原理动画](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)与简单交互理解；本页资料、手算、自测与记录字段按需查阅，不以填写或测算作为学习入口。
+
 [计划] 将你提供的九个主要资料入口纳入[当前 24 周路线](../../learning-routes/topic-index/3d-game-client.md)，按周安排选读、问题、实验与读后产出。[近期四周计划](2026-10-08-project-review-and-next-plan.md)负责启动安排，[资料地图](../../learning-routes/resources/3d-game-client-resources.md)保留完整入口与适用范围。
 
 [预算假设] 每周 15 小时中的 5 小时用于阅读、视频、源码对照与阅读整理，7 小时用于实验，3 小时用于验证与复盘缓冲。24 周阅读预算合计 120 小时；本页任务计入已有预算。实际开始日期和已读范围待登记，未完成任务按阶段验收结果顺延。

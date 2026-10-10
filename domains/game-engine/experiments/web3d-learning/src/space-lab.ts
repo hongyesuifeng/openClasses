@@ -1,321 +1,231 @@
 import * as THREE from 'three';
-import { inspectProjection, inspectTransform, inspectVectors, matrixRows, triple, vector, type ProjectionInput, type SpaceMode, type TransformInput, type Triple } from './space-math.ts';
-import { arrow, COLORS, createSpaceView, pointMarker, type WorldLabel } from './space-view.ts';
+import { inspectProjection, inspectTransform, inspectVectors, vector, type ProjectionInput, type SpaceMode, type TransformInput } from './space-math.ts';
+import { arrow, COLORS, createSpaceView, pointMarker } from './space-view.ts';
 
-document.title = '空间数学 · Web3D 实践学习';
+document.title = '看动画懂空间 · openClasses';
 const app = document.querySelector<HTMLElement>('#app')!;
 app.innerHTML = `
-  <header class="page-header">
-    <div class="brand"><span class="brand-mark">3D</span> openClasses <span class="separator">/</span> 实践学习</div>
-    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time">0 场景与时间</a><a href="?lab=space" aria-current="page">1 空间数学</a></nav>
-  </header>
-  <section class="intro space-intro"><p class="eyebrow">SPACE · PREDICT → OBSERVE → EXPLAIN</p>
-    <h1 id="lesson-title">从两个点，找到一个方向。</h1><p class="lead" id="lesson-lead"></p>
-  </section>
-  <nav class="lesson-tabs" aria-label="空间数学练习">
-    <button data-mode="vectors" aria-pressed="true">01 点与向量</button>
-    <button data-mode="transforms" aria-pressed="false">02 父子变换</button>
-    <button data-mode="projection" aria-pressed="false">03 投影到屏幕</button>
-  </nav>
-  <section class="lab-layout space-layout" aria-label="空间数学实验">
-    <div class="scene-card">
-      <div class="scene-toolbar"><span><i class="live-dot"></i> 世界坐标 · XY 网格</span>
-        <div><button id="front-view" class="text-button">正面观察</button><button id="orbit-view" class="text-button">斜侧观察</button></div>
-      </div>
-      <div id="viewport" class="space-viewport"><div class="scene-badge" id="scene-status">拖动旋转 · 滚轮缩放</div>
-        <div class="axis-legend"><span class="axis-x">X</span><span class="axis-y">Y</span><span class="axis-z">Z</span><span id="legend"></span></div>
-      </div>
-      <div class="scene-footer"><span id="scene-caption"></span><button id="release" class="text-button">退出实验</button><button id="restart" class="text-button" hidden>重新进入</button></div>
-      <div id="screen-section" hidden><div class="screen-heading">目标相机的屏幕 <span id="screen-size"></span></div><div id="screen-preview"><span class="screen-center">中心</span><span id="screen-point" hidden>P</span></div><p id="screen-status" class="hint screen-status" role="status"></p></div>
-    </div>
-    <aside class="control-card space-controls"><div class="card-heading"><h2>先改变一个条件</h2><span class="step-number" id="lesson-index">01</span></div>
-      <div id="controls"></div><p id="input-error" class="input-error" role="alert" hidden></p>
-      <button id="reset" class="full-width">重置本页参数</button><p class="hint">拖动观察视角只改变画面，不改变输入数据。</p>
-    </aside>
-  </section>
-  <section class="practice space-practice"><div class="section-title"><div><p class="eyebrow">ONE CHANGE AT A TIME</p><h2>先手算，再用实验核对</h2></div><span>本次建议 30–45 分钟</span></div>
-    <p id="challenge" class="challenge"></p><div id="presets" class="preset-buttons"></div>
-    <div id="process" class="process-strip" aria-label="计算过程"></div>
-  </section>
-  <section class="explanations"><details id="calculation"><summary>展开计算过程，核对你的预测</summary><div id="results" class="math-results"></div></details>
-    <details><summary>原理、边界与 Cocos 对照</summary><div id="principle"></div></details>
-  </section>
-  <section class="notebook"><div class="section-title"><div><p class="eyebrow">YOUR EVIDENCE</p><h2>留下自己的解释</h2></div><span id="save-status" role="status">每页各保存一份记录</span></div>
-    <div class="note-grid"><label>1 操作前的预测<textarea id="prediction" placeholder="先写数值和理由，再展开计算。"></textarea></label>
-      <label>2 观察结果与输入<textarea id="observation" placeholder="记录改了哪个参数，结果与预测是否相同。"></textarea></label>
-      <label>3 原因与仍不确定的问题<textarea id="explanation" placeholder="合上计算过程，用自己的话解释。"></textarea></label></div>
-    <div class="note-actions"><label>实际投入（分钟）<input id="minutes" type="number" min="0" max="1440" step="1" value="0"></label><button id="export-note">下载本页学习记录</button></div>
-    <p class="small-note">记录自动保存到当前浏览器；需要带走时下载 Markdown。浏览器存储不可用时仍可下载。个人理解按自己的回答验收。</p>
-  </section>
-  <footer>阶段 1 已开始实践。阶段 0 的两项浏览器边界与个人自测仍待补齐；今天从点与向量开始，按理解情况进入后两页。</footer>
+  <header class="page-header"><div class="brand"><span class="brand-mark">3D</span> openClasses <span class="separator">/</span> 原理演示</div>
+    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time">0 场景与时间</a><a href="?lab=space" aria-current="page">1 空间数学</a></nav></header>
+  <section class="intro demo-intro"><p class="eyebrow">看变化 · 懂原理</p><h1>让动画把空间讲清楚。</h1><p class="lead">点一个演示，看发生了什么，再看旁边的一句解释。</p></section>
+  <nav class="lesson-tabs" aria-label="演示主题"><button data-topic="vectors" aria-pressed="true">点与箭头</button><button data-topic="transforms" aria-pressed="false">托盘与小球</button><button data-topic="projection" aria-pressed="false">相机与画面</button></nav>
+  <section class="demo-layout"><div class="demo-card">
+    <div class="demo-toolbar"><span id="demo-label"></span><button id="toggle-animation" class="text-button">暂停动画</button></div>
+    <div id="diagram" class="principle-diagram"></div>
+    <div class="demo-takeaway" id="takeaway" role="status"></div>
+    <div class="demo-actions"><button id="action" class="primary"></button><button id="replay">再看一次</button></div>
+  </div><aside class="demo-guide"><p class="eyebrow">一个演示，只讲一件事</p><h2 id="story-title"></h2><p id="story-explanation"></p><nav id="story-list" aria-label="选择一个原理"></nav></aside></section>
+  <section class="demo-connection"><span>放进游戏里</span><p id="game-example"></p></section>
+  <section class="explanations demo-details"><details id="spatial-view"><summary>想换个角度看：打开 3D 观察（可选）</summary><div id="viewport" class="space-viewport"><div class="scene-badge">拖动旋转 · 滚轮缩放</div></div><p class="hint">这是同一原理的空间示意；动画负责讲过程，3D 画面显示一种对应状态。</p></details>
+    <details><summary>想深入时：公式、边界和 Cocos 对照（可选）</summary><div id="deeper"></div></details></section>
+  <footer>跟着动画看即可；资料和公式需要时再展开。</footer>
 `;
 
 const el = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
-const defaults = {
-  vectors: () => ({ a: [1, 2, 0] as Triple, b: [4, 6, 0] as Triple, v: [1, 0, 0] as Triple }),
-  transforms: (): TransformInput => ({ translation: [2, 0, 0], scale: [1, 1, 1], axis: 'z', degrees: 90, order: 'TRS', child: [1, 0, 0] }),
-  projection: (): ProjectionInput => ({ point: [1, 1, 0], translation: [0, 0, 0], distance: 8, kind: 'perspective', fov: 60, near: 1, far: 20, width: 800, height: 400 }),
+interface Story { id: string; label: string; title: string; explanation: string; takeaway: string; action: string; changed: string; game: string }
+const stories: Record<SpaceMode, Story[]> = {
+  vectors: [
+    { id: 'route', label: '点与箭头', title: '点是位置，箭头是路线。', explanation: '蓝点是出发点，橙点是目的地。连接它们的箭头，把“往哪走”和“走多远”放在一起。白色光点沿箭头移动，帮助你看清方向。', takeaway: '点告诉你在哪里；向量告诉你往哪走、走多远。', action: '把目的地拉远', changed: '目的地变远了，箭头变长了：需要走的距离增加。', game: '角色的位置是一个点；从角色指向目标的箭头，就是追踪目标的位移。' },
+    { id: 'move', label: '一起搬走', title: '位置变了，路线可以不变。', explanation: '动画把两个点连同箭头一起搬走。两个点都换了位置，但箭头始终保持同一个方向和长度。', takeaway: '同时移动两个点，不会改变它们之间的位移。', action: '换一条路线', changed: '现在两点之间的路线换了；一起搬动时，新路线依然保持不变。', game: '把一组物体整体平移，它们彼此之间的距离和相对方向保持不变。' },
+    { id: 'unit', label: '只保留方向', title: '把“方向”和“距离”分开。', explanation: '灰色长箭头是原来的路线。彩色箭头沿同一方向缩短到一个单位长，只留下“往哪走”，不再携带原来的距离。这叫归一化。', takeaway: '归一化保留方向，去掉原来的长度信息。', action: '反过来看看', changed: '换成反方向后，仍然只保留方向，彩色箭头最终一样长。', game: '知道方向以后，再乘上移动速度，就能控制角色每秒走多远。' },
+    { id: 'dot', label: '比较朝向', title: '两条箭头，朝向一致吗？', explanation: '黄箭头依次转到同向、垂直和反向。点积把这个关系变成一个数：同向时为正，垂直时为零，反向时为负。这里保持两条箭头长度不变。', takeaway: '点积帮助判断方向关系；长度也会影响它的大小。', action: '切到反向起点', changed: '先从反向开始观察，再看它转回垂直、同向。', game: '判断敌人在角色前方还是后方，可以比较视线方向和目标方向。' },
+    { id: 'cross', label: '得到垂直方向', title: '从两条箭头，得到第三个方向。', explanation: '蓝箭头向右，黄箭头向上。蓝叉黄得到垂直屏幕、朝向你的方向。交换顺序后，方向变成远离你。圆点表示朝向你，叉号表示远离你。', takeaway: '叉积给出垂直方向；交换顺序会把方向反过来。', action: '交换两条箭头的顺序', changed: '顺序已交换：垂直方向反过来，变成远离你。', game: '用两个不平行的方向，可以确定一个平面的朝向，例如地面的法线。' },
+  ],
+  transforms: [
+    { id: 'carry', label: '跟着一起移动', title: '父物体像托盘，子物体像小球。', explanation: '托盘移动时，小球跟着走。小球在整个世界里的位置变了，但它在托盘里的位置一直没变。托盘的参考点用橙色标出。', takeaway: '局部位置：相对托盘；世界位置：相对整个场景。', action: '让托盘往另一边走', changed: '换了移动方向，小球还是待在托盘里的同一处。', game: '角色带着手里的武器移动；武器相对角色的位置可以保持不变。' },
+    { id: 'rotate', label: '跟着一起转动', title: '父物体转动，也会带着子物体转。', explanation: '小球始终固定在托盘上。托盘绕自己的橙色参考点旋转，小球在世界中沿圆弧走，但它在托盘里的位置保持不变。', takeaway: '父变换会影响子物体在世界中的位置。', action: '换个旋转方向', changed: '换成反方向旋转，小球仍然跟着托盘一起转。', game: '角色转身时，手中的武器和身上的挂件会跟着转身。' },
+    { id: 'order', label: '先后顺序', title: '先转再搬，和先搬再转，结果不同。', explanation: '从同一个蓝点出发，两条路径代表两种顺序。“转动”都绕世界原点，“搬动”都向右。改变先后顺序，最终落点就不同。白色光点展示过程。', takeaway: '变换顺序会改变结果，矩阵只是把这个过程记下来。', action: '突出另一条路径', changed: '另一条路径被突出：先向右移动，再绕原点转动。', game: '镜头先绕目标旋转再偏移，和先偏移再绕原点旋转，位置会不同。' },
+  ],
+  projection: [
+    { id: 'perspective', label: '透视：近大远小', title: '一样大的物体，为什么看起来大小不同？', explanation: '左边是空间侧面示意：两个球一样大。右边是相机画面：近球看起来更大。动画让相机靠近、远离，你会看到这个大小关系继续变化。', takeaway: '透视把距离变成画面大小的差异：近大远小。', action: '换成正交投影', changed: '正交投影：一样大的两个球，在画面里一样大；距离不再造成缩放。', game: '普通 3D 视角常用透视；等距地图或编辑工具可以用正交视角。' },
+    { id: 'behind', label: '相机的前方', title: '镜头有朝向，看不到身后的物体。', explanation: '绿色区域是镜头前方。蓝球移到相机身后时，右边画面里的球消失。球仍在世界里，只是镜头没有看向它。', takeaway: '物体存在于世界中，不代表它一定出现在相机画面里。', action: '把球留在镜头前方', changed: '球留在镜头前方，可以出现在相机画面里。', game: '调整镜头时，角色可能离开画面；这不代表角色被删除了。' },
+  ],
 };
-let mode: SpaceMode = 'vectors';
-let vectors = defaults.vectors();
-let transforms = defaults.transforms();
-let projection = defaults.projection();
+let topic: SpaceMode = 'vectors';
+let storyIndex = 0;
+let changed = false;
+let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const events = new AbortController();
 let view: ReturnType<typeof createSpaceView> | undefined;
 let observer: ResizeObserver | undefined;
 let viewEvents: AbortController | undefined;
-const events = new AbortController();
-let resultText = '';
-const storageKey = 'openclasses-space-notes-v1';
-interface Note { prediction: string; observation: string; explanation: string; minutes: string }
-const blankNote = (): Note => ({ prediction: '', observation: '', explanation: '', minutes: '0' });
-let notes: Record<SpaceMode, Note> = { vectors: blankNote(), transforms: blankNote(), projection: blankNote() };
-try {
-  const saved = JSON.parse(localStorage.getItem(storageKey) ?? 'null');
-  for (const key of ['vectors', 'transforms', 'projection'] as const) {
-    for (const field of ['prediction', 'observation', 'explanation', 'minutes'] as const) {
-      if (typeof saved?.[key]?.[field] === 'string') notes[key][field] = saved[key][field];
+const current = () => stories[topic][storyIndex];
+const fmt = (n: number) => (Math.abs(n) < 0.0005 ? 0 : n).toFixed(3);
+const xyz = (v: { x: number; y: number; z: number }) => `(${fmt(v.x)}, ${fmt(v.y)}, ${fmt(v.z)})`;
+const px = (x: number) => 300 + x * 60;
+const py = (y: number) => 250 - y * 60;
+const colors = { blue: '#3184af', orange: '#ce852c', purple: '#8267bf', green: '#258c72', muted: '#acbbc3' };
+const svgText = (x: number, y: number, text: string, color = '#506b7a', anchor = 'middle') => `<text x="${x}" y="${y}" fill="${color}" text-anchor="${anchor}">${text}</text>`;
+const segment = (x1: number, y1: number, x2: number, y2: number, color: string, dashed = false) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="4" ${dashed ? 'stroke-dasharray="7 7"' : ''} marker-end="url(#${color === colors.orange ? 'orange' : color === colors.green ? 'green' : color === colors.muted ? 'muted' : 'blue'})"/>`;
+const dot = (x: number, y: number, color: string, radius = 10) => `<circle cx="${x}" cy="${y}" r="${radius}" fill="${color}" stroke="white" stroke-width="3"/>`;
+const motionDot = (path: string, seconds = 4) => `<circle r="6" fill="white" stroke="${colors.blue}" stroke-width="2"><animateMotion path="${path}" dur="${seconds}s" repeatCount="indefinite"/></circle>`;
+const slide = (values: string, duration = 4) => `<animateTransform attributeName="transform" type="translate" values="${values}" dur="${duration}s" repeatCount="indefinite"/>`;
+const svg = (body: string, caption: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 420" role="img" aria-label="${current().title}"><defs>${['blue', 'orange', 'green', 'muted'].map(name => `<marker id="${name}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="${colors[name as keyof typeof colors]}"/></marker>`).join('')}<pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="#e3edf0" stroke-width="1"/></pattern></defs><rect width="680" height="370" fill="url(#grid)"/><line x1="30" y1="370" x2="650" y2="370" stroke="#dce7ec"/>${body}${svgText(340, 402, caption, '#315566')}</svg>`;
+
+function vectorDiagram(): string {
+  const id = current().id;
+  if (id === 'cross') {
+    const sign = changed ? '⊗' : '⊙';
+    return svg(segment(290, 220, 470, 220, changed ? colors.orange : colors.blue) + segment(290, 220, 290, 65, changed ? colors.blue : colors.orange)
+      + `<circle cx="290" cy="220" r="25" fill="#eef8f4" stroke="${colors.green}" stroke-width="3"/><text x="290" y="233" text-anchor="middle" fill="${colors.green}" style="font-size:38px">${sign}</text><circle cx="290" cy="220" r="32" fill="none" stroke="${colors.green}" opacity=".5"><animate attributeName="r" values="28;42;28" dur="2s" repeatCount="indefinite"/></circle>`
+      + svgText(486, 255, changed ? '第二条' : '第一条') + svgText(290, 48, changed ? '第一条' : '第二条') + svgText(455, 130, changed ? '远离你 ⊗' : '朝向你 ⊙', colors.green), '叉积方向垂直屏幕；交换顺序，方向反过来。');
+  }
+  if (id === 'dot') {
+    const angles = changed ? '180;90;0;90;180' : '0;90;180;90;0';
+    return svg(segment(240, 220, 440, 220, colors.blue) + `<g transform="translate(240 220)"><g>${segment(0, 0, 180, 0, colors.orange)}<animateTransform attributeName="transform" type="rotate" values="${angles}" dur="6s" repeatCount="indefinite"/></g></g>`
+      + dot(240, 220, colors.blue) + svgText(450, 250, '蓝箭头固定', colors.blue) + svgText(250, 75, '黄箭头转动', colors.orange)
+      + svgText(345, 318, '同向 → 垂直 → 反向'), '点积：同向为正，垂直为零，反向为负。');
+  }
+  const a = new THREE.Vector3(-2, -1, 0);
+  const b = id === 'route' && changed ? new THREE.Vector3(3, 2, 0) : new THREE.Vector3(1, 1, 0);
+  if (id === 'move' && changed) b.set(1, 2, 0);
+  const d = b.clone().sub(a);
+  let body = '';
+  if (id === 'unit') {
+    const sign = changed ? -1 : 1;
+    const unit = d.clone().normalize().multiplyScalar(sign);
+    const x = 300, y = 180, endX = x + unit.x * 60, endY = y - unit.y * 60;
+    const originalX = x + d.x * sign * 60, originalY = y - d.y * sign * 60;
+    body = segment(x, y, originalX, originalY, colors.muted, true) + `<line x1="${x}" y1="${y}" x2="${originalX}" y2="${originalY}" stroke="${colors.blue}" stroke-width="5" marker-end="url(#blue)"><animate attributeName="x2" values="${originalX};${endX};${endX};${originalX}" dur="5s" repeatCount="indefinite"/><animate attributeName="y2" values="${originalY};${endY};${endY};${originalY}" dur="5s" repeatCount="indefinite"/></line>` + dot(x, y, colors.blue)
+      + svgText(420, 90, '灰色：原来的长度', '#899aa3') + svgText(420, 125, '彩色：缩成一个单位长', colors.blue);
+  } else {
+    body = segment(px(a.x), py(a.y), px(b.x), py(b.y), colors.blue) + dot(px(a.x), py(a.y), colors.blue) + dot(px(b.x), py(b.y), colors.orange)
+      + svgText(px(a.x), py(a.y) + 32, '出发点 A', colors.blue) + svgText(px(b.x), py(b.y) - 23, '目的地 B', colors.orange);
+    if (id === 'move') body = `<g>${body}${slide('0 0;130 -35;130 -35;0 0')}</g>`;
+    else body += motionDot(`M ${px(a.x)} ${py(a.y)} L ${px(b.x)} ${py(b.y)}`);
+  }
+  return svg(body, id === 'move' ? '点的位置变了，箭头的方向和长度没变。' : id === 'unit' ? '方向保持不变，原来的距离信息被去掉。' : '箭头同时表达方向和距离，这就是位移向量。');
+}
+
+function transformDiagram(): string {
+  const id = current().id;
+  if (id === 'order') {
+    const start = `${px(1.5)} ${py(0)}`;
+    const first = `M ${start} A 90 90 0 0 0 ${px(0)} ${py(1.5)} L ${px(1.8)} ${py(1.5)}`;
+    const second = `M ${start} L ${px(3.3)} ${py(0)} A 198 198 0 0 0 ${px(0)} ${py(3.3)}`;
+    return svg(`<path d="${first}" fill="none" stroke="${colors.blue}" stroke-width="${changed ? 3 : 5}" opacity="${changed ? '.4' : '1'}"/><path d="${second}" fill="none" stroke="${colors.orange}" stroke-width="${changed ? 5 : 3}" opacity="${changed ? '1' : '.4'}"/>`
+      + dot(px(1.5), py(0), colors.blue) + dot(px(1.8), py(1.5), colors.blue) + dot(px(0), py(3.3), colors.orange) + motionDot(changed ? second : first, 5)
+      + svgText(px(0), py(0) + 32, '世界原点') + `<circle cx="${px(0)}" cy="${py(0)}" r="4" fill="#617c8b"/>`
+      + svgText(505, 177, '先转，再向右搬', colors.blue) + svgText(300, 30, '先向右搬，再转', colors.orange), '同样的两件事，先后顺序不同，最后落点不同。');
+  }
+  const tray = `<rect x="-28" y="-50" width="180" height="100" rx="15" fill="#fff1dc" stroke="${colors.orange}" stroke-width="3"/>${dot(0, 0, colors.orange, 7)}${dot(90, 0, colors.blue, 16)}${segment(12, 0, 69, 0, colors.blue, true)}`;
+  let moving = '';
+  if (id === 'carry') moving = `<g>${tray}${slide(changed ? '0 0;-100 45;-100 45;0 0' : '0 0;120 -45;120 -45;0 0', 5)}</g>`;
+  else moving = `<g>${tray}<animateTransform attributeName="transform" type="rotate" values="0;${changed ? '90' : '-90'};${changed ? '90' : '-90'};0" dur="5s" repeatCount="indefinite"/></g>`;
+  return svg(`<path d="M 60 325 H 620" stroke="#cbdce3" stroke-width="2"/>${svgText(92, 348, '整个场景')}`
+    + `<g transform="translate(280 210)">${moving}</g>` + svgText(145, 65, '橙色：托盘（父）', colors.orange) + svgText(145, 95, '蓝色：小球（子）', colors.blue)
+    + svgText(390, 315, '小球一直待在托盘里的同一处'), id === 'carry' ? '世界位置在变，相对托盘的位置没变。' : '托盘转动，小球跟着转；相对托盘的位置没变。');
+}
+
+const projectionInput = (distance: number, kind: ProjectionInput['kind'], point: ProjectionInput['point']): ProjectionInput => ({ point, translation: [0, 0, 0], distance, kind, fov: 60, near: 1, far: 20, width: 250, height: 220 });
+function projectionDiagram(): string {
+  const behind = current().id === 'behind';
+  const kind = changed && !behind ? 'orthographic' : 'perspective';
+  const screenX = 395, screenY = 85;
+  let body = svgText(160, 38, '空间中的侧面示意') + svgText(520, 38, '相机看到的画面')
+    + `<path d="M 44 92 L 335 92 L 335 278 L 44 278" fill="#edf7f3"/><rect x="${screenX}" y="${screenY}" width="250" height="220" rx="12" fill="#f1f6f9" stroke="#cbdce3"/>`
+    + `<g><path d="M 72 180 L 110 165 L 110 205 L 72 190 Z" fill="#506d7c"/><rect x="45" y="169" width="35" height="30" rx="6" fill="#506d7c"/>${svgText(77, 231, '相机')}${behind ? '' : slide('0 0;32 0;32 0;0 0', 5)}</g>`;
+  if (behind) {
+    body += `<circle cx="230" cy="145" r="17" fill="${colors.blue}">${changed ? '' : '<animate attributeName="cx" values="230;25;25;230" dur="5s" repeatCount="indefinite"/>'}</circle>${svgText(214, 320, '镜头朝右，绿色是前方')}`;
+    const result = inspectProjection(projectionInput(8, 'perspective', [0, 0, changed ? 0 : 9]));
+    body += `<circle cx="520" cy="195" r="23" fill="${colors.blue}" ${changed ? '' : 'opacity="1"'}>${changed ? '' : '<animate attributeName="opacity" values="1;0;0;1" dur="5s" repeatCount="indefinite"/>'}</circle>`;
+    // 示意动画中的球穿过相机位置；数学边界在深入面板使用精确输入计算。
+    el('deeper').innerHTML = `<p>镜头前方才可能进入画面，此外还要通过裁剪判断。固定输入对照：相机 z=8，球的 z=${changed ? 0 : 9}，结果是${result.status}。透视投影在相机平面上 w=0，不能进行透视除法。</p><p>Cocos Camera 的投影和 worldToScreen 也要结合相机朝向、视口与图形后端约定解释。</p>`;
+  } else {
+    body += dot(180, 165, colors.blue, 17) + dot(300, 218, colors.orange, 17) + svgText(180, 120, '近球', colors.blue) + svgText(300, 270, '远球', colors.orange)
+      + `<line x1="116" y1="182" x2="173" y2="153" stroke="#aac2cc" stroke-width="2" stroke-dasharray="5 5"><animate attributeName="x1" values="116;148;148;116" dur="5s" repeatCount="indefinite"/></line><line x1="116" y1="182" x2="294" y2="230" stroke="#aac2cc" stroke-width="2" stroke-dasharray="5 5"><animate attributeName="x1" values="116;148;148;116" dur="5s" repeatCount="indefinite"/></line>${svgText(175, 330, '两个球，实际一样大')}`;
+    const distances = [8, 6, 6, 8];
+    for (const [point, color] of [[[-1, 0, 2], colors.blue], [[1, 0, -2], colors.orange]] as const) {
+      const samples = distances.map(distance => {
+        const center = inspectProjection(projectionInput(distance, kind, [...point]));
+        const edge = inspectProjection(projectionInput(distance, kind, [point[0] + 0.85, point[1], point[2]]));
+        return { x: screenX + center.screen!.x, radius: Math.abs(edge.screen!.x - center.screen!.x) };
+      });
+      body += `<circle cx="${samples[0].x}" cy="195" r="${samples[0].radius}" fill="${color}" stroke="white" stroke-width="3"><animate attributeName="cx" values="${samples.map(value => value.x).join(';')}" dur="5s" repeatCount="indefinite"/><animate attributeName="r" values="${samples.map(value => value.radius).join(';')}" dur="5s" repeatCount="indefinite"/></circle>`;
+    }
+    el('deeper').innerHTML = `<p>相机距离在 8 和 6 之间变化。两个球的中心分别取 (-1,0,2) 与 (1,0,-2)，示意半径都为 0.85；用中心和同深度边缘点的投影示意大小。透视里，偏移和大小会随深度缩放；正交里，两者不因距离缩放。</p><p>完整过程：局部坐标 → 世界坐标 → 观察坐标 → 裁剪坐标 → 除以 w → NDC → 屏幕。这里使用 WebGL，NDC 的三轴可见范围均为 −1 至 +1；屏幕 Y 向下。Cocos 的对应入口是 Camera 投影与 worldToScreen，迁移时核对图形后端约定。</p>`;
+  }
+  return svg(body, behind ? '球移到镜头身后，世界里还存在，画面里却看不到。' : kind === 'perspective' ? '透视：两个球实际一样大，近球看起来更大。' : '正交：一样大的两个球，不因距离改变画面大小。');
+}
+
+function update(): void {
+  const story = current();
+  el('demo-label').textContent = story.label;
+  el('story-title').textContent = story.title;
+  el('story-explanation').textContent = changed && story.id === 'perspective'
+    ? '现在换成正交投影。两个球在画面里一样大，相机靠近、远离时也不因距离缩放。它适合需要稳定大小关系的画面。'
+    : story.explanation;
+  el('takeaway').textContent = changed ? story.changed : story.takeaway;
+  el('game-example').textContent = story.game;
+  el('action').textContent = changed ? '恢复原来的演示' : story.action;
+  el('diagram').innerHTML = topic === 'vectors' ? vectorDiagram() : topic === 'transforms' ? transformDiagram() : projectionDiagram();
+  if (topic === 'vectors') {
+    const r = inspectVectors([-2, -1, 0], [1, 1, 0], [1, 0, 0]);
+    el('deeper').innerHTML = `<p>两点相减得到位移 d=B−A，长度给出距离，d/|d| 给出单位方向。例如本页基本路线的 d=${xyz(r.displacement)}，距离 ${fmt(r.length)}。这组数值只供对照，理解动画即可。</p><p>零向量没有单位方向；点积与向量长度有关，除以两向量长度才是夹角余弦。叉积为零可能因为平行，也可能因为存在零输入。本页叉积示意约定 X 向右、Y 向上、+Z 朝向你。</p><p>Cocos 3.8.8 Vec3.subtract、len、normalize、dot、cross 对应这些运算；库返回零向量不等于获得了一个有效单位方向。</p>`;
+  } else if (topic === 'transforms') {
+    const input: TransformInput = { translation: [1.8, 0, 0], scale: [1, 1, 1], axis: 'z', degrees: 90, order: changed && story.id === 'order' ? 'RTS' : 'TRS', child: [1.5, 0, 0] };
+    const r = inspectTransform(input);
+    el('deeper').innerHTML = `<p>局部位置以父物体为参考，世界位置以整个场景为参考。父矩阵 × 子局部矩阵 = 子世界矩阵。使用列向量时，最右边的变换先作用。</p><p>顺序示例：两条路径分别得到世界位置 (1.8,1.5,0) 与 (0,3.3,0)。按所选乘法顺序，这组示例的结果是 ${xyz(r.world)}。零缩放会丢失一个维度，不能唯一恢复原位置。</p><p>Cocos Node.updateWorldTransform 组织父子变换；Quat 与 Mat4 记录旋转和变换，原理仍然是物体如何移动、转动、缩放。</p>`;
+  }
+  el('story-list').innerHTML = stories[topic].map((item, index) => `<button data-story="${index}" aria-pressed="${index === storyIndex}"><span>0${index + 1}</span>${item.label}</button>`).join('');
+  for (const button of app.querySelectorAll<HTMLButtonElement>('[data-topic]')) button.setAttribute('aria-pressed', String(button.dataset.topic === topic));
+  applyPause(); update3D();
+}
+function applyPause(): void {
+  const diagram = el('diagram').querySelector('svg')!;
+  if (paused) diagram.pauseAnimations(); else diagram.unpauseAnimations();
+  el('toggle-animation').textContent = paused ? '播放动画' : '暂停动画';
+}
+function stop3D(): void { viewEvents?.abort(); observer?.disconnect(); view?.dispose(); view = undefined; }
+function update3D(): void {
+  if (!view) return;
+  if (topic === 'vectors') {
+    const a = vector([-2, -1, 0]), b = vector([1, 1, 0]);
+    if (changed && current().id === 'route') b.set(3, 2, 0);
+    if (current().id === 'move') { if (changed) b.set(1, 2, 0); a.x += 1.5; b.x += 1.5; }
+    const d = b.clone().sub(a);
+    if (current().id === 'unit') d.normalize().multiplyScalar(changed ? -1 : 1);
+    const objects: THREE.Object3D[] = [pointMarker(a, COLORS.point), pointMarker(b, COLORS.destination), arrow(a, d, COLORS.point)];
+    if (current().id === 'cross') { const u = new THREE.Vector3(changed ? 0 : 2, changed ? 2 : 0, 0), v = new THREE.Vector3(changed ? 2 : 0, changed ? 0 : 2, 0); objects.splice(0, objects.length, arrow(new THREE.Vector3(), u, COLORS.point), arrow(new THREE.Vector3(), v, COLORS.destination), arrow(new THREE.Vector3(), u.clone().cross(v), COLORS.cross)); }
+    if (current().id === 'dot') objects.splice(0, objects.length, arrow(new THREE.Vector3(), new THREE.Vector3(2, 0, 0), COLORS.point), arrow(new THREE.Vector3(), new THREE.Vector3(changed ? -1.8 : 1.8, 0, 0), COLORS.destination));
+    view.setObjects(objects, []);
+  } else if (topic === 'transforms') {
+    const id = current().id;
+    const r = inspectTransform({ translation: [changed && id === 'carry' ? -1.8 : 1.8, 0, 0], scale: [1, 1, 1], axis: 'z', degrees: id === 'rotate' ? changed ? -90 : 90 : id === 'order' ? 90 : 0, order: changed && id === 'order' ? 'RTS' : 'TRS', child: [1.5, 0, 0] });
+    const axes = new THREE.AxesHelper(2); axes.matrixAutoUpdate = false; axes.matrix.copy(r.parentMatrix);
+    view.setObjects([axes, pointMarker(r.world, COLORS.point)], [{ text: '小球', position: r.world, color: '#79c9ff' }]);
+  } else {
+    const r = inspectProjection(projectionInput(8, changed && current().id !== 'behind' ? 'orthographic' : 'perspective', [0, 0, current().id === 'behind' && !changed ? 9 : 0]));
+    if (current().id === 'behind') {
+      const p = new THREE.Vector3(r.world.x, r.world.y, r.world.z);
+      view.setObjects([new THREE.CameraHelper(r.camera), pointMarker(p, COLORS.point)], [{ text: '物体', position: p, color: '#79c9ff' }]);
+    } else {
+      const near = new THREE.Vector3(-1, 0, 2), far = new THREE.Vector3(1, 0, -2);
+      view.setObjects([new THREE.CameraHelper(r.camera), pointMarker(near, COLORS.point), pointMarker(far, COLORS.destination)], [{ text: '近球', position: near, color: '#79c9ff' }, { text: '远球', position: far, color: '#ce852c' }]);
     }
   }
-} catch { el('save-status').textContent = '存储不可用，可下载记录'; }
-
-const fmt = (value: number): string => (Math.abs(value) < 0.0005 ? 0 : value).toFixed(3);
-const xyz = (v: { x: number; y: number; z: number }): string => `(${fmt(v.x)}, ${fmt(v.y)}, ${fmt(v.z)})`;
-const xyzw = (v: { x: number; y: number; z: number; w: number }): string => `(${fmt(v.x)}, ${fmt(v.y)}, ${fmt(v.z)}, ${fmt(v.w)})`;
-const coords = (id: string, label: string, values: Triple, min = -10, max = 10): string => `<fieldset class="coordinate-input"><legend>${label}</legend><div>${['x', 'y', 'z'].map((axis, i) => `<label>${axis.toUpperCase()}<input id="${id}-${axis}" aria-label="${label} ${axis.toUpperCase()}" type="number" min="${min}" max="${max}" step="0.1" value="${values[i]}"></label>`).join('')}</div></fieldset>`;
-const numberInput = (id: string, label: string, value: number, min: number, max: number, step = 1): string => `<label class="number-row">${label}<input id="${id}" type="number" min="${min}" max="${max}" step="${step}" value="${value}"></label>`;
-function options(id: string, label: string, values: string[][], selected: string): string {
-  return `<label class="number-row">${label}<select id="${id}">${values.map(([value, text]) => `<option value="${value}" ${value === selected ? 'selected' : ''}>${text}</option>`).join('')}</select></label>`;
 }
-const readNumber = (id: string): number => Number(el<HTMLInputElement>(id).value);
-const readCoords = (id: string): Triple => [readNumber(`${id}-x`), readNumber(`${id}-y`), readNumber(`${id}-z`)];
-function matrixPanel(label: string, matrix: THREE.Matrix4): string {
-  return `<div class="matrix-panel"><h3>${label}</h3><pre>${matrixRows(matrix).map(row => row.map(n => fmt(n).padStart(8)).join(' ')).join('\n')}</pre></div>`;
-}
-
-function renderControls(): void {
-  el('input-error').hidden = true;
-  if (mode === 'vectors') {
-    el('controls').innerHTML = coords('a', '起点 A（世界位置）', vectors.a) + coords('b', '终点 B（世界位置）', vectors.b) + coords('v', '参考向量 v（世界空间）', vectors.v);
-  } else if (mode === 'transforms') {
-    el('controls').innerHTML = coords('t', '父变换的平移', transforms.translation) + coords('child', '子节点位置（父空间）', transforms.child) + coords('s', '父变换的缩放', transforms.scale, -3, 3)
-      + options('axis', '旋转轴', [['x', 'X'], ['y', 'Y'], ['z', 'Z']], transforms.axis)
-      + numberInput('degrees', '旋转角度（度）', transforms.degrees, -180, 180)
-      + options('order', '父变换组合', [['TRS', 'T × R × S'], ['RTS', 'R × T × S']], transforms.order);
-  } else {
-    el('controls').innerHTML = coords('p', '点 P（模型局部位置）', projection.point) + coords('model', '模型平移（世界空间）', projection.translation)
-      + options('kind', '投影方式', [['perspective', '透视'], ['orthographic', '正交']], projection.kind)
-      + numberInput('distance', '相机 Z（朝向 −Z）', projection.distance, 1, 15)
-      + numberInput('fov', '垂直 FOV（度，仅透视）', projection.fov, 20, 100)
-      + numberInput('near', 'near（正距离）', projection.near, 0.1, 10, 0.1) + numberInput('far', 'far（正距离）', projection.far, 1, 100);
-    el<HTMLInputElement>('fov').disabled = projection.kind === 'orthographic' || !view;
-  }
-  if (!view) for (const control of el('controls').querySelectorAll<HTMLInputElement | HTMLSelectElement>('input, select')) control.disabled = true;
-}
-
-function showRows(rows: string[][], extra = ''): void {
-  el('results').innerHTML = `<table class="result-table"><thead><tr><th>步骤与含义</th><th>实际值</th></tr></thead><tbody>${rows.map(([label, value]) => `<tr><th scope="row">${label}</th><td>${value}</td></tr>`).join('')}</tbody></table>${extra}`;
-  resultText = rows.map(([label, value]) => `${label}: ${value}`).join('\n');
-  if (extra) resultText += '\n\n' + [...el('results').querySelectorAll('.matrix-panel')].map(panel => `${panel.querySelector('h3')?.textContent}\n${panel.querySelector('pre')?.textContent}`).join('\n\n');
-}
-
-function updateMath(): void {
-  const labels: WorldLabel[] = [];
-  const objects: THREE.Object3D[] = [];
-  const origin = new THREE.Vector3();
-  if (mode === 'vectors') {
-    const { a, b, v } = vectors;
-    const result = inspectVectors(a, b, v);
-    const start = vector(a), end = vector(b);
-    objects.push(pointMarker(start, COLORS.point), pointMarker(end, COLORS.destination), arrow(start, result.displacement, COLORS.point), arrow(start, vector(v), COLORS.destination), arrow(start, result.cross, COLORS.cross));
-    if (result.unit) objects.push(arrow(start, result.unit, COLORS.direction));
-    labels.push({ text: 'A', position: start, color: '#79c9ff' }, { text: 'B', position: end, color: '#ffc56b' });
-    if (result.cross.length() > 1e-10) labels.push({ text: 'd × v', position: start.clone().add(result.cross), color: '#77e0ba' });
-    showRows([
-      ['位移 d = B − A（世界空间）', xyz(result.displacement)], ['距离 |d| = √(dx² + dy² + dz²)', fmt(result.length)],
-      ['单位方向 n = d / |d|', result.unit ? xyz(result.unit) : '未定义：A 与 B 重合，零向量没有方向'],
-      ['参考向量长度 |v|', fmt(result.referenceLength)], ['点积 d · v = dx·vx + dy·vy + dz·vz', fmt(result.dot)],
-      ['cos θ = (d · v) / (|d|·|v|)', result.cosine === null ? '未定义：至少一个输入为零向量' : fmt(result.cosine)],
-      ['夹角 θ（度）', result.angleDegrees === null ? '未定义' : fmt(result.angleDegrees)], ['叉积 d × v（世界空间）', xyz(result.cross)],
-    ]);
-    el('scene-caption').textContent = '参考向量与叉积也从 A 画起；移动箭头起点不改变向量。';
-    el('legend').textContent = '蓝 d · 紫单位方向 · 黄 v · 绿叉积';
-  } else if (mode === 'transforms') {
-    const result = inspectTransform(transforms);
-    const parentOrigin = new THREE.Vector3().setFromMatrixPosition(result.parentMatrix);
-    const parentAxes = new THREE.AxesHelper(2); parentAxes.matrixAutoUpdate = false; parentAxes.matrix.copy(result.parentMatrix);
-    objects.push(parentAxes, pointMarker(parentOrigin, COLORS.destination), pointMarker(result.world, COLORS.point), arrow(parentOrigin, result.world.clone().sub(parentOrigin), COLORS.point));
-    labels.push({ text: '父原点', position: parentOrigin, color: '#ffc56b' }, { text: '子节点', position: result.world, color: '#79c9ff' });
-    showRows([
-      ['子节点局部位置（父空间）', xyz(vector(transforms.child))], ['父变换组合（最右侧先作用）', transforms.order === 'TRS' ? 'T × R × S：先缩放，再旋转，再平移' : 'R × T × S：先缩放，再平移，再旋转'],
-      ['世界位置 = M父 × p局部（w=1）', xyz(result.world)], ['方向 (1,0,0,0) 经同一矩阵', xyzw(result.direction)],
-      ['旋转四元数 (x,y,z,w)', xyzw(result.quaternion)], ['父矩阵行列式', fmt(result.determinant)],
-      ['世界 → 局部 = inverse(M父) × p世界', result.recovered ? xyz(result.recovered) : '不可逆：零缩放使空间维度坍缩，无法唯一恢复'],
-    ], `<div class="matrices">${matrixPanel('M父', result.parentMatrix)}${matrixPanel('M子局部（平移）', result.childMatrix)}${matrixPanel('M子世界 = M父 × M子局部', result.worldMatrix)}</div>`);
-    el('scene-caption').textContent = '原点处是世界轴；父原点处的局部轴随父变换变化。';
-    el('legend').textContent = '蓝子节点 · 黄父原点 · 局部轴随父变换';
-  } else {
-    const rect = el('viewport').getBoundingClientRect();
-    projection.width = Math.max(1, Math.round(rect.width)); projection.height = Math.max(1, Math.round(rect.height));
-    const result = inspectProjection(projection);
-    const point = new THREE.Vector3(result.world.x, result.world.y, result.world.z);
-    objects.push(pointMarker(point, COLORS.point), new THREE.CameraHelper(result.camera), pointMarker(result.camera.position, COLORS.destination), arrow(origin, point, COLORS.point));
-    labels.push({ text: 'P世界', position: point, color: '#79c9ff' }, { text: '目标相机', position: result.camera.position.clone(), color: '#ffc56b' });
-    showRows([
-      ['1 局部坐标（w=1）', xyzw(result.local)], ['2 世界 = M模型 × 局部', xyzw(result.world)], ['3 观察 = V × 世界（相机前方 z<0）', xyzw(result.view)],
-      ['4 裁剪 = P × 观察（保留 w）', xyzw(result.clip)], ['5 NDC = (clip.x, y, z) / clip.w', result.ndc ? xyz(result.ndc) : '未定义：|w| ≤ 1e-10'],
-      ['6 屏幕 x=(NDC.x+1)W/2，y=(1−NDC.y)H/2', result.screen ? `(${fmt(result.screen.x)}, ${fmt(result.screen.y)}) CSS 像素` : '无屏幕坐标'],
-      ['裁剪判断（WebGL NDC 三轴范围 −1 至 +1）', result.status], ['视口 W × H / aspect', `${projection.width} × ${projection.height} / ${fmt(projection.width / projection.height)}`],
-    ], `<div class="matrices">${matrixPanel('模型矩阵 M', result.modelMatrix)}${matrixPanel('观察矩阵 V', result.camera.matrixWorldInverse)}${matrixPanel('投影矩阵 P', result.camera.projectionMatrix)}</div>`);
-    const preview = el('screen-preview');
-    preview.style.aspectRatio = `${projection.width} / ${projection.height}`;
-    const marker = el('screen-point'); marker.hidden = !result.visible;
-    if (result.screen) { marker.style.left = `${result.screen.x / projection.width * 100}%`; marker.style.top = `${result.screen.y / projection.height * 100}%`; }
-    el('screen-size').textContent = `${projection.width} × ${projection.height} CSS 像素（预览按比例缩小）`;
-    el('screen-status').textContent = `${result.status}。${projection.kind === 'orthographic' ? '正交上下界固定为 ±3，左右界由 aspect 决定。' : '透视除法保留深度条件，屏幕坐标有值也不一定可见。'}`;
-    el('scene-caption').textContent = '上图为旁观视角，线框是目标相机；下图才是目标相机的屏幕。';
-    el('legend').textContent = '蓝 P · 黄相机 · 线框为裁剪体';
-  }
-  view?.setObjects(objects, labels);
-  // 图形初始化失败或实验已退出时，不保留刚创建的资源。
-  if (!view) {
-    const disposable = new THREE.Group(); disposable.add(...objects);
-    disposable.traverse(object => {
-      const mesh = object as THREE.Mesh;
-      mesh.geometry?.dispose();
-      if (mesh.material) for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) material.dispose();
-    });
-  }
-}
-
-function loadNote(): void {
-  for (const field of ['prediction', 'observation', 'explanation', 'minutes'] as const) el<HTMLInputElement | HTMLTextAreaElement>(field).value = notes[mode][field];
-}
-function saveNote(): void {
-  for (const field of ['prediction', 'observation', 'explanation', 'minutes'] as const) notes[mode][field] = el<HTMLInputElement | HTMLTextAreaElement>(field).value;
-  try { localStorage.setItem(storageKey, JSON.stringify(notes)); el('save-status').textContent = '已保存到当前浏览器'; }
-  catch { el('save-status').textContent = '存储不可用，请下载记录'; }
-}
-
-const lessons = {
-  vectors: {
-    title: '从两个点，找到一个方向。', lead: '先预测位移和距离，再观察方向。所有输入都在同一个世界坐标系中。',
-    challenge: '第一轮：A=(1,2,0)，B=(4,6,0)。先写位移、距离和单位方向。第二轮：用垂直轴，交换叉积输入。第三轮：让 A 与 B 重合，哪些结果不再有定义？',
-    presets: [['default', '3–4–5 位移'], ['axes', '垂直轴'], ['swap', '交换 d 与 v'], ['parallel', '同向'], ['opposite', '反向'], ['zero', '重合点']],
-    process: ['位置 A、B → B − A', '位移 d → 长度与单位方向', 'd 与 v → 点积、夹角、叉积'],
-    principle: '<p>点表示位置；向量表示方向与大小。同一坐标系中的两点相减得到位移。归一化只保留方向，原距离应另存。点积只有除以两向量长度才是余弦；叉积为零可能来自平行输入，也可能来自零输入。</p><p>Three.js Vector3 的 sub / length / normalize / dot / cross 对应仓库 Cocos 3.8.8 Vec3.subtract / len / normalize / dot / cross。Cocos 与 Three.js 的零向量归一化都可返回零值，但它不具备单位方向；本实验明确显示“未定义”。同样的三个分量可以用于点或向量，意义要由使用方式与坐标空间说明。</p><p>只读 <a href="https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/points-vectors-and-normals.html" target="_blank" rel="noreferrer">Scratchapixel 的点、向量与长度</a>，遇到运算疑问再查 <a href="https://threejs.org/docs/pages/Vector3.html" target="_blank" rel="noreferrer">Vector3 官方文档</a>。</p>',
-  },
-  transforms: {
-    title: '局部不变，世界位置为什么变了？', lead: '固定子节点局部位置，只改父变换。先预测，再比较世界坐标和矩阵。',
-    challenge: '第一轮：子节点在父空间 (1,0,0)，父绕 Z 转 90°，再沿 X 平移 2。先画出世界位置。第二轮：交换 T 与 R 的组合。第三轮：把 X 缩放设为 0，还能唯一回到局部吗？',
-    presets: [['default', '旋转后平移'], ['order', '交换组合顺序'], ['scale', '非均匀缩放'], ['singular', '零缩放']],
-    process: ['子局部矩阵 M子', 'M父 × M子 → 子世界矩阵', 'inverse(M父) → 回到父空间'],
-    principle: '<p>本页使用列向量，矩阵表达式的最右项先作用。M子世界 = M父世界 × M子局部；本实验的父节点直接放在世界中，子节点只使用局部平移。点用 w=1，方向用 w=0；平移改变点，不加到方向上。缩放仍会改变方向向量的长度。</p><p>Quaternion.setFromAxisAngle 的角度使用弧度；面板用度并显示 q 的四个分量。旋转四元数不能直接当作欧拉角；本页先观察单轴旋转。零缩放会使矩阵不可逆；绝对行列式 ≤ 1e-10 时实验停止逆变换。</p><p>Cocos 3.8.8 Node.updateWorldTransform 组合父子变换，Vec3.transformMat4 用于点，transformMat4Normal 使用无平移的方向变换。Three.js 的矩阵数组按列存储，面板转成按行显示。比较时先确认坐标空间与乘法约定。参考 <a href="https://threejs.org/docs/pages/Matrix4.html" target="_blank" rel="noreferrer">Matrix4 官方文档</a>。</p>',
-  },
-  projection: {
-    title: '一个点怎样到达屏幕？', lead: '从局部坐标一路追到 CSS 像素，保留裁剪坐标的 w。目标相机固定朝 −Z，观察相机可自由拖动。',
-    challenge: '第一轮：把 P 设为原点，预测屏幕位置。第二轮：使用偏离中心的点，改变相机距离，对比透视与正交。第三轮：把点放到相机平面、后方或近裁剪面之前，屏幕坐标有值就一定能看到吗？',
-    presets: [['default', '偏离中心'], ['center', '原点'], ['plane', '相机平面 w=0'], ['behind', '相机后方'], ['near', '近裁剪面之前']],
-    process: ['局部 → 模型矩阵 → 世界', '观察矩阵 → 投影矩阵 → 裁剪', '除以 w → NDC → 视口映射'],
-    principle: '<p>模型矩阵把局部点放到世界中；观察矩阵是目标相机世界矩阵的逆；投影矩阵产生裁剪坐标。透视除法把 xyz 分别除以 w。本实验是 WebGL：NDC 的 x、y、z 可见范围均为 −1 到 +1，同时需要位于相机前方。</p><p>屏幕坐标以左上为原点，X 向右、Y 向下，单位为当前视口的 CSS 像素；渲染缓冲可因设备像素比更大。结果与下面的缩小屏幕预览一致。上方旁观相机只是辅助观察，不参与这些计算。</p><p>Cocos 3.8.8 Camera 提供投影与 worldToScreen 等转换；迁移到原生后端时需要核对深度范围、屏幕原点及视口约定。这里用 Vector4 保留裁剪 w；Vector3.applyMatrix4 会自动进行透视除法。参考 <a href="https://threejs.org/docs/pages/Vector4.html" target="_blank" rel="noreferrer">Vector4 官方文档</a>。</p>',
-  },
-};
-
-function selectMode(next: SpaceMode): void {
-  saveNote(); mode = next;
-  const lesson = lessons[mode];
-  el('lesson-title').textContent = lesson.title; el('lesson-lead').textContent = lesson.lead;
-  el('lesson-index').textContent = mode === 'vectors' ? '01' : mode === 'transforms' ? '02' : '03';
-  el('challenge').textContent = lesson.challenge; el('principle').innerHTML = lesson.principle;
-  el('process').innerHTML = lesson.process.map((step, i) => `<div><span>0${i + 1}</span>${step}</div>`).join('');
-  el('presets').innerHTML = lesson.presets.map(([id, title]) => `<button data-preset="${id}">${title}</button>`).join('');
-  if (!view) for (const button of el('presets').querySelectorAll<HTMLButtonElement>('button')) button.disabled = true;
-  el('screen-section').hidden = mode !== 'projection'; el<HTMLDetailsElement>('calculation').open = false;
-  document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
-  renderControls(); loadNote(); updateMath();
-}
-
-function preset(id: string): void {
-  if (mode === 'vectors') {
-    if (id === 'swap') { const d = vector(vectors.b).sub(vector(vectors.a)); vectors.b = triple(vector(vectors.a).add(vector(vectors.v))); vectors.v = triple(d); }
-    else if (id === 'zero') vectors.b = [...vectors.a];
-    else if (id === 'default') vectors = defaults.vectors();
-    else vectors = { a: [0, 0, 0], b: [1, 0, 0], v: id === 'axes' ? [0, 1, 0] : id === 'parallel' ? [2, 0, 0] : [-1, 0, 0] };
-  } else if (mode === 'transforms') {
-    if (id === 'default') transforms = defaults.transforms();
-    if (id === 'order') transforms.order = transforms.order === 'TRS' ? 'RTS' : 'TRS';
-    if (id === 'scale') transforms = { ...defaults.transforms(), scale: [2, 3, 1], child: [1, 2, 0] };
-    if (id === 'singular') transforms.scale = [0, 1, 1];
-  } else {
-    projection = defaults.projection();
-    if (id === 'center') projection.point = [0, 0, 0];
-    if (id === 'plane') projection.point = [0, 0, 8];
-    if (id === 'behind') projection.point = [0, 0, 9];
-    if (id === 'near') projection.point = [0, 0, 7.5];
-  }
-  renderControls(); updateMath();
-}
-
-function readControls(): void {
-  const inputs = [...el('controls').querySelectorAll<HTMLInputElement>('input')];
-  if (inputs.some(input => input.value === '' || !input.validity.valid)) {
-    el('input-error').textContent = '请输入范围内的有效数值；画面保留上一次有效输入。'; el('input-error').hidden = false; return;
-  }
-  if (mode === 'vectors') vectors = { a: readCoords('a'), b: readCoords('b'), v: readCoords('v') };
-  else if (mode === 'transforms') transforms = { translation: readCoords('t'), child: readCoords('child'), scale: readCoords('s'), axis: el<HTMLSelectElement>('axis').value as TransformInput['axis'], degrees: readNumber('degrees'), order: el<HTMLSelectElement>('order').value as TransformInput['order'] };
-  else {
-    if (readNumber('far') <= readNumber('near')) { el('input-error').textContent = 'far 必须大于 near；画面保留上一次有效输入。'; el('input-error').hidden = false; return; }
-    projection = { ...projection, point: readCoords('p'), translation: readCoords('model'), distance: readNumber('distance'), kind: el<HTMLSelectElement>('kind').value as ProjectionInput['kind'], fov: readNumber('fov'), near: readNumber('near'), far: readNumber('far') };
-    el<HTMLInputElement>('fov').disabled = projection.kind === 'orthographic';
-  }
-  el('input-error').hidden = true; updateMath();
-}
-
-function stopView(): void {
-  viewEvents?.abort(); observer?.disconnect(); view?.dispose(); view = undefined;
-  el('scene-status').textContent = '已退出：观察控制、监听与图形资源已释放';
-  el('release').hidden = true; el('restart').hidden = false;
-  for (const control of app.querySelectorAll<HTMLInputElement | HTMLButtonElement | HTMLSelectElement>('#controls input, #controls select, #presets button, #reset, #front-view, #orbit-view')) control.disabled = true;
-}
-function startView(): void {
+function start3D(): void {
   if (view) return;
   el('viewport').querySelector('.error-panel')?.remove();
   try { view = createSpaceView(el('viewport')); }
-  catch (error) {
-    const panel = document.createElement('div'); panel.className = 'error-panel';
-    panel.textContent = `${error instanceof Error ? error.message : '图形初始化失败'} 请检查 WebGL2 或换桌面浏览器重试；下方原理和学习记录仍可使用。`;
-    el('viewport').append(panel); stopView(); return;
-  }
+  catch { const panel = document.createElement('div'); panel.className = 'error-panel'; panel.textContent = '此浏览器无法打开 WebGL2。上面的原理动画仍然可以观看。'; el('viewport').append(panel); return; }
   viewEvents = new AbortController();
-  view.canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); stopView(); el('scene-status').textContent = '图形上下文丢失，可重新进入'; }, { signal: viewEvents.signal });
-  observer = new ResizeObserver(() => { view?.resize(); if (mode === 'projection' && view) updateMath(); }); observer.observe(el('viewport'));
-  el('scene-status').textContent = '拖动旋转 · 滚轮缩放'; el('release').hidden = false; el('restart').hidden = true;
-  for (const control of app.querySelectorAll<HTMLButtonElement>('#presets button, #reset, #front-view, #orbit-view')) control.disabled = false;
-  renderControls(); updateMath();
+  view.canvas.addEventListener('webglcontextlost', event => { event.preventDefault(); stop3D(); }, { signal: viewEvents.signal });
+  observer = new ResizeObserver(() => view?.resize()); observer.observe(el('viewport')); update3D();
 }
-
 app.addEventListener('click', event => {
   const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button');
-  if (!button || button.disabled) return;
-  if (button.dataset.mode) selectMode(button.dataset.mode as SpaceMode);
-  if (button.dataset.preset) preset(button.dataset.preset);
+  if (!button) return;
+  if (button.dataset.topic) { topic = button.dataset.topic as SpaceMode; storyIndex = 0; changed = false; }
+  if (button.dataset.story) { storyIndex = Number(button.dataset.story); changed = false; }
+  if (button.id === 'action') changed = !changed;
+  if (button.id === 'toggle-animation') { paused = !paused; applyPause(); return; }
+  if (button.id === 'replay') { el('diagram').querySelector('svg')!.setCurrentTime(0); return; }
+  if (button.dataset.topic || button.dataset.story || button.id === 'action') update();
 }, { signal: events.signal });
-el('controls').addEventListener('input', readControls, { signal: events.signal });
-el('reset').addEventListener('click', () => { if (mode === 'vectors') vectors = defaults.vectors(); else if (mode === 'transforms') transforms = defaults.transforms(); else projection = defaults.projection(); view?.resetCamera(); renderControls(); updateMath(); }, { signal: events.signal });
-el('front-view').addEventListener('click', () => view?.resetCamera(true), { signal: events.signal });
-el('orbit-view').addEventListener('click', () => view?.resetCamera(), { signal: events.signal });
-el('release').addEventListener('click', stopView, { signal: events.signal });
-el('restart').addEventListener('click', startView, { signal: events.signal });
-for (const field of ['prediction', 'observation', 'explanation', 'minutes']) el(field).addEventListener('input', saveNote, { signal: events.signal });
-el('export-note').addEventListener('click', () => {
-  saveNote(); const note = notes[mode];
-  const input = mode === 'vectors' ? vectors : mode === 'transforms' ? transforms : projection;
-  const recordedAt = new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false });
-  const content = `# 空间数学学习记录：${lessons[mode].title}\n\n记录时间（Asia/Shanghai）：${recordedAt}\n实际投入：${note.minutes} 分钟\n个人理解：待验收\n\n## 输入\n\n\`\`\`json\n${JSON.stringify(input, null, 2)}\n\`\`\`\n\n## 我的预测\n\n${note.prediction}\n\n## 我的观察\n\n${note.observation}\n\n## 我的解释与问题\n\n${note.explanation}\n\n## 实验计算快照\n\n\`\`\`text\n${resultText}\n\`\`\`\n`;
-  const url = URL.createObjectURL(new Blob([content], { type: 'text/markdown;charset=utf-8' }));
-  const anchor = document.createElement('a'); anchor.href = url; anchor.download = `stage-01-${mode}-record.md`; anchor.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
-}, { signal: events.signal });
-window.addEventListener('pagehide', stopView, { signal: events.signal });
-window.addEventListener('pageshow', event => { if (event.persisted) startView(); }, { signal: events.signal });
-if (import.meta.hot) import.meta.hot.dispose(() => { stopView(); events.abort(); });
-// 先加载保存的记录，避免首次切页用空表单覆盖历史记录。
-loadNote(); selectMode('vectors'); startView();
+el('spatial-view').addEventListener('toggle', () => { if (el<HTMLDetailsElement>('spatial-view').open) start3D(); else stop3D(); }, { signal: events.signal });
+window.addEventListener('pagehide', stop3D, { signal: events.signal });
+window.addEventListener('pageshow', event => { if (event.persisted && el<HTMLDetailsElement>('spatial-view').open) start3D(); }, { signal: events.signal });
+if (import.meta.hot) import.meta.hot.dispose(() => { stop3D(); events.abort(); });
+update();

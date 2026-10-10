@@ -119,6 +119,30 @@ footer { padding: 25px 0 30px; border-top: 1px solid #d2dfe6; font-size: 11px; c
 .note-actions input { width: 70px; border: 1px solid #cadce4; border-radius: 5px; padding: 5px; margin-left: 10px; }
 .note-actions button { font-size: 11px; padding: 9px 12px; }
 [hidden] { display: none !important; }
+.demo-layout { display: grid; grid-template-columns: minmax(0,1fr) 310px; gap: 24px; align-items: start; }
+.demo-card { border: 1px solid #d1e0e6; border-radius: 15px; background: #fff; overflow: hidden; }
+.demo-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid #e4edf0; font-size: 13px; font-weight: 600; }
+.principle-diagram { background: #f9fcfd; padding: 12px 10px 0; }
+.principle-diagram svg { display: block; width: 100%; height: auto; font: 16px "Segoe UI","Microsoft YaHei",sans-serif; }
+.demo-takeaway { padding: 20px 24px 8px; color: #256c5d; font-size: 17px; font-weight: 600; line-height: 1.7; }
+.demo-actions { padding: 15px 24px 23px; display: flex; gap: 10px; flex-wrap: wrap; }
+.demo-actions button { font-size: 12px; }
+.demo-guide { padding: 20px 5px; }
+.demo-guide h2 { font-size: 22px; line-height: 1.55; color: #264650; }
+.demo-guide > p:not(.eyebrow) { font-size: 15px; line-height: 1.95; color: #587582; margin: 16px 0 24px; }
+#story-list { display: grid; gap: 8px; }
+#story-list button { display: flex; gap: 13px; align-items: center; text-align: left; background: transparent; border-color: transparent; font-size: 13px; padding: 11px 14px; font-weight: 500; }
+#story-list button span { color: #8ca4ae; font: 11px Consolas,monospace; }
+#story-list button[aria-pressed=true] { color: #237f6c; background: #deeee7; border-color: #c3ded2; }
+.demo-connection { border: 1px solid #d6e2e8; border-radius: 11px; background: #f5fafb; margin: 25px 0; display: flex; align-items: baseline; gap: 25px; padding: 20px 24px; }
+.demo-connection > span { color: #3a8b78; font-size: 12px; white-space: nowrap; font-weight: 600; }
+.demo-connection p { margin: 0; color: #587583; font-size: 14px; line-height: 1.8; }
+.demo-details { margin-bottom: 15px; }
+.demo-details summary { font-size: 13px; font-weight: 500; color: #617c8b; }
+.demo-details #viewport { margin-top: 20px; border-radius: 10px; }
+.demo-details p { font-size: 13px; }
+@media (max-width: 1100px) { .demo-layout { grid-template-columns: 1fr; gap: 15px; }.demo-guide { padding: 10px 5px; }#story-list { grid-template-columns: repeat(3,minmax(0,1fr)); }.demo-guide h2 { font-size: 21px; } }
+@media (max-width: 720px) { .demo-layout { grid-template-columns: 1fr; }.demo-intro h1 { font-size: 27px; }.demo-toolbar { padding: 13px 16px; }.demo-takeaway { padding: 15px 17px 5px; font-size: 15px; }.demo-actions { padding: 12px 17px 18px; }.demo-guide { padding: 5px; }#story-list { grid-template-columns: repeat(2,minmax(0,1fr)); }#story-list button { padding: 10px; gap: 8px; font-size: 12px; }.demo-connection { flex-direction: column; gap: 8px; padding: 17px; }.demo-connection p { font-size: 13px; }.principle-diagram { padding: 5px 0 0; } }
 @media (max-width: 950px) { .space-layout { grid-template-columns: minmax(0,1fr) 285px; }.matrices { grid-template-columns: 1fr; }.matrix-panel pre { font-size: 12px; } }
 @media (max-width: 720px) { .lab-navigation { font-size: 10px; gap: 2px; }.lab-navigation a { padding: 7px 5px; }.space-layout { grid-template-columns: 1fr; }#viewport.space-viewport { height: 360px; }.note-grid { grid-template-columns: 1fr; }.process-strip { grid-template-columns: 1fr; }.process-strip div:not(:last-child)::after { content: '↓'; right: 50%; top: auto; bottom: -14px; }.result-table th, .result-table td { padding: 8px 5px; font-size: 11px; }.axis-legend { left: 10px; gap: 7px; font-size: 9px; }.scene-badge { left: 10px; }.brand-mark { width: 27px; height: 27px; }.space-intro h1 { font-size: 26px; }.lesson-tabs button { font-size: 11px; padding: 10px; } }
 @media (max-width: 950px) { #app { padding: 0 22px; }.lab-layout { grid-template-columns: minmax(0,1fr) 285px; }.control-card { padding: 17px; }#viewport { height: 430px; }.metrics > div { padding: 0 15px; } }
