@@ -2,9 +2,11 @@
 
 以 TypeScript + Three.js 开展 Web 实验，用原生 WebGL 拆解关键渲染机制。每个主题说明原理、实现过程、中间数据和 Cocos 对应机制。Tuntun 提供吞噬进化案例，正式游戏整合在独立项目进行。
 
-**[实现记录] 2026-10-10，阶段 0 与阶段 1 首版已实现，数值、构建和核心浏览器交互已验证；阶段 2 至 6 尚未实现，个人理解尚未评定。** 当前从[阶段 1 原理动画](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)开始；阶段 0 尚未验证的边界继续保留。
+**[实现记录] 2026-10-10，阶段 0 至 2 首版已实现，数值、构建和核心浏览器交互已验证；阶段 3 至 6 尚未实现，个人理解尚未评定。** 当前进入[阶段 2 场景与运动](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md)；阶段 0 尚未验证的边界继续保留。
 
 [当前讲解方式] 学习者同日明确反馈填写和测算不易理解。阶段 1 现用简明原理、自动播放动画与一键对比讲解，不强制预测、手算或填写。原路线的公式、源码与自测保留为按需补充，代码和运行检查由 Agent 执行。
+
+[原理深度修订] 随后要求继续下一阶段并增加机制说明。阶段 2 沿用动画与一键对比，原因、关键公式、变量和适用条件直接展示，避免只解释表面现象。
 
 先读[核心知识图册](../../docs/game-engine/3d-client-core-visual.md)：七张图提炼对象、空间、画面、动画、规则和成本；下面的完整阶段与资料作为按需查阅的安排。
 
@@ -62,6 +64,8 @@ flowchart LR
 阶段 0 从[第一周阅读与练习计划](../../user-profile/progress/3d-game-client-week-01.md)开始，明确每次读到哪里、练什么、怎样自测，再按[立方体实验规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-spec.md)建立可观察的帧循环。后续实验使用[统一说明模板](../../domains/game-engine/experiments/web3d-learning/docs/lab-template.md)，按[阶段验收规范](../../domains/game-engine/experiments/web3d-learning/docs/acceptance.md)登记证据。
 
 阶段 1 的[原理动画规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-spec.md)与[动图讲解](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)说明点与箭头、父子关系、投影的可观察变化。先看动画和一句原理解释，需要时再打开公式与 3D 观察。
+
+阶段 2 的[演示规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-spec.md)与[机制讲解](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md)展示方向与时间、镜头跟随、拾取、体积碰撞与滑动响应。当前八个原理已可观看，不据此认定完整角色控制器或个人理解已验收。
 
 ### 扩展主题
 

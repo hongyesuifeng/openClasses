@@ -4,7 +4,7 @@
   "learning_style": {
     "primary": "visual",
     "secondary": "practical",
-    "description": "先用简明原理、交互演示或动图理解机制；不采用强制填写记录、预测手算或答题作为学习入口"
+    "description": "先用交互演示或动图观察，再说明原因、关键公式与变量、过程和适用条件，避免只停留在现象；不采用强制填写记录、预测手算或答题作为学习入口"
   },
   "time_preferences": {
     "weekly_availability": 15,
@@ -29,7 +29,7 @@
       "research_papers"
     ],
     "documentation_style": "structured",
-    "explanation_style": "simple_principles_with_animated_demonstrations",
+    "explanation_style": "animated_demonstrations_with_mechanisms_and_key_formulas",
     "text_density": "concise",
     "preferred_chapter_format": "11_chapter_standard"
   },

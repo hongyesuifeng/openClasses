@@ -6,7 +6,7 @@ document.title = '看动画懂空间 · openClasses';
 const app = document.querySelector<HTMLElement>('#app')!;
 app.innerHTML = `
   <header class="page-header"><div class="brand"><span class="brand-mark">3D</span> openClasses <span class="separator">/</span> 原理演示</div>
-    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time">0 场景与时间</a><a href="?lab=space" aria-current="page">1 空间数学</a></nav></header>
+    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time">0 场景与时间</a><a href="?lab=space" aria-current="page">1 空间数学</a><a href="?lab=motion">2 场景与运动</a></nav></header>
   <section class="intro demo-intro"><p class="eyebrow">看变化 · 懂原理</p><h1>让动画把空间讲清楚。</h1><p class="lead">点一个演示，看发生了什么，再看旁边的一句解释。</p></section>
   <nav class="lesson-tabs" aria-label="演示主题"><button data-topic="vectors" aria-pressed="true">点与箭头</button><button data-topic="transforms" aria-pressed="false">托盘与小球</button><button data-topic="projection" aria-pressed="false">相机与画面</button></nav>
   <section class="demo-layout"><div class="demo-card">

@@ -34,6 +34,8 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 [当前学习] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲清空间原理。点按钮看变化，结合简明解释理解；公式与 3D 观察按需展开，不强制填写、手算或答题。三段基础动图可直接在文档观看。
 
+[下一阶段已建立] 同日继续进入[阶段 2 场景与运动](domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md)：八个演示讲解方向、时间步长、镜头跟随、拾取与碰撞。动画之外展示原因、关键公式、变量与适用条件，避免只停留在现象。
+
 ## 🗂️ 项目结构
 
 ```

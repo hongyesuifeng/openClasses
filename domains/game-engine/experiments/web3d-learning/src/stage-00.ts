@@ -6,7 +6,7 @@ const app = document.querySelector<HTMLElement>('#app')!;
 app.innerHTML = `
   <header class="page-header">
     <div class="brand"><span class="brand-mark">3D</span> openClasses <span class="separator">/</span> 实践学习</div>
-    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time" aria-current="page">0 场景与时间</a><a href="?lab=space">1 空间数学</a></nav>
+    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time" aria-current="page">0 场景与时间</a><a href="?lab=space">1 空间数学</a><a href="?lab=motion">2 场景与运动</a></nav>
   </header>
   <section class="intro">
     <p class="eyebrow">SCENE & TIME</p>

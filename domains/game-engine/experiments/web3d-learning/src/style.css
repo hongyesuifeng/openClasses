@@ -141,6 +141,19 @@ footer { padding: 25px 0 30px; border-top: 1px solid #d2dfe6; font-size: 11px; c
 .demo-details summary { font-size: 13px; font-weight: 500; color: #617c8b; }
 .demo-details #viewport { margin-top: 20px; border-radius: 10px; }
 .demo-details p { font-size: 13px; }
+.motion-theory { margin-top: 25px; padding: 26px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 22px 35px; background: #fff; border: 1px solid #d1e0e6; border-radius: 13px; }
+.motion-theory h2 { margin: 0 0 14px; font-size: 21px; }
+.motion-theory p, .motion-theory li { font-size: 14px; color: #52717e; line-height: 1.9; }
+.motion-theory code { display: block; padding: 15px; border-radius: 8px; background: #e7f1ed; color: #256c5d; font: 14px/1.9 Consolas,"Microsoft YaHei",monospace; overflow-wrap: anywhere; }
+.motion-theory .formula-note { font-size: 12px; margin-bottom: 0; }
+.motion-theory ol { list-style: none; counter-reset: mechanism; margin: 0; padding: 0; display: grid; align-content: center; gap: 17px; }
+.motion-theory li { counter-increment: mechanism; display: flex; gap: 13px; }
+.motion-theory li::before { content: counter(mechanism); flex: 0 0 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; background: #e7f1ed; color: #258c72; font: 12px Consolas,monospace; margin-top: 4px; }
+.motion-theory .motion-boundary { grid-column: 1 / -1; border-top: 1px solid #dce7ec; padding-top: 15px; margin: 0; font-size: 12px; }
+.motion-time { margin: 0; padding: 0 24px 20px; color: #6e8792; font-size: 11px; line-height: 1.8; }
+.diagram-scroll-hint { display: none; }
+.motion-page .principle-diagram svg { cursor: default; }
+@media (max-width: 720px) { .page-header { flex-wrap: wrap; height: auto !important; min-height: 80px; padding: 12px 0; gap: 8px; }.lab-navigation { flex-wrap: wrap; }.motion-theory { padding: 19px; grid-template-columns: 1fr; gap: 20px; }.motion-theory p,.motion-theory li { font-size: 13px; }.motion-theory h2 { font-size: 19px; }.motion-theory code { font-size: 12px; }.motion-time { padding: 0 17px 15px; }.motion-page .principle-diagram { overflow-x: auto; }.motion-page .principle-diagram svg { min-width: 640px; }.diagram-scroll-hint { display: block; margin: 10px 17px 0; font-size: 11px; color: #6e8792; } }
 @media (max-width: 1100px) { .demo-layout { grid-template-columns: 1fr; gap: 15px; }.demo-guide { padding: 10px 5px; }#story-list { grid-template-columns: repeat(3,minmax(0,1fr)); }.demo-guide h2 { font-size: 21px; } }
 @media (max-width: 720px) { .demo-layout { grid-template-columns: 1fr; }.demo-intro h1 { font-size: 27px; }.demo-toolbar { padding: 13px 16px; }.demo-takeaway { padding: 15px 17px 5px; font-size: 15px; }.demo-actions { padding: 12px 17px 18px; }.demo-guide { padding: 5px; }#story-list { grid-template-columns: repeat(2,minmax(0,1fr)); }#story-list button { padding: 10px; gap: 8px; font-size: 12px; }.demo-connection { flex-direction: column; gap: 8px; padding: 17px; }.demo-connection p { font-size: 13px; }.principle-diagram { padding: 5px 0 0; } }
 @media (max-width: 950px) { .space-layout { grid-template-columns: minmax(0,1fr) 285px; }.matrices { grid-template-columns: 1fr; }.matrix-panel pre { font-size: 12px; } }

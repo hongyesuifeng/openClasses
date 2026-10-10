@@ -1,5 +1,6 @@
 """Build GIFs from the actual SVG demonstration frames captured by Playwright."""
 from pathlib import Path
+import argparse
 import json
 from PIL import Image
 
@@ -9,7 +10,12 @@ source = workspace / "output/playwright/demo-frames"
 destination = experiment / "docs/images"
 destination.mkdir(parents=True, exist_ok=True)
 results = []
-for name, expected in [("vector", 40), ("parent", 50), ("projection", 50)]:
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--stage', type=int, choices=[1, 2], default=1)
+stage = parser.parse_args().stage
+for name, prefix, expected in [("vector", "stage-01", 40), ("parent", "stage-01", 50), ("projection", "stage-01", 50), ("motion-timestep", "stage-02", 60), ("motion-follow", "stage-02", 80), ("motion-pick", "stage-02", 60), ("motion-tunnel", "stage-02", 60)]:
+    if prefix != f'stage-{stage:02d}':
+        continue
     paths = sorted((source / name).glob("*.png"))
     if len(paths) != expected:
         raise ValueError(f"{name}: expected {expected} frames, got {len(paths)}")
@@ -23,7 +29,7 @@ for name, expected in [("vector", 40), ("parent", 50), ("projection", 50)]:
         sheet.paste(frames[index], (0, row * height))
     palette = sheet.quantize(colors=128)
     animation = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in frames]
-    target = destination / f"stage-01-{name}.gif"
+    target = destination / f"{prefix}-{name.removeprefix('motion-')}.gif"
     animation[0].save(target, save_all=True, append_images=animation[1:], duration=100, loop=0, disposal=2, optimize=True)
     with Image.open(target) as result:
         if result.n_frames < 2 or result.info.get("loop") != 0:
