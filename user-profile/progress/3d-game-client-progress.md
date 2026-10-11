@@ -1,8 +1,13 @@
 # 3D 游戏客户端学习进度
 
-方向已确定为 Web 实验与 Cocos 原理映射。[实现记录] 2026-10-10，阶段 0 至 2 首版已实现，数值、构建与核心浏览器检查通过；阶段 3 至 6 未开始，个人理解尚未评定。参考每周 15 小时、核心 24 周，个人实际投入按需登记。
+方向已确定为 Web 实验与 Cocos 原理映射。[系统交付] 2026-10-12，阶段 0 至 2 首版保留，阶段 3 至 6 的 28 课入门内容、四个实验台与图文讲义一次备齐，个人理解尚未评定。[统一学习入口](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[校验记录](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md)已建立。参考每周 15 小时、核心 24 周，实际学习节奏自行安排。
 
 ## 当前成果
+
+- [x] [交付方式] 按学习者要求，完整生成并校验后一次交付，逐步学习直接使用现有内容。
+- [x] [实现记录] 阶段 3—6 共 28 课：模型/动画、战斗规则、原生 WebGL2、资源/性能四个实验台。
+- [x] [验证记录] 43 项测试、类型与构建；28 课入口、现成角色、关键对照、异常、窄屏、资料链接与讲义一致性；具体范围见校验记录。
+- [ ] [理解状态] 阶段 3—6 个人理解未评定；内容交付、阅读书签与实际掌握分别记录。
 
 - [x] 确认客户端能力与小实验为学习目标，Web／PC 为首要验证平台。
 - [x] 确认 Three.js 主线与原生 WebGL 小实验，资产制作学到客户端够用。
@@ -24,6 +29,8 @@
 
 ## 阶段记录
 
+[用户要求] 2026-10-12，学习者要求不要每次临时生成少量内容，应系统生成并校验完成后一次交付供逐步学习。本轮建立完整入门学习包，保留已有阶段 0—2；不据此修改技能自评或推定个人已学完。
+
 [用户报告] 2026-10-09，学习者表示已看完相关基础原理；具体阅读章节、用时与个人自测仍待登记，不据此更新技能评分。
 
 [2026-10-09 验证] 当时定位 Node 24.12.0，阶段 0 数值测试 6 项通过、类型检查与构建通过。内置浏览器已检查固定输入、零速度、暂停改速、继续、相机切换、重置、窗口变化和退出重入。[实际步骤与证据](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)保留待验证的桌面浏览器后台恢复和 WebGL2 不可用场景；个人理解尚未验收。此前[启动计划](2026-10-09-stage-00-start-plan.md)中的 Node 18 快照为阶段 0 实施前记录。
@@ -39,10 +46,10 @@
 | 0 环境与帧循环 | 已有详细规格 | 已实现首版 | 核心检查通过；两项浏览器边界待验证 | 尚未评定，旧自测按需使用 | [2026-10-09 实践记录](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md)；个人用时可选登记 |
 | 1 空间数学 | 动画讲解与可选深入资料 | 三主题原理动画与三段 GIF | 数学与核心演示交互已有验证 | 尚未评定，不强制测算或答题 | [2026-10-10 演示记录](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md) |
 | 2 场景与运动 | 八个原理的规格与模型边界 | 四主题动画、实际画面拾取、四段 GIF | 数学与核心浏览器检查通过 | 尚未评定，以自然交流确认 | [2026-10-10 讲解记录](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md) |
-| 3 资产与动画 | 已有路线与验收要求 | 未开始 | 未开展 | 未开展 | 待登记 |
-| 4 客户端玩法 | 已有路线与验收要求 | 未开始 | 未开展 | 未开展 | 待登记 |
-| 5 渲染与表现 | 已有路线与验收要求 | 未开始 | 未开展 | 未开展 | 待登记 |
-| 6 资源与性能 | 已有路线与验收要求 | 未开始 | 未开展 | 未开展 | 待登记 |
+| 3 资产与动画 | 七课与模型边界 | 本地模型、属性、两骨蒙皮、现成 CC0 角色与混合 | 实际解析/数值与核心交互检查通过 | 尚未评定 | [完整讲义](../../domains/game-engine/experiments/web3d-learning/docs/course-stage-3.md) |
+| 4 客户端玩法 | 七课与最小规则 | 单目标攻击、取消、死亡、Buff、吞噬与 AI | 规则测试与关键运行检查通过 | 尚未评定 | [完整讲义](../../domains/game-engine/experiments/web3d-learning/docs/course-stage-4.md) |
+| 5 渲染与表现 | 七课与 Shader 条件 | 原生 WebGL2、纹理、透明与效果 | 实际画面、错误处理与核心交互检查通过 | 尚未评定 | [完整讲义](../../domains/game-engine/experiments/web3d-learning/docs/course-stage-5.md) |
+| 6 资源与性能 | 七课与指标边界 | 租约、池化、实例化、批次 LOD 与采样 | 生命周期、真实数量与两份原始采样已有证据 | 尚未评定 | [完整讲义](../../domains/game-engine/experiments/web3d-learning/docs/course-stage-6.md) |
 
 ## 按需复盘字段
 
@@ -61,6 +68,9 @@
 资料整理不改变技能矩阵中的既有自评；新的能力结论以具体学习证据更新。
 
 ## 资料入口
+
+- [系统学习包：28 课与实践入口](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md) - 当前连续学习入口
+- [本轮校验与范围](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md) - 测试、实际截图、原始采样与未实机覆盖项
 
 - [核心知识图册](../../docs/game-engine/3d-client-core-visual.md) - 当前优先阅读入口
 - [阶段 1 动图与简明讲解](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md) - 当前观看原理动画即可

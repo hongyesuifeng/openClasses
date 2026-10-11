@@ -1,0 +1,43 @@
+.course-page .page-header { min-height:84px; height:auto; padding:18px 0; gap:12px; flex-wrap:wrap; }
+.course-stages { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.course-stages button { display:grid; gap:8px; text-align:left; padding:20px; }
+.course-stages span { color:#75919b; font-size:11px; }.course-stages strong { font-size:18px; }
+.course-stages small { font-size:12px; font-weight:400; line-height:1.7; color:#607e88; }
+.course-stages button[aria-pressed=true] { background:#dcefe7; border-color:#81bfa9; }
+.course-resume { display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding:20px 0; font-size:12px; color:#637e89; }
+.course-resume a { color:#217f6b; margin-left:auto; }
+.course-layout { display:grid; grid-template-columns:minmax(0,1fr) 240px; gap:26px; align-items:start; }
+.course-lesson { min-width:0; }.course-lesson > h2 { font-size:29px; margin:5px 0 9px; }
+.course-question { color:#5b7985; margin:0 0 22px; line-height:1.8; font-size:15px; }
+.course-viewport { height:365px; position:relative; background:#162a36; overflow:hidden; }
+.course-viewport canvas { width:100%; height:100%; display:block; }.course-viewport > svg { width:100%; height:100%; display:block; font:16px "Microsoft YaHei",sans-serif; }
+.course-controls { padding:16px 20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; border-top:1px solid #dce7eb; }
+.course-controls button { font-size:12px; padding:9px 11px; }.course-controls label { font-size:12px; line-height:1.8; display:flex; gap:9px; align-items:center; }
+.course-controls input[type=range] { width:145px; margin:0; }.course-playback { padding:0 20px 13px; display:flex; gap:9px; align-items:center; flex-wrap:wrap; }
+.course-playback button { font-size:11px; padding:8px; }.course-playback span { color:#728c98; font-size:11px; }
+.course-note { margin:0; padding:0 20px 17px; color:#657d8a; font-size:12px; line-height:1.8; overflow-wrap:anywhere; }
+.course-observe { color:#276d5c; font-size:15px; line-height:1.85; }
+.course-data-panel { background:#203342; color:#d1e7e2; padding:20px; border-radius:10px; margin:20px 0; }
+.course-data-panel h3 { font-size:13px; }.course-data-panel dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; margin:17px 0 0; }
+.course-data-panel dt { font-size:10px; color:#91b7b1; }.course-data-panel dd { margin:6px 0 0; font:13px/1.7 Consolas,"Microsoft YaHei",sans-serif; overflow-wrap:anywhere; }
+.course-events { max-height:190px; overflow:auto; font:11px/1.9 Consolas,"Microsoft YaHei",sans-serif; padding-left:23px; margin:16px 0 0; }
+.course-theory { padding:26px; border:1px solid #d6e2e8; border-radius:11px; background:white; margin:24px 0; }
+.course-theory h3 { font-size:19px; }.course-theory p,.course-mapping p { font-size:14px; line-height:2; color:#52717e; }
+.course-theory .process-strip { margin:20px 0; }.course-theory code { display:block; background:#eaf4ef; color:#28715f; padding:14px; font:13px/1.8 Consolas,"Microsoft YaHei",sans-serif; overflow-wrap:anywhere; }
+.course-theory .course-boundary { font-size:12px; padding-top:14px; border-top:1px solid #dce7eb; }
+.course-mapping { margin:24px 0; padding:20px; border:1px solid #d4e1e8; border-radius:10px; }.course-mapping summary { font-size:14px; }
+.course-mapping a { display:inline-block; margin:0 12px 8px 0; color:#297967; font-size:12px; }
+.course-next { display:flex; justify-content:space-between; padding-bottom:30px; }.course-next button { font-size:13px; }
+.course-sidebar { position:sticky; top:20px; padding:18px 0; }.course-sidebar h3 { font-size:17px; margin:0 0 16px; }
+#course-lessons { display:grid; gap:6px; }#course-lessons button { text-align:left; font-size:12px; padding:12px; background:transparent; border-color:transparent; }
+#course-lessons button[aria-current=step] { background:#dcefe7; color:#257660; border-color:#c4ded1; }
+.course-sidebar > p { font-size:12px; color:#77919d; line-height:1.9; margin-top:22px; }
+.course-catalog { border-top:1px solid #cfdfe5; padding:30px 0; }.course-catalog h2 { font-size:23px; }.course-catalog p { color:#607d89; font-size:13px; line-height:1.8; }
+.course-catalog > div { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; margin:20px 0; }.course-catalog article { background:#fff; border:1px solid #d4e1e7; border-radius:10px; padding:19px; }
+.course-catalog h3 { font-size:16px; color:#2b7161; margin-bottom:13px; }.course-catalog button { display:block; border:none; font-size:12px; text-align:left; padding:10px 0; font-weight:400; }
+.course-error { color:#efc4af; font-size:14px; line-height:2; padding:30px; }
+.course-overlay { position:absolute; inset:0; background:#162a36; }.course-overlay svg { width:100%; height:100%; font:15px "Microsoft YaHei",sans-serif; }
+.course-vertex-overlay { position:absolute; inset:0; pointer-events:none; }.course-vertex-overlay span { position:absolute; transform:translate(-50%,-50%); display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:#eac66e; color:#1b382f; font:13px Consolas,monospace; }
+.course-next a { align-self:center; font-size:12px; color:#397c6b; }
+@media(max-width:1000px){.course-stages {grid-template-columns:repeat(2,minmax(0,1fr));}.course-layout {grid-template-columns:1fr;}.course-sidebar {position:static;grid-row:1;padding:0;}#course-lessons {grid-template-columns:repeat(3,minmax(0,1fr));}.course-sidebar > p {display:none;}.course-catalog > div {grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:600px){.course-stages button {padding:13px;}.course-stages strong {font-size:16px;}.course-stages small {font-size:11px;}.course-lesson > h2 {font-size:23px;}.course-viewport {height:290px;}.course-controls {padding:13px;}.course-controls label {flex-wrap:wrap;}.course-data-panel dl {grid-template-columns:repeat(2,minmax(0,1fr));}#course-lessons {grid-template-columns:repeat(2,minmax(0,1fr));}.course-theory {padding:19px;}.course-theory .process-strip {grid-template-columns:1fr;}.course-theory .process-strip div:not(:last-child)::after {content:'↓';right:50%;top:auto;bottom:-14px;}.course-resume a {margin-left:0;}.course-catalog > div {grid-template-columns:1fr;}.course-viewport > svg {min-width:580px;}.course-viewport:has(>svg) {overflow-x:auto;}.course-playback {padding:0 13px 13px;}.course-lesson .demo-connection {flex-direction:column;gap:8px;padding:17px;}}

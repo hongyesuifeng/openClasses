@@ -6,12 +6,12 @@ const app = document.querySelector<HTMLElement>('#app')!;
 app.innerHTML = `
   <header class="page-header">
     <div class="brand"><span class="brand-mark">3D</span> openClasses <span class="separator">/</span> 实践学习</div>
-    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time" aria-current="page">0 场景与时间</a><a href="?lab=space">1 空间数学</a><a href="?lab=motion">2 场景与运动</a></nav>
+    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time" aria-current="page">0 场景与时间</a><a href="?lab=space">1 空间数学</a><a href="?lab=motion">2 场景与运动</a><a href="?lab=course">3—6 系统课程</a></nav>
   </header>
   <section class="intro">
     <p class="eyebrow">SCENE & TIME</p>
     <h1>让状态变成画面。</h1>
-    <p class="lead">先预测一个变化，再动手验证。今天只研究：时间怎样改变立方体的角度？</p>
+    <p class="lead">先看变化，再动手对比：时间怎样改变立方体的角度？顶部可进入已经备好的完整课程。</p>
   </section>
   <section class="lab-layout" aria-label="立方体与帧循环实验">
     <div class="scene-card">

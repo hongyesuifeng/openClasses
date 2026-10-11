@@ -1,6 +1,6 @@
 {
   "learner_id": "perry",
-  "last_updated": "2026-10-10",
+  "last_updated": "2026-10-12",
   "learning_style": {
     "primary": "visual",
     "secondary": "practical",
@@ -29,6 +29,7 @@
       "research_papers"
     ],
     "documentation_style": "structured",
+    "delivery_style": "complete_validated_course_pack_before_guided_learning",
     "explanation_style": "animated_demonstrations_with_mechanisms_and_key_formulas",
     "text_density": "concise",
     "preferred_chapter_format": "11_chapter_standard"

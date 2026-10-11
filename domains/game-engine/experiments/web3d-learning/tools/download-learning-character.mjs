@@ -1,0 +1,14 @@
+import {writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const commit='b924f0cad4058dc4dde71445c796980c3cd5b5ed';
+const base=`https://raw.githubusercontent.com/mrdoob/three.js/${commit}/examples/models/gltf/RobotExpressive/`;
+const urls=[base+'RobotExpressive.glb',base+'README.md'];
+const results=await Promise.allSettled(urls.map(async url=>{const r=await fetch(url,{signal:AbortSignal.timeout(30000)});if(!r.ok)throw new Error(r.status+' '+url);return Buffer.from(await r.arrayBuffer());}));
+for(const result of results)if(result.status==='rejected')throw result.reason;
+const [model,readme]=results.map(r=>r.value);
+if(!readme.toString().includes('CC0'))throw new Error('Expected explicit CC0 license');
+const root=new URL('../public/assets/',import.meta.url);
+await writeFile(new URL('robot-expressive.glb',root),model);
+await writeFile(new URL('robot-expressive-license.md',root),readme);
+await writeFile(new URL('robot-expressive-source.json',root),JSON.stringify({name:'RobotExpressive',author:'Tomás Laulhé / Quaternius',license:'CC0 1.0',commit,source:urls[0],licenseSource:urls[1],sha256:createHash('sha256').update(model).digest('hex'),bytes:model.length},null,2)+'\n');
+console.log('Saved pinned CC0 character, '+model.length+' bytes');

@@ -2,6 +2,8 @@
 
 一个 Web 工程承载多个独立实验，使用 TypeScript + Three.js，并用原生 WebGL 小实验观察底层渲染过程。每个实验同时说明 Cocos 对应机制，Tuntun 玩法作为学习案例。
 
+**[系统学习包] 2026-10-12，阶段 3—6 的 28 课已一次备齐。** [统一导读与图文讲义](docs/course-pack.md)串起模型、动画、玩法、Shader、资源与性能；四个实验台支持中间数据、暂停、逐步、恢复、异常对照与资料入口。先完成内容与校验，再由学习者逐步学习；个人理解单独登记。[校验记录与范围](docs/course-validation.md)
+
 **[实现记录] 阶段 0 立方体实验已可运行，支持速度、暂停／继续、重置、相机视角、固定步长对比与退出重入。** 数值检查和核心浏览器交互已验证；后台恢复与 WebGL2 不可用提示待桌面浏览器实测，个人理解待验收。详见[实践步骤与验证记录](docs/stage-00-lab.md)。
 
 **[当前版本] 2026-10-10，阶段 1 已按学习者反馈改为动画与简明原理讲解。** 用“点与箭头”“托盘与小球”“相机与画面”解释空间关系，点击按钮即可看变化；公式和 3D 观察可选展开。填写、手算与记录下载流程已移除，原浏览器笔记不删除。详见[原理动画与验证记录](docs/stage-01-lab.md)。
@@ -18,16 +20,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner install
 powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner dev
 ```
 
-启动器寻找隔离 Node 24.12+，只为当前进程选择运行时，并在本实验目录执行命令。若没有自动找到，为命令传入 `-NodePath` 指定自己的 Node 24 node.exe。打开终端给出的地址，`?lab=motion` 进入阶段 2，`?lab=space` 进入阶段 1，`?lab=time` 进入阶段 0；默认地址保留阶段 0。
+启动器寻找隔离 Node 24.12+，只为当前进程选择运行时，并在本实验目录执行命令。若没有自动找到，为命令传入 `-NodePath` 指定自己的 Node 24 node.exe。打开终端给出的地址，`?lab=course` 进入系统课程，`?lab=motion` 进入阶段 2，`?lab=space` 进入阶段 1，`?lab=time` 进入阶段 0；默认地址保留阶段 0。
 
 [验证] `npm test` 检查独立时间与角度逻辑；`npm run build` 执行类型检查和构建。依赖版本由 package-lock.json 固定。
 
-也可使用启动器的 `test`／`build` 命令，避免终端默认 Node 18 与学习工程要求不一致。23 项测试覆盖时间、向量、变换、投影、运动、镜头平滑、拾取与碰撞边界。
+也可使用启动器的 `test`／`build` 命令，避免终端默认 Node 18 与学习工程要求不一致。43 项测试覆盖基础数学与运动、真实模型解析、角色资产校验、蒙皮、战斗规则、资源租约、池化、Shader 清理、采样及讲义一致性。网络链接检查与图文讲义更新方法见[校验记录](docs/course-validation.md)。
 
 ## 入口
 
 | 内容 | 入口 |
 | --- | --- |
+| 一次备齐的系统学习包 | [导读、28 课与实践入口](docs/course-pack.md) |
+| 四阶段交付检查 | [测试、截图、原始性能记录与边界](docs/course-validation.md) |
 | 总路线与资料导航 | [3D 客户端学习路线](../../../../learning-routes/topic-index/3d-game-client.md) |
 | 原推荐互联网资料与章节 | [学习资料地图](../../../../learning-routes/resources/3d-game-client-resources.md) |
 | 第一周读什么、怎样练习 | [15 小时阅读与实验计划](../../../../user-profile/progress/3d-game-client-week-01.md) |

@@ -1,0 +1,10 @@
+{
+  "name": "RobotExpressive",
+  "author": "Tomás Laulhé / Quaternius",
+  "license": "CC0 1.0",
+  "commit": "b924f0cad4058dc4dde71445c796980c3cd5b5ed",
+  "source": "https://raw.githubusercontent.com/mrdoob/three.js/b924f0cad4058dc4dde71445c796980c3cd5b5ed/examples/models/gltf/RobotExpressive/RobotExpressive.glb",
+  "licenseSource": "https://raw.githubusercontent.com/mrdoob/three.js/b924f0cad4058dc4dde71445c796980c3cd5b5ed/examples/models/gltf/RobotExpressive/README.md",
+  "sha256": "047f5e5fb3bb6d378bd1df16ca6137f2a596c99b3a1b5690b4020c05aaf6f319",
+  "bytes": 463988
+}

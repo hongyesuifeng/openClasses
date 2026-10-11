@@ -6,7 +6,7 @@ const app = document.querySelector<HTMLElement>('#app')!;
 app.classList.add('motion-page');
 app.innerHTML = `
   <header class="page-header"><div class="brand"><span class="brand-mark">3D</span> openClasses <span class="separator">/</span> 原理演示</div>
-    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time">0 场景与时间</a><a href="?lab=space">1 空间数学</a><a href="?lab=motion" aria-current="page">2 场景与运动</a></nav></header>
+    <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time">0 场景与时间</a><a href="?lab=space">1 空间数学</a><a href="?lab=motion" aria-current="page">2 场景与运动</a><a href="?lab=course">3—6 系统课程</a></nav></header>
   <section class="intro demo-intro"><p class="eyebrow">阶段 2 · 看过程，也看原因</p><h1>让输入变成运动，让运动受到约束。</h1><p class="lead">从方向与时间开始，再看镜头、拾取与碰撞。每个动画都有原理、公式和适用条件。</p></section>
   <nav class="lesson-tabs" aria-label="演示主题"><button data-topic="movement" aria-pressed="true">方向与时间</button><button data-topic="camera" aria-pressed="false">镜头与运动</button><button data-topic="picking" aria-pressed="false">点击与射线</button><button data-topic="collision" aria-pressed="false">碰撞与响应</button></nav>
   <section class="demo-layout"><div class="demo-card"><div class="demo-toolbar"><span id="demo-label"></span><button id="toggle-animation" class="text-button">暂停动画</button></div>
