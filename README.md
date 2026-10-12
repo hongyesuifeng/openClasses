@@ -22,7 +22,7 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 | 领域 | 学习情况 | 核心内容 |
 |------|----------|----------|
 | **AI Agent** | 档案记录基础课程已完成，进阶按实验验证 | CS146S、Hello-Agents、OpenClaw |
-| **游戏引擎与 3D 客户端** | 阶段 0／1 Web3D 首版已可运行，个人理解待验收 | Three.js、WebGL、Cocos 原理映射与源码资料 |
+| **游戏引擎与 3D 客户端** | 阶段 0—2 演示与阶段 3—6 的 28 课已交付，个人理解待评定 | Three.js、WebGL、Cocos 原理映射与源码资料 |
 | **提示工程** | 档案记录已掌握，继续实践复核 | Prompt 设计与优化 |
 | **论文研究** | 已有阅读材料与分析笔记，个人进度待登记 | AI Agent、游戏开发 AI |
 | **软件工程** | 已有方法资料与实践样例 | 设计模式、架构、重构、评审与 AI 辅助开发 |
@@ -30,7 +30,9 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 当前学习主线为[3D 游戏客户端路线](learning-routes/topic-index/3d-game-client.md)：先在 Web 端学习与验证，每个主题解释中间过程和 Cocos 对应机制，后续再迁移复现。路线与规范已建立，实验代码按阶段推进；实际成果见[学习进度](user-profile/progress/3d-game-client-progress.md)。已有内容可通过[图解复习](docs/general/2026-10-08-learning-review-visual.md)回顾，此前的 Agent 评估方案作为候选资料保留。
 
-开始学习先看[第一周阅读与练习计划](user-profile/progress/3d-game-client-week-01.md)：每次明确阅读范围、实验操作与自测，参考 15 小时安排。
+[当前计划] [2026-10-12 进展复核与下一步安排](user-profile/progress/2026-10-12-project-review-and-next-plan.md)：本次 43 项测试、类型检查与构建通过；按每周 15 小时安排四周首轮学习，先回看阶段 2，再进入阶段 3 资产与动画。
+
+开始学习使用[系统学习包](domains/game-engine/experiments/web3d-learning/docs/course-pack.md)：先看演示、切换对照，再读机制与适用条件。原[第一周计划](user-profile/progress/3d-game-client-week-01.md)保留为基础资料参考，填写、手算与自测按需使用。
 
 [当前学习] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲清空间原理。点按钮看变化，结合简明解释理解；公式与 3D 观察按需展开，不强制填写、手算或答题。三段基础动图可直接在文档观看。
 
@@ -254,7 +256,7 @@ Cocos架构 → 源码阅读 → Godot对比 → 实践项目
 ---
 
 **开始时间**: 2025-12-30
-**最后更新**: 2026-10-08
+**最后更新**: 2026-10-12
 **维护者**: Perry
 
 **📊 数据统计**:

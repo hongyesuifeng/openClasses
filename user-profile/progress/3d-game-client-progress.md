@@ -4,6 +4,7 @@
 
 ## 当前成果
 
+- [x] [进展复核] 2026-10-12 重新运行 43 项测试、类型检查与构建通过；建立[四周首轮学习与下一次接续计划](2026-10-12-project-review-and-next-plan.md)，先回看阶段 2，再学习阶段 3；计划尚未执行，个人理解状态保持未评定。
 - [x] [交付方式] 按学习者要求，完整生成并校验后一次交付，逐步学习直接使用现有内容。
 - [x] [实现记录] 阶段 3—6 共 28 课：模型/动画、战斗规则、原生 WebGL2、资源/性能四个实验台。
 - [x] [验证记录] 43 项测试、类型与构建；28 课入口、现成角色、关键对照、异常、窄屏、资料链接与讲义一致性；具体范围见校验记录。
@@ -69,6 +70,7 @@
 
 ## 资料入口
 
+- [最新进展与下一步计划](2026-10-12-project-review-and-next-plan.md) - 四周首轮安排、下一次 55 分钟接续与待补维护事项
 - [系统学习包：28 课与实践入口](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md) - 当前连续学习入口
 - [本轮校验与范围](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md) - 测试、实际截图、原始采样与未实机覆盖项
 
@@ -79,8 +81,8 @@
 - [阶段 2 规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-spec.md)
 - [阶段 0 动手实践与验证记录](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md) - 已读基础后从这里开始
 - [前四周学习内容与资料安排](3d-game-client-month-01.md)
-- [最新进展核查与阶段 0 启动计划](2026-10-09-stage-00-start-plan.md)
-- [当前进展与四周学习计划](2026-10-08-project-review-and-next-plan.md)
+- [10 月 9 日阶段 0 启动快照](2026-10-09-stage-00-start-plan.md)
+- [10 月 8 日四周计划快照](2026-10-08-project-review-and-next-plan.md)
 - [24 周资料阅读与阶段学习计划](3d-game-client-reading-plan.md)
 - [总体路线与资料导航](../../learning-routes/topic-index/3d-game-client.md)
 - [第一周阅读与练习计划](3d-game-client-week-01.md)
