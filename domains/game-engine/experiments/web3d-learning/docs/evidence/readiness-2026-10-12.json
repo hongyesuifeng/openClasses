@@ -1,0 +1,380 @@
+{
+  "date": "2026-10-12",
+  "testedCommit": "2c869a67",
+  "browser": "Codex in-app browser",
+  "scope": "阶段 0—6 当前约定的入门交互内容",
+  "unitTests": {
+    "passed": 43,
+    "failed": 0
+  },
+  "build": "TypeScript and Vite passed",
+  "officialLinks": {
+    "reachable": 36,
+    "total": 36
+  },
+  "course": [
+    {
+      "title": "01 顶点怎样组成模型",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "position 顶点4index0,1,2,0,2,3三角形2UV 重复1材质Lambert线框关"
+    },
+    {
+      "title": "02 导入与坐标约定",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "加载状态加载中根节点无比例1包围盒宽度无方向0°"
+    },
+    {
+      "title": "03 UV 与贴图采样",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "position 顶点4index0,1,2,0,2,3三角形2UV 重复1材质Lambert线框关"
+    },
+    {
+      "title": "04 法线与材质",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "position 顶点4index0,1,2,0,2,3三角形2UV 重复1材质Lambert线框关法线显示关"
+    },
+    {
+      "title": "05 骨骼与绑定姿态",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "顶点26骨骼2权重模式渐变权重Idle 权重0.00Move 权重1.00动作时间0.00 s关节旋转-37.2°"
+    },
+    {
+      "title": "06 权重怎样使皮肤弯曲",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "顶点26骨骼2权重模式渐变权重Idle 权重0.00Move 权重1.00动作时间0.00 s关节旋转-37.2°"
+    },
+    {
+      "title": "07 Clip、时间与混合",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "顶点26骨骼2权重模式渐变权重Idle 权重0.00Move 权重1.00动作时间0.00 s关节旋转-37.2°"
+    },
+    {
+      "title": "01 请求与状态机",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "规则时间0.00 s角色状态Idle目标生命40去重集合0XP / 等级0 / 1Buff 剩余0.00 s敌人状态Idle"
+    },
+    {
+      "title": "02 数据驱动攻击",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "规则时间0.00 s角色状态Idle目标生命40去重集合0XP / 等级0 / 1Buff 剩余0.00 s敌人状态Idle"
+    },
+    {
+      "title": "03 命中窗口与大步",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "规则时间0.00 s角色状态Idle目标生命40去重集合0XP / 等级0 / 1Buff 剩余0.00 s敌人状态Idle"
+    },
+    {
+      "title": "04 命中去重与无效目标",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "规则时间0.00 s角色状态Idle目标生命40去重集合0XP / 等级0 / 1Buff 剩余0.00 s敌人状态Idle"
+    },
+    {
+      "title": "05 取消、死亡与事件顺序",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "规则时间0.00 s角色状态Idle目标生命40去重集合0XP / 等级0 / 1Buff 剩余0.00 s敌人状态Idle"
+    },
+    {
+      "title": "06 Buff、吞噬与成长",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "规则时间0.00 s角色状态Idle目标生命40去重集合0XP / 等级0 / 1Buff 剩余0.00 s敌人状态Idle"
+    },
+    {
+      "title": "07 敌人感知与迟滞",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "规则时间0.00 s角色状态Idle目标生命40去重集合0XP / 等级0 / 1Buff 剩余0.00 s敌人状态Chase"
+    },
+    {
+      "title": "01 CPU 到最终像素",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "API原生 WebGL2顶点缓冲1顶点数量3绘制次数1画布尺寸300 × 150顶点颜色开"
+    },
+    {
+      "title": "02 纹理与插值",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "API原生 WebGL2顶点缓冲1顶点数量6绘制次数1画布尺寸913 × 365纹理重复1"
+    },
+    {
+      "title": "03 深度与透明顺序",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "API原生 WebGL2顶点缓冲1顶点数量6绘制次数3画布尺寸300 × 150透明顺序远→近材质模式透明"
+    },
+    {
+      "title": "04 光照与坐标空间",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "API原生 WebGL2顶点缓冲1顶点数量6绘制次数1画布尺寸913 × 365光源旋转"
+    },
+    {
+      "title": "05 边缘光",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "API原生 WebGL2顶点缓冲1顶点数量6绘制次数1画布尺寸300 × 150边缘光开边缘光幂3"
+    },
+    {
+      "title": "06 溶解与裁剪",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "API原生 WebGL2顶点缓冲1顶点数量6绘制次数1画布尺寸913 × 365溶解阈值0.25"
+    },
+    {
+      "title": "07 命中反馈的时间包络",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "API原生 WebGL2顶点缓冲1顶点数量6绘制次数1画布尺寸300 × 150反馈 age1.00 s"
+    },
+    {
+      "title": "01 加载、引用与竞态",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "缓存[]持有租约0纹理数量0"
+    },
+    {
+      "title": "02 remove 与 dispose",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "模式Mesh对象数量500Draw Calls500Triangles84000Geometries1Textures0是否移除否相机距离18画布尺寸300 × 150DPR1采样预热 0/30RAF 平均 / p95等待采样JS 提交平均 / p95等待采样"
+    },
+    {
+      "title": "03 对象池与状态清理",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "创建累计0池中分配0活动0空闲0最大 age0.00 s"
+    },
+    {
+      "title": "04 Draw Call 与实例化",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "模式Mesh对象数量500Draw Calls500Triangles84000Geometries1Textures0是否移除否相机距离18画布尺寸300 × 150DPR1采样预热 0/30RAF 平均 / p95等待采样JS 提交平均 / p95等待采样"
+    },
+    {
+      "title": "05 LOD 与屏幕误差",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "模式Mesh对象数量500Draw Calls500Triangles84000Geometries1Textures0是否移除否相机距离18画布尺寸300 × 150DPR1采样预热 0/30RAF 平均 / p95等待采样JS 提交平均 / p95等待采样"
+    },
+    {
+      "title": "06 透明覆盖与像素成本",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "模式Mesh对象数量10Draw Calls10Triangles20Geometries1Textures0是否移除否相机距离18画布尺寸300 × 150DPR1采样预热 0/30RAF 平均 / p95等待采样JS 提交平均 / p95等待采样"
+    },
+    {
+      "title": "07 测量与结论边界",
+      "step": "演示 0.10 s · 已暂停",
+      "reset": "演示 0.00 s · 已暂停",
+      "error": null,
+      "metrics": "模式Mesh对象数量500Draw Calls500Triangles84000Geometries1Textures0是否移除否相机距离18画布尺寸300 × 150DPR1采样预热 0/30RAF 平均 / p95等待采样JS 提交平均 / p95等待采样"
+    }
+  ],
+  "space": [
+    {
+      "topic": "点与箭头",
+      "name": "01点与箭头",
+      "title": "点是位置，箭头是路线。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "点与箭头",
+      "name": "02一起搬走",
+      "title": "位置变了，路线可以不变。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "点与箭头",
+      "name": "03只保留方向",
+      "title": "把“方向”和“距离”分开。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "点与箭头",
+      "name": "04比较朝向",
+      "title": "两条箭头，朝向一致吗？",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "点与箭头",
+      "name": "05得到垂直方向",
+      "title": "从两条箭头，得到第三个方向。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "托盘与小球",
+      "name": "01跟着一起移动",
+      "title": "父物体像托盘，子物体像小球。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "托盘与小球",
+      "name": "02跟着一起转动",
+      "title": "父物体转动，也会带着子物体转。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "托盘与小球",
+      "name": "03先后顺序",
+      "title": "先转再搬，和先搬再转，结果不同。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "相机与画面",
+      "name": "01透视：近大远小",
+      "title": "一样大的物体，为什么看起来大小不同？",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    },
+    {
+      "topic": "相机与画面",
+      "name": "02相机的前方",
+      "title": "镜头有朝向，看不到身后的物体。",
+      "diagramCount": 1,
+      "comparisonChanged": true
+    }
+  ],
+  "motion": [
+    {
+      "topic": "方向与时间",
+      "name": "01斜走为什么更快",
+      "title": "输入的长度，不应偷偷变成速度。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；前 2 秒移动，随后保留结果。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；前 2 秒移动，随后保留结果。"
+    },
+    {
+      "topic": "方向与时间",
+      "name": "02帧数不是速度",
+      "title": "一秒多画几帧，不应该跑得更远。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；前 2 秒移动，随后保留结果。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；前 2 秒移动，随后保留结果。"
+    },
+    {
+      "topic": "镜头与运动",
+      "name": "01跟随镜头的前进",
+      "title": "“前进”可以跟着镜头改变方向。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；前 2 秒移动，随后保留结果。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；前 2 秒移动，随后保留结果。"
+    },
+    {
+      "topic": "镜头与运动",
+      "name": "02平滑跟随与滞后",
+      "title": "平滑来自逐渐消除位置误差。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；目标在第 1、4 秒改变位置。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；目标在第 1、4 秒改变位置。"
+    },
+    {
+      "topic": "点击与射线",
+      "name": "01点击变成一条射线",
+      "title": "一个屏幕点，对应空间中的一条路径。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；白点标示射线路径。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；白点标示射线路径。"
+    },
+    {
+      "topic": "点击与射线",
+      "name": "02射线没有角色的体积",
+      "title": "中心线能通过，角色身体却可能撞墙。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；前 2 秒移动，随后保留结果。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；前 2 秒移动，随后保留结果。"
+    },
+    {
+      "topic": "碰撞与响应",
+      "name": "01撞墙后沿墙滑动",
+      "title": "检测告诉你撞了；响应决定下一步怎么走。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；前 2 秒移动，随后保留结果。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；前 2 秒移动，随后保留结果。"
+    },
+    {
+      "topic": "碰撞与响应",
+      "name": "02为什么会穿墙",
+      "title": "只检查新位置，会漏掉中途经过的墙。",
+      "comparisonChanged": true,
+      "stepped": "已暂停 · 0.25 / 6.00 秒；前 2 秒移动，随后保留结果。",
+      "replay": "已暂停 · 0.00 / 6.00 秒；前 2 秒移动，随后保留结果。"
+    }
+  ],
+  "time": [
+    {
+      "fps": "30",
+      "time": "2.000",
+      "angle": "90.000"
+    },
+    {
+      "fps": "60",
+      "time": "2.000",
+      "angle": "90.000"
+    },
+    {
+      "fps": "120",
+      "time": "2.000",
+      "angle": "90.000"
+    }
+  ],
+  "consoleErrors": [],
+  "notes": [
+    "模型缺失后恢复成功，现成角色 Idle/Walking 权重各为 0.50。",
+    "普通攻击大步只扣一次 10 HP；前摇取消不扣血；死亡后拒绝攻击。",
+    "Shader 编译错误保留有效 Program；提示可恢复。",
+    "500 对象实例化 calls 500→1；启用 LOD 的远距离 triangles 84000→8000。",
+    "仅移除后 geometries=1；完整释放后 geometries=0。",
+    "两个租约共享 1 张纹理，全部释放后纹理与缓存归零；对象池反复发射只创建 5 个对象。",
+    "性能采样完成 120 帧并成功导出 JSON。",
+    "阶段 0 在 30/60/120 步每秒条件下均为 2 秒、90 度；退出画布为 0，重入为 1。",
+    "减少动画偏好、真实后台恢复、无 WebGL2/真实上下文丢失仍沿用原验收记录的未实机覆盖边界。"
+  ]
+}
