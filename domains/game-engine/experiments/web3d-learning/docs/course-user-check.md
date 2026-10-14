@@ -33,3 +33,62 @@
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\domains\game-engine\experiments\web3d-learning\tools\run.ps1 dev
 ```
+
+## 2026-10-14 学习接续：法线与骨骼
+
+[本次范围] 接着 10 月 13 日的 UV，使用现有第 4、5 课做交互导读。隔离 Node 24.19.0、Codex 内置浏览器、Three.js 0.186.1；截图视口为 1265 × 712。本次没有修改课程代码，历史 43 项测试和构建不作为本次执行结果。个人理解与实际用时仍待学习者反馈。
+
+### 形状不变，为什么会变暗？
+
+打开[第 4 课](http://127.0.0.1:5173/?lab=course&lesson=normal)，暂停后恢复初始状态，再打开法线显示。法线是表面朝向的向量：它与朝向光源的向量越一致，Lambert 漫反射贡献越大；接近垂直时，贡献接近零。当前平面正对相机，法线也朝向相机，所以箭头投影较短。
+
+```mermaid
+flowchart LR
+    A[表面法线 n] --> C[同一空间中的点积 n·l]
+    B[朝向光源的方向 l] --> C
+    C --> D[Lambert 漫反射贡献]
+    D --> E[与底色和环境光合成明暗]
+    F[光源绕平面转动] --> B
+```
+
+| 可复现操作 | 本次观察 | 判断依据 |
+| --- | --- | --- |
+| 恢复到 0 秒，材质保持 Lambert | 平面较亮 | 记录为 4 个顶点、2 个三角形，索引 `0,1,2,0,2,3` |
+| 点击“逐步 0.1 秒”16 次 | 1.60 秒时平面明显变暗，几何与法线显示状态不变 | 光源转到接近侧向；环境光使平面仍有基础亮度 |
+| 切换“受光／不受光” | 材质变为 Basic，平面明亮 | [Basic 不受灯光影响](https://threejs.org/docs/pages/MeshBasicMaterial.html) |
+| 再逐步 10 次 | 2.60 秒时 Basic 颜色仍保持稳定 | 光源位置继续变化，几何和材质类型不变 |
+
+![Lambert 初始状态，0 秒](images/stage-03-normal-lit-2026-10-14.jpg)
+
+![Lambert 侧向光照，1.60 秒](images/stage-03-normal-grazing-2026-10-14.jpg)
+
+![同一时刻切换 Basic](images/stage-03-normal-basic-2026-10-14.jpg)
+
+[机制边界] `max(0, n·l)` 是归一化向量的漫反射简化关系，不能直接拿截图颜色反算点积。环境光、颜色处理等也影响画面。本例不修改法线数据，也不演示法线贴图；法线贴图影响光照细节而不会自动增加几何轮廓。[Lambert 官方说明](https://threejs.org/docs/pages/MeshLambertMaterial.html)
+
+### 时间怎样成为关节姿态？
+
+进入[第 5 课](http://127.0.0.1:5173/?lab=course&lesson=bones)，保持暂停并逐步。两骨样本在 0、0.50、1.00 秒的关节角度分别为 −37.2°、0.0°、+37.2°；始终为 26 个顶点、2 根骨骼，Idle／Move 权重为 0／1。切换骨架显示只改变辅助线，保持皮肤和播放时间。
+
+```mermaid
+flowchart LR
+    A[Clip 与当前动作时间] --> B[采样关节的四元数旋转]
+    B --> C[父子变换计算当前骨骼姿态]
+    C --> D[相对绑定姿态计算变换]
+    E[每个顶点的骨骼编号与权重] --> F[蒙皮后顶点]
+    D --> F
+    F --> G[渲染可见皮肤]
+    C -.调试显示.-> H[骨架辅助线]
+```
+
+骨骼是变换层级中的节点，[Three.js Bone 继承 Object3D](https://threejs.org/docs/pages/Bone.html)。子骨的世界变换为 `M_parent_world × M_child_local`。绑定姿态记录网格与骨架的参考关系；“恢复初始状态”回到动画首帧，不等于回到绑定姿态。本样本绑定时关节为零旋转，Move 的首帧为 −0.65 rad（约 −37.2°），因此恢复后仍可看到弯曲。
+
+[角色对照] 切换现成角色，等待显示“已加载现成角色”，再逐步一次：43 根骨骼、14 个 Clip，Idle／Walking 权重为 0／1，角色动作时间 0.10 秒。此时课程总时钟为 1.10 秒，角色是在加载完成后才开始播放，两种时间不同。暂停状态下切换角色后，用一次逐步刷新姿态和画面，再观察权重。
+
+![现成角色的骨架、播放权重与动作时间](images/stage-03-bones-2026-10-14.jpg)
+
+[Cocos 对照] 当前资产课的法线通过 Effect 参与光照；骨骼用场景节点组织，SkeletalAnimation 驱动姿态，SkinnedMeshRenderer 使用绑定与权重数据完成变形。烘焙与实时计算路径的差异按[现有动画资料](../../../guides/cocos-source-learning/04-functional-modules/01-animation-system.md)继续查阅，本次未运行原生 Cocos 实验。
+
+[本次检查] 实际完成法线显示、固定步进、材质切换、骨架显示和角色加载对照；检查时浏览器 error／warn 日志为空。检查新增截图与本地文档链接、Git 差异格式；原有未实机覆盖项继续保留。
+
+[下一次接续] 进入[第 6 课蒙皮权重](http://127.0.0.1:5173/?lab=course&lesson=skin)，在同一暂停姿态切换渐变／硬权重，观察同一骨骼运动为何形成不同的关节变形；再接第 7 课动作混合。
