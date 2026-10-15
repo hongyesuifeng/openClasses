@@ -1,43 +1,20 @@
 # 3D 游戏客户端学习路线
 
-## 当前主线：三门原课程深入学习
+## 当前安排：按原课逐讲提炼重点
 
-[2026-10-15 用户选择] 学习者反馈此前自编图文课程仍难理解，要求先调研经典资料，再沿特定原课程拆解。已确认选择清单中的 **1、6、8：GAMES101、Unity Create with Code、GAMES104**；此前看过 GAMES101 和 GAMES104，具体掌握范围尚未确认。旧阶段实验和验证记录保留为参考，后续讲解以原课程的章节、图示和例子为依据。
+2026-10-15，学习者确认选择 **1、6、8：GAMES101、Unity Create with Code、GAMES104**。最新要求为“直接按照课程内容进行精简提炼重点，不要自己另外阐述说明”。此前的问题地图、跨课程主线与自编对照案例停止作为当前讲解方式。
 
-| 原课程与官方入口 | 实际涉及的 3D 内容 | 本轮用途 |
+| 课程与官方入口 | 已核对并整理的范围 | Web 入口 |
 | --- | --- | --- |
-| [GAMES101：现代计算机图形学入门](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html) | 三维变换与投影、光栅化、着色、几何、光线追踪、相机、动画与模拟 | 原理主线；按原课顺序复习，已熟悉部分简要回顾，有疑问处展开 |
-| [Unity Create with Code](https://learn.unity.com/course/create-with-code) | 用 C# 开发 3D 原型，涵盖玩家控制、基础玩法、物理、动画、音效与 UI；[Unit 1](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0)从驾驶原型开始 | 游戏开发实践；沿原型解释输入、更新、碰撞和状态，不扩展为正式游戏项目 |
-| [GAMES104：现代游戏引擎——从入门到实践](https://games-cn.org/games104/) | 引擎架构、数据组织、渲染、动画、物理与工具链等三维游戏引擎机制 | 引擎机制主线；联系 Unity 中的现象解释模块职责与协作，源码实践按原课程条件推进 |
+| [GAMES101：现代计算机图形学入门](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html) | Lecture 01—06 原课 PDF | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01) |
+| [Unity Create with Code](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0) | Unity 6.0，Unit 1，Lesson 1.1—1.4 官方教程 | [Lesson 1.1](http://127.0.0.1:5173/?lab=classics&course=unity&chapter=1.1) |
+| [GAMES104：现代游戏引擎——从入门到实践](https://games-cn.org/games104/) | Lecture 01—03 原课 PDF | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games104&chapter=01) |
 
-上表是学习用途的安排，不是原课程共同发布的教学大纲。GAMES101 解释成像原理，Unity 把相近概念放进可操作玩法中，GAMES104 解释引擎如何组织这些功能；各课保留自己的术语、坐标约定和章节顺序。
+每讲保留原讲标题、简明课内要点、课件页码或教程小节。交互用于切换课程／章节、查看原文和保存阅读位置；不增加自编主线、类比、补充案例、跨课程阐述、公式推导、代码分步或 Cocos 对照。
 
-```mermaid
-flowchart LR
-    A[GAMES101 原理与推导] --> B[Unity 原型中的画面与玩法]
-    C[GAMES104 引擎模块与协作] --> B
-    B -.出现空间或成像疑问.-> A
-    B -.出现模块协作疑问.-> C
-```
+这是首批摘记范围，后续继续沿各课原顺序整理。GAMES101 第 6 讲标题沿用官方目录，PDF 实际内容集中在抗锯齿，页面已注明范围差异。来源与运行记录见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
 
-### 当前导读入口
-
-[Web 主线与精华](http://127.0.0.1:5173/?lab=classics&course=games101)为当前入口：每门课先给原章节的问题地图，再用采样遗漏、Game Over 状态约束、系统数据交接三个对照解释设计动机与因果关系。当前不安排公式推导、代码步骤或 Cocos 对照；首版三段场景示意保留为历史参考。启动和本轮范围见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
-
-[首版参考] [输入如何成为一帧画面](../../docs/game-engine/classic-courses/01-input-to-frame.md)保留最初的分步示意与资料核对，不再作为当前学习入口。学习者反馈其缺少课程主线与深度，网页已据此重做；个人理解尚未评定。
-
-首轮从 GAMES101 的图形学概览与 GAMES104 的引擎导论复习，再沿 Unity Unit 1 进入驾驶原型。每次围绕原课的一个小节推进，不要求同时完成三门课程的同类章节；熟悉部分简要回顾，有疑问的中间过程展开解释。
-
-| 原课位置 | 要弄清的问题 | 本次状态 |
-| --- | --- | --- |
-| [GAMES101 Lecture 01：计算机图形学概述](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html) | 图形学解决哪些问题，三维成像处在什么位置？ | 已核对课程大纲；作为原理复习入口 |
-| [GAMES104 第一讲：游戏引擎导论](https://games-cn.org/games104/) | 游戏引擎有哪些职责，怎样支撑三维游戏？ | 已核对官方大纲；作为引擎机制复习入口 |
-| [GAMES101 Lecture 04：Transformation](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf)，课件标号第 12 页起 | 摆放物体、摆放相机、投影成像分别改变什么？ | 已核对课件；遇到对应问题时回看，不跳过第 2、3 讲中尚不熟悉的基础 |
-| [Unity Unit 1：Player Control](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0)，Lesson 1.1 Start your 3D Engines | 驾驶场景中的物体和相机怎样组织？ | 已核对目录，原生 Unity 实践尚未开始 |
-
-[讲解约定] 先建立整门课的核心问题及章节关系，再解释某个方法为何有必要、怎样解决矛盾、代价与失效条件是什么。当前不需要公式推导与代码步骤；正文保留因果推理与具体反例。AI 提炼、补充图和案例标明原课依据与简化范围，不称为原作者逐字讲授内容，不要求填写、手算或提交答案。
-
-[材料与进度] GAMES104 的前置知识包括线性代数、数据结构、算法与 C++；原课侧重引擎架构与机制，具体工具操作由 Unity 课程承担。每周 15 小时仅作预算参考，不据原课视频时长推定完成日期。选定、原文核对、实际学习、理解与实践分别登记，见[学习进度](../../user-profile/progress/3d-game-client-progress.md)。本轮实现 Web 辅助交互，未安装 Unity 或运行原课项目。
+学习者报告以前看过 GAMES101、GAMES104，具体理解范围尚未确认。本轮材料整理、网页实现、个人学习与原生项目实践分别登记；阅读书签不代表掌握。详见[学习进度](../../user-profile/progress/3d-game-client-progress.md)。
 
 ## 历史路线与实验记录
 

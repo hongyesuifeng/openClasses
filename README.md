@@ -28,13 +28,13 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 | **软件工程** | 已有方法资料与实践样例 | 设计模式、架构、重构、评审与 AI 辅助开发 |
 | **产品与用户洞察** | 已有研究方法与历史分析样例 | 用户研究、访谈、画像与 Steam 讨论分析 |
 
-当前学习主线为[三门经典课程深入学习](learning-routes/topic-index/3d-game-client.md)：GAMES101 解释成像原理，Unity Create with Code 联系 3D 游戏玩法，GAMES104 解释引擎架构与模块协作。AI 沿原课程章节与例子，用简明图文和必要的交互拆解；实际进度见[学习记录](user-profile/progress/3d-game-client-progress.md)。此前的 Agent 评估方案作为候选资料保留。
+当前学习主线为[三门经典课程深入学习](learning-routes/topic-index/3d-game-client.md)：GAMES101 解释成像原理，Unity Create with Code 联系 3D 游戏玩法，GAMES104 解释引擎架构与模块协作。按原课程章节顺序精简提炼重点，附课件页码或官方教程小节出处；实际进度见[学习记录](user-profile/progress/3d-game-client-progress.md)。此前的 Agent 评估方案作为候选资料保留。
 
 [当前选择] 2026-10-15，学习者反馈自编图文课程仍难理解，确认选择清单中的 1、6、8：GAMES101、Unity Create with Code、GAMES104 作为学习依据；报告以前看过 GAMES101 和 GAMES104，具体掌握程度尚未确认。每周 15 小时仅作预算参考，按原课问题与理解推进。
 
 开始学习从[原课程入口](learning-routes/topic-index/3d-game-client.md)进入：从 GAMES101 图形学概述与 GAMES104 引擎导论复习，再沿 Unity Unit 1 实践驾驶原型；有疑问处回看对应原理与机制。[历史系统学习包](domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[10 月 12 日计划](user-profile/progress/2026-10-12-project-review-and-next-plan.md)保留为参考。
 
-[当前导读] [Web 主线与精华](http://127.0.0.1:5173/?lab=classics&course=games101)：先看每门课在解决什么问题、原章节怎样联系，再用采样遗漏、游戏状态约束与引擎数据交接解释核心因果和取舍。按最新反馈，不再安排公式推导、代码分步与 Cocos 对照。[启动方式、来源与验证](domains/game-engine/experiments/web3d-learning/docs/classic-web.md)
+[当前入口] [原课重点摘记](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01)：按原讲次呈现标题、课内要点和出处。首批整理 GAMES101 第 1—6 讲、Unity 1.1—1.4、GAMES104 第 1—3 讲；移除当前入口的自编主线、类比和案例，不安排公式推导、代码分步与 Cocos 对照。[启动方式、来源与验证](domains/game-engine/experiments/web3d-learning/docs/classic-web.md)
 
 [历史实验] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲解空间原理。三段基础动图保留为参考。
 

@@ -1,6 +1,40 @@
 # 三门经典课的 Web 交互学习
 
-## 当前版本：主线、动机与因果
+## 当前版本：原课重点摘记
+
+2026-10-15，按最新反馈直接精简课程内容。当前页面只保留原讲标题、课内要点和可定位的出处，沿原课程讲次阅读；移除先前问题地图、自编模拟、类比和跨课程阐述。无公式推导与代码分步。
+
+| 课程 | 本批范围 | 阅读入口 | 原始材料 |
+| --- | --- | --- | --- |
+| GAMES101 | 第 1—6 讲 | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01) | [官方大纲与课件](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html) |
+| Unity Create with Code | Unit 1，Lesson 1.1—1.4，Unity 6.0 | [Lesson 1.1](http://127.0.0.1:5173/?lab=classics&course=unity&chapter=1.1) | [官方 Unit 1 教程](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0) |
+| GAMES104 | 第 1—3 讲 | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games104&chapter=01) | [官方课件列表](https://games-cn.org/games104-slides/) |
+
+### 材料核对
+
+本轮实际读取 GAMES101 的六份 PDF、GAMES104 的三份 PDF，以及 Unity 四讲的官方教程正文和 Lesson Recap。GAMES104 课件列表可通过 HTTP 正常访问，本轮使用该列表指向的官方 CDN PDF，不再以配套源码推断讲课内容。PDF 与提取缓存位于 Git 忽略的 `.tmp/course-sources/`，不随仓库分发。
+
+每条要点标注 PDF 页码或教程小节；PDF 链接定位到对应起始页。章节内部归并重复内容，中文为精简整理，并非逐字讲稿；Unity 原编程教学保留内容要点，不展示代码操作步骤。GAMES101 第 6 讲标题沿用官方目录，PDF 内容实际集中在抗锯齿，已在该讲显式注明。
+
+### 阅读与运行
+
+默认首页与 `?lab=classics` 进入摘记。支持课程／章节切换、上一讲／下一讲、浏览器前进后退、外链原文和本机阅读位置保存。`course` 指定课程，`chapter` 使用原讲次 ID；三门课分别保存阅读位置。新书签独立于历史模拟／问题地图，旧 `lesson=frame/scene/projection` 链接仍映射到对应课程。
+
+从仓库根目录执行 `powershell -NoProfile -File domains/game-engine/experiments/web3d-learning/tools/run.ps1 dev`，打开上方本地入口。使用隔离 Node 24，不修改全局 Node 18。
+
+### 本轮验证
+
+隔离 Node 24.19.0 执行 `tools/run.ps1 test`：54 项通过；`tools/run.ps1 build`：类型检查与 Vite 构建通过。新增两项验证原讲次独立书签、URL 优先级、损坏／历史书签与非法链接的恢复。其余测试覆盖历史实验，不作为原课内容准确性的证明。
+
+浏览器实际检查了三门课的章节切换、上一讲／下一讲、刷新恢复及课程间独立阅读位置。320 像素视口下三门课均无横向溢出；第 6 讲的课件范围提示可见，当前页面没有旧地图、模拟案例、代码或画布节点，检查时 error／warn 日志为空。临时视口已恢复。
+
+![原课重点摘记实际页面](../../../../../docs/game-engine/classic-courses/images/original-notes-desktop.png)
+
+[320 像素页面证据](../../../../../docs/game-engine/classic-courses/images/original-notes-mobile.png)
+
+材料整理与网页交付不代表个人已经理解，也不代表原生 Unity／Piccolo 实践已经完成。后续沿原课程顺序继续提炼。
+
+## 历史版本：主线、动机与因果（已替代）
 
 2026-10-15，学习者反馈首版过浅、核心内容未提取、讲述含糊，并进一步明确卡点为：不明白原理为什么成立、设计为什么有必要，以及缺少整门课的主线。当前不需要公式推导与代码步骤。
 

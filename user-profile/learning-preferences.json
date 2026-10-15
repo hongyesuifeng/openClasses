@@ -4,7 +4,7 @@
   "learning_style": {
     "primary": "visual",
     "secondary": "practical",
-    "description": "以选定经典课程为依据，先建立整门课的问题主线，再用简明中文和有结果差异的交互讲清设计动机、因果关系、适用条件与取舍；当前不需要公式推导或代码分步，不用术语清单与现象动画代替精华提炼"
+    "description": "直接按照选定课程的原始章节顺序，用简明中文精简提炼课内重点并附原文出处；不另编主线、类比或补充案例，当前不需要公式推导、代码步骤和 Cocos 对照"
   },
   "time_preferences": {
     "weekly_availability": 15,
@@ -19,18 +19,14 @@
   "difficulty_preference": "gradual",
   "content_preferences": {
     "format_priority": [
-      "interactive_demonstrations",
-      "animated_diagrams",
-      "visual_diagrams",
-      "hands_on_projects",
-      "comprehensive_guides",
-      "video_tutorials",
-      "documentation",
-      "research_papers"
+      "original_course_keypoint_digests",
+      "original_course_figures",
+      "source_material",
+      "web_chapter_navigation"
     ],
     "documentation_style": "structured",
-    "delivery_style": "source_course_chapters_with_ai_guided_decomposition",
-    "explanation_style": "course_structure_and_causal_reasoning_with_counterexamples",
+    "delivery_style": "original_course_keypoint_digest",
+    "explanation_style": "faithful_condensed_original_content",
     "selected_course_numbers": [1, 6, 8],
     "selected_courses": ["GAMES101", "Unity Create with Code", "GAMES104"],
     "prior_course_exposure": ["GAMES101", "GAMES104"],
@@ -41,7 +37,10 @@
     "include_cocos_comparison": false,
     "include_formula_walkthroughs": false,
     "include_code_walkthroughs": false,
-    "current_learning_needs": ["why_principles_hold_and_why_designs_are_needed", "whole_course_structure_and_concept_roles"]
+    "current_learning_needs": ["concise_keypoints_from_original_course_content", "original_chapter_order_and_traceable_sources"],
+    "include_ai_analogies": false,
+    "include_supplemental_cases": false,
+    "include_cross_course_narratives": false
   },
   "feedback_preferences": {
     "progress_updates": "weekly",

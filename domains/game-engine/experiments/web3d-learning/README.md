@@ -2,7 +2,7 @@
 
 一个 Web 工程承载经典课程的图文交互拆解与历史独立实验。当前以 GAMES101、Unity Create with Code、GAMES104 的原章节与例子为依据，不再添加 Cocos 对照。
 
-**[当前入口 · 2026-10-15 深度修订]** 打开[主线与精华](http://127.0.0.1:5173/?lab=classics&course=games101)：每门课都有原章节的问题地图、动机与因果解释，并用采样遗漏、Game Over 状态、系统交接三个案例观察结果差异。按最新要求，正文不安排公式推导与代码步骤。[本轮说明与验证](docs/classic-web.md)。首版三段场景示意及以下阶段 0—6 保留为历史参考。
+**[当前入口 · 2026-10-15 原课摘记]** 打开[原课重点摘记](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01)：按原讲次呈现标题、课内要点与出处。已整理 GAMES101 第 1—6 讲、Unity 1.1—1.4、GAMES104 第 1—3 讲。当前入口移除自编问题地图、类比、因果对照与跨课程解释；不安排公式推导、代码步骤或 Cocos 对照。[范围与验证](docs/classic-web.md)。历史实验仍保留独立入口。
 
 **[系统学习包] 2026-10-12，阶段 3—6 的 28 课已一次备齐。** [统一导读与图文讲义](docs/course-pack.md)串起模型、动画、玩法、Shader、资源与性能；四个实验台支持中间数据、暂停、逐步、恢复、异常对照与资料入口。先完成内容与校验，再由学习者逐步学习；个人理解单独登记。[校验记录与范围](docs/course-validation.md)
 
@@ -24,17 +24,17 @@ powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner install
 powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner dev
 ```
 
-启动器寻找隔离 Node 24.12+，只为当前进程选择运行时，并在本实验目录执行命令。若没有自动找到，为命令传入 `-NodePath` 指定自己的 Node 24 node.exe。默认地址或 `?lab=classics` 进入主线导读并恢复本机书签；`course=games101`、`unity`、`games104` 可直达课程。旧 `lesson` 链接映射到相应课程，首版示意保留在 `?lab=classics-demo&lesson=frame`。`?lab=course`、`motion`、`space`、`time` 保留历史阶段入口。
+启动器寻找隔离 Node 24.12+，只为当前进程选择运行时，并在本实验目录执行命令。若没有自动找到，为命令传入 `-NodePath` 指定自己的 Node 24 node.exe。默认地址或 `?lab=classics` 进入原课重点摘记并恢复本机阅读位置；`course=games101`、`unity`、`games104` 可直达课程，`chapter=01`／`1.1` 等原讲次 ID 可直达章节。旧 `lesson` 链接映射到相应课程，首版示意保留在 `?lab=classics-demo&lesson=frame`。`?lab=course`、`motion`、`space`、`time` 保留历史阶段入口。
 
 [验证] `npm test` 检查独立时间与角度逻辑；`npm run build` 执行类型检查和构建。依赖版本由 package-lock.json 固定。
 
-也可使用启动器的 `test`／`build` 命令，避免终端默认 Node 18 与学习工程要求不一致。当前 52 项测试覆盖采样、游戏状态、系统交接、课程书签，以及首版场景与历史实验的数学、模型、玩法、资源和讲义一致性。旧课程的网络链接检查与图文讲义更新方法见[校验记录](docs/course-validation.md)。
+也可使用启动器的 `test`／`build` 命令，避免终端默认 Node 18 与学习工程要求不一致。当前 54 项测试包含原课阅读位置与 URL 恢复校验，以及历史实验的模型、数学、玩法、资源和讲义一致性。历史案例模型未接入当前摘记页面。旧课程的网络链接检查与图文讲义更新方法见[校验记录](docs/course-validation.md)。
 
 ## 入口
 
 | 内容 | 入口 |
 | --- | --- |
-| 当前三门经典课的 Web 交互 | [课程主线、因果对照与来源](docs/classic-web.md) |
+| 当前三门经典课的 Web 交互 | [原课重点、章节导航与来源](docs/classic-web.md) |
 | 一次备齐的系统学习包 | [导读、28 课与实践入口](docs/course-pack.md) |
 | 四阶段交付检查 | [测试、截图、原始性能记录与边界](docs/course-validation.md) |
 | 总路线与资料导航 | [3D 客户端学习路线](../../../../learning-routes/topic-index/3d-game-client.md) |
