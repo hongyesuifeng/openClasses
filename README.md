@@ -34,6 +34,8 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 开始学习从[原课程入口](learning-routes/topic-index/3d-game-client.md)进入：从 GAMES101 图形学概述与 GAMES104 引擎导论复习，再沿 Unity Unit 1 实践驾驶原型；有疑问处回看对应原理与机制。[历史系统学习包](domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[10 月 12 日计划](user-profile/progress/2026-10-12-project-review-and-next-plan.md)保留为参考。
 
+[当前导读] [输入如何成为一帧画面](docs/game-engine/classic-courses/01-input-to-frame.md)：从 Unity 驾驶原型出发，结合 GAMES104 配套源码与 GAMES101 相机知识，区分输入、世界状态和画面生成；原课来源与辅助示意分别标明。
+
 [历史实验] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲解空间原理。三段基础动图保留为参考。
 
 [历史实验] 同日继续进入[阶段 2 场景与运动](domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md)：八个演示讲解方向、时间步长、镜头跟随、拾取与碰撞，保留原验证范围。
