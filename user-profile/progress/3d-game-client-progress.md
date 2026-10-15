@@ -1,6 +1,6 @@
 # 3D 游戏客户端学习进度
 
-[当前主线] 2026-10-15，改用 **GAMES101、Unity Create with Code、Three.js Journey** 的原始章节与例子深入学习，由 AI 辅助图文、交互与机制拆解。[三门课程入口与范围](../../learning-routes/topic-index/3d-game-client.md)已更新。此前自编课程保留为参考，历史实现与运行验证不代表个人理解已通过。
+[当前主线] 2026-10-15，确认选择清单中的 **1、6、8：GAMES101、Unity Create with Code、GAMES104**，沿原始章节与例子深入学习，由 AI 辅助图文、交互与机制拆解。[三门课程入口与范围](../../learning-routes/topic-index/3d-game-client.md)已更新。此前自编课程保留为参考，历史实现与运行验证不代表个人理解已通过。
 
 ## 当前学习接续
 
@@ -8,9 +8,9 @@
 | --- | --- | --- |
 | GAMES101 | 用户报告以前看过；本轮选为原理主线，具体理解范围尚未确认 | 顺着原课复习，对变换、相机、投影等疑问深入拆解 |
 | Unity Create with Code | 本轮选定；已核对 Unity 6.0 课程目录与 Unit 1，尚未进行原生项目实践 | 从 Lesson 1.1 Start your 3D Engines 认识驾驶原型的物体与相机 |
-| Three.js Journey | 本轮选定；Agent 已核对公开第 3 课原文，完整课程已购状态尚未确认 | 从 First scene 小节的红色立方体理解 Scene、Mesh、Camera、Renderer |
+| GAMES104 | 用户报告以前看过；本轮选为引擎机制主线，已核对官方大纲，具体理解范围尚未确认 | 从第一讲游戏引擎导论复习，结合 Unity 原型解释模块职责与协作 |
 
-[学习方式] 以原课章节、原例和来源为依据，一次拆清一个问题，图示明确关系与过程；AI 补充内容标明来源与简化范围。原有“先生成完整自编课程包”的交付偏好已由本次选择替代，不再自动接续旧 28 课。用户以前也看过 GAMES104，本轮未选为主线；不据过去观看经历提高技能评分。
+[学习方式] 以原课章节、原例和来源为依据，一次拆清一个问题，图示明确关系与过程；AI 补充内容标明来源与简化范围。原有“先生成完整自编课程包”的交付偏好已由本次选择替代，不再自动接续旧 28 课。GAMES101 与 GAMES104 均作为本轮主线；不据过去观看经历提高技能评分。
 
 [本次工作] 完成三门课程的 3D 范围与首轮入口核对，更新路线、档案、偏好与当前导航。尚未安装 Unity、运行新的原课项目或验证个人理解；本次仅修改学习安排与文档，历史测试与构建结果继续保留原日期。
 
@@ -110,7 +110,7 @@
 
 ## 资料入口
 
-- [当前三门原课程与接续入口](../../learning-routes/topic-index/3d-game-client.md) - GAMES101、Unity Create with Code、Three.js Journey
+- [当前三门原课程与接续入口](../../learning-routes/topic-index/3d-game-client.md) - GAMES101、Unity Create with Code、GAMES104
 - [10 月 12 日计划快照](2026-10-12-project-review-and-next-plan.md) - 历史四周安排与待补维护事项，逐课顺序已由当前主线替代
 - [历史系统学习包：28 课与实践入口](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md) - 按疑问查阅的实验参考
 - [本轮校验与范围](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md) - 测试、实际截图、原始采样与未实机覆盖项

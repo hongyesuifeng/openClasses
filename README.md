@@ -22,17 +22,17 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 | 领域 | 学习情况 | 核心内容 |
 |------|----------|----------|
 | **AI Agent** | 档案记录基础课程已完成，进阶按实验验证 | CS146S、Hello-Agents、OpenClaw |
-| **游戏引擎与 3D 客户端** | 已选定三门原课程深入学习，历史实验保留为参考 | GAMES101、Unity Create with Code、Three.js Journey |
+| **游戏引擎与 3D 客户端** | 已选定三门原课程深入学习，历史实验保留为参考 | GAMES101、Unity Create with Code、GAMES104 |
 | **提示工程** | 档案记录已掌握，继续实践复核 | Prompt 设计与优化 |
 | **论文研究** | 已有阅读材料与分析笔记，个人进度待登记 | AI Agent、游戏开发 AI |
 | **软件工程** | 已有方法资料与实践样例 | 设计模式、架构、重构、评审与 AI 辅助开发 |
 | **产品与用户洞察** | 已有研究方法与历史分析样例 | 用户研究、访谈、画像与 Steam 讨论分析 |
 
-当前学习主线为[三门经典课程深入学习](learning-routes/topic-index/3d-game-client.md)：GAMES101 解释成像原理，Three.js Journey 在 Web 端观察与实现，Unity Create with Code 联系 3D 游戏玩法。AI 沿原课程章节与例子，用简明图文和必要的交互拆解；实际进度见[学习记录](user-profile/progress/3d-game-client-progress.md)。此前的 Agent 评估方案作为候选资料保留。
+当前学习主线为[三门经典课程深入学习](learning-routes/topic-index/3d-game-client.md)：GAMES101 解释成像原理，Unity Create with Code 联系 3D 游戏玩法，GAMES104 解释引擎架构与模块协作。AI 沿原课程章节与例子，用简明图文和必要的交互拆解；实际进度见[学习记录](user-profile/progress/3d-game-client-progress.md)。此前的 Agent 评估方案作为候选资料保留。
 
-[当前选择] 2026-10-15，学习者反馈自编图文课程仍难理解，选择 GAMES101、Unity Create with Code、Three.js Journey 作为学习依据；报告以前看过 GAMES101 和 GAMES104，具体掌握程度尚未确认。每周 15 小时仅作预算参考，按原课问题与理解推进。
+[当前选择] 2026-10-15，学习者反馈自编图文课程仍难理解，确认选择清单中的 1、6、8：GAMES101、Unity Create with Code、GAMES104 作为学习依据；报告以前看过 GAMES101 和 GAMES104，具体掌握程度尚未确认。每周 15 小时仅作预算参考，按原课问题与理解推进。
 
-开始学习从[原课程入口](learning-routes/topic-index/3d-game-client.md)进入：先拆解 Three.js Journey 03 的 First scene，联系 GAMES101 的三维成像，再沿 Unity Unit 1 实践驾驶原型。[历史系统学习包](domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[10 月 12 日计划](user-profile/progress/2026-10-12-project-review-and-next-plan.md)保留为参考。
+开始学习从[原课程入口](learning-routes/topic-index/3d-game-client.md)进入：从 GAMES101 图形学概述与 GAMES104 引擎导论复习，再沿 Unity Unit 1 实践驾驶原型；有疑问处回看对应原理与机制。[历史系统学习包](domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[10 月 12 日计划](user-profile/progress/2026-10-12-project-review-and-next-plan.md)保留为参考。
 
 [历史实验] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲解空间原理。三段基础动图保留为参考。
 

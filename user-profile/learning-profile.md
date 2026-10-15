@@ -7,7 +7,7 @@
 - **最后更新**: 2026-10-15
 - **学习目标**: 掌握AI Agent与游戏开发的结合，构建智能游戏系统
 - **本仓库定位**: 学习、最小实验与知识沉淀；实际游戏开发和整合由独立项目承担
-- **本次更新**: 2026-10-15 选择 GAMES101、Unity Create with Code、Three.js Journey 深入学习，改为沿原课程拆解；此前自编实验保留为参考。个人理解尚未评定，技能自评仍沿用2026-04-17；历史测试结果见原日期记录
+- **本次更新**: 2026-10-15 确认选择清单中的 1、6、8：GAMES101、Unity Create with Code、GAMES104 深入学习，改为沿原课程拆解；此前自编实验保留为参考。个人理解尚未评定，技能自评仍沿用2026-04-17；历史测试结果见原日期记录
 
 ## 学习偏好
 
@@ -114,9 +114,9 @@
    - 相关文档: godot-learning-guide.md, godot-architecture.md, godot-source-learning/
 
 4. **三门经典课程深入学习**（2026-10-15 选定）
-   - 课程: GAMES101、Unity Create with Code、Three.js Journey
+   - 课程: GAMES101、Unity Create with Code、GAMES104（清单编号 1、6、8）
    - 已有经历: 用户报告以前看过 GAMES101 和 GAMES104，具体章节与理解程度尚未确认
-   - 当前状态: 原课范围与首轮入口已核对；从 Three.js Journey 03 的 First scene 建立成像直觉，结合 GAMES101 原理复习，再沿 Unity Unit 1 进入驾驶原型
+   - 当前状态: 原课范围与首轮入口已核对；从 GAMES101 图形学概述和 GAMES104 引擎导论复习，再沿 Unity Unit 1 进入驾驶原型
    - 学习依据: [当前路线与原始资料](../learning-routes/topic-index/3d-game-client.md)，以原课顺序和原例为主线
 
 ### 计划学习课程
@@ -170,10 +170,10 @@
 
 ## 当前学习主线与方向储备
 
-当前主线为三门原课程的深入学习：GAMES101 解释图形学原理，Three.js Journey 在 Web 端观察与实现，Unity Create with Code 联系 3D 游戏玩法。后续按原章节拆解原例，Cocos 映射在相关问题出现时补充。此前自编 Web 实验与 Tuntun 案例保留为参考，正式游戏整合仍在独立项目进行。
+当前主线为三门原课程的深入学习：GAMES101 解释图形学原理，Unity Create with Code 联系 3D 游戏玩法，GAMES104 解释引擎架构与模块协作。后续按原章节拆解原例，Cocos 映射在相关问题出现时补充。此前自编 Web 实验与 Tuntun 案例保留为参考，正式游戏整合仍在独立项目进行。
 
 - **当前学习路线**: [三门课程范围与原始资料](../learning-routes/topic-index/3d-game-client.md)，每周 15 小时仅作预算参考，按理解与实践推进
-- **开始学习**: 从 Three.js Journey 03 First scene 的红色立方体看场景、网格、相机与渲染器；以 GAMES101 复习成像原理，再沿 Unity 原型实践
+- **开始学习**: 从 GAMES101 图形学概述与 GAMES104 引擎导论复习，结合 Unity Unit 1 驾驶原型理解画面、输入与玩法；有疑问处回看对应原理与机制
 - **实际成果**: [3D 学习进度](progress/3d-game-client-progress.md)，阶段 0 至 2 首版及阶段 3 至 6 系统学习包已有证据；个人理解和技能自评仍待复核
 - **系统复习资料**: [六领域图解与自测](../docs/general/2026-10-08-learning-review-visual.md)，[详细解释与答案](../docs/general/2026-10-08-learning-review.md)按需查阅
 - **当前安排**: 按选定原课程逐段学习；原[10 月 12 日计划](progress/2026-10-12-project-review-and-next-plan.md)保留为历史快照，不再自动接续旧 28 课。个人理解在自然交流与实际观察中确认，不强制填写或手算
