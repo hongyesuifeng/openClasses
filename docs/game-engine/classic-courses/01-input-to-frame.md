@@ -4,6 +4,8 @@
 
 本次围绕 GAMES104 的引擎导论，用其配套 Piccolo 的官方源码解释更新与渲染的关系，再联系 Unity 驾驶原型和 GAMES101 的成像知识。下面的分步图与数值例子是辅助解释，不是三门课程共同发布的实验。
 
+[打开 Web 分步交互](http://127.0.0.1:5173/?lab=classics&lesson=frame)：观察世界状态与相机画面，支持上一步、下一步、重看与本机书签。同一入口也可切换场景与相机、距离与透视两个问题；[启动与交互说明](../../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
+
 ## 先沿着一辆车看过程
 
 Unity [Lesson 1.1](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-1-start-your-3d-engines?version=6.0)先把车、障碍和相机放进场景。[Lesson 1.4](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0)才把输入读进脚本，用前后输入控制移动、左右输入控制转向。
@@ -75,10 +77,6 @@ flowchart LR
 理解这里的分工后，再读 Update、相机或渲染代码，就可以先判断它影响的是世界状态、观察方式，还是画面生成。
 
 ![辅助示意在绘制阶段的实际画面](images/01-input-to-frame.jpg)
-
-## 对应到 Cocos
-
-在 Cocos 中，可以在组件的 `update(dt)` 中根据输入修改 Node 的位置，Camera 和渲染系统再参与画面生成。Node 的变换数据、组件更新、相机和绘制各有职责；这层区分可以迁移，具体调度顺序和 API 仍按 Cocos 实现核对。[本地场景与组件资料](../../../domains/game-engine/guides/cocos-source-learning/02-scene-graph/README.md)
 
 ## 原课接续位置
 

@@ -1,6 +1,8 @@
 # Web3D 客户端学习实验
 
-一个 Web 工程承载多个独立实验，使用 TypeScript + Three.js，并用原生 WebGL 小实验观察底层渲染过程。每个实验同时说明 Cocos 对应机制，Tuntun 玩法作为学习案例。
+一个 Web 工程承载经典课程的图文交互拆解与历史独立实验。当前以 GAMES101、Unity Create with Code、GAMES104 的原章节与例子为依据，不再添加 Cocos 对照。
+
+**[当前入口 · 2026-10-15]** 打开[经典课交互学习](http://127.0.0.1:5173/?lab=classics&lesson=frame)：输入到画面、场景与相机、距离与透视三个可操作问题，保留原课来源、公式展开与本机书签。[本轮说明与验证](docs/classic-web.md)。以下阶段 0—6 为历史实验资料，不作为三门原课的章节安排。
 
 **[系统学习包] 2026-10-12，阶段 3—6 的 28 课已一次备齐。** [统一导读与图文讲义](docs/course-pack.md)串起模型、动画、玩法、Shader、资源与性能；四个实验台支持中间数据、暂停、逐步、恢复、异常对照与资料入口。先完成内容与校验，再由学习者逐步学习；个人理解单独登记。[校验记录与范围](docs/course-validation.md)
 
@@ -22,16 +24,17 @@ powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner install
 powershell -NoProfile -ExecutionPolicy Bypass -File $labRunner dev
 ```
 
-启动器寻找隔离 Node 24.12+，只为当前进程选择运行时，并在本实验目录执行命令。若没有自动找到，为命令传入 `-NodePath` 指定自己的 Node 24 node.exe。打开终端给出的地址，`?lab=course` 进入系统课程，`?lab=motion` 进入阶段 2，`?lab=space` 进入阶段 1，`?lab=time` 进入阶段 0；默认地址保留阶段 0。
+启动器寻找隔离 Node 24.12+，只为当前进程选择运行时，并在本实验目录执行命令。若没有自动找到，为命令传入 `-NodePath` 指定自己的 Node 24 node.exe。默认地址或 `?lab=classics` 进入经典课拆解，自动恢复本机书签；带 `lesson=frame`、`scene`、`projection` 可直达指定问题。`?lab=course` 进入历史系统课程，`?lab=motion` 进入阶段 2，`?lab=space` 进入阶段 1，`?lab=time` 进入阶段 0。
 
 [验证] `npm test` 检查独立时间与角度逻辑；`npm run build` 执行类型检查和构建。依赖版本由 package-lock.json 固定。
 
-也可使用启动器的 `test`／`build` 命令，避免终端默认 Node 18 与学习工程要求不一致。43 项测试覆盖基础数学与运动、真实模型解析、角色资产校验、蒙皮、战斗规则、资源租约、池化、Shader 清理、采样及讲义一致性。网络链接检查与图文讲义更新方法见[校验记录](docs/course-validation.md)。
+也可使用启动器的 `test`／`build` 命令，避免终端默认 Node 18 与学习工程要求不一致。当前 47 项测试覆盖经典课的数据流、相机投影与书签恢复，以及历史数学、运动、模型、蒙皮、玩法、资源、Shader 与讲义一致性。旧课程的网络链接检查与图文讲义更新方法见[校验记录](docs/course-validation.md)。
 
 ## 入口
 
 | 内容 | 入口 |
 | --- | --- |
+| 当前三门经典课的 Web 交互 | [首批三个问题、操作与来源](docs/classic-web.md) |
 | 一次备齐的系统学习包 | [导读、28 课与实践入口](docs/course-pack.md) |
 | 四阶段交付检查 | [测试、截图、原始性能记录与边界](docs/course-validation.md) |
 | 总路线与资料导航 | [3D 客户端学习路线](../../../../learning-routes/topic-index/3d-game-client.md) |
@@ -80,10 +83,10 @@ flowchart TB
 | 实现 | 关键代码及数据流；标明库完成的工作 |
 | 过程 | 参数、中间数据、状态、播放时间或事件记录 |
 | 结果 | 可重复的操作与预期结果 |
-| Cocos 对照 | 机制、API／源码入口、实现差异与迁移检查 |
+| 原课依据 | 具体章节、原文入口、辅助示意的简化范围 |
 | 理解 | 自测答案、验证结论和尚未验证的问题 |
 
-玩法规则组织为独立 TypeScript 模块，渲染适配层展示结果。学习页面采用实验选择、3D 画面、参数与过程、原理和 Cocos 对照的组织方式，复杂内容按需展开。
+玩法规则组织为独立 TypeScript 模块，渲染适配层展示结果。当前学习页面围绕原课问题、可操作图示、中间状态、原理与来源展开，复杂内容按需查看。
 
 ## 阶段 0 的工程准备约束
 
@@ -92,4 +95,4 @@ flowchart TB
 - 使用桌面 Chrome／Edge 的 WebGL2。依赖由工程管理，实验代码不依赖外部 CDN 在运行时加载库。
 - 阶段检查按文档事实、纯逻辑、生命周期与浏览器运行分别执行，通过后在主仓库 main 提交推送。
 
-本目录用于学习验证。实际游戏整合与 Cocos 复现后续在明确的项目边界内安排。
+本目录用于学习验证。实际游戏整合后续在明确的项目边界内安排。

@@ -10,7 +10,7 @@ let bookmark='';try{bookmark=localStorage.getItem('web3d-course-bookmark')||'';}
 const abort=new AbortController(),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 let running=!reduced.matches,time=0,last=0,raf=0,epoch=0,bench:Workbench|null=null,disposed=false,lastReadout=0;
 app.innerHTML=`<header class="page-header"><div class="brand"><span class="brand-mark">3D</span> openClasses <span class="separator">/</span> 系统课程</div>
-  <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=time">0 帧循环</a><a href="?lab=space">1 空间数学</a><a href="?lab=motion">2 场景与运动</a><a href="?lab=course" aria-current="page">3—6 系统课程</a></nav></header>
+  <nav class="lab-navigation" aria-label="学习实验"><a href="?lab=classics">当前三门经典课</a><a href="?lab=time">0 帧循环</a><a href="?lab=space">1 空间数学</a><a href="?lab=motion">2 场景与运动</a><a href="?lab=course" aria-current="page">3—6 系统课程</a></nav></header>
   <section class="intro" id="course-start"><p class="eyebrow">先备好整套内容，再按自己的节奏学习</p><h1>从模型到规则，从像素到成本。</h1><p class="lead">[课程范围] 四阶段、28 课，图解配合可操作实验。已有的阶段 0—2 可从顶部进入；当前阅读位置仅作书签。</p></section>
   <nav class="course-stages" aria-label="课程阶段">${stages.map(s=>`<button data-lesson="${s.first}" data-stage="${s.id}"><span>阶段 ${s.id}</span><strong>${s.title}</strong><small>${s.description}</small></button>`).join('')}</nav>
   <div class="course-resume"><span id="course-position"></span>${lessons.some(l=>l.id===bookmark)?`<button data-lesson="${esc(bookmark)}" class="text-button">回到上次阅读位置</button>`:''}<a href="#course-catalog">查看完整目录 ↓</a></div>

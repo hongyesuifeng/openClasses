@@ -36,7 +36,9 @@
     "prior_course_exposure": ["GAMES101", "GAMES104"],
     "course_chapter_structure": "follow_original_course_order",
     "text_density": "concise",
-    "preferred_chapter_format": "original_course_sections"
+    "preferred_chapter_format": "original_course_sections",
+    "preferred_delivery_surface": "web_interactive",
+    "include_cocos_comparison": false
   },
   "feedback_preferences": {
     "progress_updates": "weekly",

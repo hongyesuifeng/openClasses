@@ -36,6 +36,8 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 [当前导读] [输入如何成为一帧画面](docs/game-engine/classic-courses/01-input-to-frame.md)：从 Unity 驾驶原型出发，结合 GAMES104 配套源码与 GAMES101 相机知识，区分输入、世界状态和画面生成；原课来源与辅助示意分别标明。
 
+[Web 交互学习](http://127.0.0.1:5173/?lab=classics&lesson=frame)已作为学习工程首页，当前提供输入到画面、场景与相机、距离与透视三个问题；后续沿三门原课推进，不再添加 Cocos 对照。[启动方式与本轮说明](domains/game-engine/experiments/web3d-learning/docs/classic-web.md)
+
 [历史实验] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲解空间原理。三段基础动图保留为参考。
 
 [历史实验] 同日继续进入[阶段 2 场景与运动](domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md)：八个演示讲解方向、时间步长、镜头跟随、拾取与碰撞，保留原验证范围。
