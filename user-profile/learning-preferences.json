@@ -4,7 +4,7 @@
   "learning_style": {
     "primary": "visual",
     "secondary": "practical",
-    "description": "以选定经典课程的原章节和原例为依据，用简明中文、机制图和必要的交互逐段拆解；说明原因、关键计算与适用条件，不堆叠概念，不强制填写、手算或答题"
+    "description": "以选定经典课程为依据，先建立整门课的问题主线，再用简明中文和有结果差异的交互讲清设计动机、因果关系、适用条件与取舍；当前不需要公式推导或代码分步，不用术语清单与现象动画代替精华提炼"
   },
   "time_preferences": {
     "weekly_availability": 15,
@@ -30,7 +30,7 @@
     ],
     "documentation_style": "structured",
     "delivery_style": "source_course_chapters_with_ai_guided_decomposition",
-    "explanation_style": "source_examples_with_concise_diagrams_interactions_and_mechanisms",
+    "explanation_style": "course_structure_and_causal_reasoning_with_counterexamples",
     "selected_course_numbers": [1, 6, 8],
     "selected_courses": ["GAMES101", "Unity Create with Code", "GAMES104"],
     "prior_course_exposure": ["GAMES101", "GAMES104"],
@@ -38,7 +38,10 @@
     "text_density": "concise",
     "preferred_chapter_format": "original_course_sections",
     "preferred_delivery_surface": "web_interactive",
-    "include_cocos_comparison": false
+    "include_cocos_comparison": false,
+    "include_formula_walkthroughs": false,
+    "include_code_walkthroughs": false,
+    "current_learning_needs": ["why_principles_hold_and_why_designs_are_needed", "whole_course_structure_and_concept_roles"]
   },
   "feedback_preferences": {
     "progress_updates": "weekly",

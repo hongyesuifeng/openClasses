@@ -126,7 +126,7 @@ function selectLesson(id: ClassicLessonId, focus = false) {
   const lesson = classicLessons.find(item => item.id === id)!;
   const index = classicLessons.indexOf(lesson);
   document.title = `${lesson.title} · 经典课拆解`;
-  history.replaceState(null, '', `?lab=classics&lesson=${id}`);
+  history.replaceState(null, '', `?lab=classics-demo&lesson=${id}`);
   el('classic-chapter').textContent = `${lesson.course} / ${lesson.chapter}`;
   for (const [target, value] of Object.entries({ title: lesson.title, question: lesson.question, try: lesson.try, takeaway: lesson.takeaway, detail: lesson.detail, formula: lesson.formula, condition: lesson.condition })) el(`classic-${target}`).textContent = value;
   el('classic-next-source').textContent = `沿原课接续：${lesson.next}`;

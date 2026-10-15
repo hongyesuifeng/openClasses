@@ -22,9 +22,9 @@ flowchart LR
 
 ### 当前导读入口
 
-[Web 交互学习](http://127.0.0.1:5173/?lab=classics&lesson=frame)为当前入口：输入到画面、场景与相机、距离与透视三个问题均可操作，附原课章节、简化条件与原课程接续位置。启动和本轮范围见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。按学习者最新要求，不再添加 Cocos 对照；书签只保存阅读位置。
+[Web 主线与精华](http://127.0.0.1:5173/?lab=classics&course=games101)为当前入口：每门课先给原章节的问题地图，再用采样遗漏、Game Over 状态约束、系统数据交接三个对照解释设计动机与因果关系。当前不安排公式推导、代码步骤或 Cocos 对照；首版三段场景示意保留为历史参考。启动和本轮范围见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
 
-[首段讲解已提供] [输入如何成为一帧画面](../../docs/game-engine/classic-courses/01-input-to-frame.md)：围绕 GAMES104 引擎导论，读取配套 Piccolo 的逻辑更新、数据交换与渲染代码，对照 Unity 1.1／1.4 和 GAMES101 相机知识。分步交互与数值例子作为辅助示意；个人理解尚未评定。
+[首版参考] [输入如何成为一帧画面](../../docs/game-engine/classic-courses/01-input-to-frame.md)保留最初的分步示意与资料核对，不再作为当前学习入口。学习者反馈其缺少课程主线与深度，网页已据此重做；个人理解尚未评定。
 
 首轮从 GAMES101 的图形学概览与 GAMES104 的引擎导论复习，再沿 Unity Unit 1 进入驾驶原型。每次围绕原课的一个小节推进，不要求同时完成三门课程的同类章节；熟悉部分简要回顾，有疑问的中间过程展开解释。
 
@@ -35,7 +35,7 @@ flowchart LR
 | [GAMES101 Lecture 04：Transformation](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf)，课件标号第 12 页起 | 摆放物体、摆放相机、投影成像分别改变什么？ | 已核对课件；遇到对应问题时回看，不跳过第 2、3 讲中尚不熟悉的基础 |
 | [Unity Unit 1：Player Control](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0)，Lesson 1.1 Start your 3D Engines | 驾驶场景中的物体和相机怎样组织？ | 已核对目录，原生 Unity 实践尚未开始 |
 
-[讲解约定] 先给原课章节和具体问题，再用简明中文解释、标明关系的机制图和必要的单变量交互拆解；保留原理、关键计算与适用条件，避免把多个概念并列堆放。AI 补充图、类比和实验标明对应原课与简化范围；不把 AI 补充内容称为原作者讲授内容，不要求填写、手算或提交答案。
+[讲解约定] 先建立整门课的核心问题及章节关系，再解释某个方法为何有必要、怎样解决矛盾、代价与失效条件是什么。当前不需要公式推导与代码步骤；正文保留因果推理与具体反例。AI 提炼、补充图和案例标明原课依据与简化范围，不称为原作者逐字讲授内容，不要求填写、手算或提交答案。
 
 [材料与进度] GAMES104 的前置知识包括线性代数、数据结构、算法与 C++；原课侧重引擎架构与机制，具体工具操作由 Unity 课程承担。每周 15 小时仅作预算参考，不据原课视频时长推定完成日期。选定、原文核对、实际学习、理解与实践分别登记，见[学习进度](../../user-profile/progress/3d-game-client-progress.md)。本轮实现 Web 辅助交互，未安装 Unity 或运行原课项目。
 

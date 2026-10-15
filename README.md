@@ -34,9 +34,7 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 开始学习从[原课程入口](learning-routes/topic-index/3d-game-client.md)进入：从 GAMES101 图形学概述与 GAMES104 引擎导论复习，再沿 Unity Unit 1 实践驾驶原型；有疑问处回看对应原理与机制。[历史系统学习包](domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[10 月 12 日计划](user-profile/progress/2026-10-12-project-review-and-next-plan.md)保留为参考。
 
-[当前导读] [输入如何成为一帧画面](docs/game-engine/classic-courses/01-input-to-frame.md)：从 Unity 驾驶原型出发，结合 GAMES104 配套源码与 GAMES101 相机知识，区分输入、世界状态和画面生成；原课来源与辅助示意分别标明。
-
-[Web 交互学习](http://127.0.0.1:5173/?lab=classics&lesson=frame)已作为学习工程首页，当前提供输入到画面、场景与相机、距离与透视三个问题；后续沿三门原课推进，不再添加 Cocos 对照。[启动方式与本轮说明](domains/game-engine/experiments/web3d-learning/docs/classic-web.md)
+[当前导读] [Web 主线与精华](http://127.0.0.1:5173/?lab=classics&course=games101)：先看每门课在解决什么问题、原章节怎样联系，再用采样遗漏、游戏状态约束与引擎数据交接解释核心因果和取舍。按最新反馈，不再安排公式推导、代码分步与 Cocos 对照。[启动方式、来源与验证](domains/game-engine/experiments/web3d-learning/docs/classic-web.md)
 
 [历史实验] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲解空间原理。三段基础动图保留为参考。
 
