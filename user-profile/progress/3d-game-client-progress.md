@@ -1,8 +1,22 @@
 # 3D 游戏客户端学习进度
 
-方向已确定为 Web 实验与 Cocos 原理映射。[系统交付] 2026-10-12，阶段 0 至 2 首版保留，阶段 3 至 6 的 28 课入门内容、四个实验台与图文讲义一次备齐，个人理解尚未评定。[统一学习入口](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[校验记录](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md)已建立。参考每周 15 小时、核心 24 周，实际学习节奏自行安排。
+[当前主线] 2026-10-15，改用 **GAMES101、Unity Create with Code、Three.js Journey** 的原始章节与例子深入学习，由 AI 辅助图文、交互与机制拆解。[三门课程入口与范围](../../learning-routes/topic-index/3d-game-client.md)已更新。此前自编课程保留为参考，历史实现与运行验证不代表个人理解已通过。
 
 ## 当前学习接续
+
+| 课程 | 用户经历与当前状态 | 下一步 |
+| --- | --- | --- |
+| GAMES101 | 用户报告以前看过；本轮选为原理主线，具体理解范围尚未确认 | 顺着原课复习，对变换、相机、投影等疑问深入拆解 |
+| Unity Create with Code | 本轮选定；已核对 Unity 6.0 课程目录与 Unit 1，尚未进行原生项目实践 | 从 Lesson 1.1 Start your 3D Engines 认识驾驶原型的物体与相机 |
+| Three.js Journey | 本轮选定；Agent 已核对公开第 3 课原文，完整课程已购状态尚未确认 | 从 First scene 小节的红色立方体理解 Scene、Mesh、Camera、Renderer |
+
+[学习方式] 以原课章节、原例和来源为依据，一次拆清一个问题，图示明确关系与过程；AI 补充内容标明来源与简化范围。原有“先生成完整自编课程包”的交付偏好已由本次选择替代，不再自动接续旧 28 课。用户以前也看过 GAMES104，本轮未选为主线；不据过去观看经历提高技能评分。
+
+[本次工作] 完成三门课程的 3D 范围与首轮入口核对，更新路线、档案、偏好与当前导航。尚未安装 Unity、运行新的原课项目或验证个人理解；本次仅修改学习安排与文档，历史测试与构建结果继续保留原日期。
+
+## 历史实验导读
+
+### 2026-10-14 法线与骨骼
 
 [导读位置] 2026-10-14，学习者要求继续最新课程，按现有计划从 UV 接续[第 4 课法线与材质、第 5 课骨骼与绑定姿态](../../domains/game-engine/experiments/web3d-learning/docs/course-stage-3.md)。交互页面保留在[第 5 课骨骼](http://127.0.0.1:5173/?lab=course&lesson=bones)，已加载现成角色并暂停，可继续演示或逐步观察；下一课为[第 6 课蒙皮权重](http://127.0.0.1:5173/?lab=course&lesson=skin)。
 
@@ -96,14 +110,15 @@
 
 ## 资料入口
 
-- [最新进展与下一步计划](2026-10-12-project-review-and-next-plan.md) - 四周首轮安排、下一次 55 分钟接续与待补维护事项
-- [系统学习包：28 课与实践入口](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md) - 当前连续学习入口
+- [当前三门原课程与接续入口](../../learning-routes/topic-index/3d-game-client.md) - GAMES101、Unity Create with Code、Three.js Journey
+- [10 月 12 日计划快照](2026-10-12-project-review-and-next-plan.md) - 历史四周安排与待补维护事项，逐课顺序已由当前主线替代
+- [历史系统学习包：28 课与实践入口](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md) - 按疑问查阅的实验参考
 - [本轮校验与范围](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md) - 测试、实际截图、原始采样与未实机覆盖项
 
-- [核心知识图册](../../docs/game-engine/3d-client-core-visual.md) - 当前优先阅读入口
-- [阶段 1 动图与简明讲解](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md) - 当前观看原理动画即可
+- [核心知识图册](../../docs/game-engine/3d-client-core-visual.md) - 历史图示参考
+- [阶段 1 动图与简明讲解](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md) - 历史空间数学演示
 - [阶段 1 演示规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-01-spec.md)
-- [阶段 2 场景与运动](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md) - 当前入口，动画配合原理、公式与条件
+- [阶段 2 场景与运动](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-lab.md) - 历史运动演示，保留原理、公式与条件
 - [阶段 2 规格](../../domains/game-engine/experiments/web3d-learning/docs/stage-02-spec.md)
 - [阶段 0 动手实践与验证记录](../../domains/game-engine/experiments/web3d-learning/docs/stage-00-lab.md) - 已读基础后从这里开始
 - [前四周学习内容与资料安排](3d-game-client-month-01.md)

@@ -1,8 +1,44 @@
 # 3D 游戏客户端学习路线
 
-以 TypeScript + Three.js 开展 Web 实验，用原生 WebGL 拆解关键渲染机制。每个主题说明原理、实现过程、中间数据和 Cocos 对应机制。Tuntun 提供吞噬进化案例，正式游戏整合在独立项目进行。
+## 当前主线：三门原课程深入学习
 
-**[系统交付] 2026-10-12，阶段 0 至 2 首版保留，阶段 3 至 6 的 28 课入门学习包、四个实验台与图文讲义已一次备齐。** 从[系统学习包](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md)按顺序学习；实现与校验见[交付记录](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md)，个人理解尚未评定。阶段 0 尚未验证的边界继续保留。
+[2026-10-15 用户选择] 学习者反馈此前自编图文课程仍难理解，要求先调研经典资料，再沿特定原课程拆解。现已选定 **GAMES101、Unity Create with Code、Three.js Journey**；此前看过 GAMES101 和 GAMES104，具体掌握范围尚未确认。旧阶段实验和验证记录保留为参考，后续讲解以原课程的章节、图示和例子为依据。
+
+| 原课程与官方入口 | 实际涉及的 3D 内容 | 本轮用途 |
+| --- | --- | --- |
+| [GAMES101：现代计算机图形学入门](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html) | 三维变换与投影、光栅化、着色、几何、光线追踪、相机、动画与模拟 | 原理主线；按原课顺序复习，已熟悉部分简要回顾，有疑问处展开 |
+| [Unity Create with Code](https://learn.unity.com/course/create-with-code) | 用 C# 开发 3D 原型，涵盖玩家控制、基础玩法、物理、动画、音效与 UI；[Unit 1](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0)从驾驶原型开始 | 游戏开发实践；沿原型解释输入、更新、碰撞和状态，不扩展为正式游戏项目 |
+| [Three.js Journey](https://threejs-journey.com/) | 三维场景、变换、相机、几何、材质、光照、模型、物理、Shader，后续含 Blender 与小型游戏实践 | Web 端观察与实现；保留 JavaScript 原例，TypeScript 仅在有助于理解时补充 |
+
+上表是学习用途的安排，不是原课程共同发布的教学大纲。GAMES101 解释成像原理，Three.js Journey 观察浏览器中的实现，Unity 把相近概念放进可操作玩法中；各课保留自己的术语、坐标约定和章节顺序。
+
+```mermaid
+flowchart LR
+    A[GAMES101 原理与推导] --> B[Three.js Journey 原例与画面]
+    B --> C[Unity 原型中的输入与玩法]
+    B -.画面解释不清.-> A
+    C -.出现空间或渲染疑问.-> A
+```
+
+### 当前导读入口
+
+首轮先建立“一个三维物体怎样出现在屏幕上”的直觉，再逐步进入变换和摄像机。每次围绕原课的一个小节推进，不要求同时完成三门课程的同类章节。
+
+| 原课位置 | 要弄清的问题 | 本次状态 |
+| --- | --- | --- |
+| [Three.js Journey 03：First Three.js Project](https://threejs-journey.com/lessons/first-threejs-project)，First scene 小节 | 原例红色立方体中，Scene、Mesh、Camera、Renderer 分别负责什么？ | 已核对公开正文与原例；作为第一段拆解入口 |
+| [GAMES101 Lecture 04：Transformation](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf)，课件标号第 12 页起 | 摆放物体、摆放相机、投影成像分别改变什么？ | 已核对课件；遇到对应问题时回看，不跳过第 2、3 讲中尚不熟悉的基础 |
+| [Unity Unit 1：Player Control](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0)，Lesson 1.1 Start your 3D Engines | 驾驶场景中的物体和相机怎样组织？ | 已核对目录，原生 Unity 实践尚未开始 |
+
+[讲解约定] 先给原课章节和具体问题，再用简明中文解释、标明关系的机制图和必要的单变量交互拆解；保留原理、关键计算与适用条件，避免把多个概念并列堆放。AI 补充图、类比和实验标明对应原课与简化范围；不把 AI 补充内容称为原作者讲授内容，不要求填写、手算或提交答案。
+
+[材料与进度] Three.js Journey 完整课程为付费内容，已购状态尚未确认；当前从官网标记为免费的第 3 课公开内容开始，后续依据实际可访问的材料推进。每周 15 小时仅作预算参考，不据原课视频时长推定完成日期。选定、原文核对、实际学习、理解与实践分别登记，见[学习进度](../../user-profile/progress/3d-game-client-progress.md)。本次未安装 Unity、下载课程项目或修改旧实验代码。
+
+## 历史路线与实验记录
+
+以下保留 2026-10-08 至 14 日的原安排和证据，不作为当前逐课学习顺序。历史主线以 TypeScript + Three.js 开展 Web 实验，用原生 WebGL 拆解关键渲染机制，并映射 Cocos。Tuntun 提供吞噬进化案例，正式游戏整合在独立项目进行。
+
+**[历史系统交付] 2026-10-12，阶段 0 至 2 首版保留，阶段 3 至 6 的 28 课入门学习包、四个实验台与图文讲义已一次备齐。** [系统学习包](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md)保留为参考；实现与校验见[交付记录](../../domains/game-engine/experiments/web3d-learning/docs/course-validation.md)，个人理解尚未评定。阶段 0 尚未验证的边界继续保留。
 
 [交付方式修订] 学习者明确要求先系统生成、校验完整内容，再交付逐步学习；后续交流围绕已交付内容讲解、答疑和实践，不再临时逐课生成。
 

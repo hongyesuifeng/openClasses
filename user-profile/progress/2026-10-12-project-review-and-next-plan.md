@@ -1,5 +1,7 @@
 # openClasses 当前进展与下一步学习计划
 
+[历史快照] 2026-10-15，学习者改选 GAMES101、Unity Create with Code、Three.js Journey 沿原课程深入学习。下文保留 10 月 12 日的检查与四周安排，不再作为当前逐课接续顺序；最新入口见[三门课程路线](../../learning-routes/topic-index/3d-game-client.md)与[当前进度](3d-game-client-progress.md)。
+
 截至 2026-10-12，3D 客户端主线已经具备阶段 0—6 的入门教学内容：阶段 0 的帧循环实验、阶段 1 的 10 个原理动画、阶段 2 的 8 个运动原理，以及阶段 3—6 的 28 课和四个实验台。下一步使用[现有系统学习包](../../domains/game-engine/experiments/web3d-learning/docs/course-pack.md)，先接续场景与运动，再学习资产与动画。
 
 以下四周是首轮导读与小实践，参考[学习偏好](../learning-preferences.json)中的每周 15 小时，共 60 小时；不是完成全部 24 周路线或掌握所有技能的期限。若某个机制仍不清楚，使用当周缓冲回看动画，后续内容顺延。个人理解在自然交流与操作中确认，不要求填写、手算或提交答案。
