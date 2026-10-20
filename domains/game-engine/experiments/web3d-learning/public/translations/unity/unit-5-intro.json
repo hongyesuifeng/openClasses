@@ -3,7 +3,7 @@
   "chapter": "unit-5-intro",
   "title": "第五单元：用户界面导读",
   "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/unit-5-introduction?version=6.0",
-  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "scope": "按官方原小节提炼课程目的、概念与完成条件，非全文翻译；源码、截图及视频操作请对照原资料。",
   "sections": [
     {
       "id": "part-1",
@@ -13,7 +13,7 @@
         1
       ],
       "paragraphs": [
-        "本单元加入标题、难度选择、分数和结束界面，让玩家能够开始、游玩和重玩。"
+        "第五单元把原型串成可从开始体验到结束的游戏：标题界面提供难度选择，游玩中显示得分，失败后允许重玩。文字、按钮与状态反馈都是 UI，作用不仅是装饰，还承担实际操作入口。"
       ]
     }
   ]

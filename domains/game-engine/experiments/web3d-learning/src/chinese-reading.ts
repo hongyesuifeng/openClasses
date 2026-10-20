@@ -1,6 +1,10 @@
 import './chinese-reading.css';
 import { escapeHtml as esc } from './workbench.ts';
 import { findChineseReadingTarget, parseChineseReadingDocument } from './chinese-reading-model.ts';
+import type { ChineseReadingComparison } from './chinese-reading-model.ts';
+
+const comparisonHtml = (comparison: ChineseReadingComparison | undefined) => comparison
+  ? `<figure class="reading-comparison"><figcaption>${esc(comparison.title)}</figcaption>${comparison.rows.map(row => `<div class="reading-flow-row"><p class="reading-flow-label">${esc(row.label)}</p><ol class="reading-flow-steps" aria-label="${esc(row.label)}">${row.steps.map((step, index) => `<li>${index ? '<span class="reading-flow-arrow" aria-hidden="true"></span>' : ''}<span class="reading-flow-step">${esc(step)}</span></li>`).join('')}</ol><p class="reading-flow-result">${esc(row.result)}</p></div>`).join('')}<p class="reading-flow-caption">${esc(comparison.caption)}</p></figure>` : '';
 
 const app = document.querySelector<HTMLElement>('#app')!;
 document.body.classList.add('chinese-reading-background');
@@ -30,9 +34,9 @@ try {
     });
     const source = chapter.source.endsWith('.pdf') && section.sourcePages?.length
       ? `${chapter.source}#page=${section.sourcePages[0]}` : chapter.source;
-    return `<section class="reading-section" id="${esc(section.id)}">${sourceAnchors.map(anchor => `<span class="reading-anchor" id="${anchor}"></span>`).join('')}<h2>${esc(section.title)}</h2><a class="reading-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">${esc(section.sourceLabel)} ↗</a>${section.paragraphs.map(paragraph => `<p>${esc(paragraph)}</p>`).join('')}</section>`;
+    return `<section class="reading-section" id="${esc(section.id)}">${sourceAnchors.map(anchor => `<span class="reading-anchor" id="${anchor}"></span>`).join('')}<h2>${esc(section.title)}</h2><a class="reading-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">${esc(section.sourceLabel)} ↗</a>${section.paragraphs.map(paragraph => `<p>${esc(paragraph)}</p>`).join('')}${comparisonHtml(section.comparison)}</section>`;
   }).join('');
-  app.innerHTML = `${header}<main class="reading-document"><header class="reading-heading"><p>${esc(course.name)} · ${esc(chapter.number)}</p><h1>${esc(documentData.title)}</h1><p class="reading-kind">中文学习整理 · 非全文翻译</p><details class="reading-scope"><summary>内容与来源说明</summary><p>${esc(documentData.scope)}</p></details><a class="reading-original" href="${esc(chapter.source)}" target="_blank" rel="noopener noreferrer">对照原始资料 ↗</a></header><details class="reading-outline"><summary>本篇目录 · ${documentData.sections.length} 节</summary><nav aria-label="中文文档目录">${documentData.sections.map(section => `<a href="#${esc(section.id)}">${esc(section.title)}</a>`).join('')}</nav></details>${sections}<footer class="reading-footer"><a href="${back}">← 返回 ${esc(chapter.number)} 的课程摘记</a></footer></main>`;
+  app.innerHTML = `${header}<main class="reading-document"><header class="reading-heading"><p>${esc(course.name)} · ${esc(chapter.number)}</p><h1>${esc(documentData.title)}</h1><p class="reading-kind">原课重点 · 中文提炼</p><details class="reading-scope"><summary>内容与来源说明</summary><p>${esc(documentData.scope)}</p></details><a class="reading-original" href="${esc(chapter.source)}" target="_blank" rel="noopener noreferrer">对照原始资料 ↗</a></header><details class="reading-outline"><summary>本篇目录 · ${documentData.sections.length} 节</summary><nav aria-label="中文文档目录">${documentData.sections.map(section => `<a href="#${esc(section.id)}">${esc(section.title)}</a>`).join('')}</nav></details>${sections}<footer class="reading-footer"><a href="${back}">← 返回 ${esc(chapter.number)} 的课程摘记</a></footer></main>`;
   if (/^#(?:page-\d+|section-\d+|[a-z][a-z0-9-]*)$/.test(location.hash)) {
     document.getElementById(location.hash.slice(1))?.scrollIntoView();
   }

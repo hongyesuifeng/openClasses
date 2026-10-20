@@ -3,7 +3,7 @@
   "chapter": "6.1",
   "title": "项目优化",
   "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-1-project-optimization-1?version=6.0",
-  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "scope": "按官方原小节提炼课程目的、概念与完成条件，非全文翻译；源码、截图及视频操作请对照原资料。",
   "sections": [
     {
       "id": "part-1",
@@ -13,7 +13,7 @@
         1
       ],
       "paragraphs": [
-        "认识序列化字段，以及 readonly、const、static、protected 等声明相关概念。"
+        "课例为私有字段加入 SerializeField，观察它在 Inspector（检视面板） 中可调整的效果。随后对照 readonly、const、static 等声明，认识代码访问方式与编辑器显示并不是同一件事。"
       ]
     },
     {
@@ -24,7 +24,7 @@
         2
       ],
       "paragraphs": [
-        "比较初始化方法与不同更新入口的适用时机。"
+        "原课用第二相机的近距离视角观察更新抖动，再比较 FixedUpdate、Update 与 LateUpdate 的安排。这里是具体原型中的观察实验，Recap 还要求认识 Awake 与 Start 的初始化区别。"
       ]
     },
     {
@@ -35,7 +35,7 @@
         3
       ],
       "paragraphs": [
-        "原课介绍对象池，用复用处理反复出现的对象。"
+        "对象池练习先备份 Prototype 2，再使用课程提供的替换脚本。池预留一组投射物，运行中观察对象的激活和停用，以复用取代反复实例化和销毁。"
       ]
     },
     {
@@ -46,7 +46,7 @@
         4
       ],
       "paragraphs": [
-        "把这些做法作为检查原型和个人项目的入口；小型原型中改善未必明显。"
+        "本讲关注序列化字段、事件时机与对象复用三类技术。课程提醒小型原型的改善可能不明显，应结合实际运行观察；对象池资源与完整脚本仍需对照原课。"
       ]
     }
   ]

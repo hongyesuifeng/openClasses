@@ -3,7 +3,7 @@
   "chapter": "6.2",
   "title": "资料研究与故障排查",
   "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-2-research-and-troubleshooting-2?version=6.0",
-  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。 原页相机示例仍使用 Input.GetKeyDown；本文不将其改写为新版输入实现。",
+  "scope": "按官方原小节提炼课程目的、概念与完成条件，非全文翻译；源码、截图及视频操作请对照原资料。 原页保留旧Input.GetKeyDown示例，本文不升级改写。",
   "sections": [
     {
       "id": "part-1",
@@ -13,7 +13,7 @@
         1
       ],
       "paragraphs": [
-        "以原型一的双相机切换为任务，查找相关文档和讨论。"
+        "原课任务是在 Prototype 1 中按 C 切换两个相机。先通过文档和讨论寻找相近问题，比较别人如何组织相机状态和切换请求，再尝试在自己的场景验证。"
       ]
     },
     {
@@ -24,7 +24,7 @@
         2
       ],
       "paragraphs": [
-        "原课用 AI 探索方案；示例沿用旧 Input API。"
+        "向 AI 描述目标时，需要说明两个相机和触发按键等具体条件。原页示例切换 Camera.enabled，并保留旧 Input.GetKeyDown 写法，本文保留其版本边界。"
       ]
     },
     {
@@ -35,7 +35,7 @@
         3
       ],
       "paragraphs": [
-        "利用 Console 报错检查脚本挂载与相机引用，再运行验证。"
+        "示例出现 UnassignedReferenceException 后，把实际错误反馈给工具。原课最终发现 Inspector（检视面板） 中的相机字段未赋值；还核对脚本是否挂载、相机是否存在，修正后再次运行。"
       ]
     },
     {
@@ -46,7 +46,7 @@
         4
       ],
       "paragraphs": [
-        "AI 结果可能有误；反馈具体错误，补清问题并检查实际行为。"
+        "原课提醒 AI 回答可能包含错误，研究结果仍须实际检验。功能失败时应补充报错和具体情况，再核对建议是否适用于当前设置，而非把生成的文字当作已验证结果。"
       ]
     }
   ]

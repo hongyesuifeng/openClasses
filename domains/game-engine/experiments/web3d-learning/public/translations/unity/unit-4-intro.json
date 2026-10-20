@@ -3,7 +3,7 @@
   "chapter": "unit-4-intro",
   "title": "第四单元：玩法机制导读",
   "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/unit-4-introduction?version=6.0",
-  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "scope": "按官方原小节提炼课程目的、概念与完成条件，非全文翻译；源码、截图及视频操作请对照原资料。",
   "sections": [
     {
       "id": "part-1",
@@ -13,7 +13,7 @@
         1
       ],
       "paragraphs": [
-        "本单元让敌人逐波增加，同时加入限时增益。这两种机制改变玩家的行动选择，并使难度逐步提高。"
+        "浮岛相扑的目标是把不断出现的敌人撞出岛外。限时增益给玩家暂时优势，逐波增加敌人数提高压力；本单元展示这两种规则怎样共同影响玩家选择。"
       ]
     }
   ]

@@ -3,7 +3,7 @@
   "chapter": "install-unity",
   "title": "安装 Unity 学习环境",
   "source": "https://learn.unity.com/course/create-with-code/unit/getting-started/tutorial/install-unity-software?version=6.0",
-  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "scope": "按官方原小节提炼课程目的、概念与完成条件，非全文翻译；源码、截图及视频操作请对照原资料。",
   "sections": [
     {
       "id": "part-1",
@@ -13,7 +13,7 @@
         1
       ],
       "paragraphs": [
-        "本课准备 Hub、Unity 6 LTS 与代码编辑器；已具备环境可跳过安装。"
+        "学习环境包含 Unity Hub、Unity 6 LTS 与代码编辑器，它们承担不同职责。已经安装合适 Editor 和编辑器的学习者可以略过重复安装，直接检查现有环境。"
       ]
     },
     {
@@ -24,7 +24,7 @@
         2
       ],
       "paragraphs": [
-        "Hub 负责安装和管理不同 Editor 版本。"
+        "Hub 用于下载、安装和管理 Editor 版本，Projects 与 Installs 分别管理项目和编辑器安装。安装完 Hub 后，仍需准备课程使用的 Editor 版本。"
       ]
     },
     {
@@ -35,7 +35,7 @@
         3
       ],
       "paragraphs": [
-        "选择课内 Editor，并准备 Visual Studio 等相应编辑模块。"
+        "本版本课程使用 Unity 6 LTS，并在安装模块中准备 Visual Studio 等代码编辑工具。macOS 还需要区分处理器类型；若编辑器已经安装，对应选项可能不会再次出现。"
       ]
     },
     {
@@ -46,7 +46,7 @@
         4
       ],
       "paragraphs": [
-        "登录或创建账号，供课程所需 Unity 服务使用。"
+        "Unity ID 是访问课程所需服务的账号，Hub 提供登录或新建入口。已有账号可直接登录，不需要为了每个课程工程重复创建账号。"
       ]
     },
     {
@@ -57,7 +57,7 @@
         5
       ],
       "paragraphs": [
-        "确认 Hub、Editor、代码编辑器和账号已准备好，再开始建项目。"
+        "本节的完成条件是 Hub、正确版本的 Editor、代码编辑器及账号均已准备好。下一讲才真正创建工程、打开 Unity Editor 并摆放场景对象。"
       ]
     }
   ]

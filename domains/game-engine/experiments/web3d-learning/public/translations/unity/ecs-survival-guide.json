@@ -3,7 +3,7 @@
   "chapter": "ecs-survival-guide",
   "title": "ECS 概念入门",
   "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/ecs-survival-guide-1?version=6.0",
-  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。 官方6.0目录保留早期ECS示例；这里只说明概念，不提供当前Entities实现教程。",
+  "scope": "按官方原小节提炼课程目的、概念与完成条件，非全文翻译；源码、截图及视频操作请对照原资料。 官方6.0目录保留早期ECS类型，只按原课介绍概念。",
   "sections": [
     {
       "id": "part-1",
@@ -13,7 +13,7 @@
         1
       ],
       "paragraphs": [
-        "原课在 DOTS 背景下介绍 ECS，关注速度、生命等数据的组织与处理。"
+        "ECS 在原课中属于 DOTS 的高层介绍，组织重点转向移动速度、生命值等数据。课程将这种方式与此前围绕物体及行为脚本的组织作比较，说明其性能与数据处理目的。"
       ]
     },
     {
@@ -24,7 +24,7 @@
         2
       ],
       "paragraphs": [
-        "通过命名空间、类型和结构辨认 ECS；本节只要求高层认识。"
+        "这一节要求能识别 ECS 代码的结构与用途，视频展示相关特征。判断线索包括命名空间、继承的类型以及数据组织方式，完整制作 ECS 项目不在本节目标中。"
       ]
     },
     {
@@ -35,7 +35,7 @@
         3
       ],
       "paragraphs": [
-        "比较数据组织与熟悉的组件式写法。原页保留 JobComponentSystem 等历史示例，不代表当前 Entities API。"
+        "Recap 提到 Unity.Entities，并保留 JobComponentSystem 等历史类型示例。当前页面虽在 6.0 目录，本文只归纳原课概念和识别要求，不把这些旧名称改写成当前 Entities 实现。"
       ]
     }
   ]

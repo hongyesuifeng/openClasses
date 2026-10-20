@@ -35,8 +35,8 @@
       "path": "public/translations/games101/01.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_01.pdf",
       "sections": 12,
-      "narrative_han": 303,
-      "sha256": "395a1dd7900c011bcc0535efe575286f75249519d52bd2d909567b39a62f127d"
+      "narrative_han": 990,
+      "sha256": "ac44c6be8fe86596e50723b16046f13d1371db7a02f9ceb6f3eb25435b6b1f22"
     },
     {
       "course": "games101",
@@ -44,8 +44,8 @@
       "path": "public/translations/games101/02.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf",
       "sections": 13,
-      "narrative_han": 322,
-      "sha256": "52c2ac2a6c9cd5c08b85b4bbb2e383502053bd4b48725902396a52a2616a35a9"
+      "narrative_han": 1052,
+      "sha256": "cffa0e39e642968600e370636a458d27ca6b0dcd39b576ef15169b1accfeafdb"
     },
     {
       "course": "games101",
@@ -53,8 +53,8 @@
       "path": "public/translations/games101/03.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf",
       "sections": 14,
-      "narrative_han": 304,
-      "sha256": "a9fbbcd6c2247b7a30201eaebc755db1b3af6cade4845bf69935eab0de8dc58f"
+      "narrative_han": 1395,
+      "sha256": "7de091c031a739c00adc90dcb832b4cbd78acacedefdfb0d158b918a242deb20"
     },
     {
       "course": "games101",
@@ -62,8 +62,8 @@
       "path": "public/translations/games101/04.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf",
       "sections": 13,
-      "narrative_han": 307,
-      "sha256": "ed08bd0588ff3660e88e44a0c23a51094b2e4d642d7c92fb122b163abb4a216c"
+      "narrative_han": 951,
+      "sha256": "054b05232381b71b513ed400a639b114b516aad69ce091de0ee772a26b7c551d"
     },
     {
       "course": "games101",
@@ -71,8 +71,8 @@
       "path": "public/translations/games101/05.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_05.pdf",
       "sections": 12,
-      "narrative_han": 261,
-      "sha256": "0deca7e1d5dd6bdf03953883de01620b01f6c1f7cbc4a8811898df65e192c642"
+      "narrative_han": 990,
+      "sha256": "f66ef19021bd161239e8e80799df0a1ba7f67ac66a9a79b802f49d148acf3a03"
     },
     {
       "course": "games101",
@@ -80,8 +80,8 @@
       "path": "public/translations/games101/06.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_06.pdf",
       "sections": 15,
-      "narrative_han": 343,
-      "sha256": "6734999a823841e4e6939f62ff064b858c156eefa7cf964c977f040fdfc87f86"
+      "narrative_han": 1301,
+      "sha256": "daed8863d9f54e8916949b41957195f6cb0e432a9e0238de3cf2556332f9913e"
     },
     {
       "course": "games101",
@@ -89,8 +89,8 @@
       "path": "public/translations/games101/07.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf",
       "sections": 12,
-      "narrative_han": 309,
-      "sha256": "2933d48572a748cfceaf92ff2bb789db3558559f9268538170e05c5c3ef19f45"
+      "narrative_han": 1017,
+      "sha256": "c943854f46dce9891a8c3e3e4f46f305306e53b02a263f37b4ff9a121b9c05f1"
     },
     {
       "course": "games101",
@@ -98,8 +98,8 @@
       "path": "public/translations/games101/08.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_08.pdf",
       "sections": 13,
-      "narrative_han": 324,
-      "sha256": "9932c1dc05aed9dcef25751aa54582a42dec6d6d97675e71d9e64fc5d396a507"
+      "narrative_han": 1104,
+      "sha256": "8ece0720fed120986080dc60253ab39ea6334408d6cc7b0de0a7a5f029d36c89"
     },
     {
       "course": "games101",
@@ -107,8 +107,8 @@
       "path": "public/translations/games101/09.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf",
       "sections": 12,
-      "narrative_han": 318,
-      "sha256": "353ae5efec8fe7721f7cb3b82b269c7c490767e585065c3c32cf3dce7245bd17"
+      "narrative_han": 1048,
+      "sha256": "a1032d5a91ff10b22dea171e922489afad5e4353d6171f060f1a32513a7c73a0"
     },
     {
       "course": "games101",
@@ -116,8 +116,8 @@
       "path": "public/translations/games101/10.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf",
       "sections": 14,
-      "narrative_han": 344,
-      "sha256": "d97ae8ad5a408dc2e93fa8cda4f29208c7d1e59e9970f6335d849a1087994e33"
+      "narrative_han": 1229,
+      "sha256": "380c54b05ca1c400325e7ffd2eaac352f98a36be96f2922a05a956a120cf4e3f"
     },
     {
       "course": "games101",
@@ -125,8 +125,8 @@
       "path": "public/translations/games101/11.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf",
       "sections": 13,
-      "narrative_han": 305,
-      "sha256": "ea9dde0ddab1f9bc804676c0ef0798668fec96b5e5affd50213ff7b80a62aaa6"
+      "narrative_han": 1112,
+      "sha256": "e6a245018d2f4ace94ce34b4ccbbc7b58c5cb99faf6c4afedbaefdc77c98ce8f"
     },
     {
       "course": "games101",
@@ -134,8 +134,8 @@
       "path": "public/translations/games101/12.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf",
       "sections": 13,
-      "narrative_han": 318,
-      "sha256": "654f4a16aa5b8a1e291712c55e8addae57d4105e0b0894a83a006f59eb4e61d3"
+      "narrative_han": 1208,
+      "sha256": "a04c8462408778404e720760b889082e8b50cc9dbcd330010d25fb7250fffb82"
     },
     {
       "course": "games101",
@@ -143,8 +143,8 @@
       "path": "public/translations/games101/13.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf",
       "sections": 14,
-      "narrative_han": 323,
-      "sha256": "0e07af5cf4031553a23001274f5dd5babf59f0db08b7ff723042ab762371b24b"
+      "narrative_han": 1155,
+      "sha256": "3e54c6f5c13a98fae73a1910480c2a96a34574118b68862109649e6b9223dab2"
     },
     {
       "course": "games101",
@@ -152,8 +152,8 @@
       "path": "public/translations/games101/14.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_14.pdf",
       "sections": 14,
-      "narrative_han": 349,
-      "sha256": "d5083648e4c84405c3bb05b5cadc7e8ef20ce0fb0e46eefd3e8f61a2b489c3ab"
+      "narrative_han": 1187,
+      "sha256": "90200ee816db33a87a096a36c73b8f5da9e6c888ef8ef3ddb41cfee279f42750"
     },
     {
       "course": "games101",
@@ -161,8 +161,8 @@
       "path": "public/translations/games101/15.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf",
       "sections": 14,
-      "narrative_han": 349,
-      "sha256": "c52f75304aad994eb2c6ef152f79afa021264bd5cecb338e993afb0de747c955"
+      "narrative_han": 1198,
+      "sha256": "a4d1b2f64632d571f485fc998e4b3da839b2ea319d9cca8588fcf311911fc6fd"
     },
     {
       "course": "games101",
@@ -170,8 +170,8 @@
       "path": "public/translations/games101/16.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf",
       "sections": 14,
-      "narrative_han": 348,
-      "sha256": "1d606f85b9f20792e54c5867da6729f0b2e9c48cd8f308ed55d4b7cb6a04acd1"
+      "narrative_han": 1247,
+      "sha256": "1094da7454260ce79d8cd4b93174be00c42eb679e72d46744aa0523d5c7d42e6"
     },
     {
       "course": "games101",
@@ -179,8 +179,8 @@
       "path": "public/translations/games101/17.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_17.pdf",
       "sections": 15,
-      "narrative_han": 357,
-      "sha256": "776e9706a00a9755c171b7b112919ac06b0bc2aeb6176517be6416784686e08e"
+      "narrative_han": 1300,
+      "sha256": "b89069cb70b6339ff681107050c57864fa31027caa0cb6b0d44d1f3db7a9144f"
     },
     {
       "course": "games101",
@@ -188,8 +188,8 @@
       "path": "public/translations/games101/18.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_18.pdf",
       "sections": 17,
-      "narrative_han": 402,
-      "sha256": "d6c54af9660a054828ecceeabdae6d2b9face5abce4e528ebd0c6ddf981bd15b"
+      "narrative_han": 1686,
+      "sha256": "0b79c4e2e6a70670dd5e88421ce677556fd1828a64ed4fe60265131965d5b530"
     },
     {
       "course": "games101",
@@ -197,8 +197,8 @@
       "path": "public/translations/games101/19.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf",
       "sections": 15,
-      "narrative_han": 372,
-      "sha256": "8214adf4160ce5ae07736d7fa4b720bdc9e7635dfa3770c8864fea0214dde6fb"
+      "narrative_han": 1325,
+      "sha256": "87026738c32bd255bab54d9f02d4bddb5a559c4ad6cc83748a5a7bf308a1bafb"
     },
     {
       "course": "games101",
@@ -206,8 +206,8 @@
       "path": "public/translations/games101/20.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf",
       "sections": 16,
-      "narrative_han": 398,
-      "sha256": "b6d6b3e24f329ac2b9df2cae810a6736120c4dd53b07cf5de3073f78999e3295"
+      "narrative_han": 1520,
+      "sha256": "da8654d8567a1d10dcf2ea16cbe4654589e12bcea12e99c145cb8c4b777c3af6"
     },
     {
       "course": "games101",
@@ -215,8 +215,8 @@
       "path": "public/translations/games101/21.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf",
       "sections": 17,
-      "narrative_han": 419,
-      "sha256": "b3cf38108ecd4c87336f7c1de66a8b4bd8ce01e8661cbcd45716ec9ac646064b"
+      "narrative_han": 1620,
+      "sha256": "353eda0ad0024141778b7cf1c03317bb0167e939768b150d1f8d3d7b8e443008"
     },
     {
       "course": "games101",
@@ -224,8 +224,8 @@
       "path": "public/translations/games101/22.json",
       "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf",
       "sections": 14,
-      "narrative_han": 352,
-      "sha256": "9364b76706073733c2ad3758c308768cb3aac21ebbc3c0205c35fa91fae853bc"
+      "narrative_han": 1310,
+      "sha256": "619555a7aebfd836f9ebf7756411146b935c7ade990ec68852d54c23e7493775"
     },
     {
       "course": "unity",
@@ -233,8 +233,8 @@
       "path": "public/translations/unity/course-introduction.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/getting-started/tutorial/welcome-and-install-the-software?version=6.0",
       "sections": 2,
-      "narrative_han": 54,
-      "sha256": "ec92a1e3cb89ac61f18ecb07d679d349d6cbb4b1b0da2e51c991f5d4a6beaf14"
+      "narrative_han": 140,
+      "sha256": "d2150a315adb1d5e973c5b3ab8ce58662e234234b9f020452e62c1413ec75606"
     },
     {
       "course": "unity",
@@ -242,8 +242,8 @@
       "path": "public/translations/unity/install-unity.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/getting-started/tutorial/install-unity-software?version=6.0",
       "sections": 5,
-      "narrative_han": 81,
-      "sha256": "f7dbecce7b4725c5ff91e154532c2766fbec703f6a3a24a3331d7fed4198fba7"
+      "narrative_han": 234,
+      "sha256": "4820228e56acdfe070364d5d5a446d41a1c4d19abb845afff8257200bc0f56af"
     },
     {
       "course": "unity",
@@ -251,8 +251,8 @@
       "path": "public/translations/unity/unit-1-intro.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/unit-1-introduction?version=6.0",
       "sections": 1,
-      "narrative_han": 41,
-      "sha256": "b7031e26ce8a2f26be4c1bc33826bf652f49e5567c39b14a558592c1efdb1a05"
+      "narrative_han": 71,
+      "sha256": "e27f5a5480e3efbc7896e3ab001bfe61b0bc5e3fe1d550707c9353dcab618bc7"
     },
     {
       "course": "unity",
@@ -260,8 +260,8 @@
       "path": "public/translations/unity/1.1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-1-start-your-3d-engines?version=6.0",
       "sections": 8,
-      "narrative_han": 129,
-      "sha256": "1338c4183382e22631b099596ade4f18598b6fd54609fd8e4544ee970aee8c66"
+      "narrative_han": 449,
+      "sha256": "6d4a282b56c1dd84c6498617c01bcecd08ff77ec137e715a0e9e8b9d2511a174"
     },
     {
       "course": "unity",
@@ -269,8 +269,8 @@
       "path": "public/translations/unity/1.2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-2-move-the-vehicle-with-your-first-line-of-c?version=6.0",
       "sections": 8,
-      "narrative_han": 126,
-      "sha256": "d60754fb1f6575bfcdc562ff4a51c16cb2aa63a739897352c98a381da9bf8049"
+      "narrative_han": 428,
+      "sha256": "dd1b9d4856f0b87b8d7fb24ccb7d43d84a1acdce117bf93693072b0ab018aa25"
     },
     {
       "course": "unity",
@@ -278,8 +278,8 @@
       "path": "public/translations/unity/1.3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables?version=6.0",
       "sections": 7,
-      "narrative_han": 114,
-      "sha256": "c913a113d527c737776561524a1b02ba96b7e98e2cf8fa0514a58a86e6e24c94"
+      "narrative_han": 363,
+      "sha256": "c4b84342e4fff1779aa3e5b083ffd7dc250bbc6d0c4a9f1094cf96d72eb9e785"
     },
     {
       "course": "unity",
@@ -287,8 +287,8 @@
       "path": "public/translations/unity/1.4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0",
       "sections": 9,
-      "narrative_han": 155,
-      "sha256": "1782bdb07ba22d4faf0c63d7ea1566925f122efb6aa6b74b590540c5e2673750"
+      "narrative_han": 466,
+      "sha256": "0697fc307476aa9ce5a0739949eb5c009ea01b6f55779f374ad7632fe885fd91"
     },
     {
       "course": "unity",
@@ -296,8 +296,8 @@
       "path": "public/translations/unity/challenge-1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/challenge-1-plane-programming-1?version=6.0",
       "sections": 10,
-      "narrative_han": 153,
-      "sha256": "7842ba1d19edc60566656d4ce99ad0ba08880298228a2ff48fdbc138aa9caf59"
+      "narrative_han": 489,
+      "sha256": "35e1d19b4690160b97dda0718c4362f44c9f88c537740b9499acfe6c409b3d3d"
     },
     {
       "course": "unity",
@@ -305,8 +305,8 @@
       "path": "public/translations/unity/lab-1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lab-1-personal-project-plan?version=6.0",
       "sections": 6,
-      "narrative_han": 97,
-      "sha256": "19feaf45ff587105a7cf64c134731d92c34b31ddd52a6941ca3018594f5a5367"
+      "narrative_han": 302,
+      "sha256": "f51f334a4f4ce20cb061269762f17e315fb48792f7c0d0138615415f83dcba9e"
     },
     {
       "course": "unity",
@@ -314,8 +314,8 @@
       "path": "public/translations/unity/quiz-1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/quiz/quiz-1-9s?version=6.0",
       "sections": 10,
-      "narrative_han": 105,
-      "sha256": "9a886534a42c4077de59856cf11f36f6583eb558bcd86650dc9ab31f1ad39457"
+      "narrative_han": 395,
+      "sha256": "4c2455928e31c7872740dc79efae682dc428d5cf2fc7a5b927aa19ca824bb5b6"
     },
     {
       "course": "unity",
@@ -323,8 +323,8 @@
       "path": "public/translations/unity/unit-2-intro.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/unit-2-introduction?version=6.0",
       "sections": 1,
-      "narrative_han": 39,
-      "sha256": "998d61ddd72cf8290798c1239181635fa80745ae798a3d7cdb5e87cd909d2e67"
+      "narrative_han": 74,
+      "sha256": "095f541f8c2846891f993b6d9f3f20055e74c34b06add2fdbc4f32436256adac"
     },
     {
       "course": "unity",
@@ -332,8 +332,8 @@
       "path": "public/translations/unity/2.1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-1-player-positioning?version=6.0",
       "sections": 9,
-      "narrative_han": 141,
-      "sha256": "d274792af4440d775c821f9ba552a8b5594fba23ab09c5d11b743f832e76acd4"
+      "narrative_han": 457,
+      "sha256": "d0e8c80d3bf13f99e163f3562c60532c69ae380604dfabaa8d8b91a5c95c5b81"
     },
     {
       "course": "unity",
@@ -341,8 +341,8 @@
       "path": "public/translations/unity/2.2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-2-food-flight?version=6.0",
       "sections": 9,
-      "narrative_han": 116,
-      "sha256": "bc4f45848e9db76829d8dc9369dd3f429a475a4316c2902f80f12bd24cc9d307"
+      "narrative_han": 488,
+      "sha256": "4e334a0fedea7eac09fb113939523cb8b46de065bc092dba1180367e764afc68"
     },
     {
       "course": "unity",
@@ -350,8 +350,8 @@
       "path": "public/translations/unity/2.3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-3-random-animal-stampede?version=6.0",
       "sections": 7,
-      "narrative_han": 112,
-      "sha256": "c6b999a78ebd1f472f2572804ffcf1df76877feb87cf2a46f3b61698bcd56313"
+      "narrative_han": 376,
+      "sha256": "226d9abdb33ddc87897fbd18baa65315e58066ce385dc5e2d5a99160bfae4844"
     },
     {
       "course": "unity",
@@ -359,8 +359,8 @@
       "path": "public/translations/unity/2.4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-4-collision-decisions?version=6.0",
       "sections": 6,
-      "narrative_han": 85,
-      "sha256": "a4684e975f3e6672899083bbd93e1dfc2a9504149484f354100b338ece9b4397"
+      "narrative_han": 323,
+      "sha256": "3d5a6c68af8a0636b717f35289b8254ad8eaa84da45ae1530097ab067f7c4a17"
     },
     {
       "course": "unity",
@@ -368,8 +368,8 @@
       "path": "public/translations/unity/challenge-2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/challenge-2-play-fetch?version=6.0",
       "sections": 11,
-      "narrative_han": 167,
-      "sha256": "555c8716c70d8710d60ef3c297cfec838b48f47423b3f6a42ca79353bb7ec4fa"
+      "narrative_han": 528,
+      "sha256": "f0d04caca180bfa1a38b1859276b0735dca0e0cfd0aa00bdd0b4c5fd1e6de883"
     },
     {
       "course": "unity",
@@ -377,8 +377,8 @@
       "path": "public/translations/unity/lab-2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lab-2-new-project-with-primitives?version=6.0",
       "sections": 7,
-      "narrative_han": 107,
-      "sha256": "619c20006f589f5c9f23fc5bdab612873e2a2f6498b720f037a3318d4d91e406"
+      "narrative_han": 358,
+      "sha256": "096692f34a4e5435e47532fb870569d5a32e01e6044d19a5ea4447fe05e09839"
     },
     {
       "course": "unity",
@@ -386,8 +386,8 @@
       "path": "public/translations/unity/quiz-2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/quiz/quiz-2-z8?version=6.0",
       "sections": 10,
-      "narrative_han": 101,
-      "sha256": "06d103c00828c8c37aee5b0b831b8ab562d11bec38463bf6fa697c0abae5fdf0"
+      "narrative_han": 331,
+      "sha256": "d2bbe50bcc990b4113b30ceb41da2718e9341386c1b477a4d08007a211a2111d"
     },
     {
       "course": "unity",
@@ -395,8 +395,8 @@
       "path": "public/translations/unity/unit-3-intro.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/unit-3-introduction?version=6.0",
       "sections": 1,
-      "narrative_han": 31,
-      "sha256": "6046d29aeabcd09963718bc6c7f759361981d95897c30e81f733ce58940a63c9"
+      "narrative_han": 63,
+      "sha256": "a1e9dab956e80346405597ef49a1d348ab6340ceb2a672d99bdf60b557afaa3a"
     },
     {
       "course": "unity",
@@ -404,8 +404,8 @@
       "path": "public/translations/unity/3.1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-1-jump-force-2?version=6.0",
       "sections": 12,
-      "narrative_han": 165,
-      "sha256": "fd517e937b61955fb66fde97e3fd7e31cc09a3331f4e939c72455b38b7cfc66b"
+      "narrative_han": 594,
+      "sha256": "164883b868746a938d0b4bfff15cd7bdfa59f4ab95bf9cbd6179a5c136d8d00c"
     },
     {
       "course": "unity",
@@ -413,8 +413,8 @@
       "path": "public/translations/unity/3.2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-2-make-the-world-whiz-by?version=6.0",
       "sections": 8,
-      "narrative_han": 125,
-      "sha256": "f9f72cbc65d59ef20edb3814fd6cfe7bb1502cfed44f20f41ee5ff529eec11fb"
+      "narrative_han": 407,
+      "sha256": "56c85ec83f55ef624e7c1ba5d65cd65a232f07e7670c1a405435794fb5f9ce27"
     },
     {
       "course": "unity",
@@ -422,8 +422,8 @@
       "path": "public/translations/unity/3.3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-3-don-t-just-stand-there-1?version=6.0",
       "sections": 7,
-      "narrative_han": 97,
-      "sha256": "0e6f6722eae5c0ded6b40dfad6160dd71f6ed4126c6d5170dcd18f477b0a4779"
+      "narrative_han": 358,
+      "sha256": "d6a6926fbdba33ba692837b28dbe0779477c4a98deafc8223ee1865902befc71"
     },
     {
       "course": "unity",
@@ -431,8 +431,8 @@
       "path": "public/translations/unity/3.4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/particles-and-sound-effects?version=6.0",
       "sections": 7,
-      "narrative_han": 97,
-      "sha256": "affd45f45b9928f2b1d8e2d9b769b053180ef044f16a4d33bdc0d915aeafa495"
+      "narrative_han": 347,
+      "sha256": "0f7bdf8c046add00b20032a129a1d25014a511485c09a19a78e7d760a9eff1c4"
     },
     {
       "course": "unity",
@@ -440,8 +440,8 @@
       "path": "public/translations/unity/challenge-3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/challenge-3-bouncy-balloons-bombs-and-booleans-1?version=6.0",
       "sections": 10,
-      "narrative_han": 149,
-      "sha256": "1f8297f6d93923e562b12982573acb85eefb31f749252e5c559955bac393d6ae"
+      "narrative_han": 492,
+      "sha256": "3397ea5700abeee592d063da11d03c3d486a355976964213542c15e35b040470"
     },
     {
       "course": "unity",
@@ -449,8 +449,8 @@
       "path": "public/translations/unity/lab-3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lab-3-player-control?version=6.0",
       "sections": 6,
-      "narrative_han": 92,
-      "sha256": "48dcdbf6be9aefe6b0640bd240233800e299823e98c3559db68a70d7945ef566"
+      "narrative_han": 316,
+      "sha256": "1799a3b40dddb5824de89424e32fea9d4a12fba975446123603c6deeb46d9f9a"
     },
     {
       "course": "unity",
@@ -458,8 +458,8 @@
       "path": "public/translations/unity/quiz-3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/quiz/quiz-3-tt?version=6.0",
       "sections": 10,
-      "narrative_han": 93,
-      "sha256": "be42b5f58e43cfab188c7efa540dcbf381e2b071f3070937e0e62d51912bdca4"
+      "narrative_han": 339,
+      "sha256": "0d71fdcae02a2c60d92214dae8cd9c53fb9981da43b871574889848af3866f39"
     },
     {
       "course": "unity",
@@ -467,8 +467,8 @@
       "path": "public/translations/unity/unit-4-intro.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/unit-4-introduction?version=6.0",
       "sections": 1,
-      "narrative_han": 40,
-      "sha256": "c47d020fe6e6a203de032a203ff16541a2112122b0c68cc356fffa8538b5a841"
+      "narrative_han": 62,
+      "sha256": "b728f5b3cd20882a3349d24d0570e67b6e2fbc7ce47c8f5a962bd24f6ba1b96f"
     },
     {
       "course": "unity",
@@ -476,8 +476,8 @@
       "path": "public/translations/unity/4.1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0",
       "sections": 12,
-      "narrative_han": 155,
-      "sha256": "bf87dcfc0f4bf4fe58803d7cf5e73df2b0e44a90d75a13556fbb028a5ca15f17"
+      "narrative_han": 625,
+      "sha256": "2f9caa8d735bc6b137bbcdbe50cd80c997109a52b3d19666a8525bfee35989c3"
     },
     {
       "course": "unity",
@@ -485,8 +485,8 @@
       "path": "public/translations/unity/4.2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-plan-4-2-follow-the-player?version=6.0",
       "sections": 7,
-      "narrative_han": 106,
-      "sha256": "117ba82c66b118799cce51242baef63fd7cd0a62fba8eff0efe626fe61703364"
+      "narrative_han": 348,
+      "sha256": "3959f631895e7b54b11cc6478330546a3dd4b975b336dc54913972081331fd64"
     },
     {
       "course": "unity",
@@ -494,8 +494,8 @@
       "path": "public/translations/unity/4.3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-3-powerup-and-countdown?version=6.0",
       "sections": 7,
-      "narrative_han": 117,
-      "sha256": "f7983cf36d1032e75314968c3daf6ef564129c2355196503f6a66996e74a531a"
+      "narrative_han": 360,
+      "sha256": "a20dc82a5fcbd83af8ac087f57f9e372bf167d19dc9da18686d116af1b5a208a"
     },
     {
       "course": "unity",
@@ -503,8 +503,8 @@
       "path": "public/translations/unity/4.4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-4-for-loops-for-waves?version=6.0",
       "sections": 6,
-      "narrative_han": 90,
-      "sha256": "6e396c5cb42c6a2124480ddb05ccfc658bfba4e702b8bfbcaf4c40a24a8c2be9"
+      "narrative_han": 296,
+      "sha256": "f3777e43011835dee05cc18716fc0b150d4b8f3f3195bbede50a49aa5f78d178"
     },
     {
       "course": "unity",
@@ -512,8 +512,8 @@
       "path": "public/translations/unity/challenge-4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/challenge-4-soccer-scripting-1?version=6.0",
       "sections": 11,
-      "narrative_han": 154,
-      "sha256": "a395a7ad41cedaf5f06c1faae7566ad1d56554c03e4927b9882c4bb86090f18a"
+      "narrative_han": 513,
+      "sha256": "0958f5fdad11ca45cf42c932814ad62e5a3974dfbe81f10ac5c1ddd775b728a7"
     },
     {
       "course": "unity",
@@ -521,8 +521,8 @@
       "path": "public/translations/unity/lab-4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lab-4-basic-gameplay?version=6.0",
       "sections": 6,
-      "narrative_han": 97,
-      "sha256": "380f60febe884e04dc5d7b1ea1d5ba671e8d04ec3e4430cfd37c0d0638cd42a3"
+      "narrative_han": 302,
+      "sha256": "40f933f5b379163601029245297424e54fa36cd8729265197f3a153e65b3c9b4"
     },
     {
       "course": "unity",
@@ -530,8 +530,8 @@
       "path": "public/translations/unity/quiz-4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/quiz/quiz-4-rg?version=6.0",
       "sections": 10,
-      "narrative_han": 97,
-      "sha256": "37f25c7495b1bdea38d1998617e93bb5ca45ed1377c04c632dbbe4b4a2ad5323"
+      "narrative_han": 313,
+      "sha256": "e12e6fa8a36d5bbee1d34b110ee851b8fb00324ecc3088b785f6d267e1039687"
     },
     {
       "course": "unity",
@@ -539,8 +539,8 @@
       "path": "public/translations/unity/unit-5-intro.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/unit-5-introduction?version=6.0",
       "sections": 1,
-      "narrative_han": 30,
-      "sha256": "6d6246a501359db27e094d79411aa029e56d38398d64eb2d494dcf2e5dd4d740"
+      "narrative_han": 72,
+      "sha256": "f4ef42f17fcd893246f6633bfb9d6de42dc8e93f028fe34a0717cb076fe4df30"
     },
     {
       "course": "unity",
@@ -548,8 +548,8 @@
       "path": "public/translations/unity/5.1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-1-clicky-mouse-1?version=6.0",
       "sections": 11,
-      "narrative_han": 173,
-      "sha256": "323a5c6277fc9d1bc06929d6638a84f730dbc483fb0129e475962c1522557734"
+      "narrative_han": 570,
+      "sha256": "19a8074638530b690fec916f00d95111fd2c6afdb5ce316a3b89d380a353272a"
     },
     {
       "course": "unity",
@@ -557,8 +557,8 @@
       "path": "public/translations/unity/5.2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0",
       "sections": 8,
-      "narrative_han": 112,
-      "sha256": "c9dc9b038f826cf349f95776e532afaa671a0017231f72f602c70aca9f40684f"
+      "narrative_han": 430,
+      "sha256": "b1acc805de14705030ba5cb418bae0380fcd9d24e84166fc0d13625717a767a6"
     },
     {
       "course": "unity",
@@ -566,8 +566,8 @@
       "path": "public/translations/unity/5.3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0",
       "sections": 8,
-      "narrative_han": 96,
-      "sha256": "acec8d9c7764e0b06bedeaf920b09ed861267c2cf3870401d8b410ffcdf77c1a"
+      "narrative_han": 384,
+      "sha256": "6bafa8541fb1b2a4fe367481ce66d44c783cfc3626b4e8306034ec1c001503fc"
     },
     {
       "course": "unity",
@@ -575,8 +575,8 @@
       "path": "public/translations/unity/5.4.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-4-what-s-the-difficulty-2?version=6.0",
       "sections": 7,
-      "narrative_han": 101,
-      "sha256": "a2d0bae9d772f99802d1be0b035125e0e979115152e8ed8f47175c5b002d9205"
+      "narrative_han": 347,
+      "sha256": "322b14b89eec31d737ec181900cf99a74486933f2f42420e8f2ec7362d6a45ac"
     },
     {
       "course": "unity",
@@ -584,8 +584,8 @@
       "path": "public/translations/unity/challenge-5.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/challenge-5-whack-a-food?version=6.0",
       "sections": 10,
-      "narrative_han": 141,
-      "sha256": "e163969881bb21dc3e614910368dba954aefee6c7956bf2d71600243850c1963"
+      "narrative_han": 512,
+      "sha256": "37ce8b4555bd97f5420e6a1517b9b53e91112623ab5f9ae480bba6c5e0db7240"
     },
     {
       "course": "unity",
@@ -593,8 +593,8 @@
       "path": "public/translations/unity/lab-5.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lab-5-swap-out-your-assets?version=6.0",
       "sections": 6,
-      "narrative_han": 100,
-      "sha256": "93e13ec032dc1434ca034d90f8023d4fdc11ede3944997b3ff3e168d15b4ebe0"
+      "narrative_han": 315,
+      "sha256": "67a24cf20e1c8c23f4190d1774fdcdd4562e106c1a8b9baa5357c83d26ee7731"
     },
     {
       "course": "unity",
@@ -602,8 +602,8 @@
       "path": "public/translations/unity/quiz-5.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/quiz/quiz-5-5o?version=6.0",
       "sections": 10,
-      "narrative_han": 100,
-      "sha256": "7e5cef2e412324eaa59b6b24f8b7042214759fa97151fec73bae3eb7f46c6ab5"
+      "narrative_han": 342,
+      "sha256": "42106848ecb12f6f64cda87ace1c40da4cf1ddd093ab4bb80f1ea94f42da0a88"
     },
     {
       "course": "unity",
@@ -611,8 +611,8 @@
       "path": "public/translations/unity/next-steps-intro.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/next-steps-introduction?version=6.0",
       "sections": 1,
-      "narrative_han": 37,
-      "sha256": "fc6142178f8a5377303e97969ceddbd30988d0568812156240dfa4a2a0dfad65"
+      "narrative_han": 79,
+      "sha256": "6aff023a80545298ea89fea6055d3aaf67be393fc945d1b691501690be179dc0"
     },
     {
       "course": "unity",
@@ -620,8 +620,8 @@
       "path": "public/translations/unity/6.1.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-1-project-optimization-1?version=6.0",
       "sections": 4,
-      "narrative_han": 84,
-      "sha256": "11b6ecdd80c9654e2e74b98ad134de980bfd970b7f75fe7079964e2bdda7bc73"
+      "narrative_han": 220,
+      "sha256": "d11c30ddc3360f61b08417b7617c431d3bdf237dea8bada3db2392e2564dfc45"
     },
     {
       "course": "unity",
@@ -629,8 +629,8 @@
       "path": "public/translations/unity/6.2.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-2-research-and-troubleshooting-2?version=6.0",
       "sections": 4,
-      "narrative_han": 77,
-      "sha256": "2a5ca3a6665c5de8f792270875c55df06a92e604d94d74d91314ddbb8661e58a"
+      "narrative_han": 223,
+      "sha256": "223b73a295e9dc7b0413733f7eaf4da8e8ca7eaee566888fc2474cdbb83df4d3"
     },
     {
       "course": "unity",
@@ -638,8 +638,8 @@
       "path": "public/translations/unity/6.3.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-3-sharing-your-projects?version=6.0",
       "sections": 4,
-      "narrative_han": 83,
-      "sha256": "975770ac5a957145e4ae160c836ecab2879d584e75c004166af2a121d34f334d"
+      "narrative_han": 230,
+      "sha256": "c8e66e5379d873214a0b78687e9879d08acc7cb2cad81bc80a37b51c6210930a"
     },
     {
       "course": "unity",
@@ -647,8 +647,8 @@
       "path": "public/translations/unity/ecs-survival-guide.json",
       "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/ecs-survival-guide-1?version=6.0",
       "sections": 3,
-      "narrative_han": 74,
-      "sha256": "4f2595c427a9a465b768b125bb51cf7c73e12beaa6f278eb1f2705c81bafc257"
+      "narrative_han": 172,
+      "sha256": "4a707cbefad18467b706f2f7d7364eb959c68778406b2681d03e0dd2acf5147e"
     },
     {
       "course": "games104",
@@ -656,8 +656,8 @@
       "path": "public/translations/games104/01.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture01.pdf",
       "sections": 8,
-      "narrative_han": 311,
-      "sha256": "939331eb65d13519fd17aec09fc84be5ae3a9ae2bc90820a5e39887b7e9b6eb5"
+      "narrative_han": 814,
+      "sha256": "7da47ba3d2895cfba24e8e968042a7694ec384db2fd290ea70f771a531e503c6"
     },
     {
       "course": "games104",
@@ -665,8 +665,8 @@
       "path": "public/translations/games104/02.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture02.pdf",
       "sections": 8,
-      "narrative_han": 308,
-      "sha256": "b6fa5546bcbeb1a261d7d92437457025d3132fdf6e163e80a8d32a026a5e934c"
+      "narrative_han": 809,
+      "sha256": "1ce3bb6d98cca5eeecc0fef9f899cba8d6e33787c605b905fd543656f02ff726"
     },
     {
       "course": "games104",
@@ -674,8 +674,8 @@
       "path": "public/translations/games104/03.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf",
       "sections": 8,
-      "narrative_han": 314,
-      "sha256": "625d170b7a38cb2e02af3208131f133a6b27d4b7301ed21647c081fab92d731b"
+      "narrative_han": 790,
+      "sha256": "9e79caa18af0d94207babdf90f4d41e621ebf869dc567ecc92b7e56b00773139"
     },
     {
       "course": "games104",
@@ -683,8 +683,8 @@
       "path": "public/translations/games104/04.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture04.pdf",
       "sections": 8,
-      "narrative_han": 300,
-      "sha256": "22b5d1ec23073359b97709942cb7bdccaf9238d942ace1bb0611aee095c9eb8e"
+      "narrative_han": 856,
+      "sha256": "6cac74fc62254d3d7f1495c51d2511f00f735f3d51a80039d1f7ffd31bc64028"
     },
     {
       "course": "games104",
@@ -692,8 +692,8 @@
       "path": "public/translations/games104/05.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture05_1.pdf",
       "sections": 8,
-      "narrative_han": 324,
-      "sha256": "07039f9378747d7205dcd8a329756db2ce9a48e0f4bb5f2fdb5eed7715ecca88"
+      "narrative_han": 982,
+      "sha256": "8fe6656aeca94184001d752b83791bc4712ac5b7e16abae51394a66a11af32f8"
     },
     {
       "course": "games104",
@@ -701,8 +701,8 @@
       "path": "public/translations/games104/06.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf",
       "sections": 8,
-      "narrative_han": 345,
-      "sha256": "95ed24f3e3c17e82d6f20ad680082037e3c0957ef3d1b3c44df5164e88c8a8c1"
+      "narrative_han": 930,
+      "sha256": "cfbc4e7da89f1497d97b5b54da1d17001e15138bb093e35760caa81ecb6af269"
     },
     {
       "course": "games104",
@@ -710,8 +710,8 @@
       "path": "public/translations/games104/07.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf",
       "sections": 8,
-      "narrative_han": 329,
-      "sha256": "08e527e424704400f7b627ea55c16b7130844190d04cd7b6cf52576bd66cbb8b"
+      "narrative_han": 941,
+      "sha256": "02fd571f68112e22c3260312843728c488d76a07742fbe2f62c128a01b16f36f"
     },
     {
       "course": "games104",
@@ -719,8 +719,8 @@
       "path": "public/translations/games104/08.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture08.pdf",
       "sections": 8,
-      "narrative_han": 344,
-      "sha256": "4e8a200d73b94a7c5c7c55c9150586ded8375acfb5993153bfe273dd86ed60f4"
+      "narrative_han": 1022,
+      "sha256": "758bd4de7a8186b78abfab85bdf13a82c4b3b7471548b6d8701450f4e3178a25"
     },
     {
       "course": "games104",
@@ -728,8 +728,8 @@
       "path": "public/translations/games104/09.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf",
       "sections": 8,
-      "narrative_han": 343,
-      "sha256": "a6c0e750e2b000575bd3692bdd40c54f3594568a7782fd9037ab4abf7b4041eb"
+      "narrative_han": 967,
+      "sha256": "f344445256bf4630cece3f2d4b31f1f1b26c0bb7a18747c85be5779f03ac942c"
     },
     {
       "course": "games104",
@@ -737,8 +737,8 @@
       "path": "public/translations/games104/10.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture10.pdf",
       "sections": 8,
-      "narrative_han": 344,
-      "sha256": "783d1d183a83363c8cbd44285c50dccf1de5e241c558ef9868c1b8c626aa6df4"
+      "narrative_han": 966,
+      "sha256": "9e8abe4d46f79a3a32fc5ef8646dd5e03e7c3237052151af4013e47bb523727f"
     },
     {
       "course": "games104",
@@ -746,8 +746,8 @@
       "path": "public/translations/games104/11.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture11.pdf",
       "sections": 8,
-      "narrative_han": 356,
-      "sha256": "07d76e1d667b1f995f6c538e99d7a6698ebed9e4fed0f8ebef824fc333ce0dd2"
+      "narrative_han": 962,
+      "sha256": "f241e5dac5c16f4c4d6e89737870f2d924c6011720d2fbbf95acff35eb1e6051"
     },
     {
       "course": "games104",
@@ -755,8 +755,8 @@
       "path": "public/translations/games104/12.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf",
       "sections": 8,
-      "narrative_han": 347,
-      "sha256": "761e5e9dd61ee8f152dacac37989ba6f1c875e7fb771ead0a8bbbf9ad91781fa"
+      "narrative_han": 997,
+      "sha256": "032864872668d8e14c88ac6cf7a93f8799a6ebf2cadb2a8cac0f9e9f0876ed98"
     },
     {
       "course": "games104",
@@ -764,8 +764,8 @@
       "path": "public/translations/games104/13.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf",
       "sections": 8,
-      "narrative_han": 356,
-      "sha256": "5b77c02ea99b6c46bf5f9fe0ad6b602deef118a111411dd70f1b36bf0ea9af81"
+      "narrative_han": 1010,
+      "sha256": "ea9aa866d021d83356158f661f571ecdfc19f39c8cf9f63678e5dbf6f1736a82"
     },
     {
       "course": "games104",
@@ -773,8 +773,8 @@
       "path": "public/translations/games104/14.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture14.pdf",
       "sections": 8,
-      "narrative_han": 361,
-      "sha256": "495477797ac8b5e15fc803c7be3ea8e5b0b383ef41d3f40a843bf6b53137b1c1"
+      "narrative_han": 993,
+      "sha256": "dc75af3d205128663e9893b561c87fb0ca19e44ef4815732d5c47fdce87f1af6"
     },
     {
       "course": "games104",
@@ -782,8 +782,8 @@
       "path": "public/translations/games104/15.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture15.pdf",
       "sections": 8,
-      "narrative_han": 363,
-      "sha256": "fff9408f6b1dd7bb2a87ba943f3b8efc59e1a9157ff5f3b3966887edc6e11d58"
+      "narrative_han": 978,
+      "sha256": "455d9cff1331bd0e300cf3a0eb0e7b2dd6dabcc96d180803e78d7b6c2894f849"
     },
     {
       "course": "games104",
@@ -791,8 +791,8 @@
       "path": "public/translations/games104/16.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf",
       "sections": 8,
-      "narrative_han": 347,
-      "sha256": "0abe5c5030c04c9d14af216d29b48f90b1652c6d6c07e6bab05c49356fc561b9"
+      "narrative_han": 1027,
+      "sha256": "9af4b7dc1a0e95a385c60b20a94e71c567ae8f926e97f89667a86daaf5dc438e"
     },
     {
       "course": "games104",
@@ -800,8 +800,8 @@
       "path": "public/translations/games104/17.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf",
       "sections": 8,
-      "narrative_han": 356,
-      "sha256": "ca65f445256bf815d7f5c48381263dee9d8b8f777d599236526f0f1df424270b"
+      "narrative_han": 1022,
+      "sha256": "7b7df78911242fee62e602d3a87d9b9b438444fe53e5b5e0eb13ce26e1a103f0"
     },
     {
       "course": "games104",
@@ -809,8 +809,8 @@
       "path": "public/translations/games104/18.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf",
       "sections": 8,
-      "narrative_han": 351,
-      "sha256": "8a595cb4f7338c752230241deef271725a7efe57bee4d4081f27503064267dc9"
+      "narrative_han": 1082,
+      "sha256": "035100543ecca99cebe77c54fa2c055d71cbf3f0e5bdb4567c5d65d58e3f8749"
     },
     {
       "course": "games104",
@@ -818,8 +818,8 @@
       "path": "public/translations/games104/19.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf",
       "sections": 8,
-      "narrative_han": 350,
-      "sha256": "9b6f07138c035f0bd670bb10b1e9d8df74b295396f6c1812ffb514522a6d806e"
+      "narrative_han": 1070,
+      "sha256": "353143965ee2ab6412999259d56ab844a696a7d3f93ea1e803897c97c917cb4c"
     },
     {
       "course": "games104",
@@ -827,8 +827,8 @@
       "path": "public/translations/games104/20.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf",
       "sections": 8,
-      "narrative_han": 351,
-      "sha256": "e462bca3b7ff0a22884207bc955d71e7d4a5a92c2c4e3a90a83d229e88c6d853"
+      "narrative_han": 1084,
+      "sha256": "88961661aa8bfeb535fdac63f04fcbd25e84925e8fec2ed9b4d5655c605bab04"
     },
     {
       "course": "games104",
@@ -836,8 +836,8 @@
       "path": "public/translations/games104/21.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf",
       "sections": 8,
-      "narrative_han": 346,
-      "sha256": "34d42b9e4a9f99d3a95dd6b96d218d1020097c1bf3dcea9381a39d731d66bcfa"
+      "narrative_han": 1117,
+      "sha256": "22d9115d0da01dc0e4089ae78b97025914ab72f04a5c0b06548f961f70e45acb"
     },
     {
       "course": "games104",
@@ -845,8 +845,8 @@
       "path": "public/translations/games104/22.json",
       "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf",
       "sections": 8,
-      "narrative_han": 343,
-      "sha256": "43cc03e0f9c05dcd0fcb331db54e1c5ed1667182f7adcbacbb37c8f41e7bc09b"
+      "narrative_han": 1102,
+      "sha256": "a5d7c27ecaf3f9a1385ce68bc3614846a56fb7760cb45b11532b7fd979f29732"
     }
   ],
   "verification": {
@@ -857,30 +857,805 @@
     "typescript_and_vite_build": "passed",
     "production_json_files_match": 91,
     "index_chinese_links": 91,
-    "local_document_links_checked": 156,
+    "local_document_links_checked": 161,
     "browser": {
       "samples": [
-        "games101/05: chapter link opens a new tab, document TOC part-4, return to chapter 05",
-        "unity/1.1: chapter entry, Chinese document and original section labels",
-        "games104/22: chapter entry, Chinese document and PDF source links",
-        "invalid chapter: readable error and return link"
+        "games101/03: expanded body, TOC part-11, two transform order flows, return to chapter 03, Chinese entry opens a new tab",
+        "unity/5.2: expanded Chinese body and original source discrepancy note; no unrelated comparison diagram",
+        "games104/05: loaded all eight sections, Chinese terminology and exact original source URL"
       ],
       "responsive": [
-        "1280x900 desktop entry and document",
-        "320x900 main page and all three sample documents; no horizontal overflow"
+        "1280x900 desktop document and two transform order flows",
+        "320x900 main chapter 03 and all three sample documents; no horizontal overflow; flow arrows become vertical"
       ],
       "error_warn_logs": [],
       "viewport_restored": true,
       "retained_pages": [
-        "games101/05 course notes",
-        "games101/05 Chinese reading"
+        "games101/03 course notes",
+        "games101/03 Chinese reading"
       ]
     },
     "screenshots": [
-      "docs/game-engine/classic-courses/images/chinese-entry-desktop.png",
-      "docs/game-engine/classic-courses/images/chinese-entry-mobile.png",
-      "docs/game-engine/classic-courses/images/chinese-reading-desktop.png",
-      "docs/game-engine/classic-courses/images/chinese-reading-mobile.png"
+      "docs/game-engine/classic-courses/images/chinese-keypoints-games101-03.png",
+      "docs/game-engine/classic-courses/images/chinese-keypoints-transform-order.png",
+      "docs/game-engine/classic-courses/images/chinese-keypoints-transform-order-mobile.png"
     ]
+  },
+  "content_review": {
+    "documents": 91,
+    "changed": 91,
+    "courses": [
+      {
+        "course": "games101",
+        "documents": 22,
+        "han_min": 951,
+        "han_median": 1203.0,
+        "han_max": 1686
+      },
+      {
+        "course": "unity",
+        "documents": 47,
+        "han_min": 62,
+        "han_median": 347,
+        "han_max": 625
+      },
+      {
+        "course": "games104",
+        "documents": 22,
+        "han_min": 790,
+        "han_median": 987.5,
+        "han_max": 1117
+      }
+    ],
+    "source_urls_and_locators_preserved": true,
+    "repeated_long_paragraphs": [],
+    "problems": [],
+    "note": "Length is review metadata, not a factual accuracy score.",
+    "documents_detail": [
+      {
+        "course": "games101",
+        "chapter": "01",
+        "paragraphs": 13,
+        "han": 990,
+        "prior_han": 303,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "02",
+        "paragraphs": 13,
+        "han": 1052,
+        "prior_han": 322,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "03",
+        "paragraphs": 27,
+        "han": 1395,
+        "prior_han": 304,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "04",
+        "paragraphs": 13,
+        "han": 951,
+        "prior_han": 307,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "05",
+        "paragraphs": 12,
+        "han": 990,
+        "prior_han": 261,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "06",
+        "paragraphs": 15,
+        "han": 1301,
+        "prior_han": 343,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "07",
+        "paragraphs": 12,
+        "han": 1017,
+        "prior_han": 309,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "08",
+        "paragraphs": 13,
+        "han": 1104,
+        "prior_han": 324,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "09",
+        "paragraphs": 12,
+        "han": 1048,
+        "prior_han": 318,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "10",
+        "paragraphs": 14,
+        "han": 1229,
+        "prior_han": 344,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "11",
+        "paragraphs": 13,
+        "han": 1112,
+        "prior_han": 305,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "12",
+        "paragraphs": 13,
+        "han": 1208,
+        "prior_han": 318,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "13",
+        "paragraphs": 14,
+        "han": 1155,
+        "prior_han": 323,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "14",
+        "paragraphs": 14,
+        "han": 1187,
+        "prior_han": 349,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "15",
+        "paragraphs": 14,
+        "han": 1198,
+        "prior_han": 349,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "16",
+        "paragraphs": 14,
+        "han": 1247,
+        "prior_han": 348,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "17",
+        "paragraphs": 15,
+        "han": 1300,
+        "prior_han": 357,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "18",
+        "paragraphs": 17,
+        "han": 1686,
+        "prior_han": 402,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "19",
+        "paragraphs": 15,
+        "han": 1325,
+        "prior_han": 372,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "20",
+        "paragraphs": 16,
+        "han": 1520,
+        "prior_han": 398,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "21",
+        "paragraphs": 17,
+        "han": 1620,
+        "prior_han": 419,
+        "content_changed": true
+      },
+      {
+        "course": "games101",
+        "chapter": "22",
+        "paragraphs": 14,
+        "han": 1310,
+        "prior_han": 352,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "01",
+        "paragraphs": 8,
+        "han": 814,
+        "prior_han": 311,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "02",
+        "paragraphs": 8,
+        "han": 809,
+        "prior_han": 308,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "03",
+        "paragraphs": 8,
+        "han": 790,
+        "prior_han": 314,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "04",
+        "paragraphs": 8,
+        "han": 856,
+        "prior_han": 300,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "05",
+        "paragraphs": 8,
+        "han": 982,
+        "prior_han": 324,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "06",
+        "paragraphs": 8,
+        "han": 930,
+        "prior_han": 345,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "07",
+        "paragraphs": 8,
+        "han": 941,
+        "prior_han": 329,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "08",
+        "paragraphs": 8,
+        "han": 1022,
+        "prior_han": 344,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "09",
+        "paragraphs": 8,
+        "han": 967,
+        "prior_han": 343,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "10",
+        "paragraphs": 8,
+        "han": 966,
+        "prior_han": 344,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "11",
+        "paragraphs": 8,
+        "han": 962,
+        "prior_han": 356,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "12",
+        "paragraphs": 8,
+        "han": 997,
+        "prior_han": 347,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "13",
+        "paragraphs": 8,
+        "han": 1010,
+        "prior_han": 356,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "14",
+        "paragraphs": 8,
+        "han": 993,
+        "prior_han": 361,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "15",
+        "paragraphs": 8,
+        "han": 978,
+        "prior_han": 363,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "16",
+        "paragraphs": 8,
+        "han": 1027,
+        "prior_han": 347,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "17",
+        "paragraphs": 8,
+        "han": 1022,
+        "prior_han": 356,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "18",
+        "paragraphs": 8,
+        "han": 1082,
+        "prior_han": 351,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "19",
+        "paragraphs": 8,
+        "han": 1070,
+        "prior_han": 350,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "20",
+        "paragraphs": 8,
+        "han": 1084,
+        "prior_han": 351,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "21",
+        "paragraphs": 8,
+        "han": 1117,
+        "prior_han": 346,
+        "content_changed": true
+      },
+      {
+        "course": "games104",
+        "chapter": "22",
+        "paragraphs": 8,
+        "han": 1102,
+        "prior_han": 343,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "1.1",
+        "paragraphs": 8,
+        "han": 449,
+        "prior_han": 129,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "1.2",
+        "paragraphs": 8,
+        "han": 428,
+        "prior_han": 126,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "1.3",
+        "paragraphs": 7,
+        "han": 363,
+        "prior_han": 114,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "1.4",
+        "paragraphs": 9,
+        "han": 466,
+        "prior_han": 155,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "2.1",
+        "paragraphs": 9,
+        "han": 457,
+        "prior_han": 141,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "2.2",
+        "paragraphs": 9,
+        "han": 488,
+        "prior_han": 116,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "2.3",
+        "paragraphs": 7,
+        "han": 376,
+        "prior_han": 112,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "2.4",
+        "paragraphs": 6,
+        "han": 323,
+        "prior_han": 85,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "3.1",
+        "paragraphs": 12,
+        "han": 594,
+        "prior_han": 165,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "3.2",
+        "paragraphs": 8,
+        "han": 407,
+        "prior_han": 125,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "3.3",
+        "paragraphs": 7,
+        "han": 358,
+        "prior_han": 97,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "3.4",
+        "paragraphs": 7,
+        "han": 347,
+        "prior_han": 97,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "4.1",
+        "paragraphs": 12,
+        "han": 625,
+        "prior_han": 155,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "4.2",
+        "paragraphs": 7,
+        "han": 348,
+        "prior_han": 106,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "4.3",
+        "paragraphs": 7,
+        "han": 360,
+        "prior_han": 117,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "4.4",
+        "paragraphs": 6,
+        "han": 296,
+        "prior_han": 90,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "5.1",
+        "paragraphs": 11,
+        "han": 570,
+        "prior_han": 173,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "5.2",
+        "paragraphs": 8,
+        "han": 430,
+        "prior_han": 112,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "5.3",
+        "paragraphs": 8,
+        "han": 384,
+        "prior_han": 96,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "5.4",
+        "paragraphs": 7,
+        "han": 347,
+        "prior_han": 101,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "6.1",
+        "paragraphs": 4,
+        "han": 220,
+        "prior_han": 84,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "6.2",
+        "paragraphs": 4,
+        "han": 223,
+        "prior_han": 77,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "6.3",
+        "paragraphs": 4,
+        "han": 230,
+        "prior_han": 83,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "challenge-1",
+        "paragraphs": 10,
+        "han": 489,
+        "prior_han": 153,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "challenge-2",
+        "paragraphs": 11,
+        "han": 528,
+        "prior_han": 167,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "challenge-3",
+        "paragraphs": 10,
+        "han": 492,
+        "prior_han": 149,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "challenge-4",
+        "paragraphs": 11,
+        "han": 513,
+        "prior_han": 154,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "challenge-5",
+        "paragraphs": 11,
+        "han": 512,
+        "prior_han": 141,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "course-introduction",
+        "paragraphs": 2,
+        "han": 140,
+        "prior_han": 54,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "ecs-survival-guide",
+        "paragraphs": 3,
+        "han": 172,
+        "prior_han": 74,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "install-unity",
+        "paragraphs": 5,
+        "han": 234,
+        "prior_han": 81,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "lab-1",
+        "paragraphs": 6,
+        "han": 302,
+        "prior_han": 97,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "lab-2",
+        "paragraphs": 7,
+        "han": 358,
+        "prior_han": 107,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "lab-3",
+        "paragraphs": 6,
+        "han": 316,
+        "prior_han": 92,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "lab-4",
+        "paragraphs": 6,
+        "han": 302,
+        "prior_han": 97,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "lab-5",
+        "paragraphs": 6,
+        "han": 315,
+        "prior_han": 100,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "next-steps-intro",
+        "paragraphs": 1,
+        "han": 79,
+        "prior_han": 37,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "quiz-1",
+        "paragraphs": 10,
+        "han": 395,
+        "prior_han": 105,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "quiz-2",
+        "paragraphs": 10,
+        "han": 331,
+        "prior_han": 101,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "quiz-3",
+        "paragraphs": 10,
+        "han": 339,
+        "prior_han": 93,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "quiz-4",
+        "paragraphs": 10,
+        "han": 313,
+        "prior_han": 97,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "quiz-5",
+        "paragraphs": 10,
+        "han": 342,
+        "prior_han": 100,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "unit-1-intro",
+        "paragraphs": 1,
+        "han": 71,
+        "prior_han": 41,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "unit-2-intro",
+        "paragraphs": 1,
+        "han": 74,
+        "prior_han": 39,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "unit-3-intro",
+        "paragraphs": 1,
+        "han": 63,
+        "prior_han": 31,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "unit-4-intro",
+        "paragraphs": 1,
+        "han": 62,
+        "prior_han": 40,
+        "content_changed": true
+      },
+      {
+        "course": "unity",
+        "chapter": "unit-5-intro",
+        "paragraphs": 1,
+        "han": 72,
+        "prior_han": 30,
+        "content_changed": true
+      }
+    ],
+    "revision": "Replaced one-line topic labels with substantive original-course keypoints",
+    "method": "Read original paginated PDF text and official tutorial sections; visually checked selected technical diagrams. This does not claim every PDF page was visually reviewed.",
+    "cross_checks": [
+      "GAMES101 03: reflection axis, shear, homogeneous point/vector, inverse, matrix composition and 3D affine structure",
+      "GAMES101 15-17: irradiance distance attenuation, radiance measure, sampling measure conversion, direct/indirect light and refraction conditions",
+      "GAMES104 10-11: convexity for SAT/GJK, collision phases, integration tradeoffs, PBD/XPBD and vehicle model",
+      "GAMES104 22: cluster quantization rules and local coding conditions",
+      "GAMES101 19-22: aperture and focus conditions, thin-lens model, negative primary matching, spring damping, RK4 and implicit Euler accuracy vs stability",
+      "Unity 4.3, 5.2, Challenge 5, 6.2 and ECS: original inconsistent text and legacy API boundaries"
+    ],
+    "locator_addition": "unity/challenge-5 part-4 retains section 4 and adds section 9 to locate the incorrect original hint."
+  },
+  "additional_verification_source": {
+    "label": "Unity Input System 1.11.2 ButtonControl: isPressed / wasPressedThisFrame",
+    "url": "https://docs.unity3d.com/Packages/com.unity.inputsystem@1.11/api/UnityEngine.InputSystem.Controls.ButtonControl.html",
+    "used_for": "Explicitly marked editorial correction to the Challenge 5 section 9 hint; not a new course case."
   }
 }

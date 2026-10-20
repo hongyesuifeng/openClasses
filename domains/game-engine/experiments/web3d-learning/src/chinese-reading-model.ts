@@ -8,6 +8,13 @@ export interface ChineseReadingSection {
   sourcePages?: number[];
   sourceSections?: number[];
   paragraphs: string[];
+  comparison?: ChineseReadingComparison;
+}
+
+export interface ChineseReadingComparison {
+  title: string;
+  rows: { label: string; steps: string[]; result: string }[];
+  caption: string;
 }
 
 export interface ChineseReadingDocument {
@@ -35,6 +42,9 @@ export function findChineseReadingTarget(search: string): { course: CourseDigest
 const record = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value);
 const nonempty = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
 const positiveIntegers = (value: unknown) => value === undefined || (Array.isArray(value) && value.every(item => Number.isSafeInteger(item) && item > 0));
+const validComparison = (value: unknown) => value === undefined || (record(value) && nonempty(value.title) && nonempty(value.caption)
+  && Array.isArray(value.rows) && value.rows.length >= 2 && value.rows.every(row => record(row)
+    && nonempty(row.label) && nonempty(row.result) && Array.isArray(row.steps) && row.steps.length >= 2 && row.steps.every(nonempty)));
 
 export function parseChineseReadingDocument(value: unknown, course: CourseDigest, chapter: CourseChapter): ChineseReadingDocument {
   if (!record(value) || value.course !== course.id || value.chapter !== chapter.id || value.source !== chapter.source
@@ -46,6 +56,7 @@ export function parseChineseReadingDocument(value: unknown, course: CourseDigest
     if (!record(section) || !nonempty(section.id) || !/^[a-z][a-z0-9-]*$/.test(section.id) || ids.has(section.id)
       || !nonempty(section.title) || !nonempty(section.sourceLabel) || !Array.isArray(section.paragraphs)
       || !section.paragraphs.length || !section.paragraphs.every(nonempty)
+      || !validComparison(section.comparison)
       || !positiveIntegers(section.sourcePages) || !positiveIntegers(section.sourceSections)
       || !((Array.isArray(section.sourcePages) && section.sourcePages.length) || (Array.isArray(section.sourceSections) && section.sourceSections.length))) {
       throw new Error('中文文档的小节内容不完整');

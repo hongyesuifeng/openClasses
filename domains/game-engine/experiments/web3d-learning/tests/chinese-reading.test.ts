@@ -27,11 +27,20 @@ test('mismatched or malformed documents cannot replace the requested reading', (
   const valid = { course: course.id, chapter: chapter.id, title: '概述', source: chapter.source, scope: '中文学习整理，非全文翻译。',
     sections: [{ id: 'part-1', title: '图形学', sourceLabel: 'PDF 第 9 页', sourcePages: [9], paragraphs: ['课程内容。'] }] };
   assert.equal(parseChineseReadingDocument(valid, course, chapter).chapter, '01');
+  const comparison = { title: '次序', caption: '原课例子', rows: [
+    { label: '先平移', steps: ['原位置', '平移', '旋转'], result: '结果一' },
+    { label: '先旋转', steps: ['原位置', '旋转', '平移'], result: '结果二' },
+  ] };
+  const withComparison = { ...valid, sections: [{ ...valid.sections[0], comparison }] };
+  assert.deepEqual(parseChineseReadingDocument(withComparison, course, chapter).sections[0].comparison, comparison);
   for (const invalid of [null, [], { ...valid, chapter: '02' }, { ...valid, source: 'https://example.com' },
     { ...valid, sections: [] }, { ...valid, sections: [valid.sections[0], valid.sections[0]] },
     { ...valid, sections: [{ ...valid.sections[0], sourcePages: [0] }] },
     { ...valid, sections: [{ ...valid.sections[0], paragraphs: [''] }] },
-    { ...valid, sections: [{ ...valid.sections[0], sourcePages: undefined }] }]) {
+    { ...valid, sections: [{ ...valid.sections[0], sourcePages: undefined }] },
+    { ...valid, sections: [{ ...valid.sections[0], comparison: null }] },
+    { ...valid, sections: [{ ...valid.sections[0], comparison: { ...comparison, rows: [] } }] },
+    { ...valid, sections: [{ ...valid.sections[0], comparison: { ...comparison, rows: [{ ...comparison.rows[0], steps: [''] }, comparison.rows[1]] } }] }]) {
     assert.throws(() => parseChineseReadingDocument(invalid, course, chapter));
   }
 });
@@ -46,7 +55,7 @@ test('all 91 readings exist, match their original sources and contain located Ch
       const raw = JSON.parse(readFileSync(new URL(`${encodeURIComponent(chapter.id)}.json`, folder), 'utf8'));
       const document = parseChineseReadingDocument(raw, course, chapter);
       assert.match(document.title, /[\u4e00-\u9fff]/);
-      assert.match(document.scope, /中文/);
+      assert.match(document.scope, /[\u4e00-\u9fff]/);
       assert.match(document.scope, /非全文翻译|不是全文翻译|并非全文翻译/);
       const pages = evidence.pdf_sources.find((source: { course: string; chapter: string }) => source.course === course.id && source.chapter === chapter.id)?.pages;
       for (const section of document.sections) {

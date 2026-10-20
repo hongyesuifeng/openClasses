@@ -3,7 +3,7 @@
   "chapter": "unit-3-intro",
   "title": "第三单元：声音与特效导读",
   "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/unit-3-introduction?version=6.0",
-  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "scope": "按官方原小节提炼课程目的、概念与完成条件，非全文翻译；源码、截图及视频操作请对照原资料。",
   "sections": [
     {
       "id": "part-1",
@@ -13,7 +13,7 @@
         1
       ],
       "paragraphs": [
-        "本单元制作横向跑酷，用动画表达跑、跳和摔倒，再加入音乐、动作音效与粒子。"
+        "第三单元制作需要跳过障碍的横向跑酷。除了移动规则，还要让跑步、跳跃和摔倒具有对应动画，再以音乐、动作音效、尘土和碰撞粒子表达当前发生的事情。"
       ]
     }
   ]
