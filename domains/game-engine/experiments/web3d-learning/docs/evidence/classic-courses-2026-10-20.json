@@ -1,0 +1,577 @@
+{
+  "date": "2026-10-20",
+  "material_scope": "Digest notes, not personal completion or native project execution",
+  "courses": [
+    {
+      "id": "games101",
+      "chapters": 22,
+      "points": 152
+    },
+    {
+      "id": "unity",
+      "chapters": 47,
+      "points": 208
+    },
+    {
+      "id": "games104",
+      "chapters": 22,
+      "points": 152
+    }
+  ],
+  "pdf_locator_check": {
+    "chapters": 44,
+    "all_point_pages_in_pdf_bounds": true
+  },
+  "unity_directory_check": {
+    "entries": 47,
+    "exact_official_order_and_urls": true
+  },
+  "local_document_links_checked": 150,
+  "pdf_sources": [
+    {
+      "course": "games101",
+      "chapter": "01",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_01.pdf",
+      "pages": 48,
+      "sha256": "7069b8c19d014db92e94bcc4d5afd0184a3b12c0ab85d77eecea1b2a54373809"
+    },
+    {
+      "course": "games101",
+      "chapter": "02",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf",
+      "pages": 42,
+      "sha256": "5246adcbfdcfcb0ecbb0e5b4552475911063c43cfaace6bd41fa34e9b945775c"
+    },
+    {
+      "course": "games101",
+      "chapter": "03",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf",
+      "pages": 41,
+      "sha256": "9f3b1b4f1824e733f5d7d49a220b50c684d5a38ffb5cd7df5e97e55f6ce2d676"
+    },
+    {
+      "course": "games101",
+      "chapter": "04",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf",
+      "pages": 37,
+      "sha256": "2bdf6827ba3fa7438cf68e72dd81f1f3d19b9ffa65c20f6d0797bf9c5eb395e8"
+    },
+    {
+      "course": "games101",
+      "chapter": "05",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_05.pdf",
+      "pages": 54,
+      "sha256": "40c8876ef1cbfeb8b766ff20b238ee233b73fcf6af3b18450fd98906ae840ff4"
+    },
+    {
+      "course": "games101",
+      "chapter": "06",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_06.pdf",
+      "pages": 71,
+      "sha256": "6a992a754d91229ba483317a9983f3caa66da0f161156a28c0891dd4bc4f3dc7"
+    },
+    {
+      "course": "games101",
+      "chapter": "07",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf",
+      "pages": 29,
+      "sha256": "6c355f548319deb92caec13f63f64aeb7a4babca1617aa63ccdcf1ebaab28cc7"
+    },
+    {
+      "course": "games101",
+      "chapter": "08",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_08.pdf",
+      "pages": 45,
+      "sha256": "b21de43d83dcec6e904080839d8f25ea758f36f1b89897efc65da68930156b9b"
+    },
+    {
+      "course": "games101",
+      "chapter": "09",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf",
+      "pages": 47,
+      "sha256": "1261b63be7a67e8c32a6b4c779ab0e2be2722ae5631fccd944d54a47e3e1bb39"
+    },
+    {
+      "course": "games101",
+      "chapter": "10",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf",
+      "pages": 54,
+      "sha256": "69876c33d4d3079d6a0f8d96517322696dcb108eff2b3f3b2cdd5bf9de25066f"
+    },
+    {
+      "course": "games101",
+      "chapter": "11",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf",
+      "pages": 51,
+      "sha256": "097e1e390c2af17194bbcb029ac71cb85d3f389898131c2f18069cea6b77b259"
+    },
+    {
+      "course": "games101",
+      "chapter": "12",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf",
+      "pages": 48,
+      "sha256": "d02e730cce874550aba707be108321c6777c1e20e21e94245a593a7ba9d04394"
+    },
+    {
+      "course": "games101",
+      "chapter": "13",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf",
+      "pages": 41,
+      "sha256": "58003fcd3f80d87e67d5ebbe333a4ab9b40025d3e80521d20367f7a3613404bc"
+    },
+    {
+      "course": "games101",
+      "chapter": "14",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_14.pdf",
+      "pages": 54,
+      "sha256": "3ab4cc4dde57f587ebbb62b7dc3880bd80bb0ca4cfedd18cf822fefc2b28a46f"
+    },
+    {
+      "course": "games101",
+      "chapter": "15",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf",
+      "pages": 49,
+      "sha256": "b27f75bc0eb2b0294b238be1542fad46cb86b1b0ecb2ea8023e8a6df2d8e635d"
+    },
+    {
+      "course": "games101",
+      "chapter": "16",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf",
+      "pages": 50,
+      "sha256": "7ca9bb7f6c448f448ab37c6be7fdfed02eaf913e0223e1d41ce2ec09268c4d79"
+    },
+    {
+      "course": "games101",
+      "chapter": "17",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_17.pdf",
+      "pages": 48,
+      "sha256": "c83a738bc6c51d0ce5b19d494a06bf72167436fc194875ac04e706b5d6315bfc"
+    },
+    {
+      "course": "games101",
+      "chapter": "18",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_18.pdf",
+      "pages": 105,
+      "sha256": "6b7f7ede052cf8e5aa2014cdc0a71cd6c95bc92b7996a4f733b691ded80ac136"
+    },
+    {
+      "course": "games101",
+      "chapter": "19",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf",
+      "pages": 63,
+      "sha256": "316e1ef60e7b3daf241d044238ca2ed8253bf39ba5da9f90925a84e0edf21272"
+    },
+    {
+      "course": "games101",
+      "chapter": "20",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf",
+      "pages": 98,
+      "sha256": "78779dc405f8210489ad688a472581b649a2b702806b61adba896ee19a248155"
+    },
+    {
+      "course": "games101",
+      "chapter": "21",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf",
+      "pages": 85,
+      "sha256": "aebbb4f281083fdf1bac84ff42e2bd501944189e00c76dbb520dd61594849712"
+    },
+    {
+      "course": "games101",
+      "chapter": "22",
+      "url": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf",
+      "pages": 37,
+      "sha256": "b2c15316a45a16d7b933e4c171734674bdc12a7840ecede1bf0744d72d6534bc"
+    },
+    {
+      "course": "games104",
+      "chapter": "01",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture01.pdf",
+      "pages": 56,
+      "sha256": "a3fd91d1485edc8cddade3bd56e6459696c96230a6d1dfb39db6b6415c10eb43"
+    },
+    {
+      "course": "games104",
+      "chapter": "02",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture02.pdf",
+      "pages": 38,
+      "sha256": "1e52c0f88e2286d21a1a50e0477a61f0a14e3d9e5da5d6cd8aca11af28056c1b"
+    },
+    {
+      "course": "games104",
+      "chapter": "03",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf",
+      "pages": 41,
+      "sha256": "6c6d418125bdfc3638fbb6bfb6388bf095419b51764ba5edf553b05aa25acd73"
+    },
+    {
+      "course": "games104",
+      "chapter": "04",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture04.pdf",
+      "pages": 79,
+      "sha256": "719b94bb5990bfeaeb692b7acc7f6e815bc6bdbaabb9927ccdfcb56446017f42"
+    },
+    {
+      "course": "games104",
+      "chapter": "05",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture05_1.pdf",
+      "pages": 98,
+      "sha256": "433d4d3d8164bbdc58ebb716466eb0b5bd9747cba45347c3fd2412152123bb79"
+    },
+    {
+      "course": "games104",
+      "chapter": "06",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf",
+      "pages": 101,
+      "sha256": "77c76df0d4110ba68ee17c604c9fd79e93e0ebac929f37ed54a7533310e48dc7"
+    },
+    {
+      "course": "games104",
+      "chapter": "07",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf",
+      "pages": 89,
+      "sha256": "841b0f188babeae5c2adee15ae5c23e52019da489c5b83d6e3f288ff6cf8dfb9"
+    },
+    {
+      "course": "games104",
+      "chapter": "08",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture08.pdf",
+      "pages": 129,
+      "sha256": "71e49de3a348d974ea3151fb8fcdaa5d426cc11894900af2d1190948ee972122"
+    },
+    {
+      "course": "games104",
+      "chapter": "09",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf",
+      "pages": 103,
+      "sha256": "d3e77c185be5c2dcd60b50b1c42dc6579268d7d8ee3786ac838e6dc1d0d45f2d"
+    },
+    {
+      "course": "games104",
+      "chapter": "10",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture10.pdf",
+      "pages": 131,
+      "sha256": "4505f5de671b59a8f1a5e6889a30a27a51682ad7ba5a86cc1053313f862f3104"
+    },
+    {
+      "course": "games104",
+      "chapter": "11",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture11.pdf",
+      "pages": 96,
+      "sha256": "38d89224c74e0d01e9d8e1c18a410581194d1b9a64d77ffd2468618d1e203865"
+    },
+    {
+      "course": "games104",
+      "chapter": "12",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf",
+      "pages": 107,
+      "sha256": "018da9203411781296977a86a79b5c7d0e6222396069cf06dd30bb29d537ffaf"
+    },
+    {
+      "course": "games104",
+      "chapter": "13",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf",
+      "pages": 88,
+      "sha256": "f6f85141d7e8bdd70b29d25db0026613d314abe01a76d2922842ad77cbcf3f9f"
+    },
+    {
+      "course": "games104",
+      "chapter": "14",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture14.pdf",
+      "pages": 87,
+      "sha256": "18279e16c9ecf4a2b04b5fb9e4a77e0a4b42cdb7fd34c3d1e260038ec24f2e7d"
+    },
+    {
+      "course": "games104",
+      "chapter": "15",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture15.pdf",
+      "pages": 96,
+      "sha256": "1f7ffd8d2c8b65f01c1d532ad06ef3c8282819965a828d598c6ce7bd1c34aea2"
+    },
+    {
+      "course": "games104",
+      "chapter": "16",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf",
+      "pages": 108,
+      "sha256": "07bc5496511ce7c09106d9b7a3e8757dc94461f843ebb8ac45e6c627eaa5db1c"
+    },
+    {
+      "course": "games104",
+      "chapter": "17",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf",
+      "pages": 114,
+      "sha256": "73ac6348d2ad3e24b0f7c210e579e3880b8fc216aa97e28d66bc80c1036e7817"
+    },
+    {
+      "course": "games104",
+      "chapter": "18",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf",
+      "pages": 151,
+      "sha256": "812d41279d9a9e02a0a12129c09127564f94caa1be22a5f79c6ee4620969cfa0"
+    },
+    {
+      "course": "games104",
+      "chapter": "19",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf",
+      "pages": 130,
+      "sha256": "6f6cbc73cbd17568f0a0c69156ab21f51b1cd52d04224f8170c10d6841023f09"
+    },
+    {
+      "course": "games104",
+      "chapter": "20",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf",
+      "pages": 109,
+      "sha256": "ea64648335c128879cf5fde63541b24ecf3b302433d733bf7812a160bd135952"
+    },
+    {
+      "course": "games104",
+      "chapter": "21",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf",
+      "pages": 175,
+      "sha256": "100be2e2d72977ad57ff8aa4d95107d2e672dc6b89164b9167a3ece0f52b6649"
+    },
+    {
+      "course": "games104",
+      "chapter": "22",
+      "url": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf",
+      "pages": 143,
+      "sha256": "1a26653b9f94f5140fd3d7131b191bd2ee381a07b0152eaf289392c610c4bbfc"
+    }
+  ],
+  "unity_sources": [
+    {
+      "title": "Course Introduction",
+      "url": "https://learn.unity.com/course/create-with-code/unit/getting-started/tutorial/welcome-and-install-the-software?version=6.0",
+      "sha256": "6fb0da6d29c22515aa5c9c84957dd7a1a6f572330047bac4b55820cb1ea75166"
+    },
+    {
+      "title": "Install Unity Software",
+      "url": "https://learn.unity.com/course/create-with-code/unit/getting-started/tutorial/install-unity-software?version=6.0",
+      "sha256": "b64f8e7f9041f9af6f592e93c0b141ce11ab3560b035228a89b466ca8b234af8"
+    },
+    {
+      "title": "Unit 1 - Introduction",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/unit-1-introduction?version=6.0",
+      "sha256": "6fbc754533c17bb7cafef31057e826d063e91ccf9ce06af8ff9cfdf57a06d223"
+    },
+    {
+      "title": "Lesson 1.1 - Start your 3D Engines",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-1-start-your-3d-engines?version=6.0",
+      "sha256": "4e39e0bdd52aa846c73dae23de4d37f1f3f19eaa50b9a5468dbb30d2162f1e31"
+    },
+    {
+      "title": "Lesson 1.2 - Pedal to the Metal",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-2-move-the-vehicle-with-your-first-line-of-c?version=6.0",
+      "sha256": "f4ad576a679f425638fb62b5f97ff924338eff1c145e33dee441eda23cd5dd1a"
+    },
+    {
+      "title": "Lesson 1.3 - High Speed Chase",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables?version=6.0",
+      "sha256": "b02060e1816154ccb08e4c531d22e95c1af01405648695c993899eab639d749a"
+    },
+    {
+      "title": "Lesson 1.4 - Step into the Driver's Seat",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0",
+      "sha256": "36b511c3efd577f2cecccc0e2676aac4557933cd746eceec76cd3404100965d4"
+    },
+    {
+      "title": "Challenge 1 - Plane Programming",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/challenge-1-plane-programming-1?version=6.0",
+      "sha256": "3c10f4da8d9ee6b63c095b165f67fac8768cd87c50a58da14252c9a02bb2eced"
+    },
+    {
+      "title": "Lab 1 - Project Design Document",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lab-1-personal-project-plan?version=6.0",
+      "sha256": "5e94005decd6a222676764dbd49cb0598acb937bc1af430d3006be485d695346"
+    },
+    {
+      "title": "Quiz 1",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/quiz/quiz-1-9s?version=6.0",
+      "sha256": "de40fa377ab3dc1a44d20b1f3f51fd50d71fb6b0d2ef0b81859c83378af2efa9"
+    },
+    {
+      "title": "Unit 2 - Introduction",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/unit-2-introduction?version=6.0",
+      "sha256": "d1fb94b1c7fc54b9015b01d86090ad7ff1da75f65d666152f929c9677c9ba94a"
+    },
+    {
+      "title": "Lesson 2.1 - Player Positioning",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-1-player-positioning?version=6.0",
+      "sha256": "f154965117724f9d41d8373603a6c5a9e26b61b90a07b77ff81f77c35db1b23b"
+    },
+    {
+      "title": "Lesson 2.2 - Food Flight",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-2-food-flight?version=6.0",
+      "sha256": "490ddc00f4826f5fb831ec9c40caa916155da046d512d34c3c589378ca8eb69d"
+    },
+    {
+      "title": "Lesson 2.3 - Random Animal Stampede",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-3-random-animal-stampede?version=6.0",
+      "sha256": "79f2af12661cd532ae4faf60659d47d600439e0b8d8b03fb468a67262bc2db32"
+    },
+    {
+      "title": "Lesson 2.4 - Collision Decisions",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-4-collision-decisions?version=6.0",
+      "sha256": "7329c73aef3f6a6064f897fe6c12655b4451f9ecdd67fc74ce4ed2a5d5109d00"
+    },
+    {
+      "title": "Challenge 2 - Play Fetch",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/challenge-2-play-fetch?version=6.0",
+      "sha256": "e1a6c873268ab6de840a2b3c737c3ac0fff7c40a79dec6c6f9d18d64105092ee"
+    },
+    {
+      "title": "Lab 2 - New Project with Primitives",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lab-2-new-project-with-primitives?version=6.0",
+      "sha256": "70f5a9e3e958108dafc183001f4162b5207890ac00cabaf0177dca21a44ee463"
+    },
+    {
+      "title": "Quiz 2",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/quiz/quiz-2-z8?version=6.0",
+      "sha256": "9d97b70b815af05ae123998cd733559d8773d62c5d2700de28d9b84e9ce8ffc4"
+    },
+    {
+      "title": "Unit 3 - Introduction",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/unit-3-introduction?version=6.0",
+      "sha256": "4413b92190222e867d853bfd8367721812076e3bc7458caec859b7c620cbb8da"
+    },
+    {
+      "title": "Lesson 3.1 - Jump Force",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-1-jump-force-2?version=6.0",
+      "sha256": "adec675d692ddf992e2d021107fb96b251adf134177c0472471bf1ff9ccb80aa"
+    },
+    {
+      "title": "Lesson 3.2 - Make the World Whiz By",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-2-make-the-world-whiz-by?version=6.0",
+      "sha256": "f724a828f9d20ce5430e6d5afa6f4d7583d51f3a86ecfce971782964a5fdc8aa"
+    },
+    {
+      "title": "Lesson 3.3 - Don't Just Stand There",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-3-don-t-just-stand-there-1?version=6.0",
+      "sha256": "f7665c99c6fc217debf6c50153d6089661aace9a3f6769d644712033efe929b2"
+    },
+    {
+      "title": "Lesson 3.4 - Particles and Sound Effects",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/particles-and-sound-effects?version=6.0",
+      "sha256": "adff4af09c12cb0cb1c5c7f8082c8f683998e07536ee45a1719194386884f6ab"
+    },
+    {
+      "title": "Challenge 3 - Balloons, Bombs, & Booleans",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/challenge-3-bouncy-balloons-bombs-and-booleans-1?version=6.0",
+      "sha256": "eb4ada575c52d21078e3d0feff5f9b1369bf5a98f6b4b0515753989b1f0bb178"
+    },
+    {
+      "title": "Lab 3 - Player Control",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lab-3-player-control?version=6.0",
+      "sha256": "f0c15136831d32db9002ff42ac4614b33c4a7ed3a807b5356b02bab6cdb6650a"
+    },
+    {
+      "title": "Quiz 3",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/quiz/quiz-3-tt?version=6.0",
+      "sha256": "4b2eff151454171e00c433b65f3fc6e1d9b595f76775ec22575a5ec4a3eb6c8e"
+    },
+    {
+      "title": "Unit 4 - Introduction",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/unit-4-introduction?version=6.0",
+      "sha256": "aa91485f2a13cac0c5f1e22de33a702d1454e0af0382cfed335041599a448b1a"
+    },
+    {
+      "title": "Lesson 4.1 - Watch Where You’re Going",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0",
+      "sha256": "2f4fed3ef3a49f59e83550486e3f63bbc254e0c5256b3163c5b8c67967b12b5a"
+    },
+    {
+      "title": "Lesson 4.2 - Follow the Player",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-plan-4-2-follow-the-player?version=6.0",
+      "sha256": "e48180e2865fee03f9884bd7a36c5b77f89dd52765a4d53c181fa125402925b9"
+    },
+    {
+      "title": "Lesson 4.3 - PowerUp and CountDown",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-3-powerup-and-countdown?version=6.0",
+      "sha256": "ae30131029b32fb7a50c61c9f27b794142de4128ad5aad8a6f6b39f7d1d87f1d"
+    },
+    {
+      "title": "Lesson 4.4 - For-Loops For Waves",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-4-for-loops-for-waves?version=6.0",
+      "sha256": "51c63cc4e8c653b73f99ad426749d9eda6cdf4139b604c7ca859ad4f3c02aef7"
+    },
+    {
+      "title": "Challenge 4 - Soccer Scripting",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/challenge-4-soccer-scripting-1?version=6.0",
+      "sha256": "c3839df09cadd9497cbb99f797c67ac6ffdde4681aa0c9d171a0b1120ff57981"
+    },
+    {
+      "title": "Lab 4 - Basic Gameplay",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lab-4-basic-gameplay?version=6.0",
+      "sha256": "d200419a5c0f23b0313f4a7c60159b265286e36fa71059dcfb0f2134b4da07fc"
+    },
+    {
+      "title": "Quiz 4",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/quiz/quiz-4-rg?version=6.0",
+      "sha256": "2a58490b07ad62424b5f5056694e833b69add7c5d8fd68effa38e5ce32de051f"
+    },
+    {
+      "title": "Unit 5 - Introduction",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/unit-5-introduction?version=6.0",
+      "sha256": "0dd8add8800a6bb76e21c105746ef599786f780ba5cab48eb4c5ad4fce075471"
+    },
+    {
+      "title": "Lesson 5.1 - Clicky Mouse",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-1-clicky-mouse-1?version=6.0",
+      "sha256": "c77fae9687d643f6fa2ee137695e1eb6fb4e365640eac60e64f857a529573ff4"
+    },
+    {
+      "title": "Lesson 5.2 - Keeping Score",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0",
+      "sha256": "0404042fc004ff319e93b9875a6b83c121e0674afab82f029f3e052740b4545f"
+    },
+    {
+      "title": "Lesson 5.3 - Game Over",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0",
+      "sha256": "4eb3257668242ef0af8bbdabbd3186aea1c61931553c830cd296a0c188324478"
+    },
+    {
+      "title": "Lesson 5.4 - What’s the Difficulty?",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-4-what-s-the-difficulty-2?version=6.0",
+      "sha256": "09173db8f9768266eba4fc2aeac7a3ccbeb712d2bf95ae7828e86b03ef92a047"
+    },
+    {
+      "title": "Challenge 5 - Whack-a-Food",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/challenge-5-whack-a-food?version=6.0",
+      "sha256": "2416eabbeaa0f7519d2ace6b9dc3cfde27c5d56eeb8d86dd174d38340a0ef34d"
+    },
+    {
+      "title": "Lab 5 - Swap out your Assets",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lab-5-swap-out-your-assets?version=6.0",
+      "sha256": "eb5e79b31ad7e35feda5a2cc2e1da54143cb0944e15f72f2fb97a467f96996f3"
+    },
+    {
+      "title": "Quiz 5",
+      "url": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/quiz/quiz-5-5o?version=6.0",
+      "sha256": "58a5d905b06f9068b12b769ed8ce38c8ded8624daf3ea34f05cb46a9e9514f2e"
+    },
+    {
+      "title": "Next Steps - Introduction",
+      "url": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/next-steps-introduction?version=6.0",
+      "sha256": "d38f0ffea0e519139908d08bc175274b01073b147295a5c00979475e65367fe1"
+    },
+    {
+      "title": "Lesson 6.1 - Project Optimization",
+      "url": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-1-project-optimization-1?version=6.0",
+      "sha256": "8ad5c9e4a152722fc3236304b8af0777bfa4987cda3b92add00d8459b98e76f6"
+    },
+    {
+      "title": "Lesson 6.2 - Research and Troubleshooting",
+      "url": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-2-research-and-troubleshooting-2?version=6.0",
+      "sha256": "54855887a81332773b7763debd5c60b4e49019f55383e66e5759c1dfbf6227f1"
+    },
+    {
+      "title": "Lesson 6.3 - Sharing your Projects",
+      "url": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-3-sharing-your-projects?version=6.0",
+      "sha256": "92125b4aba8874c1f802b751b7c06b9cd958b46b35c4090bd60e737561806ebb"
+    },
+    {
+      "title": "ECS Survival Guide",
+      "url": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/ecs-survival-guide-1?version=6.0",
+      "sha256": "0df6c3b4f7a862e24e09a415aad01a6167143e65cb91e8d64e386b3d98fb27a6"
+    }
+  ]
+}

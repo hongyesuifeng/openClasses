@@ -6,13 +6,13 @@
 
 | 课程与官方入口 | 已核对并整理的范围 | Web 入口 |
 | --- | --- | --- |
-| [GAMES101：现代计算机图形学入门](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html) | Lecture 01—06 原课 PDF | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01) |
-| [Unity Create with Code](https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0) | Unity 6.0，Unit 1，Lesson 1.1—1.4 官方教程 | [Lesson 1.1](http://127.0.0.1:5173/?lab=classics&course=unity&chapter=1.1) |
-| [GAMES104：现代游戏引擎——从入门到实践](https://games-cn.org/games104/) | Lecture 01—03 原课 PDF | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games104&chapter=01) |
+| [GAMES101：现代计算机图形学入门](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html) | Lecture 01—22 原课 PDF | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01) |
+| [Unity Create with Code](https://learn.unity.com/course/create-with-code?version=6.0) | Unity 6.0，全目录 47 篇：导读、Unit 1—5 正课／Challenge／Lab／Quiz 与 Next Steps | [Lesson 1.1](http://127.0.0.1:5173/?lab=classics&course=unity&chapter=1.1) |
+| [GAMES104：现代游戏引擎——从入门到实践](https://games-cn.org/games104-slides/) | 已发布 Lecture 01—22 原课 PDF | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games104&chapter=01) |
 
 每讲保留原讲标题、简明课内要点、课件页码或教程小节。交互用于切换课程／章节、查看原文和保存阅读位置；不增加自编主线、类比、补充案例、跨课程阐述、公式推导、代码分步或 Cocos 对照。
 
-这是首批摘记范围，后续继续沿各课原顺序整理。GAMES101 第 6 讲标题沿用官方目录，PDF 实际内容集中在抗锯齿，页面已注明范围差异。来源与运行记录见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
+2026-10-20，在首批 13 讲基础上补齐为 91 篇原课摘记。[逐讲目录与出处](../../domains/game-engine/experiments/web3d-learning/docs/classic-course-index.md)列出全部范围。GAMES101 部分讲次的目录标题与 PDF 内容存在跨讲差异，按实际课件摘记并注明；GAMES104 以已发布课件为准，早期大纲中的不同排期不作为已覆盖内容。Unity 测验只列考查范围，Lab 与挑战只列目标和要求。来源与运行记录见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
 
 学习者报告以前看过 GAMES101、GAMES104，具体理解范围尚未确认。本轮材料整理、网页实现、个人学习与原生项目实践分别登记；阅读书签不代表掌握。详见[学习进度](../../user-profile/progress/3d-game-client-progress.md)。
 

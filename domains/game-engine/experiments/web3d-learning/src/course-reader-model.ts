@@ -3,7 +3,10 @@ import type { CourseId } from './principles-data.ts';
 
 export interface ReadingPosition { course: CourseId; chapters: Record<CourseId, string> }
 export function restoreCourseReading(serialized: string | null, search = ''): ReadingPosition {
-  const reading: ReadingPosition = { course: 'games101', chapters: { games101: '01', unity: '1.1', games104: '01' } };
+  const reading: ReadingPosition = {
+    course: 'games101',
+    chapters: Object.fromEntries(courseDigests.map(course => [course.id, course.chapters[0].id])) as Record<CourseId, string>,
+  };
   const validCourse = (value: unknown): value is CourseId => courseDigests.some(course => course.id === value);
   try {
     const saved: unknown = JSON.parse(serialized ?? 'null');

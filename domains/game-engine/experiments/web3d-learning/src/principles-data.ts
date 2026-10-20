@@ -1,14 +1,8 @@
-export type CourseId = 'games101' | 'unity' | 'games104';
-export interface CourseChapter {
-  id: string; number: string; title: string; originalTitle: string;
-  source: string; sourceLabel: string;
-  points: { title: string; text: string; source: string }[];
-  note?: string;
-}
-export interface CourseDigest {
-  id: CourseId; name: string; title: string; scope: string; url: string;
-  chapters: CourseChapter[];
-}
+import type { CourseDigest } from './course-types.ts';
+import { games101AdditionalChapters } from './course-digests/games101.ts';
+import { games104AdditionalChapters } from './course-digests/games104.ts';
+import { unityPreludeChapters, unityAdditionalChapters } from './course-digests/unity.ts';
+export type { CourseId, CourseChapter, CourseDigest } from './course-types.ts';
 const g101 = (n: number) => `https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_${String(n).padStart(2, '0')}.pdf`;
 const g104 = (n: number) => `https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture${String(n).padStart(2, '0')}.pdf`;
 const unity = (slug: string) => `https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/${slug}?version=6.0`;
@@ -16,7 +10,7 @@ const unity = (slug: string) => `https://learn.unity.com/course/create-with-code
 // Original chapter order; source labels use one-based PDF pages or tutorial sections.
 export const courseDigests: CourseDigest[] = [
   {
-    id: 'games101', name: 'GAMES101', title: '现代计算机图形学入门', scope: '已整理第 1—6 讲',
+    id: 'games101', name: 'GAMES101', title: '现代计算机图形学入门', scope: '第 1—22 讲 · 原课重点',
     url: 'https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html',
     chapters: [
       {
@@ -90,13 +84,15 @@ export const courseDigests: CourseDigest[] = [
           { title: '多点采样近似', text: '在像素内取多个位置并平均结果，近似面积平均；更多采样会增加开销。课件末尾另列 FXAA、TAA 和超分辨率方法。', source: '第 60—70 页' },
         ],
       },
+      ...games101AdditionalChapters,
     ],
   },
   {
-    id: 'unity', name: 'Unity Create with Code', title: 'Unit 1 · Player Control',
-    scope: '已整理 Lesson 1.1—1.4 · Unity 6.0',
-    url: 'https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation?version=6.0',
+    id: 'unity', name: 'Unity Create with Code', title: 'Create with Code · Unity 6.0',
+    scope: '全目录 47 篇 · Unity 6.0',
+    url: 'https://learn.unity.com/course/create-with-code?version=6.0',
     chapters: [
+      ...unityPreludeChapters,
       {
         id: '1.1', number: 'Lesson 1.1', title: 'Start your 3D Engines', originalTitle: 'Unit 1 · Player Control',
         source: unity('lesson-1-1-start-your-3d-engines'), sourceLabel: '官方教程 · 第 1—8 节',
@@ -141,11 +137,13 @@ export const courseDigests: CourseDigest[] = [
           { title: '本讲成果', text: '上下键控制前进与后退，左右键控制转向；重点区分平移与旋转。', source: '第 9 节 Lesson Recap' },
         ],
       },
+      ...unityAdditionalChapters,
     ],
   },
   {
-    id: 'games104', name: 'GAMES104', title: '现代游戏引擎——从入门到实践', scope: '已整理第 1—3 讲',
-    url: 'https://games-cn.org/games104/',
+    id: 'games104', name: 'GAMES104', title: '现代游戏引擎——从入门到实践', scope: '第 1—22 讲 · 已发布课件',
+    url: 'https://games-cn.org/games104-slides/',
+    note: '按官方已发布课件的讲次与实际内容整理；部分标题、顺序与早期课程大纲不同。',
     chapters: [
       {
         id: '01', number: '第 1 讲', title: '游戏引擎导论', originalTitle: 'Overview of Game Engine',
@@ -184,6 +182,7 @@ export const courseDigests: CourseDigest[] = [
           { title: '依赖与时机', text: '课件最后提出组件间依赖，以及事件是否立即发送的问题。', source: '第 36 页' },
         ],
       },
+      ...games104AdditionalChapters,
     ],
   },
 ];

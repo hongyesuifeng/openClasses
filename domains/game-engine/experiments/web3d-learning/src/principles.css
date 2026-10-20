@@ -17,7 +17,10 @@ body.course-notes-background { background: #f7f9f6; color: #243b31; }
 .notes-layout { display: grid; grid-template-columns: 238px minmax(0, 1fr); gap: 30px; align-items: start; }
 .notes-sidebar { padding: 18px 0; border-top: 1px solid #dce4dc; position: sticky; top: 16px; }
 .notes-sidebar h2 { font-size: 13px; margin: 0 0 14px 10px; color: #677a6c; }
-.notes-sidebar nav { display: flex; flex-direction: column; gap: 4px; }
+.notes-sidebar h2 span { font-weight: 400; font-size: 11px; margin-left: 8px; }
+.notes-sidebar nav { display: flex; flex-direction: column; gap: 4px; position: relative; max-height: max(180px, calc(100dvh - 440px)); overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.notes-chapter-picker { display: none; }
+.notes-course-note { margin: -8px 0 22px; font-size: 12px; color: #677a6c; line-height: 1.8; }
 .notes-sidebar nav a { display: flex; flex-direction: column; gap: 5px; padding: 11px 12px; text-decoration: none; color: #53665a; border-left: 3px solid transparent; }
 .notes-sidebar nav a:hover { background: #eff3ee; }
 .notes-sidebar nav a[aria-current] { background: #eaf2e9; border-left-color: #2a7556; color: #255b42; }
@@ -67,9 +70,9 @@ body.course-notes-background { background: #f7f9f6; color: #243b31; }
   .notes-layout { display: block; }
   .notes-sidebar { position: static; padding: 14px 0 6px; }
   .notes-sidebar h2 { margin-left: 0; }
-  .notes-sidebar nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px; }
-  .notes-sidebar nav a { padding: 8px; background: #f0f4ee; }
-  .notes-sidebar nav strong { font-size: 11px; }
+  .notes-sidebar nav { display: none; }
+  .notes-chapter-picker { display: block; font-size: 11px; color: #677a6c; }
+  .notes-chapter-picker select { display: block; box-sizing: border-box; width: 100%; min-width: 0; max-width: 100%; margin-top: 7px; padding: 11px 9px; font: inherit; font-size: 13px; color: #304c38; background: #fff; border: 1px solid #cbd7c9; border-radius: 6px; }
   .notes-sidebar > p { margin: 6px 0; padding-left: 0; }
   .notes-content { padding: 23px 18px 16px; }
   .notes-chapter-header h1 { font-size: 23px; }
