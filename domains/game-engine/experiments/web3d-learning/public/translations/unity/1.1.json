@@ -1,0 +1,97 @@
+{
+  "course": "unity",
+  "chapter": "1.1",
+  "title": "启动你的 3D 引擎",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-1-start-your-3d-engines?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "建立课程项目",
+      "sourceLabel": "原教程 第 1 节 · 建立课程项目",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "统一保存课程工程，并在 Hub 中创建 Prototype 1。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "导入场景资源",
+      "sourceLabel": "原教程 第 2 节 · 导入场景资源",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "导入课程包后打开原型场景。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "放入车辆",
+      "sourceLabel": "原教程 第 3 节 · 放入车辆",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "选择车辆，在 Scene 视图中定位和观察。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "设置障碍物",
+      "sourceLabel": "原教程 第 4 节 · 设置障碍物",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "选好障碍并摆到车辆前方，使用 Transform 调整位置。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "查看运行画面",
+      "sourceLabel": "原教程 第 5 节 · 查看运行画面",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "进入 Play 模式，对照 Scene 与相机输出的 Game 视图。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "调整跟车视角",
+      "sourceLabel": "原教程 第 6 节 · 调整跟车视角",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "把相机放到车辆后上方，设置能观察道路的朝向。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "保存编辑布局",
+      "sourceLabel": "原教程 第 7 节 · 保存编辑布局",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "按编辑需要调整窗口位置并保存布局。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 8 节 · 本讲回顾",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "场景已有车辆、障碍和相机；本讲先完成摆放与编辑器熟悉。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "course": "unity",
+  "chapter": "install-unity",
+  "title": "安装 Unity 学习环境",
+  "source": "https://learn.unity.com/course/create-with-code/unit/getting-started/tutorial/install-unity-software?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "开始前检查",
+      "sourceLabel": "原教程 第 1 节 · 开始前检查",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "本课准备 Hub、Unity 6 LTS 与代码编辑器；已具备环境可跳过安装。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "Unity Hub 安装管理器",
+      "sourceLabel": "原教程 第 2 节 · Unity Hub 安装管理器",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "Hub 负责安装和管理不同 Editor 版本。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "Editor 与代码编辑器",
+      "sourceLabel": "原教程 第 3 节 · Editor 与代码编辑器",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "选择课内 Editor，并准备 Visual Studio 等相应编辑模块。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "Unity ID 账号",
+      "sourceLabel": "原教程 第 4 节 · Unity ID 账号",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "登录或创建账号，供课程所需 Unity 服务使用。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "安装回顾",
+      "sourceLabel": "原教程 第 5 节 · 安装回顾",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "确认 Hub、Editor、代码编辑器和账号已准备好，再开始建项目。"
+      ]
+    }
+  ]
+}

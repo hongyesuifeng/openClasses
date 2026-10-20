@@ -1,0 +1,53 @@
+{
+  "course": "unity",
+  "chapter": "6.3",
+  "title": "分享你的项目",
+  "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-3-sharing-your-projects?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "构建模块",
+      "sourceLabel": "原教程 第 1 节 · 构建模块",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "为目标平台准备对应模块，包括桌面和 Web 支持。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "构建与运行",
+      "sourceLabel": "原教程 第 2 节 · 构建与运行",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "在 Build Profiles 选择目标，加入场景并检查设置；导出后实际游玩验证。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "可选分享",
+      "sourceLabel": "原教程 第 3 节 · 可选分享",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "可提交截图、录像或发布链接，说明作品并与其他学习者交流。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 4 节 · 本讲回顾",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "项目应能在编辑器之外运行，再考虑分享。"
+      ]
+    }
+  ]
+}

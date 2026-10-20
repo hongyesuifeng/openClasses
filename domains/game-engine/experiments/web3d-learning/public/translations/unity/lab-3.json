@@ -1,0 +1,75 @@
+{
+  "course": "unity",
+  "chapter": "lab-3",
+  "title": "练习三：玩家控制",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lab-3-player-control?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "输入环境",
+      "sourceLabel": "原教程 第 1 节 · 输入环境",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "确认本版本课程要求的 Input System 设置。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "控制计划",
+      "sourceLabel": "原教程 第 2 节 · 控制计划",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "为 PlayerController 规划输入、变量与运动需求。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "基本移动",
+      "sourceLabel": "原教程 第 3 节 · 基本移动",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "依据个人项目独立完成输入驱动的运动。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "运动约束",
+      "sourceLabel": "原教程 第 4 节 · 运动约束",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "把运动限制在项目允许的范围内。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "整理与备份",
+      "sourceLabel": "原教程 第 5 节 · 整理与备份",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "补充注释、组织代码，并导出当前版本备份。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "本次回顾",
+      "sourceLabel": "原教程 第 6 节 · 本次回顾",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "通过查资料和排错，让角色可控且满足玩法约束。"
+      ]
+    }
+  ]
+}

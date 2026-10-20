@@ -1,0 +1,119 @@
+{
+  "course": "unity",
+  "chapter": "challenge-1",
+  "title": "挑战一：飞机编程",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/challenge-1-plane-programming-1?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "挑战任务",
+      "sourceLabel": "原教程 第 1 节 · 挑战任务",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "以飞行练习检验输入、前进运动和相机跟随。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "练习性质",
+      "sourceLabel": "原教程 第 2 节 · 练习性质",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "资源包含有意设置的错误，需要逐项排查。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "前进方向",
+      "sourceLabel": "原教程 第 3 节 · 前进方向",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "检查飞机运动是否与预期飞行方向一致。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "飞行速度",
+      "sourceLabel": "原教程 第 4 节 · 飞行速度",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "检查飞机速度是否适合操作。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "俯仰输入",
+      "sourceLabel": "原教程 第 5 节 · 俯仰输入",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "飞机俯仰应由玩家上下输入触发。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "相机位置",
+      "sourceLabel": "原教程 第 6 节 · 相机位置",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "调整观察位置，使飞机位于侧向画面中。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "持续跟随",
+      "sourceLabel": "原教程 第 7 节 · 持续跟随",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "检查相机能否随飞机移动。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "螺旋桨附加题",
+      "sourceLabel": "原教程 第 8 节 · 螺旋桨附加题",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "螺旋桨旋转是可选挑战。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "提示入口",
+      "sourceLabel": "原教程 第 9 节 · 提示入口",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "遇到困难时可回原页查看提示，本文不代替排错。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "更多可选挑战",
+      "sourceLabel": "原教程 第 10 节 · 更多可选挑战",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "原页链接到额外 Bonus Feature，完成与否不影响继续主课。"
+      ]
+    }
+  ]
+}

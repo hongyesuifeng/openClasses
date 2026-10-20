@@ -1,0 +1,177 @@
+{
+  "course": "games101",
+  "chapter": "05",
+  "title": "光栅化（三角形的离散化）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_05.pdf",
+  "scope": "中文学习整理，非全文翻译。覆盖视口、显示模型、三角形中心采样及走样；设备画面按主题归并，不分析影片细节。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "视锥参数",
+      "sourceLabel": "PDF 第 5—6 页",
+      "sourcePages": [
+        5,
+        6
+      ],
+      "paragraphs": [
+        "对称视锥可由竖直视场角与宽高比描述，关联近平面边界。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "屏幕模型",
+      "sourceLabel": "PDF 第 7—8 页",
+      "sourcePages": [
+        7,
+        8
+      ],
+      "paragraphs": [
+        "MVP 后还需进入像素数组；课程暂将像素看作均匀颜色方块。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "像素中心",
+      "sourceLabel": "PDF 第 9 页",
+      "sourcePages": [
+        9
+      ],
+      "paragraphs": [
+        "整数索引 (x,y) 的采样中心是 (x+0.5,y+0.5)。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "视口映射",
+      "sourceLabel": "PDF 第 10—11 页",
+      "sourcePages": [
+        10,
+        11
+      ],
+      "paragraphs": [
+        "xy 的规范范围映射到屏幕宽高，视口步骤不改 z。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "显示与存储",
+      "sourceLabel": "PDF 第 13—21 页",
+      "sourcePages": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "paragraphs": [
+        "原课展示不同绘图/显示设备，并以帧缓冲存储光栅画面。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "显示器差异",
+      "sourceLabel": "PDF 第 22—25 页",
+      "sourcePages": [
+        22,
+        23,
+        24,
+        25
+      ],
+      "paragraphs": [
+        "LCD 调节背光透过，另有 OLED、LED 阵列和电子墨水等形式。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "三角形",
+      "sourceLabel": "PDF 第 26—30 页",
+      "sourcePages": [
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "paragraphs": [
+        "三角形共面、内部明确，也便于插值，因而适合作为基本图元。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "二维采样",
+      "sourceLabel": "PDF 第 31—34 页",
+      "sourcePages": [
+        31,
+        32,
+        33,
+        34
+      ],
+      "paragraphs": [
+        "将连续三角形覆盖关系离散为屏幕上的函数采样。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "覆盖函数",
+      "sourceLabel": "PDF 第 35—39 页",
+      "sourcePages": [
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "paragraphs": [
+        "在各像素中心判断 inside，产生覆盖或未覆盖的二值结果。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "内外与边界",
+      "sourceLabel": "PDF 第 40—42 页",
+      "sourcePages": [
+        40,
+        41,
+        42
+      ],
+      "paragraphs": [
+        "三条边的叉积用于内外判断；公共边归属是须另外明确的边界情况。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "遍历范围",
+      "sourceLabel": "PDF 第 43—44 页",
+      "sourcePages": [
+        43,
+        44
+      ],
+      "paragraphs": [
+        "包围盒减少候选像素；原页另展示细长三角形的增量遍历。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "近似与锯齿",
+      "sourceLabel": "PDF 第 45—53 页",
+      "sourcePages": [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "paragraphs": [
+        "真实子像素不同于课堂方块模型；中心采样的离散斜边出现走样。"
+      ]
+    }
+  ]
+}

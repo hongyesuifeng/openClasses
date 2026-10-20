@@ -1,0 +1,86 @@
+{
+  "course": "unity",
+  "chapter": "3.3",
+  "title": "别只是站着",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-3-don-t-just-stand-there-1?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "查看动画控制器",
+      "sourceLabel": "原教程 第 1 节 · 查看动画控制器",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "观察层、状态、过渡和条件。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "开始跑步",
+      "sourceLabel": "原教程 第 2 节 · 开始跑步",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "设置角色初始跑步状态与速度。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "跳跃动作",
+      "sourceLabel": "原教程 第 3 节 · 跳跃动作",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "跳起时触发相应动画。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "动画配合",
+      "sourceLabel": "原教程 第 4 节 · 动画配合",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "调整跳跃表现与物理运动的配合。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "碰撞摔倒",
+      "sourceLabel": "原教程 第 5 节 · 碰撞摔倒",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "碰撞障碍时设置动画参数，进入摔倒状态。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "结束后限制输入",
+      "sourceLabel": "原教程 第 6 节 · 结束后限制输入",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "角色结束游戏后不应继续响应跳跃。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 7 节 · 本讲回顾",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "动画参数把跑步、跳跃与摔倒连接到游戏状态。"
+      ]
+    }
+  ]
+}

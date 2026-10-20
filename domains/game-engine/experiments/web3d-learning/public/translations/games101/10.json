@@ -1,0 +1,185 @@
+{
+  "course": "games101",
+  "chapter": "10",
+  "title": "几何（基本表示方法）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf",
+  "scope": "中文学习整理，非全文翻译。按本讲先纹理应用、后几何表示的实际顺序整理；不展开页内引用论文或图片细节。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "纹理不仅是颜色",
+      "sourceLabel": "PDF 第 7 页",
+      "sourcePages": [
+        7
+      ],
+      "paragraphs": [
+        "纹理还承载供片元计算查询的数据，过滤也是这类查询的一部分。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "球面环境图",
+      "sourceLabel": "PDF 第 8—11 页",
+      "sourcePages": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "paragraphs": [
+        "环境图记录方向上的光；球面展开在极区容易畸变。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "立方体环境图",
+      "sourceLabel": "PDF 第 12—13 页",
+      "sourcePages": [
+        12,
+        13
+      ],
+      "paragraphs": [
+        "六个方形面减轻畸变，但查询前须从方向确定对应面。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "凹凸与法线",
+      "sourceLabel": "PDF 第 14—15 页",
+      "sourcePages": [
+        14,
+        15
+      ],
+      "paragraphs": [
+        "改变着色法线可增加表面细节感，不增加三角形，也不改变轮廓几何。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "局部法线计算",
+      "sourceLabel": "PDF 第 16—17 页",
+      "sourcePages": [
+        16,
+        17
+      ],
+      "paragraphs": [
+        "原课用高度变化估计法线，并提醒计算是在局部坐标框架内完成。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "置换",
+      "sourceLabel": "PDF 第 18 页",
+      "sourcePages": [
+        18
+      ],
+      "paragraphs": [
+        "置换贴图会移动顶点，和只改变着色法线的做法有实质区别。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "其他纹理用途",
+      "sourceLabel": "PDF 第 19—21 页",
+      "sourcePages": [
+        19,
+        20,
+        21
+      ],
+      "paragraphs": [
+        "原页还列出程序噪声、预计算环境遮蔽和三维体数据。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "隐式表面",
+      "sourceLabel": "PDF 第 32—33 页",
+      "sourcePages": [
+        32,
+        33
+      ],
+      "paragraphs": [
+        "按空间点满足的关系定义形状，例如函数的零点集。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "隐式的查询取舍",
+      "sourceLabel": "PDF 第 34—35 页",
+      "sourcePages": [
+        34,
+        35
+      ],
+      "paragraphs": [
+        "某些内部判定方便，但直接找齐表面采样点可能困难。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "显式表示",
+      "sourceLabel": "PDF 第 36—40 页",
+      "sourcePages": [
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "paragraphs": [
+        "直接给点或由参数映射得到表面；采样容易并不保证内外测试也容易。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "代数与 CSG",
+      "sourceLabel": "PDF 第 42—44 页",
+      "sourcePages": [
+        42,
+        43,
+        44
+      ],
+      "paragraphs": [
+        "代数曲面及布尔组合提供不同的隐式建模方式，选择仍依赖任务。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "距离函数",
+      "sourceLabel": "PDF 第 45—48 页",
+      "sourcePages": [
+        45,
+        46,
+        47,
+        48
+      ],
+      "paragraphs": [
+        "距离信息可以带符号，也能用于边界混合；不只是做布尔取舍。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "水平集",
+      "sourceLabel": "PDF 第 49—51 页",
+      "sourcePages": [
+        49,
+        50,
+        51
+      ],
+      "paragraphs": [
+        "网格值近似隐式函数，通过插值的零值位置取表面。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "分形与限制",
+      "sourceLabel": "PDF 第 52—53 页",
+      "sourcePages": [
+        52,
+        53
+      ],
+      "paragraphs": [
+        "分形保留多尺度自相似，但精确控制形状较难；紧凑表示并非万能。"
+      ]
+    }
+  ]
+}

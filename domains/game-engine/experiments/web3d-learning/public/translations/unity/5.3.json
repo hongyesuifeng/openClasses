@@ -1,0 +1,97 @@
+{
+  "course": "unity",
+  "chapter": "5.3",
+  "title": "游戏结束与重玩",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "结束文本",
+      "sourceLabel": "原教程 第 1 节 · 结束文本",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "创建 Game Over 文字对象。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "按需显示",
+      "sourceLabel": "原教程 第 2 节 · 按需显示",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "正常游玩时隐藏，失败后再显示。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "结束方法",
+      "sourceLabel": "原教程 第 3 节 · 结束方法",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "好目标掉入下方区域时触发结束。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "停止活动",
+      "sourceLabel": "原教程 第 4 节 · 停止活动",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "利用状态限制生成和继续计分。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "重玩按钮",
+      "sourceLabel": "原教程 第 5 节 · 重玩按钮",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "在界面中加入 Restart 控件。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "按钮行为",
+      "sourceLabel": "原教程 第 6 节 · 按钮行为",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "点击后重新加载当前场景。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "显示时机",
+      "sourceLabel": "原教程 第 7 节 · 显示时机",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "重玩按钮随结束状态出现，平时隐藏。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 8 节 · 本讲回顾",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "游戏已有失败反馈与重新开始的入口。"
+      ]
+    }
+  ]
+}

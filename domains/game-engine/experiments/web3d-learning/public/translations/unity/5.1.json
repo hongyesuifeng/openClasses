@@ -1,0 +1,130 @@
+{
+  "course": "unity",
+  "chapter": "5.1",
+  "title": "点击目标",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-1-clicky-mouse-1?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "编辑视图",
+      "sourceLabel": "原教程 第 1 节 · 编辑视图",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "创建第五原型并使用 2D 视图观察；课例仍采用3D刚体。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "好坏目标",
+      "sourceLabel": "原教程 第 2 节 · 好坏目标",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "选择三类好目标和一类应避开的目标。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "随机抛射",
+      "sourceLabel": "原教程 第 3 节 · 随机抛射",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "让目标带着随机位置、冲量和扭矩进入画面。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "整理方法",
+      "sourceLabel": "原教程 第 4 节 · 整理方法",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "把随机力、转动和位置计算各自封装。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "目标列表",
+      "sourceLabel": "原教程 第 5 节 · 目标列表",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "Game Manager 以列表保存可生成目标。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "协程生成",
+      "sourceLabel": "原教程 第 6 节 · 协程生成",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "借助循环与等待间隔持续生成目标。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "鼠标输入",
+      "sourceLabel": "原教程 第 7 节 · 鼠标输入",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "本版直接读取 Mouse.current 的按下状态。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "点击射线",
+      "sourceLabel": "原教程 第 8 节 · 点击射线",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "把鼠标屏幕位置变成相机发出的射线，并观察调试线。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "目标命中",
+      "sourceLabel": "原教程 第 9 节 · 目标命中",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "射线命中当前目标时移除该目标。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "下落清理",
+      "sourceLabel": "原教程 第 10 节 · 下落清理",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "目标落入下方触发区域后被清理。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 11 节 · 本讲回顾",
+      "sourceSections": [
+        11
+      ],
+      "paragraphs": [
+        "列表、协程与点击检测连接起随机目标玩法。"
+      ]
+    }
+  ]
+}

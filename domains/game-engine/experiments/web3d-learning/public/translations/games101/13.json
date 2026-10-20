@@ -1,0 +1,182 @@
+{
+  "course": "games101",
+  "chapter": "13",
+  "title": "光线追踪（基本原理）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf",
+  "scope": "中文学习整理，非全文翻译。整理几何光线、递归追踪、求交和包围盒；当年性能对比不作为现代硬件结论。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "引入光线追踪",
+      "sourceLabel": "PDF 第 4—6 页",
+      "sourcePages": [
+        4,
+        5,
+        6
+      ],
+      "paragraphs": [
+        "原课从阴影、反射与间接光照引出追踪路径，并讨论计算开销。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "几何近似",
+      "sourceLabel": "PDF 第 8—9 页",
+      "sourcePages": [
+        8,
+        9
+      ],
+      "paragraphs": [
+        "本讲按直线光线及路径反向追踪讨论成像，不是完整波动光学。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "相机光线",
+      "sourceLabel": "PDF 第 10—11 页",
+      "sourcePages": [
+        10,
+        11
+      ],
+      "paragraphs": [
+        "从眼点穿过像素查询场景，颜色首先取决于最近的有效交点。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "局部着色",
+      "sourceLabel": "PDF 第 12 页",
+      "sourcePages": [
+        12
+      ],
+      "paragraphs": [
+        "Ray Casting 在交点计算局部光照，再查询朝光源方向的遮挡。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "递归分支",
+      "sourceLabel": "PDF 第 13—19 页",
+      "sourcePages": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "paragraphs": [
+        "Whitted 式方法继续追踪镜面反射、透射和阴影光线，分工各不相同。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "光线参数",
+      "sourceLabel": "PDF 第 21 页",
+      "sourcePages": [
+        21
+      ],
+      "paragraphs": [
+        "由起点和方向确定光线，参数只取朝前的有效范围。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "球面求交",
+      "sourceLabel": "PDF 第 22—23 页",
+      "sourcePages": [
+        22,
+        23
+      ],
+      "paragraphs": [
+        "交点需同时满足球面与光线关系，求解后仍须筛选有效根。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "一般隐式表面",
+      "sourceLabel": "PDF 第 24 页",
+      "sourcePages": [
+        24
+      ],
+      "paragraphs": [
+        "把光线代入表面关系，寻找位于光线前方的实交点。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "三角形网格",
+      "sourceLabel": "PDF 第 25—26 页",
+      "sourcePages": [
+        25,
+        26
+      ],
+      "paragraphs": [
+        "逐面求交简单但昂贵；单个三角形可拆为平面求交与内部检查。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "平面与直接方法",
+      "sourceLabel": "PDF 第 27—29 页",
+      "sourcePages": [
+        27,
+        28,
+        29
+      ],
+      "paragraphs": [
+        "平面由法线和点定义；Möller–Trumbore 则直接取得三角形重心信息。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "遍历规模",
+      "sourceLabel": "PDF 第 31—33 页",
+      "sourcePages": [
+        31,
+        32,
+        33
+      ],
+      "paragraphs": [
+        "像素、几何数量和反弹次数共同放大朴素求交成本。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "包围体排除",
+      "sourceLabel": "PDF 第 35 页",
+      "sourcePages": [
+        35
+      ],
+      "paragraphs": [
+        "若光线未命中完整包住物体的体积，可直接排除内部几何。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "AABB 区间",
+      "sourceLabel": "PDF 第 36—38 页",
+      "sourcePages": [
+        36,
+        37,
+        38
+      ],
+      "paragraphs": [
+        "轴向夹层的进入/退出区间取交集，构成盒体求交。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "有效方向检查",
+      "sourceLabel": "PDF 第 39—40 页",
+      "sourcePages": [
+        39,
+        40
+      ],
+      "paragraphs": [
+        "盒体在光线后方应排除；起点在盒内则仍可能存在有效交段。"
+      ]
+    }
+  ]
+}

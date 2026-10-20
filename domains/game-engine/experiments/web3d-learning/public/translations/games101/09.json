@@ -1,0 +1,169 @@
+{
+  "course": "games101",
+  "chapter": "09",
+  "title": "着色（插值、高级纹理映射）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf",
+  "scope": "中文学习整理，非全文翻译。整理重心插值和纹理过滤；PDF 中仅预告的纹理应用、阴影图分别在后续讲次出现。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "为何插值",
+      "sourceLabel": "PDF 第 6 页",
+      "sourcePages": [
+        6
+      ],
+      "paragraphs": [
+        "顶点属性需要在三角形内部连续变化，纹理坐标、颜色和法线都可参与。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "重心坐标",
+      "sourceLabel": "PDF 第 7—11 页",
+      "sourcePages": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "paragraphs": [
+        "三个权重和为 1，可按子三角形面积理解；非负权重对应三角形内点。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "投影限制",
+      "sourceLabel": "PDF 第 12 页",
+      "sourcePages": [
+        12
+      ],
+      "paragraphs": [
+        "重心坐标在投影下不保持不变，不能直接把投影前后权重混用。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "纹理查询",
+      "sourceLabel": "PDF 第 14 页",
+      "sourcePages": [
+        14
+      ],
+      "paragraphs": [
+        "屏幕采样先得到 UV，再取纹理值；本讲用它提供漫反射颜色。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "纹理放大",
+      "sourceLabel": "PDF 第 15—16 页",
+      "sourcePages": [
+        15,
+        16
+      ],
+      "paragraphs": [
+        "纹理不够细时，最近邻、双线性与双三次查询呈现不同的放大结果。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "双线性插值",
+      "sourceLabel": "PDF 第 17—23 页",
+      "sourcePages": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "paragraphs": [
+        "利用邻近四个纹素，沿两个方向插值；不是恢复原本不存在的图像细节。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "像素足迹",
+      "sourceLabel": "PDF 第 24—26 页",
+      "sourcePages": [
+        24,
+        25,
+        26
+      ],
+      "paragraphs": [
+        "纹理缩小时，一个屏幕像素覆盖多个纹素，单点查询容易产生摩尔纹。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "范围平均",
+      "sourceLabel": "PDF 第 27—30 页",
+      "sourcePages": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "paragraphs": [
+        "目标转为求像素覆盖区域的平均；超采样可近似但成本很高。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "Mipmap 层级",
+      "sourceLabel": "PDF 第 31—33 页",
+      "sourcePages": [
+        31,
+        32,
+        33
+      ],
+      "paragraphs": [
+        "逐层缩小的纹理近似正方形范围查询，不能精确处理任意形状足迹。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "选择层级",
+      "sourceLabel": "PDF 第 34—37 页",
+      "sourcePages": [
+        34,
+        35,
+        36,
+        37
+      ],
+      "paragraphs": [
+        "由相邻屏幕位置的纹理坐标跨度估计足迹大小，再选适合的层级。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "三线性过滤",
+      "sourceLabel": "PDF 第 38—39 页",
+      "sourcePages": [
+        38,
+        39
+      ],
+      "paragraphs": [
+        "相邻两级分别做双线性查询，再按连续层级权重混合。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "各向异性问题",
+      "sourceLabel": "PDF 第 40—46 页",
+      "sourcePages": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "paragraphs": [
+        "正方形近似会过度模糊狭长足迹；Ripmap、区域和表与 EWA 分别处理不同形状。"
+      ]
+    }
+  ]
+}

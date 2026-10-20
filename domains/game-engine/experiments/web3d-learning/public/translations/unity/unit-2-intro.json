@@ -1,0 +1,20 @@
+{
+  "course": "unity",
+  "chapter": "unit-2-intro",
+  "title": "第二单元：基础玩法导读",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/unit-2-introduction?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "基础玩法",
+      "sourceLabel": "原教程 第 1 节 · 基础玩法",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "俯视原型让玩家向来袭动物投食。非玩家对象、随机生成和玩家响应共同形成这一单元的玩法。"
+      ]
+    }
+  ]
+}

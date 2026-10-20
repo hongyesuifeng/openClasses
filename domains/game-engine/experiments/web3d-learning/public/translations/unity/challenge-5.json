@@ -1,0 +1,119 @@
+{
+  "course": "unity",
+  "chapter": "challenge-5",
+  "title": "挑战五：打食物",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/challenge-5-whack-a-food?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "挑战目标",
+      "sourceLabel": "原教程 第 1 节 · 挑战目标",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "点击格子中出现的食物，避开骷髅，排查 UI 原型行为。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "练习性质",
+      "sourceLabel": "原教程 第 2 节 · 练习性质",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "资源中的错误是挑战内容。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "按钮文字",
+      "sourceLabel": "原教程 第 3 节 · 按钮文字",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "核对文字水平、垂直对齐。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "点击时机",
+      "sourceLabel": "原教程 第 4 节 · 点击时机",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "检查食物是否只在实际点击时消失。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "分数文本",
+      "sourceLabel": "原教程 第 5 节 · 分数文本",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "核对标签与数值是否共同显示。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "重玩入口",
+      "sourceLabel": "原教程 第 6 节 · 重玩入口",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "检查失败后是否出现可用的按钮。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "难度作用",
+      "sourceLabel": "原教程 第 7 节 · 难度作用",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "确认不同难度使生成速度不同。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "计时附加题",
+      "sourceLabel": "原教程 第 8 节 · 计时附加题",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "原课可选任务加入倒计时和到期结束。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "原页提示",
+      "sourceLabel": "原教程 第 9 节 · 原页提示",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "提示涉及文字、输入时机、状态与参数的排查。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "更多可选内容",
+      "sourceLabel": "原教程 第 10 节 · 更多可选内容",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "额外 Bonus Feature 可作为后续补充练习。"
+      ]
+    }
+  ]
+}

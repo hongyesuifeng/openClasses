@@ -1,0 +1,123 @@
+{
+  "course": "games104",
+  "chapter": "01",
+  "title": "游戏引擎导论",
+  "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture01.pdf",
+  "scope": "中文学习整理，非全文翻译。依据本讲 PDF 第 7—47 页选取技术主题，用简短中文重新组织；不逐段复现原文。图像、视频、公式、代码及完整论述请结合原资料，公告和致谢未收录。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "应用范围",
+      "sourceLabel": "PDF 第 7—11 页",
+      "sourcePages": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "paragraphs": [
+        "引擎也服务于数字人、影视、仿真与数字孪生。这里强调共同的底层能力，而非某个应用的成品效果。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "引擎与内容",
+      "sourceLabel": "PDF 第 14—15 页",
+      "sourcePages": [
+        14,
+        15
+      ],
+      "paragraphs": [
+        "早期引擎将通用执行能力与具体游戏资源分开。内容修改因此可独立于通用运行代码进行。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "三维与复用",
+      "sourceLabel": "PDF 第 16—18 页",
+      "sourcePages": [
+        16,
+        17,
+        18
+      ],
+      "paragraphs": [
+        "实时三维和平台适配推动引擎成为可复用框架。同一技术基础可以承载多种游戏与硬件目标。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "中间件",
+      "sourceLabel": "PDF 第 19 页",
+      "sourcePages": [
+        19
+      ],
+      "paragraphs": [
+        "物理、动画、音频等能力也可由专门组件提供。集成第三方能力仍需要明确接口与系统边界。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "课程中的定义",
+      "sourceLabel": "PDF 第 22—23 页",
+      "sourcePages": [
+        22,
+        23
+      ],
+      "paragraphs": [
+        "引擎兼具虚拟世界基础、创作工具与系统组织职责。课程关注这些职责如何构成整体开发平台。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "实时协作",
+      "sourceLabel": "PDF 第 24—28 页",
+      "sourcePages": [
+        24,
+        25,
+        26,
+        28
+      ],
+      "paragraphs": [
+        "渲染之外，多种模拟与玩法系统须在实时预算内协作。单一画面效果不能代表引擎需要完成的全部工作。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "开发平台",
+      "sourceLabel": "PDF 第 29—32 页",
+      "sourcePages": [
+        29,
+        30,
+        31,
+        32
+      ],
+      "paragraphs": [
+        "工具、扩展接口和持续更新共同支持团队生产。创作与运行还要服务多人协作和后续维护。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "学习与范围",
+      "sourceLabel": "PDF 第 34—47 页",
+      "sourcePages": [
+        34,
+        35,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "paragraphs": [
+        "先建立整体框架，再进入架构、各系统与前沿专题。导论只给出范围，具体算法在后续讲次展开。"
+      ]
+    }
+  ]
+}

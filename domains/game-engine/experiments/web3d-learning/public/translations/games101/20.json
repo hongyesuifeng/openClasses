@@ -1,0 +1,239 @@
+{
+  "course": "games101",
+  "chapter": "20",
+  "title": "光场、颜色与感知",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf",
+  "scope": "中文学习整理，非全文翻译。整理光场及颜色技术小节；第 29—34、86—88 页无可提取正文，纯图适应序列不补写解释，公式与匹配实验保留原文入口。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "全光函数",
+      "sourceLabel": "PDF 第 8—13 页",
+      "sourcePages": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "paragraphs": [
+        "把位置、方向、波长和时间纳入同一描述，组织可见光的信息。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "光线参数",
+      "sourceLabel": "PDF 第 14—15 页",
+      "sourcePages": [
+        14,
+        15
+      ],
+      "paragraphs": [
+        "忽略时间和颜色后，先用三维位置与二维方向描述光线。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "四维简化",
+      "sourceLabel": "PDF 第 16—19 页",
+      "sourcePages": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "paragraphs": [
+        "真空沿光线辐射亮度不变的假设，允许减少一个位置自由度。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "两平面表示",
+      "sourceLabel": "PDF 第 20—26 页",
+      "sourcePages": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "paragraphs": [
+        "两个平面上各取二维位置来参数化光线，采集方式影响空间/角度分辨率。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "光场相机",
+      "sourceLabel": "PDF 第 27—28、35—37 页",
+      "sourcePages": [
+        27,
+        28,
+        35,
+        36,
+        37
+      ],
+      "paragraphs": [
+        "微透镜记录方向信息以支持重对焦，代价包括空间分辨率和设计成本。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "光的波长",
+      "sourceLabel": "PDF 第 39—40 页",
+      "sourcePages": [
+        39,
+        40
+      ],
+      "paragraphs": [
+        "光谱描述电磁波的不同波长，不能直接把波长当作感知颜色。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "谱与感知",
+      "sourceLabel": "PDF 第 41—45 页",
+      "sourcePages": [
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "paragraphs": [
+        "谱功率分布描述能量分配，颜色则属于人类视觉的响应。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "感光细胞",
+      "sourceLabel": "PDF 第 47—48 页",
+      "sourcePages": [
+        47,
+        48
+      ],
+      "paragraphs": [
+        "视杆与视锥承担的工作条件不同，明视觉颜色主要依靠视锥。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "三通道响应",
+      "sourceLabel": "PDF 第 49—53 页",
+      "sourcePages": [
+        49,
+        50,
+        51,
+        52,
+        53
+      ],
+      "paragraphs": [
+        "S、M、L 对波长有不同响应；视觉系统没有逐波长读取完整光谱。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "同色异谱",
+      "sourceLabel": "PDF 第 54—57 页",
+      "sourcePages": [
+        54,
+        55,
+        56,
+        57
+      ],
+      "paragraphs": [
+        "不同光谱可给出相同三通道结果，因此颜色再现不必复制整条光谱。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "加色匹配",
+      "sourceLabel": "PDF 第 58—68 页",
+      "sourcePages": [
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68
+      ],
+      "paragraphs": [
+        "原色光强可组合匹配；实验中的负量表示把原色加到待测光一侧。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "匹配函数",
+      "sourceLabel": "PDF 第 69—71 页",
+      "sourcePages": [
+        69,
+        70,
+        71
+      ],
+      "paragraphs": [
+        "它记录原色匹配需求，不等同视锥响应曲线或原色光谱。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "XYZ 与亮度",
+      "sourceLabel": "PDF 第 72—75 页",
+      "sourcePages": [
+        72,
+        73,
+        74,
+        75
+      ],
+      "paragraphs": [
+        "色彩标准指定坐标含义；XYZ 可把亮度 Y 与色度分开讨论。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "色域",
+      "sourceLabel": "PDF 第 76—78 页",
+      "sourcePages": [
+        76,
+        77,
+        78
+      ],
+      "paragraphs": [
+        "给定原色只能覆盖一定范围，不能把任一 RGB 空间当作所有可见颜色。"
+      ]
+    },
+    {
+      "id": "part-15",
+      "title": "感知坐标",
+      "sourceLabel": "PDF 第 79—84 页",
+      "sourcePages": [
+        79,
+        80,
+        81,
+        82,
+        83,
+        84
+      ],
+      "paragraphs": [
+        "HSV 按颜色属性组织，CIELAB 力求感知均匀，另有对立通道的视觉观点。"
+      ]
+    },
+    {
+      "id": "part-16",
+      "title": "减色",
+      "sourceLabel": "PDF 第 97 页",
+      "sourcePages": [
+        97
+      ],
+      "paragraphs": [
+        "CMYK 用于印刷类减色混合，和发光原色相加的条件不同。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "course": "unity",
+  "chapter": "unit-5-intro",
+  "title": "第五单元：用户界面导读",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/unit-5-introduction?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "完整的游玩流程",
+      "sourceLabel": "原教程 第 1 节 · 完整的游玩流程",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "本单元加入标题、难度选择、分数和结束界面，让玩家能够开始、游玩和重玩。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "course": "unity",
+  "chapter": "1.4",
+  "title": "坐进驾驶座",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "输入兼容配置",
+      "sourceLabel": "原教程 第 1 节 · 输入兼容配置",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "本版课例使用 Input System，先核对课程要求的输入处理设置。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "侧向移动试验",
+      "sourceLabel": "原教程 第 2 节 · 侧向移动试验",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "先让车辆能够左右平移，再引入输入控制。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "移动动作变量",
+      "sourceLabel": "原教程 第 3 节 · 移动动作变量",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "为 Move Action 预留可绑定的输入动作。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "输入绑定",
+      "sourceLabel": "原教程 第 4 节 · 输入绑定",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "二维复合绑定分别记录左右与前后方向。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "观察输入值",
+      "sourceLabel": "原教程 第 5 节 · 观察输入值",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "在运行时查看 Vector2 分量，区分水平与纵向输入。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "按输入移动",
+      "sourceLabel": "原教程 第 6 节 · 按输入移动",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "用输入分量调整前后和侧向位移。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "改为转向",
+      "sourceLabel": "原教程 第 7 节 · 改为转向",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "左右输入改为绕 Y 轴转动；前进仍沿车身朝向。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "整理对象和代码",
+      "sourceLabel": "原教程 第 8 节 · 整理对象和代码",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "组织层级、补注释，并隐藏仅供内部使用的输入值。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 9 节 · 本讲回顾",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "玩家已能前后驾驶和转向；重点是分清位移与旋转。"
+      ]
+    }
+  ]
+}

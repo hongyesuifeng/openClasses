@@ -5,10 +5,12 @@ export interface CourseChapter {
   source: string; sourceLabel: string;
   points: { title: string; text: string; source: string }[];
   note?: string;
+  sourceLanguage?: 'en' | 'zh' | 'mixed';
 }
 
 export interface CourseDigest {
   id: CourseId; name: string; title: string; scope: string; url: string;
   chapters: CourseChapter[];
   note?: string;
+  sourceLanguage?: 'en' | 'zh' | 'mixed';
 }

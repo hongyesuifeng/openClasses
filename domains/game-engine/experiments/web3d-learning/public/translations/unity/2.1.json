@@ -1,0 +1,108 @@
+{
+  "course": "unity",
+  "chapter": "2.1",
+  "title": "安排玩家位置",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-1-player-positioning?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "新建第二原型",
+      "sourceLabel": "原教程 第 1 节 · 新建第二原型",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "创建项目并导入 Prototype 2 课程资源。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "玩家、动物与食物",
+      "sourceLabel": "原教程 第 2 节 · 玩家、动物与食物",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "选择课内对象并摆放，调整食物尺寸以便观察。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "输入兼容设置",
+      "sourceLabel": "原教程 第 3 节 · 输入兼容设置",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "核对本版 Input System 所需的课程输入配置。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "移动动作",
+      "sourceLabel": "原教程 第 4 节 · 移动动作",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "为 Move Action 设置左右输入绑定。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "读取二维输入",
+      "sourceLabel": "原教程 第 5 节 · 读取二维输入",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "观察 Vector2 的水平分量，检查按键是否被正确读取。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "移动玩家",
+      "sourceLabel": "原教程 第 6 节 · 移动玩家",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "把水平输入、速度和时间共同用于位移。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "限制活动范围",
+      "sourceLabel": "原教程 第 7 节 · 限制活动范围",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "以位置条件限制玩家离开画面两侧。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "整理边界变量",
+      "sourceLabel": "原教程 第 8 节 · 整理边界变量",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "让左右限制共用范围变量，并补充注释。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 9 节 · 本讲回顾",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "玩家可左右移动且不能越界；重点是条件判断与比较运算。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "course": "unity",
+  "chapter": "quiz-4",
+  "title": "测验四：考查范围",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/quiz/quiz-4-rg?version=6.0",
+  "scope": "中文学习整理，非全文翻译。仅按可见题号概述考查范围；不收录原题题干、选项、答案或隐藏解析。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "第 1 题范围",
+      "sourceLabel": "原教程 第 1 节 · 第 1 题范围",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "考查方法返回值及声明错误。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "第 2 题范围",
+      "sourceLabel": "原教程 第 2 节 · 第 2 题范围",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "考查字符串与变量组合。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "第 3 题范围",
+      "sourceLabel": "原教程 第 3 节 · 第 3 题范围",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "考查数值和向量之间的类型关系。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "第 4 题范围",
+      "sourceLabel": "原教程 第 4 节 · 第 4 题范围",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "考查 Unity 事件方法顺序。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "第 5 题范围",
+      "sourceLabel": "原教程 第 5 节 · 第 5 题范围",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "考查 Inspector 字段可见性。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "第 6 题范围",
+      "sourceLabel": "原教程 第 6 节 · 第 6 题范围",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "考查未赋值的对象引用。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "第 7 题范围",
+      "sourceLabel": "原教程 第 7 节 · 第 7 题范围",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "考查带参数的方法。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "第 8 题范围",
+      "sourceLabel": "原教程 第 8 节 · 第 8 题范围",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "考查碰撞对象与注释。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "第 9 题范围",
+      "sourceLabel": "原教程 第 9 节 · 第 9 题范围",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "考查 GameObject 与组件类型。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "第 10 题范围",
+      "sourceLabel": "原教程 第 10 节 · 第 10 题范围",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "考查函数和方法的基本性质。"
+      ]
+    }
+  ]
+}

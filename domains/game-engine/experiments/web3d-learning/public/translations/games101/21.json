@@ -1,0 +1,257 @@
+{
+  "course": "games101",
+  "chapter": "21",
+  "title": "动画与模拟（基本概念、质点弹簧系统、运动学）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf",
+  "scope": "中文学习整理，非全文翻译。整理关键帧、动力学、运动学和角色工具；历史作品、动作演示不逐帧解释。部分原页页脚比物理页序大 2。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "动画表示",
+      "sourceLabel": "PDF 第 5—16 页",
+      "sourcePages": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "paragraphs": [
+        "场景状态随时间改变，连续图像产生运动；历史作品页仅保留应用背景。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "关键帧",
+      "sourceLabel": "PDF 第 17—19 页",
+      "sourcePages": [
+        17,
+        18,
+        19
+      ],
+      "paragraphs": [
+        "动画师指定关键状态，中间帧由插值等方式补齐。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "参数插值",
+      "sourceLabel": "PDF 第 20 页",
+      "sourcePages": [
+        20
+      ],
+      "paragraphs": [
+        "线性变化未必足够平滑或可控，原课因此回到样条。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "物理动画",
+      "sourceLabel": "PDF 第 21—25 页",
+      "sourcePages": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "paragraphs": [
+        "由力、质量和加速度组织运动，再数值推进，区别于直接指定姿态。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "弹簧模型",
+      "sourceLabel": "PDF 第 26—31 页",
+      "sourcePages": [
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ],
+      "paragraphs": [
+        "连接点的弹性力由位移与刚度决定，过度简化会让弹簧趋向零长。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "原长与状态",
+      "sourceLabel": "PDF 第 32—33 页",
+      "sourcePages": [
+        32,
+        33
+      ],
+      "paragraphs": [
+        "设置非零原长后，仍需区分位置、速度和加速度；无耗散振荡可能持续。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "外部阻尼",
+      "sourceLabel": "PDF 第 34 页",
+      "sourcePages": [
+        34
+      ],
+      "paragraphs": [
+        "按整体速度施加阻力会拖慢全部运动，不只压低内部振荡。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "内部阻尼",
+      "sourceLabel": "PDF 第 35 页",
+      "sourcePages": [
+        35
+      ],
+      "paragraphs": [
+        "本讲只对弹簧伸长方向的相对运动耗散，避免同样拖慢整体平移。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "连接与形变",
+      "sourceLabel": "PDF 第 36—42 页",
+      "sourcePages": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ],
+      "paragraphs": [
+        "不同连接分别约束剪切、方向偏置及面外弯曲；不是任意加边都相同。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "粒子更新",
+      "sourceLabel": "PDF 第 43—46 页",
+      "sourcePages": [
+        43,
+        44,
+        45,
+        46
+      ],
+      "paragraphs": [
+        "粒子系统组织生成、受力、状态更新与移除，规模会影响邻域查询成本。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "相互作用",
+      "sourceLabel": "PDF 第 47—52 页",
+      "sourcePages": [
+        47,
+        48,
+        49,
+        50,
+        51,
+        52
+      ],
+      "paragraphs": [
+        "原例涵盖引力、流体与群集；群集由聚集、排斥和对齐规则组织。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "正向运动学",
+      "sourceLabel": "PDF 第 53—59 页",
+      "sourcePages": [
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ],
+      "paragraphs": [
+        "给关节参数求末端位置，控制直接，但结果未必符合物理运动。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "逆向运动学",
+      "sourceLabel": "PDF 第 60—66 页",
+      "sourcePages": [
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "paragraphs": [
+        "从末端目标反求参数，可能存在多解，也可能不可达。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "数值 IK",
+      "sourceLabel": "PDF 第 67—68 页",
+      "sourcePages": [
+        67,
+        68
+      ],
+      "paragraphs": [
+        "一般链条可先定误差，再通过优化寻找满足条件的姿态。"
+      ]
+    },
+    {
+      "id": "part-15",
+      "title": "角色绑定控制（Rigging）",
+      "sourceLabel": "PDF 第 69—71 页",
+      "sourcePages": [
+        69,
+        70,
+        71
+      ],
+      "paragraphs": [
+        "高层控制有助于调整姿态、形变与表情，但需要制作成本。"
+      ]
+    },
+    {
+      "id": "part-16",
+      "title": "混合形状（Blend Shapes）",
+      "sourceLabel": "PDF 第 72—73 页",
+      "sourcePages": [
+        72,
+        73
+      ],
+      "paragraphs": [
+        "直接在表面形状之间混合，并让权重随时间变化。"
+      ]
+    },
+    {
+      "id": "part-17",
+      "title": "动作捕捉",
+      "sourceLabel": "PDF 第 74—82 页",
+      "sourcePages": [
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82
+      ],
+      "paragraphs": [
+        "真实表演提供姿态序列；设备、遮挡和艺术调整仍构成限制。"
+      ]
+    }
+  ]
+}

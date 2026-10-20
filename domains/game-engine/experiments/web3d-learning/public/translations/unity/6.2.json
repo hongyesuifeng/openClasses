@@ -1,0 +1,53 @@
+{
+  "course": "unity",
+  "chapter": "6.2",
+  "title": "资料研究与故障排查",
+  "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/lesson-6-2-research-and-troubleshooting-2?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。 原页相机示例仍使用 Input.GetKeyDown；本文不将其改写为新版输入实现。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "检索方案",
+      "sourceLabel": "原教程 第 1 节 · 检索方案",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "以原型一的双相机切换为任务，查找相关文档和讨论。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "自然语言提问",
+      "sourceLabel": "原教程 第 2 节 · 自然语言提问",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "原课用 AI 探索方案；示例沿用旧 Input API。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "按错误排查",
+      "sourceLabel": "原教程 第 3 节 · 按错误排查",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "利用 Console 报错检查脚本挂载与相机引用，再运行验证。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "核实结果",
+      "sourceLabel": "原教程 第 4 节 · 核实结果",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "AI 结果可能有误；反馈具体错误，补清问题并检查实际行为。"
+      ]
+    }
+  ]
+}

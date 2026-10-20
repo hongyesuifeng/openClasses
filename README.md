@@ -34,7 +34,7 @@ slayDemo 的实际工程已迁移至独立 cocosProjects 仓库。本仓库保�
 
 开始学习从[原课程入口](learning-routes/topic-index/3d-game-client.md)进入：从 GAMES101 图形学概述与 GAMES104 引擎导论复习，再沿 Unity Unit 1 实践驾驶原型；有疑问处回看对应原理与机制。[历史系统学习包](domains/game-engine/experiments/web3d-learning/docs/course-pack.md)与[10 月 12 日计划](user-profile/progress/2026-10-12-project-review-and-next-plan.md)保留为参考。
 
-[当前入口] [原课重点摘记](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01)：按原讲次呈现标题、课内要点和出处。2026-10-20 补齐为 GAMES101 22 讲、GAMES104 已发布课件 22 讲、Unity 6.0 全目录 47 篇，共 91 篇；包含 Unity 课内练习与后续内容，保留课程间独立阅读位置。每篇按原文提炼，长目录可滚动，手机使用章节选择。[完整目录与出处](domains/game-engine/experiments/web3d-learning/docs/classic-course-index.md) · [启动方式、来源与验证](domains/game-engine/experiments/web3d-learning/docs/classic-web.md)
+[当前入口] [原课重点摘记](http://127.0.0.1:5173/?lab=classics&course=games101&chapter=01)：按原讲次呈现标题、课内要点和出处。2026-10-20 补齐为 GAMES101 22 讲、GAMES104 已发布课件 22 讲、Unity 6.0 全目录 47 篇，共 91 篇；包含 Unity 课内练习与后续内容，保留课程间独立阅读位置。每篇按原文提炼，长目录可滚动，手机使用章节选择。英文原始材料旁增加“中文阅读文档”，新页打开对应章节的中文学习整理，保留页码／小节来源；当前为简明整理，非全文翻译。[完整目录与出处](domains/game-engine/experiments/web3d-learning/docs/classic-course-index.md) · [启动方式、来源与验证](domains/game-engine/experiments/web3d-learning/docs/classic-web.md)
 
 [历史实验] 2026-10-10 按学习者反馈改为[阶段 1 原理动画](domains/game-engine/experiments/web3d-learning/docs/stage-01-lab.md)：用点与箭头、托盘与小球、相机与画面讲解空间原理。三段基础动图保留为参考。
 

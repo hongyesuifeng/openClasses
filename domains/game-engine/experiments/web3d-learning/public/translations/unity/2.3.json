@@ -1,0 +1,86 @@
+{
+  "course": "unity",
+  "chapter": "2.3",
+  "title": "随机动物奔袭",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-3-random-animal-stampede?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "生成管理器",
+      "sourceLabel": "原教程 第 1 节 · 生成管理器",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "由专门对象及脚本管理动物 Prefab 数组。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "临时生成动作",
+      "sourceLabel": "原教程 第 2 节 · 临时生成动作",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "先用 S 键绑定生成操作。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "按键生成",
+      "sourceLabel": "原教程 第 3 节 · 按键生成",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "验证数组中动物能够在运行时出现。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "随机动物",
+      "sourceLabel": "原教程 第 4 节 · 随机动物",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "随机选择数组索引，使生成种类发生变化。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "随机位置",
+      "sourceLabel": "原教程 第 5 节 · 随机位置",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "在横向范围内随机设置出生点。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "相机投影",
+      "sourceLabel": "原教程 第 6 节 · 相机投影",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "比较透视与正交视角，选择适合俯视原型的观察方式。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 7 节 · 本讲回顾",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "动物种类与位置均随机；同时认识数组和变量作用域。"
+      ]
+    }
+  ]
+}

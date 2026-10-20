@@ -1,0 +1,86 @@
+{
+  "course": "unity",
+  "chapter": "3.4",
+  "title": "粒子与声音效果",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/particles-and-sound-effects?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "碰撞粒子资源",
+      "sourceLabel": "原教程 第 1 节 · 碰撞粒子资源",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "选择并调整课内爆炸粒子。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "碰撞播放",
+      "sourceLabel": "原教程 第 2 节 · 碰撞播放",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "将粒子与玩家碰撞障碍的时机连接。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "脚下尘土",
+      "sourceLabel": "原教程 第 3 节 · 脚下尘土",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "跑步时播放尘土，跳跃和失败时停止。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "场景音乐",
+      "sourceLabel": "原教程 第 4 节 · 场景音乐",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "使用音频播放组件为场景加入背景音乐。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "动作音频",
+      "sourceLabel": "原教程 第 5 节 · 动作音频",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "准备跳跃、碰撞的 AudioClip 引用。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "动作播放时机",
+      "sourceLabel": "原教程 第 6 节 · 动作播放时机",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "在跳起和碰撞时分别播放对应音效。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 7 节 · 本讲回顾",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "声音和粒子反馈补全角色动作表现。"
+      ]
+    }
+  ]
+}

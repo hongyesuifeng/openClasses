@@ -1,0 +1,75 @@
+{
+  "course": "unity",
+  "chapter": "lab-4",
+  "title": "练习四：基础玩法",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lab-4-basic-gameplay?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "非玩家运动",
+      "sourceLabel": "原教程 第 1 节 · 非玩家运动",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "先为敌人、投射物或拾取物实现预期运动。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "越界销毁",
+      "sourceLabel": "原教程 第 2 节 · 越界销毁",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "对象退出游玩区域后清理。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "碰撞结果",
+      "sourceLabel": "原教程 第 3 节 · 碰撞结果",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "根据对象关系决定弹开、销毁或不响应。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "Prefabs 预制体",
+      "sourceLabel": "原教程 第 4 节 · Prefabs 预制体",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "保存已具备行为的对象，以供运行时生成。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "自动生成",
+      "sourceLabel": "原教程 第 5 节 · 自动生成",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "按项目需要设置生成位置与时间。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "本次回顾",
+      "sourceLabel": "原教程 第 6 节 · 本次回顾",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "把移动、碰撞、清理和生成连接成个人项目的基本玩法。"
+      ]
+    }
+  ]
+}

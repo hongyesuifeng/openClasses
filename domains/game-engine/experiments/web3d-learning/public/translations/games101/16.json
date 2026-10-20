@@ -1,0 +1,187 @@
+{
+  "course": "games101",
+  "chapter": "16",
+  "title": "光线追踪（蒙特卡洛积分与路径追踪）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf",
+  "scope": "中文学习整理，非全文翻译。整理积分估计、递归路径、终止和光源采样；明确区分原课末尾尚未讲授的高级方向。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "积分动机",
+      "sourceLabel": "PDF 第 9—10 页",
+      "sourcePages": [
+        9,
+        10
+      ],
+      "paragraphs": [
+        "解析积分困难时，可用随机样本估计目标，而非要求写出原函数。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "采样权重",
+      "sourceLabel": "PDF 第 11—13 页",
+      "sourcePages": [
+        11,
+        12,
+        13
+      ],
+      "paragraphs": [
+        "估计需配合实际概率密度；均匀分布只是本讲先使用的一种选择。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "变量与方差",
+      "sourceLabel": "PDF 第 14 页",
+      "sourcePages": [
+        14
+      ],
+      "paragraphs": [
+        "采样变量要匹配积分变量；增加有效样本通常减少估计波动。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "Whitted 边界",
+      "sourceLabel": "PDF 第 16—19 页",
+      "sourcePages": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "paragraphs": [
+        "只沿理想镜面/透射继续并在漫反射处停止，遗漏部分真实光传输。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "半球积分",
+      "sourceLabel": "PDF 第 20—24 页",
+      "sourcePages": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "paragraphs": [
+        "在入射半球选择方向、查询光线，近似直接反射贡献。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "其他反射表面",
+      "sourceLabel": "PDF 第 25—26 页",
+      "sourcePages": [
+        25,
+        26
+      ],
+      "paragraphs": [
+        "命中另一物体时，它也可能继续向当前点贡献光，因此需要递归。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "控制分支",
+      "sourceLabel": "PDF 第 27—28 页",
+      "sourcePages": [
+        27,
+        28
+      ],
+      "paragraphs": [
+        "每点只继续一条随机路径，避免每次反弹都指数增加分支。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "像素样本",
+      "sourceLabel": "PDF 第 29—30 页",
+      "sourcePages": [
+        29,
+        30
+      ],
+      "paragraphs": [
+        "单路径有噪声，同像素多条路径平均用于改善估计。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "固定截断",
+      "sourceLabel": "PDF 第 31—33 页",
+      "sourcePages": [
+        31,
+        32,
+        33
+      ],
+      "paragraphs": [
+        "直接裁掉后续反弹会同时丢掉其光照贡献。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "随机终止",
+      "sourceLabel": "PDF 第 34—37 页",
+      "sourcePages": [
+        34,
+        35,
+        36,
+        37
+      ],
+      "paragraphs": [
+        "俄罗斯轮盘赌按概率继续，并补偿存活路径权重，以保留期望贡献。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "寻找小光源",
+      "sourceLabel": "PDF 第 38—39 页",
+      "sourcePages": [
+        38,
+        39
+      ],
+      "paragraphs": [
+        "半球采样可能大量错过小光源，直接采光源可改善这种低效。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "面积与方向",
+      "sourceLabel": "PDF 第 40—41 页",
+      "sourcePages": [
+        40,
+        41
+      ],
+      "paragraphs": [
+        "改在面光源取样后，积分度量和概率密度也要对应转换。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "避免重复与遮挡",
+      "sourceLabel": "PDF 第 42—44 页",
+      "sourcePages": [
+        42,
+        43,
+        44
+      ],
+      "paragraphs": [
+        "直接/间接贡献分开，并检查光源连接是否被遮挡，避免重复计入光源。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "尚未展开",
+      "sourceLabel": "PDF 第 47—49 页",
+      "sourcePages": [
+        47,
+        48,
+        49
+      ],
+      "paragraphs": [
+        "重要性采样、多重重要性采样、低差异序列及像素重建在此只是后续题目。"
+      ]
+    }
+  ]
+}

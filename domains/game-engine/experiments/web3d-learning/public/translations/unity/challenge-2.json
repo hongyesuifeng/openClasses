@@ -1,0 +1,130 @@
+{
+  "course": "unity",
+  "chapter": "challenge-2",
+  "title": "挑战二：接球游戏",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/challenge-2-play-fetch?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "挑战目标",
+      "sourceLabel": "原教程 第 1 节 · 挑战目标",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "检查随机落球与派狗接球的完整行为。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "练习性质",
+      "sourceLabel": "原教程 第 2 节 · 练习性质",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "原资源有意设置错误，需用前面所学排查。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "出生对象",
+      "sourceLabel": "原教程 第 3 节 · 出生对象",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "检查从画面上方出现的对象是否正确。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "玩家生成物",
+      "sourceLabel": "原教程 第 4 节 · 玩家生成物",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "核对空格操作生成的 Prefab。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "直接接触",
+      "sourceLabel": "原教程 第 5 节 · 直接接触",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "检查碰撞范围与实际接触是否一致。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "越界清理",
+      "sourceLabel": "原教程 第 6 节 · 越界清理",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "核对球和狗离开各自边界时的清理。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "多种球",
+      "sourceLabel": "原教程 第 7 节 · 多种球",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "检查球的随机选择是否覆盖资源数组。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "随机间隔附加题",
+      "sourceLabel": "原教程 第 8 节 · 随机间隔附加题",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "原课可选任务是改变下一次生成的等待间隔。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "连续输入附加题",
+      "sourceLabel": "原教程 第 9 节 · 连续输入附加题",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "可选任务限制短时间重复派狗。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "原页提示",
+      "sourceLabel": "原教程 第 10 节 · 原页提示",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "提示用于支持排错，请完成尝试后再查阅。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "更多可选内容",
+      "sourceLabel": "原教程 第 11 节 · 更多可选内容",
+      "sourceSections": [
+        11
+      ],
+      "paragraphs": [
+        "额外 Bonus Feature 是补充入口，可返回主课继续。"
+      ]
+    }
+  ]
+}

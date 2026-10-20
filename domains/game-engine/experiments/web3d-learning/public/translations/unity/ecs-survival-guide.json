@@ -1,0 +1,42 @@
+{
+  "course": "unity",
+  "chapter": "ecs-survival-guide",
+  "title": "ECS 概念入门",
+  "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/ecs-survival-guide-1?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。 官方6.0目录保留早期ECS示例；这里只说明概念，不提供当前Entities实现教程。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "数据组织方式",
+      "sourceLabel": "原教程 第 1 节 · 数据组织方式",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "原课在 DOTS 背景下介绍 ECS，关注速度、生命等数据的组织与处理。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "识别课程示例",
+      "sourceLabel": "原教程 第 2 节 · 识别课程示例",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "通过命名空间、类型和结构辨认 ECS；本节只要求高层认识。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "本节回顾",
+      "sourceLabel": "原教程 第 3 节 · 本节回顾",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "比较数据组织与熟悉的组件式写法。原页保留 JobComponentSystem 等历史示例，不代表当前 Entities API。"
+      ]
+    }
+  ]
+}

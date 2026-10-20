@@ -1,0 +1,97 @@
+{
+  "course": "unity",
+  "chapter": "3.2",
+  "title": "让世界从身边飞过",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-2-make-the-world-whiz-by?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "循环背景脚本",
+      "sourceLabel": "原教程 第 1 节 · 循环背景脚本",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "为重复背景建立单独脚本。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "重置位置",
+      "sourceLabel": "原教程 第 2 节 · 重置位置",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "背景移过一段距离后回到起点。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "背景尺寸",
+      "sourceLabel": "原教程 第 3 节 · 背景尺寸",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "依据 Collider 宽度确定重复距离，让接缝连续。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "结束条件",
+      "sourceLabel": "原教程 第 4 节 · 结束条件",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "标签区分地面和障碍，碰到障碍则进入结束状态。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "停止移动",
+      "sourceLabel": "原教程 第 5 节 · 停止移动",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "MoveLeft 读取游戏结束状态，决定是否继续移动。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "停止生成",
+      "sourceLabel": "原教程 第 6 节 · 停止生成",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "生成脚本同样读取状态，结束后不再加入障碍。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "清理障碍",
+      "sourceLabel": "原教程 第 7 节 · 清理障碍",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "障碍移出边界后销毁。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 8 节 · 本讲回顾",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "循环背景、清理与脚本间状态通信共同支持持续跑酷。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "course": "unity",
+  "chapter": "1.2",
+  "title": "踩下油门",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-2-move-the-vehicle-with-your-first-line-of-c?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "车辆脚本",
+      "sourceLabel": "原教程 第 1 节 · 车辆脚本",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "创建 PlayerController 并挂到车辆上。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "Update 注释",
+      "sourceLabel": "原教程 第 2 节 · Update 注释",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "在 Update 中先记录将要实现的前进任务。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "车辆前移",
+      "sourceLabel": "原教程 第 3 节 · 车辆前移",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "用 Transform 的位移方法改变车辆位置。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "方向向量",
+      "sourceLabel": "原教程 第 4 节 · 方向向量",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "以 Vector3 表示前进方向，整理位移写法。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "速度控制",
+      "sourceLabel": "原教程 第 5 节 · 速度控制",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "将每次位移与经过时间相联系，再调整速度。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "加入刚体",
+      "sourceLabel": "原教程 第 6 节 · 加入刚体",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "配置 Rigidbody、质量与碰撞组件，让物体产生物理接触。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "道路障碍",
+      "sourceLabel": "原教程 第 7 节 · 道路障碍",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "复制并摆放更多障碍，观察运行中的碰撞。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 8 节 · 本讲回顾",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "车辆持续前进并能撞开障碍；方法、组件和时间参与了这段行为。"
+      ]
+    }
+  ]
+}

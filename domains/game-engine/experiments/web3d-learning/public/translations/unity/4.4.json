@@ -1,0 +1,75 @@
+{
+  "course": "unity",
+  "chapter": "4.4",
+  "title": "用循环生成敌人波次",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-4-for-loops-for-waves?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "重复生成",
+      "sourceLabel": "原教程 第 1 节 · 重复生成",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "以 for 循环创建一组敌人。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "数量参数",
+      "sourceLabel": "原教程 第 2 节 · 数量参数",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "生成方法接收敌人数量，而非始终使用固定数。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "清理落岛敌人",
+      "sourceLabel": "原教程 第 3 节 · 清理落岛敌人",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "掉出高度边界的敌人应被移除。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "递增波次",
+      "sourceLabel": "原教程 第 4 节 · 递增波次",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "敌人数量归零后进入下一波，并增加生成数量。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "波次增益",
+      "sourceLabel": "原教程 第 5 节 · 波次增益",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "每波重新生成增益，供玩家应对敌人。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 6 节 · 本讲回顾",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "循环、参数和计数共同组织连续波次。"
+      ]
+    }
+  ]
+}

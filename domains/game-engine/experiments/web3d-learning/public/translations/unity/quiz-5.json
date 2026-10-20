@@ -1,0 +1,119 @@
+{
+  "course": "unity",
+  "chapter": "quiz-5",
+  "title": "测验五：考查范围",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/quiz/quiz-5-5o?version=6.0",
+  "scope": "中文学习整理，非全文翻译。仅按可见题号概述考查范围；不收录原题题干、选项、答案或隐藏解析。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "第 1 题范围",
+      "sourceLabel": "原教程 第 1 节 · 第 1 题范围",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "考查命名与大小写约定。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "第 2 题范围",
+      "sourceLabel": "原教程 第 2 节 · 第 2 题范围",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "考查脚本之间访问布尔字段。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "第 3 题范围",
+      "sourceLabel": "原教程 第 3 节 · 第 3 题范围",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "考查组合条件和对象销毁。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "第 4 题范围",
+      "sourceLabel": "原教程 第 4 节 · 第 4 题范围",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "考查对象命名与空引用。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "第 5 题范围",
+      "sourceLabel": "原教程 第 5 节 · 第 5 题范围",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "考查鼠标拖动事件行为。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "第 6 题范围",
+      "sourceLabel": "原教程 第 6 节 · 第 6 题范围",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "考查按钮触发后的字符串输出。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "第 7 题范围",
+      "sourceLabel": "原教程 第 7 节 · 第 7 题范围",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "考查 UI 类型的命名空间。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "第 8 题范围",
+      "sourceLabel": "原教程 第 8 节 · 第 8 题范围",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "考查 API 用法与类型要求。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "第 9 题范围",
+      "sourceLabel": "原教程 第 9 节 · 第 9 题范围",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "考查按钮监听器的连接。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "第 10 题范围",
+      "sourceLabel": "原教程 第 10 节 · 第 10 题范围",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "考查 GameObject 列表声明。"
+      ]
+    }
+  ]
+}

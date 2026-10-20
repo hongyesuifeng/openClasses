@@ -34,6 +34,9 @@ body.course-notes-background { background: #f7f9f6; color: #243b31; }
 .notes-chapter-header h1 { font-size: 28px; line-height: 1.5; letter-spacing: 0; margin: 0 0 8px; overflow-wrap: anywhere; }
 .notes-original-title { color: #738177; font-size: 13px; margin: 0 0 15px; line-height: 1.6; }
 .notes-chapter-header > a { font-size: 12px; line-height: 1.8; }
+.notes-source-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 18px; }
+.notes-chapter-header .notes-source-links a { font-size: 12px; line-height: 1.8; }
+.notes-chapter-header .notes-source-links .notes-chinese-link { font-weight: 600; color: #2a7556; }
 .notes-source-note { color: #768175; background: #f5f7f2; padding: 12px 14px; font-size: 12px; line-height: 1.9; }
 #notes-points-title { font-size: 13px; color: #697a6a; margin: 23px 0 0; }
 .notes-points { list-style: decimal-leading-zero; padding-left: 28px; margin: 0; }

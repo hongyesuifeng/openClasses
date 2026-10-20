@@ -1,0 +1,217 @@
+{
+  "course": "games101",
+  "chapter": "19",
+  "title": "相机与透镜",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf",
+  "scope": "中文学习整理，非全文翻译。整理成像、视场、曝光、薄透镜与景深；英文标题中的光场实际在下一讲展开，图片与镜头推导不逐项重述。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "成像与记录",
+      "sourceLabel": "PDF 第 5—8 页",
+      "sourcePages": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "paragraphs": [
+        "针孔或透镜组织入射光，快门限定积分时间，传感器记录辐照度。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "针孔示例",
+      "sourceLabel": "PDF 第 9—12 页",
+      "sourcePages": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "paragraphs": [
+        "原课以针孔摄影展示成像，历史照片不是镜头性能或现代设备结论。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "焦距与视场",
+      "sourceLabel": "PDF 第 13—16 页",
+      "sourcePages": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "paragraphs": [
+        "传感器固定时，较短焦距对应较大视场；等效焦距还依赖约定格式。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "传感器尺寸",
+      "sourceLabel": "PDF 第 17—19 页",
+      "sourcePages": [
+        17,
+        18,
+        19
+      ],
+      "paragraphs": [
+        "较小传感器若要保持视场，需要相应更短的焦距。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "曝光量",
+      "sourceLabel": "PDF 第 20—21 页",
+      "sourcePages": [
+        20,
+        21
+      ],
+      "paragraphs": [
+        "曝光结合入射辐照度与持续时间，不能只看单个相机参数。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "光圈、快门、ISO",
+      "sourceLabel": "PDF 第 22—26 页",
+      "sourcePages": [
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "paragraphs": [
+        "光圈和快门影响收光；ISO 影响信号增益，并伴随噪声取舍。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "运动模糊",
+      "sourceLabel": "PDF 第 27—29 页",
+      "sourcePages": [
+        27,
+        28,
+        29
+      ],
+      "paragraphs": [
+        "曝光期间运动会留下模糊；原课也将其与时间采样联系。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "滚动快门与取舍",
+      "sourceLabel": "PDF 第 30—31 页",
+      "sourcePages": [
+        30,
+        31
+      ],
+      "paragraphs": [
+        "画面各处可能在不同时间记录；等曝光设置仍有景深和模糊差异。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "快慢摄影",
+      "sourceLabel": "PDF 第 32—37 页",
+      "sourcePages": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "paragraphs": [
+        "原页以高速与长曝光照片对照时间选择，不逐张解释照片内容。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "镜头近似",
+      "sourceLabel": "PDF 第 38—40 页",
+      "sourcePages": [
+        38,
+        39,
+        40
+      ],
+      "paragraphs": [
+        "真实镜头复杂且有像差，理想薄透镜是后续讨论的简化条件。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "对焦关系",
+      "sourceLabel": "PDF 第 41—47 页",
+      "sourcePages": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "paragraphs": [
+        "薄透镜把物距、像距与焦距联系，光线图用于确定清晰成像位置。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "离焦光斑",
+      "sourceLabel": "PDF 第 48—50 页",
+      "sourcePages": [
+        48,
+        49,
+        50
+      ],
+      "paragraphs": [
+        "像点偏离传感器会形成弥散圆；其他条件不变时，光圈越大光斑越大。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "光圈数",
+      "sourceLabel": "PDF 第 51—53 页",
+      "sourcePages": [
+        51,
+        52,
+        53
+      ],
+      "paragraphs": [
+        "光圈数是焦距与光圈直径之比，不能直接把它当作孔径大小。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "薄透镜追踪",
+      "sourceLabel": "PDF 第 54—57 页",
+      "sourcePages": [
+        54,
+        55,
+        56,
+        57
+      ],
+      "paragraphs": [
+        "在镜头平面采样，经相应对焦位置追踪，以形成离焦效果。"
+      ]
+    },
+    {
+      "id": "part-15",
+      "title": "景深范围",
+      "sourceLabel": "PDF 第 58—62 页",
+      "sourcePages": [
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "paragraphs": [
+        "景深由允许的模糊程度确定，区别于像面附近的焦深。"
+      ]
+    }
+  ]
+}

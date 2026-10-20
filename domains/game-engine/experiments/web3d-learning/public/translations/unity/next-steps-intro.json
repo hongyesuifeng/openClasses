@@ -1,0 +1,20 @@
+{
+  "course": "unity",
+  "chapter": "next-steps-intro",
+  "title": "后续学习导读",
+  "source": "https://learn.unity.com/course/create-with-code/unit/next-steps/tutorial/next-steps-introduction?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "独立继续创作",
+      "sourceLabel": "原教程 第 1 节 · 独立继续创作",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "课程收尾转向独立完善项目、查阅资料和分享成果；有需要时再准备课程提及的认证考试。"
+      ]
+    }
+  ]
+}

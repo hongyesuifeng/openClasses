@@ -1,0 +1,86 @@
+{
+  "course": "unity",
+  "chapter": "5.4",
+  "title": "选择难度",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-4-what-s-the-difficulty-2?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "标题和选项",
+      "sourceLabel": "原教程 第 1 节 · 标题和选项",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "建立标题与三个难度按钮。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "难度脚本",
+      "sourceLabel": "原教程 第 2 节 · 难度脚本",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "为按钮准备访问组件和游戏管理器的脚本。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "点击监听",
+      "sourceLabel": "原教程 第 3 节 · 点击监听",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "把点击事件与难度方法连接。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "开始入口",
+      "sourceLabel": "原教程 第 4 节 · 开始入口",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "难度按钮启动游戏，初始化运行状态。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "界面分组",
+      "sourceLabel": "原教程 第 5 节 · 界面分组",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "通过共同父对象整体隐藏标题界面。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "难度参数",
+      "sourceLabel": "原教程 第 6 节 · 难度参数",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "难度值改变生成间隔，使目标出现速度不同。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 7 节 · 本讲回顾",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "标题、难度和开始流程已连通。"
+      ]
+    }
+  ]
+}

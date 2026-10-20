@@ -1,0 +1,182 @@
+{
+  "course": "games101",
+  "chapter": "11",
+  "title": "几何（曲线与曲面）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf",
+  "scope": "中文学习整理，非全文翻译。整理显式表示、曲线与曲面实质小节；页码用物理 PDF 页序，部分原页页脚大 1。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "点云",
+      "sourceLabel": "PDF 第 6—7 页",
+      "sourcePages": [
+        6,
+        7
+      ],
+      "paragraphs": [
+        "点列表适合大量采样数据，稀疏区域的表面绘制则较困难。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "网格与 OBJ",
+      "sourceLabel": "PDF 第 8—9 页",
+      "sourcePages": [
+        8,
+        9
+      ],
+      "paragraphs": [
+        "网格需记录连接关系；OBJ 文本可保存位置、法线与纹理坐标。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "曲线用途与控制",
+      "sourceLabel": "PDF 第 11—15 页",
+      "sourcePages": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "paragraphs": [
+        "路径、动画与字体使用曲线；三次 Bézier 的端部控制点决定端部切线。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "递归插值",
+      "sourceLabel": "PDF 第 16—19 页",
+      "sourcePages": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "paragraphs": [
+        "de Casteljau 从相邻控制点的线性插值逐层得到曲线位置。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "参数取值",
+      "sourceLabel": "PDF 第 20—23 页",
+      "sourcePages": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "paragraphs": [
+        "改变参数会沿曲线取不同位置，二次与三次情形沿用相同插值思想。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "代数形式",
+      "sourceLabel": "PDF 第 24—29 页",
+      "sourcePages": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "paragraphs": [
+        "Bernstein 基函数把控制点组合成参数曲线，原页另给出三维控制点例。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "几何性质",
+      "sourceLabel": "PDF 第 30—31 页",
+      "sourcePages": [
+        30,
+        31
+      ],
+      "paragraphs": [
+        "曲线经过两端点、位于控制点凸包内；仿射变换可先施于控制点。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "分段曲线",
+      "sourceLabel": "PDF 第 32—35 页",
+      "sourcePages": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "paragraphs": [
+        "高阶单段不易控制，因此原课转向多段低阶曲线连接。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "连接连续性",
+      "sourceLabel": "PDF 第 36—38 页",
+      "sourcePages": [
+        36,
+        37,
+        38
+      ],
+      "paragraphs": [
+        "位置连续与一阶导数连续要求不同，不能把端点重合等同于所有平滑条件。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "其他样条范围",
+      "sourceLabel": "PDF 第 39—41 页",
+      "sourcePages": [
+        39,
+        40,
+        41
+      ],
+      "paragraphs": [
+        "课件提到 B-spline，但明确不展开它、NURBS 或曲线升降阶。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "曲面控制网",
+      "sourceLabel": "PDF 第 43—45 页",
+      "sourcePages": [
+        43,
+        44,
+        45
+      ],
+      "paragraphs": [
+        "Bézier 曲面把曲线扩展到两个参数，双三次片用 4×4 控制点。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "曲面求值",
+      "sourceLabel": "PDF 第 46—49 页",
+      "sourcePages": [
+        46,
+        47,
+        48,
+        49
+      ],
+      "paragraphs": [
+        "沿两个参数方向分别应用一维插值，得到指定参数处的表面点。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "后续网格处理",
+      "sourceLabel": "PDF 第 50 页",
+      "sourcePages": [
+        50
+      ],
+      "paragraphs": [
+        "末页列出细分、简化和规整，具体方法接下一讲。"
+      ]
+    }
+  ]
+}

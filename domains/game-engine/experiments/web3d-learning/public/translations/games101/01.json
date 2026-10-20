@@ -1,0 +1,167 @@
+{
+  "course": "games101",
+  "chapter": "01",
+  "title": "计算机图形学概述",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_01.pdf",
+  "scope": "中文学习整理，非全文翻译。覆盖原课应用、技术领域、教学边界与历史学习安排；应用画面仅登记主题。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "导论的问题",
+      "sourceLabel": "PDF 第 6—8 页",
+      "sourcePages": [
+        6,
+        7,
+        8
+      ],
+      "paragraphs": [
+        "课程从应用、技术挑战与教学内容介绍图形学，未给出唯一的形式定义。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "游戏、电影与动画",
+      "sourceLabel": "PDF 第 9—14 页",
+      "sourcePages": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "paragraphs": [
+        "这组画面展示图形学的娱乐应用；作品示例是原课材料，不据此分析制作流程。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "设计与可视化",
+      "sourceLabel": "PDF 第 15—17 页",
+      "sourcePages": [
+        15,
+        16,
+        17
+      ],
+      "paragraphs": [
+        "产品展示以及科学、工程、医学等数据表达，也是课程列出的用途。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "虚拟与增强现实",
+      "sourceLabel": "PDF 第 18—19 页",
+      "sourcePages": [
+        18,
+        19
+      ],
+      "paragraphs": [
+        "原页分别展示 VR 与 AR，作为图形学的不同应用形态。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "插画、模拟与界面",
+      "sourceLabel": "PDF 第 20—23 页",
+      "sourcePages": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "paragraphs": [
+        "数字插画、物理现象模拟、GUI 和字体排印共同扩展了应用范围。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "学习挑战",
+      "sourceLabel": "PDF 第 24—26 页",
+      "sourcePages": [
+        24,
+        25,
+        26
+      ],
+      "paragraphs": [
+        "建立可交互虚拟世界，涉及形状、投影、光照、运动及软硬件知识。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "光栅化部分",
+      "sourceLabel": "PDF 第 28—29 页",
+      "sourcePages": [
+        28,
+        29
+      ],
+      "paragraphs": [
+        "把投影图元离散到屏幕采样，原课将其定位于实时成像。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "几何部分",
+      "sourceLabel": "PDF 第 30 页",
+      "sourcePages": [
+        30
+      ],
+      "paragraphs": [
+        "曲线与网格回答形状怎样表示；课件以 Bézier 与细分为入口。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "光线传播部分",
+      "sourceLabel": "PDF 第 31 页",
+      "sourcePages": [
+        31
+      ],
+      "paragraphs": [
+        "由相机光线求交并继续追踪反射，构成另一组成像内容。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "动画与模拟部分",
+      "sourceLabel": "PDF 第 32 页",
+      "sourcePages": [
+        32
+      ],
+      "paragraphs": [
+        "后续包含关键帧和质点弹簧，不仅是静态图像生成。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "本课边界",
+      "sourceLabel": "PDF 第 33—36 页",
+      "sourcePages": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "paragraphs": [
+        "不教授图形 API、建模软件或引擎操作；视觉与图形学的边界也并非绝对。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "历史学习安排",
+      "sourceLabel": "PDF 第 39—46 页",
+      "sourcePages": [
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "paragraphs": [
+        "原课提供阅读资料、C++ 作业和自选项目，强调独立完成；当年安排不作现行通知。"
+      ]
+    }
+  ]
+}

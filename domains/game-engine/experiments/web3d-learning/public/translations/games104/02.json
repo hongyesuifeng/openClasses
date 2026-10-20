@@ -1,0 +1,116 @@
+{
+  "course": "games104",
+  "chapter": "02",
+  "title": "基础架构 1：引擎架构分层，整体 Pipeline",
+  "source": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture02.pdf",
+  "scope": "中文学习整理，非全文翻译。依据本讲 PDF 第 3—30 页选取技术主题，用简短中文重新组织；不逐段复现原文。图像、视频、公式、代码及完整论述请结合原资料，公告和致谢未收录。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "五层架构",
+      "sourceLabel": "PDF 第 3—9 页",
+      "sourcePages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "paragraphs": [
+        "工具、功能、资源、核心、平台各层处理不同问题。第三方库提供支持，并不替代各层自身的责任。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "离线导入",
+      "sourceLabel": "PDF 第 12 页",
+      "sourcePages": [
+        12
+      ],
+      "paragraphs": [
+        "预处理和统一资源格式让运行时更快取得数据。导入时把制作格式转为引擎更便于访问的资源。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "资源身份",
+      "sourceLabel": "PDF 第 12—13 页",
+      "sourcePages": [
+        12,
+        13
+      ],
+      "paragraphs": [
+        "GUID 标识资源；句柄支持引用与生命周期管理。句柄避免让上层直接依赖资源在内存中的位置。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "加载与释放",
+      "sourceLabel": "PDF 第 14 页",
+      "sourcePages": [
+        14
+      ],
+      "paragraphs": [
+        "资源寿命不同，有限内存要求及时卸载与延迟加载。角色、场景和过场资源不必具有相同的驻留时间。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "周期更新",
+      "sourceLabel": "PDF 第 15—18 页",
+      "sourcePages": [
+        15,
+        16,
+        17,
+        18
+      ],
+      "paragraphs": [
+        "Game Loop 周期驱动系统；动画更新与渲染各有职责。一次更新会连接动画取样、骨架变形与绘制任务。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "并行组织",
+      "sourceLabel": "PDF 第 19 页",
+      "sourcePages": [
+        19
+      ],
+      "paragraphs": [
+        "固定线程、分叉汇合和任务系统分配多核工作。多核硬件提供机会，但系统需要适合并行的组织。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "核心工具",
+      "sourceLabel": "PDF 第 20—24 页",
+      "sourcePages": [
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "paragraphs": [
+        "数学、容器、分配器与数据局部性支撑高效计算。连续数据、内存对齐与批量分配影响缓存命中。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "平台与创作",
+      "sourceLabel": "PDF 第 25—30 页",
+      "sourcePages": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "paragraphs": [
+        "平台层封装差异，工具层支持创作；分层降低耦合。上层变化通常更快，底层应提供较稳定的服务。"
+      ]
+    }
+  ]
+}

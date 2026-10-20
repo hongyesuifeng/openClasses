@@ -1,0 +1,30 @@
+body.chinese-reading-background { background: #f7f9f6; color: #243b31; }
+#app.chinese-reading-page { max-width: 940px; padding: 0 28px 36px; }
+.chinese-reading-page a { color: #2a7556; text-underline-offset: 4px; }
+.chinese-reading-page a:focus-visible, .chinese-reading-page summary:focus-visible { outline: 3px solid #51a784; outline-offset: 4px; }
+.reading-toolbar { min-height: 76px; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 13px; color: #677a6c; }
+.reading-document { background: #fff; border: 1px solid #dce4dc; border-radius: 9px; padding: 34px 44px; min-width: 0; }
+.reading-heading > p:first-child { color: #677a6c; font-size: 13px; }
+.reading-heading h1 { font-size: 29px; line-height: 1.5; margin: 12px 0; overflow-wrap: anywhere; }
+.reading-kind { color: #2a7556; font-size: 13px; }
+.reading-scope { font-size: 13px; color: #687b6c; line-height: 1.9; margin: 12px 0; }
+.reading-scope summary { cursor: pointer; }
+.reading-original, .reading-source { font-size: 12px; line-height: 1.8; }
+.reading-outline { margin: 26px 0; border-block: 1px solid #e1e8df; padding: 15px 0; }
+.reading-outline summary { cursor: pointer; color: #3c5e47; font-size: 14px; }
+.reading-outline nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px 20px; padding: 18px 0 4px; }
+.reading-outline a { font-size: 13px; line-height: 1.8; }
+.reading-section { padding: 12px 0 20px; border-bottom: 1px solid #e8ede6; overflow-wrap: anywhere; }
+.reading-section h2 { font-size: 20px; line-height: 1.65; margin: 10px 0 6px; }
+.reading-section p { font-size: 16px; line-height: 2; white-space: pre-line; margin: 13px 0; }
+.reading-anchor { display: block; scroll-margin-top: 20px; }
+.reading-footer { padding-top: 25px; font-size: 13px; line-height: 1.9; }
+@media (max-width: 600px) {
+  #app.chinese-reading-page { padding: 0 12px 24px; }
+  .reading-toolbar { min-height: 64px; font-size: 11px; }
+  .reading-document { padding: 22px 18px; }
+  .reading-heading h1 { font-size: 23px; }
+  .reading-section h2 { font-size: 18px; }
+  .reading-section p { font-size: 15px; }
+  .reading-outline nav { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,171 @@
+{
+  "course": "games101",
+  "chapter": "22",
+  "title": "动画与模拟（求解常微分方程，刚体与流体）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf",
+  "scope": "中文学习整理，非全文翻译。整理第 4—26 页的时间积分与简要模拟内容；误差阶不等同普遍稳定性，宣传页不纳入正文。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "初值问题",
+      "sourceLabel": "PDF 第 4—6 页",
+      "sourcePages": [
+        4,
+        5,
+        6
+      ],
+      "paragraphs": [
+        "由速度场和初始位置确定粒子演化，以数值积分近似时间变化。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "显式 Euler",
+      "sourceLabel": "PDF 第 7—8 页",
+      "sourcePages": [
+        7,
+        8
+      ],
+      "paragraphs": [
+        "用当前导数推进下一步，简单但会积累误差。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "误差与发散",
+      "sourceLabel": "PDF 第 9—11 页",
+      "sourcePages": [
+        9,
+        10,
+        11
+      ],
+      "paragraphs": [
+        "较大步长可能让数值解发散，即便原系统并不发散；准确性和稳定性要区分。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "中点法",
+      "sourceLabel": "PDF 第 13—14 页",
+      "sourcePages": [
+        13,
+        14
+      ],
+      "paragraphs": [
+        "先估计中间状态，再用该处导数推进，不只沿起点方向走完整一步。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "改进 Euler",
+      "sourceLabel": "PDF 第 15 页",
+      "sourcePages": [
+        15
+      ],
+      "paragraphs": [
+        "课内方法结合步首与预测步尾速度，改善单一起点估计。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "自适应步长",
+      "sourceLabel": "PDF 第 16 页",
+      "sourcePages": [
+        16
+      ],
+      "paragraphs": [
+        "比较一步和两个半步的误差，再决定是否缩小时间步。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "隐式 Euler",
+      "sourceLabel": "PDF 第 17—18 页",
+      "sourcePages": [
+        17,
+        18
+      ],
+      "paragraphs": [
+        "使用下一时刻未知导数，需要解方程，但可改善部分稳定性问题。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "误差阶",
+      "sourceLabel": "PDF 第 19 页",
+      "sourcePages": [
+        19
+      ],
+      "paragraphs": [
+        "局部和累计误差随步长缩减的阶数，用于讨论准确性，不应直接当作稳定保证。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "龙格–库塔方法（Runge–Kutta）",
+      "sourceLabel": "PDF 第 20 页",
+      "sourcePages": [
+        20
+      ],
+      "paragraphs": [
+        "原课列出这一方法族与常见 RK4；本页没有完整展开求解器设计。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "位置修正",
+      "sourceLabel": "PDF 第 21 页",
+      "sourcePages": [
+        21
+      ],
+      "paragraphs": [
+        "通过约束位置再估计速度可抑制发散，同时会引入误差和能量耗散。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "刚体附加状态",
+      "sourceLabel": "PDF 第 22 页",
+      "sourcePages": [
+        22
+      ],
+      "paragraphs": [
+        "除了平移，还需考虑旋转、角速度、力矩和转动惯量；此处只是简化介绍。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "粒子流体",
+      "sourceLabel": "PDF 第 23—24 页",
+      "sourcePages": [
+        23,
+        24
+      ],
+      "paragraphs": [
+        "按近似不可压缩的密度约束修正位置，依赖密度对粒子位置的梯度。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "观察方式",
+      "sourceLabel": "PDF 第 25 页",
+      "sourcePages": [
+        25
+      ],
+      "paragraphs": [
+        "Lagrangian 跟随物质，Eulerian 从固定空间位置观察变化。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "物质点法（MPM）",
+      "sourceLabel": "PDF 第 26 页",
+      "sourcePages": [
+        26
+      ],
+      "paragraphs": [
+        "粒子携带属性，传到网格更新，再回传粒子，结合两种视角。"
+      ]
+    }
+  ]
+}

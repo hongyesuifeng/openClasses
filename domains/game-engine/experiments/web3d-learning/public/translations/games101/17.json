@@ -1,0 +1,202 @@
+{
+  "course": "games101",
+  "chapter": "17",
+  "title": "材质与外观",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_17.pdf",
+  "scope": "中文学习整理，非全文翻译。整理反射、折射、微表面与测量的小节；仅保留术语和条件，不复刻 BRDF 公式及测量表。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "漫反射材质",
+      "sourceLabel": "PDF 第 4—8 页",
+      "sourcePages": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "paragraphs": [
+        "本讲先以 BRDF 讨论表面材质；理想漫反射不依赖出射方向。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "光泽反射（Glossy）",
+      "sourceLabel": "PDF 第 9—10 页",
+      "sourcePages": [
+        9,
+        10
+      ],
+      "paragraphs": [
+        "较集中的方向反射与理想漫反射不同，课件用材质外观对照。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "理想反射",
+      "sourceLabel": "PDF 第 12—15 页",
+      "sourcePages": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "paragraphs": [
+        "理想镜面集中在确定反射方向，不能按普通宽分布高光理解。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "折射",
+      "sourceLabel": "PDF 第 16—17 页",
+      "sourcePages": [
+        16,
+        17
+      ],
+      "paragraphs": [
+        "光跨介质时的方向由折射率关系约束，折射率还可能依赖波长。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "全反射",
+      "sourceLabel": "PDF 第 18—19 页",
+      "sourcePages": [
+        18,
+        19
+      ],
+      "paragraphs": [
+        "从高折射率介质向低折射率介质传播，入射角足够大才会发生。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "菲涅耳项",
+      "sourceLabel": "PDF 第 20—23 页",
+      "sourcePages": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "paragraphs": [
+        "反射率与入射角、介质和偏振有关；Schlick 是原页列出的近似。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "微表面",
+      "sourceLabel": "PDF 第 24—26 页",
+      "sourcePages": [
+        24,
+        25,
+        26
+      ],
+      "paragraphs": [
+        "宏观粗糙表面可按具有各自法线的小镜面集合建模。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "法线分布",
+      "sourceLabel": "PDF 第 27 页",
+      "sourcePages": [
+        27
+      ],
+      "paragraphs": [
+        "微表面方向的集中程度影响整体反射外观，而不只是改变基础颜色。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "遮蔽与分布",
+      "sourceLabel": "PDF 第 28—29 页",
+      "sourcePages": [
+        28,
+        29
+      ],
+      "paragraphs": [
+        "微表面模型同时包含法线统计、菲涅耳与遮蔽/阴影因素。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "各向异性",
+      "sourceLabel": "PDF 第 30—36 页",
+      "sourcePages": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+      "paragraphs": [
+        "微结构有方向性时，绕法线的方位变化也会改变外观。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "非负与线性",
+      "sourceLabel": "PDF 第 37 页",
+      "sourcePages": [
+        37
+      ],
+      "paragraphs": [
+        "反射模型需注意非负性，以及反射对入射照明的线性响应。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "互易与守恒",
+      "sourceLabel": "PDF 第 38—39 页",
+      "sourcePages": [
+        38,
+        39
+      ],
+      "paragraphs": [
+        "互换入射/出射及能量不凭空增加，是本讲列出的性质。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "测量 BRDF",
+      "sourceLabel": "PDF 第 40—44 页",
+      "sourcePages": [
+        40,
+        41,
+        42,
+        43,
+        44
+      ],
+      "paragraphs": [
+        "改变照明与观察方向取得真实材质数据，可利用对称性减少测量。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "测量难点",
+      "sourceLabel": "PDF 第 45 页",
+      "sourcePages": [
+        45
+      ],
+      "paragraphs": [
+        "掠射角、高频高光和空间变化，都要求谨慎采样。"
+      ]
+    },
+    {
+      "id": "part-15",
+      "title": "数据表示",
+      "sourceLabel": "PDF 第 46—47 页",
+      "sourcePages": [
+        46,
+        47
+      ],
+      "paragraphs": [
+        "紧凑、准确、可查询与易采样需要平衡，规则数据表可能很大。"
+      ]
+    }
+  ]
+}

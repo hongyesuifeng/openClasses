@@ -1,0 +1,146 @@
+{
+  "course": "games101",
+  "chapter": "07",
+  "title": "着色（光照与基本着色模型）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf",
+  "scope": "中文学习整理，非全文翻译。整理深度测试与漫反射；PDF 标题预告的镜面项、环境项和管线实际续于第 8 讲。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "画家算法",
+      "sourceLabel": "PDF 第 5 页",
+      "sourcePages": [
+        5
+      ],
+      "paragraphs": [
+        "由远到近覆盖颜色，需要先组织可用的深度顺序。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "排序的困难",
+      "sourceLabel": "PDF 第 6 页",
+      "sourcePages": [
+        6
+      ],
+      "paragraphs": [
+        "互相穿插的三角形可能没有一致的前后顺序，限制了整体排序方案。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "颜色与深度",
+      "sourceLabel": "PDF 第 7—8 页",
+      "sourcePages": [
+        7,
+        8
+      ],
+      "paragraphs": [
+        "帧缓冲保存颜色，深度缓冲另存每个样本当前最近的深度。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "深度更新",
+      "sourceLabel": "PDF 第 9—10 页",
+      "sourcePages": [
+        9,
+        10
+      ],
+      "paragraphs": [
+        "本讲约定正深度越小越近；遇到更近样本时，同时替换颜色与深度。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "成本与顺序",
+      "sourceLabel": "PDF 第 11 页",
+      "sourcePages": [
+        11
+      ],
+      "paragraphs": [
+        "课件在线性复杂度讨论中假设三角形覆盖量固定，不是所有场景都等成本。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "着色范围",
+      "sourceLabel": "PDF 第 19—20 页",
+      "sourcePages": [
+        19,
+        20
+      ],
+      "paragraphs": [
+        "着色开始考虑表面材质，而不只决定三角形覆盖哪些像素。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "外观组成",
+      "sourceLabel": "PDF 第 21 页",
+      "sourcePages": [
+        21
+      ],
+      "paragraphs": [
+        "原课先区分漫反射、高光和环境光，再逐项建立简化模型。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "局部输入",
+      "sourceLabel": "PDF 第 22 页",
+      "sourcePages": [
+        22
+      ],
+      "paragraphs": [
+        "观察方向、光照方向、法线与材质参数共同决定某个点的出射光。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "阴影边界",
+      "sourceLabel": "PDF 第 23 页",
+      "sourcePages": [
+        23
+      ],
+      "paragraphs": [
+        "只计算局部着色不会自动得到遮挡阴影；两者不能混为一谈。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "理想漫反射",
+      "sourceLabel": "PDF 第 24 页",
+      "sourcePages": [
+        24
+      ],
+      "paragraphs": [
+        "该模型的表面外观不因观察方向改变，区别于随后介绍的高光。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "入射角",
+      "sourceLabel": "PDF 第 25 页",
+      "sourcePages": [
+        25
+      ],
+      "paragraphs": [
+        "单位面积接收到的光随法线与入射方向夹角的余弦变化。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "距离与材质",
+      "sourceLabel": "PDF 第 26—28 页",
+      "sourcePages": [
+        26,
+        27,
+        28
+      ],
+      "paragraphs": [
+        "本讲点光源项含距离平方衰减，漫反射还乘材质系数与截为非负的余弦项。"
+      ]
+    }
+  ]
+}

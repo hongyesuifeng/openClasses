@@ -1,0 +1,31 @@
+{
+  "course": "unity",
+  "chapter": "course-introduction",
+  "title": "课程导览",
+  "source": "https://learn.unity.com/course/create-with-code/unit/getting-started/tutorial/welcome-and-install-the-software?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "学习目标",
+      "sourceLabel": "原教程 第 1 节 · 学习目标",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "课程通过五个原型建立 Unity 与 C# 创作基础，并安排挑战、测验和个人项目。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "先看，再实践",
+      "sourceLabel": "原教程 第 2 节 · 先看，再实践",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "先看完当前视频，再按文字要求动手，避免操作打断对任务的理解。"
+      ]
+    }
+  ]
+}

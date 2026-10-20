@@ -1,0 +1,141 @@
+{
+  "course": "unity",
+  "chapter": "4.1",
+  "title": "看清你前进的方向",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "第四原型",
+      "sourceLabel": "原教程 第 1 节 · 第四原型",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "创建项目并打开浮岛场景。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "球形玩家",
+      "sourceLabel": "原教程 第 2 节 · 球形玩家",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "建立球体玩家并选择纹理。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "相机焦点",
+      "sourceLabel": "原教程 第 3 节 · 相机焦点",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "让相机成为中心焦点的子对象。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "输入配置",
+      "sourceLabel": "原教程 第 4 节 · 输入配置",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "核对 Input System 所需设置。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "动作映射",
+      "sourceLabel": "原教程 第 5 节 · 动作映射",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "查看输入资产中动作、绑定和设备的对应。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "输入包装类",
+      "sourceLabel": "原教程 第 6 节 · 输入包装类",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "由输入资产生成 C# 类，供脚本访问动作。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "玩家动作图",
+      "sourceLabel": "原教程 第 7 节 · 玩家动作图",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "取得并启用 Player Action Map。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "旋转观察方向",
+      "sourceLabel": "原教程 第 8 节 · 旋转观察方向",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "用水平输入旋转焦点，带动相机观察。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "临时输入验证",
+      "sourceLabel": "原教程 第 9 节 · 临时输入验证",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "先以纵向输入验证玩家控制，再替换为移动。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "刚体前进",
+      "sourceLabel": "原教程 第 10 节 · 刚体前进",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "对玩家刚体施加前向力。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "跟随视角运动",
+      "sourceLabel": "原教程 第 11 节 · 跟随视角运动",
+      "sourceSections": [
+        11
+      ],
+      "paragraphs": [
+        "取焦点的朝向作为移动方向。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 12 节 · 本讲回顾",
+      "sourceSections": [
+        12
+      ],
+      "paragraphs": [
+        "相机环绕与球体移动已由输入控制，方向取决于焦点。"
+      ]
+    }
+  ]
+}

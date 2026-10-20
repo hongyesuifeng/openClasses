@@ -1,0 +1,169 @@
+{
+  "course": "games101",
+  "chapter": "04",
+  "title": "变换（模型、视图、投影）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf",
+  "scope": "中文学习整理，非全文翻译。覆盖三维旋转、相机与两种投影的原小节；保留课内坐标和深度约定，完整矩阵请回原页。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "三维仿射变换",
+      "sourceLabel": "PDF 第 5—7 页",
+      "sourcePages": [
+        5,
+        6,
+        7
+      ],
+      "paragraphs": [
+        "缩放、平移和框架转换沿用齐次坐标，最后一维区分点与方向。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "轴向旋转",
+      "sourceLabel": "PDF 第 8 页",
+      "sourcePages": [
+        8
+      ],
+      "paragraphs": [
+        "绕三条坐标轴的矩阵符号依本课坐标约定，不能随意互换。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "欧拉角",
+      "sourceLabel": "PDF 第 9 页",
+      "sourcePages": [
+        9
+      ],
+      "paragraphs": [
+        "多个轴向旋转可组合为三维朝向，原课使用 roll、pitch、yaw 术语。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "任意轴旋转",
+      "sourceLabel": "PDF 第 10 页",
+      "sourcePages": [
+        10
+      ],
+      "paragraphs": [
+        "Rodrigues 表达绕单位轴旋转，轴方向本身保持不变。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "MVP 分工",
+      "sourceLabel": "PDF 第 12 页",
+      "sourcePages": [
+        12
+      ],
+      "paragraphs": [
+        "模型摆放物体，视图组织相机观察，投影负责成像范围。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "相机参数",
+      "sourceLabel": "PDF 第 13 页",
+      "sourcePages": [
+        13
+      ],
+      "paragraphs": [
+        "位置、观察方向与向上方向定义相机；本讲假设后两者垂直。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "视图变换",
+      "sourceLabel": "PDF 第 14—17 页",
+      "sourcePages": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "paragraphs": [
+        "相机和物体一起变换，使相机位于原点、向上为 Y、看向 −Z，所见关系保持。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "投影区别",
+      "sourceLabel": "PDF 第 19—21 页",
+      "sourcePages": [
+        19,
+        20,
+        21
+      ],
+      "paragraphs": [
+        "正交与透视是两类投影；正交可先理解为忽略深度后的矩形映射。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "规范长方体",
+      "sourceLabel": "PDF 第 22—24 页",
+      "sourcePages": [
+        22,
+        23,
+        24
+      ],
+      "paragraphs": [
+        "完整正交变换先居中再缩放，把观察长方体送入规范立方体。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "近远面符号",
+      "sourceLabel": "PDF 第 25 页",
+      "sourcePages": [
+        25
+      ],
+      "paragraphs": [
+        "本课看向 −Z，采用 n>f 的坐标约定，近远面值不等同正距离。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "透视特征",
+      "sourceLabel": "PDF 第 26—28 页",
+      "sourcePages": [
+        26,
+        27,
+        28
+      ],
+      "paragraphs": [
+        "距离影响画面大小；齐次坐标允许非零整体倍数代表同一点。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "压缩视锥",
+      "sourceLabel": "PDF 第 29—32 页",
+      "sourcePages": [
+        29,
+        30,
+        31,
+        32
+      ],
+      "paragraphs": [
+        "先把视锥变为长方体，再正交投影；横纵变化来自相似三角形。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "深度约束",
+      "sourceLabel": "PDF 第 33—36 页",
+      "sourcePages": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "paragraphs": [
+        "近面保持、远面深度保持的条件用于确定透视矩阵的剩余项。"
+      ]
+    }
+  ]
+}

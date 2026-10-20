@@ -1,0 +1,75 @@
+{
+  "course": "unity",
+  "chapter": "lab-5",
+  "title": "练习五：替换项目资产",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lab-5-swap-out-your-assets?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "浏览课程资源",
+      "sourceLabel": "原教程 第 1 节 · 浏览课程资源",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "导入资产库，为基础占位形状寻找模型。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "玩家替换",
+      "sourceLabel": "原教程 第 2 节 · 玩家替换",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "换入实际外观，保留已经实现的玩家行为。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "Asset Store 资源商店",
+      "sourceLabel": "原教程 第 3 节 · Asset Store 资源商店",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "查找额外资源，并检查材质与渲染管线的适配。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "其他对象替换",
+      "sourceLabel": "原教程 第 4 节 · 其他对象替换",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "把非玩家占位形状换为资产，保持原有玩法。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "背景纹理",
+      "sourceLabel": "原教程 第 5 节 · 背景纹理",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "更新地面或背景的视觉资源。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "本次回顾",
+      "sourceLabel": "原教程 第 6 节 · 本次回顾",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "关注艺术资产、嵌套 Prefab 和材质属性之间的配合。"
+      ]
+    }
+  ]
+}

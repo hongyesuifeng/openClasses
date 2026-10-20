@@ -1,0 +1,141 @@
+{
+  "course": "unity",
+  "chapter": "3.1",
+  "title": "跳跃的力量",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/lesson-3-1-jump-force-2?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "背景",
+      "sourceLabel": "原教程 第 1 节 · 背景",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "建立第三原型并选择场景背景。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "角色",
+      "sourceLabel": "原教程 第 2 节 · 角色",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "选择玩家并准备碰撞、刚体组件。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "刚体跳跃",
+      "sourceLabel": "原教程 第 3 节 · 刚体跳跃",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "通过 Rigidbody 施加向上的力，观察跳起。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "输入配置",
+      "sourceLabel": "原教程 第 4 节 · 输入配置",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "核对本版 Input System 的课程兼容设置。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "跳跃动作",
+      "sourceLabel": "原教程 第 5 节 · 跳跃动作",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "为 Jump Action 绑定空格。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "按键跳跃",
+      "sourceLabel": "原教程 第 6 节 · 按键跳跃",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "让跳跃由输入触发，替代启动时直接跳起。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "调整手感",
+      "sourceLabel": "原教程 第 7 节 · 调整手感",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "共同观察冲量、质量和重力对跳跃的影响。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "落地条件",
+      "sourceLabel": "原教程 第 8 节 · 落地条件",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "用碰撞与布尔状态限制空中的重复跳跃。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "障碍移动",
+      "sourceLabel": "原教程 第 9 节 · 障碍移动",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "选定障碍并让其向左移动。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "生成管理",
+      "sourceLabel": "原教程 第 10 节 · 生成管理",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "建立负责生成障碍的对象和脚本。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "定时障碍",
+      "sourceLabel": "原教程 第 11 节 · 定时障碍",
+      "sourceSections": [
+        11
+      ],
+      "paragraphs": [
+        "按时间生成，并约束角色避免被轻易碰倒。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 12 节 · 本讲回顾",
+      "sourceSections": [
+        12
+      ],
+      "paragraphs": [
+        "玩家已能在落地时跳跃，障碍不断迎面而来。"
+      ]
+    }
+  ]
+}

@@ -11,6 +11,7 @@ const unity = (slug: string) => `https://learn.unity.com/course/create-with-code
 export const courseDigests: CourseDigest[] = [
   {
     id: 'games101', name: 'GAMES101', title: '现代计算机图形学入门', scope: '第 1—22 讲 · 原课重点',
+    sourceLanguage: 'en',
     url: 'https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html',
     chapters: [
       {
@@ -90,6 +91,7 @@ export const courseDigests: CourseDigest[] = [
   {
     id: 'unity', name: 'Unity Create with Code', title: 'Create with Code · Unity 6.0',
     scope: '全目录 47 篇 · Unity 6.0',
+    sourceLanguage: 'en',
     url: 'https://learn.unity.com/course/create-with-code?version=6.0',
     chapters: [
       ...unityPreludeChapters,
@@ -142,6 +144,7 @@ export const courseDigests: CourseDigest[] = [
   },
   {
     id: 'games104', name: 'GAMES104', title: '现代游戏引擎——从入门到实践', scope: '第 1—22 讲 · 已发布课件',
+    sourceLanguage: 'en',
     url: 'https://games-cn.org/games104-slides/',
     note: '按官方已发布课件的讲次与实际内容整理；部分标题、顺序与早期课程大纲不同。',
     chapters: [

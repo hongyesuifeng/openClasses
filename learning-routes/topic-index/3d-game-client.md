@@ -14,6 +14,8 @@
 
 2026-10-20，在首批 13 讲基础上补齐为 91 篇原课摘记。[逐讲目录与出处](../../domains/game-engine/experiments/web3d-learning/docs/classic-course-index.md)列出全部范围。GAMES101 部分讲次的目录标题与 PDF 内容存在跨讲差异，按实际课件摘记并注明；GAMES104 以已发布课件为准，早期大纲中的不同排期不作为已覆盖内容。Unity 测验只列考查范围，Lab 与挑战只列目标和要求。来源与运行记录见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
 
+同日按语言偏好补充 91 篇中文阅读入口：在英文原始材料链接旁打开独立中文文档，主界面导航保持不变。文档为按原页码／小节组织的简明学习整理，非全文翻译；保留原始出处和回到当前章节的链接。
+
 学习者报告以前看过 GAMES101、GAMES104，具体理解范围尚未确认。本轮材料整理、网页实现、个人学习与原生项目实践分别登记；阅读书签不代表掌握。详见[学习进度](../../user-profile/progress/3d-game-client-progress.md)。
 
 ## 历史路线与实验记录

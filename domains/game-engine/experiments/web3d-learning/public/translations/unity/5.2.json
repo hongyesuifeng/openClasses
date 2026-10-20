@@ -1,0 +1,97 @@
+{
+  "course": "unity",
+  "chapter": "5.2",
+  "title": "记录分数",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "得分文本",
+      "sourceLabel": "原教程 第 1 节 · 得分文本",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "在 Canvas 中建立并定位分数显示。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "文本外观",
+      "sourceLabel": "原教程 第 2 节 · 文本外观",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "调整文字内容、样式和显示区域。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "初始化得分",
+      "sourceLabel": "原教程 第 3 节 · 初始化得分",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "保存数值并让界面显示起始分数。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "计分方法",
+      "sourceLabel": "原教程 第 4 节 · 计分方法",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "通过带参数的方法更新分值和文本。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "跨脚本调用",
+      "sourceLabel": "原教程 第 5 节 · 跨脚本调用",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "目标被点击时通知 Game Manager 计分。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "目标分值",
+      "sourceLabel": "原教程 第 6 节 · 目标分值",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "好目标提供不同分值，坏目标使分数减少。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "点击粒子",
+      "sourceLabel": "原教程 第 7 节 · 点击粒子",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "目标消失时在对应位置生成效果。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 8 节 · 本讲回顾",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "分数状态与 UI 同步，点击同时触发计分和表现。"
+      ]
+    }
+  ]
+}

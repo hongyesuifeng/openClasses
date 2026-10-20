@@ -1,0 +1,176 @@
+{
+  "course": "games101",
+  "chapter": "08",
+  "title": "着色（着色频率、图形管线、纹理映射）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_08.pdf",
+  "scope": "中文学习整理，非全文翻译。整理高光/环境项、着色频率、管线和纹理坐标；不复刻原页 Shader 程序。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "漫反射回顾",
+      "sourceLabel": "PDF 第 5—6 页",
+      "sourcePages": [
+        5,
+        6
+      ],
+      "paragraphs": [
+        "本节继续使用不依赖观察方向的漫反射，为后面的高光做对照。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "镜面项",
+      "sourceLabel": "PDF 第 7—8 页",
+      "sourcePages": [
+        7,
+        8
+      ],
+      "paragraphs": [
+        "Blinn–Phong 用单位半程向量与法线的接近程度描述朝观察方向的高光。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "高光指数",
+      "sourceLabel": "PDF 第 9—10 页",
+      "sourcePages": [
+        9,
+        10
+      ],
+      "paragraphs": [
+        "指数越大，反射峰越窄；材质高光系数与指数承担不同作用。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "环境项",
+      "sourceLabel": "PDF 第 11 页",
+      "sourcePages": [
+        11
+      ],
+      "paragraphs": [
+        "常量颜色补偿未计算的其他照明，原课明确把它视作近似。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "模型相加",
+      "sourceLabel": "PDF 第 12 页",
+      "sourcePages": [
+        12
+      ],
+      "paragraphs": [
+        "环境、漫反射与镜面贡献相加，形成此处使用的反射模型。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "逐面着色",
+      "sourceLabel": "PDF 第 14—16 页",
+      "sourcePages": [
+        14,
+        15,
+        16
+      ],
+      "paragraphs": [
+        "Flat 采用面的法线，较粗的网格会显露分面感。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "逐顶点着色",
+      "sourceLabel": "PDF 第 17 页",
+      "sourcePages": [
+        17
+      ],
+      "paragraphs": [
+        "Gouraud 在顶点计算颜色，再让三角形内部颜色插值变化。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "逐像素着色",
+      "sourceLabel": "PDF 第 18—19 页",
+      "sourcePages": [
+        18,
+        19
+      ],
+      "paragraphs": [
+        "Phong 插值法线后计算着色；它是频率选择，不是 Blinn–Phong 模型本身。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "法线来源",
+      "sourceLabel": "PDF 第 20—21 页",
+      "sourcePages": [
+        20,
+        21
+      ],
+      "paragraphs": [
+        "顶点法线可取自几何或邻面估计，插值出的像素法线仍需归一化。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "图形管线",
+      "sourceLabel": "PDF 第 23—28 页",
+      "sourcePages": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "paragraphs": [
+        "顶点、三角形、光栅化、片元和帧缓冲阶段分别承接变换、覆盖、着色与可见性处理。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "着色程序（Shader）",
+      "sourceLabel": "PDF 第 29—30 页",
+      "sourcePages": [
+        29,
+        30
+      ],
+      "paragraphs": [
+        "程序描述单个顶点或片元的处理；原例组合纹理查询与漫反射计算。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "GPU 执行",
+      "sourceLabel": "PDF 第 31—35 页",
+      "sourcePages": [
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "paragraphs": [
+        "复杂实时场景依靠 GPU 执行大量管线工作；当年性能数字不作当前规格。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "纹理映射",
+      "sourceLabel": "PDF 第 37—44 页",
+      "sourcePages": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44
+      ],
+      "paragraphs": [
+        "顶点的 UV 对应图像位置，三角形表面据此取纹理；同一纹理可以重复使用。"
+      ]
+    }
+  ]
+}

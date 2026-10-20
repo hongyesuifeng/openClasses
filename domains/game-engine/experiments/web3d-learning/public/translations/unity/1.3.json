@@ -1,0 +1,86 @@
+{
+  "course": "unity",
+  "chapter": "1.3",
+  "title": "高速追踪",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "速度变量",
+      "sourceLabel": "原教程 第 1 节 · 速度变量",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "把速度从固定数字变成可在 Inspector 调整的变量。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "相机脚本",
+      "sourceLabel": "原教程 第 2 节 · 相机脚本",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "FollowPlayer 引用车辆，跟随其位置。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "观察偏移",
+      "sourceLabel": "原教程 第 3 节 · 观察偏移",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "相机位置还需包含高于、落后于车辆的距离。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "偏移变量",
+      "sourceLabel": "原教程 第 4 节 · 偏移变量",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "用 Vector3 保存该偏移，便于集中调整。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "跟随时机",
+      "sourceLabel": "原教程 第 5 节 · 跟随时机",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "把相机更新放到 LateUpdate，处理课内观察到的抖动。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "Play 模式提示色",
+      "sourceLabel": "原教程 第 6 节 · Play 模式提示色",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "设置运行提示色，帮助区分运行与编辑状态。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "本讲回顾",
+      "sourceLabel": "原教程 第 7 节 · 本讲回顾",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "相机跟车且保留偏移；同时认识变量、类型和访问修饰符。"
+      ]
+    }
+  ]
+}

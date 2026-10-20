@@ -1,6 +1,6 @@
 {
   "learner_id": "perry",
-  "last_updated": "2026-10-15",
+  "last_updated": "2026-10-20",
   "learning_style": {
     "primary": "visual",
     "secondary": "practical",
@@ -34,10 +34,13 @@
     "text_density": "concise",
     "preferred_chapter_format": "original_course_sections",
     "preferred_delivery_surface": "web_interactive",
+    "preferred_reading_language": "zh-CN",
+    "english_source_reading": "separate_chinese_reading_link_with_source_locators",
+    "preserve_current_navigation_layout": true,
     "include_cocos_comparison": false,
     "include_formula_walkthroughs": false,
     "include_code_walkthroughs": false,
-    "current_learning_needs": ["concise_keypoints_from_original_course_content", "original_chapter_order_and_traceable_sources"],
+    "current_learning_needs": ["concise_keypoints_from_original_course_content", "original_chapter_order_and_traceable_sources", "chinese_reading_for_english_sources"],
     "include_ai_analogies": false,
     "include_supplemental_cases": false,
     "include_cross_course_narratives": false

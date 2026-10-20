@@ -1,0 +1,225 @@
+{
+  "course": "games101",
+  "chapter": "06",
+  "title": "光栅化（深度测试与抗锯齿）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_06.pdf",
+  "scope": "中文学习整理，非全文翻译。实际覆盖抗锯齿技术小节；该 PDF 未展开标题中的深度测试，相关内容在下一讲。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "采样范围",
+      "sourceLabel": "PDF 第 5—13 页",
+      "sourcePages": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "paragraphs": [
+        "位置、传感器平面和视频时间都涉及采样，不仅是三角形绘制。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "走样现象",
+      "sourceLabel": "PDF 第 14—18 页",
+      "sourcePages": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "paragraphs": [
+        "锯齿、摩尔纹和车轮错觉对应不同采样场景，共同问题是变化快而采样不足。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "预滤波顺序",
+      "sourceLabel": "PDF 第 19—26 页",
+      "sourcePages": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ],
+      "paragraphs": [
+        "先限制高频再采样，与对已经走样的图像事后模糊不同。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "频率",
+      "sourceLabel": "PDF 第 27—29 页",
+      "sourcePages": [
+        27,
+        28,
+        29
+      ],
+      "paragraphs": [
+        "正弦余弦用于表示频率；周期与频率互为倒数。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "傅里叶观点",
+      "sourceLabel": "PDF 第 30—31 页",
+      "sourcePages": [
+        30,
+        31
+      ],
+      "paragraphs": [
+        "把信号放到频率成分中观察，再通过逆变换回原域。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "频率别名",
+      "sourceLabel": "PDF 第 32—33 页",
+      "sourcePages": [
+        32,
+        33
+      ],
+      "paragraphs": [
+        "相同采样结果可能来自不同频率；高频需要更密的采样。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "高通与低通",
+      "sourceLabel": "PDF 第 34—39 页",
+      "sourcePages": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "paragraphs": [
+        "高通突出快速变化，低通去掉高频；原页用图像对照不同频段。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "卷积",
+      "sourceLabel": "PDF 第 40—43 页",
+      "sourcePages": [
+        40,
+        41,
+        42,
+        43
+      ],
+      "paragraphs": [
+        "原例以滑动窗口加权平均说明滤波，权重为 1/4、1/2、1/4。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "卷积定理",
+      "sourceLabel": "PDF 第 44—45 页",
+      "sourcePages": [
+        44,
+        45
+      ],
+      "paragraphs": [
+        "空间域卷积对应频域相乘，允许在两种表示间选择计算方式。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "盒式滤波",
+      "sourceLabel": "PDF 第 46—48 页",
+      "sourcePages": [
+        46,
+        47,
+        48
+      ],
+      "paragraphs": [
+        "邻域等权平均是一种低通近似，核宽会影响保留频率。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "频谱重复",
+      "sourceLabel": "PDF 第 49—51 页",
+      "sourcePages": [
+        49,
+        50,
+        51
+      ],
+      "paragraphs": [
+        "采样使频谱重复；副本重叠使不同频率混淆。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "两类改进",
+      "sourceLabel": "PDF 第 52—54 页",
+      "sourcePages": [
+        52,
+        53,
+        54
+      ],
+      "paragraphs": [
+        "可提高采样率，也可先滤去超出能力的频率；提高分辨率有成本。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "像素面积",
+      "sourceLabel": "PDF 第 55—59 页",
+      "sourcePages": [
+        55,
+        56,
+        57,
+        58,
+        59
+      ],
+      "paragraphs": [
+        "三角形覆盖函数在像素内的平均，对应被覆盖的面积比例。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "多点近似",
+      "sourceLabel": "PDF 第 60—69 页",
+      "sourcePages": [
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69
+      ],
+      "paragraphs": [
+        "像素内多个样本平均可近似面积覆盖，不等同单点结果放大。"
+      ]
+    },
+    {
+      "id": "part-15",
+      "title": "后续方向",
+      "sourceLabel": "PDF 第 70 页",
+      "sourcePages": [
+        70
+      ],
+      "paragraphs": [
+        "末页仅列 FXAA、TAA、超分辨率与 DLSS 等方向，没有完整展开。"
+      ]
+    }
+  ]
+}

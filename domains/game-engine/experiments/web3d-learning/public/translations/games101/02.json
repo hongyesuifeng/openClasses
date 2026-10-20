@@ -1,0 +1,168 @@
+{
+  "course": "games101",
+  "chapter": "02",
+  "title": "向量与线性代数",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf",
+  "scope": "中文学习整理，非全文翻译。覆盖向量、两种乘法、坐标基与矩阵的小节；运算只登记必要关系，不复现全部计算。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "前置知识",
+      "sourceLabel": "PDF 第 5—6 页",
+      "sourcePages": [
+        5,
+        6
+      ],
+      "paragraphs": [
+        "线性代数是本课重点基础，另涉及微积分、统计、光学与数值分析。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "向量",
+      "sourceLabel": "PDF 第 8 页",
+      "sourcePages": [
+        8
+      ],
+      "paragraphs": [
+        "用方向和长度描述向量，起点不固定；点差可以给出向量。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "单位方向",
+      "sourceLabel": "PDF 第 9 页",
+      "sourcePages": [
+        9
+      ],
+      "paragraphs": [
+        "非零向量除以长度得到单位向量，用来单独表示方向。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "加法与坐标",
+      "sourceLabel": "PDF 第 10—11 页",
+      "sourcePages": [
+        10,
+        11
+      ],
+      "paragraphs": [
+        "几何加法对应三角形或平行四边形；坐标表示则逐分量相加。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "点积",
+      "sourceLabel": "PDF 第 13—15 页",
+      "sourcePages": [
+        13,
+        14,
+        15
+      ],
+      "paragraphs": [
+        "结果为标量；坐标中对应分量乘后求和，单位方向的点积等于夹角余弦。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "投影",
+      "sourceLabel": "PDF 第 16—17 页",
+      "sourcePages": [
+        16,
+        17
+      ],
+      "paragraphs": [
+        "把一个向量沿单位参考方向投影，用点积取得带符号的分量。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "点积用途",
+      "sourceLabel": "PDF 第 18—19 页",
+      "sourcePages": [
+        18,
+        19
+      ],
+      "paragraphs": [
+        "方向接近、分解与前后判定是不同用途；直接比较夹角前需归一化。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "叉积",
+      "sourceLabel": "PDF 第 21—23 页",
+      "sourcePages": [
+        21,
+        22,
+        23
+      ],
+      "paragraphs": [
+        "结果垂直于输入方向，遵循右手定则；交换顺序会反号。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "几何判定",
+      "sourceLabel": "PDF 第 24—25 页",
+      "sourcePages": [
+        24,
+        25
+      ],
+      "paragraphs": [
+        "叉积用于左右及三角形内外关系，具体正负取决于顶点方向。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "正交坐标基",
+      "sourceLabel": "PDF 第 27—28 页",
+      "sourcePages": [
+        27,
+        28
+      ],
+      "paragraphs": [
+        "三条单位且互相垂直的基可表示三维向量；世界与局部框架需相互转换。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "矩阵",
+      "sourceLabel": "PDF 第 30—31 页",
+      "sourcePages": [
+        30,
+        31
+      ],
+      "paragraphs": [
+        "按行列组织数字，图形学借其表达变换。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "矩阵乘法",
+      "sourceLabel": "PDF 第 32—35 页",
+      "sourcePages": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "paragraphs": [
+        "内侧维度需相同；一般不能交换次序，向量可视作单列矩阵。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "转置与逆",
+      "sourceLabel": "PDF 第 36—38 页",
+      "sourcePages": [
+        36,
+        37,
+        38
+      ],
+      "paragraphs": [
+        "转置交换行列；可逆时乘逆矩阵得到单位矩阵，乘积求逆会反转次序。"
+      ]
+    }
+  ]
+}

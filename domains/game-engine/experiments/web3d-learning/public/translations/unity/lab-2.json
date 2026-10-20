@@ -1,0 +1,86 @@
+{
+  "course": "unity",
+  "chapter": "lab-2",
+  "title": "练习二：用基础形状搭建项目",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lab-2-new-project-with-primitives?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "个人项目与场景",
+      "sourceLabel": "原教程 第 1 节 · 个人项目与场景",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "创建独立工程并命名场景。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "地面",
+      "sourceLabel": "原教程 第 2 节 · 地面",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "先放置背景平面，确定场景范围。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "玩家占位",
+      "sourceLabel": "原教程 第 3 节 · 玩家占位",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "用基础形状代表玩家，并用材质区分。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "项目相机",
+      "sourceLabel": "原教程 第 4 节 · 项目相机",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "根据项目类型安排相机位置与朝向。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "其他占位对象",
+      "sourceLabel": "原教程 第 5 节 · 其他占位对象",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "建立敌人、障碍、投射物，并以不同颜色识别。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "导出备份",
+      "sourceLabel": "原教程 第 6 节 · 导出备份",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "以 Unity Package 保存这一阶段的工程内容。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "本次回顾",
+      "sourceLabel": "原教程 第 7 节 · 本次回顾",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "关键对象与观察视角已就位，后续先为占位形状加入行为。"
+      ]
+    }
+  ]
+}

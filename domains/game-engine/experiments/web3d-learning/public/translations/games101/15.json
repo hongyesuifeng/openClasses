@@ -1,0 +1,190 @@
+{
+  "course": "games101",
+  "chapter": "15",
+  "title": "光线追踪（辐射度量学、渲染方程与全局光照）",
+  "source": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf",
+  "scope": "中文学习整理，非全文翻译。整理辐照度、Radiance、反射/渲染关系与概率基础；不复现积分方程的完整推导或图像序列。 按原小节以自主措辞概括，合并重复页；不代替原讲义、图表、公式推导或视频。公告与致谢省略，原页页序从 PDF 封面起计。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "度量回顾",
+      "sourceLabel": "PDF 第 6—7 页",
+      "sourcePages": [
+        6,
+        7
+      ],
+      "paragraphs": [
+        "能量、通量、方向强度与立体角分别回答不同问题。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "辐照度",
+      "sourceLabel": "PDF 第 8—9 页",
+      "sourcePages": [
+        8,
+        9
+      ],
+      "paragraphs": [
+        "表面单位面积接收的功率称为辐照度，单位为 W/m²。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "入射角",
+      "sourceLabel": "PDF 第 10—11 页",
+      "sourcePages": [
+        10,
+        11
+      ],
+      "paragraphs": [
+        "相同照明下，入射方向与表面法线的夹角影响面积接收量。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "衰减更正",
+      "sourceLabel": "PDF 第 12 页",
+      "sourcePages": [
+        12
+      ],
+      "paragraphs": [
+        "原课更正此前表述：均匀点源对应球面上的辐照度随距离平方衰减。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "辐射亮度（Radiance）",
+      "sourceLabel": "PDF 第 13—16 页",
+      "sourcePages": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "paragraphs": [
+        "辐射亮度同时区分方向和投影面积，是追踪某条光线所携带信息的量。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "汇总方向贡献",
+      "sourceLabel": "PDF 第 17—19 页",
+      "sourcePages": [
+        17,
+        18,
+        19
+      ],
+      "paragraphs": [
+        "入射与出射有各自方向；辐照度要汇总入射半球，而非只取一条光线。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "双向反射分布函数（BRDF）",
+      "sourceLabel": "PDF 第 20—22 页",
+      "sourcePages": [
+        20,
+        21,
+        22
+      ],
+      "paragraphs": [
+        "它联系某入射方向的接收量与某出射方向的反射量。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "反射方程",
+      "sourceLabel": "PDF 第 23 页",
+      "sourcePages": [
+        23
+      ],
+      "paragraphs": [
+        "把不同方向经材质反射的贡献合在一起，得到指定方向的反射结果。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "递归与发光",
+      "sourceLabel": "PDF 第 24—25 页",
+      "sourcePages": [
+        24,
+        25
+      ],
+      "paragraphs": [
+        "入射光来自其他表面的出射光；再加入自身发光，形成渲染关系。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "从光源到表面",
+      "sourceLabel": "PDF 第 27—30 页",
+      "sourcePages": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "paragraphs": [
+        "原页从单光源扩展到方向积分，再把表面间的反射纳入同一问题。"
+      ]
+    },
+    {
+      "id": "part-11",
+      "title": "求解对象",
+      "sourceLabel": "PDF 第 31—34 页",
+      "sourcePages": [
+        31,
+        32,
+        33,
+        34
+      ],
+      "paragraphs": [
+        "已知材质和发光仍不等于已知场景光分布，求解要处理相互依赖。"
+      ]
+    },
+    {
+      "id": "part-12",
+      "title": "反弹次数",
+      "sourceLabel": "PDF 第 35—42 页",
+      "sourcePages": [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ],
+      "paragraphs": [
+        "直接光照与逐次间接反射对画面贡献不同，原图依次增加反弹。"
+      ]
+    },
+    {
+      "id": "part-13",
+      "title": "离散概率与期望",
+      "sourceLabel": "PDF 第 44—46 页",
+      "sourcePages": [
+        44,
+        45,
+        46
+      ],
+      "paragraphs": [
+        "概率需非负且总和为 1；期望按结果及其概率汇总。"
+      ]
+    },
+    {
+      "id": "part-14",
+      "title": "连续随机量",
+      "sourceLabel": "PDF 第 47—48 页",
+      "sourcePages": [
+        47,
+        48
+      ],
+      "paragraphs": [
+        "概率密度及随机变量函数的期望，为下一讲的随机积分准备。"
+      ]
+    }
+  ]
+}

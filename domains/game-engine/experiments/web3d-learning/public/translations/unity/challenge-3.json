@@ -1,0 +1,119 @@
+{
+  "course": "unity",
+  "chapter": "challenge-3",
+  "title": "挑战三：气球、炸弹与布尔值",
+  "source": "https://learn.unity.com/course/create-with-code/unit/unit-3-sound-and-effects/tutorial/challenge-3-bouncy-balloons-bombs-and-booleans-1?version=6.0",
+  "scope": "依据 Unity 6.0 官方原小节编写的中文学习整理，非全文翻译。保留原课顺序与关键条件；不转录源码、截图文字或视频逐字稿，操作细节请对照原文。",
+  "sections": [
+    {
+      "id": "part-1",
+      "title": "挑战目标",
+      "sourceLabel": "原教程 第 1 节 · 挑战目标",
+      "sourceSections": [
+        1
+      ],
+      "paragraphs": [
+        "操作气球收集金钱，并避开炸弹。"
+      ]
+    },
+    {
+      "id": "part-2",
+      "title": "练习性质",
+      "sourceLabel": "原教程 第 2 节 · 练习性质",
+      "sourceSections": [
+        2
+      ],
+      "paragraphs": [
+        "课内资源故意包含错误，需自行排查。"
+      ]
+    },
+    {
+      "id": "part-3",
+      "title": "气球控制",
+      "sourceLabel": "原教程 第 3 节 · 气球控制",
+      "sourceSections": [
+        3
+      ],
+      "paragraphs": [
+        "检查玩家能否通过空格改变气球运动。"
+      ]
+    },
+    {
+      "id": "part-4",
+      "title": "背景状态",
+      "sourceLabel": "原教程 第 4 节 · 背景状态",
+      "sourceSections": [
+        4
+      ],
+      "paragraphs": [
+        "背景应在正常游玩时移动，结束后停止。"
+      ]
+    },
+    {
+      "id": "part-5",
+      "title": "生成行为",
+      "sourceLabel": "原教程 第 5 节 · 生成行为",
+      "sourceSections": [
+        5
+      ],
+      "paragraphs": [
+        "检查炸弹和金钱是否按时间生成。"
+      ]
+    },
+    {
+      "id": "part-6",
+      "title": "粒子位置",
+      "sourceLabel": "原教程 第 6 节 · 粒子位置",
+      "sourceSections": [
+        6
+      ],
+      "paragraphs": [
+        "检查效果是否出现在气球对应位置。"
+      ]
+    },
+    {
+      "id": "part-7",
+      "title": "背景接缝",
+      "sourceLabel": "原教程 第 7 节 · 背景接缝",
+      "sourceSections": [
+        7
+      ],
+      "paragraphs": [
+        "检查背景重复是否连续。"
+      ]
+    },
+    {
+      "id": "part-8",
+      "title": "高度附加题",
+      "sourceLabel": "原教程 第 8 节 · 高度附加题",
+      "sourceSections": [
+        8
+      ],
+      "paragraphs": [
+        "原课可选目标是限制气球飞得过高。"
+      ]
+    },
+    {
+      "id": "part-9",
+      "title": "地面附加题",
+      "sourceLabel": "原教程 第 9 节 · 地面附加题",
+      "sourceSections": [
+        9
+      ],
+      "paragraphs": [
+        "可选目标包括触地反弹和相应声音。"
+      ]
+    },
+    {
+      "id": "part-10",
+      "title": "原页提示",
+      "sourceLabel": "原教程 第 10 节 · 原页提示",
+      "sourceSections": [
+        10
+      ],
+      "paragraphs": [
+        "提示涉及引用、状态、调用名称和尺寸等排查入口。"
+      ]
+    }
+  ]
+}
