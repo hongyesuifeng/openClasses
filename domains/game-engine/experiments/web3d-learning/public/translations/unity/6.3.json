@@ -13,7 +13,8 @@
         1
       ],
       "paragraphs": [
-        "导出依赖所用 Editor 安装对应平台模块，课例包含 Web 与 Windows 或 macOS 支持。模块安装在 Editor 版本上，和工程中的场景内容是不同准备环节。"
+        "导出依赖所用 Editor 安装对应平台模块，课例包含 Web 与 Windows 或 macOS 支持。模块安装在 Editor 版本上，和工程中的场景内容是不同准备环节。",
+        "Add Modules 针对 Hub 中选定的 Editor 安装，不同安装项需要分别核对。模块齐全后，工程才具备导出对应平台所需支持。"
       ]
     },
     {
@@ -24,7 +25,8 @@
         2
       ],
       "paragraphs": [
-        "Build Profiles 决定目标平台，场景列表决定哪些场景进入构建，Player Settings 管理窗口等设置。导出后要实际游玩检查，必要时调整设置并重新构建，才能确认编辑器之外也可运行。"
+        "Build Profiles 决定目标平台，场景列表决定哪些场景进入构建，Player Settings 管理窗口等设置。导出后要实际游玩检查，必要时调整设置并重新构建，才能确认编辑器之外也可运行。",
+        "Add Open Scenes 把当前场景加入构建列表，Build 产生输出，Build and Run 还会启动结果。窗口尺寸等设置改变后，需要重新构建检查。"
       ]
     },
     {

@@ -24,7 +24,8 @@
         2
       ],
       "paragraphs": [
-        "向 AI 描述目标时，需要说明两个相机和触发按键等具体条件。原页示例切换 Camera.enabled，并保留旧 Input.GetKeyDown 写法，本文保留其版本边界。"
+        "向 AI 描述目标时，需要说明两个相机和触发按键等具体条件。原页示例切换 Camera.enabled，并保留旧 Input.GetKeyDown 写法，本文保留其版本边界。",
+        "示例通过两个 Camera 的 enabled 状态切换观察画面，开场先只启用其中一个。相机保留在场景中，切换改变的是哪台相机负责输出。"
       ]
     },
     {
@@ -35,7 +36,8 @@
         3
       ],
       "paragraphs": [
-        "示例出现 UnassignedReferenceException 后，把实际错误反馈给工具。原课最终发现 Inspector（检视面板） 中的相机字段未赋值；还核对脚本是否挂载、相机是否存在，修正后再次运行。"
+        "示例出现 UnassignedReferenceException 后，把实际错误反馈给工具。原课最终发现 Inspector（检视面板） 中的相机字段未赋值；还核对脚本是否挂载、相机是否存在，修正后再次运行。",
+        "报错中的 camera1 直接指出未赋值的字段。脚本已经存在仍可能缺少引用，把 Hierarchy 中的相机连接到两个槽位后，再测试 C 键切换。"
       ]
     },
     {
