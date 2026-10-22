@@ -1,4 +1,6 @@
 import './principles.css';
+import './practice.css';
+import { practiceLinks } from './practice-links.ts';
 import { courseDigests } from './principles-data.ts';
 import { restoreCourseReading } from './course-reader-model.ts';
 import { chineseReadingHref } from './chinese-reading-model.ts';
@@ -29,6 +31,7 @@ app.innerHTML = `
     <aside class="notes-sidebar"><h2>原课章节 <span>${course.chapters.length} 篇</span></h2><label class="notes-chapter-picker" for="notes-chapter-select">跳转原课章节<select id="notes-chapter-select" aria-label="跳转原课章节">${course.chapters.map(item => `<option value="${esc(item.id)}" ${item.id === chapter.id ? 'selected' : ''}>${esc(item.number)} · ${esc(item.title)}</option>`).join('')}</select></label><nav aria-label="章节">${course.chapters.map(item => `<a href="${href(course.id, item.id)}" ${item.id === chapter.id ? 'aria-current="page"' : ''}><span>${esc(item.number)}</span><strong>${esc(item.title)}</strong></a>`).join('')}</nav><p>${esc(course.scope)}。摘记范围与个人学习进度分别记录。</p></aside>
     <main class="notes-content" aria-labelledby="notes-title">
       <header class="notes-chapter-header"><p>${esc(chapter.number)} <span>／ 按原课顺序提炼</span></p><h1 id="notes-title">${esc(chapter.title)}</h1><p class="notes-original-title">${esc(chapter.originalTitle)}</p><div class="notes-source-links"><a href="${esc(chapter.source)}" ${external}>${esc(chapter.sourceLabel)} ↗</a>${chineseReading ? `<a class="notes-chinese-link" href="${esc(chineseReading)}" hreflang="zh-CN" ${external}>中文阅读文档 ↗</a>` : ''}</div></header>
+      ${practiceLinks(course.id, chapter.id, 'classics')}
       ${chapter.note ? `<p class="notes-source-note">${esc(chapter.note)}</p>` : ''}
       <section aria-labelledby="notes-points-title"><h2 id="notes-points-title">本讲重点</h2><ol class="notes-points">${chapter.points.map(point => {
         const page = point.source.match(/\d+/)?.[0];

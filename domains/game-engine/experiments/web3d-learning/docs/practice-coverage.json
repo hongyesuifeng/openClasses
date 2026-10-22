@@ -1,0 +1,6710 @@
+{
+  "schema": 1,
+  "scope": "60个实践方向中的机制映射；并非全部原课内容的覆盖证明",
+  "runnableExperiments": 4,
+  "runnableTasks": 5,
+  "rows": [
+    {
+      "id": "01",
+      "title": "点与向量",
+      "group": "空间与坐标",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "02",
+          "sectionIds": [
+            "part-2",
+            "part-5",
+            "part-8",
+            "part-10"
+          ],
+          "label": "GAMES101 第2讲"
+        }
+      ],
+      "tasks": [
+        "点与方向",
+        "点积与叉积"
+      ],
+      "computation": "解析向量计算",
+      "limitation": "不代替完整线性代数课程",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "02",
+          "section": "part-2",
+          "title": "向量",
+          "sourceLabel": "PDF 第 8 页",
+          "sourcePages": [
+            8
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=8"
+        },
+        {
+          "course": "games101",
+          "chapter": "02",
+          "section": "part-5",
+          "title": "点积",
+          "sourceLabel": "PDF 第 13—15 页",
+          "sourcePages": [
+            13,
+            14,
+            15
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=13"
+        },
+        {
+          "course": "games101",
+          "chapter": "02",
+          "section": "part-8",
+          "title": "叉积",
+          "sourceLabel": "PDF 第 21—23 页",
+          "sourcePages": [
+            21,
+            22,
+            23
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=21"
+        },
+        {
+          "course": "games101",
+          "chapter": "02",
+          "section": "part-10",
+          "title": "正交坐标基",
+          "sourceLabel": "PDF 第 27—28 页",
+          "sourcePages": [
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=27"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "02",
+      "title": "变换次序与齐次坐标",
+      "group": "空间与坐标",
+      "status": "ready",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "03",
+          "sectionIds": [
+            "part-7",
+            "part-8",
+            "part-9",
+            "part-11",
+            "part-12",
+            "part-13"
+          ],
+          "label": "GAMES101 第3讲 · 齐次坐标、组合次序与指定中心"
+        }
+      ],
+      "tasks": [
+        "矩阵写在左边，就一定先执行吗？",
+        "绕指定中心旋转，中心为什么不动？"
+      ],
+      "computation": "解析坐标与矩阵结果",
+      "limitation": "固定列向量；首批仅二维仿射变换",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "03",
+          "section": "part-7",
+          "title": "齐次坐标",
+          "sourceLabel": "PDF 第 25 页",
+          "sourcePages": [
+            25
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf#page=25"
+        },
+        {
+          "course": "games101",
+          "chapter": "03",
+          "section": "part-8",
+          "title": "点与向量",
+          "sourceLabel": "PDF 第 26 页",
+          "sourcePages": [
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf#page=26"
+        },
+        {
+          "course": "games101",
+          "chapter": "03",
+          "section": "part-9",
+          "title": "仿射表示",
+          "sourceLabel": "PDF 第 27—28 页",
+          "sourcePages": [
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf#page=27"
+        },
+        {
+          "course": "games101",
+          "chapter": "03",
+          "section": "part-11",
+          "title": "先后次序",
+          "sourceLabel": "PDF 第 30—35 页",
+          "sourcePages": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf#page=30"
+        },
+        {
+          "course": "games101",
+          "chapter": "03",
+          "section": "part-12",
+          "title": "预先组合",
+          "sourceLabel": "PDF 第 36 页",
+          "sourcePages": [
+            36
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf#page=36"
+        },
+        {
+          "course": "games101",
+          "chapter": "03",
+          "section": "part-13",
+          "title": "绕指定点旋转",
+          "sourceLabel": "PDF 第 37 页",
+          "sourcePages": [
+            37
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_03.pdf#page=37"
+        }
+      ],
+      "readyTaskIds": [
+        "composition",
+        "pivot"
+      ],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "03",
+      "title": "相机与投影",
+      "group": "空间与坐标",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "04",
+          "sectionIds": [
+            "part-5",
+            "part-6",
+            "part-7",
+            "part-8",
+            "part-11",
+            "part-12"
+          ],
+          "label": "GAMES101 第4讲"
+        }
+      ],
+      "tasks": [
+        "视图变换",
+        "正交与透视"
+      ],
+      "computation": "CPU 坐标与投影",
+      "limitation": "不混同完整渲染管线",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-5",
+          "title": "MVP 分工",
+          "sourceLabel": "PDF 第 12 页",
+          "sourcePages": [
+            12
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=12"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-6",
+          "title": "相机参数",
+          "sourceLabel": "PDF 第 13 页",
+          "sourcePages": [
+            13
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=13"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-7",
+          "title": "视图变换",
+          "sourceLabel": "PDF 第 14—17 页",
+          "sourcePages": [
+            14,
+            15,
+            16,
+            17
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=14"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-8",
+          "title": "投影区别",
+          "sourceLabel": "PDF 第 19—21 页",
+          "sourcePages": [
+            19,
+            20,
+            21
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=19"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-11",
+          "title": "透视特征",
+          "sourceLabel": "PDF 第 26—28 页",
+          "sourcePages": [
+            26,
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=26"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-12",
+          "title": "压缩视锥",
+          "sourceLabel": "PDF 第 29—32 页",
+          "sourcePages": [
+            29,
+            30,
+            31,
+            32
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=29"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "04",
+      "title": "时间与恒速运动",
+      "group": "时间与控制",
+      "status": "ready",
+      "sources": [
+        {
+          "course": "unity",
+          "chapter": "1.2",
+          "sectionIds": [
+            "part-3",
+            "part-5"
+          ],
+          "label": "Unity 1.2 · 车辆前移与速度控制"
+        }
+      ],
+      "tasks": [
+        "每次加20，还是每秒前进20？"
+      ],
+      "computation": "恒速解析结果",
+      "limitation": "输入为固定模拟时间线，不测真实刷新率",
+      "locators": [
+        {
+          "course": "unity",
+          "chapter": "1.2",
+          "section": "part-3",
+          "title": "车辆前移",
+          "sourceLabel": "原教程 第 3 节 · 车辆前移",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-2-move-the-vehicle-with-your-first-line-of-c?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "1.2",
+          "section": "part-5",
+          "title": "速度控制",
+          "sourceLabel": "原教程 第 5 节 · 速度控制",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-2-move-the-vehicle-with-your-first-line-of-c?version=6.0"
+        }
+      ],
+      "readyTaskIds": [
+        "delta-time"
+      ],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "05",
+      "title": "输入与方向转换",
+      "group": "时间与控制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "unity",
+          "chapter": "1.4",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "Unity 1.4"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.1",
+          "sectionIds": [
+            "part-3",
+            "part-4"
+          ],
+          "label": "Unity 4.1"
+        }
+      ],
+      "tasks": [
+        "输入归一化",
+        "局部与世界方向"
+      ],
+      "computation": "离散输入与向量",
+      "limitation": "不要求掌握引擎输入接口",
+      "locators": [
+        {
+          "course": "unity",
+          "chapter": "1.4",
+          "section": "part-3",
+          "title": "移动动作变量",
+          "sourceLabel": "原教程 第 3 节 · 移动动作变量",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "1.4",
+          "section": "part-4",
+          "title": "输入绑定",
+          "sourceLabel": "原教程 第 4 节 · 输入绑定",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "1.4",
+          "section": "part-5",
+          "title": "观察输入值",
+          "sourceLabel": "原教程 第 5 节 · 观察输入值",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.1",
+          "section": "part-3",
+          "title": "相机焦点",
+          "sourceLabel": "原教程 第 3 节 · 相机焦点",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.1",
+          "section": "part-4",
+          "title": "输入配置",
+          "sourceLabel": "原教程 第 4 节 · 输入配置",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "06",
+      "title": "相机跟随与更新顺序",
+      "group": "时间与控制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "unity",
+          "chapter": "1.3",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "Unity 1.3"
+        }
+      ],
+      "tasks": [
+        "跟随偏移",
+        "更新先后"
+      ],
+      "computation": "离散帧序列",
+      "limitation": "不模拟真实线程调度",
+      "locators": [
+        {
+          "course": "unity",
+          "chapter": "1.3",
+          "section": "part-3",
+          "title": "观察偏移",
+          "sourceLabel": "原教程 第 3 节 · 观察偏移",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "1.3",
+          "section": "part-4",
+          "title": "偏移变量",
+          "sourceLabel": "原教程 第 4 节 · 偏移变量",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "1.3",
+          "section": "part-5",
+          "title": "跟随时机",
+          "sourceLabel": "原教程 第 5 节 · 跟随时机",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables?version=6.0"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "07",
+      "title": "三角形覆盖",
+      "group": "光栅与采样",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "05",
+          "sectionIds": [
+            "part-8",
+            "part-9",
+            "part-10",
+            "part-11"
+          ],
+          "label": "GAMES101 第5讲"
+        }
+      ],
+      "tasks": [
+        "边函数",
+        "包围盒遍历"
+      ],
+      "computation": "CPU 离散覆盖",
+      "limitation": "明确边界约定",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "05",
+          "section": "part-8",
+          "title": "二维采样",
+          "sourceLabel": "PDF 第 31—34 页",
+          "sourcePages": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_05.pdf#page=31"
+        },
+        {
+          "course": "games101",
+          "chapter": "05",
+          "section": "part-9",
+          "title": "覆盖函数",
+          "sourceLabel": "PDF 第 35—39 页",
+          "sourcePages": [
+            35,
+            36,
+            37,
+            38,
+            39
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_05.pdf#page=35"
+        },
+        {
+          "course": "games101",
+          "chapter": "05",
+          "section": "part-10",
+          "title": "内外与边界",
+          "sourceLabel": "PDF 第 40—42 页",
+          "sourcePages": [
+            40,
+            41,
+            42
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_05.pdf#page=40"
+        },
+        {
+          "course": "games101",
+          "chapter": "05",
+          "section": "part-11",
+          "title": "遍历范围",
+          "sourceLabel": "PDF 第 43—44 页",
+          "sourcePages": [
+            43,
+            44
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_05.pdf#page=43"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "08",
+      "title": "深度比较",
+      "group": "光栅与采样",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "07",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "GAMES101 第7讲"
+        }
+      ],
+      "tasks": [
+        "逐片元深度更新"
+      ],
+      "computation": "离散深度表",
+      "limitation": "透明排序另行讨论",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-1",
+          "title": "画家算法",
+          "sourceLabel": "PDF 第 5 页",
+          "sourcePages": [
+            5
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=5"
+        },
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-2",
+          "title": "排序的困难",
+          "sourceLabel": "PDF 第 6 页",
+          "sourcePages": [
+            6
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=6"
+        },
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-3",
+          "title": "颜色与深度",
+          "sourceLabel": "PDF 第 7—8 页",
+          "sourcePages": [
+            7,
+            8
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=7"
+        },
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-4",
+          "title": "深度更新",
+          "sourceLabel": "PDF 第 9—10 页",
+          "sourcePages": [
+            9,
+            10
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=9"
+        },
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-5",
+          "title": "成本与顺序",
+          "sourceLabel": "PDF 第 11 页",
+          "sourcePages": [
+            11
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=11"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "09",
+      "title": "亚像素覆盖与采样误差",
+      "group": "光栅与采样",
+      "status": "ready",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "06",
+          "sectionIds": [
+            "part-3",
+            "part-13",
+            "part-14"
+          ],
+          "label": "GAMES101 第6讲 · 预滤波、像素范围平均与多点近似"
+        }
+      ],
+      "tasks": [
+        "中心漏掉窄带，多点平均能看到什么？"
+      ],
+      "computation": "解析区间与有限采样",
+      "limitation": "一维窄带覆盖单位高度；不是通用抗锯齿器",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "06",
+          "section": "part-3",
+          "title": "预滤波顺序",
+          "sourceLabel": "PDF 第 19—26 页",
+          "sourcePages": [
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_06.pdf#page=19"
+        },
+        {
+          "course": "games101",
+          "chapter": "06",
+          "section": "part-13",
+          "title": "像素面积",
+          "sourceLabel": "PDF 第 55—59 页",
+          "sourcePages": [
+            55,
+            56,
+            57,
+            58,
+            59
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_06.pdf#page=55"
+        },
+        {
+          "course": "games101",
+          "chapter": "06",
+          "section": "part-14",
+          "title": "多点近似",
+          "sourceLabel": "PDF 第 60—69 页",
+          "sourcePages": [
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_06.pdf#page=60"
+        }
+      ],
+      "readyTaskIds": [
+        "pixel-average"
+      ],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "10",
+      "title": "重心插值",
+      "group": "插值与纹理",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "09",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3"
+          ],
+          "label": "GAMES101 第9讲"
+        }
+      ],
+      "tasks": [
+        "属性插值",
+        "透视修正"
+      ],
+      "computation": "解析重心权重",
+      "limitation": "屏幕线性不等于世界线性",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-1",
+          "title": "为何插值",
+          "sourceLabel": "PDF 第 6 页",
+          "sourcePages": [
+            6
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=6"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-2",
+          "title": "重心坐标",
+          "sourceLabel": "PDF 第 7—11 页",
+          "sourcePages": [
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=7"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-3",
+          "title": "投影限制",
+          "sourceLabel": "PDF 第 12 页",
+          "sourcePages": [
+            12
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=12"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "11",
+      "title": "纹理过滤",
+      "group": "插值与纹理",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "09",
+          "sectionIds": [
+            "part-4",
+            "part-5",
+            "part-6"
+          ],
+          "label": "GAMES101 第9讲"
+        }
+      ],
+      "tasks": [
+        "最近邻",
+        "双线性"
+      ],
+      "computation": "离散纹素查询",
+      "limitation": "不以模糊程度判断正确性",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-4",
+          "title": "纹理查询",
+          "sourceLabel": "PDF 第 14 页",
+          "sourcePages": [
+            14
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=14"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-5",
+          "title": "纹理放大",
+          "sourceLabel": "PDF 第 15—16 页",
+          "sourcePages": [
+            15,
+            16
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=15"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-6",
+          "title": "双线性插值",
+          "sourceLabel": "PDF 第 17—23 页",
+          "sourcePages": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=17"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "12",
+      "title": "纹理足迹与 Mipmap",
+      "group": "插值与纹理",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "09",
+          "sectionIds": [
+            "part-7",
+            "part-8",
+            "part-9",
+            "part-10",
+            "part-11",
+            "part-12"
+          ],
+          "label": "GAMES101 第9讲"
+        }
+      ],
+      "tasks": [
+        "足迹与层级",
+        "三线性与各向异性条件"
+      ],
+      "computation": "CPU 层级查询",
+      "limitation": "不实现硬件纹理单元",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-7",
+          "title": "像素足迹",
+          "sourceLabel": "PDF 第 24—26 页",
+          "sourcePages": [
+            24,
+            25,
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=24"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-8",
+          "title": "范围平均",
+          "sourceLabel": "PDF 第 27—30 页",
+          "sourcePages": [
+            27,
+            28,
+            29,
+            30
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=27"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-9",
+          "title": "Mipmap 层级",
+          "sourceLabel": "PDF 第 31—33 页",
+          "sourcePages": [
+            31,
+            32,
+            33
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=31"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-10",
+          "title": "选择层级",
+          "sourceLabel": "PDF 第 34—37 页",
+          "sourcePages": [
+            34,
+            35,
+            36,
+            37
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=34"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-11",
+          "title": "三线性过滤",
+          "sourceLabel": "PDF 第 38—39 页",
+          "sourcePages": [
+            38,
+            39
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=38"
+        },
+        {
+          "course": "games101",
+          "chapter": "09",
+          "section": "part-12",
+          "title": "各向异性问题",
+          "sourceLabel": "PDF 第 40—46 页",
+          "sourcePages": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf#page=40"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "13",
+      "title": "光照与 BRDF",
+      "group": "光照与阴影",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "07",
+          "sectionIds": [
+            "part-10",
+            "part-11",
+            "part-12"
+          ],
+          "label": "GAMES101 第7讲"
+        },
+        {
+          "course": "games101",
+          "chapter": "15",
+          "sectionIds": [
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES101 第15讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "05",
+          "sectionIds": [
+            "part-5",
+            "part-6"
+          ],
+          "label": "GAMES104 第5讲"
+        }
+      ],
+      "tasks": [
+        "漫反射",
+        "BRDF 条件"
+      ],
+      "computation": "数值方向响应",
+      "limitation": "区分经验模型与物理量",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-10",
+          "title": "理想漫反射",
+          "sourceLabel": "PDF 第 24 页",
+          "sourcePages": [
+            24
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=24"
+        },
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-11",
+          "title": "入射角",
+          "sourceLabel": "PDF 第 25 页",
+          "sourcePages": [
+            25
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=25"
+        },
+        {
+          "course": "games101",
+          "chapter": "07",
+          "section": "part-12",
+          "title": "距离与材质",
+          "sourceLabel": "PDF 第 26—28 页",
+          "sourcePages": [
+            26,
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf#page=26"
+        },
+        {
+          "course": "games101",
+          "chapter": "15",
+          "section": "part-7",
+          "title": "双向反射分布函数（BRDF）",
+          "sourceLabel": "PDF 第 20—22 页",
+          "sourcePages": [
+            20,
+            21,
+            22
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf#page=20"
+        },
+        {
+          "course": "games101",
+          "chapter": "15",
+          "section": "part-8",
+          "title": "反射方程",
+          "sourceLabel": "PDF 第 23 页",
+          "sourcePages": [
+            23
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf#page=23"
+        },
+        {
+          "course": "games104",
+          "chapter": "05",
+          "section": "part-5",
+          "title": "微表面材质",
+          "sourceLabel": "PDF 第 48—55 页",
+          "sourcePages": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture05_1.pdf#page=48"
+        },
+        {
+          "course": "games104",
+          "chapter": "05",
+          "section": "part-6",
+          "title": "两种参数流程",
+          "sourceLabel": "PDF 第 56—60 页",
+          "sourcePages": [
+            56,
+            57,
+            58,
+            59,
+            60
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture05_1.pdf#page=56"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "14",
+      "title": "阴影",
+      "group": "光照与阴影",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "12",
+          "sectionIds": [
+            "part-9",
+            "part-10",
+            "part-11",
+            "part-12",
+            "part-13"
+          ],
+          "label": "GAMES101 第12讲"
+        }
+      ],
+      "tasks": [
+        "光源深度比较",
+        "偏移与分辨率"
+      ],
+      "computation": "CPU 深度查询",
+      "limitation": "不作为完整软阴影实现",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-9",
+          "title": "阴影图原则",
+          "sourceLabel": "PDF 第 31—32 页",
+          "sourcePages": [
+            31,
+            32
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=31"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-10",
+          "title": "光源深度",
+          "sourceLabel": "PDF 第 33—34 页",
+          "sourcePages": [
+            33,
+            34
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=33"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-11",
+          "title": "回投影比较",
+          "sourceLabel": "PDF 第 35—37 页",
+          "sourcePages": [
+            35,
+            36,
+            37
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=35"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-12",
+          "title": "观察阴影结果",
+          "sourceLabel": "PDF 第 38—44 页",
+          "sourcePages": [
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=38"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-13",
+          "title": "基础方法边界",
+          "sourceLabel": "PDF 第 45—46 页",
+          "sourcePages": [
+            45,
+            46
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=45"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "15",
+      "title": "球谐与环境光预计算",
+      "group": "光照与阴影",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "05",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-7"
+          ],
+          "label": "GAMES104 第5讲"
+        }
+      ],
+      "tasks": [
+        "低阶投影",
+        "预计算查询"
+      ],
+      "computation": "采样近似",
+      "limitation": "低频表示不能恢复尖锐高光",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "05",
+          "section": "part-3",
+          "title": "球谐表示",
+          "sourceLabel": "PDF 第 28—36 页",
+          "sourcePages": [
+            28,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture05_1.pdf#page=28"
+        },
+        {
+          "course": "games104",
+          "chapter": "05",
+          "section": "part-4",
+          "title": "光照缓存",
+          "sourceLabel": "PDF 第 37—46 页",
+          "sourcePages": [
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture05_1.pdf#page=37"
+        },
+        {
+          "course": "games104",
+          "chapter": "05",
+          "section": "part-7",
+          "title": "环境光照",
+          "sourceLabel": "PDF 第 61—69 页",
+          "sourcePages": [
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture05_1.pdf#page=61"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "16",
+      "title": "几何表示",
+      "group": "几何处理",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "10",
+          "sectionIds": [
+            "part-8",
+            "part-9",
+            "part-10",
+            "part-11",
+            "part-12",
+            "part-13"
+          ],
+          "label": "GAMES101 第10讲"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "sectionIds": [
+            "part-1",
+            "part-2"
+          ],
+          "label": "GAMES101 第11讲"
+        }
+      ],
+      "tasks": [
+        "显式与隐式查询"
+      ],
+      "computation": "离散网格与距离查询",
+      "limitation": "只比较课内表示的局部取舍",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "10",
+          "section": "part-8",
+          "title": "隐式表面",
+          "sourceLabel": "PDF 第 32—33 页",
+          "sourcePages": [
+            32,
+            33
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf#page=32"
+        },
+        {
+          "course": "games101",
+          "chapter": "10",
+          "section": "part-9",
+          "title": "隐式的查询取舍",
+          "sourceLabel": "PDF 第 34—35 页",
+          "sourcePages": [
+            34,
+            35
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf#page=34"
+        },
+        {
+          "course": "games101",
+          "chapter": "10",
+          "section": "part-10",
+          "title": "显式表示",
+          "sourceLabel": "PDF 第 36—40 页",
+          "sourcePages": [
+            36,
+            37,
+            38,
+            39,
+            40
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf#page=36"
+        },
+        {
+          "course": "games101",
+          "chapter": "10",
+          "section": "part-11",
+          "title": "代数与 CSG",
+          "sourceLabel": "PDF 第 42—44 页",
+          "sourcePages": [
+            42,
+            43,
+            44
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf#page=42"
+        },
+        {
+          "course": "games101",
+          "chapter": "10",
+          "section": "part-12",
+          "title": "距离函数",
+          "sourceLabel": "PDF 第 45—48 页",
+          "sourcePages": [
+            45,
+            46,
+            47,
+            48
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf#page=45"
+        },
+        {
+          "course": "games101",
+          "chapter": "10",
+          "section": "part-13",
+          "title": "水平集",
+          "sourceLabel": "PDF 第 49—51 页",
+          "sourcePages": [
+            49,
+            50,
+            51
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf#page=49"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-1",
+          "title": "点云",
+          "sourceLabel": "PDF 第 6—7 页",
+          "sourcePages": [
+            6,
+            7
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=6"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-2",
+          "title": "网格与 OBJ",
+          "sourceLabel": "PDF 第 8—9 页",
+          "sourcePages": [
+            8,
+            9
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=8"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "17",
+      "title": "曲线与曲面",
+      "group": "几何处理",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "11",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5",
+            "part-7",
+            "part-8",
+            "part-9",
+            "part-11",
+            "part-12"
+          ],
+          "label": "GAMES101 第11讲"
+        }
+      ],
+      "tasks": [
+        "递归插值",
+        "曲面求值"
+      ],
+      "computation": "解析参数与离散采样",
+      "limitation": "采样线段不等于连续曲线本身",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-3",
+          "title": "曲线用途与控制",
+          "sourceLabel": "PDF 第 11—15 页",
+          "sourcePages": [
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=11"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-4",
+          "title": "递归插值",
+          "sourceLabel": "PDF 第 16—19 页",
+          "sourcePages": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=16"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-5",
+          "title": "参数取值",
+          "sourceLabel": "PDF 第 20—23 页",
+          "sourcePages": [
+            20,
+            21,
+            22,
+            23
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=20"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-7",
+          "title": "几何性质",
+          "sourceLabel": "PDF 第 30—31 页",
+          "sourcePages": [
+            30,
+            31
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=30"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-8",
+          "title": "分段曲线",
+          "sourceLabel": "PDF 第 32—35 页",
+          "sourcePages": [
+            32,
+            33,
+            34,
+            35
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=32"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-9",
+          "title": "连接连续性",
+          "sourceLabel": "PDF 第 36—38 页",
+          "sourcePages": [
+            36,
+            37,
+            38
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=36"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-11",
+          "title": "曲面控制网",
+          "sourceLabel": "PDF 第 43—45 页",
+          "sourcePages": [
+            43,
+            44,
+            45
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=43"
+        },
+        {
+          "course": "games101",
+          "chapter": "11",
+          "section": "part-12",
+          "title": "曲面求值",
+          "sourceLabel": "PDF 第 46—49 页",
+          "sourcePages": [
+            46,
+            47,
+            48,
+            49
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf#page=46"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "18",
+      "title": "网格细分与简化",
+      "group": "几何处理",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "12",
+          "sectionIds": [
+            "part-2",
+            "part-3",
+            "part-4",
+            "part-5",
+            "part-6",
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES101 第12讲"
+        }
+      ],
+      "tasks": [
+        "细分：新旧顶点",
+        "简化：边坍缩与误差"
+      ],
+      "computation": "CPU 网格子算法",
+      "limitation": "两类算法独立输入与判定",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-2",
+          "title": "Loop 结构",
+          "sourceLabel": "PDF 第 11—12 页",
+          "sourcePages": [
+            11,
+            12
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=11"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-3",
+          "title": "新旧顶点",
+          "sourceLabel": "PDF 第 13—15 页",
+          "sourcePages": [
+            13,
+            14,
+            15
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=13"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-4",
+          "title": "卡特穆尔–克拉克细分（Catmull–Clark）",
+          "sourceLabel": "PDF 第 16—19 页",
+          "sourcePages": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=16"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-5",
+          "title": "更新与收敛",
+          "sourceLabel": "PDF 第 20—22 页",
+          "sourcePages": [
+            20,
+            21,
+            22
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=20"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-6",
+          "title": "边坍缩",
+          "sourceLabel": "PDF 第 24—25 页",
+          "sourcePages": [
+            24,
+            25
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=24"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-7",
+          "title": "误差选择",
+          "sourceLabel": "PDF 第 26—27 页",
+          "sourcePages": [
+            26,
+            27
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=26"
+        },
+        {
+          "course": "games101",
+          "chapter": "12",
+          "section": "part-8",
+          "title": "贪心简化",
+          "sourceLabel": "PDF 第 28—30 页",
+          "sourcePages": [
+            28,
+            29,
+            30
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf#page=28"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "19",
+      "title": "射线求交",
+      "group": "射线与积分",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "13",
+          "sectionIds": [
+            "part-6",
+            "part-7",
+            "part-9",
+            "part-10",
+            "part-13",
+            "part-14"
+          ],
+          "label": "GAMES101 第13讲"
+        }
+      ],
+      "tasks": [
+        "球与三角形",
+        "AABB 区间"
+      ],
+      "computation": "解析几何",
+      "limitation": "说明平行与退化输入",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "13",
+          "section": "part-6",
+          "title": "光线参数",
+          "sourceLabel": "PDF 第 21 页",
+          "sourcePages": [
+            21
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf#page=21"
+        },
+        {
+          "course": "games101",
+          "chapter": "13",
+          "section": "part-7",
+          "title": "球面求交",
+          "sourceLabel": "PDF 第 22—23 页",
+          "sourcePages": [
+            22,
+            23
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf#page=22"
+        },
+        {
+          "course": "games101",
+          "chapter": "13",
+          "section": "part-9",
+          "title": "三角形网格",
+          "sourceLabel": "PDF 第 25—26 页",
+          "sourcePages": [
+            25,
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf#page=25"
+        },
+        {
+          "course": "games101",
+          "chapter": "13",
+          "section": "part-10",
+          "title": "平面与直接方法",
+          "sourceLabel": "PDF 第 27—29 页",
+          "sourcePages": [
+            27,
+            28,
+            29
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf#page=27"
+        },
+        {
+          "course": "games101",
+          "chapter": "13",
+          "section": "part-13",
+          "title": "AABB 区间",
+          "sourceLabel": "PDF 第 36—38 页",
+          "sourcePages": [
+            36,
+            37,
+            38
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf#page=36"
+        },
+        {
+          "course": "games101",
+          "chapter": "13",
+          "section": "part-14",
+          "title": "有效方向检查",
+          "sourceLabel": "PDF 第 39—40 页",
+          "sourcePages": [
+            39,
+            40
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf#page=39"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "20",
+      "title": "BVH",
+      "group": "射线与积分",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "14",
+          "sectionIds": [
+            "part-8",
+            "part-9",
+            "part-10",
+            "part-11"
+          ],
+          "label": "GAMES101 第14讲"
+        }
+      ],
+      "tasks": [
+        "构建划分",
+        "最近命中遍历"
+      ],
+      "computation": "CPU 树查询",
+      "limitation": "以暴力查询核对，不以耗时单独判定",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "14",
+          "section": "part-8",
+          "title": "BVH 子集",
+          "sourceLabel": "PDF 第 29—34 页",
+          "sourcePages": [
+            29,
+            30,
+            31,
+            32,
+            33,
+            34
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_14.pdf#page=29"
+        },
+        {
+          "course": "games101",
+          "chapter": "14",
+          "section": "part-9",
+          "title": "构建启发式",
+          "sourceLabel": "PDF 第 35 页",
+          "sourcePages": [
+            35
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_14.pdf#page=35"
+        },
+        {
+          "course": "games101",
+          "chapter": "14",
+          "section": "part-10",
+          "title": "BVH 遍历",
+          "sourceLabel": "PDF 第 36—37 页",
+          "sourcePages": [
+            36,
+            37
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_14.pdf#page=36"
+        },
+        {
+          "course": "games101",
+          "chapter": "14",
+          "section": "part-11",
+          "title": "两种划分",
+          "sourceLabel": "PDF 第 38 页",
+          "sourcePages": [
+            38
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_14.pdf#page=38"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "21",
+      "title": "蒙特卡洛与路径追踪",
+      "group": "射线与积分",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "16",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-5",
+            "part-7",
+            "part-9",
+            "part-10",
+            "part-11",
+            "part-12",
+            "part-13"
+          ],
+          "label": "GAMES101 第16讲"
+        }
+      ],
+      "tasks": [
+        "采样权重",
+        "路径终止与直接光"
+      ],
+      "computation": "随机估计",
+      "limitation": "固定种子可复现；有限样本不等于真值",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-1",
+          "title": "积分动机",
+          "sourceLabel": "PDF 第 9—10 页",
+          "sourcePages": [
+            9,
+            10
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=9"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-2",
+          "title": "采样权重",
+          "sourceLabel": "PDF 第 11—13 页",
+          "sourcePages": [
+            11,
+            12,
+            13
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=11"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-3",
+          "title": "变量与方差",
+          "sourceLabel": "PDF 第 14 页",
+          "sourcePages": [
+            14
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=14"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-5",
+          "title": "半球积分",
+          "sourceLabel": "PDF 第 20—24 页",
+          "sourcePages": [
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=20"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-7",
+          "title": "控制分支",
+          "sourceLabel": "PDF 第 27—28 页",
+          "sourcePages": [
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=27"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-9",
+          "title": "固定截断",
+          "sourceLabel": "PDF 第 31—33 页",
+          "sourcePages": [
+            31,
+            32,
+            33
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=31"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-10",
+          "title": "随机终止",
+          "sourceLabel": "PDF 第 34—37 页",
+          "sourcePages": [
+            34,
+            35,
+            36,
+            37
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=34"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-11",
+          "title": "寻找小光源",
+          "sourceLabel": "PDF 第 38—39 页",
+          "sourcePages": [
+            38,
+            39
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=38"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-12",
+          "title": "面积与方向",
+          "sourceLabel": "PDF 第 40—41 页",
+          "sourcePages": [
+            40,
+            41
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=40"
+        },
+        {
+          "course": "games101",
+          "chapter": "16",
+          "section": "part-13",
+          "title": "避免重复与遮挡",
+          "sourceLabel": "PDF 第 42—44 页",
+          "sourcePages": [
+            42,
+            43,
+            44
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf#page=42"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "22",
+      "title": "透镜与曝光",
+      "group": "成像与颜色",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "19",
+          "sectionIds": [
+            "part-3",
+            "part-5",
+            "part-6",
+            "part-7",
+            "part-10",
+            "part-11",
+            "part-12",
+            "part-13",
+            "part-14",
+            "part-15"
+          ],
+          "label": "GAMES101 第19讲"
+        }
+      ],
+      "tasks": [
+        "薄透镜",
+        "曝光与景深"
+      ],
+      "computation": "解析近似与采样",
+      "limitation": "几何薄透镜不包括波动光学",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-3",
+          "title": "焦距与视场",
+          "sourceLabel": "PDF 第 13—16 页",
+          "sourcePages": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=13"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-5",
+          "title": "曝光量",
+          "sourceLabel": "PDF 第 20—21 页",
+          "sourcePages": [
+            20,
+            21
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=20"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-6",
+          "title": "光圈、快门、ISO",
+          "sourceLabel": "PDF 第 22—26 页",
+          "sourcePages": [
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=22"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-7",
+          "title": "运动模糊",
+          "sourceLabel": "PDF 第 27—29 页",
+          "sourcePages": [
+            27,
+            28,
+            29
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=27"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-10",
+          "title": "镜头近似",
+          "sourceLabel": "PDF 第 38—40 页",
+          "sourcePages": [
+            38,
+            39,
+            40
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=38"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-11",
+          "title": "对焦关系",
+          "sourceLabel": "PDF 第 41—47 页",
+          "sourcePages": [
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=41"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-12",
+          "title": "离焦光斑",
+          "sourceLabel": "PDF 第 48—50 页",
+          "sourcePages": [
+            48,
+            49,
+            50
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=48"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-13",
+          "title": "光圈数",
+          "sourceLabel": "PDF 第 51—53 页",
+          "sourcePages": [
+            51,
+            52,
+            53
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=51"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-14",
+          "title": "薄透镜追踪",
+          "sourceLabel": "PDF 第 54—57 页",
+          "sourcePages": [
+            54,
+            55,
+            56,
+            57
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=54"
+        },
+        {
+          "course": "games101",
+          "chapter": "19",
+          "section": "part-15",
+          "title": "景深范围",
+          "sourceLabel": "PDF 第 58—62 页",
+          "sourcePages": [
+            58,
+            59,
+            60,
+            61,
+            62
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf#page=58"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "23",
+      "title": "光场",
+      "group": "成像与颜色",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "20",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "GAMES101 第20讲"
+        }
+      ],
+      "tasks": [
+        "两平面参数",
+        "重新聚焦"
+      ],
+      "computation": "离散光线模型",
+      "limitation": "有限视角限制可恢复范围",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-1",
+          "title": "全光函数",
+          "sourceLabel": "PDF 第 8—13 页",
+          "sourcePages": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=8"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-2",
+          "title": "光线参数",
+          "sourceLabel": "PDF 第 14—15 页",
+          "sourcePages": [
+            14,
+            15
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=14"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-3",
+          "title": "四维简化",
+          "sourceLabel": "PDF 第 16—19 页",
+          "sourcePages": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=16"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-4",
+          "title": "两平面表示",
+          "sourceLabel": "PDF 第 20—26 页",
+          "sourcePages": [
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=20"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-5",
+          "title": "光场相机",
+          "sourceLabel": "PDF 第 27—28、35—37 页",
+          "sourcePages": [
+            27,
+            28,
+            35,
+            36,
+            37
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=27"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "24",
+      "title": "光谱、颜色与色域",
+      "group": "成像与颜色",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "20",
+          "sectionIds": [
+            "part-6",
+            "part-7",
+            "part-9",
+            "part-10",
+            "part-11",
+            "part-12",
+            "part-13",
+            "part-14",
+            "part-15"
+          ],
+          "label": "GAMES101 第20讲"
+        }
+      ],
+      "tasks": [
+        "光谱积分",
+        "颜色转换与裁剪"
+      ],
+      "computation": "离散光谱近似",
+      "limitation": "颜色通道不等于光谱",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-6",
+          "title": "光的波长",
+          "sourceLabel": "PDF 第 39—40 页",
+          "sourcePages": [
+            39,
+            40
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=39"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-7",
+          "title": "谱与感知",
+          "sourceLabel": "PDF 第 41—45 页",
+          "sourcePages": [
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=41"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-9",
+          "title": "三通道响应",
+          "sourceLabel": "PDF 第 49—53 页",
+          "sourcePages": [
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=49"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-10",
+          "title": "同色异谱",
+          "sourceLabel": "PDF 第 54—57 页",
+          "sourcePages": [
+            54,
+            55,
+            56,
+            57
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=54"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-11",
+          "title": "加色匹配",
+          "sourceLabel": "PDF 第 58—68 页",
+          "sourcePages": [
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=58"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-12",
+          "title": "匹配函数",
+          "sourceLabel": "PDF 第 69—71 页",
+          "sourcePages": [
+            69,
+            70,
+            71
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=69"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-13",
+          "title": "XYZ 与亮度",
+          "sourceLabel": "PDF 第 72—75 页",
+          "sourcePages": [
+            72,
+            73,
+            74,
+            75
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=72"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-14",
+          "title": "色域",
+          "sourceLabel": "PDF 第 76—78 页",
+          "sourcePages": [
+            76,
+            77,
+            78
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=76"
+        },
+        {
+          "course": "games101",
+          "chapter": "20",
+          "section": "part-15",
+          "title": "感知坐标",
+          "sourceLabel": "PDF 第 79—84 页",
+          "sourcePages": [
+            79,
+            80,
+            81,
+            82,
+            83,
+            84
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf#page=79"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "25",
+      "title": "骨骼蒙皮",
+      "group": "角色动画",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "08",
+          "sectionIds": [
+            "part-2",
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "GAMES104 第8讲"
+        }
+      ],
+      "tasks": [
+        "绑定空间",
+        "权重混合"
+      ],
+      "computation": "CPU 蒙皮",
+      "limitation": "不替代完整动画资产流程",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "08",
+          "section": "part-2",
+          "title": "骨架与挂点",
+          "sourceLabel": "PDF 第 35—43 页",
+          "sourcePages": [
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture08.pdf#page=35"
+        },
+        {
+          "course": "games104",
+          "chapter": "08",
+          "section": "part-3",
+          "title": "旋转表示",
+          "sourceLabel": "PDF 第 47—59 页",
+          "sourcePages": [
+            47,
+            48,
+            49,
+            50,
+            51,
+            54,
+            56,
+            57,
+            58,
+            59
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture08.pdf#page=47"
+        },
+        {
+          "course": "games104",
+          "chapter": "08",
+          "section": "part-4",
+          "title": "空间转换",
+          "sourceLabel": "PDF 第 61—68 页",
+          "sourcePages": [
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture08.pdf#page=61"
+        },
+        {
+          "course": "games104",
+          "chapter": "08",
+          "section": "part-5",
+          "title": "蒙皮",
+          "sourceLabel": "PDF 第 69—75 页",
+          "sourcePages": [
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture08.pdf#page=69"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "26",
+      "title": "关键帧与混合",
+      "group": "角色动画",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "21",
+          "sectionIds": [
+            "part-2",
+            "part-3"
+          ],
+          "label": "GAMES101 第21讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-5"
+          ],
+          "label": "GAMES104 第9讲"
+        }
+      ],
+      "tasks": [
+        "关键帧采样",
+        "混合与相位"
+      ],
+      "computation": "离散姿态计算",
+      "limitation": "权重和相位分别检查",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "21",
+          "section": "part-2",
+          "title": "关键帧",
+          "sourceLabel": "PDF 第 17—19 页",
+          "sourcePages": [
+            17,
+            18,
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf#page=17"
+        },
+        {
+          "course": "games101",
+          "chapter": "21",
+          "section": "part-3",
+          "title": "参数插值",
+          "sourceLabel": "PDF 第 20 页",
+          "sourcePages": [
+            20
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf#page=20"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "section": "part-1",
+          "title": "混合与相位",
+          "sourceLabel": "PDF 第 7—11 页",
+          "sourcePages": [
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf#page=7"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "section": "part-2",
+          "title": "混合空间",
+          "sourceLabel": "PDF 第 13—16 页",
+          "sourcePages": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf#page=13"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "section": "part-3",
+          "title": "局部与附加动作",
+          "sourceLabel": "PDF 第 18—23 页",
+          "sourcePages": [
+            18,
+            20,
+            22,
+            23
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf#page=18"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "section": "part-5",
+          "title": "混合树",
+          "sourceLabel": "PDF 第 32—41 页",
+          "sourcePages": [
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf#page=32"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "27",
+      "title": "IK 与重定向",
+      "group": "角色动画",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "21",
+          "sectionIds": [
+            "part-12",
+            "part-13",
+            "part-14"
+          ],
+          "label": "GAMES101 第21讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "sectionIds": [
+            "part-6",
+            "part-8"
+          ],
+          "label": "GAMES104 第9讲"
+        }
+      ],
+      "tasks": [
+        "两骨骼 IK",
+        "骨长与姿态映射"
+      ],
+      "computation": "几何近似",
+      "limitation": "不可达目标需说明处理策略",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "21",
+          "section": "part-12",
+          "title": "正向运动学",
+          "sourceLabel": "PDF 第 53—59 页",
+          "sourcePages": [
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf#page=53"
+        },
+        {
+          "course": "games101",
+          "chapter": "21",
+          "section": "part-13",
+          "title": "逆向运动学",
+          "sourceLabel": "PDF 第 60—66 页",
+          "sourcePages": [
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf#page=60"
+        },
+        {
+          "course": "games101",
+          "chapter": "21",
+          "section": "part-14",
+          "title": "数值 IK",
+          "sourceLabel": "PDF 第 67—68 页",
+          "sourcePages": [
+            67,
+            68
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf#page=67"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "section": "part-6",
+          "title": "逆向运动学",
+          "sourceLabel": "PDF 第 43—67 页",
+          "sourcePages": [
+            43,
+            46,
+            47,
+            48,
+            50,
+            51,
+            52,
+            55,
+            58,
+            60,
+            62,
+            64,
+            65,
+            66,
+            67
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf#page=43"
+        },
+        {
+          "course": "games104",
+          "chapter": "09",
+          "section": "part-8",
+          "title": "动画重定向",
+          "sourceLabel": "PDF 第 85—95 页",
+          "sourcePages": [
+            85,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            95
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture09.pdf#page=85"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "28",
+      "title": "数值积分",
+      "group": "物理机制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "22",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-4",
+            "part-5",
+            "part-7",
+            "part-8",
+            "part-9"
+          ],
+          "label": "GAMES101 第22讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "10",
+          "sectionIds": [
+            "part-3"
+          ],
+          "label": "GAMES104 第10讲"
+        }
+      ],
+      "tasks": [
+        "显式与半隐式",
+        "误差和稳定性"
+      ],
+      "computation": "离散数值近似",
+      "limitation": "恒速结果不能证明一般积分稳定",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-1",
+          "title": "初值问题",
+          "sourceLabel": "PDF 第 4—6 页",
+          "sourcePages": [
+            4,
+            5,
+            6
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=4"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-2",
+          "title": "显式 Euler",
+          "sourceLabel": "PDF 第 7—8 页",
+          "sourcePages": [
+            7,
+            8
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=7"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-3",
+          "title": "误差与发散",
+          "sourceLabel": "PDF 第 9—11 页",
+          "sourcePages": [
+            9,
+            10,
+            11
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=9"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-4",
+          "title": "中点法",
+          "sourceLabel": "PDF 第 13—14 页",
+          "sourcePages": [
+            13,
+            14
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=13"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-5",
+          "title": "改进 Euler",
+          "sourceLabel": "PDF 第 15 页",
+          "sourcePages": [
+            15
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=15"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-7",
+          "title": "隐式 Euler",
+          "sourceLabel": "PDF 第 17—18 页",
+          "sourcePages": [
+            17,
+            18
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=17"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-8",
+          "title": "误差阶",
+          "sourceLabel": "PDF 第 19 页",
+          "sourcePages": [
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=19"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-9",
+          "title": "龙格–库塔方法（Runge–Kutta）",
+          "sourceLabel": "PDF 第 20 页",
+          "sourcePages": [
+            20
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=20"
+        },
+        {
+          "course": "games104",
+          "chapter": "10",
+          "section": "part-3",
+          "title": "时间积分",
+          "sourceLabel": "PDF 第 29—51 页",
+          "sourcePages": [
+            29,
+            30,
+            31,
+            32,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            45,
+            47,
+            48,
+            49,
+            50,
+            51
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture10.pdf#page=29"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "29",
+      "title": "碰撞检测与响应",
+      "group": "物理机制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "10",
+          "sectionIds": [
+            "part-2",
+            "part-5",
+            "part-6",
+            "part-7"
+          ],
+          "label": "GAMES104 第10讲"
+        }
+      ],
+      "tasks": [
+        "宽窄阶段",
+        "接触响应"
+      ],
+      "computation": "简化刚体模型",
+      "limitation": "检测与求解分开；不代表 PhysX",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "10",
+          "section": "part-2",
+          "title": "碰撞形状",
+          "sourceLabel": "PDF 第 18—28 页",
+          "sourcePages": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture10.pdf#page=18"
+        },
+        {
+          "course": "games104",
+          "chapter": "10",
+          "section": "part-5",
+          "title": "碰撞筛选",
+          "sourceLabel": "PDF 第 67—75 页",
+          "sourcePages": [
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture10.pdf#page=67"
+        },
+        {
+          "course": "games104",
+          "chapter": "10",
+          "section": "part-6",
+          "title": "交叠判定",
+          "sourceLabel": "PDF 第 76—100 页",
+          "sourcePages": [
+            76,
+            77,
+            78,
+            83,
+            84,
+            85,
+            86,
+            87,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture10.pdf#page=76"
+        },
+        {
+          "course": "games104",
+          "chapter": "10",
+          "section": "part-7",
+          "title": "求解与查询",
+          "sourceLabel": "PDF 第 103—116 页",
+          "sourcePages": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            109,
+            111,
+            112,
+            114,
+            116
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture10.pdf#page=103"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "30",
+      "title": "位置约束与粒子／网格",
+      "group": "物理机制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "11",
+          "sectionIds": [
+            "part-4",
+            "part-5",
+            "part-8"
+          ],
+          "label": "GAMES104 第11讲"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "sectionIds": [
+            "part-10",
+            "part-12",
+            "part-14"
+          ],
+          "label": "GAMES101 第22讲"
+        }
+      ],
+      "tasks": [
+        "PBD 位置投影",
+        "XPBD 柔度",
+        "粒子—网格传递"
+      ],
+      "computation": "离散简化仿真",
+      "limitation": "独立任务；不把位置约束等同于能量或动量守恒",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "11",
+          "section": "part-4",
+          "title": "布料方案",
+          "sourceLabel": "PDF 第 27—32 页",
+          "sourcePages": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture11.pdf#page=27"
+        },
+        {
+          "course": "games104",
+          "chapter": "11",
+          "section": "part-5",
+          "title": "布料求解",
+          "sourceLabel": "PDF 第 33—41 页",
+          "sourcePages": [
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture11.pdf#page=33"
+        },
+        {
+          "course": "games104",
+          "chapter": "11",
+          "section": "part-8",
+          "title": "位置约束动力学",
+          "sourceLabel": "PDF 第 74—86 页",
+          "sourcePages": [
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture11.pdf#page=74"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-10",
+          "title": "位置修正",
+          "sourceLabel": "PDF 第 21 页",
+          "sourcePages": [
+            21
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=21"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-12",
+          "title": "粒子流体",
+          "sourceLabel": "PDF 第 23—24 页",
+          "sourcePages": [
+            23,
+            24
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=23"
+        },
+        {
+          "course": "games101",
+          "chapter": "22",
+          "section": "part-14",
+          "title": "物质点法（MPM）",
+          "sourceLabel": "PDF 第 26 页",
+          "sourcePages": [
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf#page=26"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "31",
+      "title": "游戏状态与事件条件",
+      "group": "玩法流程",
+      "status": "ready",
+      "sources": [
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "sectionIds": [
+            "part-4",
+            "part-5",
+            "part-6"
+          ],
+          "label": "5.2：累计计分、跨脚本调用与目标分值"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-6",
+            "part-7"
+          ],
+          "label": "5.3：漏接、活动状态与重玩"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.4",
+          "sectionIds": [
+            "part-4",
+            "part-5",
+            "part-6"
+          ],
+          "label": "5.4：标题入口、开始与难度参数"
+        }
+      ],
+      "tasks": [
+        "让同一组事件遵守游戏流程"
+      ],
+      "computation": "事件序列状态表",
+      "limitation": "原课点击目标；不扩为完整游戏",
+      "locators": [
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "section": "part-4",
+          "title": "计分方法",
+          "sourceLabel": "原教程 第 4 节 · 计分方法",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "section": "part-5",
+          "title": "跨脚本调用",
+          "sourceLabel": "原教程 第 5 节 · 跨脚本调用",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "section": "part-6",
+          "title": "目标分值",
+          "sourceLabel": "原教程 第 6 节 · 目标分值",
+          "sourcePages": [],
+          "sourceSections": [
+            6
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-3",
+          "title": "结束方法",
+          "sourceLabel": "原教程 第 3 节 · 结束方法",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-4",
+          "title": "停止活动",
+          "sourceLabel": "原教程 第 4 节 · 停止活动",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-6",
+          "title": "按钮行为",
+          "sourceLabel": "原教程 第 6 节 · 按钮行为",
+          "sourcePages": [],
+          "sourceSections": [
+            6
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-7",
+          "title": "显示时机",
+          "sourceLabel": "原教程 第 7 节 · 显示时机",
+          "sourcePages": [],
+          "sourceSections": [
+            7
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.4",
+          "section": "part-4",
+          "title": "开始入口",
+          "sourceLabel": "原教程 第 4 节 · 开始入口",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-4-what-s-the-difficulty-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.4",
+          "section": "part-5",
+          "title": "界面分组",
+          "sourceLabel": "原教程 第 5 节 · 界面分组",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-4-what-s-the-difficulty-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.4",
+          "section": "part-6",
+          "title": "难度参数",
+          "sourceLabel": "原教程 第 6 节 · 难度参数",
+          "sourcePages": [],
+          "sourceSections": [
+            6
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-4-what-s-the-difficulty-2?version=6.0"
+        }
+      ],
+      "readyTaskIds": [
+        "game-flow"
+      ],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "32",
+      "title": "随机生成与波次",
+      "group": "玩法流程",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "unity",
+          "chapter": "2.3",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "Unity 2.3"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.4",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "Unity 4.4"
+        }
+      ],
+      "tasks": [
+        "随机区间",
+        "波次条件"
+      ],
+      "computation": "种子随机与事件",
+      "limitation": "统计频率不要求每次均匀",
+      "locators": [
+        {
+          "course": "unity",
+          "chapter": "2.3",
+          "section": "part-3",
+          "title": "按键生成",
+          "sourceLabel": "原教程 第 3 节 · 按键生成",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-3-random-animal-stampede?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "2.3",
+          "section": "part-4",
+          "title": "随机动物",
+          "sourceLabel": "原教程 第 4 节 · 随机动物",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-3-random-animal-stampede?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "2.3",
+          "section": "part-5",
+          "title": "随机位置",
+          "sourceLabel": "原教程 第 5 节 · 随机位置",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-2-basic-gameplay/tutorial/lesson-2-3-random-animal-stampede?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.4",
+          "section": "part-3",
+          "title": "清理落岛敌人",
+          "sourceLabel": "原教程 第 3 节 · 清理落岛敌人",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-4-for-loops-for-waves?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.4",
+          "section": "part-4",
+          "title": "递增波次",
+          "sourceLabel": "原教程 第 4 节 · 递增波次",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-4-for-loops-for-waves?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.4",
+          "section": "part-5",
+          "title": "波次增益",
+          "sourceLabel": "原教程 第 5 节 · 波次增益",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-4-for-loops-for-waves?version=6.0"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "33",
+      "title": "计分、能力与重玩流程",
+      "group": "玩法流程",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "unity",
+          "chapter": "4.3",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "Unity 4.3"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "Unity 5.2"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-6",
+            "part-7"
+          ],
+          "label": "Unity 5.3"
+        }
+      ],
+      "tasks": [
+        "能力到期",
+        "计分与场景重建"
+      ],
+      "computation": "离散生命周期",
+      "limitation": "31 的门禁通过不代表能力系统已掌握",
+      "locators": [
+        {
+          "course": "unity",
+          "chapter": "4.3",
+          "section": "part-3",
+          "title": "组合条件",
+          "sourceLabel": "原教程 第 3 节 · 组合条件",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-3-powerup-and-countdown?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.3",
+          "section": "part-4",
+          "title": "额外击退",
+          "sourceLabel": "原教程 第 4 节 · 额外击退",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-3-powerup-and-countdown?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.3",
+          "section": "part-5",
+          "title": "限时协程",
+          "sourceLabel": "原教程 第 5 节 · 限时协程",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-3-powerup-and-countdown?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "section": "part-3",
+          "title": "初始化得分",
+          "sourceLabel": "原教程 第 3 节 · 初始化得分",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "section": "part-4",
+          "title": "计分方法",
+          "sourceLabel": "原教程 第 4 节 · 计分方法",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.2",
+          "section": "part-5",
+          "title": "跨脚本调用",
+          "sourceLabel": "原教程 第 5 节 · 跨脚本调用",
+          "sourcePages": [],
+          "sourceSections": [
+            5
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-2-keeping-score?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-3",
+          "title": "结束方法",
+          "sourceLabel": "原教程 第 3 节 · 结束方法",
+          "sourcePages": [],
+          "sourceSections": [
+            3
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-4",
+          "title": "停止活动",
+          "sourceLabel": "原教程 第 4 节 · 停止活动",
+          "sourcePages": [],
+          "sourceSections": [
+            4
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-6",
+          "title": "按钮行为",
+          "sourceLabel": "原教程 第 6 节 · 按钮行为",
+          "sourcePages": [],
+          "sourceSections": [
+            6
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "5.3",
+          "section": "part-7",
+          "title": "显示时机",
+          "sourceLabel": "原教程 第 7 节 · 显示时机",
+          "sourcePages": [],
+          "sourceSections": [
+            7
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-5-user-interface/tutorial/lesson-5-3-game-over-2?version=6.0"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "34",
+      "title": "A*",
+      "group": "人工智能",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "16",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-4"
+          ],
+          "label": "GAMES104 第16讲"
+        }
+      ],
+      "tasks": [
+        "代价与启发式",
+        "路径恢复"
+      ],
+      "computation": "CPU 图搜索",
+      "limitation": "启发式条件决定最优性",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "16",
+          "section": "part-1",
+          "title": "可行走空间",
+          "sourceLabel": "PDF 第 10—22 页",
+          "sourcePages": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf#page=10"
+        },
+        {
+          "course": "games104",
+          "chapter": "16",
+          "section": "part-2",
+          "title": "路径代价",
+          "sourceLabel": "PDF 第 23—36 页",
+          "sourcePages": [
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf#page=23"
+        },
+        {
+          "course": "games104",
+          "chapter": "16",
+          "section": "part-3",
+          "title": "平滑与生成",
+          "sourceLabel": "PDF 第 37—45 页",
+          "sourcePages": [
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf#page=37"
+        },
+        {
+          "course": "games104",
+          "chapter": "16",
+          "section": "part-4",
+          "title": "导航扩展",
+          "sourceLabel": "PDF 第 46—48 页",
+          "sourcePages": [
+            46,
+            47,
+            48
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf#page=46"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "35",
+      "title": "状态机与行为树",
+      "group": "人工智能",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "16",
+          "sectionIds": [
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第16讲"
+        }
+      ],
+      "tasks": [
+        "状态切换",
+        "选择与顺序节点"
+      ],
+      "computation": "离散决策",
+      "limitation": "比较可追踪执行路径",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "16",
+          "section": "part-7",
+          "title": "感知与状态",
+          "sourceLabel": "PDF 第 70—80 页",
+          "sourcePages": [
+            70,
+            71,
+            72,
+            73,
+            74,
+            77,
+            78,
+            79,
+            80
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf#page=70"
+        },
+        {
+          "course": "games104",
+          "chapter": "16",
+          "section": "part-8",
+          "title": "行为树",
+          "sourceLabel": "PDF 第 82—99 页",
+          "sourcePages": [
+            82,
+            83,
+            84,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture16.pdf#page=82"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "36",
+      "title": "规划、模拟搜索与累计回报",
+      "group": "人工智能",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "17",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-4",
+            "part-5",
+            "part-6"
+          ],
+          "label": "GAMES104 第17讲"
+        }
+      ],
+      "tasks": [
+        "HTN／GOAP 条件",
+        "MCTS 回传",
+        "MDP 累计回报"
+      ],
+      "computation": "离散状态与采样搜索",
+      "limitation": "任务分别验收；不扩写完整强化学习训练",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "17",
+          "section": "part-1",
+          "title": "层次任务",
+          "sourceLabel": "PDF 第 10—18 页",
+          "sourcePages": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf#page=10"
+        },
+        {
+          "course": "games104",
+          "chapter": "17",
+          "section": "part-2",
+          "title": "计划失效",
+          "sourceLabel": "PDF 第 27—28 页",
+          "sourcePages": [
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf#page=27"
+        },
+        {
+          "course": "games104",
+          "chapter": "17",
+          "section": "part-3",
+          "title": "目标与动作",
+          "sourceLabel": "PDF 第 30—42 页",
+          "sourcePages": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            40,
+            41,
+            42
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf#page=30"
+        },
+        {
+          "course": "games104",
+          "chapter": "17",
+          "section": "part-4",
+          "title": "模拟搜索",
+          "sourceLabel": "PDF 第 44—56 页",
+          "sourcePages": [
+            44,
+            45,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf#page=44"
+        },
+        {
+          "course": "games104",
+          "chapter": "17",
+          "section": "part-5",
+          "title": "探索与利用",
+          "sourceLabel": "PDF 第 57—65 页",
+          "sourcePages": [
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf#page=57"
+        },
+        {
+          "course": "games104",
+          "chapter": "17",
+          "section": "part-6",
+          "title": "学习问题",
+          "sourceLabel": "PDF 第 68—79 页",
+          "sourcePages": [
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture17.pdf#page=68"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "37",
+      "title": "对象组件与句柄",
+      "group": "引擎数据",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "03",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-4",
+            "part-5",
+            "part-6",
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第3讲"
+        }
+      ],
+      "tasks": [
+        "组件组合",
+        "句柄有效性"
+      ],
+      "computation": "CPU 数据结构",
+      "limitation": "句柄是课内机制的教学实现",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-1",
+          "title": "对象范围",
+          "sourceLabel": "PDF 第 3—7 页",
+          "sourcePages": [
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=3"
+        },
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-2",
+          "title": "属性与行为",
+          "sourceLabel": "PDF 第 8—10 页",
+          "sourcePages": [
+            8,
+            9,
+            10
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=8"
+        },
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-3",
+          "title": "继承的限制",
+          "sourceLabel": "PDF 第 11—13 页",
+          "sourcePages": [
+            11,
+            12,
+            13
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=11"
+        },
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-4",
+          "title": "组件组合",
+          "sourceLabel": "PDF 第 14—20 页",
+          "sourcePages": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=14"
+        },
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-5",
+          "title": "按对象更新",
+          "sourceLabel": "PDF 第 21—24 页",
+          "sourcePages": [
+            21,
+            22,
+            24
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=21"
+        },
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-6",
+          "title": "按组件更新",
+          "sourceLabel": "PDF 第 23—24 页",
+          "sourcePages": [
+            23,
+            24
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=23"
+        },
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-7",
+          "title": "消息交互",
+          "sourceLabel": "PDF 第 25—28 页",
+          "sourcePages": [
+            25,
+            26,
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=25"
+        },
+        {
+          "course": "games104",
+          "chapter": "03",
+          "section": "part-8",
+          "title": "场景与依赖",
+          "sourceLabel": "PDF 第 29—36 页",
+          "sourcePages": [
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture03.pdf#page=29"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "38",
+      "title": "资源生命周期",
+      "group": "引擎数据",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "02",
+          "sectionIds": [
+            "part-2",
+            "part-3",
+            "part-4"
+          ],
+          "label": "GAMES104 第2讲"
+        }
+      ],
+      "tasks": [
+        "依赖持有",
+        "加载与释放"
+      ],
+      "computation": "离散引用模型",
+      "limitation": "不包含真实 IO 性能结论",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "02",
+          "section": "part-2",
+          "title": "离线导入",
+          "sourceLabel": "PDF 第 12 页",
+          "sourcePages": [
+            12
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture02.pdf#page=12"
+        },
+        {
+          "course": "games104",
+          "chapter": "02",
+          "section": "part-3",
+          "title": "资源身份",
+          "sourceLabel": "PDF 第 12—13 页",
+          "sourcePages": [
+            12,
+            13
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture02.pdf#page=12"
+        },
+        {
+          "course": "games104",
+          "chapter": "02",
+          "section": "part-4",
+          "title": "加载与释放",
+          "sourceLabel": "PDF 第 14 页",
+          "sourcePages": [
+            14
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture02.pdf#page=14"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "39",
+      "title": "数据布局与任务依赖",
+      "group": "引擎数据",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "20",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-4",
+            "part-5",
+            "part-6",
+            "part-7"
+          ],
+          "label": "GAMES104 第20讲"
+        }
+      ],
+      "tasks": [
+        "布局与访问",
+        "任务图依赖"
+      ],
+      "computation": "CPU 访问计数模型",
+      "limitation": "不以网页计时冒充原生缓存或多线程基准",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "20",
+          "section": "part-1",
+          "title": "线程与共享",
+          "sourceLabel": "PDF 第 8—19 页",
+          "sourcePages": [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf#page=8"
+        },
+        {
+          "course": "games104",
+          "chapter": "20",
+          "section": "part-2",
+          "title": "任务图",
+          "sourceLabel": "PDF 第 21—27 页",
+          "sourcePages": [
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf#page=21"
+        },
+        {
+          "course": "games104",
+          "chapter": "20",
+          "section": "part-4",
+          "title": "对象组织的代价",
+          "sourceLabel": "PDF 第 45—50 页",
+          "sourcePages": [
+            45,
+            46,
+            47,
+            48,
+            49,
+            50
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf#page=45"
+        },
+        {
+          "course": "games104",
+          "chapter": "20",
+          "section": "part-5",
+          "title": "缓存局部性",
+          "sourceLabel": "PDF 第 52—61 页",
+          "sourcePages": [
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf#page=52"
+        },
+        {
+          "course": "games104",
+          "chapter": "20",
+          "section": "part-6",
+          "title": "处理与布局",
+          "sourceLabel": "PDF 第 63—71 页",
+          "sourcePages": [
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            70,
+            71
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf#page=63"
+        },
+        {
+          "course": "games104",
+          "chapter": "20",
+          "section": "part-7",
+          "title": "实体组件系统",
+          "sourceLabel": "PDF 第 75—79 页",
+          "sourcePages": [
+            75,
+            77,
+            78,
+            79
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture20.pdf#page=75"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "40",
+      "title": "序列化与版本",
+      "group": "编辑工具",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "13",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5"
+          ],
+          "label": "GAMES104 第13讲"
+        }
+      ],
+      "tasks": [
+        "引用保存",
+        "版本迁移"
+      ],
+      "computation": "普通数据转换",
+      "limitation": "不涉及任意代码反序列化",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "13",
+          "section": "part-3",
+          "title": "保存格式",
+          "sourceLabel": "PDF 第 23—26 页",
+          "sourcePages": [
+            23,
+            24,
+            25,
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf#page=23"
+        },
+        {
+          "course": "games104",
+          "chapter": "13",
+          "section": "part-4",
+          "title": "引用与变体",
+          "sourceLabel": "PDF 第 28—32 页",
+          "sourcePages": [
+            28,
+            29,
+            30,
+            31,
+            32
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf#page=28"
+        },
+        {
+          "course": "games104",
+          "chapter": "13",
+          "section": "part-5",
+          "title": "版本兼容",
+          "sourceLabel": "PDF 第 38—41 页",
+          "sourcePages": [
+            38,
+            39,
+            40,
+            41
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf#page=38"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "41",
+      "title": "撤销重做",
+      "group": "编辑工具",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "13",
+          "sectionIds": [
+            "part-6",
+            "part-7"
+          ],
+          "label": "GAMES104 第13讲"
+        }
+      ],
+      "tasks": [
+        "命令逆操作",
+        "分支后重做栈"
+      ],
+      "computation": "离散命令历史",
+      "limitation": "外部副作用另作边界",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "13",
+          "section": "part-6",
+          "title": "可撤销命令",
+          "sourceLabel": "PDF 第 43—49 页",
+          "sourcePages": [
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf#page=43"
+        },
+        {
+          "course": "games104",
+          "chapter": "13",
+          "section": "part-7",
+          "title": "数据视图",
+          "sourceLabel": "PDF 第 54—65 页",
+          "sourcePages": [
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf#page=54"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "42",
+      "title": "编辑／运行状态隔离",
+      "group": "编辑工具",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "13",
+          "sectionIds": [
+            "part-8"
+          ],
+          "label": "GAMES104 第13讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "14",
+          "sectionIds": [
+            "part-1",
+            "part-5",
+            "part-6",
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第14讲"
+        }
+      ],
+      "tasks": [
+        "状态副本",
+        "编辑与预览"
+      ],
+      "computation": "数据快照模型",
+      "limitation": "不实现完整编辑器",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "13",
+          "section": "part-8",
+          "title": "预览与插件",
+          "sourceLabel": "PDF 第 69—82 页",
+          "sourcePages": [
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            78,
+            79,
+            80,
+            81,
+            82
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture13.pdf#page=69"
+        },
+        {
+          "course": "games104",
+          "chapter": "14",
+          "section": "part-1",
+          "title": "世界编辑器",
+          "sourceLabel": "PDF 第 9—18 页",
+          "sourcePages": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture14.pdf#page=9"
+        },
+        {
+          "course": "games104",
+          "chapter": "14",
+          "section": "part-5",
+          "title": "反射信息",
+          "sourceLabel": "PDF 第 47—56 页",
+          "sourcePages": [
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture14.pdf#page=47"
+        },
+        {
+          "course": "games104",
+          "chapter": "14",
+          "section": "part-6",
+          "title": "代码生成",
+          "sourceLabel": "PDF 第 57—60 页",
+          "sourcePages": [
+            57,
+            58,
+            59,
+            60
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture14.pdf#page=57"
+        },
+        {
+          "course": "games104",
+          "chapter": "14",
+          "section": "part-7",
+          "title": "协作粒度",
+          "sourceLabel": "PDF 第 64—70 页",
+          "sourcePages": [
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture14.pdf#page=64"
+        },
+        {
+          "course": "games104",
+          "chapter": "14",
+          "section": "part-8",
+          "title": "并发编辑",
+          "sourceLabel": "PDF 第 71—79 页",
+          "sourcePages": [
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture14.pdf#page=71"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "43",
+      "title": "粒子生命周期",
+      "group": "粒子与声音",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "12",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3",
+            "part-4"
+          ],
+          "label": "GAMES104 第12讲"
+        }
+      ],
+      "tasks": [
+        "生成更新销毁",
+        "透明排序"
+      ],
+      "computation": "CPU 粒子模型",
+      "limitation": "不称为 GPU 粒子实现",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "12",
+          "section": "part-1",
+          "title": "粒子生命周期",
+          "sourceLabel": "PDF 第 9—15 页",
+          "sourcePages": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf#page=9"
+        },
+        {
+          "course": "games104",
+          "chapter": "12",
+          "section": "part-2",
+          "title": "粒子模拟",
+          "sourceLabel": "PDF 第 16—20 页",
+          "sourcePages": [
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf#page=16"
+        },
+        {
+          "course": "games104",
+          "chapter": "12",
+          "section": "part-3",
+          "title": "形状与排序",
+          "sourceLabel": "PDF 第 21—34 页",
+          "sourcePages": [
+            21,
+            22,
+            23,
+            24,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf#page=21"
+        },
+        {
+          "course": "games104",
+          "chapter": "12",
+          "section": "part-4",
+          "title": "GPU 处理",
+          "sourceLabel": "PDF 第 36—44 页",
+          "sourcePages": [
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            44
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf#page=36"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "44",
+      "title": "声音采样量化",
+      "group": "粒子与声音",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "12",
+          "sectionIds": [
+            "part-6"
+          ],
+          "label": "GAMES104 第12讲"
+        }
+      ],
+      "tasks": [
+        "采样率",
+        "量化误差"
+      ],
+      "computation": "离散信号",
+      "limitation": "显示波形与试听各有范围",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "12",
+          "section": "part-6",
+          "title": "数字声音",
+          "sourceLabel": "PDF 第 62—73 页",
+          "sourcePages": [
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            70,
+            71,
+            72,
+            73
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf#page=62"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "45",
+      "title": "空间声音",
+      "group": "粒子与声音",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "12",
+          "sectionIds": [
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第12讲"
+        }
+      ],
+      "tasks": [
+        "距离与方向",
+        "遮挡与混响条件"
+      ],
+      "computation": "简化声学",
+      "limitation": "不称为完整 HRTF 或波动声场",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "12",
+          "section": "part-7",
+          "title": "空间化",
+          "sourceLabel": "PDF 第 75—88 页",
+          "sourcePages": [
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf#page=75"
+        },
+        {
+          "course": "games104",
+          "chapter": "12",
+          "section": "part-8",
+          "title": "环境声学",
+          "sourceLabel": "PDF 第 89—100 页",
+          "sourcePages": [
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture12.pdf#page=89"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "46",
+      "title": "地形层级与接缝",
+      "group": "地形与大气",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "06",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3"
+          ],
+          "label": "GAMES104 第6讲"
+        }
+      ],
+      "tasks": [
+        "层级选择",
+        "接缝连接"
+      ],
+      "computation": "CPU 网格规则",
+      "limitation": "不是完整地形引擎",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-1",
+          "title": "高度场",
+          "sourceLabel": "PDF 第 8—10 页",
+          "sourcePages": [
+            8,
+            9,
+            10
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=8"
+        },
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-2",
+          "title": "地形细节层次",
+          "sourceLabel": "PDF 第 12—19 页",
+          "sourcePages": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=12"
+        },
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-3",
+          "title": "体积地形",
+          "sourceLabel": "PDF 第 30—35 页",
+          "sourcePages": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=30"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "47",
+      "title": "虚拟纹理",
+      "group": "地形与大气",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "06",
+          "sectionIds": [
+            "part-4",
+            "part-5"
+          ],
+          "label": "GAMES104 第6讲"
+        }
+      ],
+      "tasks": [
+        "页表查询",
+        "缺页与替换"
+      ],
+      "computation": "离散页面模型",
+      "limitation": "不实现 GPU 稀疏资源接口",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-4",
+          "title": "材质混合",
+          "sourceLabel": "PDF 第 38—44 页",
+          "sourcePages": [
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=38"
+        },
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-5",
+          "title": "纹理与精度",
+          "sourceLabel": "PDF 第 45—48 页",
+          "sourcePages": [
+            45,
+            46,
+            47,
+            48
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=45"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "48",
+      "title": "大气与体积步进",
+      "group": "地形与大气",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "06",
+          "sectionIds": [
+            "part-6",
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第6讲"
+        }
+      ],
+      "tasks": [
+        "透射率累计",
+        "体积积分"
+      ],
+      "computation": "数值近似",
+      "limitation": "步长误差与物理简化分别说明",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-6",
+          "title": "散射介质",
+          "sourceLabel": "PDF 第 62—73 页",
+          "sourcePages": [
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=62"
+        },
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-7",
+          "title": "天空预计算",
+          "sourceLabel": "PDF 第 74—85 页",
+          "sourcePages": [
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=74"
+        },
+        {
+          "course": "games104",
+          "chapter": "06",
+          "section": "part-8",
+          "title": "体积云",
+          "sourceLabel": "PDF 第 89—95 页",
+          "sourcePages": [
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture06.pdf#page=89"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "49",
+      "title": "渲染阶段依赖",
+      "group": "渲染流程",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "07",
+          "sectionIds": [
+            "part-6",
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第7讲"
+        }
+      ],
+      "tasks": [
+        "读写依赖",
+        "排序与资源寿命"
+      ],
+      "computation": "CPU 依赖图",
+      "limitation": "不称为真实 GPU 管线",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "07",
+          "section": "part-6",
+          "title": "前向与延迟",
+          "sourceLabel": "PDF 第 59—65 页",
+          "sourcePages": [
+            59,
+            60,
+            61,
+            64,
+            65
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf#page=59"
+        },
+        {
+          "course": "games104",
+          "chapter": "07",
+          "section": "part-7",
+          "title": "分块光源",
+          "sourceLabel": "PDF 第 67—73 页",
+          "sourcePages": [
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf#page=67"
+        },
+        {
+          "course": "games104",
+          "chapter": "07",
+          "section": "part-8",
+          "title": "依赖与显示",
+          "sourceLabel": "PDF 第 75—81 页",
+          "sourcePages": [
+            75,
+            76,
+            78,
+            79,
+            80,
+            81
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf#page=75"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "50",
+      "title": "HDR 与 Bloom",
+      "group": "渲染流程",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "07",
+          "sectionIds": [
+            "part-4",
+            "part-5"
+          ],
+          "label": "GAMES104 第7讲"
+        }
+      ],
+      "tasks": [
+        "亮度提取与扩散",
+        "色调映射与显示"
+      ],
+      "computation": "CPU 图像运算",
+      "limitation": "运算空间与显示编码分开",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "07",
+          "section": "part-4",
+          "title": "泛光",
+          "sourceLabel": "PDF 第 36—40 页",
+          "sourcePages": [
+            36,
+            37,
+            38,
+            39,
+            40
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf#page=36"
+        },
+        {
+          "course": "games104",
+          "chapter": "07",
+          "section": "part-5",
+          "title": "颜色处理",
+          "sourceLabel": "PDF 第 43—52 页",
+          "sourcePages": [
+            43,
+            44,
+            45,
+            46,
+            47,
+            49,
+            50,
+            51,
+            52
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf#page=43"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "51",
+      "title": "时域处理与屏幕信息限制",
+      "group": "渲染流程",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "07",
+          "sectionIds": [
+            "part-1",
+            "part-3"
+          ],
+          "label": "GAMES104 第7讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "sectionIds": [
+            "part-3",
+            "part-7"
+          ],
+          "label": "GAMES104 第21讲"
+        }
+      ],
+      "tasks": [
+        "历史重投影",
+        "失效与屏幕外信息"
+      ],
+      "computation": "离散帧模型",
+      "limitation": "不恢复屏幕中缺失的真实几何",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "07",
+          "section": "part-1",
+          "title": "环境遮蔽",
+          "sourceLabel": "PDF 第 5—15 页",
+          "sourcePages": [
+            5,
+            6,
+            7,
+            8,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf#page=5"
+        },
+        {
+          "course": "games104",
+          "chapter": "07",
+          "section": "part-3",
+          "title": "抗锯齿",
+          "sourceLabel": "PDF 第 21—32 页",
+          "sourcePages": [
+            21,
+            22,
+            23,
+            24,
+            30,
+            31,
+            32
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture07.pdf#page=21"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-3",
+          "title": "屏幕信息",
+          "sourceLabel": "PDF 第 55—68 页",
+          "sourcePages": [
+            55,
+            56,
+            57,
+            58,
+            65,
+            66,
+            67,
+            68
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=55"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-7",
+          "title": "采样与滤波",
+          "sourceLabel": "PDF 第 122—134 页",
+          "sourcePages": [
+            122,
+            123,
+            124,
+            125,
+            126,
+            127,
+            128,
+            132,
+            133,
+            134
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=122"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "52",
+      "title": "剔除与批次",
+      "group": "几何管线",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "04",
+          "sectionIds": [
+            "part-5",
+            "part-6",
+            "part-7"
+          ],
+          "label": "GAMES104 第4讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "22",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-3"
+          ],
+          "label": "GAMES104 第22讲"
+        }
+      ],
+      "tasks": [
+        "可见集合",
+        "提交与排序"
+      ],
+      "computation": "CPU 子算法",
+      "limitation": "不称为完整 Nanite 或真实 GPU 基准",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "04",
+          "section": "part-5",
+          "title": "子网格",
+          "sourceLabel": "PDF 第 37—39 页",
+          "sourcePages": [
+            37,
+            38,
+            39
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture04.pdf#page=37"
+        },
+        {
+          "course": "games104",
+          "chapter": "04",
+          "section": "part-6",
+          "title": "资源与批次",
+          "sourceLabel": "PDF 第 40—43 页",
+          "sourcePages": [
+            40,
+            41,
+            42,
+            43
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture04.pdf#page=40"
+        },
+        {
+          "course": "games104",
+          "chapter": "04",
+          "section": "part-7",
+          "title": "可见性",
+          "sourceLabel": "PDF 第 44—53 页",
+          "sourcePages": [
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture04.pdf#page=44"
+        },
+        {
+          "course": "games104",
+          "chapter": "22",
+          "section": "part-1",
+          "title": "提交瓶颈",
+          "sourceLabel": "PDF 第 6—11 页",
+          "sourcePages": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf#page=6"
+        },
+        {
+          "course": "games104",
+          "chapter": "22",
+          "section": "part-2",
+          "title": "簇级剔除",
+          "sourceLabel": "PDF 第 14—25 页",
+          "sourcePages": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            22,
+            23,
+            25
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf#page=14"
+        },
+        {
+          "course": "games104",
+          "chapter": "22",
+          "section": "part-3",
+          "title": "可见性缓冲",
+          "sourceLabel": "PDF 第 34—38 页",
+          "sourcePages": [
+            34,
+            35,
+            36,
+            37,
+            38
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf#page=34"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "53",
+      "title": "簇层次选择",
+      "group": "几何管线",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "22",
+          "sectionIds": [
+            "part-4",
+            "part-5"
+          ],
+          "label": "GAMES104 第22讲"
+        }
+      ],
+      "tasks": [
+        "有效层级切面",
+        "误差与预算"
+      ],
+      "computation": "CPU 离散层次",
+      "limitation": "独立核对覆盖；不称为完整 Nanite",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "22",
+          "section": "part-4",
+          "title": "层次几何",
+          "sourceLabel": "PDF 第 45—59 页",
+          "sourcePages": [
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            53,
+            54,
+            57,
+            58,
+            59
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf#page=45"
+        },
+        {
+          "course": "games104",
+          "chapter": "22",
+          "section": "part-5",
+          "title": "边界与遍历",
+          "sourceLabel": "PDF 第 60—92 页",
+          "sourcePages": [
+            60,
+            61,
+            62,
+            63,
+            64,
+            68,
+            72,
+            75,
+            82,
+            86,
+            87,
+            88,
+            91,
+            92
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf#page=60"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "54",
+      "title": "几何量化与页面流送",
+      "group": "几何管线",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "04",
+          "sectionIds": [
+            "part-8"
+          ],
+          "label": "GAMES104 第4讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "22",
+          "sectionIds": [
+            "part-8"
+          ],
+          "label": "GAMES104 第22讲"
+        }
+      ],
+      "tasks": [
+        "量化误差",
+        "页面请求与驻留"
+      ],
+      "computation": "CPU 离散数据模型",
+      "limitation": "量化与流送分别验收；不包含实际 GPU IO",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "04",
+          "section": "part-8",
+          "title": "压缩与几何簇",
+          "sourceLabel": "PDF 第 54—68 页",
+          "sourcePages": [
+            54,
+            55,
+            56,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture04.pdf#page=54"
+        },
+        {
+          "course": "games104",
+          "chapter": "22",
+          "section": "part-8",
+          "title": "几何流送",
+          "sourceLabel": "PDF 第 132—135 页",
+          "sourcePages": [
+            132,
+            133,
+            134,
+            135
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture22.pdf#page=132"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "55",
+      "title": "直接／间接光",
+      "group": "全局光照",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games101",
+          "chapter": "15",
+          "sectionIds": [
+            "part-8",
+            "part-9",
+            "part-10",
+            "part-11",
+            "part-12"
+          ],
+          "label": "GAMES101 第15讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "sectionIds": [
+            "part-1",
+            "part-2"
+          ],
+          "label": "GAMES104 第21讲"
+        }
+      ],
+      "tasks": [
+        "直接可见性",
+        "反弹贡献"
+      ],
+      "computation": "简化光传输",
+      "limitation": "不称为完整 Lumen",
+      "locators": [
+        {
+          "course": "games101",
+          "chapter": "15",
+          "section": "part-8",
+          "title": "反射方程",
+          "sourceLabel": "PDF 第 23 页",
+          "sourcePages": [
+            23
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf#page=23"
+        },
+        {
+          "course": "games101",
+          "chapter": "15",
+          "section": "part-9",
+          "title": "递归与发光",
+          "sourceLabel": "PDF 第 24—25 页",
+          "sourcePages": [
+            24,
+            25
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf#page=24"
+        },
+        {
+          "course": "games101",
+          "chapter": "15",
+          "section": "part-10",
+          "title": "从光源到表面",
+          "sourceLabel": "PDF 第 27—30 页",
+          "sourcePages": [
+            27,
+            28,
+            29,
+            30
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf#page=27"
+        },
+        {
+          "course": "games101",
+          "chapter": "15",
+          "section": "part-11",
+          "title": "求解对象",
+          "sourceLabel": "PDF 第 31—34 页",
+          "sourcePages": [
+            31,
+            32,
+            33,
+            34
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf#page=31"
+        },
+        {
+          "course": "games101",
+          "chapter": "15",
+          "section": "part-12",
+          "title": "反弹次数",
+          "sourceLabel": "PDF 第 35—42 页",
+          "sourcePages": [
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf#page=35"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-1",
+          "title": "有限采样",
+          "sourceLabel": "PDF 第 12—72 页",
+          "sourcePages": [
+            12,
+            13,
+            14,
+            15,
+            18,
+            19,
+            20,
+            21,
+            70,
+            71,
+            72
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=12"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-2",
+          "title": "体积传播",
+          "sourceLabel": "PDF 第 23—42 页",
+          "sourcePages": [
+            23,
+            24,
+            25,
+            26,
+            28,
+            31,
+            32,
+            33,
+            34,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=23"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "56",
+      "title": "光照缓存查询",
+      "group": "全局光照",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "21",
+          "sectionIds": [
+            "part-4",
+            "part-5",
+            "part-6"
+          ],
+          "label": "GAMES104 第21讲"
+        }
+      ],
+      "tasks": [
+        "空间表示",
+        "缓存命中与插值"
+      ],
+      "computation": "CPU 离散缓存",
+      "limitation": "不称为完整 Lumen 或真实 GPU 光追",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-4",
+          "title": "距离场",
+          "sourceLabel": "PDF 第 75—88 页",
+          "sourcePages": [
+            75,
+            76,
+            77,
+            78,
+            80,
+            81,
+            82,
+            83,
+            86,
+            87,
+            88
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=75"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-5",
+          "title": "表面缓存",
+          "sourceLabel": "PDF 第 90—109 页",
+          "sourcePages": [
+            90,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=90"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-6",
+          "title": "屏幕探针",
+          "sourceLabel": "PDF 第 112—119 页",
+          "sourcePages": [
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            119
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=112"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "57",
+      "title": "缓存失效与更新预算",
+      "group": "全局光照",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "21",
+          "sectionIds": [
+            "part-5",
+            "part-6",
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第21讲"
+        }
+      ],
+      "tasks": [
+        "场景变化失效",
+        "优先级与预算"
+      ],
+      "computation": "CPU 调度模型",
+      "limitation": "新鲜度与误差分别记录；不称为完整 Lumen",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-5",
+          "title": "表面缓存",
+          "sourceLabel": "PDF 第 90—109 页",
+          "sourcePages": [
+            90,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=90"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-6",
+          "title": "屏幕探针",
+          "sourceLabel": "PDF 第 112—119 页",
+          "sourcePages": [
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            119
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=112"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-7",
+          "title": "采样与滤波",
+          "sourceLabel": "PDF 第 122—134 页",
+          "sourcePages": [
+            122,
+            123,
+            124,
+            125,
+            126,
+            127,
+            128,
+            132,
+            133,
+            134
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=122"
+        },
+        {
+          "course": "games104",
+          "chapter": "21",
+          "section": "part-8",
+          "title": "远近衔接",
+          "sourceLabel": "PDF 第 140—156 页",
+          "sourcePages": [
+            140,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            149,
+            150,
+            151,
+            152,
+            154,
+            155,
+            156
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture21.pdf#page=140"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "58",
+      "title": "快照与插值",
+      "group": "网络机制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "18",
+          "sectionIds": [
+            "part-3",
+            "part-5"
+          ],
+          "label": "GAMES104 第18讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "sectionIds": [
+            "part-1"
+          ],
+          "label": "GAMES104 第19讲"
+        }
+      ],
+      "tasks": [
+        "时间缓冲",
+        "快照插值"
+      ],
+      "computation": "固定网络时间线",
+      "limitation": "不宣称真实网络测量",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-3",
+          "title": "时钟与调用",
+          "sourceLabel": "PDF 第 48—66 页",
+          "sourcePages": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            60,
+            61,
+            64,
+            65,
+            66
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=48"
+        },
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-5",
+          "title": "快照显示",
+          "sourceLabel": "PDF 第 82—87 页",
+          "sourcePages": [
+            82,
+            83,
+            84,
+            85,
+            86,
+            87
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=82"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "section": "part-1",
+          "title": "远端平滑",
+          "sourceLabel": "PDF 第 12—28 页",
+          "sourcePages": [
+            12,
+            13,
+            14,
+            15,
+            17,
+            18,
+            25,
+            26,
+            27,
+            28
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf#page=12"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "59",
+      "title": "预测纠正重放",
+      "group": "网络机制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "18",
+          "sectionIds": [
+            "part-6",
+            "part-7",
+            "part-8"
+          ],
+          "label": "GAMES104 第18讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "sectionIds": [
+            "part-2"
+          ],
+          "label": "GAMES104 第19讲"
+        }
+      ],
+      "tasks": [
+        "输入预测",
+        "确认与重放"
+      ],
+      "computation": "离散状态模型",
+      "limitation": "输入顺序与时间约定固定",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-6",
+          "title": "输入同步",
+          "sourceLabel": "PDF 第 94—107 页",
+          "sourcePages": [
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=94"
+        },
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-7",
+          "title": "恢复与回放",
+          "sourceLabel": "PDF 第 109—122 页",
+          "sourcePages": [
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120,
+            121,
+            122
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=109"
+        },
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-8",
+          "title": "预测与校正",
+          "sourceLabel": "PDF 第 125—142 页",
+          "sourcePages": [
+            125,
+            126,
+            127,
+            128,
+            133,
+            134,
+            135,
+            136,
+            137,
+            138,
+            139,
+            140,
+            141,
+            142
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=125"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "section": "part-2",
+          "title": "命中共识",
+          "sourceLabel": "PDF 第 33—45 页",
+          "sourcePages": [
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf#page=33"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    },
+    {
+      "id": "60",
+      "title": "同步、相关性与服务分工",
+      "group": "网络机制",
+      "status": "planned",
+      "sources": [
+        {
+          "course": "games104",
+          "chapter": "18",
+          "sectionIds": [
+            "part-1",
+            "part-2",
+            "part-4",
+            "part-6"
+          ],
+          "label": "GAMES104 第18讲"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "sectionIds": [
+            "part-3",
+            "part-4",
+            "part-5",
+            "part-6",
+            "part-8"
+          ],
+          "label": "GAMES104 第19讲"
+        }
+      ],
+      "tasks": [
+        "同步方式",
+        "AOI 相关性",
+        "服务职责与数据流"
+      ],
+      "computation": "离散网络模型",
+      "limitation": "三个任务分别观察，不用单个网络动画代替",
+      "locators": [
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-1",
+          "title": "分层与端点",
+          "sourceLabel": "PDF 第 14—26 页",
+          "sourcePages": [
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            25,
+            26
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=14"
+        },
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-2",
+          "title": "传输可靠性",
+          "sourceLabel": "PDF 第 31—46 页",
+          "sourcePages": [
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            46
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=31"
+        },
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-4",
+          "title": "连接拓扑",
+          "sourceLabel": "PDF 第 69—74 页",
+          "sourcePages": [
+            69,
+            70,
+            71,
+            72,
+            73,
+            74
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=69"
+        },
+        {
+          "course": "games104",
+          "chapter": "18",
+          "section": "part-6",
+          "title": "输入同步",
+          "sourceLabel": "PDF 第 94—107 页",
+          "sourcePages": [
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture18.pdf#page=94"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "section": "part-3",
+          "title": "服务分工",
+          "sourceLabel": "PDF 第 51—57 页",
+          "sourcePages": [
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf#page=51"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "section": "part-4",
+          "title": "数据存储",
+          "sourceLabel": "PDF 第 58—61 页",
+          "sourcePages": [
+            58,
+            59,
+            60,
+            61
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf#page=58"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "section": "part-5",
+          "title": "服务发现",
+          "sourceLabel": "PDF 第 65—73 页",
+          "sourcePages": [
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf#page=65"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "section": "part-6",
+          "title": "相关性与带宽",
+          "sourceLabel": "PDF 第 77—91 页",
+          "sourcePages": [
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            85,
+            89,
+            90,
+            91
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf#page=77"
+        },
+        {
+          "course": "games104",
+          "chapter": "19",
+          "section": "part-8",
+          "title": "分布式世界",
+          "sourceLabel": "PDF 第 110—116 页",
+          "sourcePages": [
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116
+          ],
+          "sourceSections": [],
+          "original": "https://games-1312234642.cos.ap-guangzhou.myqcloud.com/course/GAMES104/GAMES104_Lecture19.pdf#page=110"
+        }
+      ],
+      "readyTaskIds": [],
+      "understanding": "未评定（不能由运行通过推断）"
+    }
+  ]
+}

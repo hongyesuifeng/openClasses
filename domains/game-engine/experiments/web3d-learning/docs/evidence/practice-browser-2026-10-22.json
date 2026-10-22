@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-22",
+  "browser": "Codex in-app Chromium",
+  "developmentOrigin": "http://127.0.0.1:5173",
+  "productionOrigin": "http://127.0.0.1:5174",
+  "productionChecks": [
+    {
+      "experiment": "04",
+      "status": "全部 6 个固定变式通过。运行通过与个人理解分别记录。"
+    },
+    {
+      "experiment": "02",
+      "status": "全部 4 个固定变式通过。运行通过与个人理解分别记录。"
+    },
+    {
+      "experiment": "09",
+      "status": "全部 12 个固定变式通过。运行通过与个人理解分别记录。"
+    },
+    {
+      "experiment": "31",
+      "status": "全部 3 个固定变式通过。运行通过与个人理解分别记录。"
+    },
+    {
+      "experiment": "02/pivot",
+      "status": "全部 3 个固定变式通过。运行通过与个人理解分别记录。"
+    }
+  ],
+  "productionConsole": [],
+  "errorChecks": [
+    {
+      "name": "语法",
+      "status": "代码语法错误：Unexpected token '='",
+      "visual": "运行后在这里查看你的结果。"
+    },
+    {
+      "name": "异常",
+      "status": "运行异常：检查异常",
+      "visual": "运行后在这里查看你的结果。"
+    },
+    {
+      "name": "非有限",
+      "status": "返回值无效：数据必须使用有限数值",
+      "visual": "运行后在这里查看你的结果。"
+    },
+    {
+      "name": "损坏结构",
+      "status": "返回值无效：结果字段应为 coverage、sampleX、hits",
+      "visual": "运行后在这里查看你的结果。"
+    },
+    {
+      "name": "记录超限",
+      "status": "输出或记录超限：过程记录超过 1000 条",
+      "visual": "运行后在这里查看你的结果。"
+    }
+  ],
+  "timeout": "while(true) {}: 3秒后显示超时，图示清空",
+  "cancel": "运行死循环→取消→改回采样实现→运行通过",
+  "largeOutput": "return \"x\".repeat(1048576): 输出或记录超限",
+  "baselineFailure": "31 baseInterval=7: 独立基准失败，无参考结果伪装成用户图",
+  "draft": "09 未完成参数文本与代码注释刷新恢复；不自动运行",
+  "reset": "场景重置保留代码；恢复初始代码后撤销可继续运行",
+  "returnRoutes": [
+    "31 Chinese 5.2#part-4",
+    "31 classics 5.2"
+  ],
+  "mobile": {
+    "viewport": [
+      320,
+      740
+    ],
+    "documentClientWidth": 305,
+    "documentScrollWidth": 305,
+    "measuredSvgTextHeight": 12
+  },
+  "notes": "存储不可用与旧版草稿保护主要由模型测试及代码检查覆盖；浏览器未注入存储故障。开发中一次缺少导出引起的瞬时热更新错误已修复，正式构建新会话无warn/error。"
+}

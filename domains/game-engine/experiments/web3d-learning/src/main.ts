@@ -5,6 +5,8 @@ if (!lab || lab === 'classics') {
   await import('./principles-study.ts');
 } else if (lab === 'chinese-reading') {
   await import('./chinese-reading.ts');
+} else if (lab === 'practice') {
+  await import('./practice-lab.ts');
 } else if (lab === 'classics-demo') {
   await import('./classic-lab.ts');
 } else if (['course', 'assets', 'gameplay', 'render', 'performance'].includes(lab || '')) {

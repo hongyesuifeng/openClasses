@@ -2,7 +2,9 @@
 
 [当前主线] 2026-10-15，确认选择清单中的 **1、6、8：GAMES101、Unity Create with Code、GAMES104**，沿原始章节与例子深入学习，直接精简原课重点并在 Web 端逐讲阅读。[三门课程入口与范围](../../learning-routes/topic-index/3d-game-client.md)已更新。此前自编课程保留为参考，历史实现与运行验证不代表个人理解已通过。
 
-## 当前学习接续：原课重点摘记
+## 当前学习接续：原课阅读与代码实践
+
+[2026-10-22 实践授权] 用户要求通过实践掌握核心概念，已确认并要求实施首批平台与 02／04／09／31。原课旁挂独立 Web 练习，修改短代码后用独立基准和变式核对；保留原导航，Unity 为可选真实引擎对照。[方案与使用](../../domains/game-engine/experiments/web3d-learning/docs/practice-learning.md) · [60 项映射与范围](../../domains/game-engine/experiments/web3d-learning/docs/practice-coverage.md)。首批 4 个实验、5 个任务就绪，其余 56 个计划中；实际验证见[验收记录](../../domains/game-engine/experiments/web3d-learning/docs/practice-validation.md)。此项是材料和实现交付，个人理解仍未评定，不登记为学完。
 
 [2026-10-15 最新反馈] 用户明确要求“直接按照课程内容进行精简提炼重点，不要自己另外阐述说明”。当前不再按自编问题地图、类比、补充案例与跨课程解释推进。
 

@@ -1,6 +1,6 @@
 # 3D 游戏客户端学习路线
 
-## 当前安排：按原课逐讲提炼重点
+## 当前安排：原课阅读与旁挂代码实践
 
 2026-10-15，学习者确认选择 **1、6、8：GAMES101、Unity Create with Code、GAMES104**。最新要求为“直接按照课程内容进行精简提炼重点，不要自己另外阐述说明”。此前的问题地图、跨课程主线与自编对照案例停止作为当前讲解方式。
 
@@ -10,13 +10,19 @@
 | [Unity Create with Code](https://learn.unity.com/course/create-with-code?version=6.0) | Unity 6.0，全目录 47 篇：导读、Unit 1—5 正课／Challenge／Lab／Quiz 与 Next Steps | [Lesson 1.1](http://127.0.0.1:5173/?lab=classics&course=unity&chapter=1.1) |
 | [GAMES104：现代游戏引擎——从入门到实践](https://games-cn.org/games104-slides/) | 已发布 Lecture 01—22 原课 PDF | [第 1 讲](http://127.0.0.1:5173/?lab=classics&course=games104&chapter=01) |
 
-每讲保留原讲标题、简明课内要点、课件页码或教程小节。交互用于切换课程／章节、查看原文和保存阅读位置；不增加自编主线、类比、补充案例、跨课程阐述、公式推导、代码分步或 Cocos 对照。
+每讲保留原讲标题、简明课内要点、课件页码或教程小节。交互用于切换课程／章节、查看原文和保存阅读位置；阅读页不增加自编主线、类比、补充案例、跨课程阐述、公式推导或 Cocos 对照。2026-10-22 用户授权独立实践页修改短代码，替代此前不提供代码步骤的限制。
 
 2026-10-20，在首批 13 讲基础上补齐为 91 篇原课摘记。[逐讲目录与出处](../../domains/game-engine/experiments/web3d-learning/docs/classic-course-index.md)列出全部范围。GAMES101 部分讲次的目录标题与 PDF 内容存在跨讲差异，按实际课件摘记并注明；GAMES104 以已发布课件为准，早期大纲中的不同排期不作为已覆盖内容。Unity 测验只列考查范围，Lab 与挑战只列目标和要求。来源与运行记录见[Web 学习说明](../../domains/game-engine/experiments/web3d-learning/docs/classic-web.md)。
 
 同日按语言偏好补充 91 篇中文阅读入口：在英文原始材料链接旁打开独立中文文档，主界面导航保持不变。文档为按原页码／小节组织的简明学习整理，非全文翻译；保留原始出处和回到当前章节的链接。
 
 学习者报告以前看过 GAMES101、GAMES104，具体理解范围尚未确认。本轮材料整理、网页实现、个人学习与原生项目实践分别登记；阅读书签不代表掌握。详见[学习进度](../../user-profile/progress/3d-game-client-progress.md)。
+
+## 代码实践（2026-10-22）
+
+核心目标是理解理念，Web 修改约 10—30 行同步函数正文为主，伪代码辅助，Unity 可选对照。每题按“修改规则 → 结果差异 → 换条件验证 → 解释原因与范围”学习，不增加强制考试。首批 02（变换）、04（恒速与暂停）、09（采样）、31（状态与事件）共 5 个任务已就绪；其余 56 个实验登记为计划中。原课导航与阅读顺序保留，个人理解不由运行通过推定。
+
+[直接进入 02](http://127.0.0.1:5173/?lab=practice&experiment=02) · [使用、边界与后续安排](../../domains/game-engine/experiments/web3d-learning/docs/practice-learning.md) · [60 项知识映射](../../domains/game-engine/experiments/web3d-learning/docs/practice-coverage.md) · [本批验收](../../domains/game-engine/experiments/web3d-learning/docs/practice-validation.md)
 
 ## 历史路线与实验记录
 

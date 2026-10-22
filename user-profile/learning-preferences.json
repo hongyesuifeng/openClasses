@@ -1,10 +1,10 @@
 {
   "learner_id": "perry",
-  "last_updated": "2026-10-20",
+  "last_updated": "2026-10-22",
   "learning_style": {
     "primary": "visual",
     "secondary": "practical",
-    "description": "直接按照选定课程的原始章节顺序，用简明中文精简提炼课内重点并附原文出处；不另编主线、类比或补充案例，当前不需要公式推导、代码步骤和 Cocos 对照"
+    "description": "沿原课章节阅读中文重点，在原课旁挂 Web 短代码实践，通过修改核心规则、独立结果对照、变式和解释掌握概念；重点为理念，不以语言或引擎操作为目标"
   },
   "time_preferences": {
     "weekly_availability": 15,
@@ -20,6 +20,7 @@
   "content_preferences": {
     "format_priority": [
       "original_course_keypoint_digests",
+      "web_short_code_practice_with_independent_reference",
       "original_course_figures",
       "source_material",
       "web_chapter_navigation"
@@ -27,9 +28,20 @@
     "documentation_style": "structured",
     "delivery_style": "original_course_keypoint_digest",
     "explanation_style": "faithful_condensed_original_content",
-    "selected_course_numbers": [1, 6, 8],
-    "selected_courses": ["GAMES101", "Unity Create with Code", "GAMES104"],
-    "prior_course_exposure": ["GAMES101", "GAMES104"],
+    "selected_course_numbers": [
+      1,
+      6,
+      8
+    ],
+    "selected_courses": [
+      "GAMES101",
+      "Unity Create with Code",
+      "GAMES104"
+    ],
+    "prior_course_exposure": [
+      "GAMES101",
+      "GAMES104"
+    ],
     "course_chapter_structure": "follow_original_course_order",
     "text_density": "concise_with_substantive_keypoints",
     "preferred_chapter_format": "original_course_sections",
@@ -41,11 +53,19 @@
     "preserve_current_navigation_layout": true,
     "include_cocos_comparison": false,
     "include_formula_walkthroughs": false,
-    "include_code_walkthroughs": false,
-    "current_learning_needs": ["concise_keypoints_from_original_course_content", "original_chapter_order_and_traceable_sources", "chinese_reading_for_english_sources"],
+    "include_code_walkthroughs": true,
+    "current_learning_needs": [
+      "concise_keypoints_from_original_course_content",
+      "original_chapter_order_and_traceable_sources",
+      "chinese_reading_for_english_sources",
+      "core_mechanisms_through_edit_run_compare_vary_explain"
+    ],
     "include_ai_analogies": false,
     "include_supplemental_cases": false,
-    "include_cross_course_narratives": false
+    "include_cross_course_narratives": false,
+    "practice_environment": "web_javascript_function_body_primary_unity_optional",
+    "practice_understanding": "separate_from_runnable_count_and_test_passes",
+    "code_walkthrough_scope": "practice_page_only"
   },
   "feedback_preferences": {
     "progress_updates": "weekly",
@@ -58,8 +78,17 @@
     "team_collaboration": "solo_primary"
   },
   "domain_interests": {
-    "primary": ["ai_agents", "game_development"],
-    "secondary": ["cli_tools", "developer_tools"],
-    "exploration": ["graphics_programming", "procedural_generation"]
+    "primary": [
+      "ai_agents",
+      "game_development"
+    ],
+    "secondary": [
+      "cli_tools",
+      "developer_tools"
+    ],
+    "exploration": [
+      "graphics_programming",
+      "procedural_generation"
+    ]
   }
 }
