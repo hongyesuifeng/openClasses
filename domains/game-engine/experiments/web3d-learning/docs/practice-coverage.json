@@ -15,19 +15,24 @@
           "chapter": "02",
           "sectionIds": [
             "part-2",
+            "part-3",
             "part-5",
+            "part-6",
+            "part-7",
             "part-8",
+            "part-9",
             "part-10"
           ],
           "label": "GAMES101 第2讲"
         }
       ],
       "tasks": [
-        "点与方向",
-        "点积与叉积"
+        "点与单位方向",
+        "点积与投影",
+        "叉积与方向"
       ],
       "computation": "解析向量计算",
-      "limitation": "不代替完整线性代数课程",
+      "limitation": "不代替完整线性代数课程；零向量需明确无单位方向",
       "locators": [
         {
           "course": "games101",
@@ -40,6 +45,18 @@
           ],
           "sourceSections": [],
           "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=8"
+        },
+        {
+          "course": "games101",
+          "chapter": "02",
+          "section": "part-3",
+          "title": "单位方向",
+          "sourceLabel": "PDF 第 9 页",
+          "sourcePages": [
+            9
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=9"
         },
         {
           "course": "games101",
@@ -58,6 +75,32 @@
         {
           "course": "games101",
           "chapter": "02",
+          "section": "part-6",
+          "title": "投影",
+          "sourceLabel": "PDF 第 16—17 页",
+          "sourcePages": [
+            16,
+            17
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=16"
+        },
+        {
+          "course": "games101",
+          "chapter": "02",
+          "section": "part-7",
+          "title": "点积用途",
+          "sourceLabel": "PDF 第 18—19 页",
+          "sourcePages": [
+            18,
+            19
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=18"
+        },
+        {
+          "course": "games101",
+          "chapter": "02",
           "section": "part-8",
           "title": "叉积",
           "sourceLabel": "PDF 第 21—23 页",
@@ -68,6 +111,19 @@
           ],
           "sourceSections": [],
           "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=21"
+        },
+        {
+          "course": "games101",
+          "chapter": "02",
+          "section": "part-9",
+          "title": "几何判定",
+          "sourceLabel": "PDF 第 24—25 页",
+          "sourcePages": [
+            24,
+            25
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=24"
         },
         {
           "course": "games101",
@@ -212,8 +268,11 @@
             "part-6",
             "part-7",
             "part-8",
+            "part-9",
+            "part-10",
             "part-11",
-            "part-12"
+            "part-12",
+            "part-13"
           ],
           "label": "GAMES101 第4讲"
         }
@@ -223,7 +282,7 @@
         "正交与透视"
       ],
       "computation": "CPU 坐标与投影",
-      "limitation": "不混同完整渲染管线",
+      "limitation": "保留原课看向负Z、n>f的坐标约定；不混同完整渲染管线",
       "locators": [
         {
           "course": "games101",
@@ -281,6 +340,32 @@
         {
           "course": "games101",
           "chapter": "04",
+          "section": "part-9",
+          "title": "规范长方体",
+          "sourceLabel": "PDF 第 22—24 页",
+          "sourcePages": [
+            22,
+            23,
+            24
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=22"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-10",
+          "title": "近远面符号",
+          "sourceLabel": "PDF 第 25 页",
+          "sourcePages": [
+            25
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=25"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
           "section": "part-11",
           "title": "透视特征",
           "sourceLabel": "PDF 第 26—28 页",
@@ -306,6 +391,21 @@
           ],
           "sourceSections": [],
           "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=29"
+        },
+        {
+          "course": "games101",
+          "chapter": "04",
+          "section": "part-13",
+          "title": "深度约束",
+          "sourceLabel": "PDF 第 33—36 页",
+          "sourcePages": [
+            33,
+            34,
+            35,
+            36
+          ],
+          "sourceSections": [],
+          "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=33"
         }
       ],
       "readyTaskIds": [],
@@ -375,7 +475,9 @@
           "sectionIds": [
             "part-3",
             "part-4",
-            "part-5"
+            "part-5",
+            "part-6",
+            "part-7"
           ],
           "label": "Unity 1.4"
         },
@@ -383,18 +485,19 @@
           "course": "unity",
           "chapter": "4.1",
           "sectionIds": [
-            "part-3",
-            "part-4"
+            "part-8",
+            "part-10",
+            "part-11"
           ],
           "label": "Unity 4.1"
         }
       ],
       "tasks": [
-        "输入归一化",
-        "局部与世界方向"
+        "输入幅度与运动／转向",
+        "随观察方向施力"
       ],
-      "computation": "离散输入与向量",
-      "limitation": "不要求掌握引擎输入接口",
+      "computation": "离散输入与方向指令",
+      "limitation": "保留模拟输入幅度；施力方向不等于恒速位移，不要求掌握引擎输入接口",
       "locators": [
         {
           "course": "unity",
@@ -434,25 +537,61 @@
         },
         {
           "course": "unity",
-          "chapter": "4.1",
-          "section": "part-3",
-          "title": "相机焦点",
-          "sourceLabel": "原教程 第 3 节 · 相机焦点",
+          "chapter": "1.4",
+          "section": "part-6",
+          "title": "按输入移动",
+          "sourceLabel": "原教程 第 6 节 · 按输入移动",
           "sourcePages": [],
           "sourceSections": [
-            3
+            6
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "1.4",
+          "section": "part-7",
+          "title": "改为转向",
+          "sourceLabel": "原教程 第 7 节 · 改为转向",
+          "sourcePages": [],
+          "sourceSections": [
+            7
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/lesson-1-4-use-user-input-to-control-the-vehicle?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.1",
+          "section": "part-8",
+          "title": "旋转观察方向",
+          "sourceLabel": "原教程 第 8 节 · 旋转观察方向",
+          "sourcePages": [],
+          "sourceSections": [
+            8
           ],
           "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0"
         },
         {
           "course": "unity",
           "chapter": "4.1",
-          "section": "part-4",
-          "title": "输入配置",
-          "sourceLabel": "原教程 第 4 节 · 输入配置",
+          "section": "part-10",
+          "title": "刚体前进",
+          "sourceLabel": "原教程 第 10 节 · 刚体前进",
           "sourcePages": [],
           "sourceSections": [
-            4
+            10
+          ],
+          "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0"
+        },
+        {
+          "course": "unity",
+          "chapter": "4.1",
+          "section": "part-11",
+          "title": "跟随视角运动",
+          "sourceLabel": "原教程 第 11 节 · 跟随视角运动",
+          "sourcePages": [],
+          "sourceSections": [
+            11
           ],
           "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0"
         }
