@@ -16,6 +16,14 @@
 .practice-card label { display:block; color:#48665a; font-size:12px; }.practice-card select { display:block; width:100%; margin:8px 0 12px; padding:10px; }
 .practice-card p,.practice-card li { font-size:13px; line-height:1.85; }.practice-card summary { color:#44675a; font-size:12px; line-height:1.8; }
 .practice-task { padding:18px 22px; }.practice-task label { max-width:820px; }.practice-task>p { color:#284f40; font-size:14px; }
+.practice-guidance { margin:16px 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 20px; }
+.practice-guidance>div { border-left:3px solid #b7d4c5; padding:4px 12px; min-width:0; }
+.practice-guidance dt { font-size:11px; color:#59806a; font-weight:700; margin-bottom:5px; }
+.practice-guidance dd { font-size:13px; line-height:1.8; margin:0; overflow-wrap:anywhere; }
+.practice-answer-location { display:flex; flex-wrap:wrap; gap:12px 24px; font-weight:700; }
+.practice-code-help { background:#eaf5ed; border-radius:7px; padding:10px 12px; color:#275d44; }
+.practice-difference-detail { margin:-6px 0 14px; }
+#practice-code,#practice-reference { scroll-margin-top:20px; }
 .practice-workspace { display:grid; grid-template-columns:minmax(0,1.04fr) minmax(0,1fr); gap:18px; align-items:start; }
 .practice-page textarea { width:100%; border:1px solid #cbdcd3; border-radius:7px; padding:12px; font:12px/1.7 Consolas,"Microsoft YaHei",monospace; color:#244a3d; background:#f8fbfa; resize:vertical; }
 .practice-page textarea:focus-visible { outline:2px solid #52957a; outline-offset:2px; }
@@ -37,6 +45,7 @@
 .practice-catalogue>div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:20px; }.practice-catalogue article { padding:14px; border:1px solid #e1e9e3; border-radius:7px; }.practice-catalogue article span { font-size:10px; color:#809586; }.practice-catalogue h3 { margin:8px 0; font-size:14px; }.practice-catalogue p,.practice-catalogue small { color:#6f8576; font-size:11px; line-height:1.8; }
 .practice-entry { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }.practice-entry a { padding:7px 11px; border:1px solid #b9d5c4; border-radius:7px; background:#edf6ef; color:#277555; text-decoration:none; font-size:12px; }
 @media(max-width:900px) { .practice-workspace { grid-template-columns:1fr; }.practice-catalogue>div { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) { .practice-guidance { grid-template-columns:1fr; gap:10px; }.practice-guidance>div { padding-left:10px; } }
 @media(max-width:600px) { #app.practice-page { padding:0 14px; }.practice-header { padding:18px 0; font-size:11px; }.practice-header span { max-width:110px; text-align:right; }.practice-tabs { gap:6px; }.practice-tabs a { flex:1 1 40%; font-size:11px; padding:9px; }.practice-intro h1 { font-size:26px; }.practice-card { padding:16px; }.practice-path { gap:7px; font-size:10px; }.practice-card header span { font-size:10px; }#practice-code { font-size:12px; min-height:360px; }.practice-game-metrics { grid-template-columns:repeat(2,1fr); gap:15px; }.practice-catalogue>div { grid-template-columns:1fr; }.practice-visual { padding:6px; }.practice-visual svg { min-height:175px; }.practice-visual svg text { font-size:24px; }.practice-buttons button { padding:9px; font-size:11px; } }
 
 .practice-table-scroll { overflow-x:auto; }.practice-table-scroll table { width:100%; border-collapse:collapse; font-size:11px; white-space:nowrap; }.practice-table-scroll th,.practice-table-scroll td { padding:8px; text-align:left; border-bottom:1px solid #dce5de; }.practice-table-scroll tr[aria-current] { background:#e3efe7; }

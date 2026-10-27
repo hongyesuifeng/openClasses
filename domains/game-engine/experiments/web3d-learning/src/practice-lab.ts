@@ -3,7 +3,9 @@ import { escapeHtml as esc } from './workbench.ts';
 import { practiceCoverage, practiceDefinitions, practiceHref, practiceStatistics } from './practice-catalogue.ts';
 import { parsePracticeContext, practiceDraftKey, restorePracticeDraft, serializePracticeDraft } from './practice-model.ts';
 import { copyPlainData, comparePracticeValues, PracticeError, PracticeRunner, wrapPracticeBody } from './practice-runtime.ts';
+import { explainPracticeDifference, practiceCodeHelp, practiceGuidanceRows, practiceParameterHelp } from './practice-guidance.ts';
 import type { PracticeRecord, PracticeRunResult, PracticeValue } from './practice-types.ts';
+import { renderSpatialPractice, spatialStepCount } from './practice-spatial.ts';
 
 const app = document.querySelector<HTMLElement>('#app')!;
 document.body.classList.add('practice-background');
@@ -16,7 +18,7 @@ const numberArray = (value: PracticeValue) => value as number[];
 
 if (!context) {
   document.title = '练习尚未就绪 | openClasses';
-  app.innerHTML = '<main class="practice-card"><h1>这个练习尚未就绪</h1><p>首批开放 02、04、09、31。</p><a href="?lab=practice&experiment=02">进入变换练习</a> · <a href="?lab=classics">返回原课</a></main>';
+  app.innerHTML = `<main class="practice-card"><h1>这个练习尚未就绪</h1><p>当前开放 ${practiceDefinitions.map(def => def.id).join('、')}。</p><a href="?lab=practice&experiment=01">进入点与向量练习</a> · <a href="?lab=classics">返回原课</a></main>`;
 } else {
   const { definition, source, backHref } = context;
   let taskIndex = 0;
@@ -41,17 +43,18 @@ if (!context) {
     <section class="practice-intro"><p class="eyebrow">${esc(source.label)} · 实践 ${definition.id}</p><h1>${esc(definition.title)}</h1><p>${esc(definition.summary)}</p><div class="practice-sources">${sourceLinks}</div></section>
     <p class="practice-small">可运行：${practiceStatistics.runnableExperiments} 个实验／${practiceStatistics.runnableTasks} 个任务 · 知识映射：${practiceStatistics.mappedSourceSections} 个原课小节中的指定机制 · 个人理解：单独记录，未自动评定</p>
     <div class="practice-path" aria-label="学习方式"><span>01 修改核心规则</span><b>→</b><span>02 运行看差异</span><b>→</b><span>03 换条件验证</span><b>→</b><span>04 解释原因与范围</span></div>
-    <section class="practice-card practice-task"><label>任务<select id="practice-task" aria-label="选择实践任务">${definition.tasks.map((item, i) => `<option value="${i}">${i + 1}. ${esc(item.title)}</option>`).join('')}</select></label><p id="practice-question"></p><details><summary>思路与已提供的工具</summary><ol id="practice-pseudocode"></ol><p id="practice-contract"></p><pre id="practice-helper"></pre></details></section>
+    <section class="practice-card practice-task"><label>任务<select id="practice-task" aria-label="选择实践任务">${definition.tasks.map((item, i) => `<option value="${i}">${i + 1}. ${esc(item.title)}</option>`).join('')}</select></label><p id="practice-question"></p><dl id="practice-guidance" class="practice-guidance"></dl><p class="practice-answer-location"><a href="#practice-code">去代码框作答 ↓</a><a href="#practice-reference" id="practice-show-answer">查看参考答案</a></p><details><summary>思路与已提供的工具</summary><ol id="practice-pseudocode"></ol><p id="practice-contract"></p><pre id="practice-helper"></pre></details></section>
     <div class="practice-workspace">
-      <section class="practice-card practice-editor"><header><h2>修改规则</h2><span>同步 JavaScript · 函数正文</span></header><p class="practice-signature">solve(input, params, api) {</p><textarea id="practice-code" aria-label="学习者代码" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea><p class="practice-signature">}</p><p id="practice-save" role="status"></p><div class="practice-buttons"><button id="practice-run" class="primary">运行当前条件</button><button id="practice-cancel" disabled>取消运行</button><button id="practice-all">检查全部变式</button></div><div class="practice-buttons practice-secondary"><button id="practice-reset">重置场景</button><button id="practice-starter">恢复初始代码</button><button id="practice-undo" disabled>撤销恢复</button></div><details class="practice-answer"><summary>参考实现与原因（按需查看）</summary><p id="practice-explanation"></p><pre id="practice-solution"></pre><button id="practice-use-solution">将参考实现放入编辑区</button><p>替换后不会自动运行，也不会登记为已经掌握。</p></details></section>
+      <section class="practice-card practice-editor"><header><h2>在这里修改代码答案</h2><span>同步 JavaScript · 函数正文</span></header><p id="practice-code-help" class="practice-code-help">${esc(practiceCodeHelp)}</p><p id="practice-edit-help"></p><p class="practice-small">${esc(practiceParameterHelp)}</p><p class="practice-signature">solve(input, params, api) {</p><textarea id="practice-code" aria-label="代码答案：在这里修改" aria-describedby="practice-code-help practice-edit-help" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea><p class="practice-signature">}</p><p id="practice-save" role="status"></p><div class="practice-buttons"><button id="practice-run" class="primary">运行当前条件</button><button id="practice-cancel" disabled>取消运行</button><button id="practice-all">检查全部变式</button></div><div class="practice-buttons practice-secondary"><button id="practice-reset">重置场景</button><button id="practice-starter">恢复初始代码</button><button id="practice-undo" disabled>撤销代码替换</button></div><details id="practice-reference" class="practice-answer"><summary>查看参考答案与原因</summary><p id="practice-explanation"></p><pre id="practice-solution"></pre><button id="practice-use-solution">将参考答案放入代码框</button><p>先读原因，再选择是否替换。替换可撤销，仍需手动运行，不会登记为已经掌握。</p></details></section>
       <section class="practice-card practice-results"><header><h2>运行与对照</h2><span>画面来自你的返回值</span></header><label>输入条件<select id="practice-case" aria-label="选择输入条件"></select></label><details class="practice-input"><summary>固定输入与可修改参数</summary><label>参数 JSON<textarea id="practice-params" aria-label="实验参数" spellcheck="false"></textarea></label><p>输入时间线与事件由平台给定；参数仅在点击运行后生效。</p><pre id="practice-input"></pre></details><p id="practice-status" class="practice-status" role="status" aria-live="polite">尚未运行。先读任务，修改代码后运行。</p><p id="practice-displayed-case" class="practice-small"></p><div id="practice-visual" class="practice-visual"><p>运行后在这里查看你的结果。</p></div><div class="practice-playback"><button id="practice-play" disabled>播放记录</button><button id="practice-step" disabled>单步</button><label>回放位置<input id="practice-cursor" aria-label="回放位置" type="range" min="0" max="0" value="0" disabled></label><span id="practice-step-label">没有记录</span></div><p class="practice-small">播放／暂停只回放已生成的数据，不重新执行代码，也不改变模拟时间。</p><details><summary>你的输出与中间记录</summary><pre id="practice-output">尚无结果</pre><pre id="practice-trace"></pre></details><details><summary>独立基准与比较规则</summary><p>连续数值使用任务容差（${task.tolerance ?? 1e-8}），离散状态精确比较。基准与学习者代码分离；基准异常会单独报告。</p><pre id="practice-expected">运行成功后显示基准；图示始终使用你的输出。</pre></details></section>
     </div>
     <section class="practice-card practice-reflect"><h2>换条件后，说清发生了什么</h2><p id="practice-variation"></p><label>给自己留一句解释（可选）<textarea id="practice-understanding" aria-label="个人理解" placeholder="我修改了什么？为什么有效？在哪些条件下成立？"></textarea></label><p id="practice-understanding-status" class="practice-small">个人理解独立记录；运行通过不会自动标记掌握。</p></section>
     <details class="practice-card practice-boundary"><summary>本实验的范围与运行约定</summary><ul>${definition.limitations.map(text => `<li>${esc(text)}</li>`).join('')}</ul><p>每次运行使用新的执行线程、固定输入快照，3 秒超时；更改代码或条件会取消旧运行。最多记录 1000 条，输出与记录合计上限 1 MiB。适用于本机自行编辑的练习，Worker 不等于任意陌生脚本的安全沙箱。</p></details>
-    <details class="practice-card practice-catalogue"><summary>全量实践清单 · 4 / 60 可运行 · 知识覆盖与个人理解分别记录</summary><p>首批只覆盖所列原课小节中的指定任务。其余条目为开发计划，宽主题将分任务验收；所有可运行实验通过也不代表整门课程已经掌握。</p><div>${practiceCoverage.map(item => `<article><span>${item.id} · ${esc(item.group)}</span><h3>${esc(item.title)}</h3><p>${item.status === 'ready' ? '已就绪' : '计划中'} · ${esc(item.tasks.join('；'))}</p><small>${esc(item.computation)}。${esc(item.limitation)}</small></article>`).join('')}</div></details>
+    <details class="practice-card practice-catalogue"><summary>全量实践清单 · ${practiceStatistics.runnableExperiments} / 60 可运行 · 知识覆盖与个人理解分别记录</summary><p>各任务只覆盖所列原课小节中的指定机制。其余条目为开发计划，宽主题将分任务验收；所有可运行实验通过也不代表整门课程已经掌握。</p><div>${practiceCoverage.map(item => `<article><span>${item.id} · ${esc(item.group)}</span><h3>${esc(item.title)}</h3><p>${item.status === 'ready' ? '已就绪' : '计划中'} · ${esc(item.tasks.join('；'))}</p><small>${esc(item.computation)}。${esc(item.limitation)}</small></article>`).join('')}</div></details>
     <footer>原课 → 短代码实践 → 结果与变式 → 返回原课。Unity 可作为后续真实引擎对照环境。</footer>`;
   const get = <T extends HTMLElement>(id: string) => document.getElementById(`practice-${id}`)! as T;
   const code = get<HTMLTextAreaElement>('code');
+  get('status').insertAdjacentHTML('afterend', '<details id="practice-difference-detail" class="practice-difference-detail" hidden><summary>查看原始比较路径</summary><pre id="practice-difference"></pre></details>');
   const params = get<HTMLTextAreaElement>('params');
   const caseSelect = get<HTMLSelectElement>('case');
   const status = (message: string, kind = 'neutral') => { get('status').textContent = message; get('status').dataset.kind = kind; };
@@ -60,6 +63,7 @@ if (!context) {
     result = null; expected = null; cursor = 0; stopPlayback();
     get('visual').innerHTML = '<p>运行后在这里查看你的结果。</p>';
     get('output').textContent = '尚无结果'; get('trace').textContent = ''; get('displayed-case').textContent = '';
+    get('difference').textContent = ''; get('difference-detail').hidden = true;
     get('expected').textContent = '尚无基准对照';
     for (const id of ['play', 'step', 'cursor']) get<HTMLButtonElement>(id).disabled = true;
     get('step-label').textContent = '没有记录';
@@ -101,6 +105,9 @@ if (!context) {
     caseSelect.innerHTML = task.cases.map(item => `<option value="${esc(item.id)}">${esc(item.label)}</option>`).join('');
     showCase(); undoCode = null; get<HTMLButtonElement>('undo').disabled = true; savingAllowed = true;
     get('question').textContent = task.question;
+    get('guidance').innerHTML = practiceGuidanceRows(task).map(row => `<div><dt>${esc(row.label)}</dt><dd>${esc(row.text)}</dd></div>`).join('');
+    get('edit-help').textContent = task.guidance?.edit ?? task.question;
+    get<HTMLDetailsElement>('reference').open = false;
     get('pseudocode').innerHTML = task.pseudocode.map(text => `<li>${esc(text)}</li>`).join('');
     get('contract').textContent = 'input 为固定输入，params 为所选参数。api.trace(名称, 普通数据) 保存中间快照，api.clone(数据) 复制普通数据。必须同步 return 任务规定的对象。';
     get('helper').textContent = task.helperSource ?? '本题不需要额外工具；只使用普通 JavaScript 数组、数字与对象。';
@@ -131,6 +138,7 @@ if (!context) {
   const stepCount = () => {
     if (!result) return 0;
     const output = object(result.output);
+    if (definition.renderer === 'spatial') return spatialStepCount(output);
     const values = output.states ?? output.positions ?? output.coverage ?? output.points;
     return Array.isArray(values) ? values.length : 1;
   };
@@ -142,7 +150,9 @@ if (!context) {
     const slider = get<HTMLInputElement>('cursor'); slider.max = String(count - 1); slider.value = String(cursor);
     get('step-label').textContent = `${cursor + 1} / ${count}`;
     let html = '';
-    if (definition.renderer === 'transform') {
+    if (definition.renderer === 'spatial') {
+      html = renderSpatialPractice(definition.id, output, runInput, cursor);
+    } else if (definition.renderer === 'transform') {
       const points = output.points as number[][], original = runInput.points as number[][];
       const max = Math.max(1, ...points.flatMap(p => p.slice(0, 2).map(Math.abs)), ...original.flatMap(p => p.slice(0, 2).map(Math.abs)));
       const scale = 110 / max;
@@ -199,7 +209,11 @@ if (!context) {
         const comparison = comparePracticeValues(reference, value.output, task.tolerance);
         showResult(value, reference, input, parameters);
         get('displayed-case').textContent = `本次显示：${item.label}${all ? '（全部变式验证中的实际案例；上方选择器保留你的练习条件）' : ''}。参数快照：${JSON.stringify(parameters)}`;
-        if (!comparison.equal) { status(`${item.label}：存在差异。${comparison.message}`, 'difference'); return; }
+        if (!comparison.equal) {
+          status(`${item.label}：${explainPracticeDifference(definition.id, comparison.message, reference, value.output, input)}`, 'difference');
+          get('difference').textContent = comparison.message; get('difference-detail').hidden = false;
+          return;
+        }
         passed++;
       }
       status(all ? `全部 ${passed} 个固定变式通过。运行通过与个人理解分别记录。` : '当前条件通过。再换一个条件，验证你的解释。', 'success');
@@ -225,7 +239,12 @@ if (!context) {
   get('reset').addEventListener('click', () => { invalidate(); currentCase = task.cases[0]; showCase(); status('场景与条件已重置；代码保留。'); scheduleSave(); });
   const replaceCode = (value: string) => { invalidate(); undoCode = code.value; code.value = value; get<HTMLButtonElement>('undo').disabled = false; scheduleSave(); status('代码已替换；可撤销，尚未运行。'); };
   get('starter').addEventListener('click', () => replaceCode(task.starterCode));
-  get('use-solution').addEventListener('click', () => replaceCode(task.solutionCode));
+  get('use-solution').addEventListener('click', () => { replaceCode(task.solutionCode); code.focus(); code.scrollIntoView({ block: 'center' }); });
+  get('show-answer').addEventListener('click', event => {
+    event.preventDefault();
+    const reference = get<HTMLDetailsElement>('reference'); reference.open = true;
+    reference.querySelector('summary')?.focus(); reference.scrollIntoView({ block: 'start' });
+  });
   get('undo').addEventListener('click', () => { if (undoCode !== null) { invalidate(); code.value = undoCode; undoCode = null; get<HTMLButtonElement>('undo').disabled = true; scheduleSave(); status('已撤销代码替换；请重新运行。'); } });
   get('play').addEventListener('click', () => {
     if (playing !== undefined) { stopPlayback(); return; }

@@ -1,14 +1,14 @@
 {
   "schema": 1,
   "scope": "60个实践方向中的机制映射；并非全部原课内容的覆盖证明",
-  "runnableExperiments": 4,
-  "runnableTasks": 5,
+  "runnableExperiments": 8,
+  "runnableTasks": 14,
   "rows": [
     {
       "id": "01",
       "title": "点与向量",
       "group": "空间与坐标",
-      "status": "planned",
+      "status": "ready",
       "sources": [
         {
           "course": "games101",
@@ -23,13 +23,13 @@
             "part-9",
             "part-10"
           ],
-          "label": "GAMES101 第2讲"
+          "label": "GAMES101 第2讲 · 向量、点积、叉积与坐标基"
         }
       ],
       "tasks": [
-        "点与单位方向",
-        "点积与投影",
-        "叉积与方向"
+        "两个点怎样得到方向，怎样去掉距离？",
+        "点积能直接当夹角余弦吗？",
+        "交换叉积次序，方向为什么反过来？"
       ],
       "computation": "解析向量计算",
       "limitation": "不代替完整线性代数课程；零向量需明确无单位方向",
@@ -139,7 +139,11 @@
           "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_02.pdf#page=27"
         }
       ],
-      "readyTaskIds": [],
+      "readyTaskIds": [
+        "direction",
+        "dot-projection",
+        "cross"
+      ],
       "understanding": "未评定（不能由运行通过推断）"
     },
     {
@@ -258,7 +262,7 @@
       "id": "03",
       "title": "相机与投影",
       "group": "空间与坐标",
-      "status": "planned",
+      "status": "ready",
       "sources": [
         {
           "course": "games101",
@@ -274,12 +278,12 @@
             "part-12",
             "part-13"
           ],
-          "label": "GAMES101 第4讲"
+          "label": "GAMES101 第4讲 · 视图与投影"
         }
       ],
       "tasks": [
-        "视图变换",
-        "正交与透视"
+        "相机移动后，世界坐标怎样变成观察坐标？",
+        "远处为什么变小？齐次坐标在哪里做除法？"
       ],
       "computation": "CPU 坐标与投影",
       "limitation": "保留原课看向负Z、n>f的坐标约定；不混同完整渲染管线",
@@ -408,7 +412,10 @@
           "original": "https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf#page=33"
         }
       ],
-      "readyTaskIds": [],
+      "readyTaskIds": [
+        "view",
+        "projection"
+      ],
       "understanding": "未评定（不能由运行通过推断）"
     },
     {
@@ -467,7 +474,7 @@
       "id": "05",
       "title": "输入与方向转换",
       "group": "时间与控制",
-      "status": "planned",
+      "status": "ready",
       "sources": [
         {
           "course": "unity",
@@ -479,7 +486,7 @@
             "part-6",
             "part-7"
           ],
-          "label": "Unity 1.4"
+          "label": "Unity 1.4 · 输入与驾驶"
         },
         {
           "course": "unity",
@@ -489,12 +496,12 @@
             "part-10",
             "part-11"
           ],
-          "label": "Unity 4.1"
+          "label": "Unity 4.1 · 随视角施力"
         }
       ],
       "tasks": [
-        "输入幅度与运动／转向",
-        "随观察方向施力"
+        "轻推、松手与转向，代码应读取哪个输入？",
+        "视角转了，前进力为什么还沿世界 Z？"
       ],
       "computation": "离散输入与方向指令",
       "limitation": "保留模拟输入幅度；施力方向不等于恒速位移，不要求掌握引擎输入接口",
@@ -596,14 +603,17 @@
           "original": "https://learn.unity.com/course/create-with-code/unit/unit-4-gameplay-mechanics/tutorial/lesson-4-1-watch-where-you-re-going-2?version=6.0"
         }
       ],
-      "readyTaskIds": [],
+      "readyTaskIds": [
+        "driving",
+        "view-force"
+      ],
       "understanding": "未评定（不能由运行通过推断）"
     },
     {
       "id": "06",
       "title": "相机跟随与更新顺序",
       "group": "时间与控制",
-      "status": "planned",
+      "status": "ready",
       "sources": [
         {
           "course": "unity",
@@ -613,12 +623,12 @@
             "part-4",
             "part-5"
           ],
-          "label": "Unity 1.3"
+          "label": "Unity 1.3 · 观察偏移、偏移变量与跟随时机"
         }
       ],
       "tasks": [
-        "跟随偏移",
-        "更新先后"
+        "偏移应该加在玩家位置，还是相机旧位置上？",
+        "相机跟随读到的是本帧，还是上一帧？"
       ],
       "computation": "离散帧序列",
       "limitation": "不模拟真实线程调度",
@@ -660,7 +670,10 @@
           "original": "https://learn.unity.com/course/create-with-code/unit/unit-1-driving-simulation/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables?version=6.0"
         }
       ],
-      "readyTaskIds": [],
+      "readyTaskIds": [
+        "offset",
+        "update-order"
+      ],
       "understanding": "未评定（不能由运行通过推断）"
     },
     {

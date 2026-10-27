@@ -58,8 +58,15 @@ return { points };`;
 const compositionTask: PracticeTask = {
   id: 'composition', title: '矩阵写在左边，就一定先执行吗？',
   question: '修正组合顺序，让 R*T 表示先平移再旋转。观察同一数组里 w=1 的点与 w=0 的方向。',
+  guidance: {
+    given: '平台提供一组点和方向，以及旋转角 degrees、平移量 tx/ty。默认条件先沿 x 平移 1，再逆时针旋转 45°。',
+    issue: '初始代码把两种矩阵组合写反；即使画面能画出来，得到的点位置也不符合所选次序。',
+    edit: '在深色代码框找到 const M，只修改两处分支中的矩阵参数顺序；矩阵乘法工具已提供。',
+    observe: '先运行当前条件，再切换 T*R 对照。看点的位置如何变化，以及 w=0 的方向为什么只旋转、不增加平移。',
+    terms: 'R 是旋转，T 是平移；本题用列向量，最右边的矩阵先作用。w=1 表示点，w=0 表示方向。',
+  },
   pseudocode: ['按角度建立旋转矩阵 R，按偏移建立平移矩阵 T。', '按题目要求组成 R*T 或 T*R；对列向量，右侧先作用。', '把组合矩阵应用到每个齐次坐标，保留 w。'],
-  starterCode: compositionSolution.replace('api.multiply3(R, T)\n  : api.multiply3(T, R)', 'api.multiply3(T, R)\n  : api.multiply3(R, T)'),
+  starterCode: compositionSolution.replace('const M =', '// TODO：修正下面两处矩阵参数顺序。\nconst M =').replace('api.multiply3(R, T)\n  : api.multiply3(T, R)', 'api.multiply3(T, R)\n  : api.multiply3(R, T)'),
   solutionCode: compositionSolution,
   brokenCode: compositionSolution.replace('api.apply3(M, point)', 'api.apply3(M, [point[0], point[1], 1])'),
   helperSource: matrixHelper,
@@ -100,8 +107,15 @@ return { points };`;
 const pivotTask: PracticeTask = {
   id: 'pivot', title: '绕指定中心旋转，中心为什么不动？',
   question: '起始代码漏掉了把中心移到原点的一步。修复组合，让中心保持原位置，并让方向只旋转。',
+  guidance: {
+    given: '平台给定旋转中心 pivotX/pivotY、角度和一组坐标；第一项就是旋转中心本身。',
+    issue: '初始代码只旋转再移回，没有先把中心移到原点，导致指定中心自己也移动了。',
+    edit: '找到 const M，把 toOrigin、R、back 依照实际作用顺序组合成一个矩阵。',
+    observe: '第一项中心必须保持不动；中心旁边的点绕它转动，w=0 的方向仍只旋转。换一个中心和负角度再检查。',
+    terms: 'toOrigin 平移 −c，back 平移 +c；列向量的矩阵最右侧先作用。',
+  },
   pseudocode: ['平移 −c，使指定中心位于原点。', '绕原点旋转，再平移 c；组合为 T(c)*R*T(−c)。', '对所有点和方向使用同一个齐次变换。'],
-  starterCode: pivotSolution.replace('api.multiply3(back, api.multiply3(R, toOrigin))', 'api.multiply3(back, R)'),
+  starterCode: pivotSolution.replace('const M =', '// TODO：补全先移到原点的一步。\nconst M =').replace('api.multiply3(back, api.multiply3(R, toOrigin))', 'api.multiply3(back, R)'),
   solutionCode: pivotSolution,
   brokenCode: pivotSolution.replace('api.multiply3(back, api.multiply3(R, toOrigin))', 'api.multiply3(toOrigin, api.multiply3(R, back))'),
   helperSource: matrixHelper,
@@ -162,8 +176,15 @@ function effectiveTimeSteps(input: PracticeRecord): number[] {
 const timeTask: PracticeTask = {
   id: 'delta-time', title: '每次加20，还是每秒前进20？',
   question: '起始代码按更新次数累计位移，还把暂停条件写反。修正这两处，使未暂停时按秒运动、暂停时保留模拟时间与位置。',
+  guidance: {
+    given: 'speed=20 表示每有效模拟秒前进 20 单位。输入 dts 是各步经过的秒数，paused 逐项标记暂停；累计有效模拟 2 秒应移动 40 单位。',
+    issue: '初始代码只在暂停时运动，而且每次直接加 speed；运动条件和位移计算各有一处错误。',
+    edit: '修改 if 的暂停判断和 position += 的增量，让未暂停的每一步按 speed×dt 更新。保留每一步记录。',
+    observe: '对比 30/60/120 次更新及不均匀步长的终点；在暂停变式中，有效模拟时间和位置都应出现平台段。',
+    terms: 'dt 是本步秒数，times 是有效模拟时间；输入经过时间包含暂停，不能与模拟时间混为一谈。',
+  },
   pseudocode: ['保存初始时间0和初始位置。', '未暂停时用 speed*dt 累计位置、用 dt 累计模拟时间；暂停时保留状态。', '每个输入步骤都记录时间与位置，不截断题目提供的步长。'],
-  starterCode: timeSolution.replace('position += params.speed * dt;', 'position += params.speed;').replace('if (!input.paused[index]) {', 'if (input.paused[index]) {'),
+  starterCode: timeSolution.replace('if (!input.paused[index]) {', '// TODO：修正暂停条件和本步位移。\n  if (input.paused[index]) {').replace('position += params.speed * dt;', 'position += params.speed;'),
   solutionCode: timeSolution,
   brokenCode: timeSolution.replace('if (!input.paused[index]) {', 'if (true) {'),
   cases: timeCases,
@@ -214,8 +235,15 @@ samplingCases.unshift(...samplingCases.splice(samplingCases.findIndex((item) => 
 const samplingTask: PracticeTask = {
   id: 'pixel-average', title: '中心漏掉窄带，多点平均能看到什么？',
   question: '起始代码重复读取像素中心。把各次查询放到像素内不同子区间的中心，再平均二值覆盖；带边界约定为[left,right)。',
+  guidance: {
+    given: '一个像素对应区间 [i,i+1)，均分成 N 个子区间；每个子区间中心取样一次，命中窄带记 1，否则记 0。',
+    issue: '初始代码虽然循环 N 次，却总在同一个像素中心查询，增加次数并没有增加位置。',
+    edit: '修改循环中的 const x，使第 j 次位于第 j 个子区间中心；保留命中计数与除以 N 的平均规则。',
+    observe: '先检查橙色采样点是否分散，再看命中数和采样覆盖率。换 1/4/16 个样本及窄带偏移，比较旁边单列的解析覆盖。',
+    terms: 'j 从 0 开始；窄带用左闭右开 [left,right)，右边界不命中。采样覆盖是命中数/N，解析覆盖是交集长度，两者不必相等。',
+  },
   pseudocode: ['像素i对应区间[i,i+1)，均匀分成N个子区间。', '在每个子区间中心取样；满足left≤x<right时记一次命中。', '命中数除以N得到采样覆盖，不要求它与解析覆盖完全相等。'],
-  starterCode: samplingSolution.replace('pixel + (j + 0.5) / count', 'pixel + 0.5'),
+  starterCode: samplingSolution.replace('const x =', '// TODO：让每次采样落在不同子区间的中心。\n    const x =').replace('pixel + (j + 0.5) / count', 'pixel + 0.5'),
   solutionCode: samplingSolution,
   brokenCode: samplingSolution.replace('x >= left && x < right', 'x >= left && x <= right'),
   cases: samplingCases,
@@ -248,21 +276,21 @@ const samplingTask: PracticeTask = {
 
 export const foundationalPractices: PracticeDefinition[] = [
   {
-    id: '02', title: '矩阵次序与齐次坐标', version: 1, renderer: 'transform',
+    id: '02', title: '矩阵次序与齐次坐标', version: 2, renderer: 'transform',
     summary: '修改短代码，比较列向量的组合次序、点与方向，以及绕指定中心旋转。',
     sources: [{ course: 'games101', chapter: '03', sectionIds: ['part-7', 'part-8', 'part-9', 'part-11', 'part-12', 'part-13'], label: 'GAMES101 第3讲 · 齐次坐标、组合次序与指定中心' }],
     tasks: [compositionTask, pivotTask],
     limitations: ['使用二维3×3仿射矩阵、列向量、逆时针正角；不含相机投影。', '矩阵乘法是已提供的算术脚手架，任务验收组合含义，不验收库或语言操作。'],
   },
   {
-    id: '04', title: '经过时间与恒速运动', version: 1, renderer: 'time',
+    id: '04', title: '经过时间与恒速运动', version: 2, renderer: 'time',
     summary: '让速度按模拟秒计量，比较均匀、不均匀和零步长的累积结果。',
     sources: [{ course: 'unity', chapter: '1.2', sectionIds: ['part-3', 'part-5'], label: 'Unity 1.2 · 车辆前移与速度控制' }],
     tasks: [timeTask],
     limitations: ['一维恒速运动，不处理刚体、碰撞、加速度或数值积分稳定性。', '更新频率是题目生成的模拟条件；累计时间不代表浏览器帧率或后台墙钟。'],
   },
   {
-    id: '09', title: '窄带采样与像素平均', version: 1, renderer: 'sampling',
+    id: '09', title: '窄带采样与像素平均', version: 2, renderer: 'sampling',
     summary: '把重复中心查询改成像素内多点平均，观察窄带的遗漏、边界和有限采样误差。',
     sources: [{ course: 'games101', chapter: '06', sectionIds: ['part-3', 'part-13', 'part-14'], label: 'GAMES101 第6讲 · 预滤波、像素范围平均与多点近似' }],
     tasks: [samplingTask],

@@ -8,7 +8,7 @@ import { compileLearner, comparePracticeValues, wrapPracticeBody } from '../src/
 test('60 stable experiments distinguish ready tasks from planned knowledge coverage', () => {
   assert.equal(practiceCoverage.length, 60);
   assert.equal(new Set(practiceCoverage.map(item => item.id)).size, 60);
-  assert.deepEqual(practiceCoverage.filter(item => item.status === 'ready').map(item => item.id), ['02', '04', '09', '31']);
+  assert.deepEqual(practiceCoverage.filter(item => item.status === 'ready').map(item => item.id), ['01', '02', '03', '04', '05', '06', '09', '31']);
   assert.equal(new Set(practiceCoverage.map(item => item.group)).size, 20);
   for (const id of ['18', '30', '36', '60']) assert.ok(practiceCoverage.find(item => item.id === id)!.tasks.length >= 2);
   for (const item of practiceCoverage) {

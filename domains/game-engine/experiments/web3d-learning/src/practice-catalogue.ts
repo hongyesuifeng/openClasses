@@ -1,9 +1,13 @@
 import { foundationalPractices } from './practice-experiments.ts';
 import { gamePractice } from './practice-game.ts';
+import { vectorPractice } from './practice-vectors.ts';
+import { followPractice } from './practice-follow.ts';
+import { inputPractice } from './practice-input.ts';
+import { cameraPractice } from './practice-camera.ts';
 import type { CourseId } from './course-types.ts';
 import type { PracticeCatalogueItem, PracticeDefinition, PracticeSource } from './practice-types.ts';
 
-export const practiceDefinitions: PracticeDefinition[] = [...foundationalPractices, gamePractice];
+export const practiceDefinitions: PracticeDefinition[] = [vectorPractice, ...foundationalPractices, gamePractice, followPractice, inputPractice, cameraPractice].sort((a, b) => a.id.localeCompare(b.id));
 export const findPractice = (id: string) => practiceDefinitions.find(item => item.id === id);
 export const practiceStatistics = {
   runnableExperiments: practiceDefinitions.length,

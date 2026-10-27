@@ -5,6 +5,9 @@ export type PracticeRecord = { [key: string]: PracticeValue };
 export interface PracticeSource { course: CourseId; chapter: string; sectionIds: string[]; label: string }
 export interface PracticeCase { id: string; label: string; input: PracticeRecord; params: PracticeRecord }
 export interface PracticeTrace { step: string; value: PracticeValue }
+export interface PracticeGuidance {
+  given: string; issue: string; edit: string; observe: string; terms?: string;
+}
 export interface PracticeTask {
   id: string; title: string; question: string; pseudocode: string[];
   starterCode: string; solutionCode: string; brokenCode: string;
@@ -15,11 +18,12 @@ export interface PracticeTask {
   validateOutput: (output: PracticeValue, input: PracticeRecord) => void;
   tolerance?: number;
   explanation: string; variation: string;
+  guidance?: PracticeGuidance;
 }
 export interface PracticeDefinition {
   id: string; title: string; version: number; summary: string;
   sources: PracticeSource[]; tasks: PracticeTask[];
-  renderer: 'transform' | 'time' | 'sampling' | 'game'; limitations: string[];
+  renderer: 'transform' | 'time' | 'sampling' | 'game' | 'spatial'; limitations: string[];
 }
 export interface PracticeCatalogueItem { id: string; title: string; group: string; status: 'ready' | 'planned' }
 export interface PracticeRunResult { output: PracticeValue; trace: PracticeTrace[] }

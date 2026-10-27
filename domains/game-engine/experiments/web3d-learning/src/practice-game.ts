@@ -245,6 +245,13 @@ export const gamePractice: PracticeDefinition = {
   tasks: [{
     id: 'game-flow', title: '让同一组事件遵守游戏流程',
     question: '只在正确阶段、正确一局处理生成与计分，怎样让结束与重玩同时影响实际结果？',
+    guidance: {
+      given: '平台提供依次到达的开始、登记生成、回调、点击、漏接、结束和重玩事件；每次处理后都保存一行状态。',
+      issue: '初始代码允许重复开始，难度计算沿用上局间隔，游玩事件又缺少阶段和本局判断；标题时或结束后的事件仍可能改变数据。',
+      edit: '修正三个 TODO：开始仅接受 title；间隔从 baseInterval 计算；游玩事件同时检查 playing 和 session。重玩条件和数据操作已提供。',
+      observe: '标题不生成或计分；结束后也不接受生成或点击；重玩回标题并清空分数、目标和调度。用状态表找到第一次出现差异的事件。',
+      terms: 'phase 是 title/playing/ended；session 标记第几局，用于拒绝旧局回调。两项条件分别防止错误阶段和错误一局；session 是本练习的显式辅助标识。',
+    },
     pseudocode: [
       '仅在 title 接受 start，开始新 session，并从 baseInterval 与 difficulty 计算生成间隔。',
       '仅在 ended 接受 restart；脚手架会清分数、场上目标与未执行的生成请求，回到 title。',

@@ -196,3 +196,21 @@ test('real worker ignores forged protocol results and retains its native sender 
     await workers[1].closed;
   } finally { runner.cancel(); await Promise.all(workers.map(worker => worker.closed)); }
 });
+
+test('real worker executes every registered editor answer, terminates a loop, cancels and can run again', async () => {
+  const { practiceDefinitions } = await import('../src/practice-catalogue.ts');
+  const workers: NodeWorkerAdapter[] = [];
+  const runner = new PracticeRunner({ timeoutMs: 1000, workerFactory: () => { const worker = new NodeWorkerAdapter(); workers.push(worker); return worker; } });
+  try {
+    for (const definition of practiceDefinitions) for (const task of definition.tasks) {
+      const sample = task.cases[0];
+      const result = await runner.run({ code: wrapPracticeBody(task.solutionCode), helperSource: task.helperSource, input: sample.input, params: sample.params });
+      task.validateOutput(result.output, sample.input);
+      assert.equal(comparePracticeValues(task.reference(sample.input, sample.params), result.output, task.tolerance).equal, true, `${definition.id}/${task.id}`);
+    }
+    await assert.rejects(runner.run({ code: wrapPracticeBody('while (true) {}'), input: {}, params: {} }), codeIs('timeout'));
+    const pending = runner.run({ code: wrapPracticeBody('while (true) {}'), input: {}, params: {} });
+    const cancelled = assert.rejects(pending, codeIs('cancelled')); runner.cancel(); await cancelled;
+    assert.deepEqual((await runner.run({ code: wrapPracticeBody('return { value: 42 };'), input: {}, params: {} })).output, { value: 42 });
+  } finally { runner.cancel(); await Promise.all(workers.map(worker => worker.closed)); }
+});

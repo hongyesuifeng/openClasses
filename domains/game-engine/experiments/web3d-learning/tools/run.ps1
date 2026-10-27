@@ -1,6 +1,6 @@
 param(
     [Parameter(Position = 0)]
-    [ValidateSet('install', 'dev', 'test', 'build', 'preview')]
+    [ValidateSet('install', 'dev', 'test', 'build', 'preview', 'start', 'status', 'stop')]
     [string]$Command = 'dev',
     [string]$NodePath = ''
 )
@@ -45,7 +45,10 @@ try {
     $env:Path = $taskNodeDirectory + [IO.Path]::PathSeparator + $taskOriginalPath
     Write-Host "Web3D runtime: $taskNode"
     & $taskNode --version
-    if ($Command -eq 'install') { & $taskNode $taskNpmCli ci }
+    if ($Command -in @('start', 'status', 'stop')) {
+        & $taskNode (Join-Path $PSScriptRoot 'manage-service.mjs') $Command $taskNpmCli
+    }
+    elseif ($Command -eq 'install') { & $taskNode $taskNpmCli ci }
     else { & $taskNode $taskNpmCli run $Command }
     $taskExitCode = $LASTEXITCODE
 } finally {
